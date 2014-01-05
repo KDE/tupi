@@ -192,7 +192,7 @@ void TupThemeSelector::setupChooseColor()
     new TStyleComboBox(this);
     
     new TSeparator(this);
-    m_useColors = new QCheckBox(tr("Use this colors"), this);
+    m_useColors = new QCheckBox(tr("Use these colors"), this);
     
     connect(&m_generalButtonGroup, SIGNAL(buttonClicked(QAbstractButton * )), 
         SLOT(chooseGeneralColor(QAbstractButton * )));

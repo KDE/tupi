@@ -509,7 +509,7 @@ void TreeWidgetSearchLine::checkItemParentsNotVisible(QTreeWidget *treeWidget)
  *  Show or hide the items as necessary.
  *
  *  \p item  The list view item to start showing / hiding items at. Typically, 
- *           this is the first child of another item, or the the first child 
+ *           this is the first child of another item, or the first child 
  *           of the list view.
  *  \return \c true if an item which should be visible is found, \c false if 
  *           all items found should be hidden. If this function returns true 
