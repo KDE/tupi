@@ -2,9 +2,8 @@ INSTALLS += target
 target.path = /plugins/
 
 HEADERS += apngplugin.h
-SOURCES += apngplugin.cpp
 
-OTHER_FILES += apngplugin.json
+SOURCES += apngplugin.cpp
 
 CONFIG += plugin warn_on
 TEMPLATE = lib 

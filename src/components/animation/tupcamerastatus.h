@@ -36,7 +36,7 @@
 #ifndef TUPCAMERASTATUS_H
 #define TUPCAMERASTATUS_H
 
-#include "tupviewcamera.h"
+#include "tupcamerawidget.h"
 
 #include <QFrame>
 #include <QLabel>
@@ -44,14 +44,14 @@
 #include <QCheckBox>
 #include <QComboBox>
 
-class TupViewCamera;
+class TupCameraWidget;
 
 class TupCameraStatus : public QFrame
 {
     Q_OBJECT
 
     public:
-        TupCameraStatus(TupViewCamera *camera = 0, bool isNetworked = false, QWidget *parent = 0);
+        TupCameraStatus(TupCameraWidget *camera = 0, bool isNetworked = false, QWidget *parent = 0);
         ~TupCameraStatus();
 
         void setScenes(TupProject *project);

@@ -50,7 +50,7 @@
 #include "tuplibrarywidget.h"
 #include "tuptimeline.h"
 #include "tupdebugwidget.h"
-#include "tupviewcamera.h"
+#include "tupcamerawidget.h"
 #include "tuphelpwidget.h"
 #include "tuphelpbrowser.h"
 #include "tuptwitterwidget.h"
@@ -64,7 +64,6 @@
 // Including headers about projects management
 #include "tupprojectmanager.h"
 #include "tupnetprojectmanagerhandler.h"
-#include "tupsplash.h"
 
 #include <QMainWindow>
 #include <QMenu>
@@ -106,7 +105,7 @@ class TupMainWindow : public TabbedMainWindow
              ImportProjectToNet
         };
 
-        TupMainWindow(TupSplash *splash = 0, int parameters = 1);
+        TupMainWindow(int parameters = 1);
         ~TupMainWindow();
 
     private:
@@ -133,6 +132,7 @@ class TupMainWindow : public TabbedMainWindow
          void setMenuItemsContext(bool flag);
 
          void connectWidgetToManager(QWidget *widget);
+         void disconnectWidgetToManager(QWidget *widget);
          void connectWidgetToPaintArea(QWidget *widget);
          void connectWidgetToLocalManager(QWidget *widget);
 
@@ -197,13 +197,13 @@ class TupMainWindow : public TabbedMainWindow
           void updatePlayer();
           void updatePlayer(bool removeAction);
 
+          void resizeProjectDimension(const QSize size);
+
     private slots:
-          void messageToStatus(const QString &);
           void preferences();
           void aboutTupi();
           void showTipDialog();
           void importPalettes();
-          void connectToDisplays(const QWidget *widget);
           void saveProject();
           void openRecentProject();
           void createCommand(const TupPaintAreaEvent *event);
@@ -266,7 +266,7 @@ class TupMainWindow : public TabbedMainWindow
           ToolView *timeView;
           ToolView *debugView;
           ToolView *exportView;
-          TupViewCamera *viewCamera;
+          TupCameraWidget *cameraWidget;
           bool isSaveDialogOpen; 
           bool internetOn;
           int lastTab;

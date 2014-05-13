@@ -58,6 +58,7 @@ TupPathItem::~TupPathItem()
 
 void TupPathItem::fromXml(const QString &xml)
 {
+    Q_UNUSED(xml);
 }
 
 QDomElement TupPathItem::toXml(QDomDocument &doc) const
@@ -183,10 +184,11 @@ void TupPathItem::dropEvent(QGraphicsSceneDragDropEvent *event)
     m_dragOver = false;
 
     if (event->mimeData()->hasColor()) {
+        // setBrush(QBrush(qVariantValue<QColor>(event->mimeData()->colorData())));
         QVariant color = event->mimeData()->colorData();
         setBrush(QBrush(color.value<QColor>()));
-        // setBrush(QBrush(qVariantValue<QColor>(event->mimeData()->colorData())));
     } else if (event->mimeData()->hasImage()) {
+               // setBrush(QBrush(qVariantValue<QPixmap>(event->mimeData()->imageData())));
                QVariant pixmap = event->mimeData()->imageData();
                setBrush(QBrush(pixmap.value<QPixmap>()));
     }

@@ -61,7 +61,7 @@ TupSFunctionView::~TupSFunctionView()
 
 void TupSFunctionView::addModule(const QString &module, const QString &section, QStringList functions)
 {
-    // TODO: mirar si los modulos y secciones existen, sino crearlos
+    // SQA: mirar si los modulos y secciones existen, sino crearlos
 
     QTreeWidgetItem *itemModule = new QTreeWidgetItem(this);
     itemModule->setText(0, module);
@@ -77,7 +77,12 @@ void TupSFunctionView::addModule(const QString &module, const QString &section, 
     }
 }
 
-bool TupSFunctionView::dropMimeData ( QTreeWidgetItem * parent, int index, const QMimeData * data, Qt::DropAction action )
+bool TupSFunctionView::dropMimeData(QTreeWidgetItem *parent, int index, const QMimeData *data, Qt::DropAction action)
 {
+    Q_UNUSED(parent);
+    Q_UNUSED(index);
+    Q_UNUSED(data);
+    Q_UNUSED(action);
+
     return true;
 }

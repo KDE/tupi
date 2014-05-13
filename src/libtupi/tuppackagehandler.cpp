@@ -72,6 +72,9 @@ bool TupPackageHandler::makePackage(const QString &projectPath, const QString &p
         #endif
         return false;
     }
+
+    // SQA: This code will be enabled in the future
+    // return JlCompress::compressDir(packagePath, projectPath, true);
     
     QFileInfo packageInfo(packagePath);
     QuaZip zip(packagePath);
@@ -161,6 +164,11 @@ QString TupPackageHandler::stripRepositoryFromPath(QString path)
 
 bool TupPackageHandler::importPackage(const QString &packagePath)
 {
+    // SQA: This code will be enabled in the future 
+    // QFileInfo file(packagePath);
+    // k->importedProjectPath = CACHE_DIR + file.baseName();
+    // QStringList list = JlCompress::extractDir(packagePath, k->importedProjectPath);
+
     QuaZip zip(packagePath);
     
     if (!zip.open(QuaZip::mdUnzip)) {

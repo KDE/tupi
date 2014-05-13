@@ -516,7 +516,6 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
     QList<TupGraphicObject *> tweenList = k->scene->tweeningGraphicObjects();
 
     for (int i=0; i < tweenList.count(); i++) {
-
          TupGraphicObject *object = tweenList.at(i);
 
          if (object->frame()->layer()->isVisible()) {
@@ -536,7 +535,6 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
                          object->item()->setTransformOriginPoint(tween->transformOriginPoint());
 
                          if (stepItem->has(TupTweenerStep::Position)) {
-                             // tFatal() << "TupGraphicsScene::addTweeningObjects() - Applying position...";
                              QPointF point = QPoint(-adjustX, -adjustY);
                              object->setLastTweenPos(stepItem->position() + point);
                              object->item()->setPos(tween->transformOriginPoint());
@@ -547,13 +545,8 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
                              object->item()->setTransformOriginPoint(rect.center());
                              double angle = stepItem->rotation();
                              object->item()->setRotation(angle);
-                             // tFatal() << "TupGraphicsScene::addTweeningObjects() - Applying rotation - Angle: " << angle;
-                         } else {
-                             // tFatal() << "TupGraphicsScene::addTweeningObjects() - No rotation parameter!";
-                         }
-                         
+                         } 
                      } else {
-
                          if (stepItem->has(TupTweenerStep::Position)) {
                              QPointF point = QPoint(-adjustX, -adjustY);
                              object->setLastTweenPos(stepItem->position() + point);
@@ -604,7 +597,6 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
                      }
 
                  } else if ((origin < photogram) && (photogram < origin + tween->frames())) {
-
                             int step = photogram - origin;
                             TupTweenerStep *stepItem = tween->stepAt(step);
                             object->item()->setToolTip(tween->tweenType() + ": " + tween->name() + tr("/Step: ") + QString::number(step));
@@ -1074,7 +1066,7 @@ void TupGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
             if (k->tool->toolType() == TupToolPlugin::Tweener && event->isAccepted()) {
                 tFatal() << "TupGraphicsScene::mousePressEvent() - Tracing!";
-                if (k->tool->currentEditMode() == TupToolPlugin::Path)
+                if (k->tool->currentEditMode() == TupToolPlugin::Properties)
                     return;
             } 
 

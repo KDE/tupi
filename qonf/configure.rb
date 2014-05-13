@@ -114,14 +114,14 @@ module RQonf
       @ffmpeg = false
     end
 
-    def verifyQtVersion(minqtversion, qtdir)
-      Info.info << "Checking for Qt >= " << minqtversion << "... "
+    def verifyQtVersion(minqtversion, verbose, qtdir)
+      Info.info << "Checking for Qt >= " << minqtversion << $endl
 
-      if @qmake.findQMake(minqtversion, true, qtdir)
+      if @qmake.findQMake(minqtversion, verbose, qtdir)
         print "[ \033[92mOK\033[0m ]\n"
       else
         print "[ \033[91mFAILED\033[0m ]\n"
-        raise QonfException.new("\033[91mInvalid Qt version\033[0m.\n   Please, upgrade to #{minqtversion} or higher (Visit: http://qt.nokia.com)")
+        raise QonfException.new("\033[91mInvalid Qt version\033[0m.\n   Please, upgrade to #{minqtversion} or higher (Visit: http://qt-project.org)")
       end
     end
 
@@ -130,10 +130,10 @@ module RQonf
       findTest(@testsDir)
     end
 
-    def runTests(config, conf, debug, isLucid)
+    def runTests(config, conf, debug)
       @tests.each { |test|
-        if not test.run(config, conf, debug, isLucid) and not test.optional
-          raise QonfException.new("\033[91mMissing required dependency\033[0m")
+        if not test.run(config, conf, debug) and not test.optional
+           raise QonfException.new("\033[91mMissing required dependency\033[0m")
         end
       }
     end
@@ -273,11 +273,18 @@ module RQonf
         newfile += "export DYLD_FALLBACK_LIBRARY_PATH=\"\$\{TUPI_LIB\}:\$\{TUPI_PLUGIN\}:$DYLD_FALLBACK_LIBRARY_PATH\"\n\n"
         newfile += "open ${TUPI_BIN}/Tupi.app $*"
       else
-        if @options['with-ffmpeg'].nil? then 
-           newfile += "export LD_LIBRARY_PATH=\"\$\{TUPI_LIB\}:\$\{TUPI_PLUGIN\}:$LD_LIBRARY_PATH\"\n\n"
-        else
-           newfile += "export LD_LIBRARY_PATH=\"" + @options['with-ffmpeg'] + "/lib:\$\{TUPI_LIB\}:\$\{TUPI_PLUGIN\}:$LD_LIBRARY_PATH\"\n\n" 
+        path = ""
+        unless @options['with-ffmpeg'].nil? then
+           value = @options['with-ffmpeg']
+           path = value + "/lib:" 
         end
+
+        unless @options['with-quazip'].nil? then
+           value = @options['with-quazip']
+           path += value + "/lib:"
+        end
+
+        newfile += "export LD_LIBRARY_PATH=\"" + path + "\$\{TUPI_LIB\}:\$\{TUPI_PLUGIN\}:$LD_LIBRARY_PATH\"\n\n"
         newfile += "exec ${TUPI_BIN}/tupi.bin $*"
       end
 
@@ -285,45 +292,25 @@ module RQonf
         f << newfile
       }
 
-        newfile = "[Desktop Entry]\n"
-        # newfile += "Encoding=UTF-8\n"
-        newfile += "Name=Tupi: Open 2D Magic\n"
-        newfile += "Name[es]=Tupí: Magia 2D Libre\n"
-        newfile += "Name[pt]=Tupí: Magia 2D Libre\n"
-        newfile += "Name[ru]=Tupi: Open 2D Magic\n"
-        newfile += "Exec=" + launcher_bindir + "/tupi\n"
-        newfile += "Icon=tupi\n"
-        newfile += "Type=Application\n"
-        newfile += "MimeType=application/tup;\n"
-        newfile += "Categories=Graphics;2DGraphics;RasterGraphics;\n"
-        newfile += "Comment=2D Animation Toolkit\n"
-        newfile += "Comment[es]=Herramienta para Animación 2D\n"
-        newfile += "Comment[pt]=Ferramenta de animação 2D\n"
-        newfile += "Comment[ru]=Создание двухмерной векторной анимации\n"
-        newfile += "Terminal=false\n"
+      newfile = "[Desktop Entry]\n"
+      # newfile += "Encoding=UTF-8\n"
+      newfile += "Name=Tupi: Open 2D Magic\n"
+      newfile += "Name[es]=Tupí: Magia 2D Libre\n"
+      newfile += "Name[pt]=Tupí: Magia 2D Libre\n"
+      newfile += "Name[ru]=Tupi: Open 2D Magic\n"
+      newfile += "Exec=" + launcher_bindir + "/tupi\n"
+      newfile += "Icon=tupi\n"
+      newfile += "Type=Application\n"
+      newfile += "MimeType=application/tup;\n"
+      newfile += "Categories=Graphics;2DGraphics;RasterGraphics;\n"
+      newfile += "Comment=2D Animation Toolkit\n"
+      newfile += "Comment[es]=Herramienta para Animación 2D\n"
+      newfile += "Comment[pt]=Ferramenta de animação 2D\n"
+      newfile += "Comment[ru]=Создание двухмерной векторной анимации\n"
+      newfile += "Terminal=false\n"
 
-        File.open("launcher/tupi.desktop", "w") { |f|
-          f << newfile
-        }
-
-      newmakefile = ""
-      File.open("src/components/help/help/css/tupi.ini", "r") { |f|
-        lines = f.readlines
-        index = 0
-        while index < lines.size
-          line = lines[index]
-          if line.include? "TUPI_SHARE" then
-            newmakefile += "#{line.gsub(/\$\(TUPI_SHARE\)/, launcher_sharedir)}"
-          else
-            newmakefile += line
-          end
-
-          index += 1
-        end
-      }
-
-      File.open("src/components/help/help/css/tupi.css", "w") { |f|
-        f << newmakefile
+      File.open("launcher/tupi.desktop", "w") { |f|
+        f << newfile
       }
 
     end

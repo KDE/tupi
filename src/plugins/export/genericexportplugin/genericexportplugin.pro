@@ -9,8 +9,6 @@ target.path = /plugins/
 HEADERS += genericexportplugin.h
 SOURCES += genericexportplugin.cpp
 
-OTHER_FILES += genericexportplugin.json
-
 CONFIG += plugin warn_on
 TEMPLATE = lib 
 TARGET = tupigenericexportplugin

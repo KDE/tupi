@@ -4,24 +4,24 @@
 # Target is a subdirs project 
 
 SUBDIRS += common \
-           penciltool \
-           inktool \
-           # schemetool \
-           selecttool \
-           contourselectiontool \
-           texttool \
-           geometrictool \
-           viewtool \
-           filltool \
-           erasertool  \
-           polylinetool \
-           positiontool \
-           rotationtool \
-           scaletool \
-           sheartool \
-           opacitytool \
-           coloringtool \
-           compoundtool
+           pencil \
+           ink \
+           # scheme \
+           selection \
+           nodes \
+           text \
+           geometric \
+           view \
+           fill \
+           eraser \
+           polyline \
+           position \
+           rotation \
+           scale \
+           shear \
+           opacity \
+           color \
+           compound
 
 CONFIG += ordered warn_on
 TEMPLATE = subdirs

@@ -48,7 +48,6 @@ TWorkspaceMainWindow::~TWorkspaceMainWindow()
 void TWorkspaceMainWindow::addWidget(QWidget *widget, int perspective)
 {
     addToPerspective(widget, perspective);
-    // mdiArea->addWindow(widget);
     mdiArea->addSubWindow(widget);
     widget->show();
 }

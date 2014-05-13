@@ -55,7 +55,7 @@ class Test
         @optional = false
     end
     
-    def run(config, conf, debug, isLucid)
+    def run(config, conf, debug)
 
         parser = Parser.new
         parser.os = DetectOS::OS[DetectOS.whatOS].to_s.downcase
@@ -86,21 +86,29 @@ class Test
 
                 if File.dirname(@rules).end_with?("ffmpeg")  
                    if conf.hasArgument?("with-ffmpeg")
-                      ffmpegLib = conf.argumentValue("with-ffmpeg") + "/lib"
+                      ffmpegDir = conf.argumentValue("with-ffmpeg")
+                      ffmpegLib = ffmpegDir + "/lib"
                       extraLib += "-L#{ffmpegLib}"
-                      extraInclude = conf.argumentValue("with-ffmpeg") + "/include"
+                      extraInclude = ffmpegDir + "/include"
                       qmakeLine = "'LIBS += #{extraLib}'";
                       qmakeLine += " 'INCLUDEPATH += #{extraInclude}'";
                    end
                 else
-                   qmakeLine = ""
-                   if extraLib.length > 0 
-                      qmakeLine = "'LIBS += #{extraLib} #{parser.libs.join(" ")}'";
+                   if File.dirname(@rules).end_with?("quazip")
+                      if conf.hasArgument?("with-quazip")
+                         quazipDir = conf.argumentValue("with-quazip")
+                         quazipLib = quazipDir + "/lib"
+                         extraLib += "-L#{quazipLib}"
+                         extraInclude = quazipDir + "/include"
+                         qmakeLine = "'LIBS += #{extraLib}'";
+                         qmakeLine += " 'INCLUDEPATH += #{extraInclude}'";
+                      end
+                   else
+                      qmakeLine = ""
+                      if extraLib.length > 0 
+                         qmakeLine = "'LIBS += #{extraLib} #{parser.libs.join(" ")}'";
+                      end
                    end
-                end
-
-                if isLucid
-                   qmakeLine = "'DEFINES += K_LUCID' " + qmakeLine
                 end
 
                 @qmake.run(qmakeLine, true)
@@ -118,6 +126,7 @@ class Test
                     end
 
                     Info.info << "Priority: " << priority << "\n"
+
                     
                     # Provide solution
                     solution = parser.solution

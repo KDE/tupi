@@ -80,7 +80,7 @@ void Tupwitter::start()
             this, SLOT(closeRequest(QNetworkReply*)));
 
     k->request.setUrl(QUrl(url));
-    //k->request.setRawHeader("User-Agent", BROWSER_FINGERPRINT.toAscii());
+    // k->request.setRawHeader("User-Agent", BROWSER_FINGERPRINT.toAscii());
     k->request.setRawHeader("User-Agent", BROWSER_FINGERPRINT.toLatin1());
 
     k->reply = k->manager->get(k->request);

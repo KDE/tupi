@@ -44,6 +44,15 @@
  * @author David Cuadrado
 */
 
+TupColorWidget::TupColorWidget(const QBrush color) : m_brush(color)
+{
+    setFixedSize(20, 20);
+}
+
+TupColorWidget::~TupColorWidget()
+{
+}
+
 QSize TupColorWidget::sizeHint() const
 {
     QSize size(20, 20);
@@ -56,14 +65,22 @@ void TupColorWidget::setBrush(const QBrush &brush)
     update();
 }
 
-void TupColorWidget::paintEvent(QPaintEvent *)
+void TupColorWidget::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event);
+
     QPainter painter(this);
     painter.fillRect(rect(), m_brush);
+    QColor color = Qt::black;
+    if (m_brush.color() == Qt::black)
+        color = Qt::white;
+    painter.setPen(QPen(color));
+    painter.drawRect(0, 0, 20, 20);
 }
 
 void TupColorWidget::mousePressEvent(QMouseEvent *event)
 {
+    Q_UNUSED(event);
     emit clicked();
 }
 

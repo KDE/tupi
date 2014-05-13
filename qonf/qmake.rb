@@ -48,87 +48,66 @@ class QMake
 
     # This method check if the current version of Qt is valid for Tupi compilation    
     def findQMake(minqtversion, verbose, qtdir)
-        qtversion = ""
-        paths = [ "qmake", "qmake-qt4", "qmake4" ]
-        minver = minqtversion.split(".")
-        valid = true
-        count = 0
+        path = "qmake"
+        command = ""
 
-        paths.each { |path|
-            begin
-                Info.info << $endl << "   Testing for #{path}... "
-                valid = true
-                version = []
-                sites = []
-                distance = 0
-                IO.popen("which #{path}") { |result|
-                          sites = result.readlines.join("").split(":")
-                          word = ""
-                          if qtdir.length > 0
-                             word = qtdir + "/bin/qmake"
-                          else
-                             if sites.length > 0
-                                word = sites[0].chop
-                             end
-                          end
-                          distance = word.length
-                }
+        Info.info << "Testing for #{path}... "
 
-                if distance > 0
-                    IO.popen("#{path} -query QT_VERSION") { |prc|
-                        found = prc.readlines.join("")
-                        version = found.split(".")
-                        if (found.length != 0)
-                            qtversion = found.chop
-                        end
-                    }
-                    next if $? != 0
-
-                    version.size.times { |i|
-                        if i == 0
-                           if version[i] < minver[i]
-                              return false 
-                           elsif version[i] > minver[i]
-                              @path = path
-                              print "(Found: #{qtversion}) "
-                              return true
-                           end
-                        end
-
-                        if i == 1
-                           if version[i] < minver[i]
-                              return false
-                           end
-                        end
-
-                        if i == 2
-                           if version[i] < minver[i]
-                              return false
-                           end
-                        end
-                    }
-                
-                    if valid  
-                        @path = path
-                        break
+        IO.popen("which #{path}") { |result|
+                 if qtdir.length > 0
+                    command = qtdir + "/bin/qmake"
+                 else
+                    pathVar = result.readlines.join("").split(":")
+                    if pathVar.length > 0
+                       command = pathVar[0].chop
                     end
+                 end
 
-                else
-                    count = count + 1
-                end
-
-            end
+                 if command.length == 0
+                    return false
+                 end
         }
 
-        if count == 3
-           return false
-        end
+        qtversion = ""
+        version = []
 
-        if verbose && valid 
+        IO.popen("#{command} -query QT_VERSION") { |prc|
+                 found = prc.readlines.join("")
+                 version = found.split(".")
+                 if (found.length != 0)
+                     qtversion = found.chop
+                 end
+        }
+
+        minver = minqtversion.split(".")
+
+        version.size.times { |i|
+                if i == 0
+                   if version[i] < minver[i]
+                      return false 
+                   end
+                end
+
+                if i == 1
+                   if version[i] < minver[i]
+                      return false
+                   end
+                end
+
+                if i == 2
+                   if version[i] < minver[i]
+                      return false
+                   end
+                end
+        }
+                
+        @path = command
+
+        if verbose == 1
             print "(Found: #{qtversion}) "
         end
 
-        return valid
+        return true
     end
 
     def query(var)

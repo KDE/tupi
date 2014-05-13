@@ -77,6 +77,7 @@ class TupPaintArea : public TupPaintAreaBase, public TupAbstractProjectResponseH
         void quickCopy();
         int currentSceneIndex();
         int currentLayerIndex();
+        int currentFrameIndex();
 
     public slots:
         void setNextFramesOnionSkinCount(int n);
@@ -89,6 +90,7 @@ class TupPaintArea : public TupPaintAreaBase, public TupAbstractProjectResponseH
         void itemAddedOnSelection(TupGraphicsScene *);
         void frameChanged(int);
         void closePolyLine();
+        void closeLine();
         void updateStatusBgColor(const QColor color);
 
     public slots:

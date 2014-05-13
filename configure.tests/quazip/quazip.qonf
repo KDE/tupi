@@ -8,7 +8,7 @@
 			<define value="HAVE_QUAZIP" />
 		</defines>
 		<libs>
-			<lib path="-lquazip" />
+                        <lib path="-lquazip" />
 		</libs>
                 <includes>
                         <include path="/usr/include/quazip/" />

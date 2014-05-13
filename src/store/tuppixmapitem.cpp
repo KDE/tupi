@@ -36,7 +36,6 @@
 #include "tuppixmapitem.h"
 #include <QPixmap>
 
-// TupPixmapItem::TupPixmapItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsPixmapItem(parent, scene)
 TupPixmapItem::TupPixmapItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsPixmapItem(parent)
 {
     setTransformationMode(Qt::SmoothTransformation);
@@ -48,6 +47,7 @@ TupPixmapItem::~TupPixmapItem()
 
 void TupPixmapItem::fromXml(const QString &xml)
 {
+    Q_UNUSED(xml);
 }
 
 QDomElement TupPixmapItem::toXml(QDomDocument &doc) const

@@ -7,8 +7,6 @@ HEADERS += theoramoviegenerator.h \
 SOURCES += theoramoviegenerator.cpp \
            theoraplugin.cpp
 
-OTHER_FILES += theoraplugin.json
-
 CONFIG += plugin warn_on
 TEMPLATE = lib 
 TARGET = tupitheoraplugin

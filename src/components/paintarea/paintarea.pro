@@ -3,8 +3,12 @@
 # Subdir relative project main directory: ./src/components/paintarea
 # Target is a library:  paintarea
 
+QT += multimedia multimediawidgets printsupport
+
 INSTALLS += target
 target.path = /lib/
+
+INCLUDEPATH += /usr/include/qt5/QtMultimedia /usr/include/qt5/QtMultimediaWidgets
 
 macx {
     CONFIG += staticlib warn_on
@@ -13,7 +17,6 @@ macx {
 HEADERS += tuppaintarea.h \
            tupconfigurationarea.h \
            tupdocumentview.h \
-           # tupdocumentruler.h \
            tuppaintareastatus.h \
            tupimagedevice.h \
            tuppaintareacommand.h \
@@ -31,12 +34,16 @@ HEADERS += tuppaintarea.h \
            tupexposurescene.h \
            tuptoolsdialog.h \
            tupinfowidget.h \
-           tupiruler.h
+           tupruler.h \
+           tupcamerainterface.h \
+           tupbasiccamerainterface.h \
+           tupcameradialog.h \
+           tupcamerawindow.h \
+           tupvideosurface.h
 
 SOURCES += tuppaintarea.cpp \
            tupconfigurationarea.cpp \
            tupdocumentview.cpp \
-           # tupdocumentruler.cpp \
            tuppaintareastatus.cpp \
            tupimagedevice.cpp \
            tuppaintareacommand.cpp \
@@ -54,7 +61,12 @@ SOURCES += tuppaintarea.cpp \
            tupexposurescene.cpp \
            tuptoolsdialog.cpp \
            tupinfowidget.cpp \
-           tupiruler.cpp
+           tupruler.cpp \
+           tupcamerainterface.cpp \
+           tupbasiccamerainterface.cpp \
+           tupcameradialog.cpp \
+           tupcamerawindow.cpp \
+           tupvideosurface.cpp
 
 *:!macx{
     CONFIG += dll warn_on
@@ -66,18 +78,15 @@ TARGET = tupipaintarea
 PLUGIN_DIR = ../../plugins/export/genericexportplugin
 INCLUDEPATH += $$PLUGIN_DIR
 
-SELECTION_DIR = ../../plugins/tools/selecttool
+SELECTION_DIR = ../../plugins/tools/selection
 INCLUDEPATH += $$SELECTION_DIR
 
-POLYLINE_DIR = ../../plugins/tools/polylinetool
+POLYLINE_DIR = ../../plugins/tools/polyline
 INCLUDEPATH += $$POLYLINE_DIR
-
-INCLUDEPATH += ../../shell
 
 INCLUDEPATH += ../../libbase
 INCLUDEPATH += ../../store
 INCLUDEPATH += ../../libtupi
-
 LIBS += -L../../libbase
 LIBS += -L../../store
 LIBS += -L../../libtupi

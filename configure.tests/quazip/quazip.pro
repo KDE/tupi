@@ -1,4 +1,6 @@
-TARGET = quazip
+TEMPLATE = app
+CONFIG -= moc
+TARGET = quazip 
 DEPENDPATH += .
 
 macx {
@@ -11,6 +13,7 @@ unix:!macx {
   INCLUDEPATH += /usr/include/quazip
 }
 
+LIBS += -lquazip -lz
+
 # Input
 SOURCES += main.cpp
-LIBS += -L/usr/local/lib -lquazip

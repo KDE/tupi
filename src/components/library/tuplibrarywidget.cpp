@@ -250,9 +250,9 @@ void TupLibraryWidget::setNetworking(bool isNetworked)
     k->isNetworked = isNetworked;
 }
 
-void TupLibraryWidget::addFolder()
+void TupLibraryWidget::addFolder(const QString &folderName)
 {
-    k->libraryTree->createFolder();
+    k->libraryTree->createFolder(folderName);
     k->mkdir = true;
 }
 
@@ -280,7 +280,7 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
             return;
         }
 
-        TupLibraryObject *object = k->library->findObject(item->text(1) + "." + item->text(2).toLower());
+        TupLibraryObject *object = k->library->getObject(item->text(1) + "." + item->text(2).toLower());
 
         if (!object) {
             #ifdef K_DEBUG
@@ -397,7 +397,7 @@ void TupLibraryWidget::cloneObject(QTreeWidgetItem* item)
 {
     if (item) {
         QString id = item->text(3);
-        TupLibraryObject *object = k->library->findObject(id);
+        TupLibraryObject *object = k->library->getObject(id);
 
         if (object) {
             QString smallId = object->smallId();
@@ -497,7 +497,7 @@ void TupLibraryWidget::cloneObject(QTreeWidgetItem* item)
 void TupLibraryWidget::exportObject(QTreeWidgetItem *item)
 {
     QString id = item->text(3);
-    TupLibraryObject *object = k->library->findObject(id);
+    TupLibraryObject *object = k->library->getObject(id);
     if (object) {
         QString path = object->dataPath();
         if (path.length() > 0) {
@@ -584,7 +584,7 @@ void TupLibraryWidget::createRasterObject()
         QSize size = dialog.itemSize();
         QColor background = dialog.background();
         QString extension = dialog.itemExtension();
-        TupNewItemDialog::ThirdParty editor = dialog.software();
+        QString editor = dialog.software();
 
         QString imagesDir = k->project->dataDir() + "/images/";
         if (!QFile::exists(imagesDir)) {
@@ -677,7 +677,7 @@ void TupLibraryWidget::createVectorObject()
         QString name = dialog.itemName();
         QSize size = dialog.itemSize();
         QString extension = dialog.itemExtension();
-        TupNewItemDialog::ThirdParty editor = dialog.software();
+        QString editor = dialog.software();
 
         QString vectorDir = k->project->dataDir() + "/svg/";
         if (!QFile::exists(vectorDir)) {
@@ -747,17 +747,23 @@ void TupLibraryWidget::createVectorObject()
     }
 }
 
-void TupLibraryWidget::importBitmap()
+void TupLibraryWidget::importBitmapGroup()
 {
-    QString image = QFileDialog::getOpenFileName (this, tr("Import an image..."), QDir::homePath(),  
-                                                  tr("Images") + " (*.png *.xpm *.jpg *.jpeg *.gif)");
-    if (image.isEmpty()) 
+    QStringList files = QFileDialog::getOpenFileNames(this, tr("Import images..."), QDir::homePath(),
+                                                      tr("Images") + " (*.png *.xpm *.jpg *.jpeg *.gif)");
+    for (int i = 0; i < files.size(); ++i)
+         importBitmap(files.at(i));
+}
+
+void TupLibraryWidget::importBitmap(const QString &image)
+{
+    if (image.isEmpty())
         return;
 
     QFile f(image);
     QFileInfo fileInfo(f);
 
-    QString symName = fileInfo.fileName().toLower();
+    QString key = fileInfo.fileName().toLower();
 
     if (f.open(QIODevice::ReadOnly)) {
         QByteArray data = f.readAll();
@@ -770,8 +776,9 @@ void TupLibraryWidget::importBitmap()
         int projectHeight = k->project->dimension().height();
 
         #ifdef K_DEBUG
-               tFatal() << "TupLibraryWidget::importBitmap() - Image filename: " << symName << " | Raw Size: " << data.size();
-               tFatal() << "TupLibraryWidget::importBitmap() - Image Size: " << "[" << picWidth << ", " << picHeight << "]" << " | Project Size: " << "[" << projectWidth << ", " << projectHeight << "]";
+               tFatal() << "TupLibraryWidget::importBitmap() - Image filename: " << key << " | Raw Size: " << data.size();
+               tFatal() << "TupLibraryWidget::importBitmap() - Image Size: " << "[" << picWidth << ", " << picHeight << "]" 
+                        << " | Project Size: " << "[" << projectWidth << ", " << projectHeight << "]";
         #endif
 
         if (picWidth > projectWidth || picHeight > projectHeight) {
@@ -809,18 +816,15 @@ void TupLibraryWidget::importBitmap()
         }
 
         int i = 0;
-        QString tag = symName;
-        TupLibraryObject *object = k->library->findObject(tag);
-        while (object) {
+        int index = key.lastIndexOf(".");
+        QString name = key.mid(0, index);
+        QString extension = key.mid(index, key.length() - index);
+        while (k->library->exists(key)) {
                i++;
-               int index = symName.lastIndexOf(".");
-               QString name = symName.mid(0, index);
-               QString extension = symName.mid(index, symName.length() - index);
-               tag = name + "-" + QString::number(i) + extension;
-               object = k->library->findObject(tag);
+               key = name + "-" + QString::number(i) + extension;
         }
 
-        TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, tag,
+        TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key,
                                                                           TupLibraryObject::Image, k->project->spaceContext(), data, QString(), 
                                                                           k->currentFrame.scene, k->currentFrame.layer, k->currentFrame.frame);
         emit requestTriggered(&request);
@@ -831,41 +835,45 @@ void TupLibraryWidget::importBitmap()
     }
 }
 
-void TupLibraryWidget::importSvg()
+void TupLibraryWidget::importSvgGroup()
 {
-    QString svgPath = QFileDialog::getOpenFileName (this, tr("Import a SVG file..."), QDir::homePath(),
-                                                    tr("Vector") + " (*.svg)");
+    QStringList files = QFileDialog::getOpenFileNames(this, tr("Import SVG files..."), QDir::homePath(),
+                                                      tr("Vector") + " (*.svg)");
+    for (int i = 0; i < files.size(); ++i)
+         importSvg(files.at(i));
+}
+
+void TupLibraryWidget::importSvg(const QString &svgPath)
+{
     if (svgPath.isEmpty())
         return;
 
-    QFile f(svgPath);
-    QFileInfo fileInfo(f);
+    QFile file(svgPath);
+    QFileInfo fileInfo(file);
 
-    QString symName = fileInfo.fileName().toLower();
+    QString key = fileInfo.fileName().toLower();
 
-    if (f.open(QIODevice::ReadOnly)) {
-        QByteArray data = f.readAll();
-        f.close();
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray data = file.readAll();
+        file.close();
 
-        // SQA: This block is just for debugging!   
-        tFatal() << "TupLibraryWidget::importSvg() - Inserting SVG into project: " << k->project->projectName();
-        int projectWidth = k->project->dimension().width();
-        int projectHeight = k->project->dimension().height();
-        tFatal() << "TupLibraryWidget::importSvg() - Project Size: " << "[" << projectWidth << ", " << projectHeight << "]";
+        #ifdef K_DEBUG
+               tFatal() << "TupLibraryWidget::importSvg() - Inserting SVG into project: " << k->project->projectName();
+               int projectWidth = k->project->dimension().width();
+               int projectHeight = k->project->dimension().height();
+               tFatal() << "TupLibraryWidget::importSvg() - Project Size: " << "[" << projectWidth << ", " << projectHeight << "]";
+        #endif
 
         int i = 0;
-        QString tag = symName;
-        TupLibraryObject *object = k->library->findObject(tag);
-        while (object) {
+        int index = key.lastIndexOf(".");
+        QString name = key.mid(0, index);
+        QString extension = key.mid(index, key.length() - index);
+        while (k->library->exists(key)) {
                i++;
-               int index = symName.lastIndexOf(".");
-               QString name = symName.mid(0, index);
-               QString extension = symName.mid(index, symName.length() - index);
-               tag = name + "-" + QString::number(i) + extension;
-               object = k->library->findObject(tag);
+               key = name + "-" + QString::number(i) + extension;
         }
 
-        TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, tag,
+        TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key,
                                                        TupLibraryObject::Svg, k->project->spaceContext(), data, QString(), 
                                                        k->currentFrame.scene, k->currentFrame.layer, k->currentFrame.frame);
         emit requestTriggered(&request);
@@ -974,7 +982,7 @@ void TupLibraryWidget::importBitmapArray()
                                  pixmap = new QPixmap();
                                  QString extension = fileInfo.suffix().toUpper();
                                  // QByteArray ba = extension.toAscii();
-                                 QByteArray ba = extension.toLatin1(); 
+                                 QByteArray ba = extension.toLatin1();
                                  const char* ext = ba.data();
                                  if (pixmap->loadFromData(data, ext)) {
                                      int width = projectWidth;
@@ -1193,7 +1201,7 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
                  int index = id.lastIndexOf(".");
                  QString name = id.mid(0, index);
                  QString extension = id.mid(index + 1, id.length() - index).toUpper();
-                 TupLibraryObject *obj = k->library->findObject(id);
+                 TupLibraryObject *obj = k->library->getObject(id);
 
                  if (index < 0)
                      extension = "OBJ"; 
@@ -1319,7 +1327,7 @@ void TupLibraryWidget::importGraphicObject()
     QString option = k->itemType->currentText();
 
     if (option.compare(tr("Image")) == 0) {
-        importBitmap();
+        importBitmapGroup();
         return;
     }
 
@@ -1329,7 +1337,7 @@ void TupLibraryWidget::importGraphicObject()
     }
 
     if (option.compare(tr("Svg File")) == 0) {
-        importSvg();
+        importSvgGroup();
         return;
     }
 
@@ -1448,30 +1456,30 @@ void TupLibraryWidget::updateLibrary(QString node, QString target)
 
 void TupLibraryWidget::openInkscapeToEdit(QTreeWidgetItem *item)
 {
-    callExternalEditor(item, TupNewItemDialog::Inkscape);
+    callExternalEditor(item, "Inkscape");
 }
 
 void TupLibraryWidget::openGimpToEdit(QTreeWidgetItem *item)
 {
-    callExternalEditor(item, TupNewItemDialog::Gimp);
+    callExternalEditor(item, "Gimp");
 }
 
 void TupLibraryWidget::openKritaToEdit(QTreeWidgetItem *item)
 {
-    callExternalEditor(item, TupNewItemDialog::Krita);
+    callExternalEditor(item, "Krita");
 }
 
 void TupLibraryWidget::openMyPaintToEdit(QTreeWidgetItem *item)
 {
-    callExternalEditor(item, TupNewItemDialog::MyPaint);
+    callExternalEditor(item, "MyPaint");
 }
 
-void TupLibraryWidget::callExternalEditor(QTreeWidgetItem *item, TupNewItemDialog::ThirdParty software)
+void TupLibraryWidget::callExternalEditor(QTreeWidgetItem *item, const QString &software)
 {
     if (item) {
         k->lastItemEdited = item;
         QString id = item->text(1) + "." + item->text(2).toLower();
-        TupLibraryObject *object = k->library->findObject(id);
+        TupLibraryObject *object = k->library->getObject(id);
 
         if (object) {
             QString path = object->dataPath();
@@ -1488,24 +1496,10 @@ void TupLibraryWidget::callExternalEditor(QTreeWidgetItem *item, TupNewItemDialo
     }
 }
 
-void TupLibraryWidget::executeSoftware(TupNewItemDialog::ThirdParty software, QString &path)
+void TupLibraryWidget::executeSoftware(const QString &software, QString &path)
 {
     if (path.length() > 0 && QFile::exists(path)) {
-        QString program = "";
-        switch(software) {
-               case TupNewItemDialog::Inkscape:
-                    program = "/usr/bin/inkscape";
-               break;
-               case TupNewItemDialog::Gimp:
-                    program = "/usr/bin/gimp";
-               break;
-               case TupNewItemDialog::Krita:
-                    program = "/usr/bin/krita";
-               break;
-               case TupNewItemDialog::MyPaint:
-                    program = "/usr/bin/mypaint";
-               break;
-        }
+        QString program = "/usr/bin/" + software.toLower(); 
 
         QStringList arguments;
         arguments << path;

@@ -8,6 +8,6 @@ include($$LIBBASE_DIR/libbase.pri)
 
 include(../../tupiglobal.pri)
 
-INCLUDEPATH += ../shell
+INCLUDEPATH += ../../shell
 
 QT += xml

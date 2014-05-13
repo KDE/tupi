@@ -73,7 +73,6 @@ class TupLibraryWidget : public TupModuleWidgetBase
         virtual void frameResponse(TupFrameResponse *response);
 
     private slots:
-        void addFolder();
         void previewItem(QTreeWidgetItem *item);
         void insertObjectInWorkspace();
         void removeCurrentGraphic();
@@ -93,8 +92,11 @@ class TupLibraryWidget : public TupModuleWidgetBase
         void updateItemFromSaveAction();
 
     public slots:
-        void importBitmap();
-        void importSvg();
+        void addFolder(const QString &folderName = QString());
+        void importBitmapGroup();
+        void importBitmap(const QString &image);
+        void importSvgGroup();
+        void importSvg(const QString &svgPath);
         void importBitmapArray();
         void importSvgArray();
         void importSound();
@@ -103,8 +105,8 @@ class TupLibraryWidget : public TupModuleWidgetBase
         void requestCurrentGraphic();
 
     private:
-        void callExternalEditor(QTreeWidgetItem *item, TupNewItemDialog::ThirdParty software);
-        void executeSoftware(TupNewItemDialog::ThirdParty software, QString &path);
+        void callExternalEditor(QTreeWidgetItem *item, const QString &software);
+        void executeSoftware(const QString &software, QString &path);
         void updateItem(const QString &name, const QString &extension, TupLibraryObject *object);
         bool itemNameEndsWithDigit(QString &name);
         int getItemNameIndex(QString &name) const;

@@ -172,9 +172,14 @@ void TupPaintArea::mousePressEvent(QMouseEvent *event)
         }
     }
 
-    if (k->currentTool.compare(tr("PolyLine")) == 0) {
-        if (event->buttons() == Qt::RightButton) {
+    if (event->buttons() == Qt::RightButton) {
+        if (k->currentTool.compare(tr("PolyLine")) == 0) {
             emit closePolyLine();
+            return;
+        }
+
+        if (k->currentTool.compare(tr("Line")) == 0) {
+            emit closeLine();
             return;
         }
     }
@@ -859,7 +864,6 @@ void TupPaintArea::pasteItems()
              if (xml.startsWith("<svg")) {
                  type = TupLibraryObject::Svg;
                  total = currentScene->currentFrame()->svgItemsCount();
-                 tError() << "TupPaintArea::pasteItems() - Pasting a SVG file...";
              }
 
              /*
@@ -909,7 +913,6 @@ void TupPaintArea::multipasteObject(int pasteTotal)
              if (xml.startsWith("<svg")) {
                  type = TupLibraryObject::Svg;
                  total = currentScene->currentFrame()->svgItemsCount();
-                 tError() << "TupPaintArea::pasteItems() - Pasting a SVG file...";
              }
 
              TupScene *scene = k->project->scene(currentScene->currentSceneIndex());
@@ -1304,3 +1307,9 @@ int TupPaintArea::currentLayerIndex()
 {
     return graphicsScene()->currentLayerIndex();
 }
+
+int TupPaintArea::currentFrameIndex()
+{
+    return graphicsScene()->currentFrameIndex();
+}
+

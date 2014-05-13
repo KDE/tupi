@@ -145,13 +145,11 @@ QRectF TControlNode::boundingRect() const
     if (k->rightNode) {
         if (k->rightNode->isVisible())
             rect.united(k->rightNode->boundingRect());
-            // rect.unite(k->rightNode->boundingRect());
     }
 
     if (k->leftNode) {
         if (k->leftNode->isVisible())
-            rect.united(k->leftNode->boundingRect());
-           // rect.unite(k->leftNode->boundingRect());
+           rect.united(k->leftNode->boundingRect());
     }
 
     return rect;

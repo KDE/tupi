@@ -49,7 +49,7 @@ TupRectItem::TupRectItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGrap
 }
 
 // TupRectItem::TupRectItem(const QRectF& rect, QGraphicsItem * parent , QGraphicsScene * scene) : QGraphicsRectItem(rect, parent, scene)
-TupRectItem::TupRectItem(const QRectF& rect, QGraphicsItem * parent , QGraphicsScene * scene) : QGraphicsRectItem(parent)
+TupRectItem::TupRectItem(const QRectF& rect, QGraphicsItem * parent , QGraphicsScene * scene) : QGraphicsRectItem(rect, parent)
 {
 }
 
@@ -59,16 +59,17 @@ TupRectItem::~TupRectItem()
 
 void TupRectItem::fromXml(const QString &xml)
 {
+    Q_UNUSED(xml);
 }
 
 QDomElement TupRectItem::toXml(QDomDocument &doc) const
 {
     QDomElement root = doc.createElement("rect");
     
-    root.setAttribute("x", rect().x());
-    root.setAttribute("y", rect().y());
-    root.setAttribute("width", rect().width());
-    root.setAttribute("height", rect().height());
+    root.setAttribute("x", QString::number(rect().x()));
+    root.setAttribute("y", QString::number(rect().y()));
+    root.setAttribute("width", QString::number(rect().width()));
+    root.setAttribute("height", QString::number(rect().height()));
     
     root.appendChild(TupSerializer::properties(this, doc));
     
@@ -103,13 +104,13 @@ void TupRectItem::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
     m_dragOver = false;
     if (event->mimeData()->hasColor()) {
+        // setBrush(QBrush(qVariantValue<QColor>(event->mimeData()->colorData())));
         QVariant color = event->mimeData()->colorData();
         setBrush(QBrush(color.value<QColor>()));
-        // setBrush(QBrush(qVariantValue<QColor>(event->mimeData()->colorData())));
     } else if (event->mimeData()->hasImage()) {
+               // setBrush(QBrush(qVariantValue<QPixmap>(event->mimeData()->imageData())));
                QVariant pixmap = event->mimeData()->imageData();
                setBrush(QBrush(pixmap.value<QPixmap>()));
-               // setBrush(QBrush(qVariantValue<QPixmap>(event->mimeData()->imageData())));
     }
     update();
 }

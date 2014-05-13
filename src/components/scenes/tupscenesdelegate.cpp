@@ -39,7 +39,8 @@
 #include <QtGui>
 #include <QLineEdit>
 
-TupScenesDelegate::TupScenesDelegate(QObject *parent) : QItemDelegate(parent)
+TupScenesDelegate::TupScenesDelegate(QObject *parent)
+    : QItemDelegate(parent)
 {
 }
 
@@ -58,6 +59,8 @@ QWidget *TupScenesDelegate::createEditor(QWidget *parent,
         const QStyleOptionViewItem &option,
         const QModelIndex &index) const
 {
+    Q_UNUSED(option);
+
     QVariant originalValue = index.model()->data(index, Qt::DisplayRole);
     QLineEdit *lineEdit = new QLineEdit(parent);
     lineEdit->setFrame(false);

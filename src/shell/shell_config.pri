@@ -18,7 +18,6 @@ TWITTER_DIR = ../components/twitter
 LIBUI_DIR = ../libui
 STORE_DIR = ../store 
 LIBTUPI_DIR = ../libtupi
-# QUAZIP_DIR = ../../3rdparty/quazip 
 LIBBASE_DIR = ../libbase
 NET_DIR = ../net
 
@@ -39,7 +38,6 @@ include($$TWITTER_DIR/twitter.pri)
 include($$LIBUI_DIR/libui.pri)
 include($$STORE_DIR/store.pri)
 include($$LIBTUPI_DIR/libtupi.pri)
-# include($$QUAZIP_DIR/quazip.pri)
 include($$LIBBASE_DIR/libbase.pri)
 include($$NET_DIR/net.pri)
 

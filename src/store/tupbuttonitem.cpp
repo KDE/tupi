@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupbuttonitem.h"
-
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
@@ -42,9 +41,10 @@
 #include <QStyleOptionButton>
 #include <QApplication>
 
-TupButtonItem::TupButtonItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsItem(parent)
+// TupButtonItem::TupButtonItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItem(parent, scene)
+TupButtonItem::TupButtonItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItem(parent)
 {
-    QGraphicsItem::setCursor(QCursor(Qt::PointingHandCursor));
+    QGraphicsItem::setCursor(QCursor(Qt::PointingHandCursor ));
     setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
     
     m_iconSize = QSize(22,22);
@@ -56,11 +56,13 @@ TupButtonItem::~TupButtonItem()
 
 void TupButtonItem::fromXml(const QString &xml)
 {
+    Q_UNUSED(xml);
 }
 
 QDomElement TupButtonItem::toXml(QDomDocument &doc) const
 {
     QDomElement root = doc.createElement("button");
+    
     return root;
 }
 
@@ -73,12 +75,10 @@ void TupButtonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     optionButton.icon = m_icon;
     optionButton.iconSize = m_iconSize;
     
-    if (option->state & QStyle::State_Sunken) {
-    	optionButton.state = option->state;
-    } else {
-    }
+    if (option->state & QStyle::State_Sunken)
+        optionButton.state = option->state;
 
-    QApplication::style()->drawControl(QStyle::CE_PushButton, &optionButton ,painter, w);
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &optionButton, painter, w);
 }
 
 QRectF TupButtonItem::boundingRect() const
@@ -112,7 +112,9 @@ void TupButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void TupButtonItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseMoveEvent(event);
+    
     emit clicked();
+    
     update();
 }
 
@@ -139,3 +141,5 @@ void TupButtonItem::setFont(const QFont &font)
     m_font = font;
     update();
 }
+
+

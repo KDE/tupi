@@ -1,5 +1,7 @@
 # src/shell/shell.pro
 
+QT += widgets
+
 macx {
     CONFIG += console static
     ICON = ../../launcher/icons/tupi.icns
@@ -73,7 +75,7 @@ unix:!mac {
 HEADERS += tupmainwindow.h \
            tupstatusbar.h \
            tupnewproject.h \
-           tupsplash.h \
+           # tupsplash.h \
            tupcrashhandler.h \
            tupcrashwidget.h \
            tupapplication.h \
@@ -83,7 +85,7 @@ SOURCES += main.cpp \
            tupmainwindow.cpp \
            tupstatusbar.cpp \
            tupnewproject.cpp \
-           tupsplash.cpp \
+           # tupsplash.cpp \
            tupcrashhandler.cpp \
            tupcrashwidget.cpp \
            tupapplication.cpp \

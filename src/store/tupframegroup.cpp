@@ -35,7 +35,7 @@
 
 #include "tupframegroup.h"
 
-TupFrameGroup::TupFrameGroup(TupLayer *parent ) : TupFrame(parent)
+TupFrameGroup::TupFrameGroup(TupLayer *parent) : TupFrame(parent)
 {
 }
 
@@ -45,10 +45,8 @@ TupFrameGroup::~TupFrameGroup()
 
 void TupFrameGroup::addFrame(TupFrame *frame)
 {
-	if ( ! m_frames.contains(frame ) && frame != this )
-	{
-		m_frames << frame;
-	}
+    if (! m_frames.contains(frame) && frame != this)
+        m_frames << frame;
 }
 
 

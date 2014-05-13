@@ -1,5 +1,6 @@
 TEMPLATE = app
 CONFIG -= moc
+TARGET = theora
 
 macx {
     CONFIG -= app_bundle
@@ -7,7 +8,7 @@ macx {
 }
 
 INCLUDEPATH += .
-
 LIBS += -ltheora -ltheoraenc -ltheoradec -logg
 
+# Input
 SOURCES += main.cpp

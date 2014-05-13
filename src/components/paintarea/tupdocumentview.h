@@ -65,15 +65,14 @@ class TupDocumentView : public QMainWindow
     public:
         TupDocumentView(TupProject *project, QWidget *parent = 0, bool isNetworked = true, const QStringList &users = QStringList());
         ~TupDocumentView();
+        void setWorkSpaceSize(int width, int height);
         void closeArea();
         QSize sizeHint() const;
 
         void setAntialiasing(bool useIt);
         void setOpenGL(bool useIt);
-        void setDrawGrid(bool draw);
 
         QPainter::RenderHints renderHints() const;
-        void setRotationAngle(int angle);
         void setZoom(qreal factor);
 
         TupBrushManager *brushManager() const;
@@ -84,17 +83,17 @@ class TupDocumentView : public QMainWindow
         int currentFramesTotal();
         int currentSceneIndex();
         void setZoomView(const QString &percent);
+        void setRotationAngle(int angle);
         QSize workSpaceSize() const;
         void updateUsersOnLine(const QString &login, int state);
+        void resizeProjectDimension(const QSize dimension);
 
     private slots:
         void setNextOnionSkin(int n);
         void setPreviousOnionSkin(int n);
-
-        void toggleShowGrid();
-
         // void setZoomFactor(int porcent);
         void updateScaleVars(double factor);
+        void updateRotationVars(int angle);
         void changeRulerOrigin(const QPointF &zero);
         void saveTimer();
         void showFullScreen();
@@ -107,6 +106,8 @@ class TupDocumentView : public QMainWindow
         void updateBackgroundShiftProperty(int shift);
         void renderDynamicBackground();
         void fullScreenRightClick();
+        void cameraInterface();
+        void insertPictureInFrame(int id, const QString path);
 
     private:
         struct Private;
@@ -115,6 +116,7 @@ class TupDocumentView : public QMainWindow
         void createToolBar();
         void createMenu();
         void createTools();
+        void updateRotationAngleFromRulers(int angle);
 
     private slots: 
         // Plugins
@@ -143,11 +145,11 @@ class TupDocumentView : public QMainWindow
         void redo();
         void selectTool();
         void applyFilter();
-
+        void drawGrid();
+        void drawActionSafeArea();
         bool handleProjectResponse(TupProjectResponse *event);
 
     signals:
-        void sendToStatus(const QString &msg);
         void requestTriggered(const TupProjectRequest *event);
         void localRequestTriggered(const TupProjectRequest *event);
         void autoSave();
@@ -159,8 +161,10 @@ class TupDocumentView : public QMainWindow
         void updatePenFromFullScreen(const QPen &pen);
         void updateStoryboard(TupStoryboard *storyboard, int sceneIndex);
         void postStoryboard(int sceneIndex);
-        void projectHasChanged();
+        // void projectHasChanged();
         void closePolyLine();
+        void closeLine();
+        void projectSizeHasChanged(const QSize dimension);
 
     // protected:
     // void closeEvent(QCloseEvent *e);

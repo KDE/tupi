@@ -106,17 +106,6 @@
     </message>
 </context>
 <context>
-    <name>ExactnessConfigurator</name>
-    <message>
-        <source>Smoothness</source>
-        <translation>Suavidad</translation>
-    </message>
-    <message>
-        <source>My Values:</source>
-        <translation>Mis Valores:</translation>
-    </message>
-</context>
-<context>
     <name>ExportTo</name>
     <message>
         <source>Image name prefix: </source>
@@ -171,8 +160,8 @@
         <translation>Error</translation>
     </message>
     <message>
-        <source>Directory &quot;</source>
-        <translation>Directorio &quot;</translation>
+        <source>Directory doesn&apos;t exist! Please, choose another path.</source>
+        <translation>El directorio no existe! Por favor, escoja otra ruta.</translation>
     </message>
     <message>
         <source>You have no permission to create this file. Please, choose another path.</source>
@@ -251,44 +240,8 @@
 <context>
     <name>InfoPanel</name>
     <message>
-        <source>Rotation mode</source>
-        <translation>Modo de Rotación</translation>
-    </message>
-    <message>
-        <source>Double click on any node or shortcut Alt + R</source>
-        <translation>Doble clic sobre cualquier nodo o combinación Alt + R</translation>
-    </message>
-    <message>
-        <source>Arrows</source>
-        <translation>Flechas</translation>
-    </message>
-    <message>
-        <source>Movement on selection</source>
-        <translation>Movimiento de la selección</translation>
-    </message>
-    <message>
-        <source>Shift + Arrows</source>
-        <translation>Shift + Flechas</translation>
-    </message>
-    <message>
-        <source>Slow movement on selection</source>
-        <translation>Movimiento lento de la selección</translation>
-    </message>
-    <message>
-        <source>Ctrl + Arrows</source>
-        <translation>Ctrl + Flechas</translation>
-    </message>
-    <message>
-        <source>Fast movement on selection</source>
-        <translation>Movimiento rápido de la selección</translation>
-    </message>
-    <message>
         <source>Shift + Left Mouse Button</source>
         <translation>Shift + Botón Izquierdo del Ratón</translation>
-    </message>
-    <message>
-        <source>Proportional scaling on selection</source>
-        <translation>Escala proporcional de la selección</translation>
     </message>
     <message>
         <source>Close line</source>
@@ -301,22 +254,6 @@
     <message>
         <source>Set width/height proportional dimensions</source>
         <translation>Aplicar dimensiones de ancho/altura proporcionales</translation>
-    </message>
-    <message>
-        <source>Flips</source>
-        <translation>Transformaciones</translation>
-    </message>
-    <message>
-        <source>Horizontal Flip</source>
-        <translation>Voltear Horizontalmente</translation>
-    </message>
-    <message>
-        <source>Vertical Flip</source>
-        <translation>Voltear Verticalmente</translation>
-    </message>
-    <message>
-        <source>Crossed Flip</source>
-        <translation>Voltear en ambos Ejes</translation>
     </message>
     <message>
         <source>Mouse Double Click</source>
@@ -337,26 +274,6 @@
     <message>
         <source>Shift</source>
         <translation>Desplazamiento</translation>
-    </message>
-    <message>
-        <source>Order</source>
-        <translation>Ordenar</translation>
-    </message>
-    <message>
-        <source>Send object to back</source>
-        <translation>Enviar objeto hacia atrás</translation>
-    </message>
-    <message>
-        <source>Send object to back one level</source>
-        <translation>Enviar objeto hacia atrás un nivel</translation>
-    </message>
-    <message>
-        <source>Send object to front</source>
-        <translation>Enviar objeto al frente</translation>
-    </message>
-    <message>
-        <source>Send object to front one level</source>
-        <translation>Enviar objeto al frente un nivel</translation>
     </message>
 </context>
 <context>
@@ -447,18 +364,6 @@
     <message>
         <source>This is a general failure</source>
         <translation>Esta es una falla general</translation>
-    </message>
-    <message>
-        <source>Initializing...</source>
-        <translation>Inicializando...</translation>
-    </message>
-    <message>
-        <source>Loading modules...</source>
-        <translation>Cargando módulos...</translation>
-    </message>
-    <message>
-        <source>Loaded!</source>
-        <translation>Cargado!</translation>
     </message>
     <message>
         <source>add</source>
@@ -795,6 +700,106 @@
         <source>Select objects for Tweening first!</source>
         <translation>Seleccione los objetos para el Tween primero!</translation>
     </message>
+    <message>
+        <source>Smoothness</source>
+        <translation>Suavidad</translation>
+    </message>
+    <message>
+        <source>Flips</source>
+        <translation>Transformaciones</translation>
+    </message>
+    <message>
+        <source>Horizontal Flip</source>
+        <translation>Voltear Horizontalmente</translation>
+    </message>
+    <message>
+        <source>Vertical Flip</source>
+        <translation>Voltear Verticalmente</translation>
+    </message>
+    <message>
+        <source>Crossed Flip</source>
+        <translation>Voltear en ambos Ejes</translation>
+    </message>
+    <message>
+        <source>Order</source>
+        <translation>Ordenar</translation>
+    </message>
+    <message>
+        <source>Send object to back</source>
+        <translation>Enviar objeto hacia atrás</translation>
+    </message>
+    <message>
+        <source>Send object to back one level</source>
+        <translation>Enviar objeto hacia atrás un nivel</translation>
+    </message>
+    <message>
+        <source>Send object to front</source>
+        <translation>Enviar objeto al frente</translation>
+    </message>
+    <message>
+        <source>Send object to front one level</source>
+        <translation>Enviar objeto al frente un nivel</translation>
+    </message>
+    <message>
+        <source>Rotation mode</source>
+        <translation>Modo de Rotación</translation>
+    </message>
+    <message>
+        <source>Double click on any node or shortcut Alt + R</source>
+        <translation>Doble clic sobre cualquier nodo o combinación Alt + R</translation>
+    </message>
+    <message>
+        <source>Arrows</source>
+        <translation>Flechas</translation>
+    </message>
+    <message>
+        <source>Movement on selection</source>
+        <translation>Movimiento de la selección</translation>
+    </message>
+    <message>
+        <source>Shift + Arrows</source>
+        <translation>Shift + Flechas</translation>
+    </message>
+    <message>
+        <source>Slow movement on selection</source>
+        <translation>Movimiento lento de la selección</translation>
+    </message>
+    <message>
+        <source>Ctrl + Arrows</source>
+        <translation>Ctrl + Flechas</translation>
+    </message>
+    <message>
+        <source>Fast movement on selection</source>
+        <translation>Movimiento rápido de la selección</translation>
+    </message>
+    <message>
+        <source>Shift + Left Mouse Button</source>
+        <translation>Shift + Botón Izquierdo del Ratón</translation>
+    </message>
+    <message>
+        <source>Proportional scaling on selection</source>
+        <translation>Escala proporcional de la selección</translation>
+    </message>
+    <message>
+        <source>Position</source>
+        <translation>Posición</translation>
+    </message>
+    <message>
+        <source>Show Tips</source>
+        <translation>Ver Ayuda</translation>
+    </message>
+    <message>
+        <source>A little help for the Selection tool</source>
+        <translation>Pequeñas ayudas de la herramienta de Selección</translation>
+    </message>
+    <message>
+        <source>Show Tools</source>
+        <translation>Ver Herramientas</translation>
+    </message>
+    <message>
+        <source>Options panel for the Selection tool</source>
+        <translation>Panel de opciones para la herramienta de Selección</translation>
+    </message>
 </context>
 <context>
     <name>SpinControl</name>
@@ -1036,12 +1041,40 @@
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
+    <message>
+        <source>About Tupi</source>
+        <translation>Acerca de Tupí</translation>
+    </message>
 </context>
 <context>
-    <name>TupAnimationArea</name>
+    <name>TupBasicCameraInterface</name>
     <message>
-        <source>Rendering...</source>
-        <translation>Renderizando...</translation>
+        <source>Tupi Camera Manager</source>
+        <translation>Gestor de Cámara de Tupí</translation>
+    </message>
+    <message>
+        <source>Current resolution:</source>
+        <translation>Resolución actual:</translation>
+    </message>
+    <message>
+        <source>Cameras</source>
+        <translation>Cámaras</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Cámara</translation>
+    </message>
+    <message>
+        <source>Take picture</source>
+        <translation>Capturar imagen</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <source>Can&apos;t create pictures directory</source>
+        <translation>No se puede crear el directorio de imágenes</translation>
     </message>
 </context>
 <context>
@@ -1065,6 +1098,112 @@
     <message>
         <source>Forward</source>
         <translation>Adelantar</translation>
+    </message>
+</context>
+<context>
+    <name>TupCameraDialog</name>
+    <message>
+        <source>Resize my project to fit camera resolution</source>
+        <translation>Redimensionar mi proyecto para que se ajuste a la cámara</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation>Aceptar</translation>
+    </message>
+    <message>
+        <source>Camera Settings</source>
+        <translation>Ajustes de Cámara</translation>
+    </message>
+    <message>
+        <source>Available Camera Devices:</source>
+        <translation>Cámaras detectadas:</translation>
+    </message>
+    <message>
+        <source>Camera Detected:</source>
+        <translation>Cámara detectada:</translation>
+    </message>
+    <message>
+        <source>Available Camera Resolutions:</source>
+        <translation>Resoluciones de cámara diponibles:</translation>
+    </message>
+    <message>
+        <source>Use the basic camera interface (low resources)</source>
+        <translation>Usar la interfaz básica de cámara (bajos recursos)</translation>
+    </message>
+</context>
+<context>
+    <name>TupCameraInterface</name>
+    <message>
+        <source>Tupi Camera Manager</source>
+        <translation>Gestor de Cámara de Tupí</translation>
+    </message>
+    <message>
+        <source>Current resolution:</source>
+        <translation>Resolución actual:</translation>
+    </message>
+    <message>
+        <source>Cameras</source>
+        <translation>Cámaras</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Cámara</translation>
+    </message>
+    <message>
+        <source>Take picture</source>
+        <translation>Capturar imagen</translation>
+    </message>
+    <message>
+        <source>Show safe area</source>
+        <translation>Mostrar área de seguridad </translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation>+</translation>
+    </message>
+    <message>
+        <source>Show grid</source>
+        <translation>Mostrar malla</translation>
+    </message>
+    <message>
+        <source>#</source>
+        <translation>#</translation>
+    </message>
+    <message>
+        <source>Grid spacing</source>
+        <translation>Espacio de la malla</translation>
+    </message>
+    <message>
+        <source>Grid color</source>
+        <translation>Color de Malla</translation>
+    </message>
+    <message>
+        <source>Show previous images</source>
+        <translation>Mostrar imágenes previas</translation>
+    </message>
+    <message>
+        <source>P</source>
+        <translation>P</translation>
+    </message>
+    <message>
+        <source>Image opacity level</source>
+        <translation>Nivel de opacidad de la imagen</translation>
+    </message>
+    <message>
+        <source>Amount of images to show</source>
+        <translation>Cantidad de imágenes a mostrar</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <source>Can&apos;t create pictures directory</source>
+        <translation>No se puede crear el directorio de imágenes</translation>
     </message>
 </context>
 <context>
@@ -1096,6 +1235,21 @@
     <message>
         <source>Post</source>
         <translation>Publicar</translation>
+    </message>
+</context>
+<context>
+    <name>TupCameraWidget</name>
+    <message>
+        <source>Scene Preview</source>
+        <translation>Previsualizador de Escenas</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Escala</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Dimensión</translation>
     </message>
 </context>
 <context>
@@ -1267,17 +1421,6 @@
     </message>
 </context>
 <context>
-    <name>TupCommandExecutor</name>
-    <message>
-        <source>Frame doesn&apos;t exist!</source>
-        <translation>El marco no existe!</translation>
-    </message>
-    <message>
-        <source>Layer doesn&apos;t exist!</source>
-        <translation>La capa no existe!</translation>
-    </message>
-</context>
-<context>
     <name>TupConfigurationArea</name>
     <message>
         <source>Cursor here for expand</source>
@@ -1352,40 +1495,12 @@
         <translation>Selección de Objetos</translation>
     </message>
     <message>
-        <source>Show grid</source>
-        <translation>Mostrar malla</translation>
-    </message>
-    <message>
-        <source>#</source>
-        <translation>#</translation>
-    </message>
-    <message>
-        <source>Show a grid over the canvas</source>
-        <translation>Dibuja una malla sobre el canvas</translation>
-    </message>
-    <message>
-        <source>Full screen</source>
-        <translation>Pantalla completa</translation>
-    </message>
-    <message>
-        <source>F11</source>
-        <translation>F11</translation>
-    </message>
-    <message>
-        <source>Open a full screen view of canvas</source>
-        <translation>Vista del canvas en pantalla completa</translation>
-    </message>
-    <message>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
-    </message>
-    <message>
-        <source>Copies the selection and puts it onto the clipboard</source>
-        <translation>Copia la selección y la pone disponible para pegar</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -1396,10 +1511,6 @@
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <source>Pastes the clipboard into the current document</source>
-        <translation>Pega el objeto copiado en el documento actual</translation>
-    </message>
-    <message>
         <source>Cut</source>
         <translation>Cortar</translation>
     </message>
@@ -1408,28 +1519,16 @@
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <source>Cuts the selected items</source>
-        <translation>Corta los objetos seleccionados</translation>
-    </message>
-    <message>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <source>Deletes the selected object</source>
-        <translation>Elimina el objeto seleccionado</translation>
-    </message>
-    <message>
         <source>&amp;Group</source>
-        <translation>&amp;Grupo</translation>
+        <translation>&amp;Agrupar</translation>
     </message>
     <message>
         <source>Ctrl+G</source>
         <translation>Ctrl+G</translation>
-    </message>
-    <message>
-        <source>Group the selected objects into a single one</source>
-        <translation>Agrupa los objetos seleccionados en uno solo</translation>
     </message>
     <message>
         <source>&amp;Ungroup</source>
@@ -1440,10 +1539,6 @@
         <translation>Ctrl+Shift+G</translation>
     </message>
     <message>
-        <source>Ungroups the selected object</source>
-        <translation>Desagrupa el objeto seleccionado</translation>
-    </message>
-    <message>
         <source>Onion Skin</source>
         <translation>Papel cebolla</translation>
     </message>
@@ -1452,20 +1547,12 @@
         <translation>Ctrl+Shift+O</translation>
     </message>
     <message>
-        <source>Enable/Disable onion skin</source>
-        <translation>Habilita/Deshabilita el papel cebolla</translation>
-    </message>
-    <message>
         <source>Onion Skin Factor</source>
         <translation>Factor de Trasparencia</translation>
     </message>
     <message>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
-    </message>
-    <message>
-        <source>Set onion skin factor default value</source>
-        <translation>Asigna valor por defecto de opacidad del papel cebolla</translation>
     </message>
     <message>
         <source>@</source>
@@ -1654,6 +1741,34 @@
     <message>
         <source>Can&apos;t export frame as image</source>
         <translation>No se puede exportar el marco como imagen</translation>
+    </message>
+    <message>
+        <source>Export Current Frame As Image</source>
+        <translation>Exportar marco actual como Imagen</translation>
+    </message>
+    <message>
+        <source>Export Current Frame To Gallery</source>
+        <translation>Exportar marco actual a galería</translation>
+    </message>
+    <message>
+        <source>Storyboard Settings</source>
+        <translation>Propiedades de Storyboard</translation>
+    </message>
+    <message>
+        <source>Camera</source>
+        <translation>Cámara</translation>
+    </message>
+    <message>
+        <source>Ctrl+Shift+C</source>
+        <translation>Ctrl+Shift+C</translation>
+    </message>
+    <message>
+        <source>No cameras detected</source>
+        <translation>No se detectaron camaras conectadas</translation>
+    </message>
+    <message>
+        <source>Frame %1</source>
+        <translation>Marco %1</translation>
     </message>
 </context>
 <context>
@@ -2150,20 +2265,12 @@
         <translation>Adicionar una carpeta a la lista de objetos</translation>
     </message>
     <message>
-        <source>Import an image...</source>
-        <translation>Importar una imagen...</translation>
-    </message>
-    <message>
         <source>Image is bigger than workspace.</source>
         <translation>La imagen es más grande que el área de trabajo.</translation>
     </message>
     <message>
         <source>Do you want to resize it?</source>
         <translation>Desea redimensionarla?</translation>
-    </message>
-    <message>
-        <source>Import a SVG file...</source>
-        <translation>Importar un archivo SVG...</translation>
     </message>
     <message>
         <source>Images</source>
@@ -2289,6 +2396,14 @@
         <source>Vector</source>
         <translation>Vectorial</translation>
     </message>
+    <message>
+        <source>Import images...</source>
+        <translation>Importar imágenes...</translation>
+    </message>
+    <message>
+        <source>Import SVG files...</source>
+        <translation>Importar archivos SVG...</translation>
+    </message>
 </context>
 <context>
     <name>TupListProjectDialog</name>
@@ -2334,22 +2449,6 @@
     <message>
         <source>by</source>
         <translation>por</translation>
-    </message>
-    <message>
-        <source>Setting up the project manager</source>
-        <translation>Configurando el administrador de proyectos</translation>
-    </message>
-    <message>
-        <source>Loading action manager...</source>
-        <translation>Cargando el administrador de acciones...</translation>
-    </message>
-    <message>
-        <source>Creating menu bar...</source>
-        <translation>Creando la barra de menús...</translation>
-    </message>
-    <message>
-        <source>Creating GUI...</source>
-        <translation>Creando GUI...</translation>
     </message>
     <message>
         <source>Information</source>
@@ -2404,10 +2503,6 @@
         <translation>Archivo de Proyecto (*.tup)</translation>
     </message>
     <message>
-        <source>Preferences Dialog Opened</source>
-        <translation>Dialogo de preferencias abierto</translation>
-    </message>
-    <message>
         <source>Tip of the day</source>
         <translation>Consejo del día</translation>
     </message>
@@ -2430,22 +2525,6 @@
     <message>
         <source>Close</source>
         <translation>Cerrar</translation>
-    </message>
-    <message>
-        <source>Import gimp palettes</source>
-        <translation>Importar paletas de gimp</translation>
-    </message>
-    <message>
-        <source>Gimp Palette (*.gpl)</source>
-        <translation>Paleta de Gimp (*.gpl)</translation>
-    </message>
-    <message>
-        <source>Importing palettes</source>
-        <translation>Importando paletas</translation>
-    </message>
-    <message>
-        <source>Directory &quot;</source>
-        <translation>Directorio &quot;</translation>
     </message>
     <message>
         <source>You have no permission to create this file. Please, choose another path.</source>
@@ -2556,14 +2635,6 @@
         <translation>Cargar proyecto existente</translation>
     </message>
     <message>
-        <source>Open project from server...</source>
-        <translation>Abrir proyecto desde servidor...</translation>
-    </message>
-    <message>
-        <source>Export project to server...</source>
-        <translation>Exportar proyecto a servidor...</translation>
-    </message>
-    <message>
         <source>Save project</source>
         <translation>Guardar proyecto</translation>
     </message>
@@ -2604,10 +2675,6 @@
         <translation>&amp;Importar paletas de Gimp</translation>
     </message>
     <message>
-        <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
-    </message>
-    <message>
         <source>Import palettes</source>
         <translation>Importar paletas</translation>
     </message>
@@ -2634,14 +2701,6 @@
     <message>
         <source>Close application</source>
         <translation>Cerrar aplicación</translation>
-    </message>
-    <message>
-        <source>Launch configuration wizard...</source>
-        <translation>Cargar asistente de configuración...</translation>
-    </message>
-    <message>
-        <source>Launch first configuration wizard</source>
-        <translation>Cargar primer asistente de configuración</translation>
     </message>
     <message>
         <source>Pr&amp;eferences...</source>
@@ -2758,6 +2817,30 @@
     <message>
         <source>Actions Bar</source>
         <translation>Barra de Acciones</translation>
+    </message>
+    <message>
+        <source>Directory does not exist! Please, choose another path.</source>
+        <translation>El directorio no existe! Por favor, escoja otra ruta.</translation>
+    </message>
+    <message>
+        <source>Gimp palette import was successful</source>
+        <translation>La paleta de Gimp fue importada exitosamente</translation>
+    </message>
+    <message>
+        <source>Gimp palette import was unsuccessful</source>
+        <translation>La paleta de Gimp no pudo ser importada</translation>
+    </message>
+    <message>
+        <source>Shift+G</source>
+        <translation>Shift+G</translation>
+    </message>
+    <message>
+        <source>Import Gimp palettes</source>
+        <translation>Importar paletas de Gimp</translation>
+    </message>
+    <message>
+        <source>Gimp Palette (*.gpl *.txt *.css)</source>
+        <translation>Paleta Gimp (*.gpl *.txt *.css)</translation>
     </message>
 </context>
 <context>
@@ -2903,10 +2986,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>Propiedades</translation>
     </message>
     <message>
-        <source>Network</source>
-        <translation>Red</translation>
-    </message>
-    <message>
         <source>Password</source>
         <translation>Clave</translation>
     </message>
@@ -2989,6 +3068,14 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Please, fill in the server name or IP</source>
         <translation>Por favor, ingrese el nombre o el IP del servidor</translation>
+    </message>
+    <message>
+        <source>520x380 - 24</source>
+        <translation>520x380 - 24</translation>
+    </message>
+    <message>
+        <source>640x480 - 24</source>
+        <translation>640x480 - 24</translation>
     </message>
 </context>
 <context>
@@ -3231,6 +3318,30 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Rotate Workspace</source>
         <translation>Rotar Área de Trabajo</translation>
+    </message>
+    <message>
+        <source>Action Safe Area</source>
+        <translation>Área de Seguridad</translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation>+</translation>
+    </message>
+    <message>
+        <source>Show grid</source>
+        <translation>Mostrar malla</translation>
+    </message>
+    <message>
+        <source>#</source>
+        <translation>#</translation>
+    </message>
+    <message>
+        <source>Full screen</source>
+        <translation>Pantalla completa</translation>
+    </message>
+    <message>
+        <source>F11</source>
+        <translation>F11</translation>
     </message>
 </context>
 <context>
@@ -3529,6 +3640,13 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
 </context>
 <context>
+    <name>TupScreen</name>
+    <message>
+        <source>Rendering...</source>
+        <translation>Renderizando...</translation>
+    </message>
+</context>
+<context>
     <name>TupSplash</name>
     <message>
         <source>Version </source>
@@ -3540,10 +3658,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Storyboard Settings</source>
         <translation>Propiedades de Storyboard</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>Storyboard General Information</source>
@@ -3594,10 +3708,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>Storyboard exportado satisfactoriamente!</translation>
     </message>
     <message>
-        <source>&amp;Export as HTML</source>
-        <translation>&amp;Exportar como HTML</translation>
-    </message>
-    <message>
         <source>&amp;Post</source>
         <translation>&amp;Publicar</translation>
     </message>
@@ -3608,6 +3718,46 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Choose a directory...</source>
         <translation>Escoja un directorio...</translation>
+    </message>
+    <message>
+        <source>Scene</source>
+        <translation>Escena</translation>
+    </message>
+    <message>
+        <source>&amp;PDF</source>
+        <translation>&amp;PDF</translation>
+    </message>
+    <message>
+        <source>Export as PDF</source>
+        <translation>Exportar como PDF</translation>
+    </message>
+    <message>
+        <source>&amp;HTML</source>
+        <translation>&amp;HTML</translation>
+    </message>
+    <message>
+        <source>Export as HTML</source>
+        <translation>Exportar como HTML</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Cerrar</translation>
+    </message>
+    <message>
+        <source>Save PDF file</source>
+        <translation>Guardar archivo PDF</translation>
+    </message>
+    <message>
+        <source>PDF file (*.pdf)</source>
+        <translation>Archivo PDF (*.pdf)</translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation>PDF</translation>
+    </message>
+    <message>
+        <source>Html</source>
+        <translation>Html</translation>
     </message>
 </context>
 <context>
@@ -3821,17 +3971,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
 </context>
 <context>
-    <name>TupViewCamera</name>
-    <message>
-        <source>Render Camera Preview</source>
-        <translation>Vista previa de cámara</translation>
-    </message>
-    <message>
-        <source>Scale</source>
-        <translation>Escala</translation>
-    </message>
-</context>
-<context>
     <name>TupViewColorCells</name>
     <message>
         <source>Default Palette</source>
@@ -4002,10 +4141,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>El Tween de Color no puede ser aplicado a imágenes raster</translation>
     </message>
     <message>
-        <source>Coloring Tween can&apos;t be applied to Svg files</source>
-        <translation>El Tween de Color no puede ser aplicado a objectos Svg</translation>
-    </message>
-    <message>
         <source>Info</source>
         <translation>Información</translation>
     </message>
@@ -4016,6 +4151,10 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Shift+H</source>
         <translation>Shift+H</translation>
+    </message>
+    <message>
+        <source>Coloring Tween can&apos;t be applied to SVG files</source>
+        <translation>El Tween de Color no puede ser aplicado a objetos SVG</translation>
     </message>
 </context>
 <context>

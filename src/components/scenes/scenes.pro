@@ -24,7 +24,7 @@ SOURCES += tupsceneslist.cpp \
 TEMPLATE = lib
 TARGET = tupiscenes
 
-INCLUDEPATH += ../../libbase 
+INCLUDEPATH += ../../libbase
 INCLUDEPATH += ../../store
 INCLUDEPATH += ../../libtupi
 LIBS += -L../../libbase

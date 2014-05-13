@@ -42,6 +42,7 @@
 #include "tupbrushstatus.h"
 #include "tuptoolstatus.h"
 
+#include <QPushButton>
 #include <QComboBox>
 #include <QCheckBox>
 #include <QLabel>
@@ -49,21 +50,26 @@
 #include <QIntValidator>
 #include <QObject>
 #include <QLineEdit>
+#include <QDir>
 
 ////////////////
 
 struct TupPaintAreaStatus::Private
 {
     TupDocumentView *documentView;
-
+ 
+    QPushButton *fullScreenButton;
     QLineEdit *frameField; 
     QComboBox *zoom;
     QComboBox *rotation;
     QCheckBox *antialiasHint;
+    QLabel *positionLabel;
+
     TupBrushStatus *brushStatus;
     TupBrushStatus *bgStatus;
     TupToolStatus *toolStatus;
     qreal scaleFactor;
+    int angle;
     int currentFrame;
 };
 
@@ -72,7 +78,41 @@ TupPaintAreaStatus::TupPaintAreaStatus(TupDocumentView *parent) : QStatusBar(par
     setSizeGripEnabled(false);
     k->documentView = parent;
     k->scaleFactor = 100;
+    k->angle = 0;
     k->currentFrame = 1;
+
+    k->positionLabel = new QLabel; 
+    QFont font = this->font();
+    font.setPointSize(8);
+    k->positionLabel->setFont(font);
+
+    addPermanentWidget(k->positionLabel, 1);
+
+    QPushButton *actionSafeAreaButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "safe_area.png")), "");
+    actionSafeAreaButton->setIconSize(QSize(16, 16));
+    actionSafeAreaButton->setToolTip(tr("Action Safe Area"));
+    actionSafeAreaButton->setShortcut(QKeySequence(tr("+")));
+    actionSafeAreaButton->setCheckable(true);
+    connect(actionSafeAreaButton, SIGNAL(clicked()), k->documentView, SLOT(drawActionSafeArea()));
+
+    addPermanentWidget(actionSafeAreaButton);
+
+    QPushButton *gridButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "subgrid.png")), "");
+    gridButton->setIconSize(QSize(16, 16));
+    gridButton->setToolTip(tr("Show grid"));
+    gridButton->setShortcut(QKeySequence(tr("#")));
+    gridButton->setCheckable(true);
+    connect(gridButton, SIGNAL(clicked()), k->documentView, SLOT(drawGrid()));
+
+    addPermanentWidget(gridButton);
+
+    k->fullScreenButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "full_screen.png")), "");
+    k->fullScreenButton->setIconSize(QSize(16, 16));
+    k->fullScreenButton->setToolTip(tr("Full screen"));
+    k->fullScreenButton->setShortcut(QKeySequence(tr("F11")));
+    connect(k->fullScreenButton, SIGNAL(clicked()), k->documentView, SLOT(showFullScreen()));
+
+    addPermanentWidget(k->fullScreenButton);
 
     QWidget *frameContainer = new QWidget;
     frameContainer->setFixedWidth(70);
@@ -81,7 +121,7 @@ TupPaintAreaStatus::TupPaintAreaStatus(TupDocumentView *parent) : QStatusBar(par
     frameLayout->setMargin(1);
     QLabel *frameLabel = new QLabel("");
     frameLabel->setToolTip(tr("Current Frame"));
-    QPixmap framePix(THEME_DIR + "icons/frame_number.png");
+    QPixmap framePix(THEME_DIR + "icons" + QDir::separator() + "frame_number.png");
     frameLabel->setPixmap(framePix);
 
     k->frameField = new QLineEdit(frameContainer);
@@ -102,17 +142,14 @@ TupPaintAreaStatus::TupPaintAreaStatus(TupDocumentView *parent) : QStatusBar(par
 
     QLabel *zoomTool = new QLabel("");
     zoomTool->setToolTip(tr("Zoom"));
-    QPixmap pix(THEME_DIR + "icons/zoom_small.png");
+    QPixmap pix(THEME_DIR + "icons" + QDir::separator() + "zoom_small.png");
     zoomTool->setPixmap(pix);
-    // zoomTool->setMaximumSize(15, 15);
 
     zoomLayout->addWidget(zoomTool);
 
     k->zoom = new QComboBox();
     k->zoom->setDuplicatesEnabled(false);
     k->zoom->setEditable(true);
-    //k->zoom->setFocusPolicy(Qt::NoFocus);
-    //k->zoom->setInsertPolicy(QComboBox::InsertBeforeCurrent);
 
     for (int i = 500; i >= 250; i-=50)
          k->zoom->addItem(QString::number(i), i);
@@ -135,11 +172,9 @@ TupPaintAreaStatus::TupPaintAreaStatus(TupDocumentView *parent) : QStatusBar(par
     rotLayout->setSpacing(3);
     rotLayout->setMargin(1);
 
-    // rotLayout->addWidget(new QLabel(tr("Rotate")));
-
     QLabel *rotateLabel = new QLabel("");
     rotateLabel->setToolTip(tr("Rotate Workspace"));
-    QPixmap rotatePix(THEME_DIR + "icons/rotate_workspace.png");
+    QPixmap rotatePix(THEME_DIR + "icons" + QDir::separator() + "rotate_workspace.png");
     rotateLabel->setPixmap(rotatePix);
 
     rotLayout->addWidget(rotateLabel);
@@ -159,12 +194,9 @@ TupPaintAreaStatus::TupPaintAreaStatus(TupDocumentView *parent) : QStatusBar(par
 
     connect(k->rotation, SIGNAL(activated(const QString &)), this, SLOT(applyRotation(const QString &)));
 
-    ///////
-
     k->antialiasHint = new QCheckBox;
-    k->antialiasHint->setIcon(QIcon(QPixmap(THEME_DIR + "icons/antialiasing.png")));
+    k->antialiasHint->setIcon(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "antialiasing.png")));
     k->antialiasHint->setToolTip(tr("Antialiasing"));
-    // k->antialiasHint->setFocusPolicy(Qt::NoFocus);
     k->antialiasHint->setCheckable(true);
     k->antialiasHint->setChecked(true);
     k->antialiasHint->setFixedWidth(36);
@@ -173,14 +205,14 @@ TupPaintAreaStatus::TupPaintAreaStatus(TupDocumentView *parent) : QStatusBar(par
 
     connect(k->antialiasHint, SIGNAL(clicked()), this, SLOT(selectAntialiasingHint()));
 
-    k->bgStatus = new TupBrushStatus(tr("Background Color"), QPixmap(THEME_DIR + "icons/background_color.png"), true);
+    k->bgStatus = new TupBrushStatus(tr("Background Color"), QPixmap(THEME_DIR + "icons" + QDir::separator() + "background_color.png"), true);
     k->bgStatus->setTooltip(tr("Click here to change background color"));
     addPermanentWidget(k->bgStatus);
     k->bgStatus->setColor(k->documentView->project()->bgColor());
 
     connect(k->bgStatus, SIGNAL(colorUpdated(const QColor)), this, SIGNAL(colorUpdated(const QColor)));
 
-    k->brushStatus = new TupBrushStatus(tr("Brush Color"), QPixmap(THEME_DIR + "icons/brush_color.png"), false);
+    k->brushStatus = new TupBrushStatus(tr("Brush Color"), QPixmap(THEME_DIR + "icons" + QDir::separator() + "brush_color.png"), false);
     k->brushStatus->setTooltip(tr("Click here to change brush color"));
     addPermanentWidget(k->brushStatus);
 
@@ -224,7 +256,7 @@ void TupPaintAreaStatus::setPen(const QPen &pen)
     k->brushStatus->setForeground(pen);
 }
 
-void TupPaintAreaStatus::applyRotation(const QString & text)
+void TupPaintAreaStatus::applyRotation(const QString &text)
 {
     int angle = text.toInt();
 
@@ -303,7 +335,6 @@ void TupPaintAreaStatus::updateFramePointer()
     int index = text.toInt(&ok); 
    
     if (ok) {
-
         if (index < 1 || index > 999) {
             k->frameField->setText(QString::number(k->currentFrame));
             return;
@@ -324,8 +355,31 @@ void TupPaintAreaStatus::updateFramePointer()
     }
 }
 
+void TupPaintAreaStatus::updateRotationAngle(int angle)
+{
+    k->angle = angle;
+    QString text = QString::number(angle); 
+    int index = k->rotation->findText(text);
+
+    k->rotation->blockSignals(true);
+    if (index != -1)
+        k->rotation->setCurrentIndex(index);
+    else
+        k->rotation->setEditText(text);
+    k->rotation->blockSignals(false);
+}
+
 void TupPaintAreaStatus::setBgColor(QColor color)
 {
     k->bgStatus->setColor(color);
 }
 
+void TupPaintAreaStatus::enableFullScreenFeature(bool flag)
+{
+    k->fullScreenButton->setEnabled(flag);
+}
+
+void TupPaintAreaStatus::updatePosition(const QString &position)
+{
+    k->positionLabel->setText(position);
+}

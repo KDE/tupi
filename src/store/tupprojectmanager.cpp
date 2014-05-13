@@ -300,8 +300,9 @@ void TupProjectManager::handleProjectRequest(const TupProjectRequest *request)
 {
     #ifdef K_DEBUG
            T_FUNCINFO;
-           tWarning() << "Package: ";
-           tWarning() << request->xml();
+           // SQA: Enable these lines only for hard/tough debugging
+           // tWarning() << "Package: ";
+           // tWarning() << request->xml();
     #endif
 
     // SQA: the handler must advise when to build the command
@@ -404,7 +405,8 @@ void TupProjectManager::emitResponse(TupProjectResponse *response)
 
     if (response->action() != TupProjectRequest::Select) {
         k->isModified = true;
-        if (TupSceneResponse *sceneResponse = static_cast<TupSceneResponse *>(response)) {
+        // if (TupSceneResponse *sceneResponse = static_cast<TupSceneResponse *>(response)) {
+        if (static_cast<TupSceneResponse *>(response)) {
             if (response->action() == TupProjectRequest::Remove)
                 emit projectHasChanged(true);
             else
@@ -453,4 +455,9 @@ bool TupProjectManager::cleanProjectPath(QString &projectPath)
     }
 
     return result;
+}
+
+void TupProjectManager::updateProjectDimension(const QSize size)
+{
+    k->project->setDimension(size);     
 }

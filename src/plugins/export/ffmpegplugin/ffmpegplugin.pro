@@ -13,12 +13,9 @@ HEADERS += tffmpegmoviegenerator.h \
 SOURCES += tffmpegmoviegenerator.cpp \
            ffmpegplugin.cpp
 
-OTHER_FILES += ffmpegplugin.json
-
 CONFIG += plugin warn_on
 TEMPLATE = lib 
 TARGET = tupiffmpegplugin
-LIBS += -lavformat -lavcodec -lavutil
 
 INCLUDEPATH += ../../../libbase
 INCLUDEPATH += ../../../store

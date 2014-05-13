@@ -56,10 +56,14 @@
 #include "tuplayer.h"
 #include "tuppaintareastatus.h"
 #include "tupcanvas.h"
-#include "polyline.h"
+#include "polylinetool.h"
 #include "tupimagedialog.h"
 #include "tupstoryboarddialog.h"
-#include "tupiruler.h"
+#include "tupruler.h"
+#include "tupcamerainterface.h"
+#include "tupbasiccamerainterface.h"
+#include "tupcameradialog.h"
+#include "tuplibrary.h"
 
 #include <QLayout>
 #include <QStatusBar>
@@ -81,6 +85,10 @@
 #include <QGridLayout>
 #include <QComboBox>
 #include <QDesktopWidget>
+#include <QMessageBox>
+
+#include <QCamera>
+#include <QCameraImageCapture>
 
 /**
  * This class defines all the environment for the Ilustration interface.
@@ -90,6 +98,7 @@
 
 struct TupDocumentView::Private
 {
+    QSize wsDimension;
     QActionGroup *gridGroup; 
     QActionGroup *editGroup; 
     QActionGroup *viewNextGroup; 
@@ -125,7 +134,6 @@ struct TupDocumentView::Private
     double opacityFactor;
     int viewAngle;
     int autoSaveTime;
-    TAction *fullScreenAction;
     bool fullScreenOn;
     bool isNetworked;
     QStringList onLineUsers;
@@ -133,8 +141,8 @@ struct TupDocumentView::Private
     TupPaintArea *paintArea;
     TupCanvas *fullScreen;
 
-    TupiRuler *verticalRuler;
-    TupiRuler *horizontalRuler;
+    TupRuler *verticalRuler;
+    TupRuler *horizontalRuler;
 
     TActionManager *actionManager;
     TupConfigurationArea *configurationArea;
@@ -142,6 +150,8 @@ struct TupDocumentView::Private
     TupPaintAreaStatus *status;
     QComboBox *spaceMode;
     bool dynamicFlag;
+    QSize cameraSize;
+    int photoCounter;
 
     TupProject *project;
     QTimer *timer;
@@ -155,7 +165,7 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
            TINIT;
     #endif
 
-    setWindowIcon(QPixmap(THEME_DIR + "icons/animation_mode.png"));
+    setWindowIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "animation_mode.png"));
 
     k->project = project;
     k->currentTool = 0;
@@ -165,6 +175,7 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
     k->isNetworked = isNetworked;
     k->onLineUsers = users;
     k->dynamicFlag = false;
+    k->photoCounter = 1;
 
     k->actionManager = new TActionManager(this);
 
@@ -183,12 +194,13 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
 
     layout->addWidget(k->paintArea, 1, 1);
 
-    k->horizontalRuler = new TupiRuler(Qt::Horizontal, this);
-    k->verticalRuler = new TupiRuler(Qt::Vertical, this);
+    k->horizontalRuler = new TupRuler(Qt::Horizontal, this);
+    k->verticalRuler = new TupRuler(Qt::Vertical, this);
     layout->addWidget(k->horizontalRuler, 0, 1);
     layout->addWidget(k->verticalRuler, 1, 0);
 
     connect(k->paintArea, SIGNAL(scaled(double)), this, SLOT(updateScaleVars(double)));
+    connect(k->paintArea, SIGNAL(rotated(int)), this, SLOT(updateRotationVars(int)));
     connect(k->paintArea, SIGNAL(updateStatusBgColor(QColor)), this, SLOT(updateStatusBgColor(QColor)));
 
     Tupi::RenderType renderType = Tupi::RenderType(TCONFIG->value("RenderType").toInt()); 
@@ -222,10 +234,6 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
 
     setupDrawActions();
 
-    //k->configurationArea = new TupConfigurationArea(this);
-    //addDockWidget(Qt::RightDockWidgetArea, k->configurationArea);
-    //k->configurationArea->close();
-   
     createTools(); 
     createToolBar();
     
@@ -240,8 +248,7 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
     // connect(k->paintArea->brushManager(), SIGNAL(brushChanged(const QBrush&)), k->status, 
     //         SLOT(setBrush(const QBrush &)));
 
-    connect(k->paintArea->brushManager(), SIGNAL(penChanged(const QPen&)), k->status, 
-            SLOT(setPen(const QPen &)));
+    connect(k->paintArea->brushManager(), SIGNAL(penChanged(const QPen&)), k->status, SLOT(setPen(const QPen &)));
 
     QTimer::singleShot(1000, this, SLOT(loadPlugins()));
 
@@ -266,6 +273,11 @@ TupDocumentView::~TupDocumentView()
     delete k;
 }
 
+void TupDocumentView::setWorkSpaceSize(int width, int height)
+{
+    k->wsDimension = QSize(width, height);
+}
+
 void TupDocumentView::setAntialiasing(bool useIt)
 {
     k->paintArea->setAntialiasing(useIt);
@@ -276,9 +288,14 @@ void TupDocumentView::setOpenGL(bool useIt)
     k->paintArea->setUseOpenGL(useIt);
 }
 
-void TupDocumentView::setDrawGrid(bool draw)
+void TupDocumentView::drawGrid()
 {
-    k->paintArea->setDrawGrid(draw);
+    k->paintArea->drawGrid(!k->paintArea->gridFlag());
+}
+
+void TupDocumentView::drawActionSafeArea()
+{
+    k->paintArea->drawActionSafeArea(!k->paintArea->actionSafeAreaFlag());
 }
 
 QPainter::RenderHints TupDocumentView::renderHints() const
@@ -286,10 +303,32 @@ QPainter::RenderHints TupDocumentView::renderHints() const
     return k->paintArea->renderHints();
 }
 
-void TupDocumentView::setRotationAngle(int angle)
+void TupDocumentView::updateRotationAngleFromRulers(int angle)
 {
     k->viewAngle = angle;
+
+    TupRuler::Transformation flag = TupRuler::None;
+    if (angle != 0 && angle != 90 && angle != 180  && angle != 270)
+        flag = TupRuler::Rotation;
+    else
+        flag = TupRuler::None;
+
+    k->verticalRuler->updateCurrentTransformation(flag);
+    k->horizontalRuler->updateCurrentTransformation(flag);
+}
+
+void TupDocumentView::setRotationAngle(int angle)
+{
+    updateRotationAngleFromRulers(angle);
+
     k->paintArea->setRotationAngle(angle);
+}
+
+void TupDocumentView::updateRotationVars(int angle)
+{
+    updateRotationAngleFromRulers(angle);
+
+    k->status->updateRotationAngle(angle);
 }
 
 void TupDocumentView::setZoom(qreal factor)
@@ -312,88 +351,54 @@ void TupDocumentView::setZoomView(const QString &percent)
 void TupDocumentView::showPos(const QPointF &point)
 {
     QString message =  "X: " +  QString::number(point.x()) + " Y: " + QString::number(point.y());
-    emit sendToStatus(message);
+    k->status->updatePosition(message);
 }
 
 void TupDocumentView::setupDrawActions()
 {
-    TAction *showGrid = new TAction(QPixmap(THEME_DIR + "icons/subgrid.png"), 
-                                    tr("Show grid"), QKeySequence(tr("#")),
-                                    this, SLOT(toggleShowGrid()), k->actionManager, "show_grid");
-    showGrid->setStatusTip(tr("Show a grid over the canvas"));
-    showGrid->setCheckable(true);
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "copy.png"), tr("Copy"), QKeySequence(tr("Ctrl+C")), 
+                k->paintArea, SLOT(copyItems()), k->actionManager, "copy");
 
-    k->fullScreenAction = new TAction(QPixmap(THEME_DIR + "icons/full_screen.png"),
-                                    tr("Full screen"), QKeySequence(tr("F11")),
-                                    this, SLOT(showFullScreen()), k->actionManager, "full_screen");
-    k->fullScreenAction->setStatusTip(tr("Open a full screen view of canvas"));
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "paste.png"), tr("Paste"), QKeySequence(tr("Ctrl+V")),
+                k->paintArea, SLOT(pasteItems()), k->actionManager, "paste");
 
-    TAction *copy = new TAction(QPixmap(THEME_DIR + "icons/copy.png"), 
-                                tr("Copy"), QKeySequence(tr("Ctrl+C")),
-                                k->paintArea, SLOT(copyItems()), k->actionManager, "copy");
-    copy->setStatusTip(tr("Copies the selection and puts it onto the clipboard"));
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "cut.png"), tr("Cut"), QKeySequence(tr("Ctrl+X")),
+                k->paintArea, SLOT(cutItems()),k->actionManager, "cut");
 
-    TAction *paste = new TAction(QPixmap(THEME_DIR + "icons/paste.png"), 
-                                 tr("Paste"), QKeySequence(tr("Ctrl+V")),
-                                 k->paintArea, SLOT(pasteItems()), k->actionManager, "paste");
-    paste->setStatusTip(tr("Pastes the clipboard into the current document"));
-
-    TAction *cut = new TAction(QPixmap(THEME_DIR + "icons/cut.png"), 
-                               tr("Cut"), QKeySequence(tr("Ctrl+X")),
-                               k->paintArea, SLOT(cutItems()),k->actionManager, "cut");
-    cut->setStatusTip(tr("Cuts the selected items"));
-
-    TAction *del = new TAction(QPixmap(THEME_DIR + "icons/delete.png"), tr("Delete"), 
-                               QKeySequence(Qt::Key_Delete), k->paintArea, SLOT(deleteItems()), 
-                               k->actionManager, "delete");
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "delete.png"), tr("Delete"), QKeySequence(Qt::Key_Delete), 
+                k->paintArea, SLOT(deleteItems()), k->actionManager, "delete");
     
-    del->setStatusTip(tr("Deletes the selected object"));
-
-    TAction *group = new TAction(QPixmap(THEME_DIR + "icons/group.png"), tr("&Group"),   
-                                 QKeySequence(tr("Ctrl+G")), k->paintArea, SLOT(groupItems()), 
-                                 k->actionManager, "group");
-
-    group->setStatusTip(tr("Group the selected objects into a single one"));
+    TAction *group = new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "group.png"), tr("&Group"), QKeySequence(tr("Ctrl+G")), 
+                k->paintArea, SLOT(groupItems()), k->actionManager, "group");
     group->setDisabled(true);
 
-    TAction *ungroup = new TAction(QPixmap(THEME_DIR + "icons/ungroup.png"), tr("&Ungroup"), 
+    TAction *ungroup = new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "ungroup.png"), tr("&Ungroup"), 
                                     QKeySequence(tr("Ctrl+Shift+G")) , k->paintArea, SLOT(ungroupItems()), 
                                     k->actionManager, "ungroup");
     ungroup->setDisabled(true);
 
-    ungroup->setStatusTip(tr("Ungroups the selected object"));
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "layer.png"), tr("Onion Skin"), QKeySequence(tr("Ctrl+Shift+O")), 
+                this, SLOT(enableOnionFeature()), k->actionManager, "onion");
 
-    TAction *onion = new TAction(QPixmap(THEME_DIR + "icons/layer.png"), tr("Onion Skin"),
-                               QKeySequence(tr("Ctrl+Shift+O")), this, SLOT(enableOnionFeature()),
-                               k->actionManager, "onion");
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "onion.png"), tr("Onion Skin Factor"), QKeySequence(tr("Ctrl+Shift+S")), 
+                this, SLOT(setDefaultOnionFactor()), k->actionManager, "onionfactor");
 
-    onion->setStatusTip(tr("Enable/Disable onion skin"));
-
-    TAction *onionFactor = new TAction(QPixmap(THEME_DIR + "icons/onion.png"), tr("Onion Skin Factor"),
-                               QKeySequence(tr("Ctrl+Shift+S")), this, SLOT(setDefaultOnionFactor()),
-                               k->actionManager, "onionfactor");
-
-    onionFactor->setStatusTip(tr("Set onion skin factor default value"));
-
-    TAction *exportImage = new TAction(QPixmap(THEME_DIR + "icons/export_frame.png"),
-                                     "Export Current Frame As Image", QKeySequence(tr("@")),
-                                     this, SLOT(exportImage()), k->actionManager, "export_image");
-    exportImage->setStatusTip("Export the current frame as image");
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "export_frame.png"), tr("Export Current Frame As Image"), QKeySequence(tr("@")),
+                this, SLOT(exportImage()), k->actionManager, "export_image");
 
     TCONFIG->beginGroup("Network");
     QString server = TCONFIG->value("Server").toString();
 
     if (k->isNetworked && server.compare("tupitu.be") == 0) {
-        TAction *postImage = new TAction(QPixmap(THEME_DIR + "icons/import_project.png"),
-                                         "Export Current Frame To Gallery", QKeySequence(tr("@")),
-                                         this, SLOT(postImage()), k->actionManager, "post_image");
-        postImage->setStatusTip("Export the current frame to gallery");
+        new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "import_project.png"), tr("Export Current Frame To Gallery"), QKeySequence(tr("@")),
+                    this, SLOT(postImage()), k->actionManager, "post_image");
     }
 
-    TAction *storyboard = new TAction(QPixmap(THEME_DIR + "icons/storyboard.png"),
-                                     "Storyboard Settings", QKeySequence(tr("Ctrl+Shift+S")),
-                                     this, SLOT(storyboardSettings()), k->actionManager, "storyboard");
-    storyboard->setStatusTip("Storyboard settings");
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "storyboard.png"), tr("Storyboard Settings"), QKeySequence(tr("Ctrl+Shift+S")),
+                this, SLOT(storyboardSettings()), k->actionManager, "storyboard");
+
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "camera.png"), tr("Camera"), QKeySequence(tr("Ctrl+Shift+C")),
+                this, SLOT(cameraInterface()), k->actionManager, "camera");
 }
 
 void TupDocumentView::createTools()
@@ -406,35 +411,35 @@ void TupDocumentView::createTools()
 
     // Brushes menu
     k->brushesMenu = new QMenu(tr("Brushes"), k->toolbar);
-    k->brushesMenu->setIcon(QPixmap(THEME_DIR + "icons/brush.png"));
+    k->brushesMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "brush.png"));
     connect(k->brushesMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 
     k->toolbar->addAction(k->brushesMenu->menuAction());
 
     // Selection menu
     k->selectionMenu = new QMenu(tr("Selection"), k->toolbar);
-    k->selectionMenu->setIcon(QPixmap(THEME_DIR + "icons/selection.png"));
+    k->selectionMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "selection.png"));
     connect(k->selectionMenu, SIGNAL(triggered(QAction*)), this, SLOT(selectToolFromMenu(QAction*)));
 
     k->toolbar->addAction(k->selectionMenu->menuAction());
 
     // Fill menu
     k->fillMenu = new QMenu(tr("Fill"), k->toolbar);
-    k->fillMenu->setIcon(QPixmap(THEME_DIR + "icons/fillcolor.png"));
+    k->fillMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "fillcolor.png"));
     connect(k->fillMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 
     k->toolbar->addAction(k->fillMenu->menuAction());
 
     // View menu
     k->viewToolMenu = new QMenu(tr("View"), k->toolbar);
-    k->viewToolMenu->setIcon(QPixmap(THEME_DIR + "icons/zoom.png"));
+    k->viewToolMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "zoom.png"));
     connect(k->fillMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 
     k->toolbar->addAction(k->viewToolMenu->menuAction());
 
     // Motion Tween menu
     k->motionMenu = new QMenu(tr("Tweening"), k->toolbar);
-    k->motionMenu->setIcon(QPixmap(THEME_DIR + "icons/tweening.png"));
+    k->motionMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "tweening.png"));
     connect(k->motionMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 
     k->toolbar->addAction(k->motionMenu->menuAction());
@@ -468,7 +473,6 @@ void TupDocumentView::loadPlugins()
     TAction *pencil = 0;
 
     foreach (QObject *plugin, TupPluginManager::instance()->tools()) {
-
              TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(plugin);
 
              if (tool->toolType() != TupToolInterface::Tweener) {
@@ -525,8 +529,12 @@ void TupDocumentView::loadPlugins()
                                        connect(this, SIGNAL(closePolyLine()), tool, SLOT(initEnv()));
                                    }
 
-                                   if (toolName.compare(tr("Line")) == 0)
+                                   if (toolName.compare(tr("Line")) == 0) {
                                        brushTools[4] = action;
+                                       TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(action->parent());
+                                       connect(k->paintArea, SIGNAL(closeLine()), tool, SLOT(endItem()));
+                                       connect(this, SIGNAL(closeLine()), tool, SLOT(endItem()));
+                                   }
 
                                    if (toolName.compare(tr("Rectangle")) == 0)
                                        brushTools[5] = action;
@@ -792,14 +800,13 @@ void TupDocumentView::selectTool()
 
         switch (tool->toolType()) {
                 case TupToolInterface::Brush: 
-                     k->fullScreenAction->setDisabled(false);
+                     k->status->enableFullScreenFeature(true);
                      if (toolName.compare(tr("Pencil"))==0) {
                          minWidth = 130;
                      } else if (toolName.compare(tr("Text"))==0) {
                                 minWidth = 350;
-                     } else if (toolName.compare(tr("PolyLine"))==0 
-                                || toolName.compare(tr("Rectangle"))==0 
-                                || toolName.compare(tr("Ellipse"))==0) {
+                     } else if (toolName.compare(tr("PolyLine"))==0 || toolName.compare(tr("Rectangle"))==0 
+                                || toolName.compare(tr("Ellipse"))==0 || toolName.compare(tr("Line"))==0) {
                                 minWidth = 130;
                      }
 
@@ -809,7 +816,7 @@ void TupDocumentView::selectTool()
                          k->brushesMenu->menuAction()->setIcon(action->icon());
                      break;
                 case TupToolInterface::Tweener:
-                     k->fullScreenAction->setDisabled(true);
+                     k->status->enableFullScreenFeature(false);
                      minWidth = 220;
                      k->motionMenu->setDefaultAction(action);
                      k->motionMenu->setActiveAction(action);
@@ -817,14 +824,14 @@ void TupDocumentView::selectTool()
                          k->motionMenu->menuAction()->setIcon(action->icon());
                      break;
                 case TupToolInterface::Fill:
-                     k->fullScreenAction->setDisabled(false);
+                     k->status->enableFullScreenFeature(true);
                      k->fillMenu->setDefaultAction(action);
                      k->fillMenu->setActiveAction(action);
                      if (!action->icon().isNull())
                          k->fillMenu->menuAction()->setIcon(action->icon());
                      break;
                 case TupToolInterface::Selection:
-                     k->fullScreenAction->setDisabled(false);
+                     k->status->enableFullScreenFeature(true);
                      k->selectionMenu->setDefaultAction(action);
                      k->selectionMenu->setActiveAction(action);
                      if (!action->icon().isNull())
@@ -836,7 +843,7 @@ void TupDocumentView::selectTool()
                      } 
                      break;
                 case TupToolInterface::View:
-                     k->fullScreenAction->setDisabled(false);
+                     k->status->enableFullScreenFeature(true);
                      k->viewToolMenu->setDefaultAction(action);
                      k->viewToolMenu->setActiveAction(action);
                      if (!action->icon().isNull())
@@ -954,9 +961,9 @@ void TupDocumentView::createToolBar()
     addToolBar(k->barGrid);
 
     k->spaceMode = new QComboBox();
-    k->spaceMode->addItem(QIcon(THEME_DIR + "icons/frames_mode.png"), tr("Frames Mode"));
-    k->spaceMode->addItem(QIcon(THEME_DIR + "icons/static_background_mode.png"), tr("Static BG Mode"));
-    k->spaceMode->addItem(QIcon(THEME_DIR + "icons/dynamic_background_mode.png"), tr("Dynamic BG Mode"));
+    k->spaceMode->addItem(QIcon(THEME_DIR + "icons" + QDir::separator() + "frames_mode.png"), tr("Frames Mode"));
+    k->spaceMode->addItem(QIcon(THEME_DIR + "icons" + QDir::separator() + "static_background_mode.png"), tr("Static BG Mode"));
+    k->spaceMode->addItem(QIcon(THEME_DIR + "icons" + QDir::separator() + "dynamic_background_mode.png"), tr("Dynamic BG Mode"));
 
     connect(k->spaceMode, SIGNAL(currentIndexChanged(int)), this, SLOT(setSpaceContext()));
     setSpaceContext();
@@ -970,8 +977,8 @@ void TupDocumentView::createToolBar()
     k->barGrid->addAction(k->actionManager->find("cut"));
     k->barGrid->addAction(k->actionManager->find("delete"));
 
-    k->barGrid->addAction(k->actionManager->find("show_grid"));
-    k->barGrid->addAction(k->actionManager->find("full_screen"));
+    // k->barGrid->addAction(k->actionManager->find("show_grid"));
+    // k->barGrid->addAction(k->actionManager->find("full_screen"));
 
     k->barGrid->addAction(k->actionManager->find("group"));
     k->barGrid->addAction(k->actionManager->find("ungroup"));
@@ -1023,6 +1030,8 @@ void TupDocumentView::createToolBar()
         k->barGrid->addAction(k->actionManager->find("post_image"));
 
     k->barGrid->addAction(k->actionManager->find("storyboard"));
+
+    k->barGrid->addAction(k->actionManager->find("camera"));
 
     addToolBarBreak();
 
@@ -1103,10 +1112,12 @@ void TupDocumentView::setNextOnionSkin(int level)
     k->paintArea->setNextFramesOnionSkinCount(level);
 }
 
-void TupDocumentView::toggleShowGrid()
+/*
+void TupDocumentView::showGrid()
 {
-    k->paintArea->setDrawGrid(!k->paintArea->drawGrid());
+    k->paintArea->drawGrid(!k->paintArea->gridFlag());
 }
+*/
 
 void TupDocumentView::updateScaleVars(double factor)
 {
@@ -1278,7 +1289,6 @@ void TupDocumentView::updateBgColor(const QColor color)
 void TupDocumentView::enableOnionFeature()
 {
     if (!k->onionEnabled) {
-
         if (k->prevOnionValue == 0)
             k->prevOnionSkinSpin->setValue(1);
         else
@@ -1290,15 +1300,12 @@ void TupDocumentView::enableOnionFeature()
             k->nextOnionSkinSpin->setValue(k->nextOnionValue);
 
         k->onionEnabled = true;
-
     } else {
-
         k->prevOnionValue = k->prevOnionSkinSpin->value();
         k->nextOnionValue = k->nextOnionSkinSpin->value();
         k->prevOnionSkinSpin->setValue(0);
         k->nextOnionSkinSpin->setValue(0);
         k->onionEnabled = false;
-
     }
 
     k->paintArea->updatePaintArea();
@@ -1497,7 +1504,7 @@ void TupDocumentView::setBackgroundDirection(int direction)
        TupBackground *bg = scene->background();
        if (bg) {
            bg->setDyanmicDirection(direction);
-           emit projectHasChanged();
+           // emit projectHasChanged();
        }
    }
 }
@@ -1510,7 +1517,7 @@ void TupDocumentView::updateBackgroundShiftProperty(int shift)
        TupBackground *bg = scene->background();
        if (bg) {
            bg->setDyanmicShift(shift);
-           emit projectHasChanged();
+           // emit projectHasChanged();
        }
    }
 }
@@ -1532,4 +1539,166 @@ void TupDocumentView::fullScreenRightClick()
 {
    if (k->currentTool->name().compare(tr("PolyLine")) == 0)
        emit closePolyLine();
+
+   if (k->currentTool->name().compare(tr("Line")) == 0)
+       emit closeLine();
+}
+
+void TupDocumentView::cameraInterface()
+{
+    int camerasTotal = QCamera::availableDevices().count();
+    if (camerasTotal > 0) {
+        QList<QByteArray> cameraDevices;
+        QComboBox *devicesCombo = new QComboBox;
+        foreach(const QByteArray &deviceName, QCamera::availableDevices()) {
+                QCamera *device = new QCamera(deviceName);
+                QString description = device->deviceDescription(deviceName);
+                bool found = false;
+                for (int i=0; i<devicesCombo->count(); i++) {
+                     QString item = devicesCombo->itemText(i);
+                     if (item.compare(description) == 0) {
+                         found = true;
+                         break;
+                     }
+                }
+                if (!found) {
+                    devicesCombo->addItem(description);
+                    cameraDevices << deviceName;
+                }
+        }
+
+        QByteArray cameraDevice = cameraDevices[0];
+        QCamera *camera = new QCamera(cameraDevice);
+        QCameraImageCapture *imageCapture = new QCameraImageCapture(camera);
+        QList<QSize> resolutions = imageCapture->supportedResolutions();
+
+        QDesktopWidget desktop;
+        QSize projectSize = k->project->dimension();
+
+        TupCameraDialog *cameraDialog = new TupCameraDialog(devicesCombo, projectSize, resolutions);
+        cameraDialog->show();
+        cameraDialog->move((int) (desktop.screenGeometry().width() - cameraDialog->width())/2 ,
+                           (int) (desktop.screenGeometry().height() - cameraDialog->height())/2);
+
+        if (cameraDialog->exec() == QDialog::Accepted) {
+            k->cameraSize = cameraDialog->cameraResolution();
+            QString title = QString::number(k->cameraSize.width()) + "x" + QString::number(k->cameraSize.height());
+
+            if (cameraDialog->changeProjectSize()) {
+                if (k->cameraSize != projectSize) 
+                    resizeProjectDimension(k->cameraSize);
+            } 
+
+            if (cameraDialog->useBasicCamera()) {
+                TupBasicCameraInterface *dialog = new TupBasicCameraInterface(title, cameraDevices, devicesCombo, cameraDialog->cameraIndex(), k->cameraSize, k->photoCounter);
+
+                connect(dialog, SIGNAL(pictureHasBeenSelected(int, const QString)), this, SLOT(insertPictureInFrame(int, const QString)));
+                dialog->show();
+                dialog->move((int) (desktop.screenGeometry().width() - dialog->width())/2 ,
+                             (int) (desktop.screenGeometry().height() - dialog->height())/2);
+            } else {
+                TupCameraInterface *dialog = new TupCameraInterface(title, cameraDevices, devicesCombo, cameraDialog->cameraIndex(),
+                                                                k->cameraSize, k->photoCounter);
+
+                connect(dialog, SIGNAL(pictureHasBeenSelected(int, const QString)), this, SLOT(insertPictureInFrame(int, const QString)));
+                dialog->show();
+                dialog->move((int) (desktop.screenGeometry().width() - dialog->width())/2 ,
+                             (int) (desktop.screenGeometry().height() - dialog->height())/2);
+            }
+        }
+    } else {
+        // No devices connected!
+        TOsd::self()->display(tr("Error"), tr("No cameras detected"), TOsd::Error);
+    }
+}
+
+void TupDocumentView::resizeProjectDimension(const QSize dimension)
+{
+    k->paintArea->updateDimension(dimension);
+
+    int width = k->wsDimension.width();
+    int height = k->wsDimension.height();
+    int pWidth = dimension.width();
+    int pHeight = dimension.height();
+
+    double proportion = 1;
+
+    if (pWidth > pHeight)
+        proportion = (double) width / (double) pWidth;
+    else
+        proportion = (double) height / (double) pHeight;
+
+    if (proportion <= 0.5) {
+        setZoomView("20");
+    } else if (proportion > 0.5 && proportion <= 0.75) {
+               setZoomView("25");
+    } else if (proportion > 0.75 && proportion <= 1.5) {
+               setZoomView("50");
+    } else if (proportion > 1.5 && proportion < 2) {
+               setZoomView("75");
+    }
+
+    emit projectSizeHasChanged(dimension);
+    k->paintArea->updatePaintArea();
+}
+
+void TupDocumentView::insertPictureInFrame(int id, const QString path)
+{
+    // SQA: This is a hack - remember to check the QImageEncoderSettings issue 
+    QImage pixmap(path); 
+    if (pixmap.size() != k->cameraSize) {
+        int height = pixmap.height();
+        int width = (k->cameraSize.width() * height) / k->cameraSize.height();
+        int posX = (pixmap.width() - width)/2;
+        int posY = 0;
+        if (width > pixmap.width()) {
+            width = pixmap.width();
+            height = (k->cameraSize.height() * width) / k->cameraSize.width(); 
+            posX = 0;
+            posY = (pixmap.height() - height)/2;
+        }
+        QImage mask = pixmap.copy(posX, posY, width, height);
+        QImage resized = mask.scaledToWidth(k->cameraSize.width(), Qt::SmoothTransformation);
+        resized.save(path, "JPG", 100);
+    } 
+
+    QFile f(path);
+    QFileInfo fileInfo(f);
+    QString key = fileInfo.fileName().toLower();
+
+    if (f.open(QIODevice::ReadOnly)) {
+        if (id > 1) {
+            int frameIndex = k->paintArea->currentFrameIndex() + 1;
+
+            TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->paintArea->currentSceneIndex(), k->paintArea->currentLayerIndex(), 
+                                                                              frameIndex, TupProjectRequest::Add, tr("Frame %1").arg(frameIndex + 1));
+            emit requestTriggered(&request);
+
+            request = TupRequestBuilder::createFrameRequest(k->paintArea->currentSceneIndex(), k->paintArea->currentLayerIndex(), frameIndex,
+                                                            TupProjectRequest::Select);
+            emit requestTriggered(&request);
+        } 
+
+        QByteArray data = f.readAll();
+        f.close();
+
+        TupLibrary *library = k->project->library();
+        while(library->exists(key)) {
+              id++;
+              QString prev = "pic";
+              if (id < 10)
+                  prev += "00";
+              if (id >= 10 && id < 100)
+                  prev += "0";
+              key = prev + QString::number(id) + ".jpg";
+        }
+
+        TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key,
+                                                                            TupLibraryObject::Image, k->project->spaceContext(), data, QString(),
+                                                                            k->paintArea->currentSceneIndex(), k->paintArea->currentLayerIndex(), 
+                                                                            k->paintArea->currentFrameIndex());
+        emit requestTriggered(&request);
+
+        k->photoCounter = id + 1;
+    }
 }

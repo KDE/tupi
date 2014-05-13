@@ -184,7 +184,7 @@ bool TupLibraryFolder::removeObject(const QString &id, bool absolute)
     }
 
     foreach (TupLibraryFolder *folder, k->folders) {
-             TupLibraryObject *object = folder->findObject(id);
+             TupLibraryObject *object = folder->getObject(id);
              if (object)
                  return folder->removeObject(id, absolute);
     }
@@ -199,7 +199,7 @@ bool TupLibraryFolder::removeObject(const QString &id, bool absolute)
 bool TupLibraryFolder::removeFolder(const QString &id)
 {
     if (k->folders.contains(id)) {
-        TupLibraryFolder *folder = findFolder(id);
+        TupLibraryFolder *folder = getFolder(id);
         LibraryObjects objects = folder->objects();
         foreach (QString oid, objects.keys()) {
                  if (folder->removeObject(oid, true)) {
@@ -217,7 +217,7 @@ bool TupLibraryFolder::removeFolder(const QString &id)
 
 bool TupLibraryFolder::moveObject(const QString &id, const QString &target)
 {
-    TupLibraryObject *object = findObject(id);
+    TupLibraryObject *object = getObject(id);
     if (object) {
         if (removeObject(id, false))
             foreach (TupLibraryFolder *folder, k->folders) {
@@ -234,7 +234,7 @@ bool TupLibraryFolder::moveObject(const QString &id, const QString &target)
 
 bool TupLibraryFolder::moveObjectToRoot(const QString &id)
 {
-    TupLibraryObject *object = findObject(id);
+    TupLibraryObject *object = getObject(id);
     if (object) {
         if (removeObject(id, false)) {
             addObject(object);
@@ -256,7 +256,26 @@ QString TupLibraryFolder::id() const
     return k->id;
 }
 
-TupLibraryObject *TupLibraryFolder::findObject(const QString &id) const
+bool TupLibraryFolder::exists(const QString &id)
+{
+    foreach (QString oid, k->objects.keys()) {
+             if (oid.compare(id) == 0)
+                 return true;
+    }
+
+    foreach (TupLibraryFolder *folder, k->folders) {
+             if (folder->exists(id))
+                 return true;
+    }
+
+    #ifdef K_DEBUG
+           tWarning() << "TupLibraryFolder::exists() - [ Fatal Error ] - Object doesn't exist -> " << id;
+    #endif
+
+    return false;
+}
+
+TupLibraryObject *TupLibraryFolder::getObject(const QString &id) const
 {
     foreach (QString oid, k->objects.keys()) {
              if (oid.compare(id) == 0) 
@@ -264,19 +283,19 @@ TupLibraryObject *TupLibraryFolder::findObject(const QString &id) const
     }
     
     foreach (TupLibraryFolder *folder, k->folders) {
-             TupLibraryObject *object = folder->findObject(id);
+             TupLibraryObject *object = folder->getObject(id);
              if (object)
                  return object;
     }
     
     #ifdef K_DEBUG
-           tError() << "TupLibraryFolder::findObject() - [ Fatal Error ] - Can't find object with id -> " << id;
+           tWarning() << "TupLibraryFolder::getObject() - [ Fatal Error ] - Can't get object with id -> " << id;
     #endif
     
     return 0;
 }
 
-TupLibraryFolder *TupLibraryFolder::findFolder(const QString &id) const
+TupLibraryFolder *TupLibraryFolder::getFolder(const QString &id) const
 {
     foreach (TupLibraryFolder *folder, k->folders) {
              if (folder->id().compare(id) == 0) 
@@ -284,7 +303,7 @@ TupLibraryFolder *TupLibraryFolder::findFolder(const QString &id) const
     }
    
     #ifdef K_DEBUG
-           tError() << "TupLibraryFolder::findFolder() - [ Fatal Error ] - Can't find folder with id -> " << id;
+           tError() << "TupLibraryFolder::getFolder() - [ Fatal Error ] - Can't find folder with id -> " << id;
     #endif
    
     return 0;
@@ -306,7 +325,7 @@ bool TupLibraryFolder::folderExists(const QString &id) const
 
 bool TupLibraryFolder::renameObject(const QString &folder, const QString &oldId, const QString &newId)
 {
-    TupLibraryObject *object = findObject(oldId);
+    TupLibraryObject *object = getObject(oldId);
 
     if (object) {
         removeObject(oldId, false);
@@ -328,7 +347,7 @@ bool TupLibraryFolder::renameObject(const QString &folder, const QString &oldId,
 
 bool TupLibraryFolder::renameFolder(const QString &oldId, const QString &newId)
 {
-    TupLibraryFolder *folder = findFolder(oldId);
+    TupLibraryFolder *folder = getFolder(oldId);
 
     if (folder) {
         k->folders[oldId]->setId(newId);

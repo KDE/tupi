@@ -56,6 +56,7 @@ Use: ./configure [options]
   --libdir=[path]:      Set library path [/usr/lib/tupi | /usr/lib64/tupi]
   --sharedir=[path]:    Set data path [/usr/share]
   --with-ffmpeg=[path]: Set ffmpeg installation path [/usr]
+  --with-quazip=[path]: Set quazip installation path [/usr]
   --without-ffmpeg:     Disable ffmpeg support
   --without-debug:      Disable debug
   --with-qtdir=[path]:  Set Qt directory [i.e. /usr/local/qt]
@@ -65,6 +66,11 @@ _EOH_
         exit 0
     end
 
+    debug = 1
+    if conf.hasArgument?("without-debug")
+       debug = 0
+    end
+
     if conf.hasArgument?("with-ffmpeg") and conf.hasArgument?("without-ffmpeg")  
        Info.error << " ERROR: Options --with-ffmpeg and --without-ffmpeg are mutually exclusive\n"
        exit 0
@@ -72,98 +78,47 @@ _EOH_
 
     config = RQonf::Config.new
 
-    distro = ""
-    if FileTest.exists?("/etc/lsb-release")
-       conf.load_properties("/etc/lsb-release")
-       if conf.hasProperty?("DISTRIB_CODENAME")
-          distro = conf.propertyValue("DISTRIB_CODENAME")
-       end
-       if conf.hasProperty?("DISTRIB_ID")
-          distroName = conf.propertyValue("DISTRIB_ID") 
-          if distroName == "Ubuntu"
-             config.addDefine("UBUNTU")
-          end
-       end
-    end
-
     if conf.hasArgument?("with-qtdir")
        qtdir = conf.argumentValue("with-qtdir")
-       conf.verifyQtVersion("4.7.0", qtdir)
-       if distro == "lucid"
-          config.addDefine("K_LUCID")
-       end
+       conf.verifyQtVersion("5.2.0", debug, qtdir)
     else
-       if distro == "lucid"
-          Info.error << " ERROR: If you are using Ubuntu Lucid (10.04). You must use the parameter --with-qtdir\n"
-          Info.error << " Try the option --help for more info\n"
-          exit 0
-       else
-          conf.verifyQtVersion("4.7.0", "")
-       end
+       conf.verifyQtVersion("5.2.0", debug, "")
     end
-
-    avcodecFile = "/usr/include/libavcodec/version.h"
 
     if conf.hasArgument?("with-ffmpeg")
        ffmpegDir = conf.argumentValue("with-ffmpeg")
        if File.directory? ffmpegDir 
-          ffmpegLib = conf.argumentValue("with-ffmpeg") + "/lib"
-          ffmpegInclude = conf.argumentValue("with-ffmpeg") + "/include"
-          avcodecFile = ffmpegInclude + "/libavcodec/version.h"
+          ffmpegLib = ffmpegDir + "/lib"
+          ffmpegInclude = ffmpegDir + "/include"
           config.addLib("-L" + ffmpegLib)
           config.addIncludePath(ffmpegInclude)
        else
           Info.error << " ERROR: ffmpeg directory does not exist!\n"
           exit 0
        end
-    end
-
-    if FileTest.exists?(avcodecFile)
-       major = `egrep LIBAVCODEC_VERSION_MAJOR #{avcodecFile} | head -n 1`
-       minor = `egrep LIBAVCODEC_VERSION_MINOR #{avcodecFile} | head -n 1`
-       majorVersion = major.split
-       minorVersion = minor.split
-       destination = "src/plugins/export/ffmpegplugin/tffmpegmoviegenerator.cpp"
-
-       if FileTest.exists?("/etc/debian_version")
-          if FileTest.exists?("/etc/lsb-release") # Ubuntu
-             if majorVersion[2] >= "54" and minorVersion[2] >= "35"
-                FileUtils.cp("src/plugins/export/ffmpegplugin/tffmpegmoviegenerator.new.cpp", destination)
-             else
-                FileUtils.cp("src/plugins/export/ffmpegplugin/tffmpegmoviegenerator.old.cpp", destination)
-             end
-          else # Debian
-             if majorVersion[2] >= "54" and minorVersion[2] == "35"
-                FileUtils.cp("src/plugins/export/ffmpegplugin/tffmpegmoviegenerator.debian.cpp", destination)
-             end
-          end
-       else # Other distros
-          if majorVersion[2] >= "54" and minorVersion[2] >= "35"
-             FileUtils.cp("src/plugins/export/ffmpegplugin/tffmpegmoviegenerator.new.cpp", destination)
-          else
-             FileUtils.cp("src/plugins/export/ffmpegplugin/tffmpegmoviegenerator.old.cpp", destination)
-          end
+    else
+       if conf.hasArgument?("without-ffmpeg")
+          Info.warn << "Disabling ffmpeg support: " << $endl
+          conf.disableFFmpeg()
        end
     end
 
-    debug = 1
-    if conf.hasArgument?("without-debug")
-       debug = 0
-    end
-
-    if conf.hasArgument?("without-ffmpeg")
-       Info.warn << "Disabling ffmpeg support: " << $endl
-       conf.disableFFmpeg()
+    if conf.hasArgument?("with-quazip")
+       quazipDir = conf.argumentValue("with-quazip")
+       if File.directory? quazipDir
+          quazipLib = quazipDir + "/lib"
+          quazipInclude = quazipDir + "/include"
+          config.addLib("-L" + quazipLib)
+          config.addIncludePath(quazipInclude)
+       else
+          Info.error << " ERROR: quazip directory does not exist!\n"
+          exit 0
+       end
     end
 
     conf.createTests
     conf.setTestDir("configure.tests")
-
-    if distro == "lucid"
-       conf.runTests(config, conf, debug, true)
-    else
-       conf.runTests(config, conf, debug, false)
-    end
+    conf.runTests(config, conf, debug)
 
     config.addModule("core")
     config.addModule("gui")
@@ -176,8 +131,8 @@ _EOH_
     # config.addLib("-ltupifwsound")
     
     config.addDefine('VERSION=\\\\\"0.2\\\\\"')
-    config.addDefine('CODE_NAME=\\\\\"Aram\\\\\"')
-    config.addDefine('REVISION=\\\\\"git03\\\\\"')
+    config.addDefine('CODE_NAME=\\\\\"Argentum\\\\\"')
+    config.addDefine('REVISION=\\\\\"git04\\\\\"')
 
     if conf.hasArgument?("install-headers")
        config.addDefine("ADD_HEADERS");
@@ -199,7 +154,6 @@ _EOH_
     unix.addVariable("UI_DIR", ".ui")
     unix.addVariable("OBJECTS_DIR", ".obj")
 
-    # The file tupiglobal.pri contains all the global variables for the compilation process        
     config.save("tupiglobal.pri")
     conf.createMakefiles
 

@@ -56,6 +56,7 @@ TupItemManager::TupItemManager(QWidget *parent) : TreeListWidget(parent), m_curr
 
     // header()->setResizeMode(QHeaderView::ResizeToContents);
     header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
     setItemDelegate(new TupTreeDelegate(this));
     setColumnCount(3);
 

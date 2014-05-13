@@ -96,12 +96,20 @@ struct TupPaintAreaBase::Private
     QPointF position;
     QColor bgcolor;
 
-    bool drawGrid;
+    bool gridFlag;
+    bool actionSafeAreaFlag;
     double angle;
 
     TupPaintAreaRotator *rotator;
     QStringList copiesXml;
     TupGraphicsScene *scene;
+
+    QPen greenThickPen;
+    QPen gridPen;
+    QPen grayPen;
+    QPen greenBoldPen;
+    QPen greenThinPen;
+    QPen blackPen;
 };
 
 TupPaintAreaBase::TupPaintAreaBase(QWidget *parent, QSize dimension) : QGraphicsView(parent), k(new Private)
@@ -109,7 +117,15 @@ TupPaintAreaBase::TupPaintAreaBase(QWidget *parent, QSize dimension) : QGraphics
     k->scene = new TupGraphicsScene();
     k->grid = 0;
 
-    k->drawGrid = false;
+    k->greenThickPen = QPen(QColor(0, 135, 0, 255), 2);
+    k->gridPen = QPen(QColor(0, 0, 180, 50), 1);
+    k->grayPen = QPen(QColor(150, 150, 150, 255), 1);
+    k->greenBoldPen = QPen(QColor(0, 135, 0, 255), 3);
+    k->greenThinPen = QPen(QColor(0, 135, 0, 255), 1);
+    k->blackPen = QPen(QColor(0, 0, 0, 180), 2);
+
+    k->gridFlag = false;
+    k->actionSafeAreaFlag = false;
     k->angle = 0;
 
     k->rotator = new TupPaintAreaRotator(this, this);
@@ -192,17 +208,26 @@ void TupPaintAreaBase::setUseOpenGL(bool opengl)
     }
 }
 
-void TupPaintAreaBase::setDrawGrid(bool draw)
+void TupPaintAreaBase::drawGrid(bool draw)
 {
-    k->drawGrid = draw;
-    // resetCachedContent();
+    k->gridFlag = draw;
+    viewport()->update();
+}
+
+void TupPaintAreaBase::drawActionSafeArea(bool draw)
+{
+    k->actionSafeAreaFlag = draw;
     viewport()->update();
 }
 
 void TupPaintAreaBase::setTool(TupToolPlugin *tool)
 {
-    if (!scene()) 
+    if (!scene()) {
+        #ifdef K_DEBUG
+               tDebug() << "TupPaintAreaBase::setTool() - Fatal Error: No scene available";
+        #endif
         return;
+    }
 
     if (tool)
         disconnect(tool, SIGNAL(requested(const TupProjectRequest *)), 
@@ -213,9 +238,14 @@ void TupPaintAreaBase::setTool(TupToolPlugin *tool)
             this, SIGNAL(requestTriggered(const TupProjectRequest*)));
 }
 
-bool TupPaintAreaBase::drawGrid() const
+bool TupPaintAreaBase::gridFlag() const
 {
-    return k->drawGrid;
+    return k->gridFlag;
+}
+
+bool TupPaintAreaBase::actionSafeAreaFlag() const
+{
+    return k->actionSafeAreaFlag;
 }
 
 void TupPaintAreaBase::mousePressEvent(QMouseEvent * event)
@@ -237,20 +267,28 @@ void TupPaintAreaBase::mousePressEvent(QMouseEvent * event)
 
 void TupPaintAreaBase::mouseMoveEvent(QMouseEvent * event)
 {
-    if (!canPaint()) 
+    if (!canPaint()) { 
+        #ifdef K_DEBUG
+               tWarning() << "TupPaintAreaBase::mouseMoveEvent() - The canvas is busy. Can't paint!";
+        #endif
         return;
+    }
 
-    // Rotate
+    // Rotate WorkSpace
     if (!k->scene->isDrawing() && event->buttons() == Qt::LeftButton 
         && (event->modifiers () == (Qt::ShiftModifier | Qt::ControlModifier))) {
         setUpdatesEnabled(false);
         setDragMode(QGraphicsView::NoDrag);
+
 	QPointF p1 = event->pos();
         QPointF p2 = k->drawingRect.center();
-        k->rotator->rotateTo((int)(-(180 * TupGraphicalAlgorithm::angleForPos(p1,p2)) / M_PI));
+        int angle = (int)(-(180 * TupGraphicalAlgorithm::angleForPos(p1, p2)) / M_PI);
+        k->rotator->rotateTo(angle);
+        emit rotated(-angle);
         setUpdatesEnabled(true);
     } else {
         QGraphicsView::mouseMoveEvent(event);
+
         if (!k->scene->mouseGrabberItem() && k->scene->isDrawing()) { // HACK
             QGraphicsSceneMouseEvent mouseEvent(QEvent::GraphicsSceneMouseMove);
             mouseEvent.setWidget(viewport());
@@ -262,11 +300,10 @@ void TupPaintAreaBase::mouseMoveEvent(QMouseEvent * event)
             mouseEvent.setAccepted(false);
             // QApplication::sendEvent(k->scene, &mouseEvent);
             k->scene->mouseMoved(&mouseEvent);
-         }
+        }
     }
 
     k->position = mapToScene(event->pos()); 
-
     emit cursorPosition(k->position);
 }
 
@@ -316,37 +353,12 @@ void TupPaintAreaBase::drawBackground(QPainter *painter, const QRectF &rect)
 
     bool hasAntialiasing = painter->renderHints() & QPainter::Antialiasing;
 
-    //painter->setRenderHint(QPainter::Antialiasing, false);
-
     painter->setRenderHint(QPainter::Antialiasing, true);
-    painter->setPen(QPen(QColor(0, 0, 0, 180), 2));
-    // painter->fillRect(k->drawingRect, Qt::white);
+    painter->setPen(k->blackPen);
     painter->fillRect(k->drawingRect, k->bgcolor);
     painter->drawRect(k->drawingRect);
 
-    //emit changedZero(painter->matrix().map(QPointF(0, 0)));
     emit changedZero(painter->worldTransform().map(QPointF(0, 0)));
-
-    // if enabled draw grid
-    if (k->drawGrid) {
-        // SQA: This code is not useful anymore, but is interesting
-        /*
-        int sx = (int)painter->matrix().m11();
-        int sy = (int)painter->matrix().m22();
-        painter->resetMatrix();
-        painter->scale(sx, sy);
-        */
-
-        // SQA: This procedure is very heavy. Must be optimized
-        //      Some kind of previously loaded buffer is required
-        painter->setPen(QPen(QColor(0, 0, 180, 50), 1));
-        int maxX = k->drawingRect.width() + 100;
-        int maxY = k->drawingRect.height() + 100; 
-        for (int i = -100; i <= maxX; i += 10)
-             painter->drawLine(i, -100, i, maxY);
-        for (int i = -100; i <= maxY; i += 10)
-             painter->drawLine(-100, i, maxX, i);
-    } 
 
     painter->setRenderHint(QPainter::Antialiasing, hasAntialiasing);
     painter->restore();
@@ -363,8 +375,73 @@ void TupPaintAreaBase::drawForeground(QPainter *painter, const QRectF &rect)
             if (currentScene->framesTotal() > 0) {
                 if (TupFrame *frame = k->scene->currentFrame()) {
                     if (frame) {
-                        if (frame->isLocked())
+                        if (frame->isLocked()) {
                             drawPadLock(painter, rect, tr("Locked!"));
+                        } else {
+                            // if enabled draw grid
+                            if (k->gridFlag) {
+                                painter->setPen(k->gridPen);
+                                int maxX = k->drawingRect.width() + 100;
+                                int maxY = k->drawingRect.height() + 100;
+                                for (int i = -100; i <= maxX; i += 10)
+                                     painter->drawLine(i, -100, i, maxY);
+                                for (int i = -100; i <= maxY; i += 10)
+                                     painter->drawLine(-100, i, maxX, i);
+                            }
+                            // if enabled action safe area
+                            if (k->actionSafeAreaFlag) {
+                                painter->setPen(k->greenThickPen);
+                                painter->drawRect(k->drawingRect);
+
+                                int w = k->drawingRect.width();
+                                int outerBorder = w/19;
+                                int innerBorder = w/6;
+
+                                int hSpace = w/3;
+                                int vSpace = k->drawingRect.height()/3;
+
+                                QPointF left = k->drawingRect.topLeft() + QPointF(outerBorder, outerBorder); 
+                                QPointF right = k->drawingRect.bottomRight() - QPointF(outerBorder, outerBorder);
+                                int leftX = left.x();
+                                int leftY = left.y();
+                                int rightX = right.x();
+                                int rightY = right.y();
+
+                                QRectF outerRect(left, right);
+
+                                painter->setPen(k->grayPen);
+                                painter->drawRect(outerRect);
+
+                                painter->setPen(k->greenBoldPen);
+                                painter->drawLine(QPoint(hSpace, leftY - 8), QPoint(hSpace, leftY + 8));
+                                painter->drawLine(QPoint(hSpace - 5, leftY), QPoint(hSpace + 5, leftY));
+                                painter->drawLine(QPoint(hSpace*2, leftY - 8), QPoint(hSpace*2, leftY + 8));
+                                painter->drawLine(QPoint(hSpace*2 - 5, leftY), QPoint(hSpace*2 + 5, leftY));
+
+                                painter->drawLine(QPoint(hSpace, rightY - 8), QPoint(hSpace, rightY + 8));
+                                painter->drawLine(QPoint(hSpace - 5, rightY), QPoint(hSpace + 5, rightY));
+                                painter->drawLine(QPoint(hSpace*2, rightY - 8), QPoint(hSpace*2, rightY + 8));
+                                painter->drawLine(QPoint(hSpace*2 - 5, rightY), QPoint(hSpace*2 + 5, rightY));
+
+                                painter->drawLine(QPoint(leftX - 8, vSpace), QPoint(leftX + 8, vSpace));
+                                painter->drawLine(QPoint(leftX, vSpace - 5), QPoint(leftX, vSpace + 5));
+                                painter->drawLine(QPoint(leftX - 8, vSpace*2), QPoint(leftX + 8, vSpace*2));
+                                painter->drawLine(QPoint(leftX, vSpace*2 - 5), QPoint(leftX, vSpace*2 + 5));
+
+                                painter->drawLine(QPoint(rightX - 8, vSpace), QPoint(rightX + 8, vSpace));
+                                painter->drawLine(QPoint(rightX, vSpace - 5), QPoint(rightX, vSpace + 5));
+                                painter->drawLine(QPoint(rightX - 8, vSpace*2), QPoint(rightX + 8, vSpace*2));
+                                painter->drawLine(QPoint(rightX, vSpace*2 - 5), QPoint(rightX, vSpace*2 + 5));
+
+                                painter->setPen(k->greenThinPen);
+
+                                left = k->drawingRect.topLeft() + QPointF(innerBorder, innerBorder);
+                                right = k->drawingRect.bottomRight() - QPointF(innerBorder, innerBorder);
+                                QRectF innerRect(left, right);
+
+                                painter->drawRect(innerRect); 
+                            }
+                        }
                     } 
                 }
             } else {
@@ -410,11 +487,7 @@ bool TupPaintAreaBase::canPaint() const
 
     if (k->scene) {
         TupFrame *frame = k->scene->currentFrame();
-
         if (frame) {
-            #ifdef K_DEBUG
-                   tWarning() << "TupPaintAreaBase::canPaint() - Warning: Current frame is NULL!";
-            #endif
             return !frame->isLocked();
         }
     } else {
@@ -448,17 +521,16 @@ void TupPaintAreaBase::wheelEvent(QWheelEvent *event)
     */
 }
 
-bool TupPaintAreaBase::viewportEvent(QEvent *e)
+bool TupPaintAreaBase::viewportEvent(QEvent *event)
 {
-    bool ret = QGraphicsView::viewportEvent(e);
+    bool flag = QGraphicsView::viewportEvent(event);
 
-    if (e->type() == QEvent::Show) {
-        if (k->scene->items().isEmpty()) {
+    if (event->type() == QEvent::Show) {
+        if (k->scene->items().isEmpty())
             k->scene->drawCurrentPhotogram();
-        }
     }
 
-    return ret;
+    return flag;
 }
 
 void TupPaintAreaBase::scaleView(qreal scaleFactor)
@@ -477,15 +549,14 @@ void TupPaintAreaBase::scaleView(qreal scaleFactor)
 
 void TupPaintAreaBase::setRotationAngle(int angle)
 {
-    rotate(angle - k->angle);
+    int degrees = angle - k->angle;
+    rotate(degrees);
     k->angle = angle;
 }
 
 void TupPaintAreaBase::setZoom(qreal scaleFactor)
 {
     scale(scaleFactor, scaleFactor);
-
-    // emit scaled(scaleFactor);
 }
 
 TupBrushManager *TupPaintAreaBase::brushManager() const
@@ -508,3 +579,10 @@ QPointF TupPaintAreaBase::viewPosition()
     return k->position;
 }
 
+void TupPaintAreaBase::updateDimension(const QSize dimension)
+{
+    k->drawingRect = QRectF(QPointF(0, 0), dimension);
+    k->scene->setSceneRect(k->drawingRect);
+
+    update();
+}
