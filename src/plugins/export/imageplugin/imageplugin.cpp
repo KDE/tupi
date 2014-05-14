@@ -33,7 +33,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "genericexportplugin.h"
+#include "imageplugin.h"
 #include "tuplayer.h"
 #include "tupanimationrenderer.h"
 #include "tglobal.h"
@@ -42,25 +42,25 @@
 #include <QImage>
 #include <QPainter>
 
-GenericExportPlugin::GenericExportPlugin()
+ImagePlugin::ImagePlugin()
 {
 }
 
-GenericExportPlugin::~GenericExportPlugin()
+ImagePlugin::~ImagePlugin()
 {
 }
 
-QString GenericExportPlugin::key() const
+QString ImagePlugin::key() const
 {
     return tr("Image Array");
 }
 
-TupExportInterface::Formats GenericExportPlugin::availableFormats()
+TupExportInterface::Formats ImagePlugin::availableFormats()
 {
     return TupExportInterface::PNG | TupExportInterface::JPEG | TupExportInterface::XPM;
 }
 
-bool GenericExportPlugin::exportToFormat(const QColor bgColor, const QString &filePath, const QList<TupScene *> &scenes, 
+bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, const QList<TupScene *> &scenes, 
                                          TupExportInterface::Format format, const QSize &size, int fps)
 {
     Q_UNUSED(fps);
@@ -128,7 +128,7 @@ bool GenericExportPlugin::exportToFormat(const QColor bgColor, const QString &fi
     return true;
 }
 
-bool GenericExportPlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size)
+bool ImagePlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size)
 {
     QString path = filePath;
     const char *extension;
@@ -162,9 +162,9 @@ bool GenericExportPlugin::exportFrame(int frameIndex, const QColor color, const 
     return image.save(path, extension, 100);
 }
 
-const char* GenericExportPlugin::getExceptionMsg() {
+const char* ImagePlugin::getExceptionMsg() {
     return errorMsg;
 }
 
-// Q_EXPORT_PLUGIN(GenericExportPlugin);
+// Q_EXPORT_PLUGIN(ImagePlugin);
 

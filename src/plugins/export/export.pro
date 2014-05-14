@@ -5,7 +5,7 @@
 
 include(../../../tupiglobal.pri)
 
-SUBDIRS += genericexportplugin 
+SUBDIRS += imageplugin 
 
 # SMIL plugin will be disabled temporary 
 # smilexportplugin 

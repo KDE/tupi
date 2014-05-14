@@ -33,8 +33,8 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef GENERICEXPORTPLUGIN_H
-#define GENERICEXPORTPLUGIN_H
+#ifndef	IMAGEPLUGIN_H
+#define IMAGEPLUGIN_H
 
 #include "tupexportpluginobject.h"
 #include <QColor>
@@ -42,14 +42,14 @@
 /**
     @author David Cuadrado
 */
-class GenericExportPlugin : public TupExportPluginObject
+class ImagePlugin : public TupExportPluginObject
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "genericexportplugin.json")
+    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "imageplugin.json")
 
     public:
-        GenericExportPlugin();
-        virtual ~GenericExportPlugin();
+        ImagePlugin();
+        virtual ~ImagePlugin();
         virtual QString key() const;
         TupExportInterface::Formats availableFormats();
 
