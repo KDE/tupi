@@ -114,7 +114,12 @@ TupCameraInterface::TupCameraInterface(const QString &title, QList<QByteArray> c
              QByteArray device = cameraDevices.at(i);
              QCamera *camera = new QCamera(device); 
              QCameraImageCapture *imageCapture = new QCameraImageCapture(camera);
-             QSize camSize = setBestResolution(imageCapture->supportedResolutions(), cameraSize);
+
+             // QSize camSize = setBestResolution(imageCapture->supportedResolutions(), cameraSize);
+
+             QList<QSize> resolutions;
+             resolutions << QSize(640, 480);
+             QSize camSize = setBestResolution(resolutions, cameraSize);
 
              TupCameraWindow *cameraWindow = new TupCameraWindow(camera, camSize, displaySize, imageCapture, path);
              connect(cameraWindow, SIGNAL(pictureHasBeenSelected(int, const QString)), this, SIGNAL(pictureHasBeenSelected(int, const QString)));
@@ -234,6 +239,12 @@ TupCameraInterface::TupCameraInterface(const QString &title, QList<QByteArray> c
         menuLayout->addWidget(devicesCombo);
     } 
 
+    QPushButton *exitButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "exit.png")), "");
+    exitButton->setIconSize(QSize(20, 20));
+    exitButton->setToolTip(tr("Close manager"));
+    exitButton->setShortcut(Qt::Key_Escape);
+    connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
+
     devicesCombo->setCurrentIndex(cameraIndex);
     menuLayout->addWidget(new TSeparator(Qt::Horizontal));
     menuLayout->addWidget(clickButton);
@@ -242,6 +253,7 @@ TupCameraInterface::TupCameraInterface(const QString &title, QList<QByteArray> c
     menuLayout->addWidget(k->gridWidget);
     menuLayout->addWidget(k->historyButton);
     menuLayout->addWidget(k->historyWidget);
+    menuLayout->addWidget(exitButton);
     menuLayout->addStretch(2);
 
     connect(devicesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeCameraDevice(int)));

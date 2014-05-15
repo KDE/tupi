@@ -150,9 +150,16 @@ TupBasicCameraInterface::TupBasicCameraInterface(const QString &title, QList<QBy
         menuLayout->addWidget(devicesCombo);
     } 
 
+    QPushButton *exitButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "exit.png")), "");
+    exitButton->setIconSize(QSize(20, 20));
+    exitButton->setToolTip(tr("Close manager"));
+    exitButton->setShortcut(Qt::Key_Escape);
+    connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
+
     devicesCombo->setCurrentIndex(cameraIndex);
     menuLayout->addWidget(new TSeparator(Qt::Horizontal));
     menuLayout->addWidget(clickButton);
+    menuLayout->addWidget(exitButton);
     menuLayout->addStretch(2);
 
     connect(devicesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(changeCameraDevice(int)));
