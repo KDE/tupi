@@ -47,11 +47,11 @@ NodeManager::NodeManager(QGraphicsItem * parent, QGraphicsScene  *scene, int zVa
                          m_parent(parent), m_scene(scene), m_anchor(0,0), m_press(false), m_rotation(0)
 {
     QRectF rect = parent->sceneBoundingRect();
-    Node *topLeft = new Node(Node::TopLeft, Node::Scale, rect.topLeft(), this, parent, scene, zValue);
-    Node *topRight = new Node(Node::TopRight, Node::Scale, rect.topRight(), this, parent, scene, zValue);
-    Node *bottomLeft = new Node(Node::BottomLeft,Node::Scale, rect.bottomLeft(),this, parent, scene, zValue);
-    Node *bottomRight = new Node(Node::BottomRight,Node::Scale, rect.bottomRight(),this, parent, scene, zValue);
-    Node *center = new Node(Node::Center, Node::Scale, rect.center(), this,parent, scene, zValue);
+    Node *topLeft = new Node(Node::TopLeft, Node::Scale, rect.topLeft(), this, parent, zValue);
+    Node *topRight = new Node(Node::TopRight, Node::Scale, rect.topRight(), this, parent, zValue);
+    Node *bottomLeft = new Node(Node::BottomLeft,Node::Scale, rect.bottomLeft(),this, parent, zValue);
+    Node *bottomRight = new Node(Node::BottomRight,Node::Scale, rect.bottomRight(),this, parent, zValue);
+    Node *center = new Node(Node::Center, Node::Scale, rect.center(), this,parent, zValue);
 
     m_nodes.insert(Node::TopLeft, topLeft);
     m_nodes.insert(Node::TopRight, topRight);

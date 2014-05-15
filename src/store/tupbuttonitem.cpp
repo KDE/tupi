@@ -42,9 +42,9 @@
 #include <QApplication>
 
 // TupButtonItem::TupButtonItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItem(parent, scene)
-TupButtonItem::TupButtonItem(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItem(parent)
+TupButtonItem::TupButtonItem(QGraphicsItem *parent) : QGraphicsItem(parent)
 {
-    QGraphicsItem::setCursor(QCursor(Qt::PointingHandCursor ));
+    QGraphicsItem::setCursor(QCursor(Qt::PointingHandCursor));
     setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
     
     m_iconSize = QSize(22,22);

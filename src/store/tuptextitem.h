@@ -51,7 +51,7 @@ class STORE_EXPORT TupTextItem : public QGraphicsTextItem, public TupAbstractSer
     Q_OBJECT
 
     public:
-        TupTextItem(QGraphicsItem * parent = 0, QGraphicsScene * scene = 0);
+        TupTextItem(QGraphicsItem *parent = 0);
         ~TupTextItem();
         
         virtual void fromXml(const QString &xml);

@@ -47,7 +47,7 @@
 class STORE_EXPORT TupPathItem : public TupAbstractSerializable, public QGraphicsPathItem
 {
     public:
-        TupPathItem(QGraphicsItem * parent = 0, QGraphicsScene * scene = 0);
+        TupPathItem(QGraphicsItem *parent = 0);
         ~TupPathItem();
         
         virtual void fromXml(const QString &xml);

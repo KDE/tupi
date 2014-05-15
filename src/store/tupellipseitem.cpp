@@ -45,12 +45,12 @@
 #include <QPainter>
 #include <QPainterPath>
 
-TupEllipseItem::TupEllipseItem(QGraphicsItem * parent, QGraphicsScene * scene): QGraphicsEllipseItem(parent), m_dragOver(false)
+TupEllipseItem::TupEllipseItem(QGraphicsItem *parent): QGraphicsEllipseItem(parent), m_dragOver(false)
 {
     setAcceptDrops(true);
 }
 
-TupEllipseItem::TupEllipseItem(const QRectF & rect, QGraphicsItem * parent, QGraphicsScene * scene): QGraphicsEllipseItem(rect, parent), m_dragOver(false)
+TupEllipseItem::TupEllipseItem(const QRectF &rect, QGraphicsItem *parent): QGraphicsEllipseItem(rect, parent), m_dragOver(false)
 {
     setAcceptDrops(true);
 }

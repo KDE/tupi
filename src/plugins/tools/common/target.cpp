@@ -53,7 +53,7 @@
 */
 
 // Target::Target(const QPointF & pos, int zLevel, QGraphicsScene *scene) : QGraphicsItem(0, scene)
-Target::Target(const QPointF & pos, int zLevel, QGraphicsScene *scene) : QGraphicsItem(0)
+Target::Target(const QPointF & pos, int zLevel) : QGraphicsItem(0)
 {
     QGraphicsItem::setCursor(QCursor(Qt::PointingHandCursor));
     setFlag(ItemIsSelectable, false);

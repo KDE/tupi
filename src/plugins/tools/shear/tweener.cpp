@@ -580,7 +580,7 @@ void Tweener::updateOriginPoint(const QPointF &point)
 void Tweener::addTarget()
 {
     if (k->mode == TupToolPlugin::Add) {
-        k->target = new Target(k->origin, k->baseZValue, k->scene);
+        k->target = new Target(k->origin, k->baseZValue);
         connect(k->target, SIGNAL(positionUpdated(const QPointF &)), this, SLOT(updateOriginPoint(const QPointF &)));
         k->scene->addItem(k->target);
     } else {
@@ -588,7 +588,7 @@ void Tweener::addTarget()
         if (k->mode == TupToolPlugin::Edit) {
             QGraphicsItem *item = k->objects.at(0);
             k->origin = item->mapToParent(k->currentTween->transformOriginPoint());
-            k->target = new Target(k->origin, k->baseZValue, k->scene);
+            k->target = new Target(k->origin, k->baseZValue);
             connect(k->target, SIGNAL(positionUpdated(const QPointF &)), this, SLOT(updateOriginPoint(const QPointF &)));
             k->scene->addItem(k->target);
         }

@@ -216,7 +216,7 @@ QVector<TupTweenerStep *> StepsViewer::steps()
          // TupTweenerStep *step = new TupTweenerStep(count);
          TupTweenerStep *step = new TupTweenerStep(i);
 
-         QPointF point = k->dots->at(i); 
+         // QPointF point = k->dots->at(i); 
          step->setPosition(k->dots->at(i));
          stepsVector << step;
          // count++;

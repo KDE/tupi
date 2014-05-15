@@ -65,7 +65,7 @@ struct Node::Private
     QSizeF size;
 };
 
-Node::Node(TypeNode node, ActionNode action, const QPointF &pos, NodeManager *manager, QGraphicsItem *parent, QGraphicsScene *scene, int zValue) : 
+Node::Node(TypeNode node, ActionNode action, const QPointF &pos, NodeManager *manager, QGraphicsItem *parent, int zValue) : 
            QGraphicsItem(0), k(new Private)
 {
     QGraphicsItem::setCursor(QCursor(Qt::PointingHandCursor));

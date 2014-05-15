@@ -81,7 +81,7 @@ TupPathItem *TupItemConverter::convertToPath(QGraphicsItem *item)
     if (!item) 
         return 0;
     
-    TupPathItem *path = new TupPathItem(item->parentItem(), 0);
+    TupPathItem *path = new TupPathItem(item->parentItem());
     
     QPainterPath ppath;
     

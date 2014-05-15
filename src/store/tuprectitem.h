@@ -48,8 +48,8 @@
 class STORE_EXPORT TupRectItem : public QGraphicsRectItem, public TupAbstractSerializable
 {
     public:
-        TupRectItem(QGraphicsItem * parent = 0, QGraphicsScene * scene = 0);
-        TupRectItem(const QRectF& rect, QGraphicsItem * parent = 0, QGraphicsScene * scene = 0);
+        TupRectItem(QGraphicsItem * parent = 0);
+        TupRectItem(const QRectF& rect, QGraphicsItem * parent = 0);
         ~TupRectItem();
         bool contains(const QPointF & point) const;
         

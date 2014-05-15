@@ -48,7 +48,7 @@
 class STORE_EXPORT TupPixmapItem : public QGraphicsPixmapItem, public TupAbstractSerializable
 {
     public:
-        TupPixmapItem(QGraphicsItem * parent = 0, QGraphicsScene * scene = 0);
+        TupPixmapItem(QGraphicsItem *parent = 0);
         ~TupPixmapItem();
 
         virtual void fromXml(const QString &xml);

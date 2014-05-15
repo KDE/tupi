@@ -47,7 +47,7 @@
 #include <QCursor>
 
 // TupPathItem::TupPathItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsPathItem(parent, scene), m_dragOver(false)
-TupPathItem::TupPathItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsPathItem(parent), m_dragOver(false)
+TupPathItem::TupPathItem(QGraphicsItem * parent) : QGraphicsPathItem(parent), m_dragOver(false)
 {
     setAcceptDrops(true);
 }

@@ -51,7 +51,7 @@ class Target : public QObject, public QGraphicsItem
     
     public:
         
-        Target(const QPointF & pos = QPoint(0,0), int zLevel = 0, QGraphicsScene * scene = 0);
+        Target(const QPointF & pos = QPoint(0,0), int zLevel = 0);
         ~Target();
         
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *);

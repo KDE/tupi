@@ -53,7 +53,7 @@ class STORE_EXPORT TupButtonItem : public QObject, public QGraphicsItem, public 
     Q_INTERFACES(QGraphicsItem)
 
     public:
-        TupButtonItem(QGraphicsItem * parent = 0, QGraphicsScene * scene = 0);
+        TupButtonItem(QGraphicsItem *parent = 0);
         ~TupButtonItem();
         
         virtual void fromXml(const QString &xml);

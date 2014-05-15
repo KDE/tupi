@@ -38,7 +38,7 @@
 #include "tdebug.h"
 
 // TupLineItem::TupLineItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsLineItem(parent, scene)
-TupLineItem::TupLineItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsLineItem(parent)
+TupLineItem::TupLineItem(QGraphicsItem *parent) : QGraphicsLineItem(parent)
 {
 }
 

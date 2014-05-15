@@ -46,7 +46,7 @@
 class TUPI_EXPORT TupLineGuide : public QGraphicsItem
 {
     public:
-        TupLineGuide(Qt::Orientation o, QGraphicsScene *scene);
+        TupLineGuide(Qt::Orientation orientation);
         ~TupLineGuide();
         
         QRectF boundingRect() const;

@@ -1567,10 +1567,9 @@ void TupDocumentView::cameraInterface()
                 }
         }
 
-        QByteArray cameraDevice = cameraDevices[0];
-        QCamera *camera = new QCamera(cameraDevice);
-        QCameraImageCapture *imageCapture = new QCameraImageCapture(camera);
-
+        // QByteArray cameraDevice = cameraDevices[0];
+        // QCamera *camera = new QCamera(cameraDevice);
+        // QCameraImageCapture *imageCapture = new QCameraImageCapture(camera);
         // QList<QSize> resolutions = imageCapture->supportedResolutions();
 
         QList<QSize> resolutions;

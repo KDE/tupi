@@ -44,7 +44,7 @@ struct TupItemGroup::Private
 };
 
 // TupItemGroup::TupItemGroup(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItemGroup(parent, scene), k(new Private)
-TupItemGroup::TupItemGroup(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItemGroup(parent), k(new Private)
+TupItemGroup::TupItemGroup(QGraphicsItem *parent) : QGraphicsItemGroup(parent), k(new Private)
 {
 }
 
