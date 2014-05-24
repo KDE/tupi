@@ -33,13 +33,27 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef CONTROLNODE_H
-#define CONTROLNODE_H
+#ifndef TCONTROLNODE_H
+#define TCONTROLNODE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QCursor>
+#include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
+#include <QStyleOption>
+#include <QStyleOptionButton>
+#include <QApplication>
+#include <QCursor>
+#include <QGraphicsPathItem>
 #include <QGraphicsItem>
 #include <QObject>
 #include <QPointF>
-#include <QGraphicsScene>
 
 /**
  * @author Jorge Cuadrado
@@ -47,11 +61,8 @@
 
 class TNodeGroup;
 
-// class TControlNode : public QObject, public QGraphicsItem
-class TControlNode : public QGraphicsItem
+class T_GUI_EXPORT TControlNode : public QGraphicsItem
 {
-    // Q_OBJECT
-    
     public:
 
         enum State { Pressed = 1, Released };

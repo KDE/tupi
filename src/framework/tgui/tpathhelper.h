@@ -38,6 +38,10 @@
 
 #include "tglobal.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QPainterPath>
 #include <QChar>
 #include <QStringList>

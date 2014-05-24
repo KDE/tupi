@@ -37,11 +37,17 @@
 #define TFORMFACTORY_H
 
 #include "tglobal.h"
+
 #include <QWidget>
 #include <QStringList>
+#include <QBoxLayout>
+// #include <QVBoxLayout>
+// #include <QHBoxLayout>
+#include <QGridLayout>
+#include <QLabel>
 
-class QBoxLayout;
-class QGridLayout;
+// class QBoxLayout;
+// class QGridLayout;
 
 /**
  * @author David Cuadrado

@@ -34,14 +34,6 @@
  ***************************************************************************/
 
 #include "tosd.h"
-#include "tdebug.h"
-
-#include <QApplication>
-#include <QBitmap>
-#include <QTimer>
-#include <QPainter>
-#include <QDesktopWidget>
-#include <QLinearGradient>
 
 TOsd *TOsd::s_osd = 0;
 

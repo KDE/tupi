@@ -33,8 +33,8 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef CCBUTTON_H
-#define CCBUTTON_H
+#ifndef TCIRCLEBUTTON_H
+#define TCIRCLEBUTTON_H
 /**
  * @file tcirclebutton.h
  * Include this file if you need the class TCircleButton
@@ -44,6 +44,17 @@
 
 #include <QPushButton>
 #include <QStyleOptionButton>
+#include <QPainter>
+#include <QRegion>
+#include <QRect>
+#include <QPaintEvent>
+#include <QDebug>
+#include <QMoveEvent>
+#include <QApplication>
+#include <QBitmap>
+#include <QPainterPath>
+#include <QTimer>
+#include <QPaintEngine>
 
 /**
  * @short The TCircleButton class provides a circular button

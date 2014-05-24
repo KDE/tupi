@@ -38,11 +38,21 @@
 
 #include "tglobal.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QPushButton>
 #include <QImage>
 #include <QPixmap>
 #include <QIcon>
 #include <QTimer>
+#include <QPainter>
+#include <QLayout>
+#include <QBitmap>
+#include <QStyle>
+#include <QStyleOptionButton>
+#include <QStylePainter>
 
 /**
  * A image pressable

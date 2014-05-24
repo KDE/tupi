@@ -44,6 +44,18 @@
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
+#include <QColorDialog>
+#include <QPalette>
+#include <QCursor>
+#include <QLabel>
+#include <QPainter>
+#include <QApplication>
+#include <QDrag>
+#include <QStyle>
+#include <QStyleOptionButton>
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QMimeData>
 
 class QColor;
 

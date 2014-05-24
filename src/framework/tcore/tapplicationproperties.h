@@ -33,11 +33,15 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef KAPPLICATIONPROPERTIES_H
-#define KAPPLICATIONPROPERTIES_H
+#ifndef TAPPLICATIONPROPERTIES_H
+#define TAPPLICATIONPROPERTIES_H
 
 #include "tglobal.h"
+
 #include <QString>
+#include <QDir>
+#include <QLocale>
+#include <QApplication>
 
 /**
  * @author David Cuadrado
@@ -85,5 +89,14 @@ class T_CORE_EXPORT TApplicationProperties
 };
 
 #define kAppProp TApplicationProperties::instance()
+#define HOME_DIR kAppProp->homeDir()
+#define BIN_DIR kAppProp->binDir()
+#define SHARE_DIR kAppProp->shareDir()
+#define DATA_DIR kAppProp->dataDir()
+#define THEME_DIR kAppProp->themeDir()
+#define CONFIG_DIR kAppProp->configDir()
+#define PLUGINS_DIR kAppProp->pluginDir()
+#define CACHE_DIR kAppProp->cacheDir()
+#define REPOSITORY_DIR kAppProp->repositoryDir()
 
 #endif

@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "tseparator.h"
-#include <QStyleOption>
-#include <QPainter>
 
 TSeparator::TSeparator(QWidget* parent) : QFrame(parent)
 {

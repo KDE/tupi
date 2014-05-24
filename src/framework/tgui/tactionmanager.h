@@ -36,17 +36,18 @@
 #ifndef TACTIONMANAGER_H
 #define TACTIONMANAGER_H
 
-#include "taction.h"
 #include "tglobal.h"
+#include "taction.h"
 
+#include <QMenu>
 #include <QObject>
 #include <QWidget>
 #include <QList>
 #include <QHash>
 
-typedef QList<QAction *> KActionList;
-typedef QHash<QString, QAction *> KActionDict;
-typedef QHash<QString, KActionDict> KActionContainer;
+typedef QList<QAction *> TActionList;
+typedef QHash<QString, QAction *> TActionDict;
+typedef QHash<QString, TActionDict> TActionContainer;
 
 class QToolBar;
 class QMenuBar;
@@ -78,7 +79,7 @@ class T_GUI_EXPORT TActionManager : public QObject
         QToolBar *setupToolBar(QToolBar *toolBar, const QString &container, bool clear = true);
 
     private:
-        KActionContainer m_actionContainer;
+        TActionContainer m_actionContainer;
 };
 
 #endif

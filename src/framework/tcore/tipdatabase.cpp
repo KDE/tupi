@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "tipdatabase.h"
-#include "talgorithm.h"
-#include "tdebug.h"
-
-#include <QDomDocument>
-#include <QFile>
 
 struct TipDatabase::Private
 {

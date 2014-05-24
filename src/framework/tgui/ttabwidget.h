@@ -36,8 +36,15 @@
 #ifndef TTABWIDGET_H
 #define TTABWIDGET_H
 
-#include <QTabWidget>
 #include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QTabWidget>
+#include <QWheelEvent>
+#include <QTabBar>
 
 /**
  * @author David Cuadrado

@@ -38,6 +38,12 @@
 
 #include "tmainwindow.h"
 
+#include <QTabWidget>
+#include <QToolButton>
+#include <QPainter>
+#include <QWheelEvent>
+#include <QTabBar>
+
 class QTabWidget;
 
 /**
@@ -45,7 +51,7 @@ class QTabWidget;
  * @author David Cuadrado
 */
 
-class T_IDEAL_EXPORT TabbedMainWindow : public TMainWindow
+class T_GUI_EXPORT TabbedMainWindow : public TMainWindow
 {
     Q_OBJECT
 

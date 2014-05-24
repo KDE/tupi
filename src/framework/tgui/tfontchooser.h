@@ -37,7 +37,17 @@
 #define TFONTCHOOSER_H
 
 #include "tglobal.h"
+#include "tformfactory.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QFrame>
+#include <QComboBox>
+#include <QHBoxLayout>
+#include <QFontDatabase>
+#include <QFontComboBox>
 
 class QComboBox;
 class QFontComboBox;

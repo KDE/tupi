@@ -37,14 +37,18 @@
 #define TMOVIEGENERATOR_H
 
 #include <QImage>
-
+#include "tglobal.h"
 #include "tmoviegeneratorinterface.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 /**
  * @author David Cuadrado
 */
 
-class TMovieGenerator : public QImage, public TMovieGeneratorInterface
+class T_GUI_EXPORT TMovieGenerator : public QImage, public TMovieGeneratorInterface
 {
     public:
         TMovieGenerator(int width, int height);

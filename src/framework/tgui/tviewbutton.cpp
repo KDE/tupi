@@ -35,16 +35,6 @@
 
 #include "tviewbutton.h"
 #include "toolview.h"
-#include "tdebug.h"
-
-#include <QToolBar>
-#include <QStylePainter>
-#include <QMenu>
-#include <QIcon>
-#include <QMouseEvent>
-#include <QMainWindow>
-#include <QTimer>
-#include <QtDebug>
 
 class TViewButton::Animator
 {

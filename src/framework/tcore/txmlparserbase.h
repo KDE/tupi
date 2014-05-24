@@ -37,6 +37,11 @@
 #define TXMLPARSERBASE_H
 
 #include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QXmlDefaultHandler>
 
 /**

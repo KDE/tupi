@@ -35,9 +35,6 @@
 
 #include "tpushbutton.h"
 
-#include <QPolygon>
-#include <QPainter>
-
 TPushButton::TPushButton(QWidget *parent, const QString &name, int column, int row) : QPushButton(parent)
 {
     setText(name);

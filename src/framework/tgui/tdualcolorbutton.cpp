@@ -34,20 +34,9 @@
  ***************************************************************************/
 
 #include "tdualcolorbutton.h"
-#include "tdebug.h"
 
 #include "tcolorarrow.xpm"
 #include "tcolorreset.xpm"
-
-#include <qdrawutil.h>
-#include <QPainter>
-#include <QBitmap>
-#include <QDragEnterEvent>
-#include <QPixmap>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <QDropEvent>
-#include <QApplication>
 
 struct TDualColorButton::Private
 {
@@ -183,11 +172,11 @@ void TDualColorButton::mousePressEvent(QMouseEvent *event)
 
     if (fgRect.contains(mPos)) {
         k->currentSpace = Foreground;
-        tFatal() << "TDualColorButton::mousePressEvent() - emitting foreground signal!";
+        // tFatal() << "TDualColorButton::mousePressEvent() - emitting foreground signal!";
         emit selectionChanged(Foreground);
     } else if (bgRect.contains(mPos)) {
                k->currentSpace = Background;
-               tFatal() << "TDualColorButton::mousePressEvent() - emitting background signal!";
+               // tFatal() << "TDualColorButton::mousePressEvent() - emitting background signal!";
                emit selectionChanged(Background);
     } else if (event->pos().x() > fgRect.width()) {
                // We handle the swap and reset controls as soon as the mouse is

@@ -36,14 +36,28 @@
 #ifndef TMAINWINDOW_H
 #define TMAINWINDOW_H
 
-#include "tideality.h"
+#include "tglobal.h"
+#include "tbuttonbar.h"
+#include "toolview.h"
+#include "tviewbutton.h"
+#include "tmainwindowabstractsettings.h"
 
-// Project begin: Aug 4 2006
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QMainWindow>
 #include <QHash>
 #include <QMap>
 #include <QKeySequence>
+#include <QTimer>
+#include <QMenu>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QSettings>
+#include <QHashIterator>
+#include <QMenuBar>
+#include <QCloseEvent>
 
 class TButtonBar;
 class ToolView;
@@ -54,9 +68,10 @@ class TMainWindowAbstractSettings;
  * @author David Cuadrado
 */
 
-class T_IDEAL_EXPORT TMainWindow : public QMainWindow
+class T_GUI_EXPORT TMainWindow : public QMainWindow
 {
-    Q_OBJECT;
+    Q_OBJECT
+
     public:
         enum
          {

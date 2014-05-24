@@ -35,11 +35,6 @@
 
 #include "tdoublecombobox.h"
 
-#include <QDoubleValidator>
-#include <QLineEdit>
-
-#include <cmath>
-
 #define PERCENT(v) (v * 100.0) / maximum()
 #define VALUE(p) (p * maximum()) / 100.0
 

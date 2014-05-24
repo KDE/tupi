@@ -38,7 +38,15 @@
 
 #include "tglobal.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QTreeWidget>
+#include <QHeaderView>
+#include <QItemDelegate>
+#include <QEvent>
+#include <QLineEdit>
 
 /**
  * @author David Cuadrado

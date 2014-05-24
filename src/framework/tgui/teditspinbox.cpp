@@ -35,8 +35,6 @@
 
 #include "teditspinbox.h"
 
-#include <QHBoxLayout>
-
 TEditSpinBox::TEditSpinBox(int value, int minValue, int maxValue, int step, QString text, QWidget *parent, const char *name) :QGroupBox(parent)
 {
     setObjectName(name);

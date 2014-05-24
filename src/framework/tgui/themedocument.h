@@ -40,7 +40,7 @@
 
 #include <QMap>
 #include <QStringList>
-#include <qdom.h>
+#include <QDomDocument>
 
 typedef QMap<QString, QString> ThemeKey;
 

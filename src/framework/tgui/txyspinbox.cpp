@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "txyspinbox.h"
-#include "tapplication.h"
-#include "tdebug.h"
-
-#include <QHBoxLayout>
-#include <QSizePolicy>
 
 TXYSpinBox::TXYSpinBox(const QString &title, QWidget *parent) : QGroupBox(title, parent), m_modifyTogether(false)
 {

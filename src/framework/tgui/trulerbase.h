@@ -38,12 +38,17 @@
 
 #include "tglobal.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QMouseEvent>
 #include <QResizeEvent>
 #include <QPaintEvent>
 #include <QMenu>
 #include <QPolygonF>
 #include <QFrame>
+#include <QPainter>
 
 #define UNITCOUNT 5
 

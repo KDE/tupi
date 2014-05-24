@@ -40,6 +40,9 @@
 
 #include <QDialog>
 #include <QHash>
+#include <QVBoxLayout>
+#include <QPushButton>
+#include <QHBoxLayout>
 
 typedef QHash<int, QPushButton *> Buttons;
 

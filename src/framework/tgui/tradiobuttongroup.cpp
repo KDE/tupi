@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tradiobuttongroup.h"
-#include "tdebug.h"
-
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 
 TRadioButtonGroup::TRadioButtonGroup(const QString &title, Qt::Orientation orientation, QWidget *parent) : QGroupBox(title, parent), m_orientation(orientation)
 {

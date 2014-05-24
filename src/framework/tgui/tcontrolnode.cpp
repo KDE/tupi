@@ -35,17 +35,6 @@
 
 #include "tcontrolnode.h"
 #include "tnodegroup.h"
-#include "tdebug.h"
-
-#include <QCursor>
-#include <QGraphicsScene>
-#include <QGraphicsSceneMouseEvent>
-#include <QPainter>
-#include <QStyleOption>
-#include <QStyleOptionButton>
-#include <QApplication>
-#include <QCursor>
-#include <QGraphicsPathItem>
 
 struct TControlNode::Private
 {

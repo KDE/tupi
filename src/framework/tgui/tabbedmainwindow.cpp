@@ -35,13 +35,6 @@
 
 #include "tabbedmainwindow.h"
 
-#include <QTabWidget>
-#include <QToolButton>
-#include <QPainter>
-#include <QWheelEvent>
-#include <QTabBar>
-#include <QtDebug>
-
 #ifndef TUPI_GUI
 
 class TabWidgetPrivate : public QTabWidget

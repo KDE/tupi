@@ -36,15 +36,20 @@
 #ifndef TDOUBLECOMBOBOX_H
 #define TDOUBLECOMBOBOX_H
 
+#include "tglobal.h"
+
 #include <QComboBox>
+#include <QDoubleValidator>
+#include <QLineEdit>
+#include <cmath>
 
 /**
  * @author David Cuadrado
 */
 
-class TDoubleComboBox : public QComboBox
+class T_GUI_EXPORT TDoubleComboBox : public QComboBox
 {
-    Q_OBJECT;
+    Q_OBJECT
     
     public:
         TDoubleComboBox(double min, double max, QWidget *parent = 0);

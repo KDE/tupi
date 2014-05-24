@@ -35,9 +35,6 @@
 
 #include "ttoolbox.h"
 
-#include <QPolygon>
-#include <QPainter>
-
 TToolBox::TToolBox(QWidget *parent) : QToolBox(parent), m_lastIndex(0)
 {
     setFrameStyle(QFrame::StyledPanel);

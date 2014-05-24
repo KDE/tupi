@@ -37,7 +37,10 @@
 #define TPUSHBUTTON_H
 
 #include "tglobal.h"
+
 #include <QPushButton>
+#include <QPolygon>
+#include <QPainter>
 
 /**
  * @author Gustav Gonzalez 

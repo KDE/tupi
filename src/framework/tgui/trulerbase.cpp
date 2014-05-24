@@ -34,13 +34,6 @@
  ***************************************************************************/
 
 #include "trulerbase.h"
-#include "tdebug.h"
-
-#include <QMouseEvent>
-#include <QFrame>
-#include <QResizeEvent>
-#include <QPaintEvent> 
-#include <QPainter>
 
 struct TRulerBase::Private
 {
@@ -119,7 +112,7 @@ TRulerBase::~TRulerBase()
     delete k;
 }
 
-void TRulerBase::paintEvent ( QPaintEvent * )
+void TRulerBase::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
 
@@ -207,15 +200,15 @@ void TRulerBase::resizeEvent(QResizeEvent *)
     update();
 }
 
-void TRulerBase::mouseMoveEvent(QMouseEvent * e)
+void TRulerBase::mouseMoveEvent(QMouseEvent *event)
 {
     if (k->drawPointer)
-        movePointers(e->pos());
+        movePointers(event->pos());
 }
 
-void TRulerBase::setDrawPointer(bool yes)
+void TRulerBase::setDrawPointer(bool flag)
 {
-    k->drawPointer = yes;
+    k->drawPointer = flag;
     update();
 }
 
@@ -225,14 +218,16 @@ void TRulerBase::setSeparation(int sep)
         k->separation = sep;
         update();
     } else {
-        tError() << "I can't assign separation : " << sep << endl;
+#ifdef K_DEBUG
+        tError() << "TRulerBase::setSeparation() - Error: Can't assign separation : " << sep << endl;
+#endif
     }
 }
 
-void TRulerBase::mousePressEvent(QMouseEvent *e)
+void TRulerBase::mousePressEvent(QMouseEvent *event)
 {
-    if (e->button() == Qt::RightButton)
-        emit displayMenu(this, e->globalPos());
+    if (event->button() == Qt::RightButton)
+        emit displayMenu(this, event->globalPos());
 }
 
 Qt::Orientation TRulerBase::orientation()

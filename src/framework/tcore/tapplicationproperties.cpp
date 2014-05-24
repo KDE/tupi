@@ -35,10 +35,6 @@
 
 #include "tapplicationproperties.h"
 
-#include <QDir>
-#include <QLocale>
-#include <QApplication>
-
 TApplicationProperties *TApplicationProperties::s_instance = 0;
 
 struct TApplicationProperties::Private

@@ -34,12 +34,7 @@
  ***************************************************************************/
 
 #include "thememanager.h"
-#include "themedocument.h"
-#include "tdebug.h"
-#include "tglobal.h"
 #include "tapplication.h"
-
-#include <QApplication>
 
 ThemeManager::ThemeManager() : QXmlDefaultHandler()
 {

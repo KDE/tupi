@@ -34,13 +34,6 @@
  ***************************************************************************/
 
 #include "tfontchooser.h"
-#include "tformfactory.h"
-#include "tdebug.h"
-
-#include <QComboBox>
-#include <QHBoxLayout>
-#include <QFontDatabase>
-#include <QFontComboBox>
 
 TFontChooser::TFontChooser(QWidget *parent) : QFrame(parent)
 {

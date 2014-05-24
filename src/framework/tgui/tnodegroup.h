@@ -37,16 +37,21 @@
 #define NODEGROUP_H
 
 #include "tcontrolnode.h"
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QGraphicsScene>
 #include <QObject>
 #include <QHash>
+#include <QGraphicsPathItem>
+#include <QAbstractGraphicsShapeItem>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TNodeGroup : public QObject
+class T_GUI_EXPORT TNodeGroup : public QObject
 {
     Q_OBJECT
 

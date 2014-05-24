@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "toptionaldialog.h"
-#include "tseparator.h"
-
-#include <QVBoxLayout>
-#include <QLabel>
 
 TOptionalDialog::TOptionalDialog(const QString &text,const QString &title,QWidget *parent) : QDialog(parent)
 {

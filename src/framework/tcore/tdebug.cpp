@@ -36,38 +36,6 @@
 #if !defined(K_NODEBUG)
 #include "tdebug.h"
 
-#include <QFile>
-#include <QString>
-#include <QDateTime>
-#include <QPoint>
-#include <QPointF>
-#include <QRect>
-#include <QStringList>
-#include <QVariant>
-#include <QSize>
-#include <QEvent>
-// #include <QTimer>
-
-#ifdef QT_GUI_LIB
-
-#include <QRegion>
-#include <QPen>
-#include <QBrush>
-#include <QImage>
-#include <QIcon>
-#include <QPixmap>
-#include <QWidget>
-#include <QMessageBox>
-#include <QSyntaxHighlighter>
-#include <QMatrix>
-#include <QDesktopWidget>
-#include <QScrollBar>
-#include <QDebug>
-
-#endif
-
-// #include <QSettings>
-
 #if defined(Q_OS_UNIX)
 # define SHOW_ERROR "*** \033[0;31m%s\033[0;0m ***\n"
 # define SHOW_WARNING "-> \033[10;33m%s\033[0;0m\n"

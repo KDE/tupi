@@ -39,6 +39,7 @@
 #include "tglobal.h"
 
 #include <QLineEdit>
+#include <QPainter>
 
 class T_GUI_EXPORT TClickLineEdit : public QLineEdit
 {

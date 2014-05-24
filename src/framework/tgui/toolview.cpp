@@ -34,16 +34,6 @@
  ***************************************************************************/
 
 #include "toolview.h"
-#include "tviewbutton.h"
-#include "tmainwindow.h"
-#include "tdebug.h"
-
-#include <QtDebug>
-#include <QAction>
-#include <QMainWindow>
-#include <QMouseEvent>
-#include <QLayout>
-#include <QEvent>
 
 ToolView::ToolView(const QString &title, const QIcon &icon, const QString &code, QWidget * parent)
           : QDockWidget(title, parent), m_size(-1), m_perspective(0)

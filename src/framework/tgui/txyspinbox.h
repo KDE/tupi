@@ -38,11 +38,18 @@
 
 #include "tglobal.h"
 #include "tapplicationproperties.h"
+#include "tapplication.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QGroupBox>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QLabel>
+#include <QHBoxLayout>
+#include <QSizePolicy>
 
 /**
  * @author David Cuadrado

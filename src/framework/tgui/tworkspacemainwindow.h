@@ -36,15 +36,16 @@
 #ifndef TWORKSPACEMAINWINDOW_H
 #define TWORKSPACEMAINWINDOW_H
 
+#include "tglobal.h"
 #include "tmainwindow.h"
+
 #include <QMdiArea>
-// #include <QWorkspace>
 
 /**
  * @author David Cuadrado
 */
 
-class T_IDEAL_EXPORT TWorkspaceMainWindow : public TMainWindow
+class T_GUI_EXPORT TWorkspaceMainWindow : public TMainWindow
 {
     Q_OBJECT
 

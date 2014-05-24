@@ -35,8 +35,6 @@
 
 #include "txmlparserbase.h"
 
-#include "tdebug.h"
-
 struct TXmlParserBase::Private
 {
     QString currentTag;
@@ -116,16 +114,24 @@ bool TXmlParserBase::characters(const QString & ch)
 
 bool TXmlParserBase::error(const QXmlParseException & exception)
 {
+#ifdef K_DEBUG    
     tWarning() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
     tWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+#else
+    Q_UNUSED(exception);
+#endif
 
     return true;
 }
 
 bool TXmlParserBase::fatalError(const QXmlParseException & exception)
 {
+#ifdef K_DEBUG
     tFatal() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
     tWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+#else
+    Q_UNUSED(exception);
+#endif
 
     return true;
 }
@@ -143,7 +149,7 @@ void TXmlParserBase::setIgnore(bool ignore)
 QString TXmlParserBase::currentTag() const
 {
     return k->currentTag;
-}
+	}
 
 QString TXmlParserBase::root() const
 {
@@ -169,7 +175,9 @@ bool TXmlParserBase::parse(QFile *file)
 {
     if (!file->isOpen()) {
         if (! file->open(QIODevice::ReadOnly | QIODevice::Text)) {
+#ifdef K_DEBUG
             tWarning() << "Cannot open file " << file->fileName();
+#endif
             return false;
         }
     }

@@ -38,6 +38,7 @@
 
 #include "tglobal.h"
 
+#include <QHBoxLayout>
 #include <QGroupBox>
 #include <QSpinBox>
 #include <QSlider>

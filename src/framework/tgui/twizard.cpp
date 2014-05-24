@@ -35,14 +35,6 @@
 
 #include "twizard.h"
 
-#include "tvhbox.h"
-#include "tseparator.h"
-#include "tdebug.h"
-
-// Qt
-#include <QLabel>
-#include <QBitmap>
-
 TWizard::TWizard(QWidget *parent) : QDialog(parent)
 {
     m_cancelButton = new QPushButton(tr("Cancel"));

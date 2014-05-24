@@ -11,7 +11,7 @@ SUBDIRS += scenes \
            export \
            import \
            help \
-           kinas \
+           # kinas \
            pen \
            paintarea \
            twitter \

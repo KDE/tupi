@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tflatbutton.h"
-#include <QPainter>
 
 TFlatButton::TFlatButton(QWidget *parent) : QAbstractButton(parent)
 {

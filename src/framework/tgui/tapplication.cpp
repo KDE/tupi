@@ -34,18 +34,6 @@
  ***************************************************************************/
 
 #include "tapplication.h"
-#include "tdebug.h"
-#include "tactionmanager.h"
-
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QMessageBox>
-#include <QObject>
-#include <QLocale>
-
-#include <QApplication>
-#include <QMap>
 
 TApplication::TApplication(int & argc, char ** argv) : QApplication(argc, argv)
 {

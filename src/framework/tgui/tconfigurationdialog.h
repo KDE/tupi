@@ -36,14 +36,26 @@
 #ifndef TCONFIGURATIONDIALOG_H
 #define TCONFIGURATIONDIALOG_H
 
+#include "twidgetlistview.h"
+#include "tflatbutton.h"
+#include "tglobal.h"
+#include "tseparator.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDialog>
 #include <QMap>
 #include <QButtonGroup>
-
-#include "twidgetlistview.h"
-#include "tflatbutton.h"
-
-#include "tglobal.h"
+#include <QVBoxLayout>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QStackedWidget>
+#include <QLabel>
+#include <QHeaderView>
+#include <QDialogButtonBox>
+#include <QListWidget>
 
 class QStackedWidget;
 class QListWidget;

@@ -36,7 +36,7 @@
 #ifndef TMAINWINDOWABSTRACTSETTINGS_H
 #define TMAINWINDOWABSTRACTSETTINGS_H
 
-#include "tideality.h"
+#include "tglobal.h"
 #include <QObject>
 
 class ToolView;
@@ -46,7 +46,7 @@ class TMainWindow;
  * @author David Cuadrado
 */
 
-class T_IDEAL_EXPORT TMainWindowAbstractSettings : public QObject
+class T_GUI_EXPORT TMainWindowAbstractSettings : public QObject
 {
     public:
         TMainWindowAbstractSettings(QObject *parent = 0) : QObject(parent) {}
@@ -54,7 +54,6 @@ class T_IDEAL_EXPORT TMainWindowAbstractSettings : public QObject
         
         virtual void save(TMainWindow *w) = 0;
         virtual void restore(TMainWindow *w) = 0;
-        
 };
 
 #endif

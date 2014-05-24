@@ -36,28 +36,37 @@
 #ifndef TAPPLICATION_H
 #define TAPPLICATION_H
 
+#include "themedocument.h"
 #include "thememanager.h"
 #include "tvhbox.h"
 #include "twizard.h"
 #include "tconfig.h"
 #include "tglobal.h"
+#include "tactionmanager.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QApplication>
 #include <QMap>
-// #include <QColorGroup>
-
 #include <QLineEdit>
 #include <QPushButton>
 #include <QLabel>
 #include <QFileDialog>
 #include <QDialog>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QMessageBox>
+#include <QObject>
+#include <QLocale>
 
 class QApplication;
 class QString;
-class ThemeDocument;
 class QPalette;
-class TActionManager;
-class TAction;
+// class TActionManager;
+// class TAction;
 
 typedef QMap<QString, QString> ParseArgs;
 

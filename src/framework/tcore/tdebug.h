@@ -38,6 +38,34 @@
 
 #include "tglobal.h"
 
+#include <QFile>
+#include <QString>
+#include <QDateTime>
+#include <QPoint>
+#include <QPointF>
+#include <QRect>
+#include <QVariant>
+#include <QSize>
+#include <QEvent>
+
+#ifdef QT_GUI_LIB
+
+#include <QRegion>
+#include <QPen>
+#include <QBrush>
+#include <QImage>
+#include <QIcon>
+#include <QPixmap>
+#include <QWidget>
+#include <QMessageBox>
+#include <QSyntaxHighlighter>
+#include <QMatrix>
+#include <QDesktopWidget>
+#include <QScrollBar>
+#include <QDebug>
+
+#endif
+
 #include <QTextStream>
 #include <QStringList>
 #include <QTextEdit>

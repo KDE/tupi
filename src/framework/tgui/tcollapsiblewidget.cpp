@@ -34,22 +34,6 @@
  ***************************************************************************/
 
 #include "tcollapsiblewidget.h"
-#include "tdebug.h"
-
-#include <QTextDocument>
-#include <QMimeData>
-#include <QPainter>
-#include <QMouseEvent>
-#include <QDragEnterEvent>
-#include <QVBoxLayout>
-#include <QApplication>
-#include <QGridLayout>
-#include <QPushButton>
-#include <QPainterPath>
-#include <QStyleOption>
-#include <QGroupBox>
-#include <QFontMetrics>
-#include <QDrag>
 
 /******************************************************************
  * Helper classes

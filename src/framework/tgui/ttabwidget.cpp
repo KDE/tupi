@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "ttabwidget.h"
-#include "tdebug.h"
-
-#include <QWheelEvent>
-#include <QTabBar>
 
 TTabWidget::TTabWidget(QWidget *parent) : QTabWidget(parent)
 {

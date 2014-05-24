@@ -38,10 +38,14 @@
 
 #include "tglobal.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QGroupBox>
 #include <QRadioButton>
-#include <QBoxLayout>
 #include <QButtonGroup>
+#include <QBoxLayout>
 
 /**
  * @author David Cuadrado

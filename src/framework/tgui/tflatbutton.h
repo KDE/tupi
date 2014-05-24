@@ -38,6 +38,7 @@
 
 #include "tglobal.h"
 #include <QAbstractButton>
+#include <QPainter>
 
 /**
  * @author David Cuadrado

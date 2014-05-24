@@ -37,7 +37,10 @@
 #define TTOOLBOX_H
 
 #include "tglobal.h"
+
 #include <QToolBox>
+#include <QPolygon>
+#include <QPainter>
 
 /**
  * @author David Cuadrado

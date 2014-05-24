@@ -34,20 +34,6 @@
  ***************************************************************************/
 
 #include "tipdialog.h"
-#include "tseparator.h"
-#include "tconfig.h"
-#include "tdebug.h"
-#include "tapplicationproperties.h"
-
-#include <QVBoxLayout>
-#include <QTextBrowser>
-#include <QTextFrame>
-#include <QTextFrameFormat>
-#include <QCheckBox>
-#include <QPushButton>
-#include <QDomDocument>
-#include <QFile>
-#include <QDir>
 
 TipDialog::TipDialog(QStringList &labels, const QString &file, QWidget *parent) : QDialog(parent)
 {

@@ -35,17 +35,6 @@
 
 #include "talgorithm.h"
 
-#include <cstdlib>
-#include <cstdio>
-#include <ctime>
-#include <QCryptographicHash>
-
-#ifdef Q_OS_LINUX
-#include <unistd.h>
-#include <sys/time.h>
-#include <fcntl.h>
-#endif
-
 int TAlgorithm::random()
 {
     static bool init = false;

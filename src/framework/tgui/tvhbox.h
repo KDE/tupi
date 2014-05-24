@@ -36,15 +36,19 @@
 #ifndef TVHBOX_H
 #define TVHBOX_H
 
-class TVHBox;
-
 #include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QFrame>
 #include <QLayout>
 #include <QBoxLayout>
 #include <QEvent>
 #include <QMouseEvent>
+#include <QApplication>
+#include <QPoint>
 
 /**
  * @author David Cuadrado

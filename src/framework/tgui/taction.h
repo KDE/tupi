@@ -36,10 +36,15 @@
 #ifndef TACTION_H
 #define TACTION_H
 
+#include "tglobal.h"
+#include "tactionmanager.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QAction>
 #include <QKeySequence>
-
-#include "tglobal.h"
 
 class TActionManager;
 

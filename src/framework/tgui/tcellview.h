@@ -38,8 +38,19 @@
 
 #include "tglobal.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QTableWidget>
 #include <QStyleOptionViewItem>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QItemSelectionModel>
+#include <QPainterPath>
+#include <QScrollBar>
+#include <QHeaderView>
+#include <QTimer>
 
 class TCellViewItemDelegate;
 
@@ -48,7 +59,7 @@ class TCellViewItemDelegate;
  * @brief Include this file if you need the class TCellView, TCellViewItem, TCellViewItemDelegate or TCellViewModel
  */
 
-class TCellViewItem : public QTableWidgetItem
+class T_GUI_EXPORT TCellViewItem : public QTableWidgetItem
 {
     public:
         TCellViewItem();
@@ -61,7 +72,7 @@ class TCellViewItem : public QTableWidgetItem
 /**
  * @author David Cuadrado
  */
-class TCellView : public QTableWidget
+class T_GUI_EXPORT TCellView : public QTableWidget
 {
     Q_OBJECT
 

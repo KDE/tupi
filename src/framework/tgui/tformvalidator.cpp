@@ -34,15 +34,6 @@
  ***************************************************************************/
 
 #include "tformvalidator.h"
-#include "tdebug.h"
-
-#include <QLineEdit>
-#include <QIntValidator>
-#include <QDoubleValidator>
-#include <QRegExpValidator>
-#include <QSpinBox>
-#include <QDoubleSpinBox>
-#include <QtDebug>
 
 TFormValidator::TFormValidator(QWidget *form) : m_parent(form)
 {

@@ -35,24 +35,6 @@
 
 #include "tcolorbutton.h"
 
-#include <QColorDialog>
-#include <QPalette>
-#include <QCursor>
-#include <QLabel>
-#include <QPainter>
-#include <QApplication>
-#include <QDrag>
-#include <QStyle>
-#include <QStyleOptionButton>
-
-#include <QPixmap>
-#include <QDragLeaveEvent>
-#include <QDragMoveEvent>
-#include <QDropEvent>
-#include <QDragEnterEvent>
-#include <QMouseEvent>
-#include <QMimeData>
-
 TColorButton::TColorButton(QWidget* parent) : QAbstractButton(parent)
 {
     setMinimumSize(minimumSizeHint());

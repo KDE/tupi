@@ -40,10 +40,17 @@
 #include "tglobal.h"
 
 #include <QModelIndex>
-
-class QTreeWidget;
-class QTreeWidgetItem;
-class QToolButton;
+#include <QApplication>
+#include <QTimer>
+#include <QMenu>
+#include <QLabel>
+#include <QContextMenuEvent>
+#include <QList>
+#include <QToolButton>
+#include <QHeaderView>
+#include <QHBoxLayout>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
 /**
  * This class provides a search line for filtering the items in

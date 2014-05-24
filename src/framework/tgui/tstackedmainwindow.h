@@ -36,17 +36,17 @@
 #ifndef TSTACKEDMAINWINDOW_H
 #define TSTACKEDMAINWINDOW_H
 
+#include "tglobal.h"
 #include "tmainwindow.h"
 
+#include <QStackedWidget>
 #include <QHash>
-
-class QStackedWidget;
 
 /**
  * @author David Cuadrado
 */
 
-class T_IDEAL_EXPORT TStackedMainWindow : public TMainWindow
+class T_GUI_EXPORT TStackedMainWindow : public TMainWindow
 {
     Q_OBJECT
 

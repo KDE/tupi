@@ -36,13 +36,19 @@
 #ifndef TITEMSELECTOR_H
 #define TITEMSELECTOR_H
 
+#include "tglobal.h"
 #include "tapplicationproperties.h"
+
 #include <QWidget>
+#include <QListWidget>
+#include <QToolButton>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 /**
  * @author David Cuadrado
 */
-class TItemSelector : public QWidget
+class T_GUI_EXPORT TItemSelector : public QWidget
 {
     Q_OBJECT
 

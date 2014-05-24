@@ -35,10 +35,6 @@
 
 #include "tabdialog.h"
 
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QHBoxLayout>
-
 TabDialog::TabDialog(QWidget *parent, bool modal) : QDialog(parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;

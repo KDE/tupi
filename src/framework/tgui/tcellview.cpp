@@ -34,15 +34,6 @@
  ***************************************************************************/
 
 #include "tcellview.h"
-#include "tdebug.h"
-
-#include <QPainter>
-#include <QPaintEvent>
-#include <QItemSelectionModel>
-#include <QPainterPath>
-#include <QScrollBar>
-#include <QHeaderView>
-#include <QTimer>
 
 ////////// TCellViewItemDelegate ///////////
 
@@ -253,7 +244,9 @@ void TCellView::addItem(const QImage &i)
 void TCellView::wheelEvent(QWheelEvent *event)
 {
     if (event->modifiers() == Qt::ControlModifier) {
+#ifdef K_DEBUG
         SHOW_VAR(event->delta());
+#endif
     } else {
         QTableWidget::wheelEvent(event);
     }

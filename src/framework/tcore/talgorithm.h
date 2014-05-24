@@ -36,10 +36,22 @@
 #ifndef TALGORITHM_H
 #define TALGORITHM_H
 
+#include "tglobal.h"
+
 #include <QString>
 #include <QColor>
 
-#include "tglobal.h"
+#include <cstdlib>
+#include <cstdio>
+#include <ctime>
+#include <QCryptographicHash>
+
+#ifdef Q_OS_LINUX
+#include <unistd.h>
+#include <sys/time.h>
+#include <fcntl.h>
+#endif
+
 
 /**
  * Class containing generic useful algorithms about random values

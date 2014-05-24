@@ -35,8 +35,6 @@
 
 #include "tstackedmainwindow.h"
 
-#include <QStackedWidget>
-
 TStackedMainWindow::TStackedMainWindow(QWidget *parent) : TMainWindow(parent)
 {
     m_stack = new QStackedWidget;

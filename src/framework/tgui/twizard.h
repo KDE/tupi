@@ -33,17 +33,24 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef KWIZARD_H
-#define KWIZARD_H
+#ifndef TWIZARD_H
+#define TWIZARD_H
+
+#include "tvhbox.h"
+#include "tglobal.h"
+#include "tseparator.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDialog>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QStackedWidget>
-
-#include "tvhbox.h"
-#include "tglobal.h"
+#include <QLabel>
+#include <QBitmap>
 
 class TWizardPage;
 
@@ -82,7 +89,7 @@ class T_GUI_EXPORT TWizard : public QDialog
 #include <QGridLayout>
 #include <QLabel>
 
-class TWizardPage : public TVHBox
+class T_GUI_EXPORT TWizardPage : public TVHBox
 {
     Q_OBJECT
 

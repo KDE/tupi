@@ -33,13 +33,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "tglobal.h"
 #include "titemselector.h"
-
-#include <QListWidget>
-#include <QToolButton>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 
 struct TItemSelector::Private
 {

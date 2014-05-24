@@ -36,12 +36,21 @@
 #ifndef TBUTTONBAR_H
 #define TBUTTONBAR_H
 
-#include "tideality.h"
+#include "tglobal.h"
+#include "tviewbutton.h"
+#include "toolview.h"
+#include "tdebug.h"
 
 #include <QToolBar>
 #include <QButtonGroup>
 #include <QMap>
 #include <QTimer>
+#include <QToolButton>
+#include <QBoxLayout>
+#include <QAction>
+#include <QCheckBox>
+#include <QMenu>
+#include <QMouseEvent>
 
 class TViewButton;
 class ToolView;
@@ -52,7 +61,7 @@ class QMenu;
  * @author David Cuadrado
 */
 
-class T_IDEAL_EXPORT TButtonBar : public QToolBar
+class T_GUI_EXPORT TButtonBar : public QToolBar
 {
     Q_OBJECT
 

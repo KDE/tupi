@@ -34,18 +34,6 @@
  ***************************************************************************/
 
 #include "tbuttonbar.h"
-#include "tviewbutton.h"
-#include "toolview.h"
-#include "tdebug.h"
-
-#include <QToolButton>
-#include <QBoxLayout>
-#include <QAction>
-#include <QCheckBox>
-#include <QMenu>
-#include <QMouseEvent>
-
-#include <QtDebug>
 
 TButtonBar::TButtonBar(Qt::ToolBarArea area, QWidget *parent) : QToolBar(parent), m_autoHide(false), m_blockHider(false), m_shouldBeVisible(true)
 {

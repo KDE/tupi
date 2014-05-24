@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tmoviegenerator.h"
-#include "tdebug.h"
 
 TMovieGenerator::TMovieGenerator(int width, int height)
     : QImage(width, height, QImage::Format_RGB32)

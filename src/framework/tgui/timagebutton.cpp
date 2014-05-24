@@ -34,15 +34,6 @@
  ***************************************************************************/
 
 #include "timagebutton.h"
-#include "tdebug.h"
-
-#include <QPainter>
-#include <QPixmap>
-#include <QLayout>
-#include <QBitmap>
-#include <QStyle>
-#include <QStyleOptionButton>
-#include <QStylePainter>
 
 class TImageButton::Animation
 {

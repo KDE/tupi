@@ -42,7 +42,7 @@ HEADERS += taction.h \
            tformfactory.h \
            tformvalidator.h \
            ticon.h \
-           tideality.h \
+           # tideality.h \
            timagebutton.h \
            titemselector.h \
            tmainwindow.h \
@@ -151,9 +151,16 @@ linux-g{
     TARGETDEPS += ../tcore/libtupifwcore.so
 }
 
-# include(../../../tupiglobal.pri)
+unix{
+    LIBS += -L../tcore -ltupifwcore
+    # INCLUDEPATH += ../tcore ../ ../../libbase
+    INCLUDEPATH += ../tcore
+}
 
-LIBS += -L../tcore -ltupifwcore
+win32 {
+    LIBS += -L..\tcore\release\ -ltupifwcore
+    INCLUDEPATH += ..\tcore
+}
 
 macx {
     LIBS += -lavcodec -lavformat -lavutil 

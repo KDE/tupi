@@ -37,11 +37,13 @@
 #define TOPTIONALDIALOG_H
 
 #include "tglobal.h"
+#include "tseparator.h"
 
+#include <QBoxLayout>
+#include <QLabel>
 #include <QDialog>
 #include <QCheckBox>
 #include <QPushButton>
-#include <QHBoxLayout>
 
 /**
  * @if english

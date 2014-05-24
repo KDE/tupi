@@ -34,12 +34,6 @@
  ***************************************************************************/
 
 #include "treelistwidget.h"
-#include "tdebug.h"
-
-#include <QHeaderView>
-#include <QItemDelegate>
-#include <QEvent>
-#include <QLineEdit>
 
 class TreeListWidgetDelegate : public QItemDelegate
 {

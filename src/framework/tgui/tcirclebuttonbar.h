@@ -33,14 +33,18 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef CCBAR_H
-#define CCBAR_H
+#ifndef TCIRCLEBUTTONBAR_H
+#define TCIRCLEBUTTONBAR_H
 
 /**
  * @file tcirclebuttonbar.h
  * Include this file if you need the class TCircleButtonBar
  */
 
+#include "tcirclebutton.h"
+#include "tglobal.h"
+
+#include <QApplication>
 #include <QFrame>
 #include <QPixmap>
 #include <QPolygon>
@@ -49,9 +53,6 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QImage>
-
-#include "tcirclebutton.h"
-#include "tglobal.h"
 
 class QPainterPath;
 

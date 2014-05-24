@@ -36,8 +36,11 @@
 #ifndef TSEPARATOR_H
 #define TSEPARATOR_H
 
-#include <QFrame>
 #include "tglobal.h"
+
+#include <QFrame>
+#include <QStyleOption>
+#include <QPainter>
 
 /**
  * Standard horizontal or vertical separator.

@@ -36,8 +36,16 @@
 #ifndef TCOMMANDHISTORY_H
 #define TCOMMANDHISTORY_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QObject>
 #include <QHash>
+#include <QUndoStack>
+#include <QMenu>
 
 class QUndoStack;
 class QMenu;
@@ -47,7 +55,7 @@ class QAction;
  * @author David Cuadrado
 */
 
-class TCommandHistory : public QObject
+class T_GUI_EXPORT TCommandHistory : public QObject
 {
     Q_OBJECT
     

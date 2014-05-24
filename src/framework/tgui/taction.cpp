@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "taction.h"
-#include "tactionmanager.h"
-#include "tdebug.h"
 
 TAction::TAction(QObject * parent, const QString &id) : QAction(parent)
 {

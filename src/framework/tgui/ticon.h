@@ -38,9 +38,15 @@
 
 #include "tglobal.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QIcon>
 #include <QBrush>
 #include <QColor>
+#include <qdrawutil.h>
+#include <QPainter>
 
 class T_GUI_EXPORT TIcon : public QIcon
 {

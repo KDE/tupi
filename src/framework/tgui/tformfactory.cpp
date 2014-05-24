@@ -35,12 +35,6 @@
 
 #include "tformfactory.h"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-
-#include <QLabel>
-
 TFormFactory::TFormFactory()
 {
 }

@@ -35,8 +35,6 @@
 
 #include "tcirclebuttonbar.h"
 
-#include <QApplication>
-
 TCircleButtonBar::TCircleButtonBar(int radio, QWidget *parent) : QFrame(parent), m_radio(radio), m_buttonCount(0), m_offset(30)
 {    
     m_layout = new QBoxLayout(QBoxLayout::LeftToRight, this);

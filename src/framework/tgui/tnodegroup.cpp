@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tnodegroup.h"
-#include "tdebug.h"
-
-#include <QGraphicsPathItem>
-#include <QAbstractGraphicsShapeItem>
 
 struct TNodeGroup::Private
 {

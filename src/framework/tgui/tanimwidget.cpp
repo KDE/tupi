@@ -34,14 +34,6 @@
  ***************************************************************************/
 
 #include "tanimwidget.h"
-#include "tapplication.h"
-#include "tdebug.h"
-
-#include <QPixmap>
-#include <QHideEvent>
-#include <QShowEvent>
-#include <QPainter>
-#include <QFontMetricsF>
 
 class TAnimWidget::Controller
 {

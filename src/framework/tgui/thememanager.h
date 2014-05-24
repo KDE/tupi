@@ -37,11 +37,18 @@
 #define THEMEMANAGER_H
 
 #include "tglobal.h"
+// #include "tapplication.h"
+#include "themedocument.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QXmlDefaultHandler>
 #include <QPalette>
+#include <QApplication>
 
-class ThemeDocument;
+// class ThemeDocument;
 
 /**
  * @author David Cuadrado

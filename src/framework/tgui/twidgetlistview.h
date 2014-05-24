@@ -40,6 +40,8 @@
 
 #include <QTableWidget>
 #include <QMap>
+#include <QHeaderView>
+#include <QResizeEvent>
 
 /**
  * @if spanish

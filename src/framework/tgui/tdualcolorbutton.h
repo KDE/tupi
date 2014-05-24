@@ -36,7 +36,13 @@
 #ifndef TDUALCOLORBUTTON_H
 #define TDUALCOLORBUTTON_H
 
-class QBitmap;
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+// class QBitmap;
 
 #include <QMouseEvent>
 #include <QDragEnterEvent>
@@ -45,8 +51,10 @@ class QBitmap;
 #include <QDropEvent>
 #include <QBrush>
 #include <QWidget>
-
-#include "tglobal.h"
+#include <qdrawutil.h>
+#include <QPainter>
+#include <QBitmap>
+#include <QApplication>
 
 /**
  * @note This class was adapted to Tupi by David Cuadrado

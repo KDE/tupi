@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tpathhelper.h"
-#include "tdebug.h"
 
 TPathHelper::TPathHelper()
 {

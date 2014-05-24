@@ -34,17 +34,6 @@
  ***************************************************************************/
 
 #include "tconfigurationdialog.h"
-#include "tseparator.h"
-#include "tdebug.h"
-
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QStackedWidget>
-#include <QLabel>
-#include <QHeaderView>
-#include <QDialogButtonBox>
-#include <QListWidget>
 
 ////////////////
 

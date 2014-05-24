@@ -34,23 +34,6 @@
  ***************************************************************************/
 
 #include "tmainwindow.h"
-#include "tbuttonbar.h"
-#include "toolview.h"
-#include "tviewbutton.h"
-#include "tmainwindowabstractsettings.h"
-#include "tdebug.h"
-
-#include <QTimer>
-#include <QMenu>
-#include <QApplication>
-#include <QDesktopWidget>
-#include <QSettings>
-#include <QApplication>
-#include <QtDebug>
-#include <QHashIterator>
-#include <QMenuBar>
-
-#include <QCloseEvent>
 
 class DefaultSettings : public TMainWindowAbstractSettings
 {

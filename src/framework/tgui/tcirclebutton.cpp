@@ -35,18 +35,6 @@
 
 #include "tcirclebutton.h"
 
-#include <QPainter>
-#include <QRegion>
-#include <QRect>
-#include <QPaintEvent>
-#include <QDebug>
-#include <QMoveEvent>
-#include <QApplication>
-#include <QBitmap>
-#include <QPainterPath>
-#include <QTimer>
-#include <QPaintEngine>
-
 static const char * new_xpm[] = {
 "12 16 6 1",
 "     c #040404",

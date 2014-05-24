@@ -35,8 +35,6 @@
 
 #include "tclicklineedit.h"
 
-#include <QPainter>
-
 struct TClickLineEdit::Private
 {
     QString clickMessage;
@@ -76,9 +74,9 @@ void TClickLineEdit::setText(const QString &txt)
     QLineEdit::setText(txt);
 }
 
-void TClickLineEdit::paintEvent(QPaintEvent *e)
+void TClickLineEdit::paintEvent(QPaintEvent *event)
 {
-    QLineEdit::paintEvent(e);
+    QLineEdit::paintEvent(event);
     
     QPainter p(this);
     if (k->drawClickMsg == true && !hasFocus()) {
@@ -88,24 +86,24 @@ void TClickLineEdit::paintEvent(QPaintEvent *e)
         
         cr.adjust(3, 0, 0 ,0);
         p.drawText(cr, Qt::AlignVCenter, k->clickMessage);
-        p.setPen( tmp );
+        p.setPen(tmp);
     }
 }
 
-void TClickLineEdit::focusInEvent(QFocusEvent *ev)
+void TClickLineEdit::focusInEvent(QFocusEvent *event)
 {
     if (k->drawClickMsg == true) {
         k->drawClickMsg = false;
         repaint();
     }
-    QLineEdit::focusInEvent(ev);
+    QLineEdit::focusInEvent(event);
 }
 
-void TClickLineEdit::focusOutEvent(QFocusEvent *ev)
+void TClickLineEdit::focusOutEvent(QFocusEvent *event)
 {
     if (text().isEmpty()) {
         k->drawClickMsg = true;
         repaint();
     }
-    QLineEdit::focusOutEvent(ev);
+    QLineEdit::focusOutEvent(event);
 }

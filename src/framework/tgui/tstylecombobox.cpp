@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tstylecombobox.h"
-#include "tdebug.h"
-
-#include <QStyleFactory>
-#include <QApplication>
 
 TStyleComboBox::TStyleComboBox(QWidget *parent) : QComboBox(parent)
 {

@@ -35,17 +35,6 @@
 
 #include "treewidgetsearchline.h"
 
-#include <QApplication>
-#include <QTimer>
-#include <QMenu>
-#include <QLabel>
-#include <QContextMenuEvent>
-#include <QList>
-#include <QToolButton>
-#include <QHeaderView>
-#include <QHBoxLayout>
-#include <QTreeWidget>
-
 class TreeWidgetSearchLine::TreeWidgetSearchLinePrivate
 {
     public:

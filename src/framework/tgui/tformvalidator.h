@@ -33,11 +33,22 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TVALIDATES_H
-#define TVALIDATES_H
+#ifndef TFORMVALIDATOR_H
+#define TFORMVALIDATOR_H
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QWidget>
-class QLineEdit;
+#include <QLineEdit>
+#include <QIntValidator>
+#include <QDoubleValidator>
+#include <QRegExpValidator>
+#include <QSpinBox>
+#include <QDoubleSpinBox>
+
+// class QLineEdit;
 
 #define K_GIVE_NAME(obj) obj->setObjectName(#obj);
 
