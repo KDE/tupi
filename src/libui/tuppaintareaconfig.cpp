@@ -36,7 +36,6 @@
 #include "tuppaintareaconfig.h"
 #include "tcolorbutton.h"
 #include "tconfig.h"
-#include "tdebug.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>

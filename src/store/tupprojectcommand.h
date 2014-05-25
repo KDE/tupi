@@ -38,6 +38,10 @@
 
 #include "tupglobal_store.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QUndoCommand>
 #include <QVariant>
 

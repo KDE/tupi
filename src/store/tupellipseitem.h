@@ -36,8 +36,12 @@
 #ifndef TUPELLIPSEITEM_H 
 #define TUPELLIPSEITEM_H
 
-#include "tupabstractserializable.h"
 #include "tupglobal_store.h"
+#include "tupabstractserializable.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QGraphicsEllipseItem>
 

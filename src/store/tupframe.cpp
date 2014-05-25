@@ -47,7 +47,6 @@
 #include "tupprojectloader.h"
 #include "tupscene.h"
 #include "tuplayer.h"
-#include "tdebug.h"
 
 #include <QApplication>
 #include <QGraphicsItem>

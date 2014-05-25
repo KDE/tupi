@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupprojectcommand.h"
-#include "tdebug.h"
 #include "tupcommandexecutor.h"
 #include "tupprojectrequest.h"
 #include "tuppaintareaevent.h"

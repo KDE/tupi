@@ -36,8 +36,12 @@
 #ifndef TUPITEMGROUP_H
 #define TUPITEMGROUP_H
 
-#include "tupabstractserializable.h"
 #include "tupglobal_store.h"
+#include "tupabstractserializable.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QGraphicsItemGroup>
 

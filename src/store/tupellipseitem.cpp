@@ -41,7 +41,6 @@
 #include <QGraphicsSceneDragDropEvent>
 #include <QMimeData>
 #include <QBrush>
-#include "tdebug.h"
 #include <QPainter>
 #include <QPainterPath>
 

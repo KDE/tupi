@@ -36,10 +36,14 @@
 #ifndef TUPMODULEWIDGETBASE_H
 #define TUPMODULEWIDGETBASE_H
 
+#include "tglobal.h"
 #include "tosd.h"
 #include "tupprojectresponse.h"
 #include "tupabstractprojectresponsehandler.h"
-#include "tupglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QLayout>
 #include <QSizePolicy> 

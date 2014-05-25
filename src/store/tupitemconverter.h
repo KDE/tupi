@@ -36,6 +36,10 @@
 #ifndef TUPITEMCONVERTER_H
 #define TUPITEMCONVERTER_H
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 class TupPathItem;
 class TupEllipseItem;
 class TupRectItem;

@@ -37,7 +37,6 @@
 #include "tupitemfactory.h"
 #include "tuppixmapitem.h"
 // #include "taudioplayer.h"
-#include "tdebug.h"
 
 #include <QTemporaryFile>
 #include <QDir>

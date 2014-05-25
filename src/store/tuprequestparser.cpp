@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tuprequestparser.h"
-#include "tdebug.h"
 #include "tupprojectresponse.h"
 #include "tuplibraryobject.h"
 

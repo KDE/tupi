@@ -36,13 +36,13 @@
 #ifndef TUPDOCUMENTVIEW_H
 #define TUPDOCUMENTVIEW_H
 
+#include "tglobal.h"
 #include "tupdocumentruler.h"
 #include "tactionmanager.h"
 #include "tosd.h"
 #include "tupfilterinterface.h"
 #include "tuptoolinterface.h"
 #include "tupconfigurationarea.h"
-#include "tupglobal.h"
 #include "tupstoryboard.h"
 
 #include <QMainWindow>

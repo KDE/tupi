@@ -41,6 +41,10 @@
 #include "tupsvgitem.h"
 #include "tupbackground.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QGraphicsScene>
 #include <QDomDocument>
 #include <QDomElement>

@@ -36,11 +36,14 @@
 #ifndef TUPGRAPHICLIBRARYITEM_H
 #define TUPGRAPHICLIBRARYITEM_H
 
+#include "tupglobal_store.h"
 #include "tupproxyitem.h"
 #include "tuplibraryobject.h"
 #include "tupabstractserializable.h"
-#include "tupglobal_store.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 // class TupLibraryObject;
 

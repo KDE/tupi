@@ -41,7 +41,6 @@
 #include <QEventLoop>
 
 #include "tupwebhunter.h"
-#include "tdebug.h"
 
 QString TupWebHunter::BROWSER_FINGERPRINT = QString("Tupi_Browser 1.0");
 

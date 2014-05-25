@@ -102,7 +102,7 @@ linux-g{
   ../net/libtupinet.so \
   ../components/paintarea/libtupipaintarea.so \
   ../components/pen/libtupipen.so \
-  ../components/kinas/libtupikinas.so \
+  # ../components/kinas/libtupikinas.so \
   ../components/help/libtupihelp.so \
   ../components/import/libtupimport.so \
   ../components/export/libtupiexport.so \

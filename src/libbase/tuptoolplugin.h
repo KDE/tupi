@@ -36,9 +36,13 @@
 #ifndef TUPTOOLPLUGIN_H
 #define TUPTOOLPLUGIN_H
 
+#include "tglobal.h"
 #include "tuptoolinterface.h"
-#include "tupglobal.h"
 #include "tupprojectresponse.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QObject>
 #include <QSize>

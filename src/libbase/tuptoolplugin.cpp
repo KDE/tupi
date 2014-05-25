@@ -38,8 +38,6 @@
 #include "tupinputdeviceinformation.h"
 #include "tupgraphicsscene.h"
 
-#include "tdebug.h"
-
 #include <QGraphicsView>
 #include <QCursor>
 #include <QMenu>

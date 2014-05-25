@@ -41,8 +41,6 @@
 #include <QMatrix>
 #include <QGraphicsItem>
 
-#include "tdebug.h"
-
 struct TupGraphicObject::Private
 {
     QString name;

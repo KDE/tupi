@@ -35,7 +35,6 @@
 
 #include "tupserializer.h"
 #include "tupsvg2qt.h"
-#include "tdebug.h"
 
 #include <QGraphicsItem>
 #include <QFont>

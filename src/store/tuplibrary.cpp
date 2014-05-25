@@ -36,8 +36,6 @@
 #include "tuplibrary.h"
 #include "tupproject.h"
 
-#include "tdebug.h"
-
 TupLibrary::TupLibrary(const QString &id, TupProject *parent) : TupLibraryFolder(id, parent)
 {
 }

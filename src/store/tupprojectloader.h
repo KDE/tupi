@@ -36,9 +36,13 @@
 #ifndef TUPPROJECTLOADER_H
 #define TUPPROJECTLOADER_H
 
-#include <QString>
-
 #include "tuplibraryobject.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QString>
 
 class TupProject;
 

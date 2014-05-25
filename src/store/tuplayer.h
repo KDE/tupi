@@ -36,10 +36,14 @@
 #ifndef TUPLAYER_H
 #define TUPLAYER_H
 
+#include "tupglobal_store.h"
 #include "tupabstractserializable.h"
 #include "tupframe.h"
 #include "tupinthash.h"
-#include "tupglobal_store.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDomDocument>
 #include <QDomElement>

@@ -35,7 +35,6 @@
 
 #include "tupsvgitem.h"
 #include "tupserializer.h"
-#include "tdebug.h"
 
 #include <QSvgRenderer>
 #include <QFileInfo>

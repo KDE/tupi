@@ -36,10 +36,14 @@
 #ifndef TUPGRAPHICSSCENE_H
 #define TUPGRAPHICSSCENE_H
 
-#include "tupglobal.h"
+#include "tglobal.h"
 #include "tupsvgitem.h"
 #include "tupproject.h"
 #include "tupprojectresponse.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QGraphicsScene>
 

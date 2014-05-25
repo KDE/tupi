@@ -44,7 +44,6 @@
 // Tupi Framework 
 #include "tupscene.h"
 #include "tconfig.h"
-#include "tdebug.h"
 #include "tapplication.h"
 #include "tosd.h"
 

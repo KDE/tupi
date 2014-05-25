@@ -36,10 +36,14 @@
 #ifndef TUPLIBRARY_H
 #define TUPLIBRARY_H
 
-#include <QObject>
-
 #include "tupglobal_store.h"
 #include "tuplibraryfolder.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QObject>
 
 class TupProject;
 

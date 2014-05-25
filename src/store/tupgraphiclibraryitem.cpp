@@ -38,8 +38,6 @@
 
 #include <QGraphicsTextItem>
 
-#include "tdebug.h"
-
 struct TupGraphicLibraryItem::Private
 {
     QString symbolName;

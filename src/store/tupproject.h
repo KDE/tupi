@@ -42,6 +42,10 @@
 #include "tupinthash.h"
 #include "tuplibraryobject.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QObject>
 #include <QDomDocument>
 #include <QDomElement>

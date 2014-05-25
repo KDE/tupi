@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tuprequestbuilder.h"
-#include "tdebug.h"
 #include "tupprojectrequest.h"
 #include "tupprojectresponse.h"
 

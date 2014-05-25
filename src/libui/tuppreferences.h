@@ -41,23 +41,26 @@
  * @brief Include this file if you need the class TupPreferences
  */
 
+#include "tglobal.h"
+#include "tfontchooser.h"
+#include "tabdialog.h"
+#include "tconfigurationdialog.h"
+#include "tupthemeselector.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QLineEdit>
 #include <QLabel>
 #include <QRadioButton>
 
-#include "tfontchooser.h"
-#include "tabdialog.h"
-#include "tconfigurationdialog.h"
-
-#include "tupthemeselector.h"
-#include "tupglobal.h"
-
 class ColorSchemePref;
 class TupPaintAreaConfig;
 
-class TupPreferences : public TConfigurationDialog
+class TUPI_EXPORT TupPreferences : public TConfigurationDialog
 {
-    Q_OBJECT;
+    Q_OBJECT
     
     public:
         TupPreferences(QWidget *parent);

@@ -36,9 +36,13 @@
 #ifndef TUPREQUESTPARSER_H
 #define TUPREQUESTPARSER_H
 
+#include "tupglobal_store.h"
 #include "tupxmlparserbase.h"
 #include "tupprojectrequest.h"
-#include "tupglobal_store.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 class TupProjectResponse;
 

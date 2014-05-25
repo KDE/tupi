@@ -40,6 +40,10 @@
 #include "tanimwidget.h"
 #include "tapplicationproperties.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QTextBrowser>
 #include <QLabel>
 #include <QPixmap>
@@ -62,7 +66,7 @@
  * Moreover, it provides an OK Button and a Cancel Button.
  */
 
-class TupAbout : public TabDialog
+class TUPI_EXPORT TupAbout : public TabDialog
 {
     Q_OBJECT
 

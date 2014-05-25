@@ -53,7 +53,6 @@
 #include "tuprectitem.h"
 #include "tupellipseitem.h"
 
-#include "tdebug.h"
 #include "tupguideline.h"
 
 #include <QGraphicsItem>

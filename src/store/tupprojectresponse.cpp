@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupprojectresponse.h"
-#include "tdebug.h"
 
 // This class returns information about data structure of a Tupi project 
 // It is used from signals in the TupProject class to send data to anothers classes

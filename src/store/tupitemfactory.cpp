@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupitemfactory.h"
-#include "tdebug.h"
 #include "tupsvg2qt.h"
 #include "tuppathitem.h"
 #include "tuppixmapitem.h"

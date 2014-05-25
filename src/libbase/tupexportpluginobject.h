@@ -36,7 +36,7 @@
 #ifndef TUPEXPORTPLUGINOBJECT_H
 #define TUPEXPORTPLUGINOBJECT_H
 
-#include "tupglobal.h"
+#include "tglobal.h"
 #include "tupexportinterface.h"
 
 #include <QObject>

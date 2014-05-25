@@ -35,15 +35,12 @@
 
 #include "tuppreferences.h"
 #include "tuppaintareaconfig.h"
-#include "tglobal.h"
-#include "tdebug.h"
 #include "tapplication.h"
 #include "tformfactory.h"
 
 #include <QFile>
 #include <QTextStream>
 #include <QTextCodec>
-
 #include <QLabel>
 #include <QLineEdit>
 #include <QComboBox>

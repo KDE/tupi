@@ -36,8 +36,12 @@
 #ifndef TUPITEMTWEENER_H
 #define TUPITEMTWEENER_H
 
-#include "tuptweenerstep.h"
 #include "tupglobal_store.h"
+#include "tuptweenerstep.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QObject>
 #include <QMatrix>

@@ -48,7 +48,6 @@
 #include "tuprequestbuilder.h"
 #include "tuprequestparser.h"
 #include "talgorithm.h"
-#include "tdebug.h"
 
 #include <QUndoStack>
 #include <QDir>

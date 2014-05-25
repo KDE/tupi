@@ -36,10 +36,14 @@
 #ifndef TUPLINEITEM_H 
 #define TUPLINEITEM_H 
 
-#include <QGraphicsLineItem>
-
-#include "tupabstractserializable.h"
 #include "tupglobal_store.h"
+#include "tupabstractserializable.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QGraphicsLineItem>
 
 /**
     @author David Cuadrado

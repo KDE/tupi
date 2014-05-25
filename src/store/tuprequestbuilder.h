@@ -36,9 +36,13 @@
 #ifndef TUPREQUESTBUILDER_H
 #define TUPREQUESTBUILDER_H
 
-#include "tuplibraryobject.h"
 #include "tupglobal_store.h"
+#include "tuplibraryobject.h"
 #include "tupproject.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QString>
 #include <QDomDocument>

@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupstoryboard.h"
-#include "tdebug.h"
 
 struct TupStoryboard::Private
 {

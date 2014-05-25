@@ -36,6 +36,10 @@
 #ifndef TUPANIMATIONRENDERER_H
 #define TUPANIMATIONRENDERER_H
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QColor>
 #include <QSize>
 

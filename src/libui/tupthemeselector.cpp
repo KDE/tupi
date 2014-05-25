@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "tupthemeselector.h"
-#include "tglobal.h"
-#include "tdebug.h"
 #include "tseparator.h"
 #include "tcolorbutton.h"
 #include "tapplication.h"

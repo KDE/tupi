@@ -35,8 +35,6 @@
 
 #include "tuppaintareastatus.h"
 #include "tseparator.h"
-#include "tdebug.h"
-#include "tupglobal.h"
 #include "tupbrushmanager.h"
 #include "tupcolorwidget.h"
 #include "tupbrushstatus.h"

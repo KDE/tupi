@@ -36,7 +36,13 @@
 #ifndef TUPPAINTAREASTATUS_H
 #define TUPPAINTAREASTATUS_H
 
+#include "tglobal.h"
 #include "tupdocumentview.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QStatusBar>
 
 /**

@@ -39,7 +39,6 @@
 #include "tuplibrary.h"
 #include "tuppackagehandler.h"
 #include "talgorithm.h"
-#include "tdebug.h"
 
 #include <QDir>
 

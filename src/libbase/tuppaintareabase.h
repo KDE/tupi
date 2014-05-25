@@ -36,8 +36,12 @@
 #ifndef TUPPAINTAREABASE_H
 #define TUPPAINTAREABASE_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
-#include "tupglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QGraphicsView>
 

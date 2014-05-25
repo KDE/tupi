@@ -36,9 +36,13 @@
 #ifndef TUPLIBRARYFOLDER_H
 #define TUPLIBRARYFOLDER_H
 
+#include "tupglobal_store.h"
 #include "tupabstractserializable.h"
 #include "tuplibraryobject.h"
-#include "tupglobal_store.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QObject>
 #include <QHash>

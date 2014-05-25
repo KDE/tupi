@@ -39,7 +39,6 @@
 #include "tupframe.h"
 #include "tupscene.h"
 #include "tupgraphicobject.h"
-#include "tdebug.h"
 
 #include <QPainter>
 

@@ -39,6 +39,10 @@
 #include "tuppathitem.h"
 #include "tupsvgitem.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDomDocument>
 #include <QDomElement>
 #include <QXmlAttributes>

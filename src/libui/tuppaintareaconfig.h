@@ -36,6 +36,10 @@
 #ifndef TUPPAINTAREACONFIG_H
 #define TUPPAINTAREACONFIG_H
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
 #include <QSpinBox>
 
@@ -44,7 +48,7 @@ class TColorButton;
 /**
  * @author David Cuadrado
 */
-class TupPaintAreaConfig : public QWidget
+class TUPI_EXPORT TupPaintAreaConfig : public QWidget
 {
     Q_OBJECT
 

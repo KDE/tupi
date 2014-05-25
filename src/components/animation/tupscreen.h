@@ -36,9 +36,13 @@
 #ifndef TUPSCREEN_H
 #define TUPSCREEN_H
 
+#include "tglobal.h"
 #include "tupscene.h"
-#include "tupglobal.h"
 #include "tupabstractprojectresponsehandler.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QImage>
 #include <QPainter>

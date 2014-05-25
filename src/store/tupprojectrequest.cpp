@@ -37,8 +37,6 @@
 #include "tupprojectresponse.h"
 #include "tuprequestbuilder.h"
 
-#include "tdebug.h"
-
 TupProjectRequestArgument::TupProjectRequestArgument()
 {
 }

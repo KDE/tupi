@@ -42,8 +42,6 @@
 #include "tupprojectloader.h"
 #include "tupitemfactory.h"
 
-#include "tdebug.h"
-
 #include <QDir>
 #include <QGraphicsItem>
 #include <QGraphicsView>

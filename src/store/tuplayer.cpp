@@ -35,7 +35,6 @@
 
 #include "tuplayer.h"
 #include "tupscene.h"
-#include "tdebug.h"
 #include "tupprojectloader.h"
 
 struct TupLayer::Private

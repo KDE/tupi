@@ -36,13 +36,17 @@
 #ifndef TUPSCENEMANAGER_H
 #define TUPSCENEMANAGER_H
 
+#include "tupglobal_store.h"
 #include "tupabstractserializable.h"
 #include "tupproject.h"
 #include "tupstoryboard.h"
 #include "tupbackground.h"
 #include "tupitemtweener.h"
 #include "tupinthash.h"
-#include "tupglobal_store.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDomDocument>
 #include <QDomElement>

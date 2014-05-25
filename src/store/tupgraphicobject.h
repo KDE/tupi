@@ -36,9 +36,13 @@
 #ifndef TUPGRAPHICOBJECT_H
 #define TUPGRAPHICOBJECT_H
 
+#include "tupglobal_store.h"
 #include "tupabstractserializable.h"
 #include "tupframe.h"
-#include "tupglobal_store.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QObject>
 

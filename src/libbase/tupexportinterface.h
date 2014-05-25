@@ -36,6 +36,7 @@
 #ifndef TUPEXPORTINTERFACE_H
 #define TUPEXPORTINTERFACE_H
 
+#include "tglobal.h"
 #include "tupscene.h"
 #include "qplugin.h" // Q_EXPORT_PLUGIN
 

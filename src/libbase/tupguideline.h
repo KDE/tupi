@@ -36,7 +36,7 @@
 #ifndef TUPLINEGUIDE_H
 #define TUPLINEGUIDE_H
 
-#include "tupglobal.h"
+#include "tglobal.h"
 #include <QGraphicsItem>
 
 /**

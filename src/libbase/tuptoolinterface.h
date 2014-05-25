@@ -33,13 +33,13 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef ATOOLINTERFACE_H
-#define ATOOLINTERFACE_H
+#ifndef TUPTOOLINTERFACE_H
+#define TUPTOOLINTERFACE_H
 
+#include "tglobal.h"
 #include "tupframe.h"
 #include "taction.h"
 #include "qplugin.h" // Q_EXPORT_PLUGIN
-#include "tupglobal.h"
 
 #include <QStringList>
 #include <QRect>

@@ -35,7 +35,6 @@
 
 #include "tupabout.h"
 #include "tglobal.h"
-#include "tdebug.h"
 
 #include <QFile>
 #include <QDomDocument>

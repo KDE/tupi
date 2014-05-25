@@ -36,6 +36,10 @@
 #ifndef TUPEXPOSURETABLE_H
 #define TUPEXPOSURETABLE_H
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QTableWidget>
 
 class TupExposureVerticalHeader;

@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tuptweenerstep.h"
-#include "tdebug.h"
 
 #include <QVector>
 

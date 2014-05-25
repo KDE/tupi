@@ -35,7 +35,6 @@
 
 #include "tuplibraryfolder.h"
 #include "tuplibraryobject.h"
-#include "tdebug.h"
 #include "tupprojectloader.h"
 #include "tupproject.h"
 

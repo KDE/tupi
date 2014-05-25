@@ -36,8 +36,12 @@
 #ifndef TUPTWEENERSTEP_H
 #define TUPTWEENERSTEP_H
 
-#include "tupabstractserializable.h"
 #include "tupglobal_store.h"
+#include "tupabstractserializable.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QPointF>
 #include <QColor>

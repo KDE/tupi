@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "tupitemgroup.h"
-#include "tdebug.h"
-
 #include "tupserializer.h"
 
 struct TupItemGroup::Private

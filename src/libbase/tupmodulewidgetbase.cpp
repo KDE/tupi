@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupmodulewidgetbase.h"
-#include "tdebug.h"
 
 #include <QEvent>
 #include <QBoxLayout>

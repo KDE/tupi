@@ -46,8 +46,6 @@
 #include "tupprojectresponse.h"
 #include "tupprojectloader.h"
 
-#include "tdebug.h"
-
 #include <QDir>
 #include <QGraphicsView>
 

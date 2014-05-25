@@ -36,8 +36,12 @@
 #ifndef TUPLIBRARYOBJECT_H
 #define TUPLIBRARYOBJECT_H
 
-#include "tupabstractserializable.h"
 #include "tupglobal_store.h"
+#include "tupabstractserializable.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QVariant>
 #include <QGraphicsItem>

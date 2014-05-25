@@ -41,8 +41,6 @@
 #include "tupproxyitem.h"
 #include "tupitemgroup.h"
 
-#include "tdebug.h"
-
 #include <QBrush>
 #include <QPen>
 

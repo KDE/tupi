@@ -36,8 +36,12 @@
 #ifndef TUPITEMFACTORY_H
 #define TUPITEMFACTORY_H
 
-#include "txmlparserbase.h"
 #include "tupglobal_store.h"
+#include "txmlparserbase.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QStack>
 #include <QPen>

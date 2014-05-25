@@ -37,8 +37,6 @@
 #include "tupfilterinterface.h"
 #include "tuptoolinterface.h"
 #include "tupexportinterface.h"
-#include "tglobal.h"
-#include "tdebug.h"
 
 #include <QPluginLoader>
 #include <QDir>

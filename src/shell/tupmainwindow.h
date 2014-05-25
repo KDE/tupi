@@ -43,7 +43,7 @@
 
 // modules
 #include "tupexposuresheet.h"
-#include "kinaswidget.h"
+// #include "kinaswidget.h"
 #include "tuppenwidget.h"
 #include "tupcolorpalette.h"
 #include "tupsceneswidget.h"

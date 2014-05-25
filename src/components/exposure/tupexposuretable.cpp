@@ -33,10 +33,9 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
+#include "tglobal.h"
 #include "tupexposuretable.h"
 #include "tupexposureheader.h"
-#include "tdebug.h"
-#include "tupglobal.h"
 
 #include <QPainter>
 #include <QItemDelegate>
