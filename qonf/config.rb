@@ -117,12 +117,6 @@ class Config
                f << "DEFINES += ADD_HEADERS" << $endl
             end
             f << $endl
-            f << "QT += opengl core gui svg xml network" << $endl
-            f << "unix {" << $endl
-            f << "   OBJECTS_DIR = .obj" << $endl
-            f << "   UI_DIR = .ui" << $endl
-            f << "   MOC_DIR = .moc" << $endl
-            f << "}" << $endl
 
             if not @options.empty?
                f << "CONFIG += " << @options.uniq.join(" ") << $endl
