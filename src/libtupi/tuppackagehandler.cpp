@@ -34,15 +34,6 @@
  ***************************************************************************/
 
 #include "tuppackagehandler.h"
-#include "quazip.h"
-#include "quazipfile.h"
-#include "tdebug.h"
-#include "tglobal.h"
-#include "tapplicationproperties.h"
-
-#include <QFile>
-#include <QFileInfo>
-#include <QDir>
 
 /**
  * This class manages the file format for Tupi projects.

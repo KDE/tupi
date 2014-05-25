@@ -36,6 +36,8 @@
 #ifndef TUPFILEMANAGER_H 
 #define TUPFILEMANAGER_H
 
+#include "tupglobal_store.h"
+
 #include <QObject>
 
 class TupProject;
@@ -44,7 +46,7 @@ class TupProject;
  * @author David Cuadrado
 */
 
-class TupFileManager : public QObject
+class STORE_EXPORT TupFileManager : public QObject
 {
     Q_OBJECT
 

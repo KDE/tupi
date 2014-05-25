@@ -36,10 +36,10 @@
 #ifndef TUPFRAME_H
 #define TUPFRAME_H
 
+#include "tupglobal_store.h"
 #include "tupabstractserializable.h"
 #include "tupsvgitem.h"
 #include "tupbackground.h"
-#include "tupglobal_store.h"
 
 #include <QGraphicsScene>
 #include <QDomDocument>

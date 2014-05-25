@@ -38,6 +38,10 @@
 
 #include "tapplicationproperties.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
 #include <QPainter>
 #include <QPaintEvent>
@@ -49,7 +53,7 @@
  * @author Gustav Gonzalez <info@maefloresta.com>
  **/
 
-class TupPenThicknessWidget : public QWidget
+class TUPI_EXPORT TupPenThicknessWidget : public QWidget
 {
     Q_OBJECT
 

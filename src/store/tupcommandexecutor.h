@@ -36,7 +36,13 @@
 #ifndef TUPCOMMANDEXECUTOR_H
 #define TUPCOMMANDEXECUTOR_H
 
+#include "tupglobal_store.h"
 #include "tupscene.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QObject>
 
 class TupProject;
@@ -52,7 +58,7 @@ class TupLibraryResponse;
  * @author David Cuadrado
 */
 
-class TupCommandExecutor : public QObject
+class STORE_EXPORT TupCommandExecutor : public QObject
 {
     Q_OBJECT
 

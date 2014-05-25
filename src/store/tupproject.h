@@ -36,11 +36,10 @@
 #ifndef TUPPROJECT_H
 #define TUPPROJECT_H
 
+#include "tupglobal_store.h"
 #include "tupabstractserializable.h"
-#include "tupglobal.h"
 #include "tapplicationproperties.h"
 #include "tupinthash.h"
-#include "tupglobal_store.h"
 #include "tuplibraryobject.h"
 
 #include <QObject>

@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupbrushmanager.h"
-#include "tdebug.h"
 
 /**
  * This class handles the set of brushes for painting.

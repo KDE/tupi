@@ -34,14 +34,6 @@
  ***************************************************************************/
 
 #include "tupitempreview.h"
-#include "tupproxyitem.h"
-#include "tdebug.h"
-
-#include <QGraphicsItem>
-#include <QGraphicsTextItem>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
-#include <QGraphicsSvgItem>
 
 struct TupItemPreview::Private
 {

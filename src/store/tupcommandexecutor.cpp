@@ -39,7 +39,6 @@
 #include "tuprequestbuilder.h"
 #include "tupprojectrequest.h"
 #include "tupprojectresponse.h"
-#include "tdebug.h"
 
 TupCommandExecutor::TupCommandExecutor(TupProject *project) : QObject(project), m_project(project)
 {

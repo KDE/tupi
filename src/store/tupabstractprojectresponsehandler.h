@@ -37,6 +37,11 @@
 #define TUPABSTRACTPROJECTRESPONSEHANDLER_H
 
 #include "tupglobal_store.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QObject>
 
 class TupPaintAreaEvent;

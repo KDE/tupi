@@ -34,9 +34,6 @@
  ***************************************************************************/
 
 #include "tupproxyitem.h"
-#include "tdebug.h"
-
-#include <QPainter>
 
 /**
  * This class defines a copy of a graphic object.

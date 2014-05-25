@@ -55,8 +55,6 @@
 #include "tuplayer.h"
 #include "tupbackground.h"
 
-#include "tdebug.h"
-
 #include <QGraphicsItem>
 
 bool TupCommandExecutor::createItem(TupItemResponse *response)

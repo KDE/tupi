@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tupgradientcreator.h"
-#include "tdebug.h"
-#include "tapplication.h"
-
-#include <QBoxLayout>
 
 struct TupGradientCreator::Private
 {

@@ -35,7 +35,6 @@
 
 #include "tupabstractprojectmanagerhandler.h"
 #include "tupprojectresponse.h"
-#include "tdebug.h"
 
 TupAbstractProjectHandler::TupAbstractProjectHandler(QObject *parent) : QObject(parent)
 {

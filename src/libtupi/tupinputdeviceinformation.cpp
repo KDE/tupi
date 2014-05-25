@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "tupinputdeviceinformation.h"
-#include "tdebug.h"
-
-#include <QGraphicsSceneMouseEvent>
-#include <QMouseEvent>
-#include <QTabletEvent>
 
 /**
  * This class captures and process all the mouse/tablet events.

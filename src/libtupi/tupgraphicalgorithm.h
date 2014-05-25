@@ -33,17 +33,19 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef __TUPGRAPHICALGORITHM_H__
-#define __TUPGRAPHICALGORITHM_H__
+#ifndef TUPGRAPHICALGORITHM_H
+#define TUPGRAPHICALGORITHM_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <cmath>
 #include <QString>
 #include <QPolygon>
 #include <QPainterPath>
-#include "tupglobal.h"
-
-/**
- * @author Jorge Cuadrado
- */
 
 class TUPI_EXPORT TupGraphicalAlgorithm
 {

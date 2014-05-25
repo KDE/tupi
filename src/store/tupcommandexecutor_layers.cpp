@@ -42,8 +42,6 @@
 #include "tuprequestbuilder.h"
 #include "tupprojectresponse.h"
 
-#include "tdebug.h"
-
 bool TupCommandExecutor::createLayer(TupLayerResponse *response)
 {
     #ifdef K_DEBUG

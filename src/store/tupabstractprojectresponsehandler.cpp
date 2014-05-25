@@ -37,8 +37,6 @@
 #include "tupprojectresponse.h"
 #include "tuppaintareaevent.h"
 
-#include "tdebug.h"
-
 TupAbstractProjectResponseHandler::TupAbstractProjectResponseHandler()
 {
 }

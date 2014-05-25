@@ -36,13 +36,20 @@
 #ifndef TUPPROXYITEM_H
 #define TUPPROXYITEM_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QGraphicsItem>
+#include <QPainter>
 
 /**
  * @author David Cuadrado
 */
 
-class TupProxyItem : public QGraphicsItem
+class TUPI_EXPORT TupProxyItem : public QGraphicsItem
 {
     public:
         TupProxyItem(QGraphicsItem *item = 0);

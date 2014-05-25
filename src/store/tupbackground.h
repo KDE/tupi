@@ -36,9 +36,13 @@
 #ifndef TUPBACKGROUND_H
 #define TUPBACKGROUND_H
 
-#include "tupabstractserializable.h"
 #include "tupglobal_store.h"
+#include "tupabstractserializable.h"
 #include "tupscene.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QImage>
 #include <QPixmap>

@@ -36,7 +36,6 @@
 #include "tupbackground.h"
 #include "tupserializer.h"
 #include "tupbackgroundscene.h"
-#include "tdebug.h"
 
 #include <cmath>
 

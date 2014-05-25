@@ -36,13 +36,8 @@
 #ifndef TUPGLOBAL_STORE_H
 #define TUPGLOBAL_STORE_H
 
-#include "tupglobal.h"
+#include "tglobal.h"
 
 #define STORE_EXPORT T_CORE_EXPORT
 
-
 #endif // TUPGLOBAL_STORE_H
-
-
-
-

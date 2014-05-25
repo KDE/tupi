@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "tupgradientselector.h"
-#include "tdebug.h"
-
-#include <qdrawutil.h>
-#include <QMatrix>
-#include <QPolygon>
 
 TupGradientSelector::TupGradientSelector(QWidget *parent) 
     : QAbstractSlider(parent), m_currentArrowIndex(0), m_gradient(0,0,1,1), m_update(true), m_maxArrows(10), m_currentColor(Qt::black)

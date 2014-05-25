@@ -36,13 +36,19 @@
 #ifndef TUPXMLPARSERBASE_H
 #define TUPXMLPARSERBASE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QXmlDefaultHandler>
 
 /**
  * @author David Cuadrado
 */
 
-class TupXmlParserBase : public QXmlDefaultHandler
+class TUPI_EXPORT TupXmlParserBase : public QXmlDefaultHandler
 {
     public:
         ~TupXmlParserBase();

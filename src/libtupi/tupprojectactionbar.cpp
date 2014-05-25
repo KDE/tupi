@@ -34,17 +34,6 @@
  ***************************************************************************/
 
 #include "tupprojectactionbar.h"
-#include "tupglobal.h"
-#include "tdebug.h"
-#include "tseparator.h"
-#include "tconfig.h"
-#include "toptionaldialog.h"
-#include "timagebutton.h"
-
-#include <QVBoxLayout>
-#include <QVariant>
-#include <QSpacerItem>
-#include <QDesktopWidget>
 
 struct TupProjectActionBar::Private
 {

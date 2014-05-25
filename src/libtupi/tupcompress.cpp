@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupcompress.h"
-#include <QByteArray>
 
 TupCompress::TupCompress()
 {

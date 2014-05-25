@@ -41,8 +41,6 @@
 #include "tupframe.h"
 #include "tupprojectresponse.h"
 
-#include "tdebug.h"
-
 bool TupCommandExecutor::createFrame(TupFrameResponse *response)
 {
     #ifdef K_DEBUG

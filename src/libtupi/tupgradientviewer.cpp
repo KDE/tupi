@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "tupgradientviewer.h"
-#include "tdebug.h"
-
-#include <QPainter>
-#include <QMouseEvent>
-#include <QRectF>
 
 class TupGradientViewer::ControlPoint
 {

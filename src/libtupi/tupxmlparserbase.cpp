@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupxmlparserbase.h"
-#include "tdebug.h"
 
 struct TupXmlParserBase::Private
 {

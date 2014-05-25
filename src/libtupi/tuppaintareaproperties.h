@@ -36,7 +36,7 @@
 #ifndef TUPPAINTAREAPROPERTIES_H 
 #define TUPPAINTAREAPROPERTIES_H
 
-#include "tupglobal.h"
+#include "tglobal.h"
 #include <QColor>
 
 /**

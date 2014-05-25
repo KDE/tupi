@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tupsocketbase.h"
-#include "tdebug.h"
-
-#include <QTextStream>
-#include <QQueue>
 
 struct TupSocketBase::Private
 {
@@ -73,8 +69,6 @@ void TupSocketBase::clearQueue()
 
 void TupSocketBase::send(const QString &message)
 {
-    tError() << "TupSocketBase::send() - message: " << message;
-
     if (state() == QAbstractSocket::ConnectedState) {
         QTextStream stream(this);
         stream.setCodec("UTF-8");

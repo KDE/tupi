@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tuppenthicknesswidget.h"
-#include "tdebug.h"
 
 struct TupPenThicknessWidget::Private
 {

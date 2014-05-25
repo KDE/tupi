@@ -32,15 +32,22 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
+
 #ifndef TUPSVG2QT_H
 #define TUPSVG2QT_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <cmath>
 #include <QString>
 #include <QPainterPath>
 #include <QPen>
 #include <QXmlAttributes>
 #include <QBrush>
-#include "tupglobal.h"
 
 /**
  * @author David Cuadrado

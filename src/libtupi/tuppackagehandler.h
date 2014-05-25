@@ -36,11 +36,21 @@
 #ifndef TUPPACKAGEHANDLER_H
 #define TUPPACKAGEHANDLER_H
 
-#include "tupglobal.h"
+#include "tglobal.h"
+#include "quazip.h"
+#include "quazipfile.h"
+#include "tapplicationproperties.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QString>
+#include <QFile>
+#include <QFileInfo>
+#include <QDir>
 
-class QuaZip;
+// class QuaZip;
 
 /**
  * @author David Cuadrado

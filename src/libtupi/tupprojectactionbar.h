@@ -36,11 +36,23 @@
 #ifndef TUPPROJECTACTIONBAR_H
 #define TUPPROJECTACTIONBAR_H
 
-#include "tupglobal.h"
+#include "tglobal.h"
 #include "tapplicationproperties.h"
+#include "tseparator.h"
+#include "tconfig.h"
+#include "toptionaldialog.h"
+#include "timagebutton.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QWidget>
 #include <QButtonGroup>
+#include <QVBoxLayout>
+#include <QVariant>
+#include <QSpacerItem>
+#include <QDesktopWidget>
 
 class TImageButton;
 class QBoxLayout;

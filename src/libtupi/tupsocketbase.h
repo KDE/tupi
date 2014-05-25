@@ -36,8 +36,10 @@
 #ifndef TUPSOCKETBASE_H
 #define TUPSOCKETBASE_H
 
-#include "tupglobal.h"
+#include "tglobal.h"
 
+#include <QTextStream>
+#include <QQueue>
 #include <QTcpSocket>
 #include <QDomDocument>
 
