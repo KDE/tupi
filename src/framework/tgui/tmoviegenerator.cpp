@@ -35,8 +35,7 @@
 
 #include "tmoviegenerator.h"
 
-TMovieGenerator::TMovieGenerator(int width, int height)
-    : QImage(width, height, QImage::Format_RGB32)
+TMovieGenerator::TMovieGenerator(int width, int height) : QImage(width, height, QImage::Format_RGB32)
 {
     reset();
 }

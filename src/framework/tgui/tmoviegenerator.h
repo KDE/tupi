@@ -36,8 +36,8 @@
 #ifndef TMOVIEGENERATOR_H
 #define TMOVIEGENERATOR_H
 
-#include <QImage>
 #include "tglobal.h"
+// #include <QImage>
 #include "tmoviegeneratorinterface.h"
 
 #ifdef K_DEBUG

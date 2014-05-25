@@ -36,11 +36,13 @@
 #ifndef TMOVIEGENERATORINTERFACE_H
 #define TMOVIEGENERATORINTERFACE_H
 
+#include <QImage>
+
 /**
  * @author David Cuadrado
 */
 
-class TMovieGeneratorInterface
+class T_GUI_EXPORT TMovieGeneratorInterface
 {
     public:
         enum Format
