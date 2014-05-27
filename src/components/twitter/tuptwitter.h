@@ -33,19 +33,28 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPWITTER_H
-#define TUPWITTER_H
+#ifndef TUPTWITTER_H
+#define TUPTWITTER_H
 
+#include "tglobal.h"
 #include "tapplicationproperties.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
-#include <QNetworkReply>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QFile>
 #include <QByteArray>
+#include <QtGui>
+#include <QtNetwork>
+#include <QNetworkReply>
+#include <QDomDocument>
+#include <QEventLoop>
 
-class Tupwitter : public QWidget
+class TUPI_EXPORT Tupwitter : public QWidget
 {
     Q_OBJECT
 

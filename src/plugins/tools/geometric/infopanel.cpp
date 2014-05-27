@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "infopanel.h"
-#include "tglobal.h"
-#include "tdebug.h"
-
-#include <QBoxLayout>
-#include <QTextEdit>
 
 InfoPanel::InfoPanel(InfoPanel::ToolType type, QWidget *parent) : QWidget(parent)
 {

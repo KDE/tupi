@@ -36,12 +36,24 @@
 #ifndef TUPCANVAS_H
 #define TUPCANVAS_H
 
+#include "tglobal.h"
+#include "tapplicationproperties.h"
+#include "tapplication.h"
 #include "tupgraphicsscene.h"
 #include "tupcanvasview.h"
+#include "tupexposuredialog.h"
+#include "tuptoolsdialog.h"
+#include "tuponionopacitydialog.h"
+#include "tuppendialog.h"
+#include "timagebutton.h"
 #include "tupbrushmanager.h"
 #include "tupprojectrequest.h"
 #include "tuprequestbuilder.h"
 #include "tupproject.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QFrame>
 #include <QPointF>
@@ -50,10 +62,24 @@
 #include <QColor>
 #include <QPen>
 #include <QStringList>
+#include <QDialog>
+#include <QBoxLayout>
+#include <QIcon>
+#include <QGraphicsView>
+#include <QColorDialog>
+#include <QToolBar>
+#include <QAction>
+#include <QSlider>
+#include <QLabel>
+#include <QFont>
+#include <QDesktopWidget>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QBuffer>
 
-class TupGraphicsScene;
+// class TupGraphicsScene;
 
-class TupCanvas : public QFrame
+class TUPI_EXPORT TupCanvas : public QFrame
 {
     Q_OBJECT
 

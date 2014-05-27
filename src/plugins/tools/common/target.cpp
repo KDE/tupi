@@ -34,17 +34,6 @@
  ***************************************************************************/
 
 #include "target.h"
-#include "tdebug.h"
-#include "tupgraphicalgorithm.h"
-#include "tupgraphicobject.h"
-
-#include <QCursor>
-#include <QGraphicsScene>
-#include <QGraphicsSceneMouseEvent>
-#include <QPainter>
-#include <QStyleOption>
-#include <QStyleOptionButton>
-#include <QApplication>
 
 /**
  * This class defines the data structure for a node, and all the methods required to manipulate it.

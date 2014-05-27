@@ -36,21 +36,31 @@
 #ifndef GEOMETRICTOOLPLUGIN_H
 #define GEOMETRICTOOLPLUGIN_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "tuprectitem.h"
 #include "tupellipseitem.h"
 #include "tuplineitem.h"
 #include "infopanel.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QObject>
 #include <QLabel>
 #include <QKeyEvent>
+#include <cmath>
+#include <QKeySequence>
+#include <QImage>
+#include <QPaintDevice>
+#include <QGraphicsView>
 
 /**
  * @author David Cuadrado
 */
 
-class GeometricTool : public TupToolPlugin
+class TUPI_EXPORT GeometricTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "geometrictool.json")

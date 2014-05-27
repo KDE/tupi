@@ -36,13 +36,20 @@
 #ifndef TUPIMPORTPROJECTPACKAGE_H
 #define TUPIMPORTPROJECTPACKAGE_H 
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDomDocument>
+#include <QFile>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupImportProjectPackage : public QDomDocument
+class TUPI_EXPORT TupImportProjectPackage : public QDomDocument
 {
     public:
         TupImportProjectPackage(const QString &projectPath);

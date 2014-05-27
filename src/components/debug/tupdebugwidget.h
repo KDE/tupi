@@ -36,14 +36,24 @@
 #ifndef TUPDEBUGWIDGET_H
 #define TUPDEBUGWIDGET_H
 
-#include <tupmodulewidgetbase.h>
+#include "tglobal.h"
+#include "tupmodulewidgetbase.h"
+#include "tupdebugterm.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QIcon>
 
 /**
  * @author Gustav Gonzalez <info@maefloresta.com>
 */
-class TupDebugWidget : public TupModuleWidgetBase
+
+class TUPI_EXPORT TupDebugWidget : public TupModuleWidgetBase
 {
     Q_OBJECT
+
     public:
         TupDebugWidget(QWidget *parent = 0, int width = 0);
         ~TupDebugWidget();

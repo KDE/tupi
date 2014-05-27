@@ -34,12 +34,6 @@
  ***************************************************************************/
 
 #include "tupanimationspace.h"
-#include "tdebug.h"
-
-#include <QMouseEvent>
-#include <QDropEvent>
-#include <QLinearGradient>
-#include <QBoxLayout>
 
 /**
  * This class defines the space which contains the Animation Mode interface.

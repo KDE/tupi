@@ -36,26 +36,33 @@
 #ifndef TUPSTORYBOARDPARSER_H
 #define TUPSTORYBOARDPARSER_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QString>
 #include <QDomDocument>
+#include <QTextStream>
 
 /**
    @author Gustav Gonzalez 
 **/
 
-class TupStoryboardParser
+class TUPI_EXPORT TupStoryboardParser
 {
-   public:
-      TupStoryboardParser(const QString &package);
-      ~TupStoryboardParser();
-      bool checksum();
-      int sceneIndex();
-      QString storyboardXml() const;
-      QDomDocument request() const;
+    public:
+        TupStoryboardParser(const QString &package);
+        ~TupStoryboardParser();
+        bool checksum();
+        int sceneIndex();
+        QString storyboardXml() const;
+        QDomDocument request() const;
 
-   private:
-      struct Private;
-      Private *const k;
+     private:
+        struct Private;
+        Private *const k;
 };
 
 #endif

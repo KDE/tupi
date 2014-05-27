@@ -1,5 +1,4 @@
 #include "tupvideosurface.h"
-#include "tdebug.h"
 
 struct TupVideoSurface::Private
 {

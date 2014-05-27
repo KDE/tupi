@@ -34,16 +34,6 @@
  ***************************************************************************/
 
 #include "tupcellscolor.h"
-#include "tdebug.h"
-#include "tuppalettedocument.h"
-
-#include <QFile>
-#include <QDragEnterEvent>
-#include <QMouseEvent>
-#include <QDrag>
-#include <QApplication>
-#include <QPainter>
-#include <QMimeData>
 
 struct TupCellsColor::Private
 {

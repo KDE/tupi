@@ -36,14 +36,27 @@
 #ifndef TUPCHAT_H
 #define TUPCHAT_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
 #include <QKeyEvent>
+#include <QTextBrowser>
+#include <QLineEdit>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QTime>
+#include <QList>
 
 /**
  * @author David Cuadrado 
 */
 
-class TupChat : public QWidget
+class TUPI_EXPORT TupChat : public QWidget
 {
     Q_OBJECT
     

@@ -36,15 +36,25 @@
 #ifndef APNGPLUGIN_H
 #define APNGPLUGIN_H
 
+#include "tglobal.h"
 #include "tupexportpluginobject.h"
 #include "tupexportinterface.h"
 #include "tmoviegeneratorinterface.h"
+#include "tuplayer.h"
+#include "tupanimationrenderer.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QImage>
+#include <QPainter>
 
 /**
  * @author Gustav Gonzalez
 */
 
-class APNGPlugin : public TupExportPluginObject
+class TUPI_EXPORT APNGPlugin : public TupExportPluginObject
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "apngplugin.json")

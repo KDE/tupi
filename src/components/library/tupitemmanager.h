@@ -36,17 +36,26 @@
 #ifndef TUPITEMMANAGER_H
 #define TUPITEMMANAGER_H
 
+#include "tglobal.h"
 #include "tuptreedelegate.h"
 #include "treelistwidget.h"
 #include "tapplicationproperties.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QKeyEvent>
+#include <QHeaderView>
+#include <QMenu>
+#include <QMimeData>
+#include <QDrag>
 
 /**
  * @author David Cuadrado
 */
 
-class TupItemManager : public TreeListWidget
+class TUPI_EXPORT TupItemManager : public TreeListWidget
 {
     Q_OBJECT
 

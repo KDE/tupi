@@ -36,22 +36,30 @@
 #ifndef TUPLAYERCONTROLS_H
 #define TUPLAYERCONTROLS_H
 
-#include <QPushButton>
-#include <QToolTip>
-#include <QLabel>
-#include <QScrollBar>
-#include <QButtonGroup>
-#include <QTableWidget>
-
+#include "tuprequestbuilder.h"
+#include "tseparator.h"
+#include "tapplication.h"
 #include "timagebutton.h"
 #include "tupprojectrequest.h"
 #include "tapplicationproperties.h"
+
+#include <QLabel>
+#include <QLayout>
+#include <QPixmap>
+#include <QHeaderView>
+#include <QPainter>
+#include <QItemDelegate>
+#include <QPushButton>
+#include <QToolTip>
+#include <QScrollBar>
+#include <QButtonGroup>
+#include <QTableWidget>
 
 /**
  * @author David Cuadrado
 **/
 
-class TupLayerControls : public QTableWidget
+class TUPI_EXPORT TupLayerControls : public QTableWidget
 {
     Q_OBJECT
     

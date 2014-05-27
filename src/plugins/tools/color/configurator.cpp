@@ -34,15 +34,6 @@
  ***************************************************************************/
 
 #include "configurator.h"
-#include "tweenmanager.h"
-#include "buttonspanel.h"
-
-#include "tupitemtweener.h"
-#include "tosd.h"
-#include "tdebug.h"
-
-#include <QLabel>
-#include <QBoxLayout>
 
 struct Configurator::Private
 {

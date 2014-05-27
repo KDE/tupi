@@ -34,36 +34,6 @@
  ***************************************************************************/
 
 #include "tupstoryboarddialog.h"
-#include "tupstoryboard.h"
-#include "tapplicationproperties.h"
-#include "tglobal.h"
-#include "tconfig.h"
-#include "tseparator.h"
-#include "tupscene.h"
-#include "talgorithm.h"
-#include "tosd.h"
-#include "tdebug.h"
-
-#include <QDialog>
-#include <QDialogButtonBox>
-#include <QIcon>
-#include <QPixmap>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QListWidget>
-#include <QLabel>
-#include <QLineEdit>
-#include <QTextEdit>
-#include <QDir>
-#include <QPushButton>
-#include <QPainter>
-#include <QFileDialog>
-#include <QDesktopWidget>
-#include <QLocale>
-#include <QPrinter>
-#include <QPrintDialog>
-#include <QTextBrowser>
-#include <QComboBox>
 
 struct TupStoryBoardDialog::Private
 {

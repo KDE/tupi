@@ -35,8 +35,6 @@
 
 #include "selectiontool.h"
 #include "taction.h"
-#include "tdebug.h"
-#include "tglobal.h"
 #include "talgorithm.h"
 #include "tupgraphicalgorithm.h"
 #include "tupscene.h"
@@ -50,13 +48,6 @@
 #include "tupserializer.h"
 #include "tuprequestbuilder.h"
 #include "tupprojectresponse.h"
-
-#include <QPointF>
-#include <QKeySequence>
-#include <QList>
-#include <QGraphicsView>
-#include <QTimer>
-#include <cmath>
 
 struct SelectionTool::Private
 {

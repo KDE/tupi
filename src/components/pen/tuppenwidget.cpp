@@ -34,14 +34,6 @@
  ***************************************************************************/
 
 #include "tuppenwidget.h"
-#include "tglobal.h"
-#include "tdebug.h"
-#include "tconfig.h"
-
-#include "tuppaintareaevent.h"
-#include "tuppenthicknesswidget.h"
-
-#include <QListWidget>
 
 struct TupPenWidget::Private
 {

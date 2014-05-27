@@ -34,18 +34,6 @@
  ***************************************************************************/
 
 #include "tupcolorvalue.h"
-#include "tdebug.h"
-#include "tdoublecombobox.h"
-
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QCheckBox>
-#include <QDoubleSpinBox>
-#include <QGridLayout>
-#include <QSpinBox>
-#include <QLineEdit>
-
-#include <cmath>
 
 struct TupItemColorValue::Private
 {

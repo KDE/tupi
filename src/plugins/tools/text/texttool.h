@@ -36,15 +36,25 @@
 #ifndef TEXTTOOL_H
 #define TEXTTOOL_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "tuptextitem.h"
 #include "textconfigurator.h"
 #include "tupbrushmanager.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QPointF>
+#include <QFontMetrics>
+#include <QKeySequence>
+#include <QGraphicsView>
+
 /**
  * @author David Cuadrado
 */
-class TextTool : public TupToolPlugin
+class TUPI_EXPORT TextTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "texttool.json")
@@ -54,7 +64,6 @@ class TextTool : public TupToolPlugin
         virtual ~TextTool();
         
         virtual QStringList keys() const;
-        
         virtual void press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
         virtual void doubleClick(const TupInputDeviceInformation *input, TupGraphicsScene *scene);
         virtual void move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);

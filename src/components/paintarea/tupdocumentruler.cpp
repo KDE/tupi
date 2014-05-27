@@ -34,12 +34,6 @@
  ***************************************************************************/
 
 #include "tupdocumentruler.h"
-#include "tdebug.h"
-
-#include <iostream>
-using namespace std;
-
-#include <QApplication>
 
 struct TupDocumentRuler::Private
 {

@@ -36,10 +36,24 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QGraphicsItem>
 #include <QObject>
 #include <QPointF>
 #include <QKeyEvent>
+#include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
+#include <QStyleOption>
+#include <QStyleOptionButton>
+#include <QApplication>
+#include <QCursor>
+#include <cmath> //atan
 
 class NodeManager;
 
@@ -47,7 +61,7 @@ class NodeManager;
  * @author Jorge Cuadrado 
 */
 
-class Node : public QObject, public QGraphicsItem
+class TUPI_EXPORT Node : public QObject, public QGraphicsItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)

@@ -34,17 +34,6 @@
  ***************************************************************************/
 
 #include "tuponionopacitydialog.h"
-#include "tdebug.h"
-#include "tapplicationproperties.h"
-#include "tseparator.h"
-#include "tuppenthicknesswidget.h"
-#include "timagebutton.h"
-
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QDialogButtonBox>
-#include <cmath>
 
 struct TupOnionOpacityDialog::Private
 {

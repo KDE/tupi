@@ -35,18 +35,6 @@
 
 #include "tupexposureheader.h"
 
-#include <QHeaderView>
-#include <QPainter>
-#include <QStyleOptionButton>
-#include <QMap>
-#include <QVector>
-#include <QItemDelegate>
-#include <QLineEdit>
-#include <QMouseEvent>
-#include <QMenu>
-
-#include "tdebug.h"
-
 /*
 struct LayerItem
 {

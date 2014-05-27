@@ -36,7 +36,12 @@
 #ifndef NODEMANAGER_H
 #define NODEMANAGER_H
 
+#include "tglobal.h"
 #include "node.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QHash>
 #include <QGraphicsItem>
@@ -46,8 +51,7 @@
  * @author Jorge Cuadrado
 */
 
-class NodeManager : public QObject
-
+class TUPI_EXPORT NodeManager : public QObject
 {
     Q_OBJECT
 

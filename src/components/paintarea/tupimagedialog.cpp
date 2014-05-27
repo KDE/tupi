@@ -34,19 +34,6 @@
  ***************************************************************************/
 
 #include "tupimagedialog.h"
-#include "tapplicationproperties.h"
-#include "tglobal.h"
-#include "tconfig.h"
-#include "tdebug.h"
-
-#include <QDialog>
-#include <QVBoxLayout>
-#include <QIcon>
-#include <QLabel>
-#include <QLineEdit>
-#include <QTextEdit>
-#include <QPushButton>
-#include <QLocale>
 
 struct TupImageDialog::Private
 {

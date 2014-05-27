@@ -36,13 +36,21 @@
 #ifndef INFOPANEL_H
 #define INFOPANEL_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QLabel>
+#include <QBoxLayout>
+#include <QTextEdit>
 
 /**
  * @author Gustav Gonzalez 
 */
 
-class InfoPanel : public QWidget
+class TUPI_EXPORT InfoPanel : public QWidget
 {
     Q_OBJECT
 

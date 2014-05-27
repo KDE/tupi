@@ -36,21 +36,31 @@
 #ifndef VIEWTOOL_H
 #define VIEWTOOL_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "zoomconfigurator.h"
+#include "tupgraphicsscene.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QObject>
 #include <QLabel>
 #include <QGraphicsRectItem>
 #include <QSize>
+#include <QKeySequence>
+#include <QImage>
+#include <QPaintDevice>
+#include <QGraphicsView>
 
-class TupGraphicsScene;
+// class TupGraphicsScene;
 
 /**
  * @author Jorge Cuadrado
 */
 
-class ViewTool: public TupToolPlugin
+class TUPI_EXPORT ViewTool: public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "viewtool.json")

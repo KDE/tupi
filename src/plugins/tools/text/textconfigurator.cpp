@@ -34,13 +34,6 @@
  ***************************************************************************/
 
 #include "textconfigurator.h"
-#include "tfontchooser.h"
-// #include "kspellhighlighter.h"
-#include "tdebug.h"
-
-#include <QBoxLayout>
-#include <QFontDatabase>
-#include <QCheckBox>
 
 TextConfigurator::TextConfigurator(QWidget *parent) : QWidget(parent)
 {

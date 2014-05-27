@@ -34,16 +34,6 @@
  ***************************************************************************/
 
 #include "tweenmanager.h"
-#include "timagebutton.h"
-#include "tosd.h"
-#include "tdebug.h"
-
-#include <QHBoxLayout>
-#include <QBoxLayout>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QMenu>
-#include <QDir>
 
 struct TweenManager::Private
 {

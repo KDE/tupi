@@ -34,41 +34,6 @@
  ***************************************************************************/
 
 #include "tuplibrarywidget.h"
-#include "tglobal.h"
-#include "tapplication.h"
-#include "toptionaldialog.h"
-#include "tconfig.h"
-#include "tuplibrary.h"
-#include "tupproject.h"
-#include "tupsymboleditor.h"
-#include "tuprequestbuilder.h"
-#include "tosd.h"
-#include "talgorithm.h"
-// #include "taudioplayer.h"
-#include "tdebug.h"
-
-#include <QApplication>
-#include <QGroupBox>
-#include <QFileDialog>
-#include <QGraphicsItem>
-#include <QLabel>
-#include <QMenu>
-#include <QMessageBox>
-#include <QProgressDialog>
-#include <QDesktopWidget>
-#include <QBuffer>
-#include <QGraphicsSvgItem>
-#include <QSvgRenderer>
-#include <QSvgGenerator>
-#include <QComboBox>
-#include <QTreeWidgetItemIterator>
-#include <QProcess>
-#include <QFileSystemWatcher>
-#include <QChar>
-#include <QPainter>
-
-#include <cstdlib>
-#include <ctime>
 
 #define RETURN_IF_NOT_LIBRARY if (!k->library) return;
 

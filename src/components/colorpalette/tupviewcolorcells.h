@@ -36,21 +36,30 @@
 #ifndef TUPVIEWCOLORCELLS_H
 #define TUPVIEWCOLORCELLS_H
 
+#include "tglobal.h"
+#include "tconfig.h"
+#include "timagebutton.h"
+#include "tupcellscolor.h"
+#include "tuppaletteparser.h"
+#include "tapplicationproperties.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QFrame>
 #include <QComboBox>
 #include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QBrush>
-
-#include "tupcellscolor.h"
-#include "tuppaletteparser.h"
-#include "tapplicationproperties.h"
+#include <QScrollArea>
+#include <QGroupBox>
 
 /**
     @author Jorge Cuadrado
 **/
 
-class TupViewColorCells : public QFrame
+class TUPI_EXPORT TupViewColorCells : public QFrame
 {
     Q_OBJECT
 

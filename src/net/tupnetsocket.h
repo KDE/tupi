@@ -36,7 +36,17 @@
 #ifndef TUPNETSOCKET_H
 #define TUPNETSOCKET_H
 
+#include "tglobal.h"
+#include "tupnetprojectmanagerhandler.h"
 #include "tupsocketbase.h"
+#include "tupcompress.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QTextStream>
+#include <QDataStream>
 
 class TupNetProjectManagerHandler;
 
@@ -44,7 +54,7 @@ class TupNetProjectManagerHandler;
  * @author David Cuadrado
 */
 
-class TupNetSocket : public TupSocketBase
+class TUPI_EXPORT TupNetSocket : public TupSocketBase
 {
     Q_OBJECT
     

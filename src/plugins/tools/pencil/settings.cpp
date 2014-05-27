@@ -34,18 +34,10 @@
  ***************************************************************************/
 
 #include "settings.h"
-#include "tglobal.h"
 #include "timagebutton.h"
-#include "tdebug.h"
 #include "tconfig.h"
 
-#include <QBoxLayout>
-#include <QTableWidget>
-#include <QTableWidgetItem>
-#include <QHeaderView>
-#include <QPushButton>
-
-Settings::Settings(QWidget *parent) :QWidget(parent)
+Settings::Settings(QWidget *parent) : QWidget(parent)
 {
     #ifdef K_DEBUG
            TINIT;

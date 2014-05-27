@@ -34,13 +34,6 @@
  ***************************************************************************/
 
 #include "tupscenetabwidget.h"
-#include "tdebug.h"
-
-#include <QWheelEvent>
-#include <QTabBar>
-#include <QVBoxLayout>
-#include <QFrame>
-#include <QLabel>
 
 struct TupSceneTabWidget::Private
 {

@@ -36,19 +36,28 @@
 #ifndef TUPHELPBROWSER_H
 #define TUPHELPBROWSER_H
 
+#include "tglobal.h"
 #include "tapplicationproperties.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QWidget>
 #include <QSplitter>
 #include <QTextBrowser>
 #include <QTextDocument>
 #include <QKeyEvent> 
+#include <QBoxLayout>
+#include <QIcon>
+#include <QMouseEvent>
+#include <QDir>
 
 /**
  * @author David Cuadrado
 */
 
-class TupHelpBrowser : public QWidget
+class TUPI_EXPORT TupHelpBrowser : public QWidget
 {
     Q_OBJECT
 

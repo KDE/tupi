@@ -36,13 +36,19 @@
 #ifndef TUPIMAGEEXPORTPACKAGE_H
 #define TUPIMAGEEXPORTPACKAGE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QDomDocument>
+
 /**
  * @author Gustav Gonzalez
 */
 
-#include <QDomDocument>
-
-class TupImageExportPackage : public QDomDocument
+class TUPI_EXPORT TupImageExportPackage : public QDomDocument
 {
     public:
         TupImageExportPackage(int frameIndex, int sceneIndex, const QString &title, const QString &topics, const QString &description);

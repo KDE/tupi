@@ -33,26 +33,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include <QList>
-#include <QHeaderView>
-
 #include "tuptimeline.h"
-
-// Tupi Framework 
-#include "tapplication.h"
-#include "tdebug.h"
-
-#include "tupprojectrequest.h"
-#include "tuplibraryobject.h"
-
-#include "tupframestable.h"
-#include "tuplayermanager.h"
-
-#include "tupprojectactionbar.h"
-
-#include "tuprequestbuilder.h"
-
-#include "tuplibrary.h"
 
 #define RETURN_IF_NOT_LIBRARY if (!k->library) return;
 

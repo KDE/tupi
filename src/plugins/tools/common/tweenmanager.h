@@ -36,20 +36,34 @@
 #ifndef TWEENMANAGER_H
 #define TWEENMANAGER_H
 
+#include "tglobal.h"
+#include "timagebutton.h"
+#include "tosd.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
+#include <QHBoxLayout>
+#include <QBoxLayout>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QMenu>
+#include <QDir>
 
 /**
  * @author Gustav Gonzalez 
 */
 
-class QListWidgetItem;
+// class QListWidgetItem;
 
-class TweenManager: public QWidget 
+class TUPI_EXPORT TweenManager: public QWidget 
 {
     Q_OBJECT
 
     public:
-
         TweenManager(QWidget *parent = 0);
         ~TweenManager();
         void loadTweenList(QList<QString> tweenList);

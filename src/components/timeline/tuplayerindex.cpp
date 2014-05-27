@@ -34,25 +34,12 @@
  ***************************************************************************/
 
 #include "tuplayerindex.h"
-#include "tuprequestbuilder.h"
-
-#include <qlabel.h>
-#include <qlayout.h>
-
-#include <QPixmap>
-#include <QHeaderView>
-#include <QPainter>
-#include <QItemDelegate>
-
-#include "tseparator.h"
-#include "tapplication.h"
-#include "tdebug.h"
 
 const int LAYER_COLUMN = 0;
 
 // Header
 
-class TupLayerIndexHeader : public QHeaderView
+class TUPI_EXPORT TupLayerIndexHeader : public QHeaderView
 {
     public:
         TupLayerIndexHeader(QWidget * parent = 0);

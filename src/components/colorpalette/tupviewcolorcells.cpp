@@ -34,13 +34,6 @@
  ***************************************************************************/
 
 #include "tupviewcolorcells.h"
-#include "tdebug.h"
-#include "tglobal.h"
-#include "timagebutton.h"
-#include "tconfig.h"
-
-#include <QScrollArea>
-#include <QGroupBox>
 
 struct TupViewColorCells::Private
 {

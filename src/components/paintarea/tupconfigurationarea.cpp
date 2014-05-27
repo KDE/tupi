@@ -34,21 +34,6 @@
  ***************************************************************************/
 
 #include "tupconfigurationarea.h"
-#include "tdebug.h"
-
-#include <QLabel>
-#include <QTextBrowser>
-#include <QMainWindow>
-#include <QMouseEvent>
-#include <QApplication>
-#include <QPushButton>
-#include <QToolTip>
-#include <QPainter>
-#include <QPainterPath>
-#include <QStyle>
-#include <QStyleOptionButton>
-#include <QTimer>
-//#include <QVBoxLayout>
 
 struct TupConfigurationArea::Private
 {

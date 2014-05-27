@@ -36,13 +36,19 @@
 #ifndef TUPLISTPACKAGE_H
 #define TUPLISTPACKAGE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDomDocument>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupListPackage : public QDomDocument
+class TUPI_EXPORT TupListPackage : public QDomDocument
 {
     public:
         enum Type {

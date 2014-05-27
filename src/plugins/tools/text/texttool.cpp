@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "texttool.h"
-
-#include "tglobal.h"
 #include "tupscene.h"
 #include "tupinputdeviceinformation.h"
 #include "tupgraphicsscene.h"
@@ -43,11 +41,6 @@
 #include "tupprojectresponse.h"
 #include "tuplibraryobject.h"
 #include "tuprequestbuilder.h"
-
-#include <QPointF>
-#include <QFontMetrics>
-#include <QKeySequence>
-#include <QGraphicsView>
 
 TextTool::TextTool()
 {

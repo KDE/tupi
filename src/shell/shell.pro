@@ -95,7 +95,7 @@ SOURCES += main.cpp \
 CONFIG += warn_on
 TEMPLATE = app
 
-linux-g{
+linux-g {
     TARGETDEPS += ../libtupi/libtupi.so \
   ../libui/libtupiui.so \
   ../store/libtupistore.so \
@@ -118,4 +118,8 @@ FRAMEWORK_DIR = ../framework
 include($$FRAMEWORK_DIR/framework.pri)
 include(shell_config.pri)
 
-include(../../tupiglobal.pri)
+unix {
+    !include(../../tupiglobal.pri) {
+        error("Please run configure first")
+    }
+}

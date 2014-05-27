@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "tupconnectpackage.h"
-#include "talgorithm.h"
-#include "tdebug.h"
-
-#include <QCryptographicHash>
-#include <QStringList>
 
 /*
 <user_connect version="0">

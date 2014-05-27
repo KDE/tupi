@@ -34,13 +34,6 @@
  ***************************************************************************/
 
 #include "tuptoolsdialog.h"
-#include "tapplicationproperties.h"
-#include "tuptoolplugin.h"
-#include "timagebutton.h"
-#include "tdebug.h"
-
-#include <QHBoxLayout>
-#include <QPixmap>
 
 struct TupToolsDialog::Private
 {

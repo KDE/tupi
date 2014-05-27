@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "schemetool.h"
-// #include "ink.xpm"
-
 #include "tupinputdeviceinformation.h"
 #include "tupbrushmanager.h"
 #include "tupgraphicalgorithm.h"
@@ -46,22 +44,9 @@
 #include "tupellipseitem.h"
 #include "tuplineitem.h"
 #include "tuptextitem.h"
-
 #include "taction.h"
 #include "talgorithm.h"
-#include "tglobal.h"
-#include "tdebug.h"
 #include "tconfig.h"
-
-#include <QPointF>
-#include <QKeySequence>
-#include <QGraphicsPathItem>
-#include <QPainterPath>
-#include <QMatrix>
-#include <QGraphicsLineItem>
-#include <QGraphicsView>
-#include <QBrush>
-#include <cmath>
 
 struct SchemeTool::Private
 {
@@ -784,5 +769,3 @@ QCursor SchemeTool::cursor() const
 {
     return k->cursor;
 }
-
-Q_EXPORT_PLUGIN2(tup_brush, SchemeTool);

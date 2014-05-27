@@ -36,20 +36,31 @@
 #ifndef TUPEXPOSURETABLE_H
 #define TUPEXPOSURETABLE_H
 
+#include "tglobal.h"
+#include "tupexposureheader.h"
+
 #ifdef K_DEBUG
 #include "tdebug.h"
 #endif
 
 #include <QTableWidget>
+#include <QPainter>
+#include <QItemDelegate>
+#include <QLineEdit>
+#include <QMouseEvent>
+#include <QMenu>
+#include <QHeaderView>
+#include <QItemDelegate>
+#include <QLineEdit>
 
 class TupExposureVerticalHeader;
-class QMenu;
+// class QMenu;
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupExposureTable : public QTableWidget
+class TUPI_EXPORT TupExposureTable : public QTableWidget
 {
     Q_OBJECT
 

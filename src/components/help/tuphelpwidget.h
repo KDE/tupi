@@ -36,12 +36,20 @@
 #ifndef TUPHELPWIDGET_H
 #define TUPHELPWIDGET_H
 
+#include "tglobal.h"
 #include "tupmodulewidgetbase.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QWidget>
 #include <QMap>
 #include <QTreeWidget>
 #include <QDir>
+#include <QLocale>
+#include <QBoxLayout>
+#include <QHeaderView>
 
 // class KHelpWidgetManager;
 
@@ -49,7 +57,7 @@
  * @author David Alejandro Cuadrado Cabrera
 */
 
-class TupHelpWidget : public TupModuleWidgetBase
+class TUPI_EXPORT TupHelpWidget : public TupModuleWidgetBase
 {
     Q_OBJECT
 

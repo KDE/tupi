@@ -36,13 +36,22 @@
 #ifndef TUPCONNECTPACKAGE_H
 #define TUPCONNECTPACKAGE_H
 
+#include "tglobal.h"
+#include "talgorithm.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDomDocument>
+#include <QCryptographicHash>
+#include <QStringList>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupConnectPackage : public QDomDocument
+class TUPI_EXPORT TupConnectPackage : public QDomDocument
 {
     public:
         TupConnectPackage(const QString &server, const QString &username, const QString &passwd);

@@ -36,13 +36,34 @@
 #ifndef TUPCAMERAINTERFACE_H
 #define TUPCAMERAINTERFACE_H
 
+#include "tglobal.h"
+#include "tupcamerawindow.h"
+#include "tupapplication.h"
+#include "tapplicationproperties.h"
+#include "tseparator.h"
+#include "talgorithm.h"
+#include "tosd.h"
+#include "tupcolorwidget.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QFrame>
 #include <QCloseEvent>
 #include <QComboBox>
+#include <QBoxLayout>
+#include <QIcon>
+#include <QDir>
+#include <QDesktopWidget>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QDoubleSpinBox>
+#include <QColorDialog>
 #include <QCamera>
 #include <QCameraImageCapture>
 
-class TupCameraInterface : public QFrame
+class TUPI_EXPORT TupCameraInterface : public QFrame
 {
     Q_OBJECT
 

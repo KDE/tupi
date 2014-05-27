@@ -36,16 +36,27 @@
 #ifndef TUPTWITTERWIDGET_H
 #define TUPTWITTERWIDGET_H
 
+#include "tglobal.h"
+#include "tuptwitter.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
 #include <QSplitter>
 #include <QTextBrowser>
 #include <QTextDocument>
+#include <QBoxLayout>
+#include <QIcon>
+#include <QMenu>
+#include <QMouseEvent>
 
 /**
  * @author David Cuadrado
 */
 
-class TupTwitterWidget : public QWidget
+class TUPI_EXPORT TupTwitterWidget : public QWidget
 {
     Q_OBJECT
 

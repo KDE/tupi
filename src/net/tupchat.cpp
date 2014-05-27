@@ -34,16 +34,6 @@
  ***************************************************************************/
 
 #include "tupchat.h"
-#include "tdebug.h"
-
-#include <QTextBrowser>
-#include <QLineEdit>
-#include <QGridLayout>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QTime>
-#include <QList>
-#include <QKeyEvent>
 
 class TupChat::Private
 {

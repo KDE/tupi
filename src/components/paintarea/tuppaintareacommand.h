@@ -36,16 +36,26 @@
 #ifndef TUPAINTAREACOMMAND_H
 #define TUPPAINTAREACOMMAND_H
 
-#include <QUndoCommand>
+#include "tglobal.h"
+#include "tuppaintarea.h"
+#include "tuppaintareaevent.h"
+#include "tupbrushmanager.h"
 
-class TupPaintArea;
-class TupPaintAreaEvent;
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QUndoCommand>
+#include <QVariant>
+
+// class TupPaintArea;
+// class TupPaintAreaEvent;
 
 /**
  * @author David Cuadrado
 */
 
-class TupPaintAreaCommand : public QUndoCommand
+class TUPI_EXPORT TupPaintAreaCommand : public QUndoCommand
 {
     public:
         TupPaintAreaCommand(TupPaintArea *area, const TupPaintAreaEvent *event);

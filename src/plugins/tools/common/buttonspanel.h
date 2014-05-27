@@ -36,15 +36,24 @@
 #ifndef BUTTONSPANEL_H
 #define BUTTONSPANEL_H
 
+#include "tglobal.h"
 #include "tapplicationproperties.h"
+#include "timagebutton.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QWidget>
+#include <QHBoxLayout>
+#include <QBoxLayout>
+#include <QDir>
 
 /**
  * @author Gustav Gonzalez 
 */
 
-class ButtonsPanel: public QWidget 
+class TUPI_EXPORT ButtonsPanel: public QWidget 
 {
     Q_OBJECT
 

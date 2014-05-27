@@ -33,15 +33,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include <QtGui>
-#include <QtNetwork>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QDomDocument>
-#include <QEventLoop>
-
 #include "tuptwitter.h"
-#include "tdebug.h"
 
 QString Tupwitter::TWITTER_HOST = QString("http://twitter.com");
 QString Tupwitter::IS_TWITTER_UP_URL = QString("/help/test.xml");

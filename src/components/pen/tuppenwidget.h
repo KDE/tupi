@@ -36,13 +36,22 @@
 #ifndef TUPPENWIDGET_H
 #define TUPPENWIDGET_H
 
+#include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "teditspinbox.h"
+#include "tconfig.h"
+#include "tuppaintareaevent.h"
+#include "tuppenthicknesswidget.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QPen>
 #include <QListWidgetItem>
 #include <QComboBox>
 #include <QLabel>
+#include <QListWidget>
 
 class TupPaintAreaEvent;
 
@@ -50,7 +59,7 @@ class TupPaintAreaEvent;
  * @author David Cuadrado
 */
 
-class TupPenWidget : public TupModuleWidgetBase
+class TUPI_EXPORT TupPenWidget : public TupModuleWidgetBase
 {
     Q_OBJECT
 

@@ -36,15 +36,32 @@
 #ifndef TCONFIGURATIONAREA_H
 #define TCONFIGURATIONAREA_H
 
-#include <QDockWidget>
+#include "tglobal.h"
 
-class QPushButton;
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QDockWidget>
+#include <QPushButton>
+#include <QLabel>
+#include <QTextBrowser>
+#include <QMainWindow>
+#include <QMouseEvent>
+#include <QApplication>
+#include <QPushButton>
+#include <QToolTip>
+#include <QPainter>
+#include <QPainterPath>
+#include <QStyle>
+#include <QStyleOptionButton>
+#include <QTimer>
 
 /**
  * @author David Cuadrado
 */
 
-class TupConfigurationArea : public QDockWidget
+class TUPI_EXPORT TupConfigurationArea : public QDockWidget
 {
     Q_OBJECT
 

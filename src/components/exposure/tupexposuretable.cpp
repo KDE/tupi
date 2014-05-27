@@ -33,23 +33,14 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "tglobal.h"
 #include "tupexposuretable.h"
-#include "tupexposureheader.h"
-
-#include <QPainter>
-#include <QItemDelegate>
-#include <QLineEdit>
-#include <QMouseEvent>
-#include <QMenu>
-#include <QHeaderView>
 
 /**
  * @author Jorge Cuadrado
  */
 
 /////////////////
-class TupExposureVerticalHeader : public QHeaderView
+class TUPI_EXPORT TupExposureVerticalHeader : public QHeaderView
 {
     //Q_OBJECT
 

@@ -36,30 +36,36 @@
 #ifndef TEXTCONFIGURATOR_H
 #define TEXTCONFIGURATOR_H
 
+#include "tglobal.h"
+#include "tfontchooser.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
 #include <QLineEdit>
 #include <QFont>
 #include <QTextEdit>
-
-class TFontChooser;
-class QCheckBox;
+#include <QCheckBox>
+#include <QBoxLayout>
+#include <QFontDatabase>
 
 /**
  * @author David Cuadrado
 */
 
-class TextConfigurator : public QWidget
+class TUPI_EXPORT TextConfigurator : public QWidget
 {
     Q_OBJECT
+
     public:
         TextConfigurator(QWidget *parent = 0);
         ~TextConfigurator();
+
         QString text() const;
-
         QFont textFont() const;
-
         void setDocument(QTextDocument *doc);
-
         bool isHtml() const;
 
     private slots:

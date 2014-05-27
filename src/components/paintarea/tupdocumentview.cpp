@@ -35,11 +35,7 @@
 
 #include "tupdocumentview.h"
 #include "tupapplication.h"
-
-// Tupi Framework 
-#include "tdebug.h"
 #include "tconfig.h"
-
 #include "tuprequestbuilder.h"
 #include "tuppaintareaproperties.h"
 #include "tuppluginmanager.h"
@@ -49,7 +45,6 @@
 #include "tuppaintareaevent.h"
 #include "tuppaintareacommand.h"
 #include "tupgraphicsscene.h"
-
 #include "tupbrushmanager.h"
 #include "tupproject.h"
 #include "tupscene.h"
@@ -64,31 +59,6 @@
 #include "tupbasiccamerainterface.h"
 #include "tupcameradialog.h"
 #include "tuplibrary.h"
-
-#include <QLayout>
-#include <QStatusBar>
-#include <QMenuBar>
-#include <QPixmap>
-#include <QActionGroup>
-#include <QDockWidget>
-#include <QTimer>
-#include <QApplication>
-#include <QCursor>
-#include <QAction>
-#include <QActionGroup>
-#include <QToolBar>
-#include <QMenu>
-#include <QDir>
-#include <QPluginLoader>
-#include <QSpinBox>
-#include <QFrame>
-#include <QGridLayout>
-#include <QComboBox>
-#include <QDesktopWidget>
-#include <QMessageBox>
-
-#include <QCamera>
-#include <QCameraImageCapture>
 
 /**
  * This class defines all the environment for the Ilustration interface.

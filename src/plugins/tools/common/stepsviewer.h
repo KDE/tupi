@@ -36,16 +36,31 @@
 #ifndef STEPSVIEWER_H
 #define STEPSVIEWER_H
 
-#include <QTableWidget>
+#include "tglobal.h"
+#include "tuptweenerstep.h"
+#include "spinboxdelegate.h"
+#include "tpushbutton.h"
 
-class QGraphicsPathItem;
-class TupTweenerStep;
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QTableWidget>
+#include <cmath>
+#include <QGraphicsPathItem>
+#include <QDebug>
+#include <QBoxLayout>
+#include <QHeaderView>
+#include <QPainter>
+
+// class QGraphicsPathItem;
+// class TupTweenerStep;
 
 /**
  * @author Jorge Cuadrado 
 */
 
-class StepsViewer : public QTableWidget
+class TUPI_EXPORT StepsViewer : public QTableWidget
 {
     Q_OBJECT
 

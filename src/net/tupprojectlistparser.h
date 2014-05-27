@@ -36,13 +36,18 @@
 #ifndef TUPPROJECTLISTPARSER_H
 #define TUPPROJECTLISTPARSER_H
 
+#include "tglobal.h"
 #include "tupxmlparserbase.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupProjectListParser : public TupXmlParserBase
+class TUPI_EXPORT TupProjectListParser : public TupXmlParserBase
 {
     public:
         struct ProjectInfo

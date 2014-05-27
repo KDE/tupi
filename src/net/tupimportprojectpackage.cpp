@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupimportprojectpackage.h"
-#include <QFile>
 
 TupImportProjectPackage::TupImportProjectPackage(const QString &projectPath)
 {

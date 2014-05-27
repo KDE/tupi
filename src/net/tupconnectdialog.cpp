@@ -34,18 +34,6 @@
  ***************************************************************************/
 
 #include "tupconnectdialog.h"
-#include "tupnetprojectmanagerparams.h"
-#include "tconfig.h"
-#include "tformfactory.h"
-#include "tosd.h"
-
-#include <QLineEdit>
-#include <QCheckBox>
-#include <QGridLayout>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QSpinBox>
-#include <QDialogButtonBox>
 
 struct TupConnectDialog::Private
 {

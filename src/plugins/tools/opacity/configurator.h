@@ -37,7 +37,10 @@
 #define CONFIGURATOR_H
 
 #include "settings.h"
+
 #include <QFrame>
+#include <QLabel>
+#include <QBoxLayout>
 
 class QGraphicsPathItem;
 class QListWidgetItem;
@@ -47,7 +50,7 @@ class TupItemTweener;
  * @author Gustav Gonzalez 
 */
 
-class Configurator : public QFrame
+class TUPI_EXPORT Configurator : public QFrame
 {
     Q_OBJECT
 

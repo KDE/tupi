@@ -34,26 +34,13 @@
  ***************************************************************************/
 
 #include "tuplayercontrols.h"
-#include "tuprequestbuilder.h"
-
-#include <qlabel.h>
-#include <qlayout.h>
-
-#include <QPixmap>
-#include <QHeaderView>
-#include <QPainter>
-#include <QItemDelegate>
-
-#include "tseparator.h"
-#include "tapplication.h"
-#include "tdebug.h"
 
 const int LOCK_COLUMN = 0;
 const int VIEW_COLUMN = 1;
 
 // Header
 
-class TupLayerControlsHeader : public QHeaderView
+class TUPI_EXPORT TupLayerControlsHeader : public QHeaderView
 {
     public:
         TupLayerControlsHeader(QWidget * parent = 0);

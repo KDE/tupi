@@ -34,14 +34,6 @@
  ***************************************************************************/
 
 #include "tupbrushstatus.h"
-#include "tseparator.h"
-#include "tdebug.h"
-
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QPen>
-#include <QBrush>
-#include <QColorDialog>
 
 TupBrushStatus::TupBrushStatus(const QString &label, const QPixmap &pix, bool bg)
 {

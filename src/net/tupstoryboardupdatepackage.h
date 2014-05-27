@@ -36,14 +36,20 @@
 #ifndef TUPSTORYBOARDUPDATEPACKAGE_H
 #define TUPSTORYBOARDUPDATEPACKAGE_H
 
-/**
- * @author Gustav Gonzalez
-*/
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDomDocument>
 #include <QDomElement>
 
-class TupStoryboardUpdatePackage : public QDomDocument
+/**
+ * @author Gustav Gonzalez
+*/
+
+class TUPI_EXPORT TupStoryboardUpdatePackage : public QDomDocument
 {
     public:
         TupStoryboardUpdatePackage(const QDomElement storyboard, int sceneIndex);

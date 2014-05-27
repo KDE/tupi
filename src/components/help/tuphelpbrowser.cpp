@@ -34,14 +34,6 @@
  ***************************************************************************/
 
 #include "tuphelpbrowser.h"
-#include "tglobal.h"
-#include "tdebug.h"
-
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QIcon>
-#include <QMouseEvent>
-#include <QDir>
 
 // Help Browser
 

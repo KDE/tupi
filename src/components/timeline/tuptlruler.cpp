@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tuptlruler.h"
-#include "tdebug.h"
-
-#include <QPainter>
-#include <QMouseEvent>
 
 TupTLRuler::TupTLRuler(QWidget *parent) : QHeaderView(Qt::Horizontal, parent)
 {

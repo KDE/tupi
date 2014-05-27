@@ -36,9 +36,32 @@
 #ifndef TUPINFOWIDGET_H
 #define TUPINFOWIDGET_H
 
-#include <QWidget>
+#include "tglobal.h"
+#include "tapplicationproperties.h"
+#include "tseparator.h"
+#include "timagebutton.h"
+#include "tpushbutton.h"
+#include "tupwebhunter.h"
 
-class TupInfoWidget : public QWidget
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QGroupBox>
+#include <QDesktopWidget>
+#include <QTableWidget>
+#include <QHeaderView>
+#include <QFileDialog>
+
+class TUPI_EXPORT TupInfoWidget : public QWidget
 {
     Q_OBJECT
 

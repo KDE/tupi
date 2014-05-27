@@ -34,17 +34,6 @@
  ***************************************************************************/
 
 #include "tupcamerawidget.h"
-#include "tupexportwidget.h"
-#include "tdebug.h"
-#include "tseparator.h"
-#include "tupprojectrequest.h"
-#include "tupprojectresponse.h"
-#include "tuprequestbuilder.h"
-
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QApplication>
-#include <QDesktopWidget>
 
 struct TupCameraWidget::Private
 {

@@ -36,15 +36,40 @@
 #ifndef NODESTOOL_H
 #define NODESTOOL_H
 
+#include "tglobal.h"
 #include "tuppathitem.h"
 #include "tcontrolnode.h"
 #include "tnodegroup.h"
 #include "tuptoolplugin.h"
+#include "taction.h"
+#include "talgorithm.h"
+#include "tnodegroup.h"
+#include "tupgraphicalgorithm.h"
+#include "tupscene.h"
+#include "tuplayer.h"
+#include "tupserializer.h"
+#include "tupinputdeviceinformation.h"
+#include "tupgraphicsscene.h"
+#include "tupprojectrequest.h"
+#include "tupprojectresponse.h"
+#include "tuprequestbuilder.h"
+#include "tupproxyitem.h"
+#include "tuplibraryobject.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QObject>
 #include <QSpinBox>
+#include <QGraphicsView>
+#include <QPointF>
+#include <QKeySequence>
+#include <QList>
+#include <QDebug>
+#include <QTimer>
+#include <QDir>
 
-class TControlNode;
 class TupItemResponse;
 class TupGraphicsScene;
 
@@ -52,10 +77,10 @@ class TupGraphicsScene;
  * @author Jorge Cuadrado
  */
 
-class NodesTool : public TupToolPlugin
+class TUPI_EXPORT NodesTool : public TupToolPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "contourselectiontool.json")
+    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "nodestool.json")
     
     public:
         NodesTool();

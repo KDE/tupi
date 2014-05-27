@@ -35,13 +35,6 @@
 
 #include "tupnotice.h"
 
-#include <QTextEdit>
-#include <QLineEdit>
-#include <QGridLayout>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QTime>
-
 class TupNotice::Private
 {
     public:

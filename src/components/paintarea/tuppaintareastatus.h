@@ -38,18 +38,32 @@
 
 #include "tglobal.h"
 #include "tupdocumentview.h"
+#include "tseparator.h"
+#include "tupbrushmanager.h"
+#include "tupcolorwidget.h"
+#include "tupbrushstatus.h"
+#include "tuptoolstatus.h"
 
 #ifdef K_DEBUG
 #include "tdebug.h"
 #endif
 
 #include <QStatusBar>
+#include <QPushButton>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QIntValidator>
+#include <QObject>
+#include <QLineEdit>
+#include <QDir>
 
 /**
  * @author David Cuadrado
 */
 
-class TupPaintAreaStatus : public QStatusBar
+class TUPI_EXPORT TupPaintAreaStatus : public QStatusBar
 {
     Q_OBJECT
 

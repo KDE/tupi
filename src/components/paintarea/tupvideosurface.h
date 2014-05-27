@@ -1,17 +1,23 @@
 #ifndef TUPVIDEOSURFACE_H
 #define TUPVIDEOSURFACE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QtGui>
 #include <QAbstractVideoSurface>
 #include <QVideoRendererControl>
 #include <QVideoSurfaceFormat>
 
-class VideoIF {
+class TUPI_EXPORT VideoIF {
     public:
         virtual void updateVideo() = 0;
 };
 
-class TupVideoSurface: public QAbstractVideoSurface
+class TUPI_EXPORT TupVideoSurface: public QAbstractVideoSurface
 {
     Q_OBJECT
 

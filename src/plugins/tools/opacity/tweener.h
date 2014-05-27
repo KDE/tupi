@@ -36,16 +36,28 @@
 #ifndef OPACITYTWEENER_H
 #define OPACITYTWEENER_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "settings.h"
 #include "tupprojectresponse.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QPointF>
+#include <QKeySequence>
+#include <QMatrix>
+#include <QGraphicsView>
+#include <QDomDocument>
+#include <QDir>
 
 /**
  * @author Gustav Gonzalez 
  * 
 */
 
-class Tweener : public TupToolPlugin
+class TUPI_EXPORT Tweener : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "opacitytool.json")

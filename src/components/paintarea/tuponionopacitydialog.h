@@ -36,10 +36,24 @@
 #ifndef TUPONIONOPACITYDIALOG_H
 #define TUPONIONOPACITYDIALOG_H
 
+#include "tglobal.h"
+#include "tapplicationproperties.h"
+#include "tseparator.h"
+#include "tuppenthicknesswidget.h"
+#include "timagebutton.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDialog>
 #include <QColor>
+#include <QBoxLayout>
+#include <QLabel>
+#include <QDialogButtonBox>
+#include <cmath>
 
-class TupOnionOpacityDialog : public QDialog
+class TUPI_EXPORT TupOnionOpacityDialog : public QDialog
 {
     Q_OBJECT
 

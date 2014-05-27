@@ -36,13 +36,18 @@
 #ifndef TUPCOMMUNICATIONPARSER_H
 #define TUPCOMMUNICATIONPARSER_H
 
+#include "tglobal.h"
 #include "tupxmlparserbase.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupCommunicationParser : public TupXmlParserBase
+class TUPI_EXPORT TupCommunicationParser : public TupXmlParserBase
 {
     public:
         TupCommunicationParser();

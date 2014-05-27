@@ -36,10 +36,31 @@
 #ifndef ERASERTOOLPLUGIN_H
 #define ERASERTOOLPLUGIN_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
+
+#include "tuprectitem.h"
+#include "tupellipseitem.h"
+#include "tuplineitem.h"
+#include "tuppathitem.h"
+#include "tupitemconverter.h"
+#include "tupscene.h"
+#include "tupinputdeviceinformation.h"
+#include "tupgraphicsscene.h"
+#include "tupprojectrequest.h"
+#include "tupbrushmanager.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QObject>
 #include <QLabel>
+#include <QGraphicsView>
+#include <QKeySequence>
+#include <QDebug>
+#include <QImage>
+#include <QPaintDevice>
 
 class TupPathItem;
 
@@ -47,7 +68,7 @@ class TupPathItem;
  * @author David Cuadrado
 */
 
-class EraserTool : public TupToolPlugin
+class TUPI_EXPORT EraserTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "erasertool.json")

@@ -23,4 +23,9 @@ FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
 include(../tools_config.pri)
 
-include(../../../../tupiglobal.pri)
+unix {
+    !include(../../../../tupiglobal.pri){
+        error("Please run configure first")
+    }
+}
+~

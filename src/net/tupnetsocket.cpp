@@ -34,12 +34,6 @@
  ***************************************************************************/
 
 #include "tupnetsocket.h"
-#include "tupnetprojectmanagerhandler.h"
-#include "tupcompress.h"
-#include "tdebug.h"
-
-#include <QTextStream>
-#include <QDataStream>
 
 TupNetSocket::TupNetSocket(TupNetProjectManagerHandler *handler) : TupSocketBase(handler), m_handler(handler)
 {

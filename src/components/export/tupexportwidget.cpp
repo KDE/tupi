@@ -34,30 +34,6 @@
  ***************************************************************************/
 
 #include "tupexportwidget.h"
-#include "tuppluginmanager.h"
-#include "tglobal.h"
-#include "tdebug.h"
-#include "titemselector.h"
-#include "txyspinbox.h"
-
-// Qt
-#include <QApplication>
-#include <QPluginLoader>
-#include <QRadioButton>
-#include <QButtonGroup>
-#include <QGroupBox>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QPushButton>
-#include <QLabel>
-#include <QIntValidator>
-#include <QToolButton>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QCheckBox>
-#include <QtDebug>
-#include <QLocale>
-#include <QDir>
 
 /**
  * This class handles the whole process to export a project into a movie format.

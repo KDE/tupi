@@ -36,13 +36,32 @@
 #ifndef THEORAMOVIEGENERATOR_H
 #define THEORAMOVIEGENERATOR_H
 
+#include "tglobal.h"
 #include "tmoviegenerator.h"
+#include "talgorithm.h"
+
+#ifdef __cplusplus
+extern "C" {
+#include <stdint.h>
+#include <ogg/ogg.h>
+#include <theora/codec.h>
+#include <theora/theoraenc.h>
+}
+#endif
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QDir>
+#include <QFile>
+#include <QByteArray>
 
 /**
     @author Gustav Gonzalez 
 */
 
-class TheoraMovieGenerator : public TMovieGenerator
+class TUPI_EXPORT TheoraMovieGenerator : public TMovieGenerator
 {
     public:
         TheoraMovieGenerator(const QSize &size, int fps = 24, double duration = 0, int frames = 0);

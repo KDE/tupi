@@ -36,10 +36,18 @@
 #ifndef TUPTREEDELEGATE_H
 #define TUPTREEDELEGATE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QItemDelegate>
 #include <QRegExp>
+#include <QtGui>
+#include <QLineEdit>
 
-class TupTreeDelegate : public QItemDelegate
+class TUPI_EXPORT TupTreeDelegate : public QItemDelegate
 {
     Q_OBJECT
 

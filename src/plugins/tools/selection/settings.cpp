@@ -37,13 +37,6 @@
 #include "settings.h"
 #include "timagebutton.h"
 #include "tseparator.h"
-#include "tglobal.h"
-#include "tdebug.h"
-
-#include <QBoxLayout>
-#include <QTextEdit>
-#include <QSpinBox>
-#include <QDir>
 
 struct Settings::Private
 {

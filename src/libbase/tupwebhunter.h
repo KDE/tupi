@@ -51,7 +51,7 @@
 #include <QByteArray>
 #include <QList>
 
-class TupWebHunter : public QObject
+class TUPI_EXPORT TupWebHunter : public QObject
 {
     Q_OBJECT
 

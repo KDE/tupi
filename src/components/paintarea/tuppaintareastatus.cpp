@@ -34,21 +34,6 @@
  ***************************************************************************/
 
 #include "tuppaintareastatus.h"
-#include "tseparator.h"
-#include "tupbrushmanager.h"
-#include "tupcolorwidget.h"
-#include "tupbrushstatus.h"
-#include "tuptoolstatus.h"
-
-#include <QPushButton>
-#include <QComboBox>
-#include <QCheckBox>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QIntValidator>
-#include <QObject>
-#include <QLineEdit>
-#include <QDir>
 
 ////////////////
 

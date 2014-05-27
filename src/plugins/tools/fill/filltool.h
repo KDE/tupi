@@ -36,19 +36,37 @@
 #ifndef FILLTOOLPLUGIN_H
 #define FILLTOOLPLUGIN_H
 
-#include "tuptoolplugin.h"
+#include "tglobal.h"
+#include "tupsvgitem.h"
+#include "tupserializer.h"
+#include "tupitemconverter.h"
+#include "tuprequestbuilder.h"
+#include "tupscene.h"
+#include "tupinputdeviceinformation.h"
 #include "tupgraphicsscene.h"
+#include "tupprojectrequest.h"
+#include "tupbrushmanager.h"
+#include "tupgraphiclibraryitem.h"
+#include "tuptoolplugin.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QObject>
 #include <QLabel>
+#include <QKeySequence>
+#include <QImage>
+#include <QPaintDevice>
+#include <QGraphicsView>
 
-class TupPathItem;
+// class TupPathItem;
 
 /**
  * @author David Cuadrado
 */
 
-class FillTool : public TupToolPlugin
+class TUPI_EXPORT FillTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "filltool.json")

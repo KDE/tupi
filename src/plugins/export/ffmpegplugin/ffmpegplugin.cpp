@@ -35,17 +35,6 @@
 
 #include "ffmpegplugin.h"
 
-// Tupi Framework
-#include "tdebug.h"
-#include "tglobal.h"
-#include "tffmpegmoviegenerator.h"
-
-#include "tuplayer.h"
-#include "tupanimationrenderer.h"
-
-#include <QImage>
-#include <QPainter>
-
 FFMpegPlugin::FFMpegPlugin()
 {
 }

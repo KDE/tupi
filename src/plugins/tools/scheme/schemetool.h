@@ -36,24 +36,37 @@
 #ifndef SCHEMETOOL_H
 #define SCHEMETOOL_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "configurator.h"
 #include "tuppathitem.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QObject>
 #include <QSpinBox>
 #include <QTimer>
-
-class QKeySequence;
+#include <QPointF>
+#include <QKeySequence>
+#include <QGraphicsPathItem>
+#include <QPainterPath>
+#include <QMatrix>
+#include <QGraphicsLineItem>
+#include <QGraphicsView>
+#include <QBrush>
+#include <cmath>
 
 /**
  * @author David Cuadrado
 */
 
-class SchemeTool : public TupToolPlugin
+class TUPI_EXPORT SchemeTool : public TupToolPlugin
 {
     Q_OBJECT
-    
+    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "schemetool.json")
+
     public:
         SchemeTool();
         virtual ~SchemeTool();

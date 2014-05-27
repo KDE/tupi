@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupprojectlistparser.h"
-#include "tdebug.h"
 
 struct TupProjectListParser::Private
 {

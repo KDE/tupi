@@ -34,14 +34,6 @@
  ***************************************************************************/
 
 #include "tupitemmanager.h"
-#include "tglobal.h"
-#include "tdebug.h"
-#include "tapplication.h"
-
-#include <QHeaderView>
-#include <QMenu>
-#include <QMimeData>
-#include <QDrag>
 
 /**
  * This class provides some methods for the TupLibraryWidget.

@@ -36,13 +36,19 @@
 #ifndef TUPSAVEPACKAGE_H
 #define TUPSAVEPACKAGE_H
 
-/**
- * @author Gustav Gonzalez  
-*/
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDomDocument>
 
-class TupSavePackage: public QDomDocument
+/**
+ * @author Gustav Gonzalez
+*/
+
+class TUPI_EXPORT TupSavePackage: public QDomDocument
 {
     public:
         TupSavePackage(bool exitFlag);

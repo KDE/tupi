@@ -34,12 +34,6 @@
  ***************************************************************************/
 
 #include "buttonspanel.h"
-#include "timagebutton.h"
-#include "tdebug.h"
-
-#include <QHBoxLayout>
-#include <QBoxLayout>
-#include <QDir>
 
 ButtonsPanel::ButtonsPanel(QWidget *parent) : QWidget(parent)
 {

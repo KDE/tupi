@@ -36,17 +36,25 @@
 #ifndef CONFIGURATOR_H
 #define CONFIGURATOR_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QLabel>
 #include <QComboBox>
 #include <QSpinBox>
 #include <QCheckBox>
 #include <QDoubleSpinBox>
+#include <QBoxLayout>
+#include <QTextEdit>
 
 /**
  * @author Gustav Gonzalez 
 */
 
-class Configurator : public QWidget
+class TUPI_EXPORT Configurator : public QWidget
 {
     Q_OBJECT
 

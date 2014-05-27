@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupcanvasview.h"
-#include "tdebug.h"
 
 struct TupCanvasView::Private
 {

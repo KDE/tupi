@@ -36,13 +36,27 @@
 #ifndef TUPCELLSCOLOR_H
 #define TUPCELLSCOLOR_H
 
+#include "tglobal.h"
 #include "tcellview.h"
+#include "tuppalettedocument.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QFile>
+#include <QDragEnterEvent>
+#include <QMouseEvent>
+#include <QDrag>
+#include <QApplication>
+#include <QPainter>
+#include <QMimeData>
 
 /**
  * @author Jorge Cuadrado
 **/
 
-class TupCellsColor : public TCellView
+class TUPI_EXPORT TupCellsColor : public TCellView
 {
     Q_OBJECT
 

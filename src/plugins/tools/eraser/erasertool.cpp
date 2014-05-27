@@ -34,24 +34,6 @@
  ***************************************************************************/
 
 #include "erasertool.h"
-#include "tglobal.h"
-#include "tdebug.h"
-#include "tuprectitem.h"
-#include "tupellipseitem.h"
-#include "tuplineitem.h"
-#include "tuppathitem.h"
-#include "tupitemconverter.h"
-#include "tupscene.h"
-#include "tupinputdeviceinformation.h"
-#include "tupgraphicsscene.h"
-#include "tupprojectrequest.h"
-#include "tupbrushmanager.h"
-
-#include <QGraphicsView>
-#include <QKeySequence>
-#include <QDebug>
-#include <QImage>
-#include <QPaintDevice>
 
 EraserTool::EraserTool()
 {

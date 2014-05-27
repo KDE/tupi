@@ -36,12 +36,21 @@
 #ifndef TUPEXPOSUREHEADER_H
 #define TUPEXPOSUREHEADER_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QHeaderView>
 #include <QPainter>
 #include <QStyleOptionButton>
+#include <QMap>
 #include <QVector>
+#include <QItemDelegate>
 #include <QLineEdit>
 #include <QMouseEvent>
+#include <QMenu>
 
 struct LayerItem
 {
@@ -54,7 +63,8 @@ struct LayerItem
 /**
  * @author Jorge Cuadrado
  */
-class TupExposureHeader: public QHeaderView
+
+class TUPI_EXPORT TupExposureHeader: public QHeaderView
 {
     Q_OBJECT
 

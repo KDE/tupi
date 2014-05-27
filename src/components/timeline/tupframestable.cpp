@@ -35,18 +35,6 @@
 
 #include "tupframestable.h"
 
-#include <QPainter>
-#include <QPaintEvent>
-#include <QItemSelectionModel>
-#include <QPainterPath>
-#include <QScrollBar>
-#include <QHeaderView>
-
-#include "tdebug.h"
-#include "tuptlruler.h"
-//#include "tupprojectrequest.h"
-#include "tupprojectactionbar.h"
-
 ////////// TupFramesTableItemDelegate ///////////
 
 class TupFramesTableItemDelegate : public QAbstractItemDelegate

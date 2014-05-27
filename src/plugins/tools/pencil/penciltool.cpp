@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "penciltool.h"
-// #include "penciltool.xpm"
-
 #include "tupinputdeviceinformation.h"
 #include "tupbrushmanager.h"
 #include "tupgraphicalgorithm.h"
@@ -44,20 +42,9 @@
 #include "tupprojectrequest.h"
 #include "tuplibraryobject.h"
 #include "tupellipseitem.h"
-
 #include "taction.h"
 #include "talgorithm.h"
-#include "tglobal.h"
-#include "tdebug.h"
 #include "tconfig.h"
-
-#include <QPointF>
-#include <QKeySequence>
-#include <QGraphicsPathItem>
-#include <QPainterPath>
-#include <QMatrix>
-#include <QGraphicsLineItem>
-#include <QGraphicsView>
 
 struct PencilTool::Private
 {

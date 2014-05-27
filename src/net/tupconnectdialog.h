@@ -36,15 +36,32 @@
 #ifndef TUPCONNECTDIALOG_H
 #define TUPCONNECTDIALOG_H
 
-#include <QDialog>
+#include "tglobal.h"
+#include "tupnetprojectmanagerparams.h"
+#include "tconfig.h"
+#include "tformfactory.h"
+#include "tosd.h"
 
-class TupNetProjectManagerParams;
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QDialog>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QSpinBox>
+#include <QDialogButtonBox>
+
+// class TupNetProjectManagerParams;
 
 /**
  * @author David Cuadrado
 */
 
-class TupConnectDialog : public QDialog
+class TUPI_EXPORT TupConnectDialog : public QDialog
 {
     Q_OBJECT
 

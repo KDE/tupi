@@ -34,19 +34,6 @@
  ***************************************************************************/
 
 #include "tupscreen.h"
-#include "tupprojectresponse.h"
-#include "tupgraphicobject.h"
-#include "tupgraphicsscene.h"
-#include "tupanimationrenderer.h"
-#include "tupsoundlayer.h"
-#include "tdebug.h"
-
-#include <QGraphicsItem>
-#include <QApplication>
-#include <QMessageBox>
-#include <QProgressDialog>
-#include <QDesktopWidget>
-#include <QTimer>
 
 typedef QList<QImage> photoArray;
 

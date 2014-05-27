@@ -34,16 +34,6 @@
  ***************************************************************************/
 
 #include "tuppendialog.h"
-#include "tdebug.h"
-#include "tapplicationproperties.h"
-#include "tseparator.h"
-#include "tuppenthicknesswidget.h"
-#include "timagebutton.h"
-
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QDialogButtonBox>
 
 struct TupPenDialog::Private
 {

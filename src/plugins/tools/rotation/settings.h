@@ -36,8 +36,21 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QBoxLayout>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QCheckBox>
+#include <QDir>
 
 class TupItemTweener;
 
@@ -45,7 +58,7 @@ class TupItemTweener;
  * @author Gustav Gonzalez 
 */
 
-class Settings : public QWidget 
+class TUPI_EXPORT Settings : public QWidget 
 {
     Q_OBJECT
 

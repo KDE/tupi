@@ -34,24 +34,6 @@
  ***************************************************************************/
 
 #include "filltool.h"
-#include "tglobal.h"
-#include "tdebug.h"
-#include "tupsvgitem.h"
-#include "tupserializer.h"
-#include "tupitemconverter.h"
-#include "tuprequestbuilder.h"
-#include "tupscene.h"
-#include "tupinputdeviceinformation.h"
-#include "tupgraphicsscene.h"
-#include "tupprojectrequest.h"
-#include "tupbrushmanager.h"
-#include "tupgraphiclibraryitem.h"
-
-#include <QKeySequence>
-#include <QDebug>
-#include <QImage>
-#include <QPaintDevice>
-#include <QGraphicsView>
 
 struct FillTool::Private
 {

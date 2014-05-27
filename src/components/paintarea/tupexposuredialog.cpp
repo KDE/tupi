@@ -34,23 +34,6 @@
  ***************************************************************************/
 
 #include "tupexposuredialog.h"
-#include "tupexposurescene.h"
-#include "tdebug.h"
-#include "tapplicationproperties.h"
-#include "tseparator.h"
-#include "timagebutton.h"
-#include "tupscene.h"
-#include "tuplayer.h"
-#include "tpushbutton.h"
-
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QDialogButtonBox>
-#include <QPushButton>
-#include <QGroupBox>
-#include <QListWidget>
-#include <QDesktopWidget>
 
 struct TupExposureDialog::Private
 {

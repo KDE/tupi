@@ -35,16 +35,6 @@
 
 #include "apngplugin.h"
 
-// Tupi Framework
-#include "tdebug.h"
-#include "tglobal.h"
-
-#include "tuplayer.h"
-#include "tupanimationrenderer.h"
-
-#include <QImage>
-#include <QPainter>
-
 APNGPlugin::APNGPlugin()
 {
 }

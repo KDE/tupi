@@ -1,14 +1,20 @@
 #ifndef TUPCAMERAWINDOW_H
 #define TUPCAMERAWINDOW_H
 
+#include "tglobal.h"
 #include "tupvideosurface.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QtGui>
 #include <QWidget>
+#include <QMessageBox>
 #include <QCamera>
 #include <QCameraImageCapture>
 
-class TupCameraWindow: public QWidget, public VideoIF
+class TUPI_EXPORT TupCameraWindow: public QWidget, public VideoIF
 {
     Q_OBJECT
 

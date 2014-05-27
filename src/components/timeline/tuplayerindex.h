@@ -36,8 +36,16 @@
 #ifndef TUPLAYERINDEX_H
 #define TUPLAYERINDEX_H
 
+#include "tglobal.h"
+#include "tuprequestbuilder.h"
+#include "tseparator.h"
+#include "tapplication.h"
 #include "timagebutton.h"
 #include "tupprojectrequest.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QPushButton>
 #include <QToolTip>
@@ -45,12 +53,17 @@
 #include <QScrollBar>
 #include <QButtonGroup>
 #include <QTableWidget>
+#include <QLayout>
+#include <QPixmap>
+#include <QHeaderView>
+#include <QPainter>
+#include <QItemDelegate>
 
 /**
  * @author David Cuadrado
 **/
 
-class TupLayerIndex : public QTableWidget
+class TUPI_EXPORT TupLayerIndex : public QTableWidget
 {
     Q_OBJECT
     

@@ -36,13 +36,25 @@
 #ifndef TUPNOTICE_H
 #define TUPNOTICE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDialog>
+#include <QTextEdit>
+#include <QLineEdit>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QTime>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupNotice: public QWidget
+class TUPI_EXPORT TupNotice: public QWidget
 {
     Q_OBJECT
 

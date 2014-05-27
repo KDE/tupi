@@ -36,14 +36,19 @@
 #ifndef TUPCANVASVIEW_H
 #define TUPCANVASVIEW_H
 
+#include "tglobal.h"
 #include "tuppaintareabase.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QGraphicsView>
 #include <QPainter>
 #include <QRectF>
 #include <QMouseEvent>
 
-class TupCanvasView : public QGraphicsView
+class TUPI_EXPORT TupCanvasView : public QGraphicsView
 {
     Q_OBJECT
 

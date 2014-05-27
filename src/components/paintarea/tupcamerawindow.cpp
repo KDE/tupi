@@ -1,8 +1,4 @@
 #include "tupcamerawindow.h"
-#include "tdebug.h"
-
-// #include <QVideoEncoderControl>
-#include <QMessageBox>
 
 struct TupCameraWindow::Private
 {

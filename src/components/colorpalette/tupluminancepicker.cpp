@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tupluminancepicker.h"
-#include "tdebug.h"
-
-#include <QPainter>
-#include <qdrawutil.h>
 
 struct TupLuminancePicker::Private
 {

@@ -34,9 +34,6 @@
  ***************************************************************************/
 
 #include "tupcolorwidget.h"
-#include "tdebug.h"
-
-#include <QPainter>
 
 /**
  * This class defines the options panel in the bottom of the paint area.

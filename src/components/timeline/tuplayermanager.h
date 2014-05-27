@@ -36,14 +36,20 @@
 #ifndef TUPLAYERMANAGER_H
 #define TUPLAYERMANAGER_H
 
+#include "tglobal.h"
 #include "tuplayerindex.h"
 #include "tuplayercontrols.h"
+#include "tapplication.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 /**
  * @author David Cuadrado
 **/
 
-class TupLayerManager : public QWidget
+class TUPI_EXPORT TupLayerManager : public QWidget
 {
     Q_OBJECT
     

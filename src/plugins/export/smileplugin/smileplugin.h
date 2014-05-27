@@ -33,10 +33,17 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef SMILEXPORTPLUGIN_H
-#define SMILEXPORTPLUGIN_H
+#ifndef SMILEPLUGIN_H
+#define SMILEPLUGIN_H
+
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include "tupexportpluginobject.h"
+#include "tuplayer.h"
 
 #include <QDomDocument>
 #include <QDomElement>
@@ -46,13 +53,14 @@
  * @author David Cuadrado
 */
 
-class SmilExportPlugin : public TupExportPluginObject
+class TUPI_EXPORT SmilePlugin : public TupExportPluginObject
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "smileplugin.json")
 
     public:
-        SmilExportPlugin();
-        virtual ~SmilExportPlugin();
+        SmilePlugin();
+        virtual ~SmilePlugin();
         virtual QString key() const;
         TupExportInterface::Formats availableFormats();
 
@@ -68,10 +76,8 @@ class SmilExportPlugin : public TupExportPluginObject
 
     private:
         QString m_baseName;
-
         QDomDocument m_smil;
         QDomElement m_body;
-
         int m_fps;
         QSize m_size;
 };

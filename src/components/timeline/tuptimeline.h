@@ -36,23 +36,39 @@
 #ifndef TUPTIMELINE_H
 #define TUPTIMELINE_H
 
+#include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "ttabwidget.h"
+#include "tapplication.h"
+#include "tupprojectrequest.h"
+#include "tuplibraryobject.h"
+#include "tupframestable.h"
+#include "tuplayermanager.h"
+#include "tupprojectactionbar.h"
+#include "tuprequestbuilder.h"
+#include "tuplibrary.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QSplitter>
 #include <QStackedWidget>
+#include <QList>
+#include <QHeaderView>
+#include <QStackedWidget>
 
-class TupLayerManager;
-class TupFramesTable;
-class TupProjectActionBar;
-class TupFramesTableItem;
-class TupLibrary;
+// class TupLayerManager;
+// class TupFramesTable;
+// class TupProjectActionBar;
+// class TupFramesTableItem;
+// class TupLibrary;
 
 /**
  * @author David Cuadrado
 **/
 
-class TupTimeLine : public TupModuleWidgetBase
+class TUPI_EXPORT TupTimeLine : public TupModuleWidgetBase
 {
     Q_OBJECT
 

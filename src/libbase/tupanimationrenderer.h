@@ -36,6 +36,8 @@
 #ifndef TUPANIMATIONRENDERER_H
 #define TUPANIMATIONRENDERER_H
 
+#include "tglobal.h"
+
 #ifdef K_DEBUG
 #include "tdebug.h"
 #endif
@@ -50,7 +52,7 @@ class TupScene;
  * @author David Cuadrado
 */
 
-class TupAnimationRenderer
+class TUPI_EXPORT TupAnimationRenderer
 {
     public:
         TupAnimationRenderer(const QColor color);

@@ -34,33 +34,6 @@
  ***************************************************************************/
 
 #include "tupcanvas.h"
-#include "tupapplication.h"
-#include "tapplicationproperties.h"
-#include "tuptoolplugin.h"
-#include "timagebutton.h"
-#include "tdebug.h"
-#include "tuppendialog.h"
-#include "tuponionopacitydialog.h"
-#include "tupexposuredialog.h"
-#include "tuptoolsdialog.h"
-#include "tupinfowidget.h"
-
-#include <QDialog>
-#include <QHBoxLayout>
-#include <QBoxLayout>
-#include <QFrame>
-#include <QIcon>
-#include <QGraphicsView>
-#include <QColorDialog>
-#include <QToolBar>
-#include <QAction>
-#include <QSlider>
-#include <QLabel>
-#include <QFont>
-#include <QDesktopWidget>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QBuffer>
 
 struct TupCanvas::Private
 {

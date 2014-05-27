@@ -36,26 +36,42 @@
 #ifndef TUPEXPOSURESHEET_H
 #define TUPEXPOSURESHEET_H
 
+#include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "tupexposuretable.h"
 #include "tupscenetabwidget.h"
 #include "timagebutton.h"
 #include "tupprojectactionbar.h"
 #include "tupproject.h"
+#include "tapplication.h"
+#include "toptionaldialog.h"
+#include "tupprojectrequest.h"
+#include "tuprequestbuilder.h"
+#include "tupscene.h"
+#include "tuplayer.h"
+#include "tupframe.h"
 
-// Qt
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QButtonGroup>
 #include <QGroupBox>
 #include <QPushButton>
 #include <QListWidget>
 #include <QList>
 #include <QActionGroup>
+#include <QToolTip>
+#include <QPixmap>
+#include <QHBoxLayout>
+#include <QList>
+#include <QMenu>
  
 /**
 * @author Jorge Cuadrado
 */
 
-class TupExposureSheet : public TupModuleWidgetBase
+class TUPI_EXPORT TupExposureSheet : public TupModuleWidgetBase
 {
     Q_OBJECT
 

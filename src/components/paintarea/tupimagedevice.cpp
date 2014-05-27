@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tupimagedevice.h"
-#include "tdebug.h"
-
-#include <QPainter>
-#include <QPaintEngine>
 
 TupImageDevice::TupImageDevice(QWidget *parent) : QWidget(parent)
 {

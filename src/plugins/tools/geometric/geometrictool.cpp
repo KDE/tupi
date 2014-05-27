@@ -47,16 +47,6 @@
 #include "tupprojectrequest.h"
 #include "tupbrushmanager.h"
 
-#include "tglobal.h"
-#include "tdebug.h"
-
-#include <cmath>
-#include <QKeySequence>
-#include <QDebug>
-#include <QImage>
-#include <QPaintDevice>
-#include <QGraphicsView>
-
 struct GeometricTool::Private
 {
     TupRectItem *rect;

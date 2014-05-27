@@ -34,41 +34,6 @@
  ***************************************************************************/
 
 #include "tupnetprojectmanagerhandler.h"
-#include "tupnetprojectmanagerparams.h"
-#include "tupprojectresponse.h"
-#include "tdebug.h"
-#include "tosd.h"
-
-#include "tupprojectcommand.h"
-#include "tupcommandexecutor.h"
-#include "tupnetsocket.h"
-#include "tupprojectrequest.h"
-#include "tupnewprojectpackage.h"
-#include "tupconnectpackage.h"
-#include "tupimageexportpackage.h"
-#include "tupvideoexportpackage.h"
-#include "tupstoryboardupdatepackage.h"
-#include "tupstoryboardexportpackage.h"
-#include "tupstoryboardparser.h"
-#include "tupnetfilemanager.h"
-#include "tupopenpackage.h"
-#include "tupchatpackage.h"
-#include "tupnotificationparser.h"
-#include "tupprojectlistparser.h"
-#include "tupprojectparser.h"
-#include "tuprequestparser.h"
-#include "tupackparser.h"
-#include "tupcommunicationparser.h"
-#include "tuprequestbuilder.h"
-#include "tupproject.h"
-#include "tuplistprojectdialog.h"
-#include "tupchat.h"
-#include "tupnotice.h"
-
-#include <QTemporaryFile>
-#include <QTabWidget>
-#include <QDesktopWidget>
-#include <QMessageBox>
 
 struct TupNetProjectManagerHandler::Private
 {

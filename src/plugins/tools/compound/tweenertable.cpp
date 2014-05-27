@@ -36,11 +36,6 @@
 #include "tweenertable.h"
 #include "tpushbutton.h"
 #include "tseparator.h"
-#include "tdebug.h"
-
-#include <QBoxLayout>
-#include <QCheckBox>
-#include <QPushButton>
 
 struct TweenerTable::Private
 {

@@ -39,6 +39,11 @@
 #include "tglobal.h"
 #include "tupscene.h"
 #include "tupabstractprojectresponsehandler.h"
+#include "tupprojectresponse.h"
+#include "tupgraphicobject.h"
+#include "tupgraphicsscene.h"
+#include "tupanimationrenderer.h"
+#include "tupsoundlayer.h"
 
 #ifdef K_DEBUG
 #include "tdebug.h"
@@ -48,6 +53,12 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QFrame>
+#include <QGraphicsItem>
+#include <QApplication>
+#include <QMessageBox>
+#include <QProgressDialog>
+#include <QDesktopWidget>
+#include <QTimer>
 
 /**
  * @author David Cuadrado

@@ -36,18 +36,24 @@
 #ifndef TUPSCENESLIST_H
 #define TUPSCENESLIST_H
 
+#include "tglobal.h"
 #include "treelistwidget.h"
 #include "tupscenesdelegate.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QTreeWidgetItem>
+#include <QHeaderView>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupScenesList : public TreeListWidget
+class TUPI_EXPORT TupScenesList : public TreeListWidget
 {
     Q_OBJECT
 

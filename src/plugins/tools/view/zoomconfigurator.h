@@ -36,19 +36,27 @@
 #ifndef ZOOMCONFIGURATOR_H
 #define ZOOMCONFIGURATOR_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QResizeEvent>
 #include <QLabel>
 #include <QRadioButton>
 #include <QDoubleSpinBox>
-
-class QTableWidget;
-class QTableWidgetItem;
+#include <QBoxLayout>
+#include <QRadioButton>
+#include <QButtonGroup>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 
 /**
  * @author Jorge Cuadrado
 **/
 
-class ZoomConfigurator : public QWidget
+class TUPI_EXPORT ZoomConfigurator : public QWidget
 {
     Q_OBJECT
 

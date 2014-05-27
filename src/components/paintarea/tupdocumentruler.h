@@ -36,13 +36,22 @@
 #ifndef TUPDOCUMENTRULER_H
 #define TUPDOCUMENTRULER_H
 
+#include "tglobal.h"
 #include "trulerbase.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QApplication>
+#include <iostream>
+using namespace std;
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupDocumentRuler : public TRulerBase
+class TUPI_EXPORT TupDocumentRuler : public TRulerBase
 {
     Q_OBJECT
 

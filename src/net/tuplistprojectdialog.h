@@ -36,18 +36,32 @@
 #ifndef TUPLISTPROJECTDIALOG_H
 #define TUPLISTPROJECTDIALOG_H
 
+#include "tglobal.h"
 #include "tapplicationproperties.h"
+#include "treelistwidget.h"
+#include "treewidgetsearchline.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDialog>
 #include <QTreeWidget>
+#include <QToolButton>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QPushButton>
+#include <QLabel>
+#include <QTreeWidgetItem>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class QTreeWidgetItem;
+// class QTreeWidgetItem;
 
-class TupListProjectDialog : public QDialog
+class TUPI_EXPORT TupListProjectDialog : public QDialog
 {
     Q_OBJECT
 

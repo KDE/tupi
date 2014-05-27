@@ -36,13 +36,23 @@
 #ifndef	IMAGEPLUGIN_H
 #define IMAGEPLUGIN_H
 
+#include "tglobal.h"
 #include "tupexportpluginobject.h"
+#include "tuplayer.h"
+#include "tupanimationrenderer.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QColor>
+#include <QImage>
+#include <QPainter>
 
 /**
     @author David Cuadrado
 */
-class ImagePlugin : public TupExportPluginObject
+class TUPI_EXPORT ImagePlugin : public TupExportPluginObject
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "imageplugin.json")

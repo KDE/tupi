@@ -43,15 +43,19 @@
 
 #include <QObject>
 #include <QSpinBox>
-// #include <QTimer>
-
-class QKeySequence;
+#include <QPointF>
+#include <QKeySequence>
+#include <QGraphicsPathItem>
+#include <QPainterPath>
+#include <QMatrix>
+#include <QGraphicsLineItem>
+#include <QGraphicsView>
 
 /**
  * @author David Cuadrado
 */
 
-class PencilTool : public TupToolPlugin
+class TUPI_EXPORT PencilTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "penciltool.json")

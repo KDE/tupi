@@ -34,22 +34,6 @@
  ***************************************************************************/
 
 #include "tupsceneswidget.h"
-#include "tupprojectrequest.h"
-#include "tupprojectactionbar.h"
-#include "tuprequestbuilder.h"
-
-#include "tglobal.h"
-#include "tdebug.h"
-#include "timagebutton.h"
-#include "toptionaldialog.h"
-#include "tconfig.h"
-
-#include <QToolTip>
-#include <QMessageBox>
-#include <QPixmap>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QToolButton>
 
 struct TupScenesWidget::Private
 {

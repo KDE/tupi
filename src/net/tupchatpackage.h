@@ -36,13 +36,19 @@
 #ifndef TUPCHATPACKAGE_H
 #define TUPCHATPACKAGE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDomDocument>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupChatPackage: public QDomDocument
+class TUPI_EXPORT TupChatPackage: public QDomDocument
 {
     public:
         TupChatPackage(const QString &text);

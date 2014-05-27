@@ -34,13 +34,6 @@
  ***************************************************************************/
 
 #include "imageplugin.h"
-#include "tuplayer.h"
-#include "tupanimationrenderer.h"
-#include "tglobal.h"
-#include "tdebug.h"
-
-#include <QImage>
-#include <QPainter>
 
 ImagePlugin::ImagePlugin()
 {

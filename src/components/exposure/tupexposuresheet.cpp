@@ -34,21 +34,6 @@
  ***************************************************************************/
 
 #include "tupexposuresheet.h"
-#include "tapplication.h"
-#include "tdebug.h"
-#include "tglobal.h"
-#include "toptionaldialog.h"
-#include "tupprojectrequest.h"
-#include "tuprequestbuilder.h"
-#include "tupscene.h"
-#include "tuplayer.h"
-#include "tupframe.h"
-
-#include <QToolTip>
-#include <QPixmap>
-#include <QHBoxLayout>
-#include <QList>
-#include <QMenu>
 
 struct TupExposureSheet::Private
 {

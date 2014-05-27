@@ -36,9 +36,20 @@
 #ifndef TUPSCENESWIDGET_H
 #define TUPSCENESWIDGET_H
 
+#include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "tupsceneslist.h"
 #include "treewidgetsearchline.h"
+#include "tupprojectrequest.h"
+#include "tupprojectactionbar.h"
+#include "tuprequestbuilder.h"
+#include "timagebutton.h"
+#include "toptionaldialog.h"
+#include "tconfig.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QGroupBox>
 #include <QPushButton>
@@ -47,10 +58,14 @@
 #include <QPixmap>
 #include <QList>
 #include <QTreeWidgetItem>
+#include <QToolTip>
+#include <QMessageBox>
+#include <QHBoxLayout>
+#include <QToolButton>
 
 class TupSceneResponse;
 
-class TupScenesWidget : public TupModuleWidgetBase
+class TUPI_EXPORT TupScenesWidget : public TupModuleWidgetBase
 {
     Q_OBJECT
 

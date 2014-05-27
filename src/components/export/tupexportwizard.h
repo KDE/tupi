@@ -36,15 +36,22 @@
 #ifndef TUPEXPORTWIZARD_H
 #define TUPEXPORTWIZARD_H
 
-#include "tvhbox.h"
 #include "tglobal.h"
+#include "tvhbox.h"
 #include "toolview.h"
+#include "tseparator.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDialog>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QStackedWidget>
+#include <QLabel>
+#include <QBitmap>
 
 class TupExportWizardPage;
 
@@ -52,7 +59,7 @@ class TupExportWizardPage;
  * @author David Cuadrado
 */
 
-class TupExportWizard : public QDialog
+class TUPI_EXPORT TupExportWizard : public QDialog
 {
     Q_OBJECT
 
@@ -94,7 +101,7 @@ class TupExportWizard : public QDialog
 #include <QGridLayout>
 #include <QLabel>
 
-class TupExportWizardPage : public TVHBox
+class TUPI_EXPORT TupExportWizardPage : public TVHBox
 {
     Q_OBJECT
 

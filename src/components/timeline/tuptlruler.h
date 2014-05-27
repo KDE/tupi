@@ -36,13 +36,21 @@
 #ifndef TUPTLRULER_H
 #define TUPTLRULER_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QHeaderView>
+#include <QPainter>
+#include <QMouseEvent>
 
 /**
  * @author David Cuadrado
 **/
 
-class TupTLRuler : public QHeaderView
+class TUPI_EXPORT TupTLRuler : public QHeaderView
 {
     Q_OBJECT
 

@@ -36,12 +36,18 @@
 #ifndef TUPLUMINACEPICKER_H
 #define TUPLUMINACEPICKER_H
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QPainter>
+#include <qdrawutil.h>
 #include <QPaintEvent>
 #include <QPixmap>
 #include <QMouseEvent>
 #include <QWidget>
 
-class TupLuminancePicker : public QWidget
+class TUPI_EXPORT TupLuminancePicker : public QWidget
 {
     Q_OBJECT
 

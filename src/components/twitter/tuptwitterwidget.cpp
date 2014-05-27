@@ -34,16 +34,6 @@
  ***************************************************************************/
 
 #include "tuptwitterwidget.h"
-#include "tuptwitter.h"
-
-#include "tglobal.h"
-#include "tdebug.h"
-
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QIcon>
-#include <QMenu>
-#include <QMouseEvent>
 
 // Twitter Widget 
 

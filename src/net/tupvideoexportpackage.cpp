@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupvideoexportpackage.h"
-#include "tdebug.h"
 
 // <project_video version="0">
 //     <video fps="24" scenes="0, 1, 2, N" />

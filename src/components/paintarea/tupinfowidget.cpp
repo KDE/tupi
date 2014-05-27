@@ -34,25 +34,6 @@
  ***************************************************************************/
 
 #include "tupinfowidget.h"
-#include "tdebug.h"
-#include "tapplicationproperties.h"
-#include "tseparator.h"
-#include "timagebutton.h"
-#include "tpushbutton.h"
-#include "tupwebhunter.h"
-
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QComboBox>
-#include <QLineEdit>
-#include <QDialogButtonBox>
-#include <QPushButton>
-#include <QGroupBox>
-#include <QDesktopWidget>
-#include <QTableWidget>
-#include <QHeaderView>
-#include <QFileDialog>
 
 struct TupInfoWidget::Private
 {

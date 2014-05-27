@@ -36,20 +36,10 @@
 #include "settings.h"
 #include "tradiobuttongroup.h"
 #include "timagebutton.h"
-#include "tdebug.h"
 #include "tupitemtweener.h"
 #include "stepsviewer.h"
 #include "tuptweenerstep.h"
 #include "tosd.h"
-
-#include <QLabel>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QSpinBox>
-#include <QBoxLayout>
-#include <QHeaderView>
-#include <QGraphicsPathItem>
-#include <QDir>
 
 struct Settings::Private
 {

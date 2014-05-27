@@ -36,13 +36,22 @@
 #ifndef TUPPALETTEIMPORTER_H
 #define TUPPALETTEIMPORTER_H
 
+#include "tglobal.h"
 #include "tuppalettedocument.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QFile>
+#include <QDir>
+#include <QTextStream>
 
 /**
  * @author David Cuadrado
 **/
 
-class TupPaletteImporter
+class TUPI_EXPORT TupPaletteImporter
 {
     public:
         enum PaletteType

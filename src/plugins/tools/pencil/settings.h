@@ -36,19 +36,26 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include "tglobal.h"
 #include "tapplicationproperties.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDoubleSpinBox>
 #include <QLabel>
-
-class QTableWidget;
-class QTableWidgetItem;
+#include <QBoxLayout>
+#include <QTableWidget>
+#include <QTableWidgetItem>
+#include <QHeaderView>
+#include <QPushButton>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class Settings : public QWidget
+class TUPI_EXPORT Settings : public QWidget
 {
     Q_OBJECT
 

@@ -36,19 +36,27 @@
 #ifndef CONFIGURATOR_H
 #define CONFIGURATOR_H
 
-#include <QFrame>
+#include "tglobal.h"
 #include "tweenerpanel.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QFrame>
+#include <QLabel>
+#include <QBoxLayout>
 
 class QGraphicsPathItem;
 class QListWidgetItem;
 class TupItemTweener;
-class TweenerPanel;
+// class TweenerPanel;
 
 /**
  * @author Gustav Gonzalez 
 */
 
-class Configurator : public QFrame
+class TUPI_EXPORT Configurator : public QFrame
 {
     Q_OBJECT
 

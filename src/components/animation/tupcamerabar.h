@@ -36,18 +36,24 @@
 #ifndef TUPCAMERABAR_H
 #define TUPCAMERABAR_H
 
+#include "tglobal.h"
 #include "timagebutton.h"
 #include "tapplicationproperties.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QFrame>
 #include <QPainter>
 #include <QPushButton>
+#include <QBoxLayout>
 
 /**
  * @author David Cuadrado
 */
 
-class TupCameraBar : public QFrame
+class TUPI_EXPORT TupCameraBar : public QFrame
 {
     Q_OBJECT
 

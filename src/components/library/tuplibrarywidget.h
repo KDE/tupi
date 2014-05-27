@@ -36,27 +36,63 @@
 #ifndef TUPLIBRARYWIDGET_H
 #define TUPLIBRARYWIDGET_H
 
+#include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "tupitempreview.h"
 #include "timagebutton.h"
 #include "tupitemmanager.h"
 #include "tupnewitemdialog.h"
 #include "tuplibraryobject.h"
+#include "tapplication.h"
+#include "toptionaldialog.h"
+#include "tconfig.h"
+#include "tuplibrary.h"
+#include "tupproject.h"
+#include "tupsymboleditor.h"
+#include "tuprequestbuilder.h"
+#include "tosd.h"
+#include "talgorithm.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QMap>
 #include <QDir>
 #include <QMouseEvent>
+#include <QApplication>
+#include <QGroupBox>
+#include <QFileDialog>
+#include <QGraphicsItem>
+#include <QLabel>
+#include <QMenu>
+#include <QMessageBox>
+#include <QProgressDialog>
+#include <QDesktopWidget>
+#include <QBuffer>
+#include <QGraphicsSvgItem>
+#include <QSvgRenderer>
+#include <QSvgGenerator>
+#include <QComboBox>
+#include <QTreeWidgetItemIterator>
+#include <QProcess>
+#include <QFileSystemWatcher>
+#include <QChar>
+#include <QPainter>
 
-class TupLibrary;
+#include <cstdlib>
+#include <ctime>
+
+// class TupLibrary;
 typedef QMap<QString, TupLibraryObject *> LibraryObjects;
 
 /**
  * @author David Cuadrado
 */
 
-class TupLibraryWidget : public TupModuleWidgetBase
+class TUPI_EXPORT TupLibraryWidget : public TupModuleWidgetBase
 {
     Q_OBJECT
 

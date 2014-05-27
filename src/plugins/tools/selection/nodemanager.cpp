@@ -35,7 +35,6 @@
 
 #include "nodemanager.h"
 #include "tupgraphicobject.h"
-#include "tdebug.h"
 
 /**
  * This class handles the methods required to manipulate a set of nodes.

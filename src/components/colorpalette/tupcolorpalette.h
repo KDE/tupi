@@ -36,9 +36,34 @@
 #ifndef TUPCOLORPALETTE_H
 #define TUPCOLORPALETTE_H
 
+#include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "tdualcolorbutton.h"
 #include "ticon.h"
+#include "timagebutton.h"
+#include "tconfig.h"
+#include "tuppaintareaevent.h"
+#include "tupcolorvalue.h"
+#include "tupviewcolorcells.h"
+#include "tupcolorpicker.h"
+#include "tupluminancepicker.h"
+#include "tupgradientcreator.h"
+#include "tvhbox.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QBoxLayout>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QFrame>
+#include <QToolTip>
+#include <QComboBox>
+#include <QGroupBox>
+#include <QSplitter>
+#include <QMenu>
+#include <QTabWidget>
 
 class TupColorPalette;
 
@@ -46,7 +71,7 @@ class TupColorPalette;
  * @author Jorge Cuadrado
 */
 
-class TupColorPalette : public TupModuleWidgetBase
+class TUPI_EXPORT TupColorPalette : public TupModuleWidgetBase
 {
     Q_OBJECT
 

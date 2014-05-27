@@ -36,10 +36,31 @@
 #ifndef TUPEXPOSUREDIALOG_H
 #define TUPEXPOSUREDIALOG_H
 
+#include "tglobal.h"
 #include "tupproject.h"
-#include <QDialog>
+#include "tupexposurescene.h"
+#include "tapplicationproperties.h"
+#include "tseparator.h"
+#include "timagebutton.h"
+#include "tupscene.h"
+#include "tuplayer.h"
+#include "tpushbutton.h"
 
-class TupExposureDialog : public QDialog
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QDialog>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QGroupBox>
+#include <QListWidget>
+#include <QDesktopWidget>
+
+class TUPI_EXPORT TupExposureDialog : public QDialog
 {
     Q_OBJECT
 

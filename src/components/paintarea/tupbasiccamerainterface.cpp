@@ -34,18 +34,6 @@
  ***************************************************************************/
 
 #include "tupbasiccamerainterface.h"
-#include "tupapplication.h"
-#include "tapplicationproperties.h"
-#include "tseparator.h"
-#include "talgorithm.h"
-#include "tosd.h"
-#include "tdebug.h"
-
-#include <QBoxLayout>
-#include <QIcon>
-#include <QDir>
-#include <QDesktopWidget>
-#include <QPushButton>
 
 struct TupBasicCameraInterface::Private
 {

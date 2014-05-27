@@ -34,19 +34,6 @@
  ***************************************************************************/
 
 #include "tupcameradialog.h"
-#include "tapplicationproperties.h"
-#include "tglobal.h"
-#include "tconfig.h"
-#include "tdebug.h"
-
-#include <QLabel>
-#include <QComboBox>
-#include <QBoxLayout>
-#include <QCheckBox>
-#include <QPushButton>
-#include <QDir>
-
-#include <QCameraImageCapture>
 
 struct TupCameraDialog::Private
 {

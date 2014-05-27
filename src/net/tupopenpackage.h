@@ -36,13 +36,19 @@
 #ifndef TUPOPENPACKAGE_H
 #define TUPOPENPACKAGE_H
 
-/**
- * @author Jorge Cuadrado 
-*/
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDomDocument>
 
-class TupOpenPackage: public QDomDocument
+/**
+ * @author Jorge Cuadrado
+*/
+
+class TUPI_EXPORT TupOpenPackage: public QDomDocument
 {
     public:
         TupOpenPackage(const QString &projectID, const QString &owner);

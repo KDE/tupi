@@ -36,14 +36,29 @@
 #ifndef TUPLIBRARYDIALOG_H
 #define TUPLIBRARYDIALOG_H
 
+#include "tglobal.h"
+#include "tupitempreview.h"
+#include "tformfactory.h"
+#include "tapplicationproperties.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDialog>
-class QGraphicsItem;
+#include <QVBoxLayout>
+#include <QDialogButtonBox>
+#include <QToolBox>
+#include <QGraphicsItem>
+#include <QHBoxLayout>
+#include <QLineEdit>
+#include <QMap>
 
 /**
  * @author David Cuadrado
 **/
 
-class TupLibraryDialog : public QDialog
+class TUPI_EXPORT TupLibraryDialog : public QDialog
 {
     Q_OBJECT
 

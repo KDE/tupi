@@ -36,10 +36,21 @@
 #ifndef TWEENERPANEL_H
 #define TWEENERPANEL_H
 
+#include "tglobal.h"
+#include "tupitemtweener.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
 #include <QGraphicsPathItem>
-
-#include "tupitemtweener.h"
+#include <QLabel>
+#include <QLineEdit>
+#include <QBoxLayout>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QHeaderView>
 
 /**
  * @author Gustav Gonzalez 
@@ -47,7 +58,7 @@
 
 class Configurator;
 
-class TweenerPanel : public QWidget 
+class TUPI_EXPORT TweenerPanel : public QWidget 
 {
     Q_OBJECT
 

@@ -34,13 +34,6 @@
  ***************************************************************************/
 
 #include "tuppaintareacommand.h"
-#include "tuppaintarea.h"
-#include "tuppaintareaevent.h"
-#include "tupbrushmanager.h"
-
-#include "tdebug.h" 
-
-#include <QVariant>
 
 /**
  * This class defines the undo/redo functions for the paint area

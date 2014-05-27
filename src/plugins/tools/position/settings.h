@@ -36,17 +36,31 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
-#include <QWidget>
 
-class QGraphicsPathItem;
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QSpinBox>
+#include <QBoxLayout>
+#include <QHeaderView>
+#include <QGraphicsPathItem>
+#include <QDir>
+
+// class QGraphicsPathItem;
 class TupItemTweener;
 
 /**
  * @author Jorge Cuadrado
 */
 
-class Settings : public QWidget 
+class TUPI_EXPORT Settings : public QWidget 
 {
     Q_OBJECT
 

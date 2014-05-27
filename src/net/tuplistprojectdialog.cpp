@@ -34,16 +34,6 @@
  ***************************************************************************/
 
 #include "tuplistprojectdialog.h"
-#include "treelistwidget.h"
-#include "treewidgetsearchline.h"
-#include "tdebug.h"
-
-#include <QToolButton>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QHeaderView>
-#include <QPushButton>
-#include <QLabel>
 
 struct TupListProjectDialog::Private
 {

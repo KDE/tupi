@@ -34,41 +34,6 @@
  ***************************************************************************/
 
 #include "tuppaintarea.h"
-#include "tupbrushmanager.h"
-#include "tupinputdeviceinformation.h"
-
-#include "tuppaintareaevent.h"
-#include "tuppaintarearotator.h"
-#include "tupimagedevice.h"
-#include "tupgraphicsscene.h"
-#include "tconfig.h"
-#include "tapplication.h"
-#include "tdebug.h"
-#include "tuptextitem.h"
-#include "tuplibrarydialog.h"
-#include "tuplibraryobject.h"
-#include "tuprequestbuilder.h"
-#include "tupprojectrequest.h"
-#include "tupprojectresponse.h"
-
-#include "tupscene.h"
-#include "tuplayer.h"
-#include "tupsvgitem.h"
-#include "tuppixmapitem.h"
-#include "node.h"
-#include "tcontrolnode.h"
-#include "tupproject.h"
-#include "tosd.h"
-
-#include <QGraphicsScene>
-#include <QMouseEvent>
-#include <QGraphicsRectItem>
-#include <QPolygon>
-#include <QApplication>
-// #include <QTimer>
-#include <QStyleOptionGraphicsItem>
-#include <QClipboard>
-#include <QMenu>
 
 /**
  * This class defines the behavior of the main paint area when ilustration module is on

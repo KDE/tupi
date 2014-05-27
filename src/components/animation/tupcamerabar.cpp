@@ -34,14 +34,8 @@
  ***************************************************************************/
 
 #include "tupcamerabar.h"
-#include "tdebug.h"
-#include "tglobal.h"
 
-#include <QBoxLayout>
-
-
-TupCameraBar::TupCameraBar(QWidget *parent)
- : QFrame(parent)
+TupCameraBar::TupCameraBar(QWidget *parent) : QFrame(parent)
 {
     #ifdef K_DEBUG
            TINIT;

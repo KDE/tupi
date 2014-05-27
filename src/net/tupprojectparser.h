@@ -40,9 +40,14 @@
  * @author Jorge Cuadrado
 */
 
+#include "tglobal.h"
 #include "tupxmlparserbase.h"
 
-class TupProjectParser : public TupXmlParserBase
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+class TUPI_EXPORT TupProjectParser : public TupXmlParserBase
 {
     public:
         TupProjectParser();

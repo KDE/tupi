@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupstoryboardparser.h"
-#include <QTextStream>
 
 struct TupStoryboardParser::Private
 {

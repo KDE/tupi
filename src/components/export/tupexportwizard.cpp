@@ -34,14 +34,6 @@
  ***************************************************************************/
 
 #include "tupexportwizard.h"
-#include "tvhbox.h"
-#include "tseparator.h"
-#include "tdebug.h"
-
-// Qt
-#include <QLabel>
-#include <QBitmap>
-#include <QDebug>
 
 struct TupExportWizard::Private
 {

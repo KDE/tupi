@@ -36,9 +36,19 @@
 #ifndef TUPSTORYBOARDDIALOG_H
 #define TUPSTORYBOARDDIALOG_H
 
+#include "tglobal.h"
 #include "tupscene.h"
 #include "tupstoryboard.h"
 #include "tupexportinterface.h"
+#include "tapplicationproperties.h"
+#include "tconfig.h"
+#include "tseparator.h"
+#include "talgorithm.h"
+#include "tosd.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDialog>
 #include <QColor>
@@ -46,8 +56,25 @@
 #include <QIcon>
 #include <QListWidgetItem>
 #include <QPrinter>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QPixmap>
+#include <QBoxLayout>
+#include <QListWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QTextEdit>
+#include <QDir>
+#include <QPushButton>
+#include <QPainter>
+#include <QFileDialog>
+#include <QDesktopWidget>
+#include <QLocale>
+#include <QPrintDialog>
+#include <QTextBrowser>
+#include <QComboBox>
 
-class TupStoryBoardDialog : public QDialog
+class TUPI_EXPORT TupStoryBoardDialog : public QDialog
 {
     Q_OBJECT
 

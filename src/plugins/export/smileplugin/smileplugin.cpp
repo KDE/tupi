@@ -33,34 +33,27 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "tglobal.h"
-#include "tdebug.h"
+#include "smileplugin.h"
 
-#include <QImage>
-#include <QPainter>
-
-#include "smilexportplugin.h"
-#include "tuplayer.h"
-
-SmilExportPlugin::SmilExportPlugin()
+SmilePlugin::SmilePlugin()
 {
 }
 
-SmilExportPlugin::~SmilExportPlugin()
+SmilePlugin::~SmilePlugin()
 {
 }
 
-QString SmilExportPlugin::key() const
+QString SmilePlugin::key() const
 {
     return "SMIL 2.0";
 }
 
-TupExportInterface::Formats SmilExportPlugin::availableFormats()
+TupExportInterface::Formats SmilePlugin::availableFormats()
 {
     return TupExportInterface::SMIL;
 }
 
-bool SmilExportPlugin::exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format format, const QSize &size, int fps)
+bool SmilePlugin::exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format format, const QSize &size, int fps)
 {
     QFileInfo fileInfo(filePath);
 
@@ -83,12 +76,12 @@ bool SmilExportPlugin::exportToFormat(const QColor color, const QString &filePat
     return true;
 }
 
-bool SmilExportPlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size)
+bool SmilePlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size)
 {
     return false;
 }
 
-void SmilExportPlugin::initSmil()
+void SmilePlugin::initSmil()
 {
     m_smil = QDomDocument("smil PUBLIC \"-//W3C//DTD SMIL 2.0//EN\" \"http://www.w3.org/2001/SMIL20/SMIL20.dtd\"");
 
@@ -130,7 +123,7 @@ void SmilExportPlugin::initSmil()
     m_smil.appendChild(root);
 }
 
-void SmilExportPlugin::createPar(const QString &filePath, double duration)
+void SmilePlugin::createPar(const QString &filePath, double duration)
 {
     QFileInfo finfo(filePath);
     QString relative = "data/"+finfo.baseName()+"."+finfo.completeSuffix();
@@ -148,9 +141,8 @@ void SmilExportPlugin::createPar(const QString &filePath, double duration)
     m_body.appendChild(par);
 }
 
-const char* SmilExportPlugin::getExceptionMsg() {
+const char* SmilePlugin::getExceptionMsg() {
     return errorMsg;
 }
 
-Q_EXPORT_PLUGIN( SmilExportPlugin );
-
+// Q_EXPORT_PLUGIN( SmilePlugin );

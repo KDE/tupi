@@ -34,9 +34,6 @@
  ***************************************************************************/
 
 #include "spinboxdelegate.h"
-#include "tdebug.h"
-
-#include <QModelIndex>
 
 SpinBoxDelegate::SpinBoxDelegate(QObject *parent)
     : QItemDelegate(parent)

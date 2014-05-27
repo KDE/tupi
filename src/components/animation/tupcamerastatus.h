@@ -37,16 +37,26 @@
 #define TUPCAMERASTATUS_H
 
 #include "tupcamerawidget.h"
+#include "tupexportwidget.h"
+#include "tconfig.h"
+#include "tseparator.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QFrame>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QStatusBar>
+#include <QApplication>
+#include <QSpinBox>
 
 class TupCameraWidget;
 
-class TupCameraStatus : public QFrame
+class TUPI_EXPORT TupCameraStatus : public QFrame
 {
     Q_OBJECT
 

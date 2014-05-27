@@ -36,13 +36,22 @@
 #ifndef TWEENERTABLE_H
 #define TWEENERTABLE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QWidget>
+#include <QBoxLayout>
+#include <QCheckBox>
+#include <QPushButton>
+
 /**
  * @author Gustav Gonzalez
 */
 
-#include <QWidget>
-
-class TweenerTable : public QWidget
+class TUPI_EXPORT TweenerTable : public QWidget
 {
     Q_OBJECT
 

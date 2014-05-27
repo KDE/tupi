@@ -36,16 +36,49 @@
 #ifndef COLORINGTWEENER_H
 #define COLORINGTWEENER_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "settings.h"
 #include "tupprojectresponse.h"
+#include "configurator.h"
+#include "tupgraphiclibraryitem.h"
+#include "tglobal.h"
+#include "taction.h"
+#include "tosd.h"
+#include "tupinputdeviceinformation.h"
+#include "tupbrushmanager.h"
+#include "tupgraphicsscene.h"
+#include "tupgraphicobject.h"
+#include "tuppathitem.h"
+#include "tupellipseitem.h"
+#include "tuplineitem.h"
+#include "tuprectitem.h"
+#include "tuppixmapitem.h"
+#include "tupsvgitem.h"
+#include "tupitemtweener.h"
+#include "tuprequestbuilder.h"
+#include "tupprojectrequest.h"
+#include "tuplibraryobject.h"
+#include "tupscene.h"
+#include "tuplayer.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QPointF>
+#include <QKeySequence>
+#include <QMatrix>
+#include <QGraphicsView>
+#include <QDomDocument>
+#include <QDir>
 
 /**
  * @author Gustav Gonzalez 
  * 
 */
 
-class Tweener : public TupToolPlugin
+class TUPI_EXPORT Tweener : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "coloringtool.json")

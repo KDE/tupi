@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tuptreedelegate.h"
-#include "tdebug.h"
-
-#include <QtGui>
-#include <QLineEdit>
 
 TupTreeDelegate::TupTreeDelegate(QObject *parent) : QItemDelegate(parent)
 {

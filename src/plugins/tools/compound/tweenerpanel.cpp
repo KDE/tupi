@@ -35,19 +35,11 @@
 
 #include "tweenerpanel.h"
 #include "positionsettings.h"
-#include "tdebug.h"
 #include "tradiobuttongroup.h"
 #include "timagebutton.h"
 #include "tseparator.h"
 #include "tweenertable.h"
 #include "tosd.h"
-
-#include <QLabel>
-#include <QLineEdit>
-#include <QBoxLayout>
-#include <QComboBox>
-#include <QCheckBox>
-#include <QHeaderView>
 
 struct TweenerPanel::Private
 {

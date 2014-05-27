@@ -36,14 +36,20 @@
 #ifndef TUPVIDEOEXPORTTPACKAGE_H
 #define TUPVIDEOEXPORTPACKAGE_H
 
-/**
- * @author Gustav Gonzalez
-*/
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QDomDocument>
 #include <QList>
 
-class TupVideoExportPackage : public QDomDocument
+/**
+ * @author Gustav Gonzalez
+*/
+
+class TUPI_EXPORT TupVideoExportPackage : public QDomDocument
 {
     public:
         TupVideoExportPackage(const QString &title, const QString &topics, const QString &description, int fps, const QList<int> sceneIndexes);

@@ -34,31 +34,6 @@
  ***************************************************************************/
 
 #include "nodestool.h"
-#include "taction.h"
-#include "tdebug.h"
-#include "tglobal.h"
-#include "talgorithm.h"
-#include "tnodegroup.h"
-
-#include "tupgraphicalgorithm.h"
-#include "tupscene.h"
-#include "tuplayer.h"
-#include "tupserializer.h"
-#include "tupinputdeviceinformation.h"
-#include "tupgraphicsscene.h"
-#include "tupprojectrequest.h"
-#include "tupprojectresponse.h"
-#include "tuprequestbuilder.h"
-#include "tupproxyitem.h"
-#include "tuplibraryobject.h"
-
-#include <QGraphicsView>
-#include <QPointF>
-#include <QKeySequence>
-#include <QList>
-#include <QDebug>
-#include <QTimer>
-#include <QDir>
 
 struct NodesTool::Private
 {

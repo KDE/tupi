@@ -36,17 +36,28 @@
 #ifndef TUPNETFILEMANAGER_H
 #define TUPNETFILEMANAGER_H 
 
+#include "tglobal.h"
 #include "tupfilemanager.h"
+#include "tupproject.h"
+#include "tupnetprojectmanagerparams.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QString>
+#include <QFile>
+#include <QTextStream>
+#include <QDomDocument>
+#include <QDomElement>
 
-class TupNetProjectManagerParams;
+// class TupNetProjectManagerParams;
 
 /**
  * @author David Cuadrado
 */
 
-class TupNetFileManager : public TupFileManager 
+class TUPI_EXPORT TupNetFileManager : public TupFileManager 
 {
     public:
 

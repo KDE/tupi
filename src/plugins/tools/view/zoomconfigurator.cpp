@@ -34,21 +34,15 @@
  ***************************************************************************/
 
 #include "zoomconfigurator.h"
-#include <QBoxLayout>
-#include <QRadioButton>
-#include <QButtonGroup>
-#include <QLabel>
-
 #include "timagebutton.h"
 #include "tseparator.h"
-
-#include "tglobal.h"
-#include "tdebug.h"
 #include "tconfig.h"
 
 ZoomConfigurator::ZoomConfigurator(QWidget *parent) :QWidget(parent)
 {
+#ifdef K_DEBUG
     TINIT;
+#endif
 
     QBoxLayout *mainLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom);
@@ -96,7 +90,9 @@ ZoomConfigurator::ZoomConfigurator(QWidget *parent) :QWidget(parent)
 
 ZoomConfigurator::~ZoomConfigurator()
 {
+#ifdef K_DEBUG
     TEND;
+#endif
 }
 
 double ZoomConfigurator::getFactor() const

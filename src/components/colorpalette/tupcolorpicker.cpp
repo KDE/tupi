@@ -34,17 +34,6 @@
  ***************************************************************************/
 
 #include "tupcolorpicker.h"
-#include "tdebug.h"
-
-#include <QPoint>
-#include <QColor>
-#include <QImage>
-#include <QSizePolicy>
-#include <QPixmap>
-#include <QSize>
-#include <QRect>
-#include <QPainter>
-#include <QMouseEvent>
 
 static int pWidth = 100;
 static int pHeight = 80;

@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "tupdebugterm.h"
-#include "tdebug.h"
-
-#include <QIcon>
-#include <QBoxLayout>
-#include <QTextBrowser>
 
 TupDebugTerm::TupDebugTerm(QWidget *parent, int width) : QWidget(parent)
 {

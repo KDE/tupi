@@ -1,6 +1,8 @@
 
 QT += xml opengl svg
 
+INCLUDEPATH += ../plugins/tools/selection
+
 COLORPALETTE_DIR = ../components/colorpalette
 ANIMATION_DIR = ../components/animation
 PAINTAREA_DIR = ../components/paintarea
@@ -40,4 +42,3 @@ include($$STORE_DIR/store.pri)
 include($$LIBTUPI_DIR/libtupi.pri)
 include($$LIBBASE_DIR/libbase.pri)
 include($$NET_DIR/net.pri)
-

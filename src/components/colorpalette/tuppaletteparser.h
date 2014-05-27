@@ -36,7 +36,12 @@
 #ifndef TUPPALETTEPARSER_H
 #define TUPPALETTEPARSER_H
 
+#include "tglobal.h"
 #include "txmlparserbase.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QXmlDefaultHandler>
 #include <QBrush>
@@ -50,7 +55,7 @@
 
 //TODO TupPaletteParser: portar a TXmlParserBase
 
-class TupPaletteParser : public TXmlParserBase
+class TUPI_EXPORT TupPaletteParser : public TXmlParserBase
 {
      public:
          TupPaletteParser();

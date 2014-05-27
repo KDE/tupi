@@ -36,16 +36,42 @@
 #ifndef TUPEXPORTWIDGET_H
 #define TUPEXPORTWIDGET_H
 
+#include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "tupproject.h"
 #include "tupexportpluginobject.h"
 #include "tupexportwizard.h"
+#include "titemselector.h"
+#include "txyspinbox.h"
+#include "tuppluginmanager.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QListWidget>
 #include <QHash>
+#include <QApplication>
+#include <QPluginLoader>
+#include <QRadioButton>
+#include <QButtonGroup>
+#include <QGroupBox>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QPushButton>
+#include <QLabel>
+#include <QIntValidator>
+#include <QToolButton>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QCheckBox>
+#include <QtDebug>
+#include <QLocale>
+#include <QDir>
+#include <QSpinBox>
 
-class QButtonGroup;
-class QLineEdit;
+// class QButtonGroup;
+// class QLineEdit;
 class SelectPlugin;
 class SelectScenes;
 class ExportTo;
@@ -55,7 +81,7 @@ class VideoProperties;
  * @author David Cuadrado
 */
 
-class TupExportWidget : public TupExportWizard
+class TUPI_EXPORT TupExportWidget : public TupExportWizard
 {
     Q_OBJECT
 

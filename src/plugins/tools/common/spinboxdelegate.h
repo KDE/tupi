@@ -36,12 +36,20 @@
 #ifndef SPINBOXDELEGATE_H
 #define SPINBOXDELEGATE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QItemDelegate>
 #include <QSpinBox>
+#include <QModelIndex>
 
-class SpinBoxDelegate : public QItemDelegate
+class TUPI_EXPORT SpinBoxDelegate : public QItemDelegate
 {
     Q_OBJECT
+
     public:
         SpinBoxDelegate(QObject *parent = 0);
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,  const QModelIndex &index) const;

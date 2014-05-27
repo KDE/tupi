@@ -34,12 +34,6 @@
  ***************************************************************************/
 
 #include "tuptoolstatus.h"
-#include "tdebug.h"
-#include "tconfig.h"
-
-#include <QLabel>
-#include <QDir>
-#include <QHBoxLayout>
 
 TupToolStatus::TupToolStatus()
 {

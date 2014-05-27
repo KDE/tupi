@@ -34,9 +34,6 @@
  ***************************************************************************/
 
 #include "tweener.h"
-
-#include "tglobal.h"
-#include "tdebug.h"
 #include "taction.h"
 #include "tnodegroup.h"
 #include "tosd.h"
@@ -56,15 +53,6 @@
 #include "tuplibraryobject.h"
 #include "tupscene.h"
 #include "tuplayer.h"
-
-#include <QPointF>
-#include <QKeySequence>
-#include <QGraphicsPathItem>
-#include <QPainterPath>
-#include <QMatrix>
-#include <QGraphicsLineItem>
-#include <QGraphicsView>
-#include <QDomDocument>
 
 struct Tweener::Private
 {

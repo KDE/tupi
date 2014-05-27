@@ -34,17 +34,6 @@
  ***************************************************************************/
 
 #include "tuplibrarydialog.h"
-#include "tupitempreview.h"
-#include "tformfactory.h"
-#include "tapplicationproperties.h"
-
-#include <QVBoxLayout>
-#include <QDialogButtonBox>
-#include <QToolBox>
-#include <QGraphicsItem>
-#include <QHBoxLayout>
-#include <QLineEdit>
-#include <QMap>
 
 struct TupLibraryDialog::Private
 {

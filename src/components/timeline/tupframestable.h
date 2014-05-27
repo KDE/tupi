@@ -36,14 +36,28 @@
 #ifndef TUPFRAMESTABLE_H
 #define TUPFRAMESTABLE_H
 
+#include "tglobal.h"
+#include "tuptlruler.h"
+#include "tupprojectactionbar.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QHash>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QItemSelectionModel>
+#include <QPainterPath>
+#include <QScrollBar>
+#include <QHeaderView>
 
 class TupFramesTable;
 class TupFramesTableItemDelegate;
 
-class TupFramesTableItem : public QTableWidgetItem
+class TUPI_EXPORT TupFramesTableItem : public QTableWidgetItem
 {
     public:
         enum Attributes
@@ -66,7 +80,7 @@ class TupTLRuler;
 /**
  * @author David Cuadrado
 */
-class TupFramesTable : public QTableWidget
+class TUPI_EXPORT TupFramesTable : public QTableWidget
 {
     Q_OBJECT;
     

@@ -36,10 +36,21 @@
 #ifndef TUPTOOLSDIALOG_H
 #define TUPTOOLSDIALOG_H 
 
+#include "tglobal.h"
+#include "tapplicationproperties.h"
+#include "tuptoolplugin.h"
+#include "timagebutton.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDialog>
 #include <QList>
+#include <QHBoxLayout>
+#include <QPixmap>
 
-class TupToolsDialog : public QDialog 
+class TUPI_EXPORT TupToolsDialog : public QDialog 
 {
     Q_OBJECT
 

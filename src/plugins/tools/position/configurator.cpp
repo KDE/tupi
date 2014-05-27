@@ -42,17 +42,6 @@
 #include "tosd.h"
 #include "tradiobuttongroup.h"
 #include "timagebutton.h"
-#include "tdebug.h"
-
-#include <QLabel>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QComboBox>
-#include <QBoxLayout>
-#include <QHeaderView>
-#include <QGraphicsPathItem>
-#include <QMenu>
-#include <QAction>
 
 struct Configurator::Private
 {

@@ -34,14 +34,6 @@
  ***************************************************************************/
 
 #include "tuphelpwidget.h"
-// Tupi Framework
-#include "tdebug.h"
-#include "tglobal.h"
-
-#include <QLocale>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QHeaderView>
 
 TupHelpWidget::TupHelpWidget(const QString &path, QWidget *parent) : TupModuleWidgetBase(parent)
 {

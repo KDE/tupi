@@ -34,9 +34,6 @@
  ***************************************************************************/
 
 #include "tupruler.h" 
-#include "tdebug.h"
-
-#include <cmath>
 
 struct TupRuler::Private
 {

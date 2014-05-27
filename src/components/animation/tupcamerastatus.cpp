@@ -34,18 +34,6 @@
  ***************************************************************************/
 
 #include "tupcamerastatus.h"
-#include "tupexportwidget.h"
-#include "tdebug.h"
-#include "tconfig.h"
-#include "tseparator.h"
-
-#include <QStatusBar>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QApplication>
-#include <QCheckBox>
-#include <QSpinBox>
-#include <QComboBox>
 
 struct TupCameraStatus::Private
 {

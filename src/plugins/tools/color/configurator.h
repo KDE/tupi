@@ -36,18 +36,30 @@
 #ifndef CONFIGURATOR_H
 #define CONFIGURATOR_H
 
+#include "tglobal.h"
 #include "settings.h"
+#include "tweenmanager.h"
+#include "buttonspanel.h"
+#include "tupitemtweener.h"
+#include "tosd.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QFrame>
+#include <QLabel>
+#include <QBoxLayout>
 
 class QGraphicsPathItem;
 class QListWidgetItem;
-class TupItemTweener;
+// class TupItemTweener;
 
 /**
  * @author Gustav Gonzalez 
 */
 
-class Configurator : public QFrame
+class TUPI_EXPORT Configurator : public QFrame
 {
     Q_OBJECT
 

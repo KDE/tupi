@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "tuppaletteimporter.h"
-#include "tdebug.h"
-
-#include <QFile>
-#include <QDir>
-#include <QTextStream>
 
 struct TupPaletteImporter::Private
 {

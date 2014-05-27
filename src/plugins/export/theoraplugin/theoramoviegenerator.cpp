@@ -34,21 +34,6 @@
  ***************************************************************************/
 
 #include "theoramoviegenerator.h"
-#include "tdebug.h"
-#include "talgorithm.h"
-
-#ifdef __cplusplus
-extern "C" {
-#include <stdint.h>
-#include <ogg/ogg.h>
-#include <theora/codec.h>
-#include <theora/theoraenc.h>
-}
-#endif
-
-#include <QDir>
-#include <QFile>
-#include <QByteArray>
 
 struct TheoraMovieGenerator::Private
 {

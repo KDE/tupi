@@ -45,7 +45,34 @@
 #include "tupconfigurationarea.h"
 #include "tupstoryboard.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QMainWindow>
+#include <QLayout>
+#include <QStatusBar>
+#include <QMenuBar>
+#include <QPixmap>
+#include <QActionGroup>
+#include <QDockWidget>
+#include <QTimer>
+#include <QApplication>
+#include <QCursor>
+#include <QAction>
+#include <QActionGroup>
+#include <QToolBar>
+#include <QMenu>
+#include <QDir>
+#include <QPluginLoader>
+#include <QSpinBox>
+#include <QFrame>
+#include <QGridLayout>
+#include <QComboBox>
+#include <QDesktopWidget>
+#include <QMessageBox>
+#include <QCamera>
+#include <QCameraImageCapture>
 
 class TupProjectRequest;
 class TupProject;
@@ -58,7 +85,7 @@ class TupProjectResponse;
  * @author Jorge Cuadrado
 */
 
-class TupDocumentView : public QMainWindow
+class TUPI_EXPORT TupDocumentView : public QMainWindow
 {
     Q_OBJECT
 

@@ -37,20 +37,10 @@
 #include "tradiobuttongroup.h"
 #include "tseparator.h"
 #include "timagebutton.h"
-#include "tdebug.h"
 #include "tupitemtweener.h"
 #include "stepsviewer.h"
 #include "tuptweenerstep.h"
 #include "tosd.h"
-
-#include <QLabel>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QComboBox>
-#include <QPushButton>
-#include <QBoxLayout>
-#include <QHeaderView>
-#include <QGraphicsPathItem>
 
 struct PositionSettings::Private
 {

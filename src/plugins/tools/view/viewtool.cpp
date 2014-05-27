@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "viewtool.h"
-#include "tglobal.h"
-#include "tdebug.h"
 #include "tconfig.h"
 #include "tuprectitem.h"
 #include "tupellipseitem.h"
@@ -43,12 +41,6 @@
 #include "tupscene.h"
 #include "tupinputdeviceinformation.h"
 #include "tupgraphicsscene.h"
-
-#include <QKeySequence>
-#include <QDebug>
-#include <QImage>
-#include <QPaintDevice>
-#include <QGraphicsView>
 
 struct ViewTool::Private
 {

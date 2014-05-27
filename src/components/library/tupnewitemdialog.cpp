@@ -34,16 +34,6 @@
  ***************************************************************************/
 
 #include "tupnewitemdialog.h"
-#include "talgorithm.h"
-#include "tapplicationproperties.h"
-#include "tdebug.h"
-
-#include <QFormLayout>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QSpinBox>
-#include <QDialogButtonBox>
-#include <QFile>
 
 struct TupNewItemDialog::Private
 {

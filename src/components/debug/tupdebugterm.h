@@ -36,14 +36,23 @@
 #ifndef TUPDEBUGTERM_H
 #define TUPDEBUGTERM_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
 #include <QTextEdit>
+#include <QIcon>
+#include <QBoxLayout>
+#include <QTextBrowser>
 
 /**
  * @author Gustav Gonzalez <info@maefloresta.com>
 */
 
-class TupDebugTerm : public QWidget 
+class TUPI_EXPORT TupDebugTerm : public QWidget 
 {
     Q_OBJECT
 

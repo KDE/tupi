@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tupsceneslist.h"
-#include "tdebug.h"
-
-#include <QTreeWidgetItem>
-#include <QHeaderView>
 
 // SQA: Add support for renaming and moving objects from the list
 

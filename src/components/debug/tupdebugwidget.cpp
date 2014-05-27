@@ -34,10 +34,6 @@
  ***************************************************************************/
 
 #include "tupdebugwidget.h"
-#include "tupdebugterm.h"
-#include "tdebug.h"
-
-#include <QIcon>
 
 TupDebugWidget::TupDebugWidget(QWidget *parent, int width) : TupModuleWidgetBase(parent, "Debug Terminal")
 {

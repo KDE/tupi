@@ -36,18 +36,36 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
+#include "tradiobuttongroup.h"
+#include "tupitemtweener.h"
+#include "tuptweenerstep.h"
+#include "timagebutton.h"
+#include "tseparator.h"
+#include "tosd.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 #include <QWidget>
 #include <QPushButton>
+#include <QLabel>
+#include <QLineEdit>
+#include <QBoxLayout>
+#include <QSpinBox>
+#include <QCheckBox>
+#include <QColorDialog>
+#include <QDir>
 
-class TupItemTweener;
+// class TupItemTweener;
 
 /**
  * @author Gustav Gonzalez 
 */
 
-class Settings : public QWidget 
+class TUPI_EXPORT Settings : public QWidget 
 {
     Q_OBJECT
 

@@ -40,10 +40,17 @@
 #include "tupexposuretable.h"
 #include "tapplicationproperties.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QTabWidget>
 #include <QList>
 #include <QLabel>
 #include <QFrame>
+#include <QWheelEvent>
+#include <QTabBar>
+#include <QVBoxLayout>
 
 /**
  * @author Gustav Gonzalez 

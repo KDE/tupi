@@ -36,13 +36,19 @@
 #ifndef TUPNEWPROJECTPACKAGE_H
 #define TUPNEWPROJECTPACKAGE_H
 
+#include "tglobal.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QDomDocument>
 
 /**
  * @author Jorge Cuadrado
 */
 
-class TupNewProjectPackage : public QDomDocument
+class TUPI_EXPORT TupNewProjectPackage : public QDomDocument
 {
     public:
         TupNewProjectPackage(const QString & name, const QString & author, const QString & description, 

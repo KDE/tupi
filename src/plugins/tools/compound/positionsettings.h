@@ -36,20 +36,33 @@
 #ifndef POSITIONSETTINGS_H
 #define POSITIONSETTINGS_H
 
-#include <QWidget>
-
+#include "tglobal.h"
 #include "tweenerpanel.h"
 #include "tuptweenerstep.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
+#include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QComboBox>
+#include <QPushButton>
+#include <QBoxLayout>
+#include <QHeaderView>
+#include <QGraphicsPathItem>
+
 class QGraphicsPathItem;
 class TupItemTweener;
-class TweenerPanel;
+// class TweenerPanel;
 
 /**
  * @author Gustav Gonzalez 
 */
 
-class PositionSettings : public QWidget 
+class TUPI_EXPORT PositionSettings : public QWidget 
 {
     Q_OBJECT
 

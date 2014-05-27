@@ -34,17 +34,6 @@
  ***************************************************************************/
 
 #include "stepsviewer.h"
-#include "tuptweenerstep.h"
-#include "spinboxdelegate.h"
-#include "tpushbutton.h"
-#include "tdebug.h"
-
-#include <cmath>
-#include <QGraphicsPathItem>
-#include <QDebug>
-#include <QBoxLayout>
-#include <QHeaderView>
-#include <QPainter>
 
 struct StepsViewer::Private
 {

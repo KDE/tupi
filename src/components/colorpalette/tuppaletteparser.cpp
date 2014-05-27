@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tuppaletteparser.h"
-#include "tdebug.h"
 
 struct TupPaletteParser::Private
 {

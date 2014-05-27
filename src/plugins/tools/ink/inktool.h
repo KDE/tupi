@@ -33,24 +33,36 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef SCHEMETOOL_H
-#define SCHEMETOOL_H
+#ifndef INKTOOL_H
+#define INKTOOL_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "configurator.h"
 #include "tuppathitem.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QObject>
 #include <QSpinBox>
 #include <QTimer>
-
-class QKeySequence;
+#include <QPointF>
+#include <QKeySequence>
+#include <QGraphicsPathItem>
+#include <QPainterPath>
+#include <QMatrix>
+#include <QGraphicsLineItem>
+#include <QGraphicsView>
+#include <QBrush>
+#include <cmath>
 
 /**
  * @author David Cuadrado
 */
 
-class InkTool : public TupToolPlugin
+class TUPI_EXPORT InkTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "inktool.json")

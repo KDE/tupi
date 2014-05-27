@@ -28,6 +28,8 @@ FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
 include(../export_config.pri)
 
-!include(../../../../tupiglobal.pri){
-    error("Please run configure first")
+unix {
+    !include(../../../../tupiglobal.pri){
+        error("Please run configure first")
+    }
 }

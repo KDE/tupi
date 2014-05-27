@@ -34,28 +34,6 @@
  ***************************************************************************/
 
 #include "tupcolorpalette.h"
-#include "tdebug.h"
-#include "timagebutton.h"
-#include "tglobal.h"
-#include "tconfig.h"
-#include "tuppaintareaevent.h"
-#include "tupcolorvalue.h"
-#include "tupviewcolorcells.h"
-#include "tupcolorpicker.h"
-#include "tupluminancepicker.h"
-#include "tupgradientcreator.h"
-#include "tvhbox.h"
-
-#include <QBoxLayout>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QFrame>
-#include <QToolTip>
-#include <QComboBox>
-#include <QGroupBox>
-#include <QSplitter>
-#include <QMenu>
-#include <QTabWidget>
 
 struct TupColorPalette::Private
 {

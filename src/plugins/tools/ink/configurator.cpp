@@ -34,11 +34,6 @@
  ***************************************************************************/
 
 #include "configurator.h"
-#include "tglobal.h"
-#include "tdebug.h"
-
-#include <QBoxLayout>
-#include <QTextEdit>
 
 Configurator::Configurator(QWidget *parent) :QWidget(parent)
 {

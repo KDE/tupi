@@ -36,6 +36,7 @@
 #ifndef SELECTIONTOOL_H
 #define SELECTIONTOOL_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "tuppathitem.h"
 #include "tupproject.h"
@@ -43,7 +44,17 @@
 #include "settings.h"
 #include "tupprojectresponse.h"
 
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QObject>
+#include <QPointF>
+#include <QKeySequence>
+#include <QList>
+#include <QGraphicsView>
+#include <QTimer>
+#include <cmath>
 
 class TupItemResponse;
 class NodeManager;
@@ -52,7 +63,7 @@ class NodeManager;
  * @author Jorge Cuadrado
 */
 
-class SelectionTool : public TupToolPlugin
+class TUPI_EXPORT SelectionTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "selectiontool.json")

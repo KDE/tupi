@@ -34,17 +34,6 @@
  ***************************************************************************/
 
 #include "tupsymboleditor.h"
-#include "tuplibraryobject.h"
-#include "tuppluginmanager.h"
-#include "tuptoolplugin.h"
-// Tupi Framework
-#include "taction.h"
-#include "tdebug.h"
-
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QToolBar>
-#include <QTimer>
 
 /**
  * This class defines the toolbar at the left side of the paint area.
@@ -52,7 +41,7 @@
  * @author David Cuadrado
 */
 
-class View : public QGraphicsView
+class TUPI_EXPORT View : public QGraphicsView
 {
     public:
         View();
