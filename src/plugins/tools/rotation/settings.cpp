@@ -146,6 +146,7 @@ void Settings::setInnerForm()
 
     k->comboInit = new QSpinBox();
     k->comboInit->setEnabled(false);
+    k->comboInit->setMaximum(999);
     connect(k->comboInit, SIGNAL(valueChanged(int)), this, SLOT(updateLastFrame()));
  
     QLabel *endingLabel = new QLabel(tr("Ending at frame") + ": ");
@@ -153,7 +154,7 @@ void Settings::setInnerForm()
 
     k->comboEnd = new QSpinBox();
     k->comboEnd->setMinimum(1);
-    k->comboEnd->setMaximum(100);
+    k->comboEnd->setMaximum(999);
     k->comboEnd->setValue(1);
     k->comboEnd->setEnabled(true);
     connect(k->comboEnd, SIGNAL(valueChanged(int)), this, SLOT(checkTopLimit(int)));
