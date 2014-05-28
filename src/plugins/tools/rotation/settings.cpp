@@ -153,10 +153,10 @@ void Settings::setInnerForm()
     endingLabel->setAlignment(Qt::AlignVCenter);
 
     k->comboEnd = new QSpinBox();
+    k->comboEnd->setEnabled(true);
     k->comboEnd->setMinimum(1);
     k->comboEnd->setMaximum(999);
     k->comboEnd->setValue(1);
-    k->comboEnd->setEnabled(true);
     connect(k->comboEnd, SIGNAL(valueChanged(int)), this, SLOT(checkTopLimit(int)));
 
     QHBoxLayout *startLayout = new QHBoxLayout;
