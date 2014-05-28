@@ -124,23 +124,24 @@ bool TupFileManager::save(const QString &fileName, TupProject *project)
     // Save scenes
     {
      int index = 0;
-     foreach (TupScene *scene, project->scenes().values()) {
-              QDomDocument doc;
-              doc.appendChild(scene->toXml(doc));
+     int totalScenes = project->scenes().size();
+     for (int i = 0; i < totalScenes; i++) {
+          TupScene *scene = project->scenes().at(i);
+          QDomDocument doc;
+          doc.appendChild(scene->toXml(doc));
+          QString scenePath = projectDir.path() + QDir::separator() + "scene" + QString::number(index) + ".tps";
+          QFile sceneFile(scenePath);
 
-              QString scenePath = projectDir.path() + QDir::separator() + "scene" + QString::number(index) + ".tps";
-              QFile sceneFile(scenePath);
-
-              if (sceneFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-                  QTextStream st(&sceneFile);
-                  st << doc.toString();
-                  index += 1;
-                  sceneFile.close();
-              } else {
-                  #ifdef K_DEBUG
-                         tError() << "TupFileManager::save() - Error: Can't create file " << scenePath;
-                  #endif
-              }
+          if (sceneFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+              QTextStream st(&sceneFile);
+              st << doc.toString();
+              index += 1;
+              sceneFile.close();
+          } else {
+              #ifdef K_DEBUG
+                     tError() << "TupFileManager::save() - Error: Can't create file " << scenePath;
+              #endif
+          }
      }
     }
 

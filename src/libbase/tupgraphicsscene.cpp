@@ -900,8 +900,8 @@ TupFrame *TupGraphicsScene::currentFrame()
         if (k->scene->layersTotal() > 0) {
 
             if (k->framePosition.layer < k->scene->layersTotal()) {
-  
-                if (k->scene->layers().contains(k->framePosition.layer)) {
+
+                // if (k->scene->layers().contains(k->framePosition.layer)) {
                     TupLayer *layer = k->scene->layer(k->framePosition.layer);
                     Q_CHECK_PTR(layer);
                     if (layer) {
@@ -912,11 +912,11 @@ TupFrame *TupGraphicsScene::currentFrame()
                                tFatal() << "TupGraphicsScene::currentFrame - No layer available: " << k->framePosition.frame;
                         #endif
                     }
-                } else {
-                    #ifdef K_DEBUG
-                           tFatal() << "TupGraphicsScene::currentFrame - Layer index incorrect!"; 
-                    #endif
-                }
+                // } else {
+                //     #ifdef K_DEBUG
+                //            tFatal() << "TupGraphicsScene::currentFrame - Layer index incorrect!"; 
+                //     #endif
+                // }
             } else {
                 TupLayer *layer = k->scene->layer(k->scene->layersTotal() - 1);
                 if (layer) {

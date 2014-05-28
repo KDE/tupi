@@ -973,7 +973,8 @@ TupExportWidget::TupExportWidget(const TupProject *project, QWidget *parent, boo
         addPage(m_pluginSelectionPage);
 
         m_scenesSelectionPage = new SelectScenes(this);
-        m_scenesSelectionPage->setScenes(project->scenes().values());
+        // m_scenesSelectionPage->setScenes(project->scenes().values());
+        m_scenesSelectionPage->setScenes(project->scenes());
         addPage(m_scenesSelectionPage);
 
         m_exportAnimation = new ExportTo(project, TupExportWidget::Animation, tr("Export to Video File"), this);
@@ -1002,7 +1003,8 @@ TupExportWidget::TupExportWidget(const TupProject *project, QWidget *parent, boo
         setWindowIcon(QIcon(THEME_DIR + "icons" + QDir::separator() + "net_document.png"));
 
         m_scenesSelectionPage = new SelectScenes(this);
-        m_scenesSelectionPage->setScenes(project->scenes().values());
+        // m_scenesSelectionPage->setScenes(project->scenes().values());
+        m_scenesSelectionPage->setScenes(project->scenes());
         addPage(m_scenesSelectionPage);
 
         videoProperties = new VideoProperties(this);

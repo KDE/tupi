@@ -45,7 +45,6 @@ struct TupLayer::Private
     int framesCount;
     bool isLocked;
     int index;
-    //int zLevelBase;
 };
 
 TupLayer::TupLayer(TupScene *parent, int index) : QObject(parent), k(new Private)
@@ -59,7 +58,7 @@ TupLayer::TupLayer(TupScene *parent, int index) : QObject(parent), k(new Private
 
 TupLayer::~TupLayer()
 {
-    k->frames.clear(true);
+    k->frames.clear();
     delete k;
 }
 
@@ -144,15 +143,8 @@ bool TupLayer::removeFrame(int position)
     TupFrame *toRemove = frame(position);
 
     if (toRemove) {
-        k->frames.removeObject(position);
+        k->frames.removeAt(position);
         toRemove->setRepeat(toRemove->repeat()-1);
-
-        /*
-        if (toRemove->repeat() < 1) {
-            tFatal() << "TupLayer::removeFrame -> Deleting pointer!";
-            delete toRemove;
-        }
-        */
 
         k->framesCount--;
 
@@ -206,7 +198,7 @@ bool TupLayer::exchangeFrame(int from, int to)
     if (from < 0 || from >= k->frames.count() || to < 0 || to > k->frames.count())
         return false;
 
-    k->frames.exchangeObject(from, to);
+    k->frames.swap(from, to);
 
     return true;
 }
@@ -219,7 +211,9 @@ bool TupLayer::expandFrame(int position, int size)
     TupFrame *toExpand = frame(position);
 
     if (toExpand) {
-        k->frames.expandValue(position, size);
+        int limit = position + size;
+        for (int i = position + 1; i <= limit; i++)
+             k->frames.insert(i, toExpand);
         return true;
     }
 
@@ -284,8 +278,11 @@ QDomElement TupLayer::toXml(QDomDocument &doc) const
     root.setAttribute("name", k->name);
     doc.appendChild(root);
 
-    foreach (TupFrame *frame, k->frames.values())
-             root.appendChild(frame->toXml(doc));
+    int totalFrames = k->frames.size();
+    for (int i = 0; i < totalFrames; i++) {
+         TupFrame *frame = k->frames.at(i);
+         root.appendChild(frame->toXml(doc));
+    }
 
     return root;
 }
@@ -305,24 +302,10 @@ int TupLayer::layerIndex()
     return k->index;
 }
 
-/*
-int TupLayer::logicalIndexOf(TupFrame *frame) const
-{
-    return k->frames.logicalIndex(frame);
-}
-*/
-
 int TupLayer::visualIndexOf(TupFrame *frame) const
 {
-    return k->frames.objectIndex(frame);
+    return k->frames.indexOf(frame);
 }
-
-/*
-int TupLayer::logicalIndex() const
-{
-    return scene()->logicalIndexOf(const_cast<TupLayer *>(this));
-}
-*/
 
 int TupLayer::objectIndex() const
 {

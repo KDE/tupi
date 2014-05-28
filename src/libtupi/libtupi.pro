@@ -34,7 +34,7 @@ HEADERS += tupgraphicalgorithm.h \
            tupsocketbase.h \
            tupxmlparserbase.h \
            tupproxyitem.h \
-           tupinthash.h \
+           # tupinthash.h \
            tuppenthicknesswidget.h
 
 SOURCES += tupgraphicalgorithm.cpp \

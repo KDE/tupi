@@ -42,7 +42,6 @@
 #include "tupstoryboard.h"
 #include "tupbackground.h"
 #include "tupitemtweener.h"
-#include "tupinthash.h"
 
 #ifdef K_DEBUG
 #include "tdebug.h"
@@ -52,10 +51,11 @@
 #include <QDomElement>
 #include <QGraphicsScene>
 #include <QMap>
+#include <QList>
+#include <QPainter>
+#include <QGraphicsItem>
+#include <QStyleOptionGraphicsItem>
 
-class QGraphicsItem;
-class QPainter;
-class QStyleOptionGraphicsItem;
 class TupLayer;
 class TupSoundLayer;
 class TupGraphicObject;
@@ -63,8 +63,8 @@ class TupSvgItem;
 class TupBackground;
 class TupItemTweener;
 
-typedef TupIntHash<TupLayer *> Layers;
-typedef TupIntHash<TupSoundLayer *> SoundLayers;
+typedef QList<TupLayer *> Layers;
+typedef QList<TupSoundLayer *> SoundLayers;
 
 /**
  * @brief This class represents the scene data structure
@@ -152,8 +152,6 @@ class STORE_EXPORT TupScene : public QObject, public TupAbstractSerializable
         void updateTweenObject(int index, TupGraphicObject *object);
         void updateTweenObject(int index, TupSvgItem *object);
 
-        // int indexOfTweenObject(const QString &name, TupLibraryObject::Type itemType, TupItemTweener::Type tweenType);
-
         void removeTweenObject(TupGraphicObject *object);
         void removeTweenObject(TupSvgItem *object);
 
@@ -171,8 +169,6 @@ class STORE_EXPORT TupScene : public QObject, public TupAbstractSerializable
         QList<TupSvgItem *> tweeningSvgObjects() const;
 
         int framesTotal();
-
-        QList<int> layerIndexes();
 
         TupBackground *background();
 

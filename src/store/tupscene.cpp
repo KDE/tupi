@@ -37,7 +37,6 @@
 #include "tupgraphicobject.h"
 #include "tupsvgitem.h"
 #include "tupsoundlayer.h"
-
 #include "tupitemgroup.h"
 #include "tupprojectloader.h"
 #include "tupitemfactory.h"
@@ -204,25 +203,8 @@ bool TupScene::removeLayer(int position)
 
         removeTweensFromLayer(position + 1);
 
-        k->layers.remove(position);
+        k->layers.removeAt(position);
         k->layerCount--;
-
-        /*
-        if (k->nameIndex == position + 1) {
-            k->nameIndex--;
-        } else {
-            if (k->layerCount == 0) {
-                k->nameIndex = 0;
-            }
-        }
-        */
-
-        /*
-         QList<int> indexList = this->layers().indexes();
-         int size = this->layersTotal();
-         for (int i = 0; i < size; i++) 
-              TupLayer *layer = this->layer(indexList.at(i));
-        */
 
         delete layer;
 
@@ -341,11 +323,17 @@ QDomElement TupScene::toXml(QDomDocument &doc) const
     root.appendChild(k->storyboard->toXml(doc));
     root.appendChild(k->background->toXml(doc));
 
-    foreach (TupLayer *layer, k->layers.values())
-             root.appendChild(layer->toXml(doc));
+    int total = k->layers.size();
+    for (int i = 0; i < total; ++i) {
+         TupLayer *layer = k->layers.at(i);
+         root.appendChild(layer->toXml(doc));
+    }
 
-    foreach (TupSoundLayer *sound, k->soundLayers.values())
-             root.appendChild(sound->toXml(doc));
+    total = k->soundLayers.size();
+    for (int i = 0; i < total; ++i) {
+         TupSoundLayer *sound  = k->soundLayers.at(i);
+         root.appendChild(sound->toXml(doc));
+    }
 
     return root;
 }
@@ -358,20 +346,10 @@ bool TupScene::moveLayer(int from, int to)
     TupLayer *layer = k->layers[from];
 
     k->layers.insert(to, layer);
-    k->layers.remove(from);
+    k->layers.removeAt(from);
 
     return true;
 }
-
-/*
-int TupScene::logicalIndex() const
-{
-    if (TupProject *project = dynamic_cast<TupProject *>(parent()))
-        return project->logicalIndexOf(const_cast<TupScene *>(this));
-	
-    return -1;
-}
-*/
 
 int TupScene::objectIndex() const
 {
@@ -383,15 +361,8 @@ int TupScene::objectIndex() const
 
 int TupScene::visualIndexOf(TupLayer *layer) const
 {
-    return k->layers.objectIndex(layer);
+    return k->layers.indexOf(layer);
 }
-
-/*
-int TupScene::logicalIndexOf(TupLayer *layer) const
-{
-    return k->layers.logicalIndex(layer);
-}
-*/
 
 TupProject *TupScene::project() const
 {
@@ -599,18 +570,16 @@ int TupScene::getTotalTweens()
 int TupScene::framesTotal()
 {
     int total = 0;
-    foreach (TupLayer *layer, k->layers.values()) {
-             int frames =layer->framesTotal();
-             if (frames > total)
-                 total = frames;
+
+    int layersTotal = k->layers.size();
+    for (int i = 0; i < layersTotal; ++i) {
+         TupLayer *layer = k->layers.at(i);
+         int frames = layer->framesTotal();
+         if (frames > total)
+             total = frames;
     }
 
     return total;
-}
-
-QList<int> TupScene::layerIndexes()
-{
-    return this->layers().indexes();
 }
 
 TupBackground* TupScene::background()

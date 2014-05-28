@@ -394,8 +394,14 @@ void TupScreen::render()
 
     k->sounds.clear();
 
-    foreach (TupSoundLayer *layer, scene->soundLayers().values())
-             k->sounds << layer;
+    // foreach (TupSoundLayer *layer, scene->soundLayers().values())
+    //          k->sounds << layer;
+
+    int soundLayersTotal = scene->soundLayers().size();
+    for (int i = 0; i < soundLayersTotal; i++) {
+         TupSoundLayer *layer = scene->soundLayers().at(i);
+         k->sounds << layer;
+    }
 
     TupAnimationRenderer renderer(k->project->bgColor());
     renderer.setScene(scene, k->project->dimension());

@@ -39,7 +39,6 @@
 #include "tupglobal_store.h"
 #include "tupabstractserializable.h"
 #include "tapplicationproperties.h"
-#include "tupinthash.h"
 #include "tuplibraryobject.h"
 
 #ifdef K_DEBUG
@@ -59,7 +58,7 @@ class TupProjectResponse;
 class QGraphicsItem;
 class TupLibrary;
 
-typedef TupIntHash<TupScene *> Scenes;
+typedef QList<TupScene *> Scenes;
 
 /**
  * This class contains the project data structure including scenes.
@@ -105,7 +104,6 @@ class STORE_EXPORT TupProject : public QObject, public TupAbstractSerializable
         TupScene *scene(int position) const;
 
         int visualIndexOf(TupScene *scene) const;
-        //int logicalIndexOf(TupScene *scene) const;
 
         Scenes scenes() const;
 
@@ -128,7 +126,6 @@ class STORE_EXPORT TupProject : public QObject, public TupAbstractSerializable
         void clear();
         void loadLibrary(const QString &filename);
 
-        //TupLibrary *library() const;
         TupLibrary *library();
         void emitResponse(TupProjectResponse *response);
 

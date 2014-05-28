@@ -64,9 +64,11 @@ int TupAnimationRenderer::Private::calculateTotalPhotograms(TupScene *scene)
 
     int total = 0;
 
-    foreach (TupLayer *layer, layers.values()) {
-             if (layer)
-                 total = qMax(total, layer->frames().count());
+    int totalLayers = layers.size();
+    for (int i = 0; i < totalLayers; i++) {
+         TupLayer *layer = layers.at(i);
+         if (layer)
+             total = qMax(total, layer->frames().count());
     }
 
     return total;

@@ -99,12 +99,9 @@ class STORE_EXPORT TupFrame : public QObject, public TupAbstractSerializable
        void updateIdFromFrame(const QString &oldId, const QString &newId);
 
        void addSvgItem(const QString &id, TupSvgItem *item);
-       // void addSvgItem(int position, TupSvgItem *item);
        void removeSvgItemFromFrame(const QString &id);
        void updateSvgIdFromFrame(const QString &oldId, const QString &newId);
 
-       // void insertItem(int position, QGraphicsItem *item);
-       
        void replaceItem(int position, QGraphicsItem *item);
        bool moveItem(TupLibraryObject::Type type, int currentPosition, int action);
        

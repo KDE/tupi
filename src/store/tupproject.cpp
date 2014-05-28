@@ -93,7 +93,7 @@ TupProject::~TupProject()
     #endif
 
     deleteDataDir();
-    k->scenes.clear(true);
+    k->scenes.clear();
     delete k;
 }
 
@@ -119,7 +119,7 @@ void TupProject::loadLibrary(const QString &filename)
  */
 void TupProject::clear()
 {
-    k->scenes.clear(true);
+    k->scenes.clear();
     k->sceneCounter = 0;
 
     deleteDataDir();
@@ -144,8 +144,12 @@ void TupProject::setAuthor(const QString &author)
 void TupProject::setBgColor(const QColor color)
 {
     k->bgColor = color;
-    foreach (TupScene *scene, k->scenes.values())
-             scene->setBgColor(color);
+
+    int totalScenes = k->scenes.size();
+    for (int i = 0; i < totalScenes; i++) {
+         TupScene *scene = k->scenes.at(i);
+         scene->setBgColor(color);
+    }
 }
 
 /**
@@ -237,7 +241,6 @@ TupScene *TupProject::createScene(QString name, int position, bool loaded)
     k->scenes.insert(position, scene);
     k->sceneCounter++;
 
-    // scene->setSceneName(tr("Scene %1").arg(k->sceneCounter));
     scene->setSceneName(name);
     
     if (loaded)
@@ -280,7 +283,7 @@ bool TupProject::removeScene(int position)
             }
         }
 
-        k->scenes.removeObject(position);
+        k->scenes.removeAt(position);
         delete toRemove;
         toRemove = 0;
 
@@ -301,7 +304,7 @@ bool TupProject::moveScene(int position, int newPosition)
         return false;
     }
 
-    TupScene *scene = k->scenes.takeObject(position);
+    TupScene *scene = k->scenes.takeAt(position);
     k->scenes.insert(newPosition, scene);
 
     return true;
@@ -325,15 +328,9 @@ TupScene *TupProject::scene(int position) const
 
 int TupProject::visualIndexOf(TupScene *scene) const
 {
-    return k->scenes.objectIndex(scene);
+    return k->scenes.indexOf(scene);
 }
 
-/*
-int TupProject::logicalIndexOf(TupScene *scene) const
-{
-    return k->scenes.logicalIndex(scene);
-}
-*/
 
 void TupProject::fromXml(const QString &xml)
 {
@@ -413,7 +410,6 @@ QDomElement TupProject::toXml(QDomDocument &doc) const
 
     QDomElement project = doc.createElement("project");
     project.setAttribute("name", k->name);
-    //project.setAttribute("name", projectName);
 
     QDomElement meta = doc.createElement("meta");
 
@@ -758,35 +754,40 @@ bool TupProject::removeSymbolFromFrame(const QString &name, TupLibraryObject::Ty
     if (type == TupLibraryObject::Folder)
         return true;
 
-    foreach (TupScene *scene, k->scenes.values()) {
-             foreach (TupLayer *layer, scene->layers().values()) {
-                      foreach (TupFrame *frame, layer->frames().values()) {
-                               if (type != TupLibraryObject::Svg)
-                                   frame->removeImageItemFromFrame(name);
-                               else
-                                   frame->removeSvgItemFromFrame(name);
-                      }
+    int totalScenes = k->scenes.size(); 
+    for (int i = 0; i < totalScenes; i++) {
+         TupScene *scene =  k->scenes.at(i);
+         int totalLayers = scene->layers().size();
+         for (int j = 0; j < totalLayers; j++) {
+              TupLayer *layer = scene->layers().at(j);
+              int totalFrames = layer->frames().size(); 
+              for (int t = 0; t < totalFrames; t++) {
+                   TupFrame *frame = layer->frames().at(t);
+                   if (type != TupLibraryObject::Svg)
+                       frame->removeImageItemFromFrame(name);
+                   else
+                       frame->removeSvgItemFromFrame(name);
+              }
+         }
+
+         TupBackground *bg = scene->background();
+         if (bg) {
+             TupFrame *frame = bg->staticFrame();
+             if (frame) {
+                 if (type == TupLibraryObject::Svg)
+                     frame->removeSvgItemFromFrame(name);
+                 else
+                     frame->removeImageItemFromFrame(name);
              }
 
-             TupBackground *bg = scene->background();
-             if (bg) {
-                 TupFrame *frame = bg->staticFrame();
-                 if (frame) {
-                     if (type == TupLibraryObject::Svg)
-                         frame->removeSvgItemFromFrame(name);
-                     else
-                         frame->removeImageItemFromFrame(name);
-                 }
-
-                 frame = bg->dynamicFrame();
-                 if (frame) {
-                     if (type == TupLibraryObject::Svg)
-                         frame->removeSvgItemFromFrame(name);
-                     else
-                         frame->removeImageItemFromFrame(name);
-                 }
-
+             frame = bg->dynamicFrame();
+             if (frame) {
+                 if (type == TupLibraryObject::Svg)
+                     frame->removeSvgItemFromFrame(name);
+                 else
+                     frame->removeImageItemFromFrame(name);
              }
+         }
     }
 
     k->library->removeObject(name, true);
@@ -796,35 +797,40 @@ bool TupProject::removeSymbolFromFrame(const QString &name, TupLibraryObject::Ty
 
 bool TupProject::updateSymbolId(TupLibraryObject::Type type, const QString &oldId, const QString &newId)
 {
-    foreach (TupScene *scene, k->scenes.values()) {
+    int scenesTotal = k->scenes.size();
+    for (int i = 0; i < scenesTotal; i++) {
+         TupScene *scene = k->scenes.at(i);
+         int layersTotal = scene->layers().size();
+         for (int j = 0; j < layersTotal; j++) {
+              TupLayer *layer = scene->layers().at(j);
+              int framesTotal = layer->frames().size();  
+              for (int t = 0; t < framesTotal; t++) {
+                   TupFrame *frame = layer->frames().at(t); 
+                   if (type != TupLibraryObject::Svg)
+                       frame->updateIdFromFrame(oldId, newId);
+                   else 
+                       frame->updateSvgIdFromFrame(oldId, newId);
+              }
+         }
 
-             foreach (TupLayer *layer, scene->layers().values()) {
-                      foreach (TupFrame *frame, layer->frames().values()) {
-                               if (type != TupLibraryObject::Svg)
-                                   frame->updateIdFromFrame(oldId, newId);
-                               else 
-                                   frame->updateSvgIdFromFrame(oldId, newId);
-                      }
+         TupBackground *bg = scene->background();
+         if (bg) {
+             TupFrame *frame = bg->staticFrame();
+             if (frame) {
+                 if (type != TupLibraryObject::Svg)
+                     frame->updateIdFromFrame(oldId, newId);
+                 else
+                     frame->updateSvgIdFromFrame(oldId, newId);
              }
 
-             TupBackground *bg = scene->background();
-             if (bg) {
-                 TupFrame *frame = bg->staticFrame();
-                 if (frame) {
-                     if (type != TupLibraryObject::Svg)
-                         frame->updateIdFromFrame(oldId, newId);
-                     else
-                         frame->updateSvgIdFromFrame(oldId, newId);
-                 }
-
-                 frame = bg->dynamicFrame();
-                 if (frame) {
-                     if (type != TupLibraryObject::Svg)
-                         frame->updateIdFromFrame(oldId, newId);
-                     else
-                         frame->updateSvgIdFromFrame(oldId, newId);
-                 }
+             frame = bg->dynamicFrame();
+             if (frame) {
+                 if (type != TupLibraryObject::Svg)
+                     frame->updateIdFromFrame(oldId, newId);
+                 else
+                     frame->updateSvgIdFromFrame(oldId, newId);
              }
+         }
     }
 
     return true;
@@ -832,35 +838,40 @@ bool TupProject::updateSymbolId(TupLibraryObject::Type type, const QString &oldI
 
 void TupProject::reloadLibraryItem(TupLibraryObject::Type type, const QString &id, TupLibraryObject *object)
 {
-    foreach (TupScene *scene, k->scenes.values()) {
-             foreach (TupLayer *layer, scene->layers().values()) {
-                      foreach (TupFrame *frame, layer->frames().values()) {
-                               if (type == TupLibraryObject::Svg)
-                                   frame->reloadSVGItem(id, object);
-                               else
-                                   frame->reloadGraphicItem(id, object->dataPath());
-                      }
+    int scenesTotal = k->scenes.size();
+    for (int i = 0; i < scenesTotal; i++) {
+         TupScene *scene = k->scenes.at(i);
+         int layersTotal = scene->layers().size();
+         for (int j = 0; j < layersTotal; j++) {
+              TupLayer *layer = scene->layers().at(j);
+              int framesTotal = layer->frames().size();
+              for (int t = 0; t < framesTotal; t++) {
+                   TupFrame *frame = layer->frames().at(t);
+                   if (type == TupLibraryObject::Svg)
+                       frame->reloadSVGItem(id, object);
+                   else
+                       frame->reloadGraphicItem(id, object->dataPath());
+              }
+         }
+
+         TupBackground *bg = scene->background();
+         if (bg) {
+             TupFrame *frame = bg->staticFrame();
+             if (frame) {
+                 if (type == TupLibraryObject::Svg)
+                     frame->reloadSVGItem(id, object);
+                 else
+                     frame->reloadGraphicItem(id, object->dataPath());
              }
 
-             TupBackground *bg = scene->background();
-             if (bg) {
-                 TupFrame *frame = bg->staticFrame();
-                 if (frame) {
-                     if (type == TupLibraryObject::Svg)
-                         frame->reloadSVGItem(id, object);
-                     else
-                         frame->reloadGraphicItem(id, object->dataPath());
-                 }
-
-                 frame = bg->dynamicFrame();
-                 if (frame) {
-                     if (type == TupLibraryObject::Svg)
-                         frame->reloadSVGItem(id, object);
-                     else
-                         frame->reloadGraphicItem(id, object->dataPath());
-                 }
+             frame = bg->dynamicFrame();
+             if (frame) {
+                 if (type == TupLibraryObject::Svg)
+                     frame->reloadSVGItem(id, object);
+                 else
+                     frame->reloadGraphicItem(id, object->dataPath());
              }
-
+         }
     }
 }
 

@@ -366,9 +366,10 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
                 }
             } else {
                 if (scene->layersTotal() == 1) {
-                    QList<int> indexes = scene->layerIndexes();
+                    // QList<int> indexes = scene->layerIndexes();
+                    // guiScene->setCurrentFrame(indexes.at(0), frameIndex);                
 
-                    guiScene->setCurrentFrame(indexes.at(0), frameIndex);                
+                    guiScene->setCurrentFrame(0, frameIndex);
                     if (k->spaceMode == TupProject::FRAMES_EDITION) {
                         guiScene->drawCurrentPhotogram();
                     } else {

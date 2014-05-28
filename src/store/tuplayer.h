@@ -39,7 +39,6 @@
 #include "tupglobal_store.h"
 #include "tupabstractserializable.h"
 #include "tupframe.h"
-#include "tupinthash.h"
 
 #ifdef K_DEBUG
 #include "tdebug.h"
@@ -47,8 +46,9 @@
 
 #include <QDomDocument>
 #include <QDomElement>
+#include <QList>
 
-typedef TupIntHash<TupFrame *> Frames;
+typedef QList<TupFrame *> Frames;
 
 class TupScene;
 class TupProject;
@@ -137,17 +137,12 @@ class STORE_EXPORT TupLayer : public QObject, public TupAbstractSerializable
 
         int layerIndex();
         
-        //int logicalIndexOf(TupFrame *frame) const;
         int visualIndexOf(TupFrame *frame) const;
         
-        //int logicalIndex() const;
         int objectIndex() const;
 
         int framesTotal() const;
 
-        //void setZLevel(int level);
-        //int getZLevel();
-        
     public:
         virtual void fromXml(const QString &xml);
         virtual QDomElement toXml(QDomDocument &doc) const;

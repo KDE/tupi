@@ -410,16 +410,6 @@ void TupFrame::insertItem(int position, QGraphicsItem *item)
 }
 */
 
-/*
-void TupFrame::addSvgItem(int position, TupSvgItem *item)
-{
-    item->setZValue(k->zLevelIndex);
-    k->zLevelIndex++;
-
-    k->svg[position] = item;
-}
-*/
-
 // SQA: This method requires tests + refactoring
 QGraphicsItemGroup *TupFrame::createItemGroupAt(int position, QList<qreal> group)
 {

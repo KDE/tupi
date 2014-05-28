@@ -175,9 +175,12 @@ void TupCameraStatus::setScenes(TupProject *project)
     if (k->scenes->count())
         k->scenes->clear(); 
 
-    foreach (TupScene *scene, project->scenes().values()) { 
-             if (scene)
-                 k->scenes->addItem(scene->sceneName());
+    int scenesTotal = project->scenes().size();
+    for (int i = 0; i < scenesTotal; i++) {
+         TupScene *scene = project->scenes().at(i);
+         if (scene)
+             k->scenes->addItem(scene->sceneName());
+
     }
 }
 
