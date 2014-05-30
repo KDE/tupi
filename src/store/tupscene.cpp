@@ -172,9 +172,7 @@ TupSoundLayer *TupScene::createSoundLayer(int position, bool loaded)
     #endif
 
     if (position < 0 || position > k->soundLayers.count()) {
-	#ifdef K_DEBUG
         tDebug() << "TupScene::createSoundLayer() - [ Fatal Error ] - Index incorrect!";
-    #endif		
         return 0;
     }
 

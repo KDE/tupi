@@ -44,7 +44,6 @@
 #endif
 
 #include <QObject>
-#include <QTextStream>
 
 class TupProject;
 
@@ -54,7 +53,7 @@ class TupProject;
 
 class STORE_EXPORT TupLibrary : public TupLibraryFolder
 {
-    Q_OBJECT
+    Q_OBJECT;
     
     public:
         enum Class

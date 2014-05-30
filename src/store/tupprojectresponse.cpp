@@ -38,7 +38,7 @@
 // This class returns information about data structure of a Tupi project 
 // It is used from signals in the TupProject class to send data to anothers classes
 
-class TupProjectResponse::Private : QObject
+class TupProjectResponse::Private
 {
     public:
         Private(int part, int action) : part(part), action(action), isExternal(false) {}
@@ -52,7 +52,7 @@ class TupProjectResponse::Private : QObject
         bool isExternal;
 };
 
-TupProjectResponse::TupProjectResponse(int part, int action) : QObject(), k(new Private(part, action))
+TupProjectResponse::TupProjectResponse(int part, int action) : k(new Private(part, action))
 {
 }
 
@@ -430,9 +430,7 @@ TupProjectResponse *TupProjectResponseFactory::create(int part, int action)
             break;
             default:
              {
-			 #ifdef K_DEBUG
                 tFatal() << "TupProjectResponseFactory::create() - Unknown/Unhandled element: " << part;
-		     #endif
              }
             break;
     }

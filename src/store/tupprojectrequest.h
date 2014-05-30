@@ -46,8 +46,8 @@
 #include <QString>
 #include <QVariant>
 
-// class TupProjectRequest;
-// class TupProjectResponse;
+class TupProjectRequest;
+class TupProjectResponse;
 
 class STORE_EXPORT TupProjectRequestArgument
 {

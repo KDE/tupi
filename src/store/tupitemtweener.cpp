@@ -39,13 +39,11 @@
 #include <QGraphicsItem>
 #include <QHash>
 
-#ifdef K_DEBUG
 #define VERIFY_STEP(index) if (index > k->frames || k->frames == 0) { \
                                tWarning("items") << "Invalid step " << index << " for tweening, maximun step are " \
                                                  << k->frames << "; In " << __FUNCTION__; \
                                return; }
-#endif
-							   
+
 #define STEP(index) index / (double)k->frames
 
 struct TupItemTweener::Private
@@ -156,9 +154,7 @@ void TupItemTweener::addStep(const TupTweenerStep &step)
 {
     int counter = step.index();
     
-#ifdef K_DEBUG
     VERIFY_STEP(counter);
-#endif
     
     if (step.has(TupTweenerStep::Position))
         setPosAt(counter, step.position());
@@ -186,50 +182,39 @@ TupTweenerStep * TupItemTweener::stepAt(int index)
 
 void TupItemTweener::setPosAt(int index, const QPointF &pos)
 {
-#ifdef K_DEBUG
     VERIFY_STEP(index);
-#endif
     k->step(index)->setPosition(pos);
 }
 
 void TupItemTweener::setRotationAt(int index, double angle)
 {
-#ifdef K_DEBUG
     VERIFY_STEP(index);
-#endif
+
     // tError() << "TupItemTweener::setRotationAt() - Index: " << index << " - Angle: " << angle;
     k->step(index)->setRotation(angle);
 }
 
 void TupItemTweener::setScaleAt(int index, double sx, double sy)
 {
-#ifdef K_DEBUG
     VERIFY_STEP(index);
-#endif
     k->step(index)->setScale(sx, sy);
 }
 
 void TupItemTweener::setShearAt(int index, double sx, double sy)
 {
-#ifdef K_DEBUG
     VERIFY_STEP(index);
-#endif
     k->step(index)->setShear(sx, sy);
 }
 
 void TupItemTweener::setOpacityAt(int index, double opacity)
 {
-#ifdef K_DEBUG
     VERIFY_STEP(index);
-#endif
     k->step(index)->setOpacity(opacity);
 }
 
 void TupItemTweener::setColorAt(int index, const QColor &color)
 {
-#ifdef K_DEBUG
     VERIFY_STEP(index);
-#endif
     k->step(index)->setColor(color);
 }
 

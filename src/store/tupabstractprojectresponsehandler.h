@@ -42,8 +42,7 @@
 #include "tdebug.h"
 #endif
 
-// #include <QObject>
-#include <QWidget>
+#include <QObject>
 
 class TupPaintAreaEvent;
 class TupProjectResponse;
@@ -57,13 +56,12 @@ class TupLibraryResponse;
  * @author David Cuadrado
 **/
 
-// class STORE_EXPORT TupAbstractProjectResponseHandler : public QObject
-class STORE_EXPORT TupAbstractProjectResponseHandler : public QWidget
+class STORE_EXPORT TupAbstractProjectResponseHandler
 {
     public:
         TupAbstractProjectResponseHandler();
-		~TupAbstractProjectResponseHandler();
-        // virtual ~TupAbstractProjectResponseHandler();
+        virtual ~TupAbstractProjectResponseHandler();
+        
         virtual bool handleResponse(TupProjectResponse *response);
         
     protected:

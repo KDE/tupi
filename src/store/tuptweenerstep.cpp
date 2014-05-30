@@ -86,6 +86,8 @@ void TupTweenerStep::setScale(double sx, double sy)
 
 void TupTweenerStep::setShear(double sh, double sv)
 {
+    tFatal() << "TupTweenerStep::setShear() - X: " << sh;
+    tFatal() << "TupTweenerStep::setShear() - Y: " << sv;
     k->shear.x = sh;
     k->shear.y = sv;
     k->flags |= Shear;

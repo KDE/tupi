@@ -37,7 +37,7 @@
 #include "tupprojectresponse.h"
 #include "tuppaintareaevent.h"
 
-TupAbstractProjectResponseHandler::TupAbstractProjectResponseHandler() : QWidget()
+TupAbstractProjectResponseHandler::TupAbstractProjectResponseHandler()
 {
 }
 

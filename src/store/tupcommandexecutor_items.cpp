@@ -587,14 +587,14 @@ bool TupCommandExecutor::convertItem(TupItemResponse *response)
                 if (frame) {
                     QGraphicsItem *item = frame->item(position);
                     if (item) {
-                        // tDebug("items") << item->type();
+                        tDebug("items") << item->type();
                     
                         if (toType == item->type()) 
                             return false;
                     
                         QGraphicsItem *itemConverted = convert(item, toType);
 
-                        // tFatal() << "TupCommandExecutor::convertItem() - item new type: " << toType;
+                        tFatal() << "TupCommandExecutor::convertItem() - item new type: " << toType;
                     
                         if (itemConverted) {
                             // scene->removeItem(item); // FIXME?
@@ -628,7 +628,7 @@ bool TupCommandExecutor::convertItem(TupItemResponse *response)
                 if (frame) {
                     QGraphicsItem *item = frame->item(position);
                     if (item) {
-                        // tDebug("items") << item->type();
+                        tDebug("items") << item->type();
 
                         if (toType == item->type())
                             return false;
