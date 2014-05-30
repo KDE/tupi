@@ -43,10 +43,13 @@ struct TupModuleWidgetBase::Private
 {
     QBoxLayout *container;
     QObjectList childs;
+	// QString name;
 };
 
-TupModuleWidgetBase::TupModuleWidgetBase(QWidget *parent, const char *name) : QWidget(parent),
-                                                                            TupAbstractProjectResponseHandler(), k(new Private)
+TupModuleWidgetBase::TupModuleWidgetBase(QWidget *parent, const QString &name) :
+                                         TupAbstractProjectResponseHandler(), k(new Private)
+// TupModuleWidgetBase::TupModuleWidgetBase(QWidget *parent, const char *name) : 
+                     // QWidget(parent), TupAbstractProjectResponseHandler(), k(new Private)
 {
     setObjectName(name);
 
@@ -62,6 +65,18 @@ TupModuleWidgetBase::~TupModuleWidgetBase()
 {
     delete k;
 }
+
+/*
+void TupModuleWidgetBase::setObjectName(const QString &name)
+{
+    k->name = name;
+}
+
+QString TupModuleWidgetBase::objectName() const
+{
+    return k->name;
+}
+*/
 
 void TupModuleWidgetBase::addChild(QWidget* child, Qt::Alignment alignment)
 {

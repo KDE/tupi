@@ -45,12 +45,14 @@
 #include "tdebug.h"
 #endif
 
+#include <QObject>
+
 /**
  * Response to request (aka TupProjectRequest)
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupProjectResponse
+class STORE_EXPORT TupProjectResponse : public QObject
 {
     public:
         enum Mode
@@ -178,7 +180,7 @@ class STORE_EXPORT TupLibraryResponse : public TupFrameResponse
         bool empty;
 };
 
-class STORE_EXPORT TupProjectResponseFactory
+class STORE_EXPORT TupProjectResponseFactory : public QObject
 {
     private:
         TupProjectResponseFactory();

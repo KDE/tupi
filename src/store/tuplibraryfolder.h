@@ -48,10 +48,11 @@
 #include <QHash>
 #include <QMap>
 #include <QByteArray>
+#include <QTextStream>
 
 class TupProject;
 class TupLibraryFolder;
-class TupLibraryObject;
+// class TupLibraryObject;
 
 typedef QMap<QString, TupLibraryFolder *> Folders;
 typedef QMap<QString, TupLibraryObject *> LibraryObjects;

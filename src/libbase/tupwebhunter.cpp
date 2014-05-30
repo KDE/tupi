@@ -33,14 +33,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include <QtGui>
-#include <QtNetwork>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QDomDocument>
-#include <QEventLoop>
-
-#include "tupwebhunter.h"
+ #include "tupwebhunter.h"
 
 QString TupWebHunter::BROWSER_FINGERPRINT = QString("Tupi_Browser 1.0");
 
@@ -110,29 +103,39 @@ void TupWebHunter::slotError(QNetworkReply::NetworkError error)
     switch (error) {
             case QNetworkReply::HostNotFoundError:
                  { 
+				 #ifdef K_DEBUG
                      tError() << "TupWebHunter::slotError() - Network Error: Host not found";
+				 #endif				 
                  }
             break;
             case QNetworkReply::TimeoutError:
                  {
+				 #ifdef K_DEBUG
                      tError() << "TupWebHunter::slotError() - Network Error: Time out!";
+			     #endif
                  }
             break;
             case QNetworkReply::ConnectionRefusedError:
                  {
+				 #ifdef K_DEBUG
                      tError() << "TupWebHunter::slotError() - Network Error: Connection Refused!";
-                 }
+                 #endif
+				 }
             break;
             case QNetworkReply::ContentNotFoundError:
                  {
+				 #ifdef K_DEBUG
                      tError() << "TupWebHunter::slotError() - Network Error: Content not found!";
-                 }
+                 #endif
+				 }
             break;
             case QNetworkReply::UnknownNetworkError:
             default:
                  {
+				 #ifdef K_DEBUG
                      tError() << "TupWebHunter::slotError() - Network Error: Unknown Network error!";
-                 }
+                 #endif
+				 }
             break;
     }
 }

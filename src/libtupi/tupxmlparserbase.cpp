@@ -110,15 +110,23 @@ bool TupXmlParserBase::characters(const QString & ch)
 
 bool TupXmlParserBase::error(const QXmlParseException & exception)
 {
+#ifdef K_DEBUG
      tWarning() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
      tWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+#else
+     Q_UNUSED(exception);
+#endif
      return true;
 }
 
 bool TupXmlParserBase::fatalError(const QXmlParseException & exception)
 {
+#ifdef K_DEBUG
      tFatal() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
      tWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+ #else
+     Q_UNUSED(exception);
+#endif
      return true;
 }
 
@@ -157,12 +165,13 @@ bool TupXmlParserBase::parse(const QString &doc)
      return reader.parse(&xmlsource);
 }
 
-
 bool TupXmlParserBase::parse(QFile *file)
 {
      if (!file->isOpen()) {
          if (! file->open(QIODevice::ReadOnly | QIODevice::Text)) {
+#ifdef K_DEBUG
              tWarning() << "Cannot open file " << file->fileName();
+#endif
              return false;
          }
      }

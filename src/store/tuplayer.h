@@ -46,6 +46,7 @@
 
 #include <QDomDocument>
 #include <QDomElement>
+#include <QTextStream>
 #include <QList>
 
 typedef QList<TupFrame *> Frames;

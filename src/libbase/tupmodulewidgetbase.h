@@ -37,7 +37,7 @@
 #define TUPMODULEWIDGETBASE_H
 
 #include "tglobal.h"
-#include "tosd.h"
+// #include "tosd.h"
 #include "tupprojectresponse.h"
 #include "tupabstractprojectresponsehandler.h"
 
@@ -56,16 +56,21 @@
  * @author Jorge Cuadrado
 */
 
-class TUPI_EXPORT TupModuleWidgetBase : public QWidget, public TupAbstractProjectResponseHandler
+// class TUPI_EXPORT TupModuleWidgetBase : public QWidget, public TupAbstractProjectResponseHandler
+class TUPI_EXPORT TupModuleWidgetBase : public TupAbstractProjectResponseHandler
 {
     Q_OBJECT
     
     public:
-        TupModuleWidgetBase(QWidget *parent, const char *name = 0);
+        TupModuleWidgetBase(QWidget *parent, const QString &name = QString());
         ~TupModuleWidgetBase();
         virtual void addChild(QWidget *child, Qt::Alignment alignment = 0);
         void setFont(const QFont &);
         QBoxLayout *boxLayout();
+		/*
+		QString objectName() const;
+        void setObjectName(const QString &name);
+		*/
         
     private:
         struct Private;

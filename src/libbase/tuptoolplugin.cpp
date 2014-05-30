@@ -78,12 +78,16 @@ QString TupToolPlugin::name() const
 
 void TupToolPlugin::begin()
 {
+#ifdef K_DEBUG
     tDebug("tools") << "Begin: " << k->currentTool;
+#endif
 }
 
 void TupToolPlugin::end()
 {
+#ifdef K_DEBUG
     tDebug("tools") << "End: " << k->currentTool;
+#endif
 }
 
 void TupToolPlugin::sceneResponse(const TupSceneResponse *event)
@@ -285,4 +289,3 @@ TupToolPlugin::EditMode TupToolPlugin::currentEditMode()
 {
     return TupToolPlugin::None;
 }
-
