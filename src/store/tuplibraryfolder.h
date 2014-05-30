@@ -36,7 +36,7 @@
 #ifndef TUPLIBRARYFOLDER_H
 #define TUPLIBRARYFOLDER_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 #include "tuplibraryobject.h"
 
@@ -61,7 +61,7 @@ typedef QMap<QString, TupLibraryObject *> LibraryObjects;
  * @author David Cuadrado
 **/
 
-class STORE_EXPORT TupLibraryFolder : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupLibraryFolder : public QObject, public TupAbstractSerializable
 {
     Q_OBJECT
     

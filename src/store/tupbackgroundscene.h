@@ -36,7 +36,7 @@
 #ifndef TUPBACKGROUNDSCENE_H
 #define TUPBACKGROUNDSCENE_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupframe.h"
 #include "tupgraphicobject.h"
 #include "tupsvgitem.h"
@@ -45,7 +45,7 @@
 #include <QGraphicsView>
 #include <QPainter>
 
-class STORE_EXPORT TupBackgroundScene : public QGraphicsScene
+class TUPI_EXPORT TupBackgroundScene : public QGraphicsScene
 {
     Q_OBJECT
 

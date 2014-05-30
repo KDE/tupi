@@ -36,7 +36,7 @@
 #ifndef TUPREQUESTPARSER_H
 #define TUPREQUESTPARSER_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupxmlparserbase.h"
 #include "tupprojectrequest.h"
 
@@ -50,7 +50,7 @@ class TupProjectResponse;
  * @author David Cuadrado
 **/
 
-class STORE_EXPORT TupRequestParser : public TupXmlParserBase
+class TUPI_EXPORT TupRequestParser : public TupXmlParserBase
 {
     public:
         TupRequestParser();

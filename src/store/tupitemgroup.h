@@ -36,7 +36,7 @@
 #ifndef TUPITEMGROUP_H
 #define TUPITEMGROUP_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 
 #ifdef K_DEBUG
@@ -49,7 +49,7 @@
  * @author Jorge Cuadrado
  **/
 
-class STORE_EXPORT TupItemGroup: public TupAbstractSerializable, public QGraphicsItemGroup
+class TUPI_EXPORT TupItemGroup: public TupAbstractSerializable, public QGraphicsItemGroup
 {
     public:
         TupItemGroup(QGraphicsItem *parent = 0);

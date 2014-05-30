@@ -36,7 +36,7 @@
 #ifndef TUPPALETTEDOCUMENT_H
 #define TUPPALETTEDOCUMENT_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 #include <QDomDocument>
 #include <QBrush>
@@ -48,7 +48,7 @@
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupPaletteDocument : public QDomDocument
+class TUPI_EXPORT TupPaletteDocument : public QDomDocument
 {
     public:
         /**

@@ -36,7 +36,7 @@
 #ifndef TUPTWEENERSTEP_H
 #define TUPTWEENERSTEP_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 
 #ifdef K_DEBUG
@@ -50,7 +50,7 @@
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupTweenerStep : public TupAbstractSerializable
+class TUPI_EXPORT TupTweenerStep : public TupAbstractSerializable
 {
     public:
         enum Type {

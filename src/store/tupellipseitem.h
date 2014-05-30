@@ -36,7 +36,7 @@
 #ifndef TUPELLIPSEITEM_H 
 #define TUPELLIPSEITEM_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 
 #ifdef K_DEBUG
@@ -49,7 +49,7 @@
  * @author Jorge Cuadrado
 */
 
-class STORE_EXPORT TupEllipseItem: public TupAbstractSerializable, public QGraphicsEllipseItem
+class TUPI_EXPORT TupEllipseItem: public TupAbstractSerializable, public QGraphicsEllipseItem
 {
     public:
         TupEllipseItem(QGraphicsItem *parent = 0);

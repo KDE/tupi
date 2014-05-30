@@ -37,7 +37,7 @@
 #define TUPBUTTONITEM_H
 
 #include "tupabstractserializable.h"
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 #include <QGraphicsItem>
 #include <QIcon>
@@ -47,7 +47,7 @@
  * @author David Cuadrado
 **/
 
-class STORE_EXPORT TupButtonItem : public QObject, public QGraphicsItem, public TupAbstractSerializable
+class TUPI_EXPORT TupButtonItem : public QObject, public QGraphicsItem, public TupAbstractSerializable
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)

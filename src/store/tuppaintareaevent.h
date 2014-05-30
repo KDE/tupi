@@ -37,13 +37,13 @@
 #define TUPPAINTAREAEVENT_H
 
 #include "tupprojectrequest.h"
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 /**
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupPaintAreaEvent
+class TUPI_EXPORT TupPaintAreaEvent
 {
     public:
         enum Action

@@ -36,7 +36,7 @@
 #ifndef TUPLAYER_H
 #define TUPLAYER_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 #include "tupframe.h"
 
@@ -59,7 +59,7 @@ class TupProject;
  * @author David Cuadrado 
 */
 
-class STORE_EXPORT TupLayer : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupLayer : public QObject, public TupAbstractSerializable
 {
     Q_OBJECT
 

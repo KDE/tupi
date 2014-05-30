@@ -37,13 +37,13 @@
 #define TUPFRAMEGROUP_H
 
 #include "tupframe.h"
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 /**
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupFrameGroup : public TupFrame
+class TUPI_EXPORT TupFrameGroup : public TupFrame
 {
     public:
         TupFrameGroup(TupLayer *parent = 0);

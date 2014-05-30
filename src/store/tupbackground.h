@@ -36,7 +36,7 @@
 #ifndef TUPBACKGROUND_H
 #define TUPBACKGROUND_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 #include "tupscene.h"
 
@@ -51,7 +51,7 @@
  * @author Gustav Gonzalez
 */
 
-class STORE_EXPORT TupBackground : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupBackground : public QObject, public TupAbstractSerializable
 {
     Q_OBJECT
 

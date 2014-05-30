@@ -36,7 +36,7 @@
 #ifndef TUPLIBRARYOBJECT_H
 #define TUPLIBRARYOBJECT_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 
 #ifdef K_DEBUG
@@ -52,7 +52,7 @@ class TupLibraryObject;
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupLibraryObject : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupLibraryObject : public QObject, public TupAbstractSerializable
 {
     public:
         enum Type

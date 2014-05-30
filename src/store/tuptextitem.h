@@ -37,7 +37,7 @@
 #define TUPTEXTITEM_H
 
 #include "tupabstractserializable.h"
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 #include <QGraphicsTextItem>
 
@@ -46,7 +46,7 @@
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupTextItem : public QGraphicsTextItem, public TupAbstractSerializable
+class TUPI_EXPORT TupTextItem : public QGraphicsTextItem, public TupAbstractSerializable
 {
     Q_OBJECT
 

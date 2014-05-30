@@ -36,7 +36,7 @@
 #ifndef TUPLIBRARY_H
 #define TUPLIBRARY_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tuplibraryfolder.h"
 
 #ifdef K_DEBUG
@@ -52,7 +52,7 @@ class TupProject;
  * @author David Cuadrado
 */ 
 
-class STORE_EXPORT TupLibrary : public TupLibraryFolder
+class TUPI_EXPORT TupLibrary : public TupLibraryFolder
 {
     Q_OBJECT;
     

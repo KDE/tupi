@@ -36,7 +36,7 @@
 #ifndef TUPSCENEMANAGER_H
 #define TUPSCENEMANAGER_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 #include "tupproject.h"
 #include "tupstoryboard.h"
@@ -71,7 +71,7 @@ typedef QList<TupSoundLayer *> SoundLayers;
  * @author David Cuadrado 
 */
 
-class STORE_EXPORT TupScene : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupScene : public QObject, public TupAbstractSerializable
 {
     Q_OBJECT
 

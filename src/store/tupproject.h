@@ -36,7 +36,7 @@
 #ifndef TUPPROJECT_H
 #define TUPPROJECT_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 #include "tapplicationproperties.h"
 #include "tuplibraryobject.h"
@@ -66,7 +66,7 @@ typedef QList<TupScene *> Scenes;
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupProject : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupProject : public QObject, public TupAbstractSerializable
 {
     Q_OBJECT
 

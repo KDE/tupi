@@ -36,7 +36,7 @@
 #ifndef TUPITEMTWEENER_H
 #define TUPITEMTWEENER_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tuptweenerstep.h"
 
 #ifdef K_DEBUG
@@ -56,7 +56,7 @@ class QGraphicsPathItem;
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupItemTweener : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupItemTweener : public QObject, public TupAbstractSerializable
 {
     Q_OBJECT
  

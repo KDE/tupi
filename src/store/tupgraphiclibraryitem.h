@@ -36,7 +36,7 @@
 #ifndef TUPGRAPHICLIBRARYITEM_H
 #define TUPGRAPHICLIBRARYITEM_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupproxyitem.h"
 #include "tuplibraryobject.h"
 #include "tupabstractserializable.h"
@@ -51,7 +51,7 @@
  * @author David Cuadrado
 **/
 
-class STORE_EXPORT TupGraphicLibraryItem : public TupProxyItem, public TupAbstractSerializable
+class TUPI_EXPORT TupGraphicLibraryItem : public TupProxyItem, public TupAbstractSerializable
 {
     public:
         TupGraphicLibraryItem();

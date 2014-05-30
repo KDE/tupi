@@ -36,14 +36,14 @@
 #ifndef TUPSOUNDLAYER_H
 #define TUPSOUNDLAYER_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tuplayer.h"
 
 /**
     @author David Cuadrado
 **/
 
-class STORE_EXPORT TupSoundLayer : public TupLayer
+class TUPI_EXPORT TupSoundLayer : public TupLayer
 {
     public:
         TupSoundLayer(TupScene *parent);

@@ -36,7 +36,7 @@
 #ifndef TUPSTORYBOARD_H
 #define TUPSTORYBOARD_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 
 #ifdef K_DEBUG
@@ -47,7 +47,7 @@
 #include <QDomDocument>
 #include <QDomElement>
 
-class STORE_EXPORT TupStoryboard : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupStoryboard : public QObject, public TupAbstractSerializable
 {
     Q_OBJECT
 

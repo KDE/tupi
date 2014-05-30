@@ -37,7 +37,7 @@
 #define TUPSVGITEM_H
 
 #include "tupabstractserializable.h"
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupitemtweener.h"
 #include "tupframe.h"
 
@@ -54,7 +54,7 @@ class TupFrame;
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupSvgItem : public QGraphicsSvgItem, public TupAbstractSerializable
+class TUPI_EXPORT TupSvgItem : public QGraphicsSvgItem, public TupAbstractSerializable
 {
     public:
         TupSvgItem(QGraphicsItem * parent = 0);

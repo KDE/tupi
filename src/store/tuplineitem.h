@@ -36,7 +36,7 @@
 #ifndef TUPLINEITEM_H 
 #define TUPLINEITEM_H 
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 
 #ifdef K_DEBUG
@@ -49,7 +49,7 @@
     @author David Cuadrado
 */
 
-class STORE_EXPORT TupLineItem : public QGraphicsLineItem, public TupAbstractSerializable
+class TUPI_EXPORT TupLineItem : public QGraphicsLineItem, public TupAbstractSerializable
 {
     public:
         TupLineItem(QGraphicsItem *parent = 0);

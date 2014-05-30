@@ -36,7 +36,7 @@
 #ifndef TUPITEMFACTORY_H
 #define TUPITEMFACTORY_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "txmlparserbase.h"
 
 #ifdef K_DEBUG
@@ -54,7 +54,7 @@ class TupLibrary;
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupItemFactory : public TXmlParserBase
+class TUPI_EXPORT TupItemFactory : public TXmlParserBase
 {
     public:
         enum Type

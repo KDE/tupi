@@ -37,7 +37,7 @@
 #define TUPRECTITEM_H
 
 #include "tupabstractserializable.h"
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 #include <QGraphicsRectItem>
 
@@ -45,7 +45,7 @@
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupRectItem : public QGraphicsRectItem, public TupAbstractSerializable
+class TUPI_EXPORT TupRectItem : public QGraphicsRectItem, public TupAbstractSerializable
 {
     public:
         TupRectItem(QGraphicsItem * parent = 0);

@@ -36,7 +36,7 @@
 #ifndef TUPGRAPHICOBJECT_H
 #define TUPGRAPHICOBJECT_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 #include "tupframe.h"
 
@@ -52,7 +52,7 @@ class TupItemTweener;
 /**
  * @author David Cuadrado
 */
-class STORE_EXPORT TupGraphicObject : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupGraphicObject : public QObject, public TupAbstractSerializable
 {
     public:
         enum Transformations { ScaleX = 1, ScaleY, Rotate, TranslateX, TranslateY };

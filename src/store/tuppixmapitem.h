@@ -37,7 +37,7 @@
 #define TUPPIXMAPITEM_H
 
 #include "tupabstractserializable.h"
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 #include <QGraphicsPixmapItem>
 
@@ -45,7 +45,7 @@
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupPixmapItem : public QGraphicsPixmapItem, public TupAbstractSerializable
+class TUPI_EXPORT TupPixmapItem : public QGraphicsPixmapItem, public TupAbstractSerializable
 {
     public:
         TupPixmapItem(QGraphicsItem *parent = 0);

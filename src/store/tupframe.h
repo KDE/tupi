@@ -36,7 +36,7 @@
 #ifndef TUPFRAME_H
 #define TUPFRAME_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 #include "tupsvgitem.h"
 #include "tupbackground.h"
@@ -66,7 +66,7 @@ typedef QList<TupSvgItem *> SvgObjects;
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupFrame : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupFrame : public QObject, public TupAbstractSerializable
 {
     public:
        enum FrameType { DynamicBg = 0, StaticBg, Regular };

@@ -41,7 +41,7 @@ HEADERS += tuplayer.h \
            tupbuttonitem.h \
            tupitemfactory.h \
            tupellipseitem.h \
-           tupglobal_store.h \
+           # tupglobal_store.h \
            tuppaintareaevent.h \
            tupserializer.h \
            tuplineitem.h \

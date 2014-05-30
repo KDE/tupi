@@ -36,7 +36,7 @@
 #ifndef TUPREQUESTBUILDER_H
 #define TUPREQUESTBUILDER_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tuplibraryobject.h"
 #include "tupproject.h"
 
@@ -55,7 +55,7 @@ class TupProjectResponse;
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupRequestBuilder
+class TUPI_EXPORT TupRequestBuilder
 {
     protected:
         TupRequestBuilder();

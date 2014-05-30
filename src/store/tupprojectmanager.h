@@ -36,7 +36,7 @@
 #ifndef TUPPROJECTMANAGER_H
 #define TUPPROJECTMANAGER_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 #ifdef K_DEBUG
 #include "tdebug.h"
@@ -59,7 +59,7 @@ class TupProjectResponse;
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupProjectManager : public QObject
+class TUPI_EXPORT TupProjectManager : public QObject
 {
     Q_OBJECT
 

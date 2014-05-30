@@ -36,7 +36,7 @@
 #ifndef TUPABSTRACTSERIALIZABLE_H
 #define TUPABSTRACTSERIALIZABLE_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 #include <QString>
 #include <QDomDocument>
@@ -49,7 +49,7 @@
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupAbstractSerializable
+class TUPI_EXPORT TupAbstractSerializable
 {
     protected:
         TupAbstractSerializable() {};

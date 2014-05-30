@@ -36,7 +36,7 @@
 #ifndef TUPFILEMANAGER_H 
 #define TUPFILEMANAGER_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 #ifdef K_DEBUG
 #include "tdebug.h"
@@ -50,7 +50,7 @@ class TupProject;
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupFileManager : public QObject
+class TUPI_EXPORT TupFileManager : public QObject
 {
     Q_OBJECT
 

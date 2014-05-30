@@ -36,7 +36,7 @@
 #ifndef TUPPATHITEM_H
 #define TUPPATHITEM_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 #include "tupabstractserializable.h"
 
 #ifdef K_DEBUG
@@ -48,7 +48,7 @@
 /**
  * @author David Cuadrado
 */
-class STORE_EXPORT TupPathItem : public TupAbstractSerializable, public QGraphicsPathItem
+class TUPI_EXPORT TupPathItem : public TupAbstractSerializable, public QGraphicsPathItem
 {
     public:
         TupPathItem(QGraphicsItem *parent = 0);

@@ -36,7 +36,7 @@
 #ifndef TUPPROJECTREQUEST_H
 #define TUPPROJECTREQUEST_H
 
-#include "tupglobal_store.h"
+#include "tglobal.h"
 
 #ifdef K_DEBUG
 #include "tdebug.h"
@@ -49,7 +49,7 @@
 class TupProjectRequest;
 class TupProjectResponse;
 
-class STORE_EXPORT TupProjectRequestArgument
+class TUPI_EXPORT TupProjectRequestArgument
 {
     public:
         TupProjectRequestArgument();
@@ -72,7 +72,7 @@ class STORE_EXPORT TupProjectRequestArgument
  * @author David Cuadrado
 */
 
-class STORE_EXPORT TupProjectRequest
+class TUPI_EXPORT TupProjectRequest
 {
     public:
         enum Action
