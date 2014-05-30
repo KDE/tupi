@@ -78,12 +78,16 @@ QString TupToolPlugin::name() const
 
 void TupToolPlugin::begin()
 {
-    tDebug("tools") << "Begin: " << k->currentTool;
+#ifdef K_DEBUG
+    tWarning("tools") << "Begin: " << k->currentTool;
+#endif
 }
 
 void TupToolPlugin::end()
 {
-    tDebug("tools") << "End: " << k->currentTool;
+#ifdef K_DEBUG
+    tWarning("tools") << "End: " << k->currentTool;
+#endif
 }
 
 void TupToolPlugin::sceneResponse(const TupSceneResponse *event)

@@ -183,7 +183,9 @@ void TupPaintAreaBase::setAntialiasing(bool use)
 
 void TupPaintAreaBase::setUseOpenGL(bool opengl)
 {
+#ifdef K_DEBUG
     T_FUNCINFO << opengl;
+#endif
 
     QCursor cursor(Qt::ArrowCursor);
     if (viewport())
