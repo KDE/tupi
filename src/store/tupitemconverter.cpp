@@ -93,7 +93,7 @@ TupPathItem *TupItemConverter::convertToPath(QGraphicsItem *item)
 
         case TupRectItem::Type:
         {
-            tFatal() << "TupItemConverter::convertToPath() - Converting rectangle to path!";
+            // tFatal() << "TupItemConverter::convertToPath() - Converting rectangle to path!";
             ppath.addRect(qgraphicsitem_cast<TupRectItem *>(item)->rect());
         }
         break;

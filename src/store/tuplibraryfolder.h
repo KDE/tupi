@@ -48,6 +48,7 @@
 #include <QHash>
 #include <QMap>
 #include <QByteArray>
+#include <QTextStream>
 
 class TupProject;
 class TupLibraryFolder;

@@ -430,7 +430,9 @@ TupProjectResponse *TupProjectResponseFactory::create(int part, int action)
             break;
             default:
              {
-                tFatal() << "TupProjectResponseFactory::create() - Unknown/Unhandled element: " << part;
+			 #ifdef K_DEBUG
+                    tFatal() << "TupProjectResponseFactory::create() - Unknown/Unhandled element: " << part;
+			 #endif
              }
             break;
     }

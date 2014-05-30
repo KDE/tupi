@@ -44,6 +44,7 @@
 #endif
 
 #include <QObject>
+#include <QTextStream>
 
 class TupProject;
 
