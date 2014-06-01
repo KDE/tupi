@@ -134,11 +134,6 @@ win32 {
     DEFINES += VERSION=\\\"0.2\\\" CODE_NAME=\\\"Argentum\\\" REVISION=\\\"git04\\\"
 	DEFINES += K_DEBUG # Enable this line for debugging 
     include(../../win.pri)
-	
-	INSTALLS += tupidata 
-	tupidata.target = data
-    tupidata.commands = copy -r data\* $(INSTALL_ROOT)/data
-    tupidata.path = $$PREFIX\data\
 }
 
 include(shell_config.pri)
