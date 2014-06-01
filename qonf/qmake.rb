@@ -122,7 +122,7 @@ class QMake
             options += "-r"
         end
 
-        output = `#{@path} #{args} #{options} `
+        output = `#{@path} #{args} #{options}`
         
         if output.strip.empty?
             return true

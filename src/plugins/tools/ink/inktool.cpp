@@ -108,7 +108,7 @@ void InkTool::init(TupGraphicsScene *scene)
     tError() << "InkTool::init() - thickness: " << thickness;
     tError() << "InkTool::init() - k->tolerance: " << k->tolerance;
     tError() << "InkTool::init() - k->widthVar: " << k->widthVar;
-	*/
+    */
 
     foreach (QGraphicsView * view, scene->views()) {
              view->setDragMode(QGraphicsView::NoDrag);
@@ -223,8 +223,8 @@ void InkTool::move(const TupInputDeviceInformation *input, TupBrushManager *brus
             } 
 
             #ifdef K_DEBUG
-			       bool isNAN = false;
-				   if (m == 0) {
+                   bool isNAN = false;
+                   if (m == 0)
                        isNAN = true;
 					   
                    if (m == 100)

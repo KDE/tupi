@@ -21,19 +21,13 @@ TARGET = tupipenciltool
 FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
 
-unix {
-    include(../tools_config.pri)
-}
+LIBBASE_DIR = ../../../libbase
+STORE_DIR = ../../../store
+LIBTUPI_DIR = ../../../libtupi
+COMMON_DIR = ../common
 
-win32 {
-    LIBBASE_DIR = ../../../libbase
-    STORE_DIR = ../../../store
-    LIBTUPI_DIR = ../../../libtupi
-    COMMON_DIR = ../common
-
-    include($$LIBBASE_DIR/libbase.pri)	
-    include($$STORE_DIR/store.pri)
-    include($$LIBTUPI_DIR/libtupi.pri)
-	include($$COMMON_DIR/common.pri)
-}
+include($$LIBBASE_DIR/libbase.pri)	
+include($$STORE_DIR/store.pri)
+include($$LIBTUPI_DIR/libtupi.pri)
+include($$COMMON_DIR/common.pri)
 ~

@@ -1,8 +1,7 @@
-
-STORE_DIR = ../../../store
-LIBTUPI_DIR = ../../../libtupi
-LIBBASE_DIR = ../../../libbase
-COMMON_DIR = ./common
+STORE_DIR = ../../store
+LIBTUPI_DIR = ../../libtupi
+LIBBASE_DIR = ../../libbase
+COMMON_DIR = ../../plugins/tools/common
 
 include($$STORE_DIR/store.pri)
 include($$LIBTUPI_DIR/libtupi.pri)

@@ -19,16 +19,10 @@ TARGET = tupiimageplugin
 FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
 
-unix {
-    include(../tools_config.pri)
-}
+LIBBASE_DIR = ../../../libbase
+STORE_DIR = ../../../store
+LIBTUPI_DIR = ../../../libtupi
 
-win32 {
-    LIBBASE_DIR = ../../../libbase
-    STORE_DIR = ../../../store
-    LIBTUPI_DIR = ../../../libtupi
-
-    include($$LIBBASE_DIR/libbase.pri)	
-    include($$STORE_DIR/store.pri)
-    include($$LIBTUPI_DIR/libtupi.pri)
-}
+include($$LIBBASE_DIR/libbase.pri)
+include($$STORE_DIR/store.pri)
+include($$LIBTUPI_DIR/libtupi.pri)

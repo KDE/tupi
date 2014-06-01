@@ -39,16 +39,10 @@ TARGET = tupiplugincommon
 FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
 
-unix {
-    include(../tools_config.pri)
-}
+STORE_DIR = ../../../store
+LIBTUPI_DIR = ../../../libtupi
+LIBBASE_DIR = ../../../libbase
 
-win32 {
-    STORE_DIR = ../../../store
-    LIBTUPI_DIR = ../../../libtupi
-    LIBBASE_DIR = ../../../libbase
-
-    include($$STORE_DIR/store.pri)
-    include($$LIBTUPI_DIR/libtupi.pri)
-    include($$LIBBASE_DIR/libbase.pri)
-}
+include($$STORE_DIR/store.pri)
+include($$LIBTUPI_DIR/libtupi.pri)
+include($$LIBBASE_DIR/libbase.pri)
