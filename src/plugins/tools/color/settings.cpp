@@ -529,6 +529,11 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
     return doc.toString();
 }
 
+void Settings::activateMode(TupToolPlugin::EditMode mode)
+{
+    k->options->setCurrentIndex(mode);
+}
+
 void Settings::activatePropertiesMode(TupToolPlugin::EditMode mode)
 {
     k->options->setCurrentIndex(mode);

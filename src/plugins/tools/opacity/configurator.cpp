@@ -100,8 +100,6 @@ void Configurator::loadTweenList(QList<QString> tweenList)
 
 void Configurator::setPropertiesPanel()
 {
-    tFatal() << "Configurator::setPropertiesPanel() - Just tracing!";
-
     k->settingsPanel = new Settings(this);
 
     connect(k->settingsPanel, SIGNAL(startingPointChanged(int)), this, SIGNAL(startingPointChanged(int)));

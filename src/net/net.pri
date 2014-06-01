@@ -1,6 +1,12 @@
-
+# QT += network
 INCLUDEPATH += $$NET_DIR
 
-LIBS += -L$$NET_DIR -ltupinet
+unix {
+    LIBS += -L$$NET_DIR -ltupinet
+}
 
-QT += network
+win32 {
+    LIBS += -L$$NET_DIR/release/ -ltupinet
+}
+
+

@@ -245,12 +245,12 @@ void TupColorPalette::setColor(const QBrush& brush)
                */
     }
 
-    tFatal() << "TupColorPalette::setColor() - Updating background color!";
+    // tFatal() << "TupColorPalette::setColor() - Updating background color!";
     // TupPaintAreaEvent event(TupPaintAreaEvent::ChangeBrush, k->outlineAndFillColors->background().color());
     TupPaintAreaEvent event(TupPaintAreaEvent::ChangeBrush, brush);
     emit paintAreaEventTriggered(&event);
 
-    tFatal() << "TupColorPalette::setColor() - Updating foreground color!";
+    // tFatal() << "TupColorPalette::setColor() - Updating foreground color!";
     TupPaintAreaEvent event2(TupPaintAreaEvent::ChangeColorPen, k->outlineAndFillColors->foreground().color());
     emit paintAreaEventTriggered(&event2);
 }
@@ -287,7 +287,7 @@ void TupColorPalette::updateColorFromPalette(const QBrush &brush)
 
 void TupColorPalette::updateColorFromDisplay(const QBrush &brush)
 {
-    tFatal() << "TupColorPalette::updateColorFromDisplay() - Just tracing color: " << brush.color().name();
+    // tFatal() << "TupColorPalette::updateColorFromDisplay() - Just tracing color: " << brush.color().name();
     setGlobalColors(brush);
 
     QColor color = brush.color();
@@ -308,9 +308,9 @@ void TupColorPalette::updateColorSpace(TDualColorButton::ColorSpace space)
 
     k->labelType->setCurrentIndex(k->currentSpace);
 
-    tFatal() << "TupColorPalette::updateColorSpace() - Picking button #" << space;
-    tFatal() << "TupColorPalette::updateColorSpace() - Color: " << color.name();
-    tFatal() << "TupColorPalette::updateColorSpace() - Alpha: " << color.alpha();
+    // tFatal() << "TupColorPalette::updateColorSpace() - Picking button #" << space;
+    // tFatal() << "TupColorPalette::updateColorSpace() - Color: " << color.name();
+    // tFatal() << "TupColorPalette::updateColorSpace() - Alpha: " << color.alpha();
 
     k->htmlNameColor->setText(color.name());
     k->luminancePicker->setColor(color.hue(), color.saturation(), color.value());
@@ -319,7 +319,7 @@ void TupColorPalette::updateColorSpace(TDualColorButton::ColorSpace space)
 
 void TupColorPalette::updateGradientColor(const QBrush &brush)
 {
-    tFatal() << "TupColorPalette::updateGradientColor() - Just tracing!";
+    // tFatal() << "TupColorPalette::updateGradientColor() - Just tracing!";
     setGlobalColors(brush);
 }
 
@@ -335,8 +335,8 @@ void TupColorPalette::syncHsv(int h, int s, int v)
 
 void TupColorPalette::setHS(int hue, int saturation)
 {
-    tFatal() << "TupColorPalette::setHS() - H: " << hue;
-    tFatal() << "TupColorPalette::setHS() - S: " << saturation;
+    // tFatal() << "TupColorPalette::setHS() - H: " << hue;
+    // tFatal() << "TupColorPalette::setHS() - S: " << saturation;
 
     int luminance = 255;
     if (hue == 0 && saturation == 0)
@@ -347,8 +347,8 @@ void TupColorPalette::setHS(int hue, int saturation)
     k->luminancePicker->setColor(color.hue(), color.saturation(), color.value());
     k->displayColorForms->setColor(color);
 
-    tFatal() << "TupColorPalette::setHS() - Color: " << color.name();
-    tDebug() << "";
+    // tFatal() << "TupColorPalette::setHS() - Color: " << color.name();
+    // tDebug() << "";
 
     setGlobalColors(QBrush(color));
 }
@@ -527,13 +527,13 @@ QIcon TupColorPalette::setComboColor(const QColor &color) const
 void TupColorPalette::updateColorType(int index)
 {
     if (index == TupColorPalette::Solid) {
-        tFatal() << "TupColorPalette::updateColorType() - Solid Color!";
+        // tFatal() << "TupColorPalette::updateColorType() - Solid Color!";
         if (k->currentSpace == TDualColorButton::Foreground)
             k->fgType = Solid; 
         else
             k->bgType = Solid;
     } else {
-        tFatal() << "TupColorPalette::updateColorType() - Gradient Color!";
+        // tFatal() << "TupColorPalette::updateColorType() - Gradient Color!";
         if (k->currentSpace == TDualColorButton::Foreground) 
             k->fgType = Gradient;
         else

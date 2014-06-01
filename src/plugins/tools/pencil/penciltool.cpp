@@ -34,6 +34,8 @@
  ***************************************************************************/
 
 #include "penciltool.h"
+
+/*
 #include "tupinputdeviceinformation.h"
 #include "tupbrushmanager.h"
 #include "tupgraphicalgorithm.h"
@@ -45,6 +47,7 @@
 #include "taction.h"
 #include "talgorithm.h"
 #include "tconfig.h"
+*/
 
 struct PencilTool::Private
 {
@@ -58,7 +61,7 @@ struct PencilTool::Private
     TupGraphicsScene *scene;
 };
 
-PencilTool::PencilTool() : k(new Private)
+PencilTool::PencilTool() : TupToolPlugin(), k(new Private)
 {
     k->configurator = 0;
     k->item = 0;

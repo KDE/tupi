@@ -59,7 +59,7 @@ class QListWidgetItem;
  * @author Gustav Gonzalez 
 */
 
-class TUPI_EXPORT Configurator : public QFrame
+class TUPI_PLUGIN Configurator : public QFrame
 {
     Q_OBJECT
 

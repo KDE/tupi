@@ -214,7 +214,7 @@ void TweenerPanel::loadTweenComponents()
 
          switch(i)  {
                 case TweenerPanel::Position:
-                     tFatal() << "TweenerPanel::loadTweenComponents() - Opening Position gui";
+                     // tFatal() << "TweenerPanel::loadTweenComponents() - Opening Position gui";
                      k->positionPanel = new PositionSettings;
                      connect(k->positionPanel, SIGNAL(clickedApplyTween(TweenerPanel::TweenerType, const QString &)), 
                              this, SLOT(activateTweenersTable(TweenerPanel::TweenerType, const QString &)));  
@@ -281,7 +281,7 @@ void TweenerPanel::setParameters(const QString &name, int framesTotal, int start
 
 void TweenerPanel::setParameters(TupItemTweener *currentTween)
 {
-    tFatal() << "TweenerPanel::setParameters() - Loading Tween: " << currentTween->name();
+    // tFatal() << "TweenerPanel::setParameters() - Loading Tween: " << currentTween->name();
 
     k->currentTweenIndex = -1;
 
@@ -292,7 +292,7 @@ void TweenerPanel::setParameters(TupItemTweener *currentTween)
 
     for (int i=0; i < 6; i++) {
          if (currentTween->contains(TupItemTweener::Type(i))) {
-             tFatal() << "TweenerPanel::setParameters() - Tween contains: " << i;
+             // tFatal() << "TweenerPanel::setParameters() - Tween contains: " << i;
              k->tweenerTable->checkTween(i, true);
              switch(i) {
                     case 0:
@@ -350,7 +350,7 @@ void TweenerPanel::showTweenSettings(int tweenType)
     activeButtonsPanel(false);
     activeTweenComponent(tweenType, true);
 
-    tFatal() << "TweenerPanel::showTweenSettings() - Opening tween: " << tweenType;
+    // tFatal() << "TweenerPanel::showTweenSettings() - Opening tween: " << tweenType;
     emit tweenPropertiesActivated(TweenerPanel::TweenerType(tweenType));
 }
 
@@ -371,7 +371,7 @@ void TweenerPanel::activateTweenersTable(TweenerPanel::TweenerType type, const Q
 
 void TweenerPanel::updateTweenersTable(TweenerPanel::Mode mode)
 {
-    tFatal() << "TweenerPanel::updateTweenersTable() - Just tracing!"; 
+    // tFatal() << "TweenerPanel::updateTweenersTable() - Just tracing!"; 
 
     k->editMode = TweenerPanel::TweenList;
 
@@ -408,7 +408,7 @@ int TweenerPanel::startComboSize()
 
 void TweenerPanel::applyTween()
 {
-    tFatal() << "TweenerPanel::applyTween() - Just tracing!";
+    // tFatal() << "TweenerPanel::applyTween() - Just tracing!";
     setEditMode();
 
     emit clickedApplyTween();
@@ -443,11 +443,10 @@ QString TweenerPanel::tweenToXml(int currentFrame, QPointF point)
 
    QDomElement settings = doc.createElement("settings");
 
-   tFatal() << "TweenerPanel::tweenToXml() - Tweener List Size: " << k->tweenerList.size();
+   // tFatal() << "TweenerPanel::tweenToXml() - Tweener List Size: " << k->tweenerList.size();
 
    for (int i=0; i < k->tweenerList.size(); i++) {
-
-        tFatal() << "TweenerPanel::tweenToXml() - tweenerList: " << k->tweenerList.at(i);
+        // tFatal() << "TweenerPanel::tweenToXml() - tweenerList: " << k->tweenerList.at(i);
 
         if (k->tweenerList.at(i) == TweenerPanel::Position) {
             QDomElement position = doc.createElement("position");
@@ -465,8 +464,8 @@ QString TweenerPanel::tweenToXml(int currentFrame, QPointF point)
 
    doc.appendChild(tweening);
 
-   tFatal() << "LOOK THIS";
-   tFatal() << doc.toString();
+   // tFatal() << "LOOK THIS";
+   // tFatal() << doc.toString();
 
    return doc.toString();
 

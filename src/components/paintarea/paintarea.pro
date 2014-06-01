@@ -1,3 +1,4 @@
+QT += opengl core gui svg xml network
 QT += multimedia multimediawidgets printsupport
 
 INSTALLS += target
@@ -70,6 +71,9 @@ SOURCES += tuppaintarea.cpp \
 TEMPLATE = lib
 TARGET = tupipaintarea
 
+SHELL_DIR = ../../shell/
+INCLUDEPATH += $$SHELL_DIR
+
 PLUGIN_DIR = ../../plugins/export/genericexportplugin
 INCLUDEPATH += $$PLUGIN_DIR
 
@@ -79,13 +83,23 @@ INCLUDEPATH += $$SELECTION_DIR
 POLYLINE_DIR = ../../plugins/tools/polyline
 INCLUDEPATH += $$POLYLINE_DIR
 
-INCLUDEPATH += ../../libbase
-INCLUDEPATH += ../../store
-INCLUDEPATH += ../../libtupi
-LIBS += -L../../libbase
-LIBS += -L../../store
-LIBS += -L../../libtupi
-
 FRAMEWORK_DIR = "../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
-include(../components_config.pri)
+
+unix {
+    include(../components_config.pri)
+}
+
+win32 {
+    STORE_DIR = ../../store/
+    INCLUDEPATH += $$STORE_DIR
+    LIBS += -L$$STORE_DIR/release/ -ltupistore
+
+	LIBBASE_DIR = ../../libbase/
+    INCLUDEPATH += $$LIBBASE_DIR
+    LIBS += -L$$LIBBASE_DIR/release/ -ltupibase
+
+	LIBTUPI_DIR = ../../libtupi/
+    INCLUDEPATH += $$LIBTUPI_DIR
+    LIBS += -L$$LIBTUPI_DIR/release/ -ltupi 
+}

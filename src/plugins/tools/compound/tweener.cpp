@@ -132,7 +132,7 @@ void Tweener::init(TupGraphicsScene *scene)
 void Tweener::updateStartPoint(int index)
 {
     if (k->startPoint != index && index >= 0) {
-        tFatal() << "Tweener::updateStartPoint() - New Start Point: " << k->startPoint;
+        // tFatal() << "Tweener::updateStartPoint() - New Start Point: " << k->startPoint;
         k->startPoint = index;
     }
 }
@@ -166,8 +166,10 @@ void Tweener::press(const TupInputDeviceInformation *input, TupBrushManager *bru
                 k->path->setPath(path);
             }
         } else {
+		#ifdef K_DEBUG
             tFatal() << "Tweener::press() - No position!";
-        }
+        #endif
+		}
     } 
 }
 
@@ -225,7 +227,9 @@ void Tweener::release(const TupInputDeviceInformation *input, TupBrushManager *b
                     }
                 }
             } else {
+			#ifdef K_DEBUG
                 tFatal() << "Tweener::release() - No position!";
+			#endif
             }
 
         } else {
@@ -332,7 +336,7 @@ void Tweener::aboutToChangeTool()
     } else if (k->editMode == TweenerPanel::TweenProperties) {
         if (k->currentTweenType == TweenerPanel::Position) {
             if (k->path) {
-                tFatal() << "Tweener::aboutToChangeTool() - Removing path!";
+                // tFatal() << "Tweener::aboutToChangeTool() - Removing path!";
                 k->scene->removeItem(k->path);
                 k->pathAdded = false;
                 delete k->group;
@@ -429,7 +433,7 @@ void Tweener::setSelect()
 
 void Tweener::applyReset()
 {
-    tFatal() << "Tweener::applyReset() - Fire in the hole!";
+    // tFatal() << "Tweener::applyReset() - Fire in the hole!";
 
     k->mode = TweenerPanel::View;
     k->editMode = TweenerPanel::None;
@@ -466,15 +470,15 @@ void Tweener::applyTween()
     }
     */
 
+	/*
     if (!k->scene->scene()->tweenExists(name, TupItemTweener::Compound))
         tFatal() << "Tweener::applyTween() - Tween " << name << " is NEW!!!"; 
     else
         tFatal() << "Tweener::applyTween() - Tween " << name << " is NOT NEW!!!";
+	*/
   
     if (!k->scene->scene()->tweenExists(name, TupItemTweener::Compound)) {
-
         foreach (QGraphicsItem *item, k->objects) {   
-
                  TupLibraryObject::Type type = TupLibraryObject::Item;
                  int objectIndex = k->scene->currentFrame()->indexOf(item); 
                  QRectF rect = item->sceneBoundingRect();
@@ -489,11 +493,11 @@ void Tweener::applyTween()
                          point = item->pos();
                  }
 
-                 tFatal() << "Tweener::applyTween() - Point 1: [" << point.x() << ", " << point.y() << "]";
+                 // tFatal() << "Tweener::applyTween() - Point 1: [" << point.x() << ", " << point.y() << "]";
                  QDomDocument dom;
                  dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
-                 tFatal() << "";
-                 tFatal() << "Tweener::applyTween() - " << dom.toString();
+                 // tFatal() << "";
+                 // tFatal() << "Tweener::applyTween() - " << dom.toString();
 
                  TupProjectRequest request = TupRequestBuilder::createItemRequest(
                                             k->scene->currentSceneIndex(),
@@ -522,9 +526,7 @@ void Tweener::applyTween()
                                                                         k->scene->currentLayerIndex(),
                                                                         k->startPoint, TupProjectRequest::Select, "1");
         emit requested(&request);
-
     } else {
-
         removeTweenFromProject(name);
         QList<QGraphicsItem *> newList;
 
@@ -552,9 +554,11 @@ void Tweener::applyTween()
                      QDomDocument dom;
                      dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
 
+					 /*
                      tFatal() << "Tweener::applyTween() - Point 2: [" << point.x() << ", " << point.y() << "]";
                      tFatal() << "";
                      tFatal() << "Tweener::applyTween() - " << dom.toString();
+					 */
 
                      TupProjectRequest request = TupRequestBuilder::createItemRequest(k->scene->currentSceneIndex(), 
                                                                                     k->scene->currentLayerIndex(), 
@@ -639,9 +643,9 @@ void Tweener::updateScene(TupGraphicsScene *scene)
 {
     k->mode = k->configurator->mode();
 
-    if (k->mode == TweenerPanel::Edit) {
+    if(k->mode == TweenerPanel::Edit) {
 
-       tFatal() << "Tweener::updateScene() - Mode: TweenerPanel::Edit";
+       // tFatal() << "Tweener::updateScene() - Mode: TweenerPanel::Edit";
 
        int total = k->startPoint + k->configurator->totalSteps();
 
@@ -664,7 +668,7 @@ void Tweener::updateScene(TupGraphicsScene *scene)
 
     } else if (k->mode == TweenerPanel::Add) {
 
-               tFatal() << "Tweener::updateScene() - Mode: TweenerPanel::Add";
+               // tFatal() << "Tweener::updateScene() - Mode: TweenerPanel::Add";
 
                int total = framesTotal();
 
@@ -676,7 +680,6 @@ void Tweener::updateScene(TupGraphicsScene *scene)
                }
 
                if (k->editMode == TweenerPanel::TweenProperties) {
-
                    if (k->currentTweenType == TweenerPanel::Position)
                        k->path = 0;
 
@@ -684,9 +687,7 @@ void Tweener::updateScene(TupGraphicsScene *scene)
 
                    clearSelection();
                    k->configurator->activateMode(TweenerPanel::Selection);
-
                } else if (k->editMode == TweenerPanel::Selection) {
-
                           if (k->currentTweenType == TweenerPanel::Position)                       
                               k->path = 0;
 
@@ -695,18 +696,15 @@ void Tweener::updateScene(TupGraphicsScene *scene)
                               k->startPoint = scene->currentFrameIndex();
                               setSelect();
                           }
-
                } else if (k->editMode == TweenerPanel::TweenList) {
-
                           if (scene->currentFrameIndex() != k->startPoint) {
                               k->startPoint = scene->currentFrameIndex(); 
                               clearSelection();
                               k->configurator->activateMode(TweenerPanel::Selection);
                           }
                }
-
     } else {
-             tFatal() << "Tweener::updateScene() - Mode: TweenerPanel::View";
+             // tFatal() << "Tweener::updateScene() - Mode: TweenerPanel::View";
 
              if (scene->currentFrameIndex() != k->startPoint) {
                  k->configurator->setStartFrame(scene->currentFrameIndex());
@@ -758,7 +756,7 @@ void Tweener::removeTween(const QString &name)
 
 void Tweener::setCurrentTween(const QString &name)
 {
-    tFatal() << "Tweener::setCurrentTween(Tweener::setCurrentTween() - Updating tweener: " << name;
+    // tFatal() << "Tweener::setCurrentTween(Tweener::setCurrentTween() - Updating tweener: " << name;
 
     TupScene *scene = k->scene->scene();
     k->currentTween = scene->tween(name, TupItemTweener::Compound);
@@ -769,7 +767,7 @@ void Tweener::setCurrentTween(const QString &name)
 
 void Tweener::setEditEnv()
 {
-    tFatal() << "void Tweener::setEditEnv() - Just tracing!!!";
+    // tFatal() << "void Tweener::setEditEnv() - Just tracing!!!";
 
     k->startPoint = k->currentTween->initFrame();
     if (k->startPoint != k->scene->currentFrameIndex()) {
@@ -788,8 +786,7 @@ void Tweener::setEditEnv()
     k->itemObjectReference = rect.center();
 
     if (k->currentTween->contains(TupItemTweener::Position)) {
-
-        tFatal() << "void Tweener::setEditEnv() - Adding path!";
+        // tFatal() << "void Tweener::setEditEnv() - Adding path!";
 
         k->path = k->currentTween->graphicsPath();
         k->path->setZValue(maxZValue());
@@ -853,15 +850,15 @@ void Tweener::disableSelection()
 
 void Tweener::updateCurrentTweenerType(TweenerPanel::TweenerType type)
 {
-    tFatal() << "updateCurrentTweenerType() - Just following type: " << type;
+    // tFatal() << "updateCurrentTweenerType() - Just following type: " << type;
     k->currentTweenType = type;
     k->editMode = TweenerPanel::TweenProperties;
 
     if (k->currentTweenType == TweenerPanel::Position) {
-        tFatal() << "Tweener::updateCurrentTweenerType() - Setting path!";
+        // tFatal() << "Tweener::updateCurrentTweenerType() - Setting path!";
         setCreatePath();
     } else  {
-        tFatal() << "Tweener::updateCurrentTweenerType() - Type is not Position!";
+        // tFatal() << "Tweener::updateCurrentTweenerType() - Type is not Position!";
     }
 }
 

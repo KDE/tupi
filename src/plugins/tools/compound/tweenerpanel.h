@@ -58,7 +58,7 @@
 
 class Configurator;
 
-class TUPI_EXPORT TweenerPanel : public QWidget 
+class TUPI_PLUGIN TweenerPanel : public QWidget 
 {
     Q_OBJECT
 

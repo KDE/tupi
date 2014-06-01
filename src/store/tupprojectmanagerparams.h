@@ -36,6 +36,8 @@
 #ifndef TUPPROJECTMANAGERPARAMS_H
 #define TUPPROJECTMANAGERPARAMS_H
 
+#include "tglobal.h"
+
 #include <QString>
 #include <QSize>
 #include <QColor>
@@ -44,7 +46,7 @@
  * @author David Cuadrado
 */
 
-class TupProjectManagerParams
+class TUPI_EXPORT TupProjectManagerParams
 {
     public:
         TupProjectManagerParams();

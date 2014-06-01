@@ -55,7 +55,7 @@
  * @author David Cuadrado
 */
 
-class TUPI_EXPORT TextConfigurator : public QWidget
+class TUPI_PLUGIN TextConfigurator : public QWidget
 {
     Q_OBJECT
 

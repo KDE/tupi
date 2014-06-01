@@ -65,7 +65,7 @@
  * @author Gustav Gonzalez 
 */
 
-class TUPI_EXPORT Settings : public QWidget 
+class TUPI_PLUGIN Settings : public QWidget 
 {
     Q_OBJECT
 
@@ -86,6 +86,7 @@ class TUPI_EXPORT Settings : public QWidget
         void notifySelection(bool flag);
         int startComboSize();
         void setInitialColor(QColor color);
+		void activateMode(TupToolPlugin::EditMode mode);
         QString tweenToXml(int currentScene, int currentLayer, int currentFrame);
 
     private slots:

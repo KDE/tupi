@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "settings.h"
-#include "tdebug.h"
 #include "tradiobuttongroup.h"
 #include "tupitemtweener.h"
 #include "tuptweenerstep.h"
@@ -42,14 +41,9 @@
 #include "tseparator.h"
 #include "tosd.h"
 
-#include <QLabel>
-#include <QLineEdit>
-#include <QBoxLayout>
-#include <QComboBox>
-#include <QSpinBox>
-#include <QDoubleSpinBox>
-#include <QCheckBox>
-#include <QDir>
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 struct Settings::Private
 {

@@ -405,11 +405,11 @@ void TupTimeLine::requestCommand(int action)
     int framePos = framesTable(scenePos)->lastFrameByLayer(layerPos) + 1;
 
     if (!requestFrameAction(action, framePos, layerPos, scenePos)) {
-        tFatal() << "TupTimeLine::requestCommand -> It isn't frame action";
+        // tFatal() << "TupTimeLine::requestCommand -> It isn't frame action";
         layerPos = layerManager(scenePos)->getLayerIndex()->rowCount();
         framePos = framesTable(scenePos)->lastFrameByLayer(layerPos);
         if (!requestLayerAction(action, layerPos, scenePos)) {
-            tFatal() << "TupTimeLine::requestCommand -> It isn't layer action";
+            // tFatal() << "TupTimeLine::requestCommand -> It isn't layer action";
             if (!requestSceneAction(action, scenePos)) {
                 #ifdef K_DEBUG
                     tFatal("timeline") << "Can't handle action";
@@ -676,4 +676,3 @@ void TupTimeLine::emitRequestChangeFrame(int sceneIndex, int layerIndex, int fra
                              TupProjectRequest::Select, "1");
     emit requestTriggered(&event);
 }
-

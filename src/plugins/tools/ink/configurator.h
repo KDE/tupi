@@ -54,7 +54,7 @@
  * @author Gustav Gonzalez 
 */
 
-class TUPI_EXPORT Configurator : public QWidget
+class TUPI_PLUGIN Configurator : public QWidget
 {
     Q_OBJECT
 

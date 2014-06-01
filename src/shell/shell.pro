@@ -1,5 +1,5 @@
-# src/shell/shell.pro
-
+QT += opengl core gui svg xml network
+QT += multimedia multimediawidgets printsupport
 QT += widgets
 
 macx {
@@ -25,7 +25,6 @@ macx {
 }
 
 unix:!mac {
-
     INSTALLS += tupidata \
                 launcher \
                 mime \
@@ -76,8 +75,8 @@ HEADERS += tupmainwindow.h \
            tupstatusbar.h \
            tupnewproject.h \
            # tupsplash.h \
-           tupcrashhandler.h \
-           tupcrashwidget.h \
+           # tupcrashhandler.h \
+           # tupcrashwidget.h \
            tupapplication.h \
            tuplocalprojectmanagerhandler.h
 
@@ -86,12 +85,19 @@ SOURCES += main.cpp \
            tupstatusbar.cpp \
            tupnewproject.cpp \
            # tupsplash.cpp \
-           tupcrashhandler.cpp \
-           tupcrashwidget.cpp \
+           # tupcrashhandler.cpp \
+           # tupcrashwidget.cpp \
            tupapplication.cpp \
            tupmainwindow_gui.cpp \
            tuplocalprojectmanagerhandler.cpp
 
+unix {
+    HEADERS += tupcrashhandler.h \
+               tupcrashwidget.h
+    SOURCES += tupcrashhandler.cpp \
+               tupcrashwidget.cpp 
+}
+		   		   
 CONFIG += warn_on
 TEMPLATE = app
 
@@ -116,10 +122,23 @@ linux-g {
 
 FRAMEWORK_DIR = ../framework
 include($$FRAMEWORK_DIR/framework.pri)
-include(shell_config.pri)
 
 unix {
     !include(../../tupiglobal.pri) {
         error("Please run configure first")
     }
 }
+
+win32 {
+    TARGET = tupi
+    DEFINES += VERSION=\\\"0.2\\\" CODE_NAME=\\\"Argentum\\\" REVISION=\\\"git04\\\"
+	DEFINES += K_DEBUG # Enable this line for debugging 
+    include(../../win.pri)
+	
+	INSTALLS += tupidata 
+	tupidata.target = data
+    tupidata.commands = copy -r data\* $(INSTALL_ROOT)/data
+    tupidata.path = $$PREFIX\data\
+}
+
+include(shell_config.pri)

@@ -87,7 +87,7 @@ void TweenerTable::showTweenSettings(int column, int row)
 {
     Q_UNUSED(column);
 
-    tFatal() << "TweenerTable::updatePath() - Row: " << row;
+    // tFatal() << "TweenerTable::updatePath() - Row: " << row;
     emit callTweenerSettings(row);
 }
 

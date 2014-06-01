@@ -36,6 +36,8 @@
 #ifndef TUPLUMINACEPICKER_H
 #define TUPLUMINACEPICKER_H
 
+#include "tglobal.h"
+
 #ifdef K_DEBUG
 #include "tdebug.h"
 #endif

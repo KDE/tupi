@@ -18,7 +18,9 @@ contains(DEFINES, HAVE_THEORA) {
 }
 
 # Experimental code
-SUBDIRS += apngplugin
+contains(DEFINES, HAVE_APNG) {
+         SUBDIRS += apngplugin
+}
 
 CONFIG += ordered warn_on 
 TEMPLATE = subdirs 

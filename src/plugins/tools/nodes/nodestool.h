@@ -77,7 +77,7 @@ class TupGraphicsScene;
  * @author Jorge Cuadrado
  */
 
-class TUPI_EXPORT NodesTool : public TupToolPlugin
+class TUPI_PLUGIN NodesTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "nodestool.json")

@@ -36,22 +36,24 @@
 #ifndef TUPITEMCONVERTER_H
 #define TUPITEMCONVERTER_H
 
+#include "tglobal.h"
+
 #ifdef K_DEBUG
 #include "tdebug.h"
 #endif
+
+#include <QAbstractGraphicsShapeItem>
 
 class TupPathItem;
 class TupEllipseItem;
 class TupRectItem;
 class TupLineItem;
 
-#include <QAbstractGraphicsShapeItem>
-
 /**
  * @author David Cuadrado
 */
 
-class TupItemConverter
+class TUPI_EXPORT TupItemConverter
 {
     private:
         TupItemConverter();

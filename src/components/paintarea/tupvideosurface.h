@@ -8,6 +8,7 @@
 #endif
 
 #include <QtGui>
+#include <QWidget>
 #include <QAbstractVideoSurface>
 #include <QVideoRendererControl>
 #include <QVideoSurfaceFormat>

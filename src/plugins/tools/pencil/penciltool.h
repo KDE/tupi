@@ -36,10 +36,23 @@
 #ifndef PENCILTOOL_H
 #define PENCILTOOL_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "settings.h"
 #include "tuppathitem.h"
 #include "tupprojectresponse.h"
+
+#include "tupinputdeviceinformation.h"
+#include "tupbrushmanager.h"
+#include "tupgraphicalgorithm.h"
+#include "tupgraphicsscene.h"
+#include "tuprequestbuilder.h"
+#include "tupprojectrequest.h"
+#include "tuplibraryobject.h"
+#include "tupellipseitem.h"
+#include "taction.h"
+#include "talgorithm.h"
+#include "tconfig.h"
 
 #include <QObject>
 #include <QSpinBox>
@@ -55,7 +68,7 @@
  * @author David Cuadrado
 */
 
-class TUPI_EXPORT PencilTool : public TupToolPlugin
+class TUPI_PLUGIN PencilTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "penciltool.json")

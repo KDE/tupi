@@ -36,16 +36,21 @@
 #ifndef SCALETWEENER_H
 #define SCALETWEENER_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "settings.h"
 #include "tupprojectresponse.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
 
 /**
  * @author Gustav Gonzalez 
  * 
 */
 
-class Tweener : public TupToolPlugin
+class TUPI_PLUGIN Tweener : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "scaletool.json")

@@ -36,12 +36,20 @@
 #ifndef TUPPAINTAREACONFIG_H
 #define TUPPAINTAREACONFIG_H
 
+#include "tglobal.h"
+#include "tcolorbutton.h"
+#include "tconfig.h"
+
 #ifdef K_DEBUG
 #include "tdebug.h"
 #endif
 
 #include <QWidget>
 #include <QSpinBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QLabel>
 
 class TColorButton;
 

@@ -238,7 +238,7 @@ void PositionSettings::closeTweenProperties()
     if (k->mode == TweenerPanel::Add)
         resetTween(); 
 
-    tFatal() << "PositionSettings::closeTweenProperties() - Mode: " << k->mode;
+    // tFatal() << "PositionSettings::closeTweenProperties() - Mode: " << k->mode;
 
     emit clickedCloseTweenProperties(k->mode);
 }

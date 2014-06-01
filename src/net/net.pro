@@ -1,3 +1,5 @@
+QT += opengl core gui svg xml network
+
 unix {
     !include(../../tupiglobal.pri) {
         error("Please configure first")

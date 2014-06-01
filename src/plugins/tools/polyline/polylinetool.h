@@ -36,6 +36,7 @@
 #ifndef POLYLINETOOL_H
 #define POLYLINETOOL_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
 #include "tuppathitem.h"
 #include "infopanel.h"
@@ -46,7 +47,7 @@
  * @author Jorge Cuadrado
  */
 
-class PolyLineTool : public TupToolPlugin
+class TUPI_PLUGIN PolyLineTool : public TupToolPlugin
 {    
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "polylinetool.json")

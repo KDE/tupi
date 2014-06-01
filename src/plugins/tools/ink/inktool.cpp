@@ -103,10 +103,12 @@ void InkTool::init(TupGraphicsScene *scene)
 
     if (k->widthVar < 1)
         k->widthVar = 1; 
-
+		
+    /*
     tError() << "InkTool::init() - thickness: " << thickness;
     tError() << "InkTool::init() - k->tolerance: " << k->tolerance;
     tError() << "InkTool::init() - k->widthVar: " << k->widthVar;
+	*/
 
     foreach (QGraphicsView * view, scene->views()) {
              view->setDragMode(QGraphicsView::NoDrag);
@@ -186,7 +188,7 @@ void InkTool::move(const TupInputDeviceInformation *input, TupBrushManager *brus
 
         k->item->setPath(k->path);
 
-        tError() << "InkTool::move() - Flag 1";
+        // tError() << "InkTool::move() - Flag 1";
 
         qreal slopeVar = abs(k->oldSlope - m);
         qreal distance = sqrt(pow(abs(currentPoint.x() - k->oldPos.x()), 2) + pow(abs(currentPoint.y() - k->oldPos.y()), 2));
@@ -194,7 +196,7 @@ void InkTool::move(const TupInputDeviceInformation *input, TupBrushManager *brus
         if ((k->dotsCounter > k->firstArrow) && ((k->dotsCounter % k->spacing == 0) || ((slopeVar >= 1) && (distance > 10)))) {
 
             if (k->arrowSize == -1) {
-                tError() << "InkTool::move() - Flag 3";
+                // tError() << "InkTool::move() - Flag 3";
                 qreal pow1 = pow(currentPoint.x() - k->firstPoint.x(), 2);
                 qreal pow2 = pow(currentPoint.y() - k->firstPoint.y(), 2); 
                 k->arrowSize = sqrt(pow1 + pow2);
@@ -211,16 +213,20 @@ void InkTool::move(const TupInputDeviceInformation *input, TupBrushManager *brus
             qreal y0;
             qreal x1;
             qreal y1;
-            bool isNAN = false;
+            // bool isNAN = false;
 
             if (m == 0) {
-                isNAN = true;
+                // isNAN = true;
                 pm = 100; 
             } else {
                 pm = (-1) * (1/m);
             } 
 
             #ifdef K_DEBUG
+			       bool isNAN = false;
+				   if (m == 0) {
+                       isNAN = true;
+					   
                    if (m == 100)
                        tError() << "InkTool::move() - M: NAN";
                    else
@@ -235,7 +241,6 @@ void InkTool::move(const TupInputDeviceInformation *input, TupBrushManager *brus
             qreal hypotenuse;
 
             if (fabs(pm) < 5) { // Line's slope is close to 0
-
                 int cutter = k->penWidth;
                 bool found = false;
                 qreal limit = 0;

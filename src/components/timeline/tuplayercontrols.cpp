@@ -295,7 +295,9 @@ void TupLayerControls::lockLayer(int position, bool locked)
 void TupLayerControls::setLocalRequest(int layerIndex, int column)
 {
     if (column == 0) {
+	#ifdef K_DEBUG
         tFatal() << "TupLayerControls::setLocalRequest -> Column 0!";
+	#endif
     }
 
     if (column == 1) {

@@ -61,7 +61,7 @@ class NodeManager;
  * @author Jorge Cuadrado 
 */
 
-class TUPI_EXPORT Node : public QObject, public QGraphicsItem
+class TUPI_PLUGIN Node : public QObject, public QGraphicsItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)

@@ -52,7 +52,7 @@
 /**
     @author David Cuadrado
 */
-class TUPI_EXPORT ImagePlugin : public TupExportPluginObject
+class TUPI_PLUGIN ImagePlugin : public TupExportPluginObject
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "imageplugin.json")

@@ -51,7 +51,7 @@
  * @author Gustav Gonzalez
 */
 
-class TUPI_EXPORT TweenerTable : public QWidget
+class TUPI_PLUGIN TweenerTable : public QWidget
 {
     Q_OBJECT
 

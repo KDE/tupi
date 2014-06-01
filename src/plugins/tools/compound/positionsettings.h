@@ -62,7 +62,7 @@ class TupItemTweener;
  * @author Gustav Gonzalez 
 */
 
-class TUPI_EXPORT PositionSettings : public QWidget 
+class TUPI_PLUGIN PositionSettings : public QWidget 
 {
     Q_OBJECT
 

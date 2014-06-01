@@ -1,3 +1,11 @@
+QT += opengl core gui svg xml network
+
+unix {
+    !include(../../../../tupiglobal.pri){
+        error("Please run configure first")
+    }
+}
+
 INSTALLS += target 
 target.path = /lib/ 
 
@@ -20,6 +28,7 @@ SOURCES += buttonspanel.cpp \
            stepsviewer.cpp \
            spinboxdelegate.cpp \
            target.cpp
+		   
 *:!macx {
     CONFIG += dll warn_on
 }
@@ -29,10 +38,17 @@ TARGET = tupiplugincommon
 
 FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
-include(./tools_config.pri)
 
 unix {
-    !include(../../../../tupiglobal.pri){
-        error("Please run configure first")
-    }
+    include(../tools_config.pri)
+}
+
+win32 {
+    STORE_DIR = ../../../store
+    LIBTUPI_DIR = ../../../libtupi
+    LIBBASE_DIR = ../../../libbase
+
+    include($$STORE_DIR/store.pri)
+    include($$LIBTUPI_DIR/libtupi.pri)
+    include($$LIBBASE_DIR/libbase.pri)
 }

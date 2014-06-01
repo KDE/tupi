@@ -57,7 +57,7 @@
  * 
 */
 
-class TUPI_EXPORT Tweener : public TupToolPlugin
+class TUPI_PLUGIN Tweener : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "opacitytool.json")

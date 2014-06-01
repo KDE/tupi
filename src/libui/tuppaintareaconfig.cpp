@@ -34,13 +34,6 @@
  ***************************************************************************/
 
 #include "tuppaintareaconfig.h"
-#include "tcolorbutton.h"
-#include "tconfig.h"
-
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QLabel>
 
 /**
  * This class handles the preferences dialog for the paint area settings.

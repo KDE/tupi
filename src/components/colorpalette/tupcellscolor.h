@@ -51,6 +51,7 @@
 #include <QApplication>
 #include <QPainter>
 #include <QMimeData>
+#include <QTextStream>
 
 /**
  * @author Jorge Cuadrado

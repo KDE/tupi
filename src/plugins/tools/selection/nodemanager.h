@@ -51,7 +51,7 @@
  * @author Jorge Cuadrado
 */
 
-class TUPI_EXPORT NodeManager : public QObject
+class TUPI_PLUGIN NodeManager : public QObject
 {
     Q_OBJECT
 

@@ -1,3 +1,5 @@
+QT += opengl core gui svg xml network
+
 INSTALLS += help 
 help.files += help 
 help.path = /data/ 
@@ -12,7 +14,8 @@ macx {
 HEADERS += tuphelpwidget.h \
            tuphelpbrowser.h 
 SOURCES += tuphelpwidget.cpp \
-           tuphelpbrowser.cpp 
+           tuphelpbrowser.cpp
+		   
 *:!macx{
     CONFIG += dll warn_on
 }
@@ -20,13 +23,23 @@ SOURCES += tuphelpwidget.cpp \
 TEMPLATE = lib
 TARGET = tupihelp
 
-INCLUDEPATH += ../../libbase
-INCLUDEPATH += ../../store
-INCLUDEPATH += ../../libtupi
-LIBS += -L../../libbase
-LIBS += -L../../store
-LIBS += -L../../libtupi
-
 FRAMEWORK_DIR = "../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
-include(../components_config.pri)
+
+unix {
+    include(../components_config.pri)
+}
+
+win32 {
+    STORE_DIR = ../../store/
+    INCLUDEPATH += $$STORE_DIR
+    LIBS += -L$$STORE_DIR/release/ -ltupistore
+
+	LIBBASE_DIR = ../../libbase/
+    INCLUDEPATH += $$LIBBASE_DIR
+    LIBS += -L$$LIBBASE_DIR/release/ -ltupibase
+
+	LIBTUPI_DIR = ../../libtupi/
+    INCLUDEPATH += $$LIBTUPI_DIR
+    LIBS += -L$$LIBTUPI_DIR/release/ -ltupi 
+}

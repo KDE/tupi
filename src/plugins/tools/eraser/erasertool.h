@@ -68,7 +68,7 @@ class TupPathItem;
  * @author David Cuadrado
 */
 
-class TUPI_EXPORT EraserTool : public TupToolPlugin
+class TUPI_PLUGIN EraserTool : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "erasertool.json")

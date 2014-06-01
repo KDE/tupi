@@ -1,5 +1,9 @@
-
 INCLUDEPATH += $$COMMON_DIR
 
-LIBS += -L$$COMMON_DIR -ltupiplugincommon
+unix {
+    LIBS += -L$$COMMON_DIR -ltupiplugincommon
+}
 
+win32 {
+    LIBS += -L$$COMMON_DIR/release/ -ltupiplugincommon
+}

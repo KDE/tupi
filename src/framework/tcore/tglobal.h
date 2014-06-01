@@ -47,11 +47,13 @@
 #define T_CORE_EXPORT Q_DECL_EXPORT
 #define T_SOUND_EXPORT Q_DECL_EXPORT
 #define TUPI_EXPORT Q_GUI_EXPORT
+#define TUPI_PLUGIN Q_DECL_EXPORT
 #else
 #define T_GUI_EXPORT
 #define T_CORE_EXPORT
 #define T_SOUND_EXPORT
 #define TUPI_EXPORT
+#define TUPI_PLUGIN
 #endif
 
 #define LIBRARY_DIR CONFIG_DIR+"/libraries"

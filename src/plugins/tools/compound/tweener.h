@@ -33,8 +33,8 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef POSITIONTWEENER_H
-#define POSITIONTWEENER_H
+#ifndef COMPOUNDTWEENER_H
+#define COMPOUNDTWEENER_H
 
 #include "tglobal.h"
 #include "tuptoolplugin.h"
@@ -60,7 +60,7 @@
  *
 */
 
-class TUPI_EXPORT Tweener : public TupToolPlugin
+class TUPI_PLUGIN Tweener : public TupToolPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "compoundtool.json")

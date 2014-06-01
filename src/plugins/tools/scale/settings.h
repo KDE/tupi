@@ -36,8 +36,22 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include "tglobal.h"
 #include "tuptoolplugin.h"
+
+#ifdef K_DEBUG
+#include "tdebug.h"
+#endif
+
 #include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QBoxLayout>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QDoubleSpinBox>
+#include <QCheckBox>
+#include <QDir>
 
 class TupItemTweener;
 
@@ -45,7 +59,7 @@ class TupItemTweener;
  * @author Gustav Gonzalez 
 */
 
-class Settings : public QWidget 
+class TUPI_PLUGIN Settings : public QWidget 
 {
     Q_OBJECT
 
@@ -70,7 +84,7 @@ class Settings : public QWidget
     private slots:
         void applyTween();
         void emitOptionChanged(int option);
-        void checkBottomLimit(int index);
+        // void checkBottomLimit(int index);
         void checkTopLimit(int index);
         void updateTotalSteps(const QString &text);
         void updateLoopCheckbox(int state);

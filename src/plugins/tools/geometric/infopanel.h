@@ -50,7 +50,7 @@
  * @author Gustav Gonzalez 
 */
 
-class TUPI_EXPORT InfoPanel : public QWidget
+class TUPI_PLUGIN InfoPanel : public QWidget
 {
     Q_OBJECT
 

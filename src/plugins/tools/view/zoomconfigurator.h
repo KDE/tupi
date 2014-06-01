@@ -51,12 +51,13 @@
 #include <QButtonGroup>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QTextEdit>
 
 /**
  * @author Jorge Cuadrado
 **/
 
-class TUPI_EXPORT ZoomConfigurator : public QWidget
+class TUPI_PLUGIN ZoomConfigurator : public QWidget
 {
     Q_OBJECT
 

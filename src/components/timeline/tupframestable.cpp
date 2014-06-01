@@ -182,9 +182,8 @@ bool TupFramesTableItem::isSound()
 {
     QVariant data = this->data(IsSound);
     
-    if (data.canConvert<bool>()) {
+    if (data.canConvert<bool>())
         return data.toBool();
-    }
 
     return false;
 }
@@ -280,11 +279,14 @@ void TupFramesTable::emitFrameSelected(QTableWidgetItem *current, QTableWidgetIt
     TupFramesTableItem *item = dynamic_cast<TupFramesTableItem *>(current);
     
     if (item) {
-        if (item->isUsed())
+        if (item->isUsed()) {
             emit emitRequestChangeFrame(k->sceneIndex, verticalHeader()->visualIndex(this->row(item)), this->column(item));
             // emit frameRequest(TupProjectActionBar::SelectFrame, this->column(item), verticalHeader()->visualIndex(this->row(item)), -1);
-        else
+        } else {
+		#ifdef K_DEBUG
             tFatal() << "TupFramesTable::emitFrameSelected <- item exists but isn't used right now";
+	    #endif
+	    }
     } else { 
         emit frameRequest(TupProjectActionBar::InsertFrame, currentColumn(), currentRow(), k->sceneIndex);
     }
@@ -357,7 +359,6 @@ void TupFramesTable::moveLayer(int position, int newPosition)
     blockSignals(false);
 
     /*
-    
      TupFramesTableItem *item1 = takeItem(position, 0);
      
      bool up = true;
@@ -499,4 +500,3 @@ void TupFramesTable::emitRequestSelectFrame(int currentRow, int currentColumn, i
          emit emitSelection(currentRow, currentColumn);
      }
 }
-

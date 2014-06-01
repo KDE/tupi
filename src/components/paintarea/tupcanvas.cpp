@@ -627,7 +627,7 @@ void TupCanvas::createLayer(int sceneIndex, int layerIndex)
     TupProjectRequest request = TupRequestBuilder::createLayerRequest(sceneIndex, layerIndex, TupProjectRequest::Add, tr("Layer %1").arg(layerIndex + 1));
     emit requestTriggered(&request);
 
-    tError() << "TupCanvas::createLayer() - Creating layer at [ " << sceneIndex << ", " << layerIndex << " ]";
+    // tError() << "TupCanvas::createLayer() - Creating layer at [ " << sceneIndex << ", " << layerIndex << " ]";
 
     int oneRow = k->scene->framesTotal();
     for(int i=0; i<oneRow; i++) {

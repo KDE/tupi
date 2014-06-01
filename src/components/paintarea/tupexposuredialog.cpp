@@ -171,7 +171,7 @@ void TupExposureDialog::goToScene(int column, int sceneIndex)
     #endif
     Q_UNUSED(column);
 
-    tError() << "TupExposureDialog::goToScene() - sceneIndex: " << sceneIndex;
+    // tError() << "TupExposureDialog::goToScene() - sceneIndex: " << sceneIndex;
 
     TupExposureScene *oldScene = k->sceneGroupList.at(k->currentScene);
     oldScene->hide();
@@ -192,7 +192,7 @@ void TupExposureDialog::goToScene(int column, int sceneIndex)
     TupExposureScene *sceneTable = k->sceneGroupList.at(sceneIndex);
     sceneTable->show();
     int newFramesTotal = sceneTable->framesTotal();
-    int newLayersTotal = sceneTable->layersTotal();
+    int newLayersTotal = sceneTable->layersTotal(); 
 
     emit goToScene(k->currentScene);
     emit goToFrame(sceneTable->currentFrame(), sceneTable->currentLayer(), k->currentScene);
@@ -218,7 +218,7 @@ void TupExposureDialog::refreshUI(int frame, int layer)
 
     k->currentLayer = layer;
 
-    tError() << "TupExposureDialog::refreshUI() - Going to frame -> " << frame;
+    // tError() << "TupExposureDialog::refreshUI() - Going to frame -> " << frame;
 
     emit goToFrame(frame, layer, k->currentScene);
 }
@@ -265,8 +265,8 @@ void TupExposureDialog::createScene()
     k->sceneColumn->addWidget(sceneButton);
     k->sceneList << sceneButton;
 
-    tError() << "TupExposureDialog::createScene() - Scenes Total: " << scene;
-    tError() << "TupExposureDialog::createScene() - Last index: " << oldIndex;
+    // tError() << "TupExposureDialog::createScene() - Scenes Total: " << scene;
+    // tError() << "TupExposureDialog::createScene() - Last index: " << oldIndex;
 
     TupExposureScene *sceneGroup = new TupExposureScene(tr("Scene") + " " + QString::number(scene), k->project->scene(scene-1), 0, 0);
     connect(sceneGroup, SIGNAL(updateUI(int, int)), this, SLOT(refreshUI(int, int)));

@@ -197,6 +197,11 @@ int Configurator::totalSteps()
     return k->settingsPanel->totalSteps();
 }
 
+void Configurator::activateMode(TupToolPlugin::EditMode mode)
+{
+    k->settingsPanel->activateMode(mode);
+}
+
 void Configurator::addTween(const QString &name)
 {
     activeTweenManagerPanel(false);

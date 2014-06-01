@@ -36,13 +36,14 @@
 #ifndef INFOPANEL_H
 #define INFOPANEL_H
 
+#include "tglobal.h"
 #include <QLabel>
 
 /**
  * @author Gustav Gonzalez 
 */
 
-class InfoPanel : public QWidget
+class TUPI_PLUGIN InfoPanel : public QWidget
 {
     Q_OBJECT
 
