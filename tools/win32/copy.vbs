@@ -11,15 +11,18 @@ End If
 
 fileSystem.CreateFolder tupiDir
 fileSystem.CreateFolder tupiDir & "\bin"
+fileSystem.CreateFolder tupiDir & "\bin\platforms"
 fileSystem.CreateFolder tupiDir & "\data"
 fileSystem.CreateFolder tupiDir & "\plugins"
 fileSystem.CreateFolder tupiDir & "\lib"
 fileSystem.CreateFolder tupiDir & "\lib\qt5"
 
+fileSystem.CopyFile "c:\Qt-5.3.0\5.3\mingw482_32\plugins\platforms\qwindows.dll", tupiDir & "\bin\platforms\qwindows.dll"
 fileSystem.CopyFile zlibDir & "\zlib1.dll", tupiDir & "\lib\zlib1.dll"
 fileSystem.CopyFile quazipDir & "\quazip.dll", tupiDir & "\lib\quazip.dll"
+fileSystem.CopyFile "c:\tupi\sources\tupi\tools\win32\tupi.iss", tupiDir & "\tupi.iss"
+fileSystem.CopyFile "c:\tupi\sources\tupi\tools\win32\tupi.ico", tupiDir & "\bin\tupi.ico"
 fileSystem.CopyFile sourceDir & "\shell\release\tupi.exe", tupiDir & "\bin\tupi.exe"
-fileSystem.CopyFile "c:\tupi\sources\tupi\tools\tupi.bat", tupiDir & "\bin\tupi.bat"
 fileSystem.CopyFile sourceDir & "\framework\tcore\release\tupifwcore.dll", tupiDir & "\lib\tupifwcore.dll"
 fileSystem.CopyFile sourceDir & "\framework\tgui\release\tupifwgui.dll", tupiDir & "\lib\tupifwgui.dll"
 fileSystem.CopyFile sourceDir & "\store\release\tupistore.dll", tupiDir & "\lib\tupistore.dll"
@@ -59,6 +62,7 @@ fileSystem.CopyFile sourceDir & "\plugins\tools\shear\release\tupisheartool.dll"
 fileSystem.CopyFile sourceDir & "\plugins\tools\text\release\tupitexttool.dll", tupiDir & "\plugins\tupitexttool.dll"
 fileSystem.CopyFile sourceDir & "\plugins\tools\view\release\tupiviewtool.dll", tupiDir & "\plugins\tupiviewtool.dll"
 fileSystem.CopyFile sourceDir & "\plugins\export\imageplugin\release\tupiimageplugin.dll", tupiDir & "\plugins\tupiimageplugin.dll"
+
 
 fileSystem.CopyFolder sourceDir & "\shell\data", tupiDir & "\data"
 fileSystem.CopyFolder sourceDir & "\components\help\help", tupiDir & "\data\help"
