@@ -34,16 +34,6 @@
  ***************************************************************************/
 
 #include "tupabout.h"
-#include "tglobal.h"
-
-#include <QFile>
-#include <QDomDocument>
-#include <QTextStream>
-#include <QPixmap>
-#include <QLabel>
-#include <QScrollArea>
-#include <QTextBrowser>
-#include <QDir>
 
 /**
  * This class defines the About dialog of Tupi.
@@ -75,6 +65,9 @@ TupAbout::TupAbout(QWidget *parent) : TabDialog(Cancel, parent)
 
     QDomDocument doc;
     QString creditsFile = DATA_DIR + "credits.xml";
+
+    tError() << "DATA_DIR: " << DATA_DIR;
+
     QFile file(creditsFile);
     QString creditsText;
 

@@ -36,9 +36,10 @@
 #ifndef TUPABOUT_H
 #define TUPABOUT_H
 
+#include "tglobal.h"
+#include "tapplicationproperties.h"
 #include "tabdialog.h"
 #include "tanimwidget.h"
-#include "tapplicationproperties.h"
 
 #ifdef K_DEBUG
 #include "tdebug.h"
@@ -47,6 +48,11 @@
 #include <QTextBrowser>
 #include <QLabel>
 #include <QPixmap>
+#include <QFile>
+#include <QDomDocument>
+#include <QTextStream>
+#include <QScrollArea>
+#include <QDir>
 
 /**
  * @brief Class that handles the about dialog box

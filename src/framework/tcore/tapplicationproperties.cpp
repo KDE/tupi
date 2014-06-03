@@ -141,7 +141,7 @@ QString TApplicationProperties::dataDir() const
         if (locale.length() < 2)
             locale = "en";
 
-        return k->shareDir + QDir::separator() + "data" + QDir::separator() + locale + QDir::separator();
+        return k->shareDir + QDir::separator() + "data" + QDir::separator() + "xml" + QDir::separator() + locale + QDir::separator();
     }
 
     return k->dataDir;
