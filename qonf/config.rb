@@ -118,6 +118,10 @@ class Config
             end
             f << $endl
 
+            if not @defines.empty?
+                f << "DEFINES += " << @defines.uniq.join(" ") << $endl
+            end
+
             if not @options.empty?
                f << "CONFIG += " << @options.uniq.join(" ") << $endl
             end

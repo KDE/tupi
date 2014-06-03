@@ -35,6 +35,10 @@ unix {
     LIBTUPI_DIR = ../../libtupi/
     INCLUDEPATH += $$LIBTUPI_DIR
     LIBS += -L$$LIBTUPI_DIR -ltupi
+
+    !include(../../../tupiglobal.pri) {
+             error("Run ./configure first!")
+    }
 }
 
 win32 {

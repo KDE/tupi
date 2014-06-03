@@ -165,7 +165,7 @@ void TCommandHistory::undoFromAction(QAction *a)
             m_redoMenu->addAction(m_actions[i]);
         } else {
 #ifdef K_DEBUG
-            tError() << "TCommandHistory::undoFromAction() - Error: History item not found!");
+            tError() << "TCommandHistory::undoFromAction() - Error: History item not found!";
 #endif
         }
     }

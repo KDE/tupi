@@ -55,17 +55,6 @@ class TupApplication : public TApplication
     public slots:
         /**
          * @if english
-         * Open a settings wizard the first time Tupi is launched
-         * @endif
-         * @if spanish
-         * Lanza un wizard de configuracion la primera vez que se inicia la aplicacion
-         * @endif
-         * @return true/false if the application has the settings file created
-         */
-         virtual bool firstRun();
-
-        /**
-         * @if english
          * Create a cache directory with the path defined at cacheDir variable
          * @endif
          * @if spanish

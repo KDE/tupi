@@ -299,9 +299,9 @@ TDebug::TDebug(const TDebug & k) : streamer(k.streamer), m_type(k.m_type), m_out
 
 TDebug::~TDebug()
 {
-    ::tDebugOutput(m_type, configReader.outputType, streamer->buffer.toLocal8Bit().data());
-
-    delete streamer;
+    // SQA: Check if these lines are really required
+    // ::tDebugOutput(m_type, configReader.outputType, streamer->buffer.toLocal8Bit().data());
+    // delete streamer;
 }
 
 void TDebug::setOutputChannel()

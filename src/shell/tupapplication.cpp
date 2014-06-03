@@ -54,42 +54,8 @@ TupApplication::TupApplication(int &argc, char **argv) : TApplication(argc, argv
 TupApplication::~TupApplication()
 {
     #ifdef K_DEBUG
-           qDebug("[Destroying ~TupApplication]");
+           tDebug("[Destroying ~TupApplication]");
     #endif
-}
-
-bool TupApplication::firstRun()
-{
-    /*
-    QDesktopWidget *screen = QApplication::desktop();
-    int screenW = screen->width();     // returns desktop width
-    int screenH = screen->height();    // returns desktop height
-
-    ConfigWizard *firstDialog = new ConfigWizard();
-    QRect size = firstDialog->frameGeometry();
-    int configH = size.height();
-    int configW = size.width(); 
-    firstDialog->move((screenW-configW)/2, (screenH-configH)/2);
-
-    QApplication::setActiveWindow(firstDialog);
-
-    if (firstDialog->exec() != QDialog::Rejected) {
-        kAppProp->setHomeDir(firstDialog->home());
-        createCache(firstDialog->cache());
-
-        TCONFIG->beginGroup("General");
-        TCONFIG->setValue("Home", HOME_DIR);
-        TCONFIG->setValue("Cache", CACHE_DIR);
-        TCONFIG->sync();
-
-        delete firstDialog;
-
-        return true;
-    }
-    delete firstDialog;
-    */
-
-    return false;
 }
 
 void TupApplication::createCache(const QString &cacheDir)
