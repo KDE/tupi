@@ -6,6 +6,10 @@ unix {
     }
 }
 
+win32 {
+    include(../../../../win.pri)
+}
+
 INSTALLS += target
 target.path = /lib/
 
@@ -32,18 +36,12 @@ SOURCES += talgorithm.cpp \
            tipdatabase.cpp \
            txmlparserbase.cpp
 
-DEFINES += K_DEBUG
-		   
-#unix {
+unix {
     contains(DEFINES, K_DEBUG) {
         HEADERS += tdebug.h
         SOURCES += tdebug.cpp
-
-        win32 {
-	        CONFIG += console
-        }
-	}
-#}
+    }
+}
 
 *:!macx{
     CONFIG += warn_on dll

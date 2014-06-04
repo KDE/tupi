@@ -1,2 +1,5 @@
-LIBS += -LC:/Quazip/lib/ -lquazip
-INCLUDEPATH += C:\Quazip\include\quazip
+DEFINES += K_DEBUG
+
+contains(DEFINES, K_DEBUG) {
+    CONFIG += console
+}

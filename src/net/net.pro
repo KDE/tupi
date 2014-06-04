@@ -6,6 +6,10 @@ unix {
     }
 }
 
+win32 {
+    include(../../win.pri)
+}
+
 INSTALLS += target
 target.path = /lib/
 

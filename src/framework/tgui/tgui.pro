@@ -6,11 +6,8 @@ unix {
     }
 }
 
-DEFINES += K_DEBUG
-contains(DEFINES, K_DEBUG) {
-         win32 {
-	        CONFIG += console
-         }
+win32 {
+    include(../../../../win.pri)
 }
 
 INSTALLS += target

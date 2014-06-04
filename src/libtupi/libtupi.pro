@@ -7,6 +7,7 @@ unix {
 }
 
 win32 {
+    include(../../quazip.win.pri)
     include(../../win.pri)
 }
 
@@ -69,6 +70,3 @@ TARGET = tupi
 
 FRAMEWORK_DIR = "../framework"
 include($$FRAMEWORK_DIR/framework.pri)
-
-# QUAZIP_DIR = "../../3rdparty/quazip/"
-# include($$QUAZIP_DIR/quazip.pri)

@@ -7,6 +7,7 @@ unix {
 }
 
 win32 {
+    include(../../quazip.win.pri)
     include(../../win.pri)
 }
 

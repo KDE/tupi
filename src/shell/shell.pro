@@ -66,11 +66,6 @@ unix:!mac {
     TARGET = ../../bin/tupi.bin
 }
 
-# TRANSLATIONS += data/translations/tupi_es.ts \
-#                 data/translations/tupi_ca.ts \
-#                 data/translations/tupi_ru.ts \
-#                 data/translations/tupi_cs.ts
-
 HEADERS += tupmainwindow.h \
            tupstatusbar.h \
            tupnewproject.h \
@@ -131,10 +126,9 @@ unix {
 
 win32 {
     TARGET = tupi
-	DEFINES += K_DEBUG
-	CONFIG += console
     DEFINES += VERSION=\\\"0.2\\\" CODE_NAME=\\\"Argentum\\\" REVISION=\\\"git04\\\"
     include(../../win.pri)
+    include(../../quazip.win.pri)
 }
 
 include(shell_config.pri)

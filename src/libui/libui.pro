@@ -7,9 +7,8 @@ unix {
 }
 
 win32 {
+    include(../../quazip.win.pri)
     include(../../win.pri)
-    DEFINES += K_DEBUG
-    CONFIG += console
 }
 
 INSTALLS += images images-en 

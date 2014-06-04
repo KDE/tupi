@@ -42,6 +42,8 @@ unix {
 }
 
 win32 {
+    include(../../../win.pri)
+
     STORE_DIR = ../../store/
     INCLUDEPATH += $$STORE_DIR
     LIBS += -L$$STORE_DIR/release/ -ltupistore

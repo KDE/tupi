@@ -29,3 +29,7 @@ unix {
         error("Please run configure first")
     }
 }
+
+win32 {
+    include(../../../../win.pri)
+}
