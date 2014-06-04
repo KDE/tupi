@@ -8,6 +8,8 @@ unix {
 
 win32 {
     include(../../win.pri)
+    DEFINES += K_DEBUG
+    CONFIG += console
 }
 
 INSTALLS += images images-en 

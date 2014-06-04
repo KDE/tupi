@@ -131,8 +131,9 @@ unix {
 
 win32 {
     TARGET = tupi
+	DEFINES += K_DEBUG
+	CONFIG += console
     DEFINES += VERSION=\\\"0.2\\\" CODE_NAME=\\\"Argentum\\\" REVISION=\\\"git04\\\"
-	DEFINES += K_DEBUG # Enable this line for debugging 
     include(../../win.pri)
 }
 

@@ -34,6 +34,7 @@
  ***************************************************************************/
 
 #include "tupabout.h"
+#include <QDebug>
 
 /**
  * This class defines the About dialog of Tupi.
@@ -43,9 +44,11 @@
 
 TupAbout::TupAbout(QWidget *parent) : TabDialog(Cancel, parent)
 {
-    setWindowIcon(QIcon(THEME_DIR + "icons" + QDir::separator() + "about.png"));
+    // SQA: Check if these instructions are doing something for real
+	setWindowIcon(QIcon(THEME_DIR + "icons" + QDir::separator() + "about.png"));
     setWindowTitle(tr("About Tupi"));
-    setFixedSize(525, 458);
+    
+	setFixedSize(525, 458);
 
     QStringList path;
     QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
@@ -66,6 +69,14 @@ TupAbout::TupAbout(QWidget *parent) : TabDialog(Cancel, parent)
     QDomDocument doc;
     QString creditsFile = DATA_DIR + "credits.xml";
 
+	#ifdef K_DEBUG
+	    #ifdef Q_OS_WIN32
+	           qDebug() << "Tracing DATA_DIR: " << DATA_DIR;
+	    #else
+               tError() << "Tracing DATA_DIR: " << DATA_DIR;
+		#endif
+    #endif
+		
     QFile file(creditsFile);
     QString creditsText;
 
