@@ -57,6 +57,10 @@ class TUPI_EXPORT TupDebugWidget : public TupModuleWidgetBase
     public:
         TupDebugWidget(QWidget *parent = 0, int width = 0);
         ~TupDebugWidget();
+        void setProjectStatus(bool status);
+
+    private:
+        TupDebugTerm *term;
 };
 
 #endif

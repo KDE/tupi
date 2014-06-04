@@ -123,11 +123,11 @@ int main(int argc, char ** argv)
     if (locale.length() < 2)
         locale = "en";
 
-    QDir dir(kAppProp->shareDir() + "data" + slash + locale + slash);
+    QDir dir(kAppProp->shareDir() + "data" + slash + "xml" + slash + locale + slash);
     if (! dir.exists())
-        kAppProp->setDataDir(kAppProp->shareDir() + "data" + slash + "en" + slash);
+        kAppProp->setDataDir(kAppProp->shareDir() + "data" + slash + "xml" + slash + "en" + slash);
     else
-        kAppProp->setDataDir(kAppProp->shareDir() + "data" + slash + locale + slash);
+        kAppProp->setDataDir(kAppProp->shareDir() + "data" + slash + "xml" + slash + locale + slash);
 
     kAppProp->setThemeDir(kAppProp->shareDir() + "themes" + slash + "default" + slash);
 

@@ -66,8 +66,6 @@ TupAbout::TupAbout(QWidget *parent) : TabDialog(Cancel, parent)
     QDomDocument doc;
     QString creditsFile = DATA_DIR + "credits.xml";
 
-    tError() << "DATA_DIR: " << DATA_DIR;
-
     QFile file(creditsFile);
     QString creditsText;
 

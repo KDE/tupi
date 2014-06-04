@@ -49,7 +49,7 @@ TupDebugWidget::TupDebugWidget(QWidget *parent, int width) : TupModuleWidgetBase
 
     setFixedHeight(120);
 
-    TupDebugTerm *term = new TupDebugTerm(this, width);
+    term = new TupDebugTerm(this, width);
     addChild(term);
 }
 
@@ -59,3 +59,11 @@ TupDebugWidget::~TupDebugWidget()
            TEND;
     #endif
 }
+
+void TupDebugWidget::setProjectStatus(bool status)
+{
+    #ifdef K_DEBUG
+           term->setProjectStatus(status);
+    #endif
+}
+

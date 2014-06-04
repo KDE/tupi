@@ -59,6 +59,7 @@ class TUPI_EXPORT TupDebugTerm : public QWidget
     public:
         TupDebugTerm(QWidget *parent = 0, int width = 0);
         ~TupDebugTerm();
+        void setProjectStatus(bool status);
 
     private:
         QTextEdit *debugBrowser;

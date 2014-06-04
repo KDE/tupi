@@ -22,7 +22,6 @@ macx {
 HEADERS += talgorithm.h \
            tapplicationproperties.h \
            tconfig.h \
-           tdebug.h \
            tglobal.h \
            tipdatabase.h \
            txmlparserbase.h
@@ -30,9 +29,14 @@ HEADERS += talgorithm.h \
 SOURCES += talgorithm.cpp \
            tapplicationproperties.cpp \
            tconfig.cpp \
-           tdebug.cpp \
            tipdatabase.cpp \
            txmlparserbase.cpp
+
+contains(DEFINES, K_DEBUG) {
+    HEADERS += tdebug.h
+    SOURCES += tdebug.cpp
+}
+
 
 *:!macx{
     CONFIG += warn_on dll

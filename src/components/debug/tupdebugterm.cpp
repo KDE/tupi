@@ -52,3 +52,10 @@ TupDebugTerm::~TupDebugTerm()
            TEND;
     #endif
 }
+
+void TupDebugTerm::setProjectStatus(bool status)
+{
+    #ifdef K_DEBUG
+           TDebug::setProjectStatus(status);     
+    #endif
+}

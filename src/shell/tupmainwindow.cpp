@@ -402,6 +402,9 @@ void TupMainWindow::newProject()
             setupLocalProject(wizard->parameters());
             createNewLocalProject();
         }
+#if defined(QT_GUI_LIB) && defined(K_DEBUG)
+    m_debug->setProjectStatus(true); 
+#endif
     }
 
     delete wizard;
@@ -588,6 +591,10 @@ void TupMainWindow::resetUI()
     m_projectManager->closeProject();
 
     resetMousePointer();
+
+#if defined(QT_GUI_LIB) && defined(K_DEBUG)
+    m_debug->setProjectStatus(false);
+#endif
 }
 
 /**

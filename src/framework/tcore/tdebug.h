@@ -373,7 +373,7 @@ class T_CORE_EXPORT TDebug
         
         // static QTextBrowser *browser(QWidget *parent, int width);
         static QTextEdit *browser(QWidget *parent, int width);
-
+        static void setProjectStatus(bool status);
 #endif
   
         template <class T> TDebug& operator << ( const QList<T> &list );
