@@ -42,7 +42,6 @@
 
 #include "tupnetprojectmanagerparams.h"
 #include "tupprojectresponse.h"
-#include "tdebug.h"
 #include "tosd.h"
 #include "tupprojectcommand.h"
 #include "tupcommandexecutor.h"
@@ -69,10 +68,6 @@
 #include "tuplistprojectdialog.h"
 #include "tupchat.h"
 #include "tupnotice.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QDomDocument>
 #include <QTabWidget>

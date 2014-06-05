@@ -41,10 +41,6 @@
 #include "settings.h"
 #include "tupprojectresponse.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QPointF>
 #include <QKeySequence>
 #include <QMatrix>

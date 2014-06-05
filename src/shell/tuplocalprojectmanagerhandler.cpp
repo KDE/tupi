@@ -37,10 +37,6 @@
 #include "tupprojectrequest.h"
 #include "tupprojectcommand.h"
 #include "tupfilemanager.h"
-#include "tdebug.h"
-
-#include <QDomDocument>
-#include <QDomElement>
 
 /**
  * This class handles all the procedures related to the projects local format for Tupi.

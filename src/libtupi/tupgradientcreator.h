@@ -45,10 +45,6 @@
 #include "tcirclebutton.h"
 #include "txyspinbox.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QFrame>
 #include <QComboBox>
 #include <QBoxLayout>

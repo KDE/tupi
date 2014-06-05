@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "ticon.h"
-#include "tdebug.h"
 
 struct TIcon::Private
 {

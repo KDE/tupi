@@ -50,10 +50,6 @@
 #include "tupprojectrequest.h"
 #include "tupbrushmanager.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
 #include <QLabel>
 #include <QGraphicsView>

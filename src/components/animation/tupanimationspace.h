@@ -36,11 +36,8 @@
 #ifndef TUPWORKSPACE_H
 #define TUPWORKSPACE_H
 
+#include "tglobal.h"
 #include "tupcamerawidget.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QMainWindow>
 #include <QMouseEvent>

@@ -36,17 +36,13 @@
 #ifndef TAPPLICATION_H
 #define TAPPLICATION_H
 
+#include "tglobal.h"
 #include "themedocument.h"
 #include "thememanager.h"
 #include "tvhbox.h"
 #include "twizard.h"
 #include "tconfig.h"
-#include "tglobal.h"
 #include "tactionmanager.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QApplication>
 #include <QMap>

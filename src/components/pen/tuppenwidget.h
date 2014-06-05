@@ -43,10 +43,6 @@
 #include "tuppaintareaevent.h"
 #include "tuppenthicknesswidget.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QPen>
 #include <QListWidgetItem>
 #include <QComboBox>

@@ -36,14 +36,10 @@
 #ifndef TCONFIGURATIONDIALOG_H
 #define TCONFIGURATIONDIALOG_H
 
+#include "tglobal.h"
 #include "twidgetlistview.h"
 #include "tflatbutton.h"
-#include "tglobal.h"
 #include "tseparator.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QDialog>
 #include <QMap>

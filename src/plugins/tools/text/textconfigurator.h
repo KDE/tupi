@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tfontchooser.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QLineEdit>
 #include <QFont>

@@ -4,10 +4,6 @@
 #include "tglobal.h"
 #include "tupvideosurface.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QtGui>
 #include <QWidget>
 #include <QMessageBox>

@@ -36,8 +36,6 @@
 #include "tweener.h"
 #include "configurator.h"
 // #include "target.h"
-#include "tglobal.h"
-#include "tdebug.h"
 #include "taction.h"
 #include "tosd.h"
 #include "tupinputdeviceinformation.h"

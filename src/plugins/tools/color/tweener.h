@@ -62,10 +62,6 @@
 #include "tupscene.h"
 #include "tuplayer.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QPointF>
 #include <QKeySequence>
 #include <QMatrix>

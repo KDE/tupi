@@ -40,10 +40,6 @@
 #include "tviewbutton.h"
 #include "tmainwindow.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDockWidget>
 #include <QIcon>
 #include <QKeySequence>

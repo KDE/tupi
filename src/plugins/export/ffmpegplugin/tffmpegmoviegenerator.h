@@ -36,6 +36,7 @@
 #ifndef TFFMPEGMOVIEGENERATOR_H
 #define TFFMPEGMOVIEGENERATOR_H
 
+#include "tglobal.h"
 #include "tmoviegenerator.h"
 
 /**

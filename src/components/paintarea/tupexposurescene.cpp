@@ -36,7 +36,6 @@
 #include "tupexposurescene.h"
 #include "tpushbutton.h"
 #include "tuplayer.h"
-#include "tdebug.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>

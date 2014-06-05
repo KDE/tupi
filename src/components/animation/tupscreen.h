@@ -45,10 +45,6 @@
 #include "tupanimationrenderer.h"
 #include "tupsoundlayer.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QImage>
 #include <QPainter>
 #include <QPaintEvent>

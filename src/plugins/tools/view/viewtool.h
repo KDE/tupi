@@ -41,10 +41,6 @@
 #include "zoomconfigurator.h"
 #include "tupgraphicsscene.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
 #include <QLabel>
 #include <QGraphicsRectItem>

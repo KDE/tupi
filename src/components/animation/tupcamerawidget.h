@@ -48,10 +48,6 @@
 #include "tupcamerabar.h"
 #include "tupcamerastatus.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QMainWindow>
 #include <QFrame>
 #include <QLabel>

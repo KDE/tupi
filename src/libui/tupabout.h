@@ -41,10 +41,6 @@
 #include "tabdialog.h"
 #include "tanimwidget.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QTextBrowser>
 #include <QLabel>
 #include <QPixmap>

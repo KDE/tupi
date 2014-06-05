@@ -45,10 +45,6 @@
 #include "tosd.h"
 #include "tupcolorwidget.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QFrame>
 #include <QCloseEvent>
 #include <QComboBox>

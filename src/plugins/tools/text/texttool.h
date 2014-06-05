@@ -42,10 +42,6 @@
 #include "textconfigurator.h"
 #include "tupbrushmanager.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QPointF>
 #include <QFontMetrics>
 #include <QKeySequence>

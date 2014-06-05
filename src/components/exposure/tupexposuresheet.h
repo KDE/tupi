@@ -51,10 +51,6 @@
 #include "tuplayer.h"
 #include "tupframe.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QButtonGroup>
 #include <QGroupBox>
 #include <QPushButton>

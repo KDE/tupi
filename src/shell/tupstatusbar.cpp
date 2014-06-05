@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupstatusbar.h"
-#include "tdebug.h"
 
 TupStatusBar::TupStatusBar(QWidget *parent)
  : QStatusBar(parent)

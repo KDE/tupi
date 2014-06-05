@@ -37,11 +37,6 @@
 #define TUPERRORPARSER_H
 
 #include "tglobal.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include "tupxmlparserbase.h"
 
 /**

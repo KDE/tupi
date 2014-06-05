@@ -46,10 +46,6 @@
 #include "tuplayer.h"
 #include "tpushbutton.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDialog>
 #include <QVBoxLayout>
 #include <QHBoxLayout>

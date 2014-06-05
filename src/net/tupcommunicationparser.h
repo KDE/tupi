@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tupxmlparserbase.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 /**
  * @author Jorge Cuadrado
 */

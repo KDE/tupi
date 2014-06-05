@@ -33,9 +33,9 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
+#include "tglobal.h"
 #include "taudioplayer.h"
 #include "tglobal.h"
-#include "tdebug.h"
 
 #include <QDir>
 #include <QTimer>

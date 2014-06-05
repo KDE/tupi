@@ -41,10 +41,6 @@
 #include "configurator.h"
 #include "tuppathitem.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
 #include <QSpinBox>
 #include <QTimer>

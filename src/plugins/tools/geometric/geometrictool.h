@@ -43,10 +43,6 @@
 #include "tuplineitem.h"
 #include "infopanel.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
 #include <QLabel>
 #include <QKeyEvent>

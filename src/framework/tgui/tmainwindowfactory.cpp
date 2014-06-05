@@ -37,7 +37,6 @@
 #include "tabbedmainwindow.h"
 #include "tstackedmainwindow.h"
 #include "tworkspacemainwindow.h"
-#include "tdebug.h"
 
 #include <QDockWidget>
 #include <QToolBar>

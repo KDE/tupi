@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tupproxyitem.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QGraphicsItem>
 #include <QGraphicsTextItem>

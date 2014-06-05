@@ -37,8 +37,17 @@
 #include "tupmainwindow.h"
 #include "tuptwitter.h"
 #include "tapplicationproperties.h"
-#include "tdebug.h"
 #include "tcollapsiblewidget.h"
+
+#ifdef K_DEBUG
+
+#ifdef Q_OS_WIN32
+#include <QDebug>
+#else
+#include "tdebug.h"
+#endif
+
+#endif
 
 #ifdef Q_OS_UNIX
 #include "tupcrashhandler.h"

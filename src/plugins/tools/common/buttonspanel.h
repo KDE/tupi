@@ -40,10 +40,6 @@
 #include "tapplicationproperties.h"
 #include "timagebutton.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QBoxLayout>

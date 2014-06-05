@@ -35,6 +35,7 @@
 
 #ifndef TANIMWIDGET_H
 #define TANIMWIDGET_H
+
 /**
  * @file tanimwidget.h
  * @brief Include this file if you need the class TAnimWidget
@@ -42,10 +43,6 @@
 
 #include "tglobal.h"
 #include "tapplication.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QPixmap>
 #include <QHideEvent>

@@ -41,10 +41,6 @@
 #include "tseparator.h"
 #include "tosd.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 struct Settings::Private
 {
     QWidget *innerPanel;

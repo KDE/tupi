@@ -40,7 +40,6 @@
 #include "tuppaintareabase.h"
 #include "tupabstractprojectresponsehandler.h"
 #include "tupgraphicsscene.h"
-
 #include "tupbrushmanager.h"
 #include "tupinputdeviceinformation.h"
 #include "tuppaintareaevent.h"
@@ -63,10 +62,6 @@
 #include "tcontrolnode.h"
 #include "tupproject.h"
 #include "tosd.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QGraphicsScene>
 #include <QMouseEvent>

@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tapplicationproperties.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QPixmap>
 #include <QPaintEvent>

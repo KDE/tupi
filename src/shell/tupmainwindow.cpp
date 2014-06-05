@@ -43,7 +43,6 @@
 
 // Tupi Framework
 #include "tipdialog.h"
-#include "tdebug.h"
 #include "tosd.h"
 // #include "taudioplayer.h"
 

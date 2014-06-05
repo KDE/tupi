@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "txmlparserbase.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QXmlDefaultHandler>
 #include <QBrush>
 #include <QLinearGradient>

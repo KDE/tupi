@@ -36,11 +36,8 @@
 #ifndef TUPPENTHICKNESSWIDGET_H
 #define TUPPENTHICKNESSWIDGET_H
 
+#include "tglobal.h"
 #include "tapplicationproperties.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QWidget>
 #include <QPainter>

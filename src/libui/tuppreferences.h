@@ -47,10 +47,6 @@
 #include "tconfigurationdialog.h"
 #include "tupthemeselector.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QLineEdit>
 #include <QLabel>
 #include <QRadioButton>

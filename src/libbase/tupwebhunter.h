@@ -40,10 +40,6 @@
 #include "tapplicationproperties.h"
 #include "tupsvgitem.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
 #include <QtNetwork>
 #include <QNetworkReply>

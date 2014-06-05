@@ -41,10 +41,6 @@
 #include "tupprojectresponse.h"
 #include "tupabstractprojectresponsehandler.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QLayout>
 #include <QSizePolicy> 
 #include <QObject>

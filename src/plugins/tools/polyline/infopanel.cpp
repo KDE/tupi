@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "infopanel.h"
-#include "tglobal.h"
-#include "tdebug.h"
 
 #include <QBoxLayout>
 #include <QTextEdit>

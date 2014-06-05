@@ -41,6 +41,16 @@
 #include "twizard.h"
 #include "txyspinbox.h"
 
+#ifdef K_DEBUG
+
+#ifdef Q_OS_WIN32
+#include <QDebug>
+#else
+#include "tdebug.h"
+#endif
+
+#endif
+
 class TupProjectManagerParams;
 
 /**

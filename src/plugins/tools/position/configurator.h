@@ -40,10 +40,6 @@
 #include "tuptoolplugin.h"
 #include "settings.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QFrame>
 #include <QLabel>
 #include <QLineEdit>

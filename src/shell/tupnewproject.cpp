@@ -40,7 +40,6 @@
 #include "tconfig.h"
 #include "tapplication.h"
 #include "tosd.h"
-#include "tdebug.h"
 
 #include <QLineEdit>
 #include <QPlainTextEdit>

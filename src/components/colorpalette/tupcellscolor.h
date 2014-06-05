@@ -40,10 +40,6 @@
 #include "tcellview.h"
 #include "tuppalettedocument.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QFile>
 #include <QDragEnterEvent>
 #include <QMouseEvent>

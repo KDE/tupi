@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tuppaintareabase.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QGraphicsView>
 #include <QPainter>
 #include <QRectF>

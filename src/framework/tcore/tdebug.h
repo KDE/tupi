@@ -36,7 +36,13 @@
 #ifndef TDEBUG_H
 #define TDEBUG_H
 
-#include "tglobal.h"
+// #include "tglobal.h"
+
+#if defined(QT_SHARED) || defined(QT_PLUGIN)
+#define T_CORE_EXPORT Q_DECL_EXPORT
+#else
+#define T_CORE_EXPORT
+#endif
 
 #include <QFile>
 #include <QString>

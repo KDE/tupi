@@ -36,6 +36,7 @@
 #ifndef THEORAPLUGIN_H
 #define THEORAPLUGIN_H
 
+#include "tglobal.h"
 #include "tupexportpluginobject.h"
 #include "tupexportinterface.h"
 #include "tmoviegeneratorinterface.h"

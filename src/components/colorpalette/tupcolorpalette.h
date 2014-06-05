@@ -50,10 +50,6 @@
 #include "tupgradientcreator.h"
 #include "tvhbox.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QBoxLayout>
 #include <QPushButton>
 #include <QLineEdit>

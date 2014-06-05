@@ -48,10 +48,6 @@
 #include "tuprequestbuilder.h"
 #include "tuplibrary.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QSplitter>
 #include <QStackedWidget>
 #include <QList>

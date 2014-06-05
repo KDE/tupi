@@ -36,13 +36,9 @@
 #ifndef TWIZARD_H
 #define TWIZARD_H
 
-#include "tvhbox.h"
 #include "tglobal.h"
+#include "tvhbox.h"
 #include "tseparator.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QDialog>
 #include <QPushButton>

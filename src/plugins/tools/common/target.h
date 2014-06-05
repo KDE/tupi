@@ -40,10 +40,6 @@
 #include "tupgraphicalgorithm.h"
 #include "tupgraphicobject.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QGraphicsItem>
 #include <QObject>
 #include <QPointF>

@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tupexposureheader.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QTableWidget>
 #include <QPainter>
 #include <QItemDelegate>

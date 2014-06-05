@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "node.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QHash>
 #include <QGraphicsItem>
 #include <QGraphicsScene>

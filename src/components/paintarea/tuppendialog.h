@@ -43,10 +43,6 @@
 #include "tuppenthicknesswidget.h"
 #include "timagebutton.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDialog>
 #include <QVBoxLayout>
 #include <QHBoxLayout>

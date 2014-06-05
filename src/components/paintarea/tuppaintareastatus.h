@@ -44,10 +44,6 @@
 #include "tupbrushstatus.h"
 #include "tuptoolstatus.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QStatusBar>
 #include <QPushButton>
 #include <QComboBox>

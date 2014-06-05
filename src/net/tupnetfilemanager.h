@@ -41,10 +41,6 @@
 #include "tupproject.h"
 #include "tupnetprojectmanagerparams.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QString>
 #include <QFile>
 #include <QTextStream>

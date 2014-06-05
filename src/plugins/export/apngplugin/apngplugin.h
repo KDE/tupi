@@ -43,10 +43,6 @@
 #include "tuplayer.h"
 #include "tupanimationrenderer.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QImage>
 #include <QPainter>
 

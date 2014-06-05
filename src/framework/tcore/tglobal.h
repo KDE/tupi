@@ -56,6 +56,16 @@
 #define TUPI_PLUGIN
 #endif
 
+#ifdef K_DEBUG
+
+#ifdef Q_OS_WIN32
+#include <QDebug>
+#else
+#include "tdebug.h"
+#endif
+
+#endif
+
 #define LIBRARY_DIR CONFIG_DIR+"/libraries"
 
 namespace Tupi 

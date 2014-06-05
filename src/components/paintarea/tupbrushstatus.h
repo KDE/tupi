@@ -40,10 +40,6 @@
 #include "tupcolorwidget.h"
 #include "tseparator.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QPixmap>
 #include <QPen>
 #include <QBrush>

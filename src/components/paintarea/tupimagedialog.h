@@ -40,10 +40,6 @@
 #include "tapplicationproperties.h"
 #include "tconfig.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDialog>
 #include <QVBoxLayout>
 #include <QIcon>

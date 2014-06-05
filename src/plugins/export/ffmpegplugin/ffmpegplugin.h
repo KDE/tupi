@@ -37,11 +37,6 @@
 #define FFMPEGPLUGIN_H
 
 #include "tglobal.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include "tupexportpluginobject.h"
 #include "tupexportinterface.h"
 #include "tmoviegeneratorinterface.h"

@@ -41,10 +41,6 @@
 #include "tvhbox.h"
 #include "tapplicationproperties.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QMap>
 #include <QTreeWidget>
 #include <QGroupBox>

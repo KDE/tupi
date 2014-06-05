@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tactionmanager.h"
-#include "tdebug.h"
 
 #include <QMenuBar>
 #include <QToolBar>

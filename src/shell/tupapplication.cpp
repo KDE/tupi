@@ -35,7 +35,6 @@
 
 #include "tupapplication.h"
 #include "tapplicationproperties.h"
-#include "tdebug.h"
 
 #include <QDesktopWidget>
 #include <QRect>

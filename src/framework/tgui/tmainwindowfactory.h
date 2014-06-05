@@ -36,7 +36,6 @@
 #ifndef TMAINWINDOWFACTORY_H
 #define TMAINWINDOWFACTORY_H
 
-// #include "tideality.h"
 #include "tglobal.h"
 
 class TMainWindow;

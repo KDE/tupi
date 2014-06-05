@@ -41,10 +41,6 @@
 #include "spinboxdelegate.h"
 #include "tpushbutton.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QTableWidget>
 #include <cmath>
 #include <QGraphicsPathItem>

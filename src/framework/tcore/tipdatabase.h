@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "talgorithm.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDomDocument>
 #include <QFile>
 #include <QWidget>

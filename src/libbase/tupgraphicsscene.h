@@ -41,10 +41,6 @@
 #include "tupproject.h"
 #include "tupprojectresponse.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QGraphicsScene>
 
 /**

@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "trulerbase.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QApplication>
 #include <iostream>
 using namespace std;

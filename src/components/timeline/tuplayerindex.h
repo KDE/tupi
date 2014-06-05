@@ -43,10 +43,6 @@
 #include "timagebutton.h"
 #include "tupprojectrequest.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QPushButton>
 #include <QToolTip>
 #include <QLabel>

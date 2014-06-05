@@ -33,26 +33,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include <QPainter>
-#include <QDialog>
-#include <QPushButton>
-#include <QApplication>
-#include <QFile>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QTextBrowser>
-#include <QtDebug>
-#include <QProcess>
-#include <signal.h>
-
 #include "tupcrashwidget.h"
-#include "tupcrashhandler.h"
-
-#include "tglobal.h"
-#include "tconfig.h"
-#include "tdebug.h"
-
-#include <unistd.h>
 
 class TextArea : public QTextBrowser
 {

@@ -36,8 +36,6 @@
 #include "theoraplugin.h"
 
 // Tupi Framework
-#include "tdebug.h"
-#include "tglobal.h"
 #include "theoramoviegenerator.h"
 
 #include "tuplayer.h"

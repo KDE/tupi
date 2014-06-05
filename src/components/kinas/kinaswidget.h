@@ -36,6 +36,7 @@
 #ifndef KINASWIDGET_H
 #define KINASWIDGET_H
 
+#include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "tupseditor.h"
 #include "tupsfunctionview.h"

@@ -40,10 +40,6 @@
 #include "tweenerpanel.h"
 #include "tuptweenerstep.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QLabel>
 #include <QLineEdit>

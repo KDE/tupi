@@ -45,10 +45,6 @@
 #include "tseparator.h"
 #include "tosd.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>

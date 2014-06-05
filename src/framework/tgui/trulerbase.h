@@ -33,14 +33,10 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef RULER_H
-#define RULER_H
+#ifndef RULERBASE_H
+#define RULERBASE_H
 
 #include "tglobal.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QMouseEvent>
 #include <QResizeEvent>

@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tuptwitter.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QSplitter>
 #include <QTextBrowser>

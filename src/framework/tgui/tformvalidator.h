@@ -36,9 +36,7 @@
 #ifndef TFORMVALIDATOR_H
 #define TFORMVALIDATOR_H
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
+#include "tglobal.h"
 
 #include <QWidget>
 #include <QLineEdit>
@@ -56,7 +54,7 @@
  * @author David Cuadrado
 */
 
-class TFormValidator
+class T_GUI_EXPORT TFormValidator
 {
     public:
         TFormValidator(QWidget *form);

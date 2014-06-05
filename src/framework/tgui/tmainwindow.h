@@ -42,10 +42,6 @@
 #include "tviewbutton.h"
 #include "tmainwindowabstractsettings.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QMainWindow>
 #include <QHash>
 #include <QMap>

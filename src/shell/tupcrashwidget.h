@@ -36,11 +36,33 @@
 #ifndef TUPCRASHWIDGET_H
 #define TUPCRASHWIDGET_H
 
+#include "tupcrashhandler.h"
+#include "tconfig.h"
+
+#ifdef K_DEBUG
+
+#ifdef Q_OS_WIN32
+#include <QDebug>
+#else
+#include "tdebug.h"
+#endif
+
+#endif
+
+#include <unistd.h>
 #include <QDialog>
 #include <QImage>
 #include <QVBoxLayout>
-
 #include <QTabWidget>
+#include <QPainter>
+#include <QPushButton>
+#include <QApplication>
+#include <QFile>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QTextBrowser>
+#include <QProcess>
+#include <signal.h>
 
 class TupCrashWidget : public QDialog
 {

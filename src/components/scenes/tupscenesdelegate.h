@@ -38,10 +38,6 @@
 
 #include "tglobal.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QtGui>
 #include <QLineEdit>
 #include <QItemDelegate>

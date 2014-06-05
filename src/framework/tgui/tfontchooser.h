@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tformfactory.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QFrame>
 #include <QComboBox>
 #include <QHBoxLayout>

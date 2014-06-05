@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tactionmanager.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QAction>
 #include <QKeySequence>
 

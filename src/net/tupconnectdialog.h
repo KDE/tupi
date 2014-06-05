@@ -42,10 +42,6 @@
 #include "tformfactory.h"
 #include "tosd.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDialog>
 #include <QLineEdit>
 #include <QCheckBox>

@@ -34,8 +34,6 @@
  ***************************************************************************/
 
 #include "tupsplash.h"
-#include "tdebug.h"
-#include "tglobal.h"
 
 #include <QPixmap>
 #include <QBitmap>

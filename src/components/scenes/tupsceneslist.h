@@ -40,10 +40,6 @@
 #include "treelistwidget.h"
 #include "tupscenesdelegate.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QTreeWidgetItem>

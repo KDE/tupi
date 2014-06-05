@@ -40,12 +40,6 @@
 #include "toolview.h"
 #include "tviewbutton.h"
 // #include "taudioplayer.h"
-#include "tdebug.h"
-
-#include <QKeySequence>
-#include <QTextBrowser>
-#include <QToolBar>
-#include <QDesktopWidget>
 
 /**
  * This class implements the Tupi GUI

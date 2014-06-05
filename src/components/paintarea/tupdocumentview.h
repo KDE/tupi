@@ -45,10 +45,6 @@
 #include "tupconfigurationarea.h"
 #include "tupstoryboard.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QMainWindow>
 #include <QLayout>
 #include <QStatusBar>

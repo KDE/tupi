@@ -41,10 +41,6 @@
 #include "tuptoolplugin.h"
 #include "timagebutton.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDialog>
 #include <QList>
 #include <QHBoxLayout>

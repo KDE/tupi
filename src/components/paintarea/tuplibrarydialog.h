@@ -41,10 +41,6 @@
 #include "tformfactory.h"
 #include "tapplicationproperties.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDialog>
 #include <QVBoxLayout>
 #include <QDialogButtonBox>

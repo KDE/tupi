@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tuptoolplugin.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QLabel>
 #include <QLineEdit>

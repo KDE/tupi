@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "kinaswidget.h"
-#include "tdebug.h"
 
 KinasWidget::KinasWidget(QWidget *parent) : TupModuleWidgetBase(parent)
 {

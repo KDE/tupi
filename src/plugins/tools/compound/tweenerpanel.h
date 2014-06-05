@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tupitemtweener.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QGraphicsPathItem>
 #include <QLabel>

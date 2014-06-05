@@ -40,10 +40,6 @@
 #include "tuptlruler.h"
 #include "tupprojectactionbar.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QHash>

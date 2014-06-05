@@ -41,10 +41,6 @@
 #include "tuplayercontrols.h"
 #include "tapplication.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 /**
  * @author David Cuadrado
 **/

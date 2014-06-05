@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tmoviegeneratorinterface.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 /**
  * @author David Cuadrado
 */

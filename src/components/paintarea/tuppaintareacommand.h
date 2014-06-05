@@ -41,10 +41,6 @@
 #include "tuppaintareaevent.h"
 #include "tupbrushmanager.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QUndoCommand>
 #include <QVariant>
 

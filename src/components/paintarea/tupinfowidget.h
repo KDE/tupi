@@ -43,10 +43,6 @@
 #include "tpushbutton.h"
 #include "tupwebhunter.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>

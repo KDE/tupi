@@ -38,7 +38,6 @@
 #include <stdint.h>
 
 #include "tffmpegmoviegenerator.h"
-#include "tdebug.h"
 #include "talgorithm.h"
 
 #include <QDir>

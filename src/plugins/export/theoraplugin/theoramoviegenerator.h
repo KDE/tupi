@@ -49,10 +49,6 @@ extern "C" {
 }
 #endif
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDir>
 #include <QFile>
 #include <QByteArray>

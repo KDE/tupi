@@ -43,10 +43,6 @@
 #include "toptionaldialog.h"
 #include "timagebutton.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QButtonGroup>
 #include <QVBoxLayout>

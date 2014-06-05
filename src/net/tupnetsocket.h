@@ -41,10 +41,6 @@
 #include "tupsocketbase.h"
 #include "tupcompress.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QTextStream>
 #include <QDataStream>
 

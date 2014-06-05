@@ -65,6 +65,16 @@
 #include "tupprojectmanager.h"
 #include "tupnetprojectmanagerhandler.h"
 
+#ifdef K_DEBUG
+
+#ifdef Q_OS_WIN32
+#include <QDebug>
+#else
+#include "tdebug.h"
+#endif
+
+#endif
+
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
@@ -72,6 +82,10 @@
 #include <QResizeEvent>
 #include <QCloseEvent>
 #include <QUndoStack>
+#include <QKeySequence>
+#include <QTextBrowser>
+#include <QToolBar>
+#include <QDesktopWidget>
 
 class TupProjectManagerParams;
 class TupNetProjectManagerParams;

@@ -45,10 +45,6 @@
 #include "txyspinbox.h"
 #include "tuppluginmanager.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QListWidget>
 #include <QHash>
 #include <QApplication>

@@ -40,10 +40,6 @@
 #include "talgorithm.h"
 #include "tapplicationproperties.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDialog>
 #include <QFormLayout>
 #include <QLineEdit>

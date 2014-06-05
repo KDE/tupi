@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QMap>
 #include <QTreeWidget>

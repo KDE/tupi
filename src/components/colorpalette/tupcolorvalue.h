@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tdoublecombobox.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QLabel>

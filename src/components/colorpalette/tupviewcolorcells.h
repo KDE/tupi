@@ -43,10 +43,6 @@
 #include "tuppaletteparser.h"
 #include "tapplicationproperties.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QFrame>
 #include <QComboBox>
 #include <QStackedWidget>

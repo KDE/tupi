@@ -33,14 +33,13 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
+#include "tglobal.h"
 #include "tupcanvas.h"
 #include "tupapplication.h"
 #include "tapplicationproperties.h"
 #include "tuptoolplugin.h"
 #include "timagebutton.h"
-#include "tglobal.h"
 #include "tconfig.h"
-#include "tdebug.h"
 #include "tuppendialog.h"
 #include "tupexposuredialog.h"
 

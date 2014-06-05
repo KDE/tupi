@@ -41,10 +41,6 @@
 #include "treelistwidget.h"
 #include "treewidgetsearchline.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDialog>
 #include <QTreeWidget>
 #include <QToolButton>

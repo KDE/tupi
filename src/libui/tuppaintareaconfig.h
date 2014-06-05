@@ -40,10 +40,6 @@
 #include "tcolorbutton.h"
 #include "tconfig.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QWidget>
 #include <QSpinBox>
 #include <QVBoxLayout>

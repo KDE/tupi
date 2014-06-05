@@ -44,6 +44,16 @@
 
 #include "tapplicationproperties.h"
 
+#ifdef K_DEBUG
+
+#ifdef Q_OS_WIN32
+#include <QDebug>
+#else
+#include "tdebug.h"
+#endif
+
+#endif
+
 #include <QPainter>
 #include <QSplashScreen>
 #include <QTimer>

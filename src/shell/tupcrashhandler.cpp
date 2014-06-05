@@ -33,30 +33,9 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include <QString>
-#include <QApplication>
-#include <QDomDocument>
-#include <QFile>
-#include <QTemporaryFile>
-#include <QProcess>
-#include <QTranslator>
-#include <QDesktopWidget>
-
-#include <csignal>
-#include <cstdio>
-
-extern "C"
-{
-#include <sys/types.h> //pid_t
-#include <sys/wait.h>  //waitpid
-#include <unistd.h>    //write, getpid
-#include <stdio.h>
-}
-
 #include "tupcrashhandler.h"
 #include "tupcrashwidget.h"
-#include "tdebug.h"
-#include "tglobal.h"
+// #include "tglobal.h"
 
 TupCrashHandler *TupCrashHandler::m_instance = 0;
 

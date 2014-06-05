@@ -41,10 +41,6 @@
 #include "toolview.h"
 #include "tseparator.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDialog>
 #include <QPushButton>
 #include <QHBoxLayout>

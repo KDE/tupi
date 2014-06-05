@@ -39,7 +39,6 @@
 #include "tglobal.h"
 #include "tviewbutton.h"
 #include "toolview.h"
-#include "tdebug.h"
 
 #include <QToolBar>
 #include <QButtonGroup>

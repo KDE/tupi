@@ -38,8 +38,6 @@
 #include "tuplayer.h"
 #include "tuprequestbuilder.h"
 #include "tuplibraryobject.h"
-#include "tdebug.h"
-#include "tglobal.h"
 #include "taction.h"
 #include "tupinputdeviceinformation.h"
 #include "tupgraphicsscene.h"

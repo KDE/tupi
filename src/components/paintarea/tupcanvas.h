@@ -51,10 +51,6 @@
 #include "tuprequestbuilder.h"
 #include "tupproject.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QFrame>
 #include <QPointF>
 #include <QSize>

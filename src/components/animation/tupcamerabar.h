@@ -40,10 +40,6 @@
 #include "timagebutton.h"
 #include "tapplicationproperties.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QFrame>
 #include <QPainter>
 #include <QPushButton>

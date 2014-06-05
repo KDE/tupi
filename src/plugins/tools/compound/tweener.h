@@ -42,10 +42,6 @@
 #include "tweenerpanel.h"
 #include "tupprojectresponse.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QPointF>
 #include <QKeySequence>
 #include <QGraphicsPathItem>

@@ -42,10 +42,6 @@
 #include "tuptoolplugin.h"
 #include "taction.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QMainWindow>
 #include <QGraphicsView>
 #include <QGraphicsScene>

@@ -36,6 +36,7 @@
 #ifndef TUPEXPOSURESCENE_H
 #define TUPEXPOSURESCENE_H 
 
+#include "tglobal.h"
 #include "tupscene.h" 
 
 #include <QGroupBox>

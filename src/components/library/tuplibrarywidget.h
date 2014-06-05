@@ -53,10 +53,6 @@
 #include "tosd.h"
 #include "talgorithm.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QMap>

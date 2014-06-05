@@ -40,10 +40,6 @@
 #include "tupmodulewidgetbase.h"
 #include "tupdebugterm.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QIcon>
 
 /**

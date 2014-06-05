@@ -36,10 +36,8 @@
 #ifndef NODEGROUP_H
 #define NODEGROUP_H
 
+#include "tglobal.h"
 #include "tcontrolnode.h"
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QGraphicsScene>
 #include <QObject>
