@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tupscene.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
 
 class TupProject;

@@ -38,11 +38,9 @@
 
 #include "tglobal.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QAbstractGraphicsShapeItem>
+#include <QBrush>
+#include <QPen>
 
 class TupPathItem;
 class TupEllipseItem;

@@ -306,7 +306,7 @@ void TupNetProjectManagerHandler::handlePackage(const QString &root, const QStri
                    #endif
                }
     } else if (root == "project_storyboard_update") {
-               tError() << "TupNetProjectManagerHandler::handlePackage() - Updating the storyboard...";
+               // tError() << "TupNetProjectManagerHandler::handlePackage() - Updating the storyboard...";
                TupStoryboardParser parser(package);
 
                if (parser.checksum()) {
@@ -471,7 +471,7 @@ bool TupNetProjectManagerHandler::isValid() const
 
 void TupNetProjectManagerHandler::sendPackage(const QDomDocument &doc)
 {
-    tError() << "TupNetProjectManagerHandler::sendPackage() - xml: " << doc.toString();
+    // tError() << "TupNetProjectManagerHandler::sendPackage() - xml: " << doc.toString();
     k->socket->send(doc);
 }
 

@@ -38,9 +38,6 @@
 #include "tupscene.h"
 #include "tupitemtweener.h"
 
-#include <QMatrix>
-#include <QGraphicsItem>
-
 struct TupGraphicObject::Private
 {
     QString name;
@@ -55,8 +52,12 @@ TupGraphicObject::TupGraphicObject(QGraphicsItem *item, TupFrame *parent) : QObj
 {
     /*
     #ifdef K_DEBUG
-           TINIT;
-    #endif
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicObject()]";
+        #else
+            TINIT;
+        #endif
+    #endif	
     */
 
     k->item = item;
@@ -71,8 +72,12 @@ TupGraphicObject::~TupGraphicObject()
 {
     /*
     #ifdef K_DEBUG
-           TEND;
-    #endif
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupGraphicObject()]";
+        #else
+            TEND;
+        #endif
+    #endif	
     */
 
     if (k->item)
@@ -112,7 +117,12 @@ void TupGraphicObject::setItem(QGraphicsItem *item)
         initItemData();
     } else {
         #ifdef K_DEBUG
-               tError() << "TupGraphicObject::setItem() - Fatal Error: QGraphicsItem is null!";
+            QString msg = "TupGraphicObject::setItem() - Fatal Error: QGraphicsItem is null!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     } 
 }

@@ -76,10 +76,6 @@ TupScene::TupScene(TupProject *parent, const QSize dimension, const QColor bgCol
 
 TupScene::~TupScene()
 {
-    #ifdef K_DEBUG
-           TEND;
-    #endif
-
     delete k;
 }
 
@@ -146,10 +142,16 @@ TupLayer *TupScene::createLayer(QString name, int position, bool loaded)
 {
     // Q_CHECK_PTR(k->layers);
 
-    if (position < 0 || position > k->layers.count()) {
-        #ifdef K_DEBUG
-               tError() << "TupScene::createLayer() - Invalid index -> " << position;
-        #endif
+    if (position < 0 || position > k->layers.count()) {		
+	    #ifdef K_DEBUG
+            QString msg = "TupScene::createLayer() - Invalid index -> " + QString::number(position);
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
+        #endif	
+		
         return 0;
     }
 
@@ -168,13 +170,22 @@ TupLayer *TupScene::createLayer(QString name, int position, bool loaded)
 TupSoundLayer *TupScene::createSoundLayer(int position, bool loaded)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO << position;
-    #endif
-
-    if (position < 0 || position > k->soundLayers.count()) {
-	#ifdef K_DEBUG
-        tDebug() << "TupScene::createSoundLayer() - [ Fatal Error ] - Index incorrect!";
-	#endif
+        #ifdef Q_OS_WIN32
+            qDebug() << "[createSoundLayer()] - position: " << position;
+        #else
+            T_FUNCINFO << position;
+        #endif
+    #endif	
+	
+    if (position < 0 || position > k->soundLayers.count()) {	
+        #ifdef K_DEBUG
+            QString msg = "TupScene::createSoundLayer() - [ Fatal Error ] - Index incorrect!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
+        #endif		
         return 0;
     }
 
@@ -194,20 +205,20 @@ TupSoundLayer *TupScene::createSoundLayer(int position, bool loaded)
 bool TupScene::removeLayer(int position)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO << position;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupScene::removeLayer()] - position: " << position;
+        #else
+            T_FUNCINFO << position;
+        #endif
     #endif
 
     // Q_CHECK_PTR(layers);
 
     TupLayer *layer = this->layer(position);
-
     if (layer) {
-
         removeTweensFromLayer(position + 1);
-
         k->layers.removeAt(position);
         k->layerCount--;
-
         delete layer;
 
         return true;
@@ -225,11 +236,20 @@ TupLayer *TupScene::layer(int position) const
 {
     //if (position < 0 || position >= k->layers.count()) {
 
-    if (position < 0) {
+    if (position < 0) {	
         #ifdef K_DEBUG
-               T_FUNCINFO << " FATAL ERROR: LAYERS TOTAL: " << k->layers.count();
-               T_FUNCINFO << " FATAL ERROR: index out of bound -> Position: " << position;
-               T_FUNCINFO << " FATAL ERROR: The layer requested doesn't exist anymore";
+            QString msg1 = " FATAL ERROR: LAYERS TOTAL: " + QString::number(k->layers.count());
+			QString msg2 = " FATAL ERROR: index out of bound -> Position: " + QString::number(position);
+			QString msg3 = " FATAL ERROR: The layer requested doesn't exist anymore";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg1;
+				qDebug() << msg2;
+				qDebug() << msg3;
+            #else
+                tError() << msg1;
+				tError() << msg2;
+				tError() << msg3;
+            #endif
         #endif
         return 0;
     }
@@ -241,8 +261,13 @@ TupSoundLayer *TupScene::soundLayer(int position) const
 {
     if (position < 0 || position >= k->soundLayers.count()) {
         #ifdef K_DEBUG
-               T_FUNCINFO << " FATAL ERROR: index out of bound " << position;
-        #endif
+		    QString msg = " FATAL ERROR: index out of bound " + QString::number(position);
+		    #ifdef Q_OS_WIN32
+			   qDebug() << msg;
+			#else
+               T_FUNCINFO << msg;
+            #endif
+		#endif
         return 0;
     }
 
@@ -608,9 +633,7 @@ void TupScene::reset(QString &name)
 
 void TupScene::setStoryboard(TupStoryboard *storyboard)
 {
-    #ifdef K_DEBUG
-           tFatal() << "TupScene::setStoryboard() - Updating storyboard...";
-    #endif
+    // tFatal() << "TupScene::setStoryboard() - Updating storyboard...";
 
     k->storyboard = storyboard;
 }
@@ -644,4 +667,3 @@ void TupScene::removeStoryBoardScene(int index)
 {
     k->storyboard->removeScene(index);
 }
-

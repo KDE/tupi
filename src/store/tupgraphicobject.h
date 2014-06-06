@@ -40,11 +40,9 @@
 #include "tupabstractserializable.h"
 #include "tupframe.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
+#include <QMatrix>
+#include <QGraphicsItem>
 
 class QGraphicsItem;
 class TupItemTweener;

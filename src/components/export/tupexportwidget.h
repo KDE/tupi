@@ -65,6 +65,7 @@
 #include <QLocale>
 #include <QDir>
 #include <QSpinBox>
+#include <QTextEdit>
 
 // class QButtonGroup;
 // class QLineEdit;
