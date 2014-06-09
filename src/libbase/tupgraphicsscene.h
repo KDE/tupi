@@ -42,6 +42,13 @@
 #include "tupprojectresponse.h"
 
 #include <QGraphicsScene>
+#include <QGraphicsItem>
+#include <QSvgRenderer>
+#include <QGraphicsView>
+#include <QStyleOptionGraphicsItem>
+#include <QGraphicsSceneMouseEvent>
+#include <QKeyEvent>
+#include <QDesktopWidget>
 
 /**
  * @author David Cuadrado

@@ -39,15 +39,12 @@
 #include "tglobal.h"
 #include "txmlparserbase.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QStack>
 #include <QPen>
 #include <QBrush>
+#include <QGraphicsItem>
 
-class QGraphicsItem;
+// class QGraphicsItem;
 class TupLibrary;
 
 /**

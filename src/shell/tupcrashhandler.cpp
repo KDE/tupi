@@ -35,7 +35,6 @@
 
 #include "tupcrashhandler.h"
 #include "tupcrashwidget.h"
-// #include "tglobal.h"
 
 TupCrashHandler *TupCrashHandler::m_instance = 0;
 

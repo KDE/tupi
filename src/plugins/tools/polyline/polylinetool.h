@@ -43,6 +43,13 @@
 #include "tcontrolnode.h"
 #include "tnodegroup.h"
 
+#include <QGraphicsView>
+#include <QGraphicsPathItem>
+#include <QGraphicsLineItem>
+#include <QPainterPath>
+#include <QMatrix>
+#include <QDir>
+
 /**
  * @author Jorge Cuadrado
  */

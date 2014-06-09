@@ -100,12 +100,10 @@ void TImageButton::enterEvent(QEvent *)
     // setIconSize(QSize(m_imageSize-10,m_imageSize-10));
     
     if (m_isAnimated) {
-
         m_animator->begin();
         m_animator->aBeginning = true;
         if (m_animator->aSize >= m_imageSize + 10)
             m_animator->aSize = m_imageSize;
-
     } else {
         setFlat(false);
     }
@@ -114,12 +112,10 @@ void TImageButton::enterEvent(QEvent *)
 void TImageButton::leaveEvent(QEvent *)
 {
     if (m_isAnimated && !isDown()) {
-
         m_animator->aBeginning = false;
         m_animator->aSize = m_imageSize;
         m_animator->end();
         setIconSize(QSize(m_imageSize,m_imageSize));
-
     } else {
         setFlat(true);
     }

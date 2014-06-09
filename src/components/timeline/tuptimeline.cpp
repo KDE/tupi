@@ -50,7 +50,11 @@ struct TupTimeLine::Private
 TupTimeLine::TupTimeLine(QWidget *parent) : TupModuleWidgetBase(parent, "TupTimeLine"), k(new Private)
 {
     #ifdef K_DEBUG
-        TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupTimeLine()]";
+        #else
+            TINIT;
+        #endif
     #endif
     
     setWindowTitle(tr("Time Line"));
@@ -80,8 +84,13 @@ TupTimeLine::TupTimeLine(QWidget *parent) : TupModuleWidgetBase(parent, "TupTime
 TupTimeLine::~TupTimeLine()
 {
     #ifdef K_DEBUG
-        TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupTimeLine()]";
+        #else
+            TEND;
+        #endif
     #endif
+
     delete k;
 }
 
@@ -180,7 +189,11 @@ void TupTimeLine::sceneResponse(TupSceneResponse *response)
 
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupTimeLine::sceneResponse()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     switch (response->action()) {
@@ -227,7 +240,11 @@ void TupTimeLine::layerResponse(TupLayerResponse *response)
 
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupTimeLine::layerResponse()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     switch (response->action()) {
@@ -300,7 +317,11 @@ void TupTimeLine::frameResponse(TupFrameResponse *response)
 
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupTimeLine::frameResponse()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     switch (response->action()) {
@@ -365,7 +386,11 @@ void TupTimeLine::libraryResponse(TupLibraryResponse *response)
 
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupTimeLine::libraryResponse()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (response->action() == TupProjectRequest::InsertSymbolIntoFrame) {
@@ -423,7 +448,11 @@ bool TupTimeLine::requestFrameAction(int action, int framePos, int layerPos, int
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupTimeLine::requestFrameAction()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -619,7 +648,12 @@ void TupTimeLine::emitRequestRenameLayer(int layer, const QString &name)
 {
     /*
     #ifdef K_DEBUG
-        T_FUNCINFO << name;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupTimeLine::emitRequestRenameLayer()]";
+            qDebug() << "name: " << name;
+        #else
+            T_FUNCINFO << name;
+        #endif
     #endif
     */
 

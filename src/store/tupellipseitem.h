@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tupabstractserializable.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QGraphicsEllipseItem>
 
 /**

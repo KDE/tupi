@@ -114,11 +114,16 @@ bool TXmlParserBase::characters(const QString & ch)
 
 bool TXmlParserBase::error(const QXmlParseException & exception)
 {
-#ifdef K_DEBUG    
-    tWarning() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
-    tWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+#ifdef K_DEBUG	
+    #ifdef Q_OS_WIN32
+        qWarning() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
+        qWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+    #else
+        tWarning() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
+        tWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+    #endif
 #else
-    Q_UNUSED(exception);
+     Q_UNUSED(exception);
 #endif
 
     return true;
@@ -127,10 +132,15 @@ bool TXmlParserBase::error(const QXmlParseException & exception)
 bool TXmlParserBase::fatalError(const QXmlParseException & exception)
 {
 #ifdef K_DEBUG
-    tFatal() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
-    tWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+    #ifdef Q_OS_WIN32
+        qWarning() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
+        qWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+    #else
+        tWarning() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
+        tWarning() << __PRETTY_FUNCTION__ << " Document: " << k->document;
+    #endif
 #else
-    Q_UNUSED(exception);
+     Q_UNUSED(exception);
 #endif
 
     return true;
@@ -149,7 +159,7 @@ void TXmlParserBase::setIgnore(bool ignore)
 QString TXmlParserBase::currentTag() const
 {
     return k->currentTag;
-	}
+}
 
 QString TXmlParserBase::root() const
 {
@@ -176,8 +186,14 @@ bool TXmlParserBase::parse(QFile *file)
     if (!file->isOpen()) {
         if (! file->open(QIODevice::ReadOnly | QIODevice::Text)) {
 #ifdef K_DEBUG
-            tWarning() << "Cannot open file " << file->fileName();
+            QString msg = "TXmlParserBase::parse() - Error: Cannot open file -> " + file->fileName();
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
 #endif
+
             return false;
         }
     }

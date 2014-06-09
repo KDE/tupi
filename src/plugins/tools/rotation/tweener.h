@@ -47,6 +47,7 @@
 #include <QGraphicsView>
 #include <QDomDocument>
 #include <QDir>
+#include <QPointF>
 
 /**
  * @author Gustav Gonzalez 

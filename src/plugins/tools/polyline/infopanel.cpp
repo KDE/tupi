@@ -35,13 +35,14 @@
 
 #include "infopanel.h"
 
-#include <QBoxLayout>
-#include <QTextEdit>
-
 InfoPanel::InfoPanel(QWidget *parent) :QWidget(parent)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[InfoPanel()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     QBoxLayout *mainLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
@@ -64,7 +65,11 @@ InfoPanel::InfoPanel(QWidget *parent) :QWidget(parent)
 InfoPanel::~InfoPanel()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~InfoPanel()]";
+        #else
+            TEND;
+        #endif
     #endif
 }
 

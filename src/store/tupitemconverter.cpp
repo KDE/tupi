@@ -81,7 +81,6 @@ TupPathItem *TupItemConverter::convertToPath(QGraphicsItem *item)
     QPainterPath ppath;
     
     switch (item->type()) {
-
         case TupPathItem::Type:
         {
             ppath = qgraphicsitem_cast<TupPathItem *>(item)->path();

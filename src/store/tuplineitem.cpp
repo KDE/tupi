@@ -36,7 +36,6 @@
 #include "tuplineitem.h"
 #include "tupserializer.h"
 
-// TupLineItem::TupLineItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsLineItem(parent, scene)
 TupLineItem::TupLineItem(QGraphicsItem *parent) : QGraphicsLineItem(parent)
 {
 }

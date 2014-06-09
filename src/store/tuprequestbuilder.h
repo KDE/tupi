@@ -40,10 +40,6 @@
 #include "tuplibraryobject.h"
 #include "tupproject.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QString>
 #include <QDomDocument>
 #include <QVariant>

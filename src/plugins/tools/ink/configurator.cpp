@@ -38,7 +38,11 @@
 Configurator::Configurator(QWidget *parent) :QWidget(parent)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Configurator()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     QBoxLayout *mainLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
@@ -134,7 +138,11 @@ Configurator::Configurator(QWidget *parent) :QWidget(parent)
 Configurator::~Configurator()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~Configurator()]";
+        #else
+            TEND;
+        #endif
     #endif
 }
 

@@ -39,6 +39,8 @@
 #include "tglobal.h"
 
 #include <QObject>
+#include <QPluginLoader>
+#include <QDir>
 
 class QPluginLoader;
 

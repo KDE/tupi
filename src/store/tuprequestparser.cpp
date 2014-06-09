@@ -37,9 +37,6 @@
 #include "tupprojectresponse.h"
 #include "tuplibraryobject.h"
 
-#include <QXmlSimpleReader>
-#include <QXmlInputSource>
-
 struct TupRequestParser::Private
 {
     QString sign;

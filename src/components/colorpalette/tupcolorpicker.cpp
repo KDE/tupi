@@ -70,8 +70,13 @@ TupColorPicker::TupColorPicker(QWidget* parent) : QFrame(parent), k( new Private
 TupColorPicker::~TupColorPicker()
 {
     delete k;
+
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupColorPicker()]";
+        #else
+            TEND;
+        #endif
     #endif
 }
 

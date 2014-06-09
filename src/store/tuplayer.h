@@ -40,10 +40,6 @@
 #include "tupabstractserializable.h"
 #include "tupframe.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDomDocument>
 #include <QDomElement>
 #include <QList>

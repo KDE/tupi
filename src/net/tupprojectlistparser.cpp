@@ -53,7 +53,6 @@ TupProjectListParser::~TupProjectListParser()
 bool TupProjectListParser::startTag(const QString &tag, const QXmlAttributes &atts)
 {
     if (root() == "server_projectlist") {
- 
         if (tag == "works") {
             k->pivot = false;
         } else if (tag == "contributions") {

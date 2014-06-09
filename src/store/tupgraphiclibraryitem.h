@@ -41,9 +41,7 @@
 #include "tuplibraryobject.h"
 #include "tupabstractserializable.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
+#include <QGraphicsTextItem>
 
 // class TupLibraryObject;
 

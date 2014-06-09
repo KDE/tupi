@@ -46,9 +46,6 @@
 #include "tupprojectresponse.h"
 #include "tupprojectloader.h"
 
-#include <QDir>
-#include <QGraphicsView>
-
 struct TupProject::Private
 {
     QString name;
@@ -75,7 +72,7 @@ TupProject::TupProject(QObject *parent) : QObject(parent), k(new Private)
         #ifdef Q_OS_WIN32
             qDebug() << "[TupProject()]";
         #else
-            T_INIT;
+            TINIT;
         #endif
     #endif	
 	
@@ -96,7 +93,7 @@ TupProject::~TupProject()
         #ifdef Q_OS_WIN32
             qDebug() << "[~TupProject()]";
         #else
-            T_END;
+            TEND;
         #endif
     #endif	
 		
@@ -481,7 +478,7 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
         #ifdef Q_OS_WIN32
             qDebug() << "[TupProject::createSymbol()]";
         #else
-            T_FUNCINFOX;
+            T_FUNCINFOX("symbol");
         #endif
     #endif
 	

@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tupabout.h"
-#include <QDebug>
 
 /**
  * This class defines the About dialog of Tupi.
@@ -45,10 +44,10 @@
 TupAbout::TupAbout(QWidget *parent) : TabDialog(Cancel, parent)
 {
     // SQA: Check if these instructions are doing something for real
-	setWindowIcon(QIcon(THEME_DIR + "icons" + QDir::separator() + "about.png"));
+    setWindowIcon(QIcon(THEME_DIR + "icons" + QDir::separator() + "about.png"));
     setWindowTitle(tr("About Tupi"));
     
-	setFixedSize(525, 458);
+    setFixedSize(525, 458);
 
     QStringList path;
     QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
@@ -69,27 +68,31 @@ TupAbout::TupAbout(QWidget *parent) : TabDialog(Cancel, parent)
     QDomDocument doc;
     QString creditsFile = DATA_DIR + "credits.xml";
 
-	#ifdef K_DEBUG
-	    #ifdef Q_OS_WIN32
-	           qDebug() << "Tracing DATA_DIR: " << DATA_DIR;
-	    #else
-               tError() << "Tracing DATA_DIR: " << DATA_DIR;
-		#endif
-    #endif
-		
+    qDebug() << "Tracing DATA_DIR: " << DATA_DIR;
+
     QFile file(creditsFile);
     QString creditsText;
 
     if (!file.open(QIODevice::ReadOnly)) {
         #ifdef K_DEBUG
-               tError() << "TupAbout::TupAbout() - Fatal Error: Can't open \"credits.xml\" file";
+            QString msg = "TupAbout::TupAbout() - Fatal Error: Can't open \"credits.xml\" file";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return;
     }
 
     if (!doc.setContent(&file)) {
         #ifdef K_DEBUG
-               tError() << "TupAbout::TupAbout() - Fatal Error: File \"credits.xml\" is corrupt!";
+            QString msg = "TupAbout::TupAbout() - Fatal Error: File \"credits.xml\" is corrupt!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         file.close();
         return;

@@ -53,7 +53,6 @@ struct TupPaletteParser::Private
 
 TupPaletteParser::TupPaletteParser(): TXmlParserBase(), k(new Private)
 {
-     // TINIT;
      k->paletteName = "";
      k->isEditable = false;
      k->gradient = 0;
@@ -63,7 +62,6 @@ TupPaletteParser::TupPaletteParser(): TXmlParserBase(), k(new Private)
 TupPaletteParser::~TupPaletteParser()
 {
      delete k;
-     //	TEND;
 }
 
 bool TupPaletteParser::startTag(const QString &tag, const QXmlAttributes &atts)
@@ -120,7 +118,12 @@ bool TupPaletteParser::startTag(const QString &tag, const QXmlAttributes &atts)
                            default:
                              {
                                #ifdef K_DEBUG
-                                      tFatal() << "No gradient type: " << type;
+                                   QString msg = "TupPaletteParser::startTag() - No gradient type: " + type;
+                                   #ifdef Q_OS_WIN32
+                                       qDebug() << msg;
+                                   #else
+                                       tFatal() << msg;
+                                   #endif
                                #endif
                              }
                            break;

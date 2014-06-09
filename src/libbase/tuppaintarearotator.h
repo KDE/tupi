@@ -39,6 +39,7 @@
 #include "tglobal.h"
 
 #include <QObject>
+#include <QTimer>
 
 class TupPaintAreaBase;
 

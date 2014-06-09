@@ -134,7 +134,12 @@ bool FFMpegPlugin::exportToFormat(const QColor color, const QString &filePath, c
          if (!generator->movieHeaderOk()) {
              errorMsg = generator->getErrorMsg();
              #ifdef K_DEBUG
-                    tError() << "FFMpegPlugin::exportToFormat() - [ Fatal Error ] - Can't create video -> " << filePath;
+                 QString msg = "FFMpegPlugin::exportToFormat() - [ Fatal Error ] - Can't create video -> " + filePath;
+                 #ifdef Q_OS_WIN32
+                     qDebug() << msg;
+                 #else
+                     tError() << msg;
+                 #endif
              #endif
              delete generator;
              return false;

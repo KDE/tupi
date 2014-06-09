@@ -76,7 +76,12 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
         if (extension.compare("gpl") == 0) {
             if (! stream.readLine().contains("GIMP Palette")) {
                 #ifdef K_DEBUG
-                       tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.gpl) -> " << file;
+                    QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.gpl) -> " + file;
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return false;
             }
@@ -84,7 +89,12 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
             QString line = stream.readLine();
             if (!line.startsWith("Name:")) {
                 #ifdef K_DEBUG
-                       tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.gpl) -> " << file;
+                    QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.gpl) -> " + file;
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return false;
             }
@@ -102,7 +112,12 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
 
                    if (rgb.count() != 3) {
                        #ifdef K_DEBUG
-                              tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.gpl) -> " << line;
+                           QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.gpl) -> " + line;
+                           #ifdef Q_OS_WIN32
+                               qDebug() << msg;
+                           #else
+                               tError() << msg;
+                           #endif
                        #endif
                        return false;
                    }
@@ -120,7 +135,12 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
                                 color.setBlue(item);
                         } else {
                             #ifdef K_DEBUG
-                                   tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.gpl) -> " << line;
+                                QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.gpl) -> " + line;
+                                #ifdef Q_OS_WIN32
+                                    qDebug() << msg;
+                                #else
+                                    tError() << msg;
+                                #endif
                             #endif
                             return false;
                         }
@@ -130,7 +150,12 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
                        k->document->addColor(color);
                    } else {
                        #ifdef K_DEBUG
-                              tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid color format (.gpl) -> " << line;
+                           QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid color format (.gpl) -> " + line;
+                           #ifdef Q_OS_WIN32
+                               qDebug() << msg;
+                           #else
+                               tError() << msg;
+                           #endif
                        #endif
                        return false;
                    }
@@ -148,8 +173,13 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
                                k->document->addColor(color);
                            } else {
                                #ifdef K_DEBUG
-                                      tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid color format (.txt) -> " << line;
-                               #endif
+                                   QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid color format (.txt) -> " + line;
+                                   #ifdef Q_OS_WIN32
+                                       qDebug() << msg;
+                                   #else
+                                       tError() << msg;
+                                   #endif
+                                #endif
                                return false;
                            }
                        }
@@ -161,7 +191,12 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
                               int end = line.indexOf(")");
                               if (init == -1 || end == -1) {
                                   #ifdef K_DEBUG
-                                         tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.css) -> " << line;
+                                      QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.css) -> " + line;
+                                      #ifdef Q_OS_WIN32
+                                          qDebug() << msg;
+                                      #else
+                                          tError() << msg;
+                                      #endif
                                   #endif
                                   return false;
                               }
@@ -170,7 +205,12 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
                               QStringList rgb = text.split(",");
                               if (rgb.count() != 3) {
                                   #ifdef K_DEBUG
-                                         tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.css) -> " << line;
+                                      QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.css) -> " + line;
+                                      #ifdef Q_OS_WIN32
+                                          qDebug() << msg;
+                                      #else
+                                          tError() << msg;
+                                      #endif
                                   #endif
                                   return false;
                               }
@@ -188,7 +228,12 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
                                            color.setBlue(item);
                                    } else {
                                        #ifdef K_DEBUG
-                                              tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.css) -> " << line;
+                                           QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid palette format (.css) -> " + line;
+                                           #ifdef Q_OS_WIN32
+                                               qDebug() << msg;
+                                           #else
+                                               tError() << msg;
+                                           #endif
                                        #endif
                                        return false;
                                    }
@@ -198,14 +243,24 @@ bool TupPaletteImporter::importGimpPalette(const QString &file)
                                   k->document->addColor(color);
                               } else {
                                   #ifdef K_DEBUG
-                                         tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid color format (.css) -> " << line;
+                                      QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid color format (.css) -> " + line;
+                                      #ifdef Q_OS_WIN32
+                                          qDebug() << msg;
+                                      #else
+                                          tError() << msg;
+                                      #endif
                                   #endif
                                   return false;
                               }
                        }
             } else {
                 #ifdef K_DEBUG
-                       tError() << "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid extension! -> " << extension;
+                    QString msg = "TupPaletteImporter::importGimpPalette() - Fatal Error: Invalid extension! -> " + extension;
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return false;
             }
@@ -219,7 +274,12 @@ bool TupPaletteImporter::saveFile(const QString &path)
 {
     if (k->paletteName.isNull()) {
         #ifdef K_DEBUG
-               tError() << "TupPaletteImporter::saveFile() - Fatal Error: Palette name is null!";
+            QString msg = "TupPaletteImporter::saveFile() - Fatal Error: Palette name is null!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return false;
     }
@@ -233,7 +293,12 @@ bool TupPaletteImporter::saveFile(const QString &path)
         k->filePath = pathName;
     } else {
         #ifdef K_DEBUG
-               tError() << "TupPaletteImporter::saveFile() - Fatal Error: Insufficient permission to save palette file -> " << pathName;
+            QString msg = "TupPaletteImporter::saveFile() - Fatal Error: Insufficient permission to save palette file -> " + pathName;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return false;
     }

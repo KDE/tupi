@@ -51,7 +51,11 @@ struct TupLayerManager::Private
 TupLayerManager::TupLayerManager(int sceneIndex, QWidget *parent) : QWidget(parent), k(new Private)
 {
     #ifdef K_DEBUG
-        TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupLayerManager()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     k->layerIndex = new TupLayerIndex(sceneIndex); 
@@ -73,7 +77,11 @@ TupLayerManager::TupLayerManager(int sceneIndex, QWidget *parent) : QWidget(pare
 TupLayerManager::~TupLayerManager()
 {
     #ifdef K_DEBUG
-        TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupLayerManager()]";
+        #else
+            TEND;
+        #endif
     #endif
 
     delete k;

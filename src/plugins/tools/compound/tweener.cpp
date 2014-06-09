@@ -151,7 +151,11 @@ QStringList Tweener::keys() const
 void Tweener::press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::press()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(brushManager);
@@ -166,10 +170,10 @@ void Tweener::press(const TupInputDeviceInformation *input, TupBrushManager *bru
                 k->path->setPath(path);
             }
         } else {
-		#ifdef K_DEBUG
+        #ifdef K_DEBUG
             tFatal() << "Tweener::press() - No position!";
         #endif
-		}
+        }
     } 
 }
 
@@ -189,18 +193,19 @@ void Tweener::move(const TupInputDeviceInformation *input, TupBrushManager *brus
 void Tweener::release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::release()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(input);
     Q_UNUSED(brushManager);
 
     if (scene->currentFrameIndex() == k->startPoint) {
-
         if (k->editMode == TweenerPanel::TweenProperties) {
-
             if (k->currentTweenType == TweenerPanel::Position) {
-
                 if (k->group) {
                     k->group->createNodes(k->path);
                     k->group->expandAllNodes();
@@ -227,11 +232,15 @@ void Tweener::release(const TupInputDeviceInformation *input, TupBrushManager *b
                     }
                 }
             } else {
-			#ifdef K_DEBUG
-                tFatal() << "Tweener::release() - No position!";
-			#endif
+                #ifdef K_DEBUG
+                    QString msg = "Tweener::release() - No position!";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tFatal() << msg;
+                    #endif
+                #endif
             }
-
         } else {
 
             // if k->editMode == TweenerPanel::TweenSelection
@@ -374,7 +383,6 @@ void Tweener::setupActions()
 void Tweener::setCreatePath()
 {
     if (k->path) {
-
         k->pathOffset = QPointF(0, 0);
 
         if (!k->pathAdded) {
@@ -470,12 +478,12 @@ void Tweener::applyTween()
     }
     */
 
-	/*
+    /*
     if (!k->scene->scene()->tweenExists(name, TupItemTweener::Compound))
         tFatal() << "Tweener::applyTween() - Tween " << name << " is NEW!!!"; 
     else
         tFatal() << "Tweener::applyTween() - Tween " << name << " is NOT NEW!!!";
-	*/
+    */
   
     if (!k->scene->scene()->tweenExists(name, TupItemTweener::Compound)) {
         foreach (QGraphicsItem *item, k->objects) {   
@@ -554,11 +562,11 @@ void Tweener::applyTween()
                      QDomDocument dom;
                      dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
 
-					 /*
+                     /*
                      tFatal() << "Tweener::applyTween() - Point 2: [" << point.x() << ", " << point.y() << "]";
                      tFatal() << "";
                      tFatal() << "Tweener::applyTween() - " << dom.toString();
-					 */
+                     */
 
                      TupProjectRequest request = TupRequestBuilder::createItemRequest(k->scene->currentSceneIndex(), 
                                                                                     k->scene->currentLayerIndex(), 
@@ -929,5 +937,3 @@ void Tweener::frameResponse(const TupFrameResponse *event)
     if (event->action() == TupProjectRequest::Remove && k->scene->currentLayerIndex() == event->layerIndex())
         init(k->scene);
 }
-
-// Q_EXPORT_PLUGIN2(tup_tweener, Tweener);

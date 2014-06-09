@@ -153,7 +153,7 @@ void TupMainWindow::createGUI()
     connectWidgetToManager(m_timeLine);
     connectWidgetToLocalManager(m_timeLine);
 
-#if defined(QT_GUI_LIB) && defined(K_DEBUG)
+#if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
     QDesktopWidget desktop;
     m_debug = new TupDebugWidget(this, desktop.screenGeometry().width());
     debugView = addToolView(m_debug, Qt::BottomDockWidgetArea, Animation, "Debug Term", QKeySequence(tr("Shift+D")));
@@ -253,7 +253,7 @@ void TupMainWindow::setupMenu()
     m_windowMenu->addAction(m_actionManager->find("show_exposure"));
     m_windowMenu->addAction(m_actionManager->find("show_help"));
 
-#if defined(QT_GUI_LIB) && defined(K_DEBUG)
+#if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
     m_windowMenu->addAction(m_actionManager->find("show_debug"));
 #endif
 
@@ -469,7 +469,7 @@ void TupMainWindow::setupHelpActions()
 void TupMainWindow::setupWindowActions()
 {
     // Temporary commented code - SQA required 
-    #if defined(QT_GUI_LIB) && defined(K_DEBUG)
+    #if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
         new TAction(QPixmap(), tr("Show Debug Dialog"), QKeySequence(), TDebug::browser(), SLOT(show()), m_actionManager,
                     "show debug");
     #endif

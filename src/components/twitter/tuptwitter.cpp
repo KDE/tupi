@@ -83,7 +83,11 @@ void Tupwitter::start()
 Tupwitter::~Tupwitter()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~Tupwitter()]";
+        #else
+            TEND;
+        #endif
     #endif
 
     delete k;
@@ -115,14 +119,24 @@ void Tupwitter::closeRequest(QNetworkReply *reply)
                     formatStatus(array);
                 } else {
                     #ifdef K_DEBUG
-                           tError() << "Tupwitter::closeRequest() - Network Error: Invalid data!";
+                        QString msg = "Tupwitter::closeRequest() - Network Error: Invalid data!";
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
                     #endif
                 }
             }
         }
     } else {
         #ifdef K_DEBUG
-               tError() << "Tupwitter::closeRequest() - Network Error: Gosh! No Internet? :S";
+            QString msg = "Tupwitter::closeRequest() - Network Error: Gosh! No Internet? :S";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     } 
 }
@@ -133,28 +147,48 @@ void Tupwitter::slotError(QNetworkReply::NetworkError error)
             case QNetworkReply::HostNotFoundError:
                  { 
                  #ifdef K_DEBUG
-                        tError() << "Tupwitter::slotError() - Network Error: Host not found";
+                     QString msg = "Tupwitter::slotError() - Network Error: Host not found";
+                     #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                     #else
+                            tError() << msg;
+                     #endif
                  #endif
                  }
             break;
             case QNetworkReply::TimeoutError:
                  {
                  #ifdef K_DEBUG
-                        tError() << "Tupwitter::slotError() - Network Error: Time out!";
+                     QString msg = "Tupwitter::slotError() - Network Error: Time out!";
+                     #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                     #else
+                            tError() << msg;
+                     #endif
                  #endif
                  }
             break;
             case QNetworkReply::ConnectionRefusedError:
                  {
                  #ifdef K_DEBUG
-                        tError() << "Tupwitter::slotError() - Network Error: Connection Refused!";
+                     QString msg = "Tupwitter::slotError() - Network Error: Connection Refused!";
+                     #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                     #else
+                            tError() << msg;
+                     #endif
                  #endif
                  }
             break;
             case QNetworkReply::ContentNotFoundError:
                  {
                  #ifdef K_DEBUG
-                        tError() << "Tupwitter::slotError() - Network Error: Content not found!";
+                     QString msg = "Tupwitter::slotError() - Network Error: Content not found!";
+                     #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                     #else
+                            tError() << msg;
+                     #endif
                  #endif
                  }
             break;
@@ -162,7 +196,12 @@ void Tupwitter::slotError(QNetworkReply::NetworkError error)
             default:
                  {
                  #ifdef K_DEBUG
-                        tError() << "Tupwitter::slotError() - Network Error: Unknown Network error!";
+                     QString msg = "Tupwitter::slotError() - Network Error: Unknown Network error!";
+                     #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                     #else
+                            tError() << msg;
+                     #endif
                  #endif
                  }
             break;
@@ -174,7 +213,6 @@ void Tupwitter::checkSoftwareUpdates(QByteArray array)
     QDomDocument doc;
 
     if (doc.setContent(array)) {
-
         QDomElement root = doc.documentElement();
         QDomNode n = root.firstChild();
 

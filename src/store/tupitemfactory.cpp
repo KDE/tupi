@@ -48,8 +48,6 @@
 #include "tupgraphicalgorithm.h"
 #include "tupserializer.h"
 
-#include <QGraphicsItem>
-
 struct TupItemFactory::Private
 {
     QGraphicsItem *item;
@@ -58,12 +56,9 @@ struct TupItemFactory::Private
 
     QStack<TupItemGroup *> groups;
     QStack<QGraphicsItem *> objects;
-
     bool addToGroup, isLoading;
     QString textReaded;
-
     const TupLibrary *library;
-
     TupItemFactory::Type type;
 };
 
@@ -116,12 +111,15 @@ bool TupItemFactory::startTag(const QString& qname, const QXmlAttributes& atts)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFOX("items") << qname;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupItemFactory::startTag()] - qname: " << qname;
+        #else
+            T_FUNCINFOX("items") << qname;
+        #endif
     #endif
     */
 
     if (qname == "path") {
-
         QPainterPath path;
         TupSvg2Qt::svgpath2qtpath(atts.value("coords"), path);
 
@@ -217,7 +215,6 @@ bool TupItemFactory::startTag(const QString& qname, const QXmlAttributes& atts)
         k->addToGroup = true;
     } else if (qname == "symbol") {
                if (k->addToGroup) {
-
                    TupGraphicLibraryItem *item = qgraphicsitem_cast<TupGraphicLibraryItem *>(createItem(qname));
 
                    QString id = atts.value("id");
@@ -246,11 +243,8 @@ bool TupItemFactory::startTag(const QString& qname, const QXmlAttributes& atts)
     //////////
 
     if (qname == "properties" && !k->objects.isEmpty()) {
-
         TupSerializer::loadProperties(k->objects.last(), atts);
-
     } else if (qname == "brush") {
-
                QBrush brush;
                TupSerializer::loadBrush(brush, atts);
 
@@ -263,35 +257,26 @@ bool TupItemFactory::startTag(const QString& qname, const QXmlAttributes& atts)
                    k->loading = qname;
                    setItemBrush(brush);
                }
-
     } else if (qname == "pen") {
-
                QPen pen;
                k->loading = qname;
                TupSerializer::loadPen(pen, atts);
                setItemPen(pen);
-
     } else if (qname == "font") {
-
                QFont font;
 
                TupSerializer::loadFont(font, atts);
 
                if (TupTextItem *text = qgraphicsitem_cast<TupTextItem *>(k->objects.last()))
                    text->setFont(font);
-
     } else if (qname == "stop") {
-
                if (k->gradient) {
                    QColor c(atts.value("colorName"));
                    c.setAlpha(atts.value("alpha").toInt());
                    k->gradient->setColorAt(atts.value("value").toDouble(), c);
                }
-
     } else if (qname == "gradient") {
-
                k->gradient = TupSerializer::createGradient( atts);
-
     }
 
     return true;
@@ -306,57 +291,46 @@ bool TupItemFactory::endTag(const QString& qname)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFOX("items") << qname;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupItemFactory::endTag()] - qname: " << qname;
+        #else
+            T_FUNCINFOX("items") << qname;
+        #endif
     #endif
     */
 
     if (qname == "path") {
-
         if (k->addToGroup)
             k->groups.last()->addToGroup(k->objects.last());
         k->objects.pop();
-
     } else if (qname == "rect") {
-
                if (k->addToGroup)
                    k->groups.last()->addToGroup(k->objects.last());
                k->objects.pop();
-
     } else if (qname == "ellipse") {
-
                if (k->addToGroup)
                    k->groups.last()->addToGroup(k->objects.last());
                k->objects.pop();
-
     } else if (qname == "symbol") {
-
                if (k->addToGroup)
                    k->groups.last()->addToGroup(k->objects.last());
                k->objects.pop();
-
     } else if (qname == "line") {
-
                if (k->addToGroup)
                    k->groups.last()->addToGroup(k->objects.last());
                k->objects.pop();
-
     } else if (qname == "button") {
-
                if (k->addToGroup)
                    k->groups.last()->addToGroup(k->objects.last());
                k->objects.pop();
-
     } else if (qname == "text") {
-
                if (k->addToGroup)
                    k->groups.last()->addToGroup(k->objects.last());
 
                if (TupTextItem *text = qgraphicsitem_cast<TupTextItem *>(k->objects.last()))
                    text->setHtml(k->textReaded);
                k->objects.pop();
-
     } else if (qname == "group") {
-
                k->groups.pop();
                k->addToGroup = !k->groups.isEmpty();
 
@@ -364,17 +338,19 @@ bool TupItemFactory::endTag(const QString& qname)
                    k->groups.last()->addToGroup(k->objects.last());
 
                k->objects.pop();
-
     } else if (qname == "gradient") {
-
                if (k->loading == "brush")
                    setItemGradient(*k->gradient, true);
                else
                    setItemGradient(*k->gradient, false);
-
     } else {
                #ifdef K_DEBUG
-                      tWarning("items") << "Unhandled: " << qname;
+                   QString msg = "TupItemFactory::endTag() - Unknown tag: " + qname;
+                   #ifdef Q_OS_WIN32
+                       qWarning() << msg;
+                   #else
+                       tWarning("items") << msg;
+                   #endif
                #endif
     }
 

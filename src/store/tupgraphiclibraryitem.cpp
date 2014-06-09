@@ -36,8 +36,6 @@
 #include "tupgraphiclibraryitem.h"
 #include "tupserializer.h"
 
-#include <QGraphicsTextItem>
-
 struct TupGraphicLibraryItem::Private
 {
     QString symbolName;
@@ -85,18 +83,27 @@ void TupGraphicLibraryItem::setObject(TupLibraryObject *object)
 {
     if (!object) {
         #ifdef K_DEBUG
-            tWarning("library") << "Setting null library object";
+            QString msg = "TupGraphicLibraryItem::setObject() - Setting null library object";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
+
         return;
     }
     
     #ifdef K_DEBUG
-        T_FUNCINFOX("library") << object->symbolName();
+        #ifdef Q_OS_WIN32
+            qWarning() << "TupGraphicLibraryItem::setObject() - object->symbolName(): " << object->symbolName();
+        #else
+            T_FUNCINFOX("library") << object->symbolName();
+        #endif
     #endif
 
     k->symbolName = object->symbolName();
-    switch(object->type())
-    {
+    switch(object->type()) {
         case TupLibraryObject::Item:
         case TupLibraryObject::Text:
         case TupLibraryObject::Image:

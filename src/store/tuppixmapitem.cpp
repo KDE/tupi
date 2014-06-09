@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "tuppixmapitem.h"
-#include <QPixmap>
 
 TupPixmapItem::TupPixmapItem(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {

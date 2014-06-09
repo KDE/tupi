@@ -38,9 +38,11 @@
 
 #include "tglobal.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
+#include <QUndoStack>
+#include <QDir>
+#include <QFileInfo>
+#include <QObject>
+#include <QSize>
 
 class TupProject;
 class TupProjectRequest;
@@ -50,9 +52,6 @@ class TupAbstractProjectHandler;
 class QUndoStack;
 class TupCommandExecutor;
 class TupProjectResponse;
-
-#include <QObject>
-#include <QSize>
 
 /**
  * Events handler class for the project

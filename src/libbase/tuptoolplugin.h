@@ -42,6 +42,9 @@
 
 #include <QObject>
 #include <QSize>
+#include <QGraphicsView>
+#include <QCursor>
+#include <QMenu>
 
 class TupGraphicsScene;
 class QGraphicsView;

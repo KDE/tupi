@@ -131,7 +131,12 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
                 emit requested(&event);
             } else {
                 #ifdef K_DEBUG
-                       tError() << "NodesTool::release() - Fatal Error: Invalid position [ " << position << " ]";
+                    QString msg = "NodesTool::release() - Fatal Error: Invalid position [ " + QString::number(position) + " ]";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return;
             }
@@ -148,7 +153,11 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
 void NodesTool::itemResponse(const TupItemResponse *response)
 {
     #ifdef K_DEBUG
-           T_FUNCINFOX("NodesTool");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[NodesTool::itemResponse()]";
+        #else
+            T_FUNCINFOX("NodesTool");
+        #endif
     #endif
 
     TupProject *project = k->scene->scene()->project();
@@ -168,12 +177,22 @@ void NodesTool::itemResponse(const TupItemResponse *response)
                         item = frame->item(response->itemIndex());
                     } else {
                         #ifdef K_DEBUG
-                               tError() << "NodesTool::itemResponse() - Fatal Error: Frame variable is NULL!";
+                            QString msg = "NodesTool::itemResponse() - Fatal Error: Frame variable is NULL!";
+                            #ifdef Q_OS_WIN32
+                                qDebug() << msg;
+                            #else
+                                tError() << msg;
+                            #endif
                         #endif
                     }
                 } else {
                     #ifdef K_DEBUG
-                           tError() << "NodesTool::itemResponse() - Fatal Error: Layer variable is NULL!";
+                        QString msg = "NodesTool::itemResponse() - Fatal Error: Layer variable is NULL!";
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
                     #endif
                 }
             } else {
@@ -185,8 +204,13 @@ void NodesTool::itemResponse(const TupItemResponse *response)
                             item = frame->item(response->itemIndex());
                         } else {
                             #ifdef K_DEBUG
-                                   tError() << "NodesTool::itemResponse() - Fatal Error: Static frame variable is NULL!";
-                                   #endif
+                                QString msg = "NodesTool::itemResponse() - Fatal Error: Static frame variable is NULL!";
+                                #ifdef Q_OS_WIN32
+                                    qDebug() << msg;
+                                #else
+                                    tError() << msg;
+                                #endif
+                            #endif
                         }
                     } else if (project->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) { 
                                TupFrame *frame = bg->dynamicFrame();
@@ -194,28 +218,53 @@ void NodesTool::itemResponse(const TupItemResponse *response)
                                    item = frame->item(response->itemIndex());
                                } else {
                                    #ifdef K_DEBUG
-                                          tError() << "NodesTool::itemResponse() - Fatal Error: Dynamic frame variable is NULL!";
+                                       QString msg = "NodesTool::itemResponse() - Fatal Error: Dynamic frame variable is NULL!";
+                                       #ifdef Q_OS_WIN32
+                                           qDebug() << msg;
+                                       #else
+                                           tError() << msg;
+                                       #endif
                                    #endif
                                }
                     } else {
                         #ifdef K_DEBUG
-                               tError() << "NodesTool::itemResponse() - Fatal Error: Invalid spaceMode!";
+                            QString msg = "NodesTool::itemResponse() - Fatal Error: Invalid spaceMode!";
+                            #ifdef Q_OS_WIN32
+                                qDebug() << msg;
+                            #else
+                                tError() << msg;
+                            #endif
                         #endif
                     }
                 } else {
                     #ifdef K_DEBUG
-                           tError() << "NodesTool::itemResponse() - Fatal Error: Scene background is NULL!";
+                        QString msg = "NodesTool::itemResponse() - Fatal Error: Scene background is NULL!";
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
                     #endif
                 }
             }
         } else {
             #ifdef K_DEBUG
-                   tError() << "NodesTool::itemResponse() - Fatal Error: Scene variable is NULL";
+                QString msg = "NodesTool::itemResponse() - Fatal Error: Scene variable is NULL";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
         }
     } else {
         #ifdef K_DEBUG
-               tError() << "NodesTool::itemResponse() - Fatal Error: Project variable is NULL";
+            QString msg = "NodesTool::itemResponse() - Fatal Error: Project variable is NULL";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     }
     
@@ -223,10 +272,15 @@ void NodesTool::itemResponse(const TupItemResponse *response)
             case TupProjectRequest::Convert:
             {
                  if (item) {
-                      k->nodeGroup = new TNodeGroup(item, k->scene, TNodeGroup::LineSelection, k->baseZValue);
+                     k->nodeGroup = new TNodeGroup(item, k->scene, TNodeGroup::LineSelection, k->baseZValue);
                  } else {
                      #ifdef K_DEBUG
-                            tError() << "NodesTool::itemResponse() - Fatal Error: No item was found";
+                         QString msg = "NodesTool::itemResponse() - Fatal Error: No item was found";
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tError() << msg;
+                         #endif
                      #endif
                  }
             }
@@ -242,7 +296,12 @@ void NodesTool::itemResponse(const TupItemResponse *response)
                      }
                  } else {
                      #ifdef K_DEBUG
-                            tError() << "NodesTool::itemResponse() - Fatal Error: No item was found";
+                         QString msg = "NodesTool::itemResponse() - Fatal Error: No item was found";
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tError() << msg;
+                         #endif
                      #endif
                  }
             }
@@ -323,5 +382,3 @@ QCursor NodesTool::cursor() const
 {
     return QCursor(Qt::ArrowCursor);
 }
-
-// Q_EXPORT_PLUGIN2(tup_editNodes, NodesTool)

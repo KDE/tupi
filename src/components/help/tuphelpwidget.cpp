@@ -99,13 +99,23 @@ TupHelpWidget::TupHelpWidget(const QString &path, QWidget *parent) : TupModuleWi
             }
         } else {
             #ifdef K_DEBUG
-                   tError() << "TupHelpWidget::TupHelpWidget() - Fatal Error: Can't set content";
+                QString msg = "TupHelpWidget::TupHelpWidget() - Fatal Error: Can't set content";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
         }
         file.close();
     } else {
         #ifdef K_DEBUG
-               tError() << "TupHelpWidget::TupHelpWidget() - Fatal Error: Can't open 'help.xml' file";
+            QString msg = "TupHelpWidget::TupHelpWidget() - Fatal Error: Can't open 'help.xml' file";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     }
 

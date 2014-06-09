@@ -40,10 +40,6 @@
 #include "tupabstractserializable.h"
 #include "tupscene.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QImage>
 #include <QPixmap>
 

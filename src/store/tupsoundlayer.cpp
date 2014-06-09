@@ -39,16 +39,13 @@
 #include "tupproject.h"
 #include "tuplibraryobject.h"
 
-#include <QFileInfo>
-
 struct TupSoundLayer::Private
 {
     QString filePath, symbolName;
     int playerId;
 };
 
-TupSoundLayer::TupSoundLayer(TupScene *parent)
- : TupLayer(parent), k(new Private)
+TupSoundLayer::TupSoundLayer(TupScene *parent) : TupLayer(parent), k(new Private)
 {
 }
 

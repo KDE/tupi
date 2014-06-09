@@ -458,7 +458,12 @@ void Settings::applyTween()
     if (!k->selectionDone) {
         TOsd::self()->display(tr("Info"), tr("You must select at least one object!"), TOsd::Info); 
         #ifdef K_DEBUG
-               tError() << "Settings::applyTween() - You must select at least one object!";
+            QString msg = "Settings::applyTween() - You must select at least one object!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
 
         return;
@@ -467,7 +472,12 @@ void Settings::applyTween()
     if (!k->propertiesDone) {
         TOsd::self()->display(tr("Info"), tr("You must set Tween properties first!"), TOsd::Info);
         #ifdef K_DEBUG
-               tError() << "Settings::applyTween() - You must set Tween properties first!";
+            QString msg = "Settings::applyTween() - You must set Tween properties first!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return;
     }
@@ -513,7 +523,12 @@ void Settings::emitOptionChanged(int option)
                     k->options->setCurrentIndex(0);
                     TOsd::self()->display(tr("Info"), tr("Select objects for Tweening first!"), TOsd::Info);
                     #ifdef K_DEBUG
-                           tError() << "Settings::emitOptionChanged() - You must set Tween properties first!";
+                        QString msg = "Settings::emitOptionChanged() - You must set Tween properties first!";
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
                     #endif
                 }
             }

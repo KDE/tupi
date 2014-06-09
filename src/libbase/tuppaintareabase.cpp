@@ -47,18 +47,6 @@
 #include "tapplication.h"
 #include "tosd.h"
 
-#include <QGraphicsScene>
-#include <QMouseEvent>
-#include <QGraphicsSceneMouseEvent>
-#include <QGraphicsRectItem>
-#include <QPolygon>
-#include <QApplication>
-#include <QTimer>
-#include <QStyleOptionGraphicsItem>
-#include <QClipboard>
-
-#include <cmath>
-
 #ifdef QT_OPENGL_LIB
 
 #include <QGLWidget>
@@ -183,9 +171,13 @@ void TupPaintAreaBase::setAntialiasing(bool use)
 
 void TupPaintAreaBase::setUseOpenGL(bool opengl)
 {
-#ifdef K_DEBUG
-    T_FUNCINFO << opengl;
-#endif
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupPaintAreaBase::setUseOpenGL()] - opengl: " << opengl;
+        #else
+            T_FUNCINFO << opengl;
+        #endif
+    #endif
 
     QCursor cursor(Qt::ArrowCursor);
     if (viewport())
@@ -199,7 +191,14 @@ void TupPaintAreaBase::setUseOpenGL(bool opengl)
         }
 #else
         Q_UNUSED(opengl);
-        kWarning() << tr("OpenGL isn't supported");
+        #ifdef K_DEBUG
+            QString msg = "OpenGL isn't supported";
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                kWarning() << msg;
+            #endif
+        #endif
 #endif
 
     // to restore the cursor.
@@ -225,7 +224,12 @@ void TupPaintAreaBase::setTool(TupToolPlugin *tool)
 {
     if (!scene()) {
         #ifdef K_DEBUG
-               tDebug() << "TupPaintAreaBase::setTool() - Fatal Error: No scene available";
+            QString msg = "TupPaintAreaBase::setTool() - Fatal Error: No scene available";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return;
     }
@@ -252,13 +256,23 @@ bool TupPaintAreaBase::actionSafeAreaFlag() const
 void TupPaintAreaBase::mousePressEvent(QMouseEvent * event)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupPaintAreaBase::mousePressEvent()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (!canPaint()) { 
         #ifdef K_DEBUG
-               tDebug() << "TupPaintAreaBase::mousePressEvent -> I can't paint right now!";
+            QString msg = "TupPaintAreaBase::mousePressEvent() -> I can't paint right now!";
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                tWarning() << msg;
+            #endif
         #endif
+
         return;
     }
 
@@ -270,8 +284,14 @@ void TupPaintAreaBase::mouseMoveEvent(QMouseEvent * event)
 {
     if (!canPaint()) { 
         #ifdef K_DEBUG
-               tWarning() << "TupPaintAreaBase::mouseMoveEvent() - The canvas is busy. Can't paint!";
+            QString msg = "TupPaintAreaBase::mouseMoveEvent() - Canvas is busy. Can't paint!";
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                tWarning() << msg;
+            #endif
         #endif
+
         return;
     }
 
@@ -483,7 +503,11 @@ void TupPaintAreaBase::drawPadLock(QPainter *painter, const QRectF &rect, QStrin
 bool TupPaintAreaBase::canPaint() const
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupPaintAreaBase::canPaint()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (k->scene) {
@@ -493,7 +517,12 @@ bool TupPaintAreaBase::canPaint() const
         }
     } else {
         #ifdef K_DEBUG
-               tWarning() << "TupPaintAreaBase::canPaint() - Warning: Scene is NULL!";
+            QString msg = "TupPaintAreaBase::canPaint() - Warning: Scene is NULL!";
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                tWarning() << msg;
+            #endif
         #endif
     }
 

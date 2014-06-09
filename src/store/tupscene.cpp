@@ -41,11 +41,6 @@
 #include "tupprojectloader.h"
 #include "tupitemfactory.h"
 
-#include <QDir>
-#include <QGraphicsItem>
-#include <QGraphicsView>
-#include <QStyleOptionGraphicsItem>
-
 struct TupScene::Private
 {
     QSize dimension;
@@ -633,8 +628,6 @@ void TupScene::reset(QString &name)
 
 void TupScene::setStoryboard(TupStoryboard *storyboard)
 {
-    // tFatal() << "TupScene::setStoryboard() - Updating storyboard...";
-
     k->storyboard = storyboard;
 }
 

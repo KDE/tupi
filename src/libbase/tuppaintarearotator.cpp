@@ -36,8 +36,6 @@
 #include "tuppaintarearotator.h"
 #include "tuppaintareabase.h"
 
-#include <QTimer>
-
 struct TupPaintAreaRotator::Private
 {
     int rotationAngle;

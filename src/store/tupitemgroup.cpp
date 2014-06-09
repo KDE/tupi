@@ -41,7 +41,6 @@ struct TupItemGroup::Private
     QList<QGraphicsItem *> childs;
 };
 
-// TupItemGroup::TupItemGroup(QGraphicsItem *parent, QGraphicsScene *scene) : QGraphicsItemGroup(parent, scene), k(new Private)
 TupItemGroup::TupItemGroup(QGraphicsItem *parent) : QGraphicsItemGroup(parent), k(new Private)
 {
 }

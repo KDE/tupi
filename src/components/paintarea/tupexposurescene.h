@@ -40,6 +40,8 @@
 #include "tupscene.h" 
 
 #include <QGroupBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 class TupExposureScene : public QGroupBox 
 {

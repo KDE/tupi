@@ -76,7 +76,11 @@ SelectionTool::~SelectionTool()
 void SelectionTool::init(TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFOX("tools");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[SelectionTool::init()]";
+        #else
+            T_FUNCINFOX("tools");
+        #endif
     #endif
  
     qDeleteAll(k->nodeManagers);
@@ -92,7 +96,11 @@ void SelectionTool::init(TupGraphicsScene *scene)
 void SelectionTool::reset(TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFOX("tools");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[SelectionTool::reset()]";
+        #else
+            T_FUNCINFOX("tools");
+        #endif
     #endif
 
     foreach (QGraphicsView *view, scene->views()) {
@@ -127,7 +135,12 @@ void SelectionTool::reset(TupGraphicsScene *scene)
                                          }
                               } else {
                                   #ifdef K_DEBUG
-                                         tError() << "SelectionTool::reset() - Fatal Error: Invalid spaceMode!";
+                                      QString msg = "SelectionTool::reset() - Fatal Error: Invalid spaceMode!";
+                                      #ifdef Q_OS_WIN32
+                                          qDebug() << msg;
+                                      #else
+                                          tError() << msg;
+                                      #endif
                                   #endif
                                   return;
                               }
@@ -251,13 +264,23 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                                      position = bg->dynamicFrame()->indexOf(svg);
                                  } else {
                                      #ifdef K_DEBUG
-                                            tError() << "SelectionTool::release() - Fatal Error: Invalid spaceMode!";
+                                         QString msg = "SelectionTool::release() - Fatal Error: Invalid spaceMode!";
+                                         #ifdef Q_OS_WIN32
+                                             qDebug() << msg;
+                                         #else
+                                             tError() << msg;
+                                         #endif
                                      #endif
                                      return;
                                  }
                              } else {
                                  #ifdef K_DEBUG
-                                        tError() << "SelectionTool::release() - Fatal Error: Scene background object is NULL!";
+                                     QString msg = "SelectionTool::release() - Fatal Error: Scene background object is NULL!";
+                                     #ifdef Q_OS_WIN32
+                                         qDebug() << msg;
+                                     #else
+                                         tError() << msg;
+                                     #endif
                                  #endif
                                  return;
                              }
@@ -276,13 +299,23 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                                             position = bg->dynamicFrame()->indexOf(node->parentItem());
                                  } else {
                                      #ifdef K_DEBUG
-                                            tError() << "SelectionTool::release() - Fatal Error: Invalid spaceMode!";
+                                         QString msg = "SelectionTool::release() - Fatal Error: Invalid spaceMode!";
+                                         #ifdef Q_OS_WIN32
+                                             qDebug() << msg;
+                                         #else
+                                             tError() << msg;
+                                         #endif
                                      #endif
                                      return;
                                  }
                              } else {
                                  #ifdef K_DEBUG
-                                        tError() << "SelectionTool::release() - Fatal Error: Scene background object is NULL!";
+                                     QString msg = "SelectionTool::release() - Fatal Error: Scene background object is NULL!";
+                                     #ifdef Q_OS_WIN32
+                                         qDebug() << msg;
+                                     #else
+                                         tError() << msg;
+                                     #endif
                                  #endif
                                  return;
                              }
@@ -303,7 +336,12 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                          emit requested(&event);
                      } else {
                          #ifdef K_DEBUG
-                                tError() << "SelectionTool::release() - Fatal Error: Invalid item position !!! [ " << position << " ]"; 
+                             QString msg = "SelectionTool::release() - Fatal Error: Invalid item position !!! [ " + QString::number(position) + " ]";
+                             #ifdef Q_OS_WIN32
+                                 qDebug() << msg;
+                             #else
+                                 tError() << msg;
+                             #endif
                          #endif
                      }
                  }
@@ -356,7 +394,11 @@ QWidget *SelectionTool::configurator()
 void SelectionTool::aboutToChangeScene(TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFOX("tools");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[SelectionTool::aboutToChangeScene()]";
+        #else
+            T_FUNCINFOX("tools");
+        #endif
     #endif
 
     init(scene);
@@ -365,7 +407,11 @@ void SelectionTool::aboutToChangeScene(TupGraphicsScene *scene)
 void SelectionTool::aboutToChangeTool()
 {
     #ifdef K_DEBUG
-           T_FUNCINFOX("tools");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[SelectionTool::aboutToChangeTool()]";
+        #else
+            T_FUNCINFOX("tools");
+        #endif
     #endif
 
     qDeleteAll(k->nodeManagers);
@@ -383,7 +429,11 @@ void SelectionTool::aboutToChangeTool()
 void SelectionTool::itemResponse(const TupItemResponse *event)
 {
     #ifdef K_DEBUG
-           T_FUNCINFOX("tools");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[SelectionTool::itemResponse()]";
+        #else
+            T_FUNCINFOX("tools");
+        #endif
     #endif
 
     QGraphicsItem *item = 0;
@@ -409,13 +459,23 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                         }
                     } else {
                         #ifdef K_DEBUG
-                               tError() << "SelectionTool::itemResponse - Fatal Error: frame is NULL"; 
+                            QString msg = "SelectionTool::itemResponse - Fatal Error: frame is NULL";
+                            #ifdef Q_OS_WIN32
+                                qDebug() << msg;
+                            #else
+                                tError() << msg;
+                            #endif
                         #endif
                         return;
                     }
                 } else {
                     #ifdef K_DEBUG
-                           tError() << "SelectionTool::itemResponse - Fatal Error: layer is NULL";
+                        QString msg = "SelectionTool::itemResponse - Fatal Error: layer is NULL";
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
                     #endif
                     return;
                 }
@@ -431,13 +491,23 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                                }
                            } else {
                                #ifdef K_DEBUG
-                                      tError() << "SelectionTool::itemResponse - Fatal Error: Static bg frame is NULL";
+                                   QString msg = "SelectionTool::itemResponse - Fatal Error: Static bg frame is NULL";
+                                   #ifdef Q_OS_WIN32
+                                       qDebug() << msg;
+                                   #else
+                                       tError() << msg;
+                                   #endif
                                #endif
                                return;
                            }
                        } else {
                            #ifdef K_DEBUG
-                                  tError() << "SelectionTool::itemResponse - Fatal Error: Scene background is NULL";
+                               QString msg = "SelectionTool::itemResponse - Fatal Error: Scene background is NULL";
+                               #ifdef Q_OS_WIN32
+                                   qDebug() << msg;
+                               #else
+                                   tError() << msg;
+                               #endif
                            #endif
                            return;
                        }
@@ -453,31 +523,56 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                                }
                            } else {
                                #ifdef K_DEBUG
-                                      tError() << "SelectionTool::itemResponse - Fatal Error: Dynamic bg frame is NULL";
+                                   QString msg = "SelectionTool::itemResponse - Fatal Error: Dynamic bg frame is NULL";
+                                   #ifdef Q_OS_WIN32
+                                       qDebug() << msg;
+                                   #else
+                                       tError() << msg;
+                                   #endif
                                #endif
                                return;
                            }
                        } else {
                            #ifdef K_DEBUG
-                                  tError() << "SelectionTool::itemResponse - Fatal Error: Scene background is NULL";
+                               QString msg = "SelectionTool::itemResponse - Fatal Error: Scene background is NULL";
+                               #ifdef Q_OS_WIN32
+                                   qDebug() << msg;
+                               #else
+                                   tError() << msg;
+                               #endif
                            #endif
                            return;
                        }
             } else {
                 #ifdef K_DEBUG
-                       tError() << "SelectionTool::itemResponse - Fatal Error: Invalid spaceMode!";
+                    QString msg = "SelectionTool::itemResponse - Fatal Error: Invalid spaceMode!";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return;
             }
         } else {
             #ifdef K_DEBUG
-                   tError() << "SelectionTool::itemResponse - Fatal Error: Current scene is NULL!";
+                QString msg = "SelectionTool::itemResponse - Fatal Error: Current scene is NULL!";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
             return;
         }
     } else {
         #ifdef K_DEBUG
-               tError() << "SelectionTool::itemResponse - Project does not exist";
+            QString msg = "SelectionTool::itemResponse - Project does not exist";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return;
     }
@@ -495,7 +590,12 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                      }
                  } else {
                      #ifdef K_DEBUG
-                            tError() << "SelectionTool::itemResponse - No item found";
+                         QString msg = "SelectionTool::itemResponse - No item found";
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tError() << msg;
+                         #endif
                      #endif
                  }
             }
@@ -640,7 +740,12 @@ void SelectionTool::updateItems(TupGraphicsScene *scene)
                                          }
                               } else {
                                   #ifdef K_DEBUG
-                                         tError() << "SelectionTool::updateItems() - Fatal Error: Invalid spaceMode!";
+                                      QString msg = "SelectionTool::updateItems() - Fatal Error: Invalid spaceMode!";
+                                      #ifdef Q_OS_WIN32
+                                          qDebug() << msg;
+                                      #else
+                                          tError() << msg;
+                                      #endif
                                   #endif
                               }
                           }
@@ -705,13 +810,23 @@ void SelectionTool::applyFlip(Settings::Flip flip)
                                                  position = bg->dynamicFrame()->indexOf(node->parentItem());
                                   } else {
                                       #ifdef K_DEBUG
-                                             tError() << "SelectionTool::applyFlip() - Fatal Error: invalid spaceMode!";
+                                          QString msg = "SelectionTool::applyFlip() - Fatal Error: invalid spaceMode!";
+                                          #ifdef Q_OS_WIN32
+                                              qDebug() << msg;
+                                          #else
+                                              tError() << msg;
+                                          #endif
                                       #endif
                                       return;
                                   }
                               } else {
                                   #ifdef K_DEBUG
-                                         tError() << "SelectionTool::applyFlip() - Fatal Error: Scene background object is NULL!";
+                                      QString msg = "SelectionTool::applyFlip() - Fatal Error: Scene background object is NULL!";
+                                      #ifdef Q_OS_WIN32
+                                          qDebug() << msg;
+                                      #else
+                                          tError() << msg;
+                                      #endif
                                   #endif
                                   return;
                               }
@@ -761,13 +876,23 @@ void SelectionTool::applyOrderAction(Settings::Order action)
                                     position = bg->dynamicFrame()->indexOf(item);
                      } else {
                          #ifdef K_DEBUG
-                                tError() << "SelectionTool::applyOrderAction() - Fatal Error: invalid spaceMode!";
+                             QString msg = "SelectionTool::applyOrderAction() - Fatal Error: invalid spaceMode!";
+                             #ifdef Q_OS_WIN32
+                                 qDebug() << msg;
+                             #else
+                                 tError() << msg;
+                             #endif
                          #endif
                          return;
                      }
                  } else {
                      #ifdef K_DEBUG
-                            tError() << "SelectionTool::applyOrderAction() - Fatal Error: Scene background object is NULL!";
+                         QString msg = "SelectionTool::applyOrderAction() - Fatal Error: Scene background object is NULL!";
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tError() << msg;
+                         #endif
                      #endif
                      return;
                  }
@@ -896,5 +1021,3 @@ void SelectionTool::updateItemPosition(int x, int y) {
         }
     }
 }
-
-// Q_EXPORT_PLUGIN2(tup_select, SelectionTool);

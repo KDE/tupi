@@ -40,8 +40,6 @@
 #include "tupscene.h"
 #include "tupgraphicobject.h"
 
-#include <QPainter>
-
 struct TupAnimationRenderer::Private
 {
     TupGraphicsScene *scene;

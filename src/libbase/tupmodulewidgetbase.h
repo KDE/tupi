@@ -45,8 +45,10 @@
 #include <QSizePolicy> 
 #include <QObject>
 #include <QEvent>
-#include <QBoxLayout>
 #include <QDockWidget>
+#include <QEvent>
+#include <QBoxLayout>
+#include <QDialog>
 
 /**
  * @author Jorge Cuadrado

@@ -114,8 +114,14 @@ TMainWindow *TMainWindowFactory::create(QMainWindow *other)
 
     if (other->inherits("TMainWindow")) {
         #ifdef K_DEBUG
-               tError() << "TMainWindowFactory::create() - Fatal Error: Can't create a TMainWindow!";
+            QString msg = "TMainWindowFactory::create() - Fatal Error: Can't create a TMainWindow!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
+
         return static_cast<TMainWindow *>(other);
     }
 

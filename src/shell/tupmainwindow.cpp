@@ -95,7 +95,11 @@ TupMainWindow::TupMainWindow(int parameters) : TabbedMainWindow(), m_projectMana
                m_viewChat(0), m_exposureSheet(0), m_scenes(0), isSaveDialogOpen(false), internetOn(false)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupMainWindow()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     // Loading audio player plugin
@@ -166,7 +170,11 @@ TupMainWindow::TupMainWindow(int parameters) : TabbedMainWindow(), m_projectMana
 TupMainWindow::~TupMainWindow()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupMainWindow()]";
+        #else
+            TEND;
+        #endif
     #endif
 
     QClipboard *clipboard = QApplication::clipboard();
@@ -235,8 +243,13 @@ void TupMainWindow::createNewNetProject(const QString &title, const QStringList 
 void TupMainWindow::setWorkSpace(const QStringList &users)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupMainWindow::setWorkSpace()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
+
 
     if (m_projectManager->isOpen()) {
 
@@ -382,7 +395,12 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
 void TupMainWindow::newProject()
 {
     #ifdef K_DEBUG
-           tWarning() << "Creating new project...";
+        QString msg = "Creating new project...";
+        #ifdef Q_OS_WIN32
+           qWarning() << msg;
+        #else
+           tWarning() << msg;
+        #endif
     #endif
 
     TupNewProject *wizard = new TupNewProject(this);
@@ -401,7 +419,7 @@ void TupMainWindow::newProject()
             setupLocalProject(wizard->parameters());
             createNewLocalProject();
         }
-#if defined(QT_GUI_LIB) && defined(K_DEBUG)
+#if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
     m_debug->setProjectStatus(true); 
 #endif
     }
@@ -422,14 +440,17 @@ void TupMainWindow::newProject()
 bool TupMainWindow::closeProject()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupMainWindow::closeProject()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (!m_projectManager->isOpen())
         return true;
 
     if (m_projectManager->isModified()) {
-
         QDesktopWidget desktop;
 
         QMessageBox msgBox;
@@ -470,7 +491,11 @@ bool TupMainWindow::closeProject()
 void TupMainWindow::resetUI()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupMainWindow::resetUI()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     // disconnect(animationTab, SIGNAL(projectHasChanged()), this, SLOT(updatePlayer()));
@@ -496,7 +521,7 @@ void TupMainWindow::resetUI()
     //if (timeView->isExpanded())
         timeView->expandDock(false);
 
-#if defined(QT_GUI_LIB) && defined(K_DEBUG)
+#if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
     //if (debugView->isExpanded())
         debugView->expandDock(false);
 #endif
@@ -591,7 +616,7 @@ void TupMainWindow::resetUI()
 
     resetMousePointer();
 
-#if defined(QT_GUI_LIB) && defined(K_DEBUG)
+#if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
     m_debug->setProjectStatus(false);
 #endif
 }
@@ -714,7 +739,12 @@ void TupMainWindow::openProject()
 void TupMainWindow::openProject(const QString &path)
 {
     #ifdef K_DEBUG
-           tWarning() << "TupMainWindow::openProject() - Opening project: " << path;
+        QString msg = "TupMainWindow::openProject() - Opening project: " + path;
+        #ifdef Q_OS_WIN32
+           qWarning() << msg;
+        #else
+           tWarning() << msg;
+        #endif
     #endif
 
     if (path.isEmpty() || !path.endsWith(".tup"))
@@ -811,8 +841,14 @@ void TupMainWindow::importProjectToServer()
 void TupMainWindow::save()
 {
     #ifdef K_DEBUG
-           tWarning("project") << "TupMainWindow::save() - Saving...";
+        QString msg = "TupMainWindow::save() - Saving...";
+        #ifdef Q_OS_WIN32
+           qWarning() << msg;
+        #else
+           tWarning("project") << msg;
+        #endif
     #endif
+
     QTimer::singleShot(0, this, SLOT(saveProject()));
 }
 
@@ -904,13 +940,23 @@ void TupMainWindow::importPalettes()
                        m_colorPalette->parsePaletteFile(importer.filePath());
                    } else {
                        #ifdef K_DEBUG
-                              tError() << "TupMainWindow::importPalettes() - Fatal Error: Couldn't import file -> " << (*file);
+                           QString msg = "TupMainWindow::importPalettes() - Fatal Error: Couldn't import file -> " + QString(*file);
+                           #ifdef Q_OS_WIN32
+                               qDebug() << msg;
+                           #else
+                               tError() << msg;
+                           #endif
                        #endif
                        isOk = false;
                    }
                } else {
                    #ifdef K_DEBUG
-                          tError() << "TupMainWindow::importPalettes() - Fatal Error: Couldn't import palette -> " << (*file);
+                       QString msg = "TupMainWindow::importPalettes() - Fatal Error: Couldn't import palette -> " + QString(*file);
+                       #ifdef Q_OS_WIN32
+                           qDebug() << msg;
+                       #else
+                           tError() << msg;
+                       #endif
                    #endif
                    isOk = false;
                }
@@ -1035,8 +1081,13 @@ void TupMainWindow::saveAs()
     if (!directory.exists()) {
         TOsd::self()->display(tr("Error"), tr("Directory does not exist! Please, choose another path."), TOsd::Error);
         #ifdef K_DEBUG
-               QString file = path.toLocal8Bit();
-               tError() << "TupMainWindow::saveAs() - Fatal Error: Directory doesn't exist! -> " << file;
+            QString file = path.toLocal8Bit();
+            QString msg = "TupMainWindow::saveAs() - Fatal Error: Directory doesn't exist! -> " + file;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return;
     } else {
@@ -1100,7 +1151,6 @@ void TupMainWindow::saveProject()
         if (isSaveDialogOpen)
             isSaveDialogOpen = false;
     } else {
-
         TupSavePackage package(lastSave);
         netProjectManager->sendPackage(package);
 
@@ -1188,7 +1238,12 @@ void TupMainWindow::createCommand(const TupPaintAreaEvent *event)
 {
     if (!animationTab) {
         #ifdef K_DEBUG
-               tFatal() << "TupMainWindow::createCommand() - No animationTab... Aborting!";
+            QString msg = "TupMainWindow::createCommand() - No animationTab... Aborting!"; 
+            #ifdef Q_OS_WIN32
+               qDebug() << msg;
+            #else
+               tFatal() << msg;
+            #endif
         #endif
         return;
     }
@@ -1402,7 +1457,11 @@ void TupMainWindow::postVideo(const QString &title, const QString &topics, const
 void TupMainWindow::updatePlayer(bool removeAction)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupMainWindow::updatePlayer()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (!removeAction)

@@ -86,7 +86,11 @@ void PencilTool::setupActions()
 void PencilTool::init(TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFOX("tools");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[PencilTool::init()]";
+        #else
+            T_FUNCINFOX("tools");
+        #endif
     #endif
 
     k->scene = scene;
@@ -262,5 +266,3 @@ void PencilTool::sceneResponse(const TupSceneResponse *event)
     if (event->action() == TupProjectRequest::Select)
         reset(k->scene);
 }
-
-// Q_EXPORT_PLUGIN2(tup_brush, PencilTool);

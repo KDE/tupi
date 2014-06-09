@@ -36,10 +36,14 @@
 #ifndef TUPRECTITEM_H
 #define TUPRECTITEM_H
 
-#include "tupabstractserializable.h"
 #include "tglobal.h"
+#include "tupabstractserializable.h"
 
 #include <QGraphicsRectItem>
+#include <QGraphicsSceneDragDropEvent>
+#include <QMimeData>
+#include <QBrush>
+#include <QGraphicsScene>
 
 /**
  * @author David Cuadrado

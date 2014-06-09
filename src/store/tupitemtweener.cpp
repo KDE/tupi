@@ -157,7 +157,11 @@ void TupItemTweener::addStep(const TupTweenerStep &step)
     int counter = step.index();
   
 #ifdef K_DEBUG
-    VERIFY_STEP(counter);
+    #ifdef Q_OS_WIN32
+        tWarning() << "TupItemTweener::addStep() - counter: " << counter;
+    #else
+        VERIFY_STEP(counter);
+    #endif
 #endif
     
     if (step.has(TupTweenerStep::Position))
@@ -187,49 +191,78 @@ TupTweenerStep * TupItemTweener::stepAt(int index)
 void TupItemTweener::setPosAt(int index, const QPointF &pos)
 {
 #ifdef K_DEBUG
-    VERIFY_STEP(index);
+    #ifdef Q_OS_WIN32
+        tWarning() << "TupItemTweener::setPosAt() - index: " << index;
+    #else
+        VERIFY_STEP(index);
+    #endif
 #endif
+
     k->step(index)->setPosition(pos);
 }
 
 void TupItemTweener::setRotationAt(int index, double angle)
 {
 #ifdef K_DEBUG
-    VERIFY_STEP(index);
+    #ifdef Q_OS_WIN32
+        tWarning() << "TupItemTweener::setRotationAt() - index: " << index;
+    #else
+        VERIFY_STEP(index);
+    #endif
 #endif
-    // tError() << "TupItemTweener::setRotationAt() - Index: " << index << " - Angle: " << angle;
+
     k->step(index)->setRotation(angle);
 }
 
 void TupItemTweener::setScaleAt(int index, double sx, double sy)
 {
 #ifdef K_DEBUG
-    VERIFY_STEP(index);
+    #ifdef Q_OS_WIN32
+        tWarning() << "TupItemTweener::setScaleAt() - index: " << index;
+    #else
+        VERIFY_STEP(index);
+    #endif
 #endif
+
     k->step(index)->setScale(sx, sy);
 }
 
 void TupItemTweener::setShearAt(int index, double sx, double sy)
 {
 #ifdef K_DEBUG
-    VERIFY_STEP(index);
+    #ifdef Q_OS_WIN32
+        tWarning() << "TupItemTweener::setShearAt() - index: " << index;
+    #else
+        VERIFY_STEP(index);
+    #endif
 #endif
+
     k->step(index)->setShear(sx, sy);
 }
 
 void TupItemTweener::setOpacityAt(int index, double opacity)
 {
 #ifdef K_DEBUG
-    VERIFY_STEP(index);
+    #ifdef Q_OS_WIN32
+        tWarning() << "TupItemTweener::setOpacityAt() - index: " << index;
+    #else
+        VERIFY_STEP(index);
+    #endif
 #endif
+
     k->step(index)->setOpacity(opacity);
 }
 
 void TupItemTweener::setColorAt(int index, const QColor &color)
 {
 #ifdef K_DEBUG
-    VERIFY_STEP(index);
+    #ifdef Q_OS_WIN32
+        tWarning() << "TupItemTweener::setColorAt() - index: " << index;
+    #else
+        VERIFY_STEP(index);
+    #endif
 #endif
+
     k->step(index)->setColor(color);
 }
 
@@ -266,8 +299,14 @@ QPointF TupItemTweener::transformOriginPoint()
 void TupItemTweener::fromXml(const QString &xml)
 {
     #ifdef K_DEBUG
-           tWarning() << "TupItemTweener::fromXml() - Tween content: ";
+        QString msg = "TupItemTweener::fromXml() - Tween content: ";
+        #ifdef Q_OS_WIN32
+           qWarning() << msg;
+           qWarning() << xml;
+        #else
+           tWarning() << msg;
            tWarning() << xml;
+        #endif
     #endif
     
     QDomDocument doc;
@@ -454,8 +493,15 @@ void TupItemTweener::fromXml(const QString &xml)
 QDomElement TupItemTweener::toXml(QDomDocument &doc) const
 {
     #ifdef K_DEBUG
-           tWarning() << "TupItemTweener::toXml() - Saving tween: " << k->name;
-           tWarning() << "TupItemTweener::toXml() - Type: " << k->type;
+        QString msg1 = "TupItemTweener::toXml() - Saving tween: " + k->name;
+        QString msg2 = "TupItemTweener::toXml() - Type: " + k->type;
+        #ifdef Q_OS_WIN32
+           qWarning() << msg1;
+           qWarning() << msg2;
+        #else
+           tWarning() << msg1;
+           tWarning() << msg2;
+        #endif
     #endif
 
     QDomElement root = doc.createElement("tweening");
@@ -485,7 +531,6 @@ QDomElement TupItemTweener::toXml(QDomDocument &doc) const
         root.appendChild(settings); 
 
     } else { 
-
         if (k->type == TupItemTweener::Position)
             root.setAttribute("coords", k->path);
 

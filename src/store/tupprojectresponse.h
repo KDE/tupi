@@ -41,10 +41,6 @@
 #include "tupscene.h"
 #include "tuplibraryobject.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 /**
  * Response to request (aka TupProjectRequest)
  * @author David Cuadrado

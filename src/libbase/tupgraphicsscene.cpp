@@ -36,7 +36,6 @@
 #include "tupgraphicsscene.h"
 #include "tupscene.h"
 #include "tuplayer.h"
-
 #include "tupgraphicobject.h"
 #include "tupitemgroup.h"
 #include "tupprojectloader.h"
@@ -52,16 +51,7 @@
 #include "tuplineitem.h"
 #include "tuprectitem.h"
 #include "tupellipseitem.h"
-
 #include "tupguideline.h"
-
-#include <QGraphicsItem>
-#include <QSvgRenderer>
-#include <QGraphicsView>
-#include <QStyleOptionGraphicsItem>
-#include <QGraphicsSceneMouseEvent>
-#include <QKeyEvent>
-#include <QDesktopWidget>
 
 /**
  * This class defines the data structure and methods for handling animation scenes.
@@ -102,7 +92,11 @@ struct TupGraphicsScene::Private
 TupGraphicsScene::TupGraphicsScene() : QGraphicsScene(), k(new Private)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -127,7 +121,11 @@ TupGraphicsScene::TupGraphicsScene() : QGraphicsScene(), k(new Private)
 TupGraphicsScene::~TupGraphicsScene()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupGraphicsScene()]";
+        #else
+            TEND;
+        #endif
     #endif
 
     clearFocus();
@@ -145,7 +143,11 @@ TupGraphicsScene::~TupGraphicsScene()
 void TupGraphicsScene::setCurrentFrame(int layer, int frame)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::setCurrentFrame()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if ((frame != k->framePosition.frame && k->framePosition.frame >= 0) ||
@@ -165,7 +167,11 @@ void TupGraphicsScene::drawCurrentPhotogram()
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::drawCurrentPhotogram()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -188,7 +194,11 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
 { 
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::drawPhotogram()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -204,11 +214,9 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
     // Drawing frames from every layer
 
     for (int i=0; i < k->scene->layersTotal(); i++) {
-
          TupLayer *layer = k->scene->layer(i);
 
          if (layer->framesTotal() > 0 && photogram < layer->framesTotal()) {
-
              TupFrame *mainFrame = layer->frame(photogram);
 
              QString currentFrame = "";
@@ -307,7 +315,11 @@ void TupGraphicsScene::drawBackground(int photogram)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::drawBackground()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -325,7 +337,12 @@ void TupGraphicsScene::drawBackground(int photogram)
                     addFrame(frame, 1.0);
             } else {
                 #ifdef K_DEBUG
-                       tWarning() << "TupGraphicsScene::drawBackground() - Dynamic background frame is empty";
+                    QString msg = "TupGraphicsScene::drawBackground() - Dynamic background frame is empty";
+                    #ifdef Q_OS_WIN32
+                        qWarning() << msg;
+                    #else
+                        tWarning() << msg;
+                    #endif
                 #endif
             }
         } else if (k->spaceMode == TupProject::FRAMES_EDITION) {
@@ -338,7 +355,12 @@ void TupGraphicsScene::drawBackground(int photogram)
                        addItem(item);
                    } else {
                        #ifdef K_DEBUG
-                              tWarning() << "TupGraphicsScene::drawBackground() - Dynamic background frame is empty";
+                           QString msg = "TupGraphicsScene::drawBackground() - Dynamic background frame is empty";
+                           #ifdef Q_OS_WIN32
+                               qWarning() << msg;
+                           #else
+                               tWarning() << msg;
+                           #endif
                        #endif
                    }
         }
@@ -361,7 +383,12 @@ void TupGraphicsScene::drawBackground(int photogram)
                     addFrame(frame, 1.0);
             } else {
                 #ifdef K_DEBUG
-                       tWarning() << "TupGraphicsScene::drawBackground() - Static background frame is empty";
+                    QString msg = "TupGraphicsScene::drawBackground() - Static background frame is empty";
+                    #ifdef Q_OS_WIN32
+                        qWarning() << msg;
+                    #else
+                        tWarning() << msg;
+                    #endif
                 #endif
             }
         }
@@ -372,7 +399,11 @@ void TupGraphicsScene::addFrame(TupFrame *frame, double opacity, Context mode)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::addFrame()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -432,7 +463,11 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::addGraphicObject()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -443,12 +478,10 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
         group->recoverChilds();
 
     if (! qgraphicsitem_cast<TupItemGroup *>(item->parentItem())) {
-
         item->setSelected(false);
         TupLayer *layer = k->scene->layer(k->framePosition.layer);
 
         if (layer) {
-
             TupFrame *frame = layer->frame(k->framePosition.frame);
 
             if (frame) {
@@ -464,7 +497,11 @@ void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::addSvgObject()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -488,18 +525,33 @@ void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
                 addItem(svgItem);
             } else {
                 #ifdef K_DEBUG
-                       tFatal() << "TupGraphicsScene::addSvgObject() - Error: Frame #" << k->framePosition.frame << " NO available!";
+                    QString msg = "TupGraphicsScene::addSvgObject() - Error: Frame #" + QString::number(k->framePosition.frame) + " NO available!";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tFatal() << msg;
+                    #endif
                 #endif
             }
         } else {
                 #ifdef K_DEBUG
-                       tFatal() << "TupGraphicsScene::addSvgObject() - Error: Layer #" << k->framePosition.layer << " NO available!";
+                    QString msg = "TupGraphicsScene::addSvgObject() - Error: Layer #" + QString::number(k->framePosition.layer) + " NO available!";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tFatal() << msg;
+                    #endif
                 #endif
         }
 
     } else {
         #ifdef K_DEBUG
-               tFatal() << "TupGraphicsScene::addSvgObject() - Error: No SVG item!";
+            QString msg = "TupGraphicsScene::addSvgObject() - Error: No SVG item!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tFatal() << msg;
+            #endif
         #endif
     } 
 } 
@@ -508,7 +560,11 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::addTweeningObjects()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -521,12 +577,10 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
              int origin = object->frame()->index();
 
              if (TupItemTweener *tween = object->tween()) {
-
                  int adjustX = object->item()->boundingRect().width()/2;
                  int adjustY = object->item()->boundingRect().height()/2;
 
                  if (origin == photogram) {
-
                      TupTweenerStep *stepItem = tween->stepAt(0);
                      object->item()->setToolTip(tween->tweenType() + ": " + tween->name() + tr("/Step: 0"));
 
@@ -694,26 +748,27 @@ void TupGraphicsScene::addSvgTweeningObjects(int photogram)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::addSvgTweeningObjects()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
     QList<TupSvgItem *> svgList = k->scene->tweeningSvgObjects();
 
     for (int i=0; i < svgList.count(); i++) {
-
          TupSvgItem *object = svgList.at(i);
 
          if (object->frame()->layer()->isVisible()) {
              int origin = object->frame()->index();
 
              if (TupItemTweener *tween = object->tween()) {
-
                  int adjustX = object->boundingRect().width()/2;
                  int adjustY = object->boundingRect().height()/2;
 
                  if (origin == photogram) {
-
                      TupTweenerStep *stepItem = tween->stepAt(0);
                      object->setToolTip(tween->tweenType() + ": " + tween->name() + tr("/Step: 0"));
 
@@ -795,7 +850,12 @@ void TupGraphicsScene::addSvgTweeningObjects(int photogram)
                  }
              } else {
                  #ifdef K_DEBUG
-                        tFatal() << "TupGraphicsScene::addSvgTweeningObjects() - No tween found!";
+                     QString msg = "TupGraphicsScene::addSvgTweeningObjects() - No tween found!";
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tFatal() << msg;
+                     #endif
                  #endif
              }
          }
@@ -806,7 +866,11 @@ void TupGraphicsScene::cleanWorkSpace()
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::cleanWorkSpace()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -825,7 +889,11 @@ int TupGraphicsScene::currentFrameIndex() const
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::currentFrameIndex()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -836,7 +904,11 @@ int TupGraphicsScene::currentLayerIndex() const
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::currentLayerIndex()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -847,13 +919,22 @@ int TupGraphicsScene::currentSceneIndex() const
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::currentSceneIndex()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
     if (!k->scene) {
         #ifdef K_DEBUG
-               tError() << "TupGraphicsScene::currentSceneIndex() - Error: Scene index is -1";
+            QString msg = "TupGraphicsScene::currentSceneIndex() - Error: Scene index is -1";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return -1;
     }
@@ -865,7 +946,11 @@ void TupGraphicsScene::setNextOnionSkinCount(int n)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::setNextOnionSkinCount()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -878,7 +963,11 @@ void TupGraphicsScene::setPreviousOnionSkinCount(int n)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::setPreviousOnionSkinCount()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -891,32 +980,32 @@ TupFrame *TupGraphicsScene::currentFrame()
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32 
+            qDebug() << "[TupGraphicsScene::currentFrame()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
     if (k->scene) {
-
         if (k->scene->layersTotal() > 0) {
-
             if (k->framePosition.layer < k->scene->layersTotal()) {
-
-                // if (k->scene->layers().contains(k->framePosition.layer)) {
-                    TupLayer *layer = k->scene->layer(k->framePosition.layer);
-                    Q_CHECK_PTR(layer);
-                    if (layer) {
-                        if (!layer->frames().isEmpty())
-                            return layer->frame(k->framePosition.frame);
-                    } else {
-                        #ifdef K_DEBUG
-                               tFatal() << "TupGraphicsScene::currentFrame - No layer available: " << k->framePosition.frame;
+                TupLayer *layer = k->scene->layer(k->framePosition.layer);
+                Q_CHECK_PTR(layer);
+                if (layer) {
+                    if (!layer->frames().isEmpty())
+                        return layer->frame(k->framePosition.frame);
+                } else {
+                    #ifdef K_DEBUG
+                        QString msg = "TupGraphicsScene::currentFrame - No layer available at -> " + QString::number(k->framePosition.frame); 
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tFatal() << msg;
                         #endif
-                    }
-                // } else {
-                //     #ifdef K_DEBUG
-                //            tFatal() << "TupGraphicsScene::currentFrame - Layer index incorrect!"; 
-                //     #endif
-                // }
+                    #endif
+                }
             } else {
                 TupLayer *layer = k->scene->layer(k->scene->layersTotal() - 1);
                 if (layer) {
@@ -938,7 +1027,11 @@ void TupGraphicsScene::setCurrentScene(TupScene *scene)
 
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::setCurrentScene()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -964,7 +1057,11 @@ void TupGraphicsScene::setLayerVisible(int layerIndex, bool visible)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::setLayerVisible()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -979,7 +1076,11 @@ TupScene *TupGraphicsScene::scene() const
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::scene()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -993,7 +1094,11 @@ void TupGraphicsScene::setTool(TupToolPlugin *tool)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::setTool()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -1037,7 +1142,11 @@ TupToolPlugin *TupGraphicsScene::currentTool() const
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::currentTool()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -1048,7 +1157,11 @@ void TupGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::mousePressEvent()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -1088,7 +1201,11 @@ void TupGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::mouseMoveEvent()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -1105,7 +1222,11 @@ void TupGraphicsScene::mouseMoved(QGraphicsSceneMouseEvent *event)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::mouseMoved()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -1119,7 +1240,11 @@ void TupGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::mouseReleaseEvent()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -1136,7 +1261,11 @@ void TupGraphicsScene::mouseReleased(QGraphicsSceneMouseEvent *event)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::mouseReleased()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -1149,7 +1278,12 @@ void TupGraphicsScene::mouseReleased(QGraphicsSceneMouseEvent *event)
     if (currentFrame()) {
         if (currentFrame()->isLocked()) {
             #ifdef K_DEBUG
-                   tFatal() << "TupGraphicsScene::mouseReleased() - Frame is locked!";
+                QString msg = "TupGraphicsScene::mouseReleased() - Frame is locked!";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tFatal() << msg;
+                #endif
             #endif
             return;
         }
@@ -1178,7 +1312,11 @@ void TupGraphicsScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::mouseDoubleClickEvent()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -1216,14 +1354,10 @@ void TupGraphicsScene::keyReleaseEvent(QKeyEvent *event)
 
 /*
 
-// TODO: Check this code, not sure whether it does something or it's handy :S
+// SQA: Check this code, not sure whether it does something or it's handy :S
 
 void TupGraphicsScene::dragEnterEvent(QGraphicsSceneDragDropEvent * event)
 {
-    #ifdef K_DEBUG
-       T_FUNCINFO;
-    #endif
-
     if (event->mimeData()->hasFormat("tupi-ruler"))
         event->acceptProposedAction();
 
@@ -1283,7 +1417,11 @@ void TupGraphicsScene::sceneResponse(TupSceneResponse *event)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFOX("scene");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::sceneResponse()]";
+        #else
+            T_FUNCINFOX("scene");
+        #endif
     #endif
     */
 
@@ -1295,7 +1433,11 @@ void TupGraphicsScene::layerResponse(TupLayerResponse *event)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFOX("scene");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::layerResponse()]";
+        #else
+            T_FUNCINFOX("layer");
+        #endif
     #endif
     */
 
@@ -1307,7 +1449,11 @@ void TupGraphicsScene::frameResponse(TupFrameResponse *event)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFOX("scene");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::frameResponse()]";
+        #else
+            T_FUNCINFOX("frame");
+        #endif
     #endif
     */
 
@@ -1319,7 +1465,11 @@ void TupGraphicsScene::itemResponse(TupItemResponse *event)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFOX("scene");
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::itemResponse()]";
+        #else
+            T_FUNCINFOX("item");
+        #endif
     #endif
     */
    
@@ -1357,7 +1507,11 @@ void TupGraphicsScene::includeObject(QGraphicsItem *object)
 {
     /*
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupGraphicsScene::includeObject()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 

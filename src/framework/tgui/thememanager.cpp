@@ -58,8 +58,14 @@ bool ThemeManager::applyTheme(const QString &file)
         ok = true;
     } else {
         #ifdef K_DEBUG
-               tError() << "ThemeManager::applyTheme() - Fatal Error: Can't process the theme file: " << file;
+            QString msg = "ThemeManager::applyTheme() - Fatal Error: Can't process the theme file: " + file;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
+
         ok = false;
     }
     
@@ -81,8 +87,14 @@ bool ThemeManager::applyTheme(const ThemeDocument &kd)
         ok = true;
     } else {
         #ifdef K_DEBUG
-               tError() << "ThemeManager::applyTheme() - Fatal Error: Can't process theme document";
+            QString msg = "ThemeManager::applyTheme() - Fatal Error: Can't process theme document";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
+
         ok = false;
     }
     
@@ -180,10 +192,16 @@ bool ThemeManager::characters(const QString &)
 bool ThemeManager::error(const QXmlParseException &exception)
 {
     #ifdef K_DEBUG
-           tError() << "ThemeManager::error() - Fatal Error: Can't process theme!";
-           tError() << "ThemeManager::error() - Message: " << exception.message();
+        QString msg = "ThemeManager::error() - Fatal Error: Can't process theme!";
+        #ifdef Q_OS_WIN32
+            qDebug() << msg;
+            qDebug() << "ThemeManager::error() - Message: " << exception.message();
+        #else
+            tError() << msg;
+            tError() << "ThemeManager::error() - Message: " << exception.message();
+        #endif
     #else
-           Q_UNUSED(exception);
+        Q_UNUSED(exception);
     #endif
 
     return false;
@@ -192,9 +210,18 @@ bool ThemeManager::error(const QXmlParseException &exception)
 bool ThemeManager::fatalError(const QXmlParseException &exception)
 {
     #ifdef K_DEBUG
-           tError() << "ThemeManager::error() - Fatal Error: Can't load theme...";
-           tError() << "ThemeManager::error() - Line: " << exception.lineNumber() << " Column: " << exception.columnNumber();
-           tError() << "ThemeManager::error() - Message: " << exception.message();
+        QString msg1 = "ThemeManager::error() - Fatal Error: Can't load theme...";
+        QString msg2 = "ThemeManager::error() - Line: " + QString::number(exception.lineNumber()) + " Column: " + QString::number(exception.columnNumber());
+        QString msg3 = "ThemeManager::error() - Message: " + exception.message();
+        #ifdef Q_OS_WIN32
+            qDebug() << msg1;
+            qDebug() << msg2;
+            qDebug() << msg3;
+        #else
+            tError() << msg1;
+            tError() << msg2;
+            tError() << msg3;
+        #endif
     #else
            Q_UNUSED(exception);
     #endif

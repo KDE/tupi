@@ -36,20 +36,19 @@
 #ifndef TUPSERIALIZER_H
 #define TUPSERIALIZER_H
 
+#include "tglobal.h"
 #include "tuppathitem.h"
 #include "tupsvgitem.h"
-
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
 
 #include <QDomDocument>
 #include <QDomElement>
 #include <QXmlAttributes>
 #include <QBrush>
 #include <QPen>
+#include <QGraphicsItem>
+#include <QFont>
 
-class QGraphicsItem;
+// class QGraphicsItem;
 
 /**
  * @author David Cuadrado
@@ -58,7 +57,7 @@ class QGraphicsItem;
  * 
 */
 
-class TupSerializer
+class TUPI_EXPORT TupSerializer
 {
     public:
         TupSerializer();

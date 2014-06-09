@@ -35,9 +35,6 @@
 
 #include "tactionmanager.h"
 
-#include <QMenuBar>
-#include <QToolBar>
-
 /**
  * Construye un manejador de acciones.
  * @param parent widget que contine el manejador de acciones
@@ -68,8 +65,14 @@ bool TActionManager::insert(QAction *action, const QString &_id, const QString &
     QAction *a = (m_actionContainer[container])[id];
     if (a == action) {
         #ifdef K_DEBUG
-               tError() << "TActionManager::insert() - Fatal Error: Cannot insert action with id: " << id;
+            QString msg = "TActionManager::insert() - Fatal Error: Cannot insert action with id -> " + id;;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
+
         return false;
     }
 
@@ -140,7 +143,12 @@ QAction *TActionManager::find(const QString &_id, const QString &container) cons
 
     if (action == 0) {
         #ifdef K_DEBUG
-               tError() << "TActionManager::find() - Fatal Error: Returning NULL action: " << id << " in " << container;
+            QString msg = "TActionManager::find() - Fatal Error: Returning NULL action: " + id + " in " + container;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     }
 

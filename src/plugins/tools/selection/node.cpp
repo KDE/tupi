@@ -141,7 +141,11 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     /*
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Node::itemChange()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
     */
 
@@ -158,7 +162,11 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Node::mousePressEvent()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     k->manager->setPress(true);
@@ -168,7 +176,11 @@ void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Node::mouseReleaseEvent()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     QGraphicsItem::mouseReleaseEvent(event);
@@ -261,7 +273,11 @@ void Node::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void Node::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Node::mouseDoubleClickEvent()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     k->manager->toggleAction();

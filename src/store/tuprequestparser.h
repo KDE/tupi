@@ -40,9 +40,8 @@
 #include "tupxmlparserbase.h"
 #include "tupprojectrequest.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
+#include <QXmlSimpleReader>
+#include <QXmlInputSource>
 
 class TupProjectResponse;
 

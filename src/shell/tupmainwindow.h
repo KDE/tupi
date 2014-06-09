@@ -49,7 +49,6 @@
 #include "tupsceneswidget.h"
 #include "tuplibrarywidget.h"
 #include "tuptimeline.h"
-#include "tupdebugwidget.h"
 #include "tupcamerawidget.h"
 #include "tuphelpwidget.h"
 #include "tuphelpbrowser.h"
@@ -71,6 +70,7 @@
 #include <QDebug>
 #else
 #include "tdebug.h"
+#include "tupdebugwidget.h"
 #endif
 
 #endif

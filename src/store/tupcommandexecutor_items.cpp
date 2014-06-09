@@ -63,10 +63,10 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
         #ifdef Q_OS_WIN32
             qDebug() << "[TupCommandExecutor::createItem()]";
         #else
-            T_FUNCINFO("items");
+            T_FUNCINFOX("items");
         #endif
-    #endif		
-	
+    #endif        
+    
     int scenePosition = response->sceneIndex();
     int layerPosition = response->layerIndex();
     int framePosition = response->frameIndex();
@@ -88,7 +88,7 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
                         TupSvgItem *svg = frame->createSvgItem(point, xml);
                         if (svg) {
                             response->setItemIndex(frame->svgItemsCount()-1);
-                        } else {							
+                        } else {                            
                             #ifdef K_DEBUG
                                 QString msg = "TupCommandExecutor::createItem() - Error: Svg object is invalid!";
                                 #ifdef Q_OS_WIN32
@@ -96,7 +96,7 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
                                 #else
                                     tError() << msg;
                                 #endif
-                            #endif							
+                            #endif                            
                             return false;
                         }
                     } else {
@@ -111,7 +111,7 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
                                 #else
                                     tError() << msg;
                                 #endif
-                            #endif	
+                            #endif    
                             return false;
                         }
                     }
@@ -127,7 +127,7 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
                         #else
                             tError() << msg;
                         #endif
-                    #endif	
+                    #endif    
                     return false;
                 }
             } else {
@@ -158,8 +158,8 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
                         #else
                             tError() << msg;
                         #endif
-                    #endif	
-					return false;
+                    #endif    
+                    return false;
                 }
 
                 if (frame) {
@@ -175,7 +175,7 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
                                 #else
                                     tError() << msg;
                                 #endif
-                            #endif	
+                            #endif    
                             return false;
                         }
                     } else {
@@ -190,7 +190,7 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
                                 #else
                                     tError() << msg;
                                 #endif
-                            #endif	
+                            #endif    
                             return false;
                         }
                     }
@@ -204,7 +204,7 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
                         #else
                             tError() << msg;
                         #endif
-                    #endif	
+                    #endif    
                     return false;
                 }
             } else {
@@ -215,7 +215,7 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
                     #else
                         tError() << msg;
                     #endif
-                #endif				
+                #endif                
                 return false;
             }
         }
@@ -228,7 +228,7 @@ bool TupCommandExecutor::createItem(TupItemResponse *response)
             #else
                 tError() << msg;
             #endif
-        #endif	
+        #endif    
         return false;
     }
     
@@ -243,7 +243,7 @@ bool TupCommandExecutor::removeItem(TupItemResponse *response)
         #else
             T_FUNCINFOX("items");
         #endif
-    #endif	
+    #endif    
 
     int scenePosition = response->sceneIndex();
     int layerPosition = response->layerIndex();
@@ -287,8 +287,8 @@ bool TupCommandExecutor::removeItem(TupItemResponse *response)
                                 #else
                                     tError() << msg;
                                 #endif
-                            #endif								
-							return false;
+                            #endif                                
+                            return false;
                         }
                     }
                 }
@@ -362,14 +362,14 @@ bool TupCommandExecutor::removeItem(TupItemResponse *response)
 }
 
 bool TupCommandExecutor::moveItem(TupItemResponse *response)
-{	
+{    
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupCommandExecutor::moveItem()]";
         #else
             T_FUNCINFOX("items");
         #endif
-    #endif	
+    #endif    
 
     int scenePosition = response->sceneIndex();
     int layerPosition = response->layerIndex();
@@ -424,7 +424,7 @@ bool TupCommandExecutor::moveItem(TupItemResponse *response)
                         emit responsed(response);
                         return true;
                     }
-                } else {					
+                } else {                    
                     #ifdef K_DEBUG
                         QString msg = "TupCommandExecutor::moveItem() - Error: Invalid background frame!";
                         #ifdef Q_OS_WIN32
@@ -503,7 +503,7 @@ bool TupCommandExecutor::groupItems(TupItemResponse *response)
                             tError() << msg;
                         #endif
                     #endif                    
-					return false;
+                    return false;
                 }
 
                 if (frame) {
@@ -707,7 +707,7 @@ static QGraphicsItem *convert(QGraphicsItem *item, int toType)
 }
 
 bool TupCommandExecutor::convertItem(TupItemResponse *response)
-{	
+{    
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupCommandExecutor::convertItem()]";
@@ -805,7 +805,7 @@ bool TupCommandExecutor::convertItem(TupItemResponse *response)
                         #endif
                         return false;
                     }
-                } else {					
+                } else {                    
                     #ifdef K_DEBUG
                         QString msg = "TupCommandExecutor::convertItem() - Error: Invalid background frame!";
                         #ifdef Q_OS_WIN32
@@ -967,10 +967,10 @@ bool TupCommandExecutor::setPathItem(TupItemResponse *response)
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupCommandExecutor::setPathItem()]";
-			qDebug() << xml;
+            qDebug() << xml;
         #else
             T_FUNCINFOX("items");
-			SHOW_VAR(xml);
+            SHOW_VAR(xml);
         #endif
     #endif
     */
@@ -1097,13 +1097,13 @@ bool TupCommandExecutor::setPathItem(TupItemResponse *response)
 }
 
 bool TupCommandExecutor::setTween(TupItemResponse *response)
-{	
+{    
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupCommandExecutor::setTween()]";
         #else
             T_FUNCINFO;
-			SHOW_VAR(response);
+            SHOW_VAR(response);
         #endif
     #endif
 

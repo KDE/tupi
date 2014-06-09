@@ -48,7 +48,11 @@ struct TupCameraStatus::Private
 TupCameraStatus::TupCameraStatus(TupCameraWidget *camera, bool isNetworked, QWidget *parent) : QFrame(parent), k(new Private)
 {
     #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupCameraStatus()]";
+        #else
            TINIT;
+        #endif
     #endif
 
     setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -147,7 +151,11 @@ TupCameraStatus::TupCameraStatus(TupCameraWidget *camera, bool isNetworked, QWid
 TupCameraStatus::~TupCameraStatus()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupCameraStatus()]";
+        #else
+            TEND;
+        #endif
     #endif
 }
 

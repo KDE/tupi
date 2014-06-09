@@ -114,7 +114,7 @@ int TupProjectRequest::id() const
 
 bool TupProjectRequest::isValid() const
 {
-     return !k->xml.isEmpty(); // TODO: Verficar que sea XML
+     return !k->xml.isEmpty(); // TODO: Variable must contain a XML string
 }
 
 QString TupProjectRequest::xml() const

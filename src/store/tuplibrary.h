@@ -39,10 +39,6 @@
 #include "tglobal.h"
 #include "tuplibraryfolder.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
 #include <QTextStream>
 

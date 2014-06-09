@@ -124,7 +124,11 @@ QStringList Tweener::keys() const
 void Tweener::press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::press()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(input);
@@ -148,7 +152,11 @@ void Tweener::move(const TupInputDeviceInformation *input, TupBrushManager *brus
 void Tweener::release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::release()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(input);
@@ -550,5 +558,3 @@ void Tweener::frameResponse(const TupFrameResponse *event)
             init(k->scene);
     }
 }
-
-// Q_EXPORT_PLUGIN2(tup_tweener, Tweener);

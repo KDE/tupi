@@ -96,25 +96,6 @@ unix {
 CONFIG += warn_on
 TEMPLATE = app
 
-linux-g {
-    TARGETDEPS += ../libtupi/libtupi.so \
-  ../libui/libtupiui.so \
-  ../store/libtupistore.so \
-  ../net/libtupinet.so \
-  ../components/paintarea/libtupipaintarea.so \
-  ../components/pen/libtupipen.so \
-  # ../components/kinas/libtupikinas.so \
-  ../components/help/libtupihelp.so \
-  ../components/import/libtupimport.so \
-  ../components/export/libtupiexport.so \
-  ../components/exposure/libtupiexposure.so \
-  ../components/timeline/libtupitimeline.so \
-  ../components/library/libtupilibrary.so \
-  ../components/colorpalette/libtupicolorpalette.so \
-  ../components/scenes/libtupiscenes.so \
-  ../components/twitter/libtupitwitter.so
-}
-
 FRAMEWORK_DIR = ../framework
 include($$FRAMEWORK_DIR/framework.pri)
 

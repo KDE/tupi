@@ -37,18 +37,11 @@
 #include "tupgraphicalgorithm.h"
 #include "tupserializer.h"
 
-#include <QGraphicsSceneDragDropEvent>
-#include <QMimeData>
-#include <QBrush>
-#include <QGraphicsScene>
-
-// TupRectItem::TupRectItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsRectItem(parent, scene)
 TupRectItem::TupRectItem(QGraphicsItem *parent) : QGraphicsRectItem(parent)
 {
     setAcceptDrops(true);
 }
 
-// TupRectItem::TupRectItem(const QRectF& rect, QGraphicsItem * parent , QGraphicsScene * scene) : QGraphicsRectItem(rect, parent, scene)
 TupRectItem::TupRectItem(const QRectF& rect, QGraphicsItem * parent) : QGraphicsRectItem(rect, parent)
 {
 }

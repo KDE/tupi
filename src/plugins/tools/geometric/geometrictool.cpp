@@ -85,7 +85,11 @@ QStringList GeometricTool::keys() const
 void GeometricTool::init(TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[GeometricTool::init()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     k->scene = scene;
@@ -131,7 +135,11 @@ void GeometricTool::setupActions()
 void GeometricTool::press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[GeometricTool::press()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(input);
@@ -186,7 +194,11 @@ void GeometricTool::press(const TupInputDeviceInformation *input, TupBrushManage
 void GeometricTool::move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[GeometricTool::move()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(brushManager);
@@ -280,7 +292,11 @@ void GeometricTool::move(const TupInputDeviceInformation *input, TupBrushManager
 void GeometricTool::release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[GeometricTool::release()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(input);
@@ -381,7 +397,11 @@ QCursor GeometricTool::cursor() const
 void GeometricTool::endItem()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[GeometricTool::endItem()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (k->path) {
@@ -454,5 +474,3 @@ void GeometricTool::frameResponse(const TupFrameResponse *event)
     if (name() == tr("Line")) 
         init(k->scene);
 }
-
-// Q_EXPORT_PLUGIN2(tup_geometric, GeometricTool)

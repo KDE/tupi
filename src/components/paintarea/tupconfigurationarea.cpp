@@ -97,13 +97,22 @@ void TupConfigurationArea::toggleLock()
 void TupConfigurationArea::shrink()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupConfigurationArea::shrink()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     QMainWindow *mainWindow = dynamic_cast<QMainWindow *>(parentWidget());
     if (!mainWindow || !widget()) {
         #ifdef K_DEBUG
-               tError() << "TupConfigurationArea::shrink() - Fatal error!";
+            QString msg = "TupConfigurationArea::shrink() - Fatal error!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return;
     }
@@ -183,8 +192,16 @@ void TupConfigurationArea::shrink()
                      QPoint(x2, y2),
                      Qt::LeftButton, 0, 0);
 
-    if (! QApplication::sendEvent(mainWindow, &move))
-        qWarning("Fail moving");
+    if (! QApplication::sendEvent(mainWindow, &move)) {
+        #ifdef K_DEBUG
+            QString msg = "TupConfigurationArea::shrink() - Error while moving!";
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                tWarning() << msg;
+            #endif
+        #endif
+    }
 
     qApp->processEvents();
 
@@ -192,8 +209,16 @@ void TupConfigurationArea::shrink()
                         QPoint(xRelease, yRelease),
                         Qt::LeftButton, 0, 0);
 
-    if (! QApplication::sendEvent(mainWindow, &release))
-        qWarning("Fail releasing");
+    if (! QApplication::sendEvent(mainWindow, &release)) {
+        #ifdef K_DEBUG
+            QString msg = "TupConfigurationArea::shrink() - Error while releasing!";
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                tWarning() << msg;
+            #endif
+        #endif
+    }
 
     qApp->processEvents();
     mainWindow->setMouseTracking(hmt);

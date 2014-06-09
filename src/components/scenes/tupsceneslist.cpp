@@ -178,7 +178,11 @@ bool TupScenesList::nameExists(QString &name)
 void TupScenesList::resetUI()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupScenesList::resetUI()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     blockSignals(true);

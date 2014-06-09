@@ -48,6 +48,9 @@
 
 #endif
 
+#include <QDesktopWidget>
+#include <QRect>
+
 /**
  * Support Class for main.cpp
  * This class contains some of the basic methods required when Tupi is launched

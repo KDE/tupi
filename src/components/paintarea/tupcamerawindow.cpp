@@ -87,22 +87,22 @@ void TupCameraWindow::error(QCamera::Error error)
             }
             case QCamera::CameraError:
             {
-                QMessageBox::warning(this, "TupCameraWindow", "General Camera error");
+                QMessageBox::warning(this, "TupCameraWindow", tr("General Camera error"));
                 break;
             }
             case QCamera::InvalidRequestError:
             {
-                QMessageBox::warning(this, "TupCameraWindow", "Camera invalid request error");
+                QMessageBox::warning(this, "TupCameraWindow", tr("Camera invalid request error"));
                 break;
             }
             case QCamera::ServiceMissingError:
             {
-                QMessageBox::warning(this, "TupCameraWindow", "Camera service missing error");
+                QMessageBox::warning(this, "TupCameraWindow", tr("Camera service missing error"));
                 break;
             }
             case QCamera::NotSupportedFeatureError :
             {
-                QMessageBox::warning(this, "TupCameraWindow", "Camera not supported error");
+                QMessageBox::warning(this, "TupCameraWindow", tr("Camera not supported error"));
                 break;
             }
     };

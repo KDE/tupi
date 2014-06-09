@@ -137,7 +137,12 @@ QPainterPath TPathHelper::buildPath(const QString &svgpath)
     Q_UNUSED(svgpath);
 
     #ifdef K_DEBUG
-           tWarning() << "TPathHelper::buildPath() - Warning: method pending for implementation";
+        QString msg = "TPathHelper::buildPath() - Warning: method pending for implementation";
+        #ifdef Q_OS_WIN32
+            qDebug() << msg;
+        #else
+            tError() << msg;
+        #endif
     #endif
     
     return QPainterPath();

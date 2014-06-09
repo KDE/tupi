@@ -132,7 +132,11 @@ struct TupDocumentView::Private
 TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNetworked, const QStringList &users) : QMainWindow(parent), k(new Private)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupDocumentView()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     setWindowIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "animation_mode.png"));
@@ -230,7 +234,11 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
 TupDocumentView::~TupDocumentView()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupDocumentView()]";
+        #else
+            TEND;
+        #endif
     #endif
 
     TCONFIG->beginGroup("General");
@@ -433,7 +441,12 @@ void TupDocumentView::loadPlugins()
 
     if (!imagePluginLoaded) {
         #ifdef K_DEBUG
-               tError() << "TupDocumentView::loadPlugins() - Fatal Error: Couldn't found the \"Image Array\" plugin!";
+            QString msg = "TupDocumentView::loadPlugins() - Warning: Couldn't found the \"Image Array\" plugin!";
+            #ifdef Q_OS_WIN32
+                qWarninig() << msg;
+            #else
+                tWarning() << msg;
+            #endif
         #endif
     }
 
@@ -455,7 +468,12 @@ void TupDocumentView::loadPlugins()
 
              for (it = keys.begin(); it != keys.end(); ++it) {
                   #ifdef K_DEBUG
-                         tWarning() << "TupDocumentView::loadPlugins() - Tool Loaded: " << *it;
+                      QString msg = "TupDocumentView::loadPlugins() - Tool Loaded: " + *it;
+                      #ifdef Q_OS_WIN32
+                          qWarning() << msg;
+                      #else
+                          tWarning() << msg;
+                      #endif
                   #endif
 
                   TAction *action = tool->actions()[*it];
@@ -598,7 +616,12 @@ void TupDocumentView::loadPlugins()
 
              for (it = keys.begin(); it != keys.end(); ++it) {
                   #ifdef K_DEBUG
-                         tDebug("plugins") << "*** Filter Loaded: " << *it;
+                      QString msg = "TupDocumentView::loadPlugins() - Filter Loaded: " + *it;
+                      #ifdef Q_OS_WIN32
+                          qDebug() << msg;
+                      #else
+                          tDebug("plugins") << msg;
+                      #endif
                   #endif
 
                   TAction *act = filter->actions()[*it];
@@ -618,7 +641,11 @@ void TupDocumentView::loadPlugins()
 void TupDocumentView::loadPlugin(int menu, int index)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupDocumentView::loadPlugin()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     TAction *action = 0;
@@ -654,7 +681,12 @@ void TupDocumentView::loadPlugin(int menu, int index)
                          action = (TAction *) brushActions[index];
                      } else {
                          #ifdef K_DEBUG
-                                tError() << "TupDocumentView::loadPlugin() - Error: Invalid Brush Index / No plugin loaded";
+                             QString msg = "TupDocumentView::loadPlugin() - Error: Invalid Brush Index / No plugin loaded";
+                             #ifdef Q_OS_WIN32
+                                 qDebug() << msg;
+                             #else
+                                 tError() << msg;
+                             #endif
                          #endif
                          return;
                      }
@@ -670,7 +702,12 @@ void TupDocumentView::loadPlugin(int menu, int index)
                              action = (TAction *) selectionActions[index];
                          } else {
                              #ifdef K_DEBUG
-                                    tError() << "TupDocumentView::loadPlugin() - Error: Invalid Selection Index / No plugin loaded";
+                                 QString msg = "TupDocumentView::loadPlugin() - Error: Invalid Selection Index / No plugin loaded";
+                                 #ifdef Q_OS_WIN32
+                                     qDebug() << msg;
+                                 #else
+                                     tError() << msg;
+                                 #endif
                              #endif
                              return;
                          }
@@ -684,7 +721,12 @@ void TupDocumentView::loadPlugin(int menu, int index)
                          action = (TAction *) fillActions[index];
                      } else {
                          #ifdef K_DEBUG
-                                tError() << "TupDocumentView::loadPlugin() - Error: Invalid Fill Index / No plugin loaded";
+                             QString msg = "TupDocumentView::loadPlugin() - Error: Invalid Fill Index / No plugin loaded";
+                             #ifdef Q_OS_WIN32
+                                 qDebug() << msg;
+                             #else
+                                 tError() << msg;
+                             #endif
                          #endif
                          return;
                      }
@@ -697,7 +739,12 @@ void TupDocumentView::loadPlugin(int menu, int index)
                          action = (TAction *) viewActions[index];
                      } else {
                          #ifdef K_DEBUG
-                                tError() << "TupDocumentView::loadPlugin() - Error: Invalid Zoom Index (" << index << ") / No plugin loaded";
+                             QString msg = "TupDocumentView::loadPlugin() - Error: Invalid Zoom Index (" + QString::number(index) + ") / No plugin loaded";
+                             #ifdef Q_OS_WIN32
+                                 qDebug() << msg;
+                             #else
+                                 tError() << msg;
+                             #endif
                          #endif
                          return;
                      }
@@ -706,7 +753,12 @@ void TupDocumentView::loadPlugin(int menu, int index)
             default:
                  {
                      #ifdef K_DEBUG
-                            tError() << "TupDocumentView::loadPlugin() - Error: Invalid Menu Index / No plugin loaded";
+                         QString msg = "TupDocumentView::loadPlugin() - Error: Invalid Menu Index / No plugin loaded";
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tError() << msg;
+                         #endif
                      #endif
                      return;
                  }
@@ -731,7 +783,12 @@ void TupDocumentView::loadPlugin(int menu, int index)
         }
     } else {
         #ifdef K_DEBUG
-               tError() << "TupDocumentView::loadPlugin() - Error: Action pointer is NULL!";
+            QString msg = "TupDocumentView::loadPlugin() - Error: Action pointer is NULL!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return;
     }
@@ -740,7 +797,11 @@ void TupDocumentView::loadPlugin(int menu, int index)
 void TupDocumentView::selectTool()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupDocumentView::selectTool()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     TAction *action = qobject_cast<TAction *>(sender());
@@ -852,7 +913,12 @@ void TupDocumentView::selectTool()
 
     } else {
         #ifdef K_DEBUG
-               tError() << "TupDocumentView::selectTool() - Fatal Error: Action from sender() is NULL";
+            QString msg = "TupDocumentView::selectTool() - Fatal Error: Action from sender() is NULL";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     }
 }
@@ -860,7 +926,11 @@ void TupDocumentView::selectTool()
 void TupDocumentView::selectToolFromMenu(QAction *action)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupDocumentView::selectToolFromMenu()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     QMenu *menu = qobject_cast<QMenu *>(action->parent());
@@ -878,13 +948,23 @@ void TupDocumentView::selectToolFromMenu(QAction *action)
                 tool->trigger();
             } else {
                 #ifdef K_DEBUG
-                       tError() << "TupDocumentView::selectToolFromMenu() - Default action is NULL";
+                    QString msg = "TupDocumentView::selectToolFromMenu() - Default action is NULL";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
             }
         }
     } else {
         #ifdef K_DEBUG
-               tFatal() << "TupDocumentView::selectToolFromMenu() - Error: Action with NO parent! Aborting...";
+            QString msg = "TupDocumentView::selectToolFromMenu() - Error: Action with NO parent! Aborting...";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tFatal() << msg;
+            #endif
         #endif
     } 
 }
@@ -1445,7 +1525,12 @@ void TupDocumentView::sendStoryboard(TupStoryboard *storyboard, int sceneIndex)
 {
     if (k->isNetworked) {
         #ifdef K_DEBUG
-               tWarning() << "TupDocumentView::sendStoryboard() - Sending storyboard...";
+            QString msg = "TupDocumentView::sendStoryboard() - Sending storyboard...";
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                tWarning() << msg;
+            #endif
         #endif
         emit updateStoryboard(storyboard, sceneIndex);
     } else {

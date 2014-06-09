@@ -36,11 +36,13 @@
 #ifndef TUPTEXTITEM_H
 #define TUPTEXTITEM_H
 
-#include "tupabstractserializable.h"
 #include "tglobal.h"
+#include "tupabstractserializable.h"
 
 #include <QGraphicsTextItem>
-
+#include <QFont>
+#include <QFocusEvent>
+#include <QTimer>
 
 /**
  * @author David Cuadrado

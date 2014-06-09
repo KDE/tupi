@@ -41,14 +41,6 @@
 #include "tapplication.h"
 #include "tosd.h"
 
-#include <QLineEdit>
-#include <QPlainTextEdit>
-#include <QCheckBox>
-#include <QColorDialog>
-#include <QStyleOptionButton>
-#include <QComboBox>
-#include <QLineEdit>
-
 //SQA: Add a field to define the project description 
 
 struct TupNewProject::Private

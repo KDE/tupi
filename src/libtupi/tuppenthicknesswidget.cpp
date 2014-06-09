@@ -122,7 +122,15 @@ void TupPenThicknessWidget::paintEvent(QPaintEvent *)
                  // tFatal() << "TupPenThicknessWidget::paintEvent() - Setting gradient brush";
                  brush = k->currentBrush;
              } else {
-                 // tFatal() << "TupPenThicknessWidget::paintEvent() - Warning! NO gradient!";
+                #ifdef K_DEBUG
+                    QString msg = "TupPenThicknessWidget::paintEvent() - Warning! NO gradient!";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
+                #endif
+                return;
              }
          }
          QPen pen(Qt::NoPen);

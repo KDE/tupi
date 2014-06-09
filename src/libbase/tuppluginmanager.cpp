@@ -38,9 +38,6 @@
 #include "tuptoolinterface.h"
 #include "tupexportinterface.h"
 
-#include <QPluginLoader>
-#include <QDir>
-
 TupPluginManager *TupPluginManager::s_instance = 0;
 
 struct TupPluginManager::Private
@@ -71,7 +68,12 @@ TupPluginManager *TupPluginManager::instance()
 void TupPluginManager::loadPlugins()
 {
     #ifdef K_DEBUG
-           tWarning("plugins") << "TupPluginManager::loadPlugins() - Loading plugins...";
+        QString msg = "TupPluginManager::loadPlugins() - Loading plugins...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
     #endif
 
     k->filters.clear();
@@ -85,7 +87,11 @@ void TupPluginManager::loadPlugins()
              QObject *plugin = qobject_cast<QObject*>(loader->instance());
 
              #ifdef K_DEBUG
-                    tDebug("plugins") << "*** Trying to load plugin from: " << fileName;
+                 #ifdef Q_OS_WIN32
+                     qWarning() << "TupPluginManager::loadPlugins() - Trying to load plugin from: " << fileName;
+                 #else
+                     tWarning("plugins") << "*** Trying to load plugin from: " << fileName;
+                 #endif
              #endif
         
              if (plugin) {
@@ -108,7 +114,12 @@ void TupPluginManager::loadPlugins()
                  k->loaders << loader;
              } else {
                  #ifdef K_DEBUG
-                        tError("plugins") << "TupPluginManager::loadPlugins() - Cannot load plugin, error was: " << loader->errorString();
+                     QString msg = "TupPluginManager::loadPlugins() - Cannot load plugin, error was: " + loader->errorString();
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tError() << msg;
+                     #endif
                  #endif
              }
     }
@@ -117,7 +128,12 @@ void TupPluginManager::loadPlugins()
 void TupPluginManager::unloadPlugins()
 {
     #ifdef K_DEBUG
-           tWarning("plugins") << "TupPluginManager::unloadPlugins() - Unloading plugins...";
+        QString msg = "TupPluginManager::unloadPlugins() - Unloading plugins...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
     #endif
 
     foreach (QPluginLoader *loader, k->loaders) {

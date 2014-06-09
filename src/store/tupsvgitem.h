@@ -41,12 +41,10 @@
 #include "tupitemtweener.h"
 #include "tupframe.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QGraphicsSvgItem>
 #include <QGraphicsSceneHoverEvent>
+#include <QSvgRenderer>
+#include <QFileInfo>
 
 class TupFrame;
 

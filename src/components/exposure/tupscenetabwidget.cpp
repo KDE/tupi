@@ -121,7 +121,12 @@ TupExposureTable* TupSceneTabWidget::getTable(int index)
         return table;
     } else {
         #ifdef K_DEBUG
-               tError() << "TupSceneTabWidget::getTable() - [ Fatal Error ] - Invalid table index: " << index;
+            QString msg = "TupSceneTabWidget::getTable() - [ Fatal Error ] - Invalid table index: " + QString::number(index);
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     }
 

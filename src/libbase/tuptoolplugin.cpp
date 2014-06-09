@@ -38,10 +38,6 @@
 #include "tupinputdeviceinformation.h"
 #include "tupgraphicsscene.h"
 
-#include <QGraphicsView>
-#include <QCursor>
-#include <QMenu>
-
 struct TupToolPlugin::Private
 {
     QString currentTool;
@@ -79,14 +75,24 @@ QString TupToolPlugin::name() const
 void TupToolPlugin::begin()
 {
 #ifdef K_DEBUG
-    tWarning("tools") << "Begin: " << k->currentTool;
+    QString msg = "TupToolPlugin::begin() - Begin: " + k->currentTool;
+    #ifdef Q_OS_WIN32
+        qWarning() << msg;
+    #else
+        tWarning() << msg;
+    #endif
 #endif
 }
 
 void TupToolPlugin::end()
 {
 #ifdef K_DEBUG
-    tWarning("tools") << "End: " << k->currentTool;
+    QString msg = "TupToolPlugin::end() - End: " + k->currentTool;
+    #ifdef Q_OS_WIN32
+        qWarning() << msg;
+    #else
+        tWarning("tools") << msg;
+    #endif
 #endif
 }
 
@@ -289,4 +295,3 @@ TupToolPlugin::EditMode TupToolPlugin::currentEditMode()
 {
     return TupToolPlugin::None;
 }
-

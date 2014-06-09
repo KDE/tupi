@@ -62,7 +62,11 @@ struct TupColorPalette::Private
 TupColorPalette::TupColorPalette(QWidget *parent) : TupModuleWidgetBase(parent), k(new Private)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupColorPalette()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     k->currentOutlineColor = Qt::black;
@@ -96,8 +100,12 @@ TupColorPalette::TupColorPalette(QWidget *parent) : TupModuleWidgetBase(parent),
 TupColorPalette::~TupColorPalette()
 {
     #ifdef K_DEBUG
-           TEND;
-    #endif	
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupColorPalette()]";
+        #else
+            TEND;
+        #endif
+    #endif
 
     TCONFIG->beginGroup("ColorPalette");
     TCONFIG->setValue("LastForegroundColor", color().first);

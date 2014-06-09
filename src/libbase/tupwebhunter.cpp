@@ -103,39 +103,64 @@ void TupWebHunter::slotError(QNetworkReply::NetworkError error)
     switch (error) {
             case QNetworkReply::HostNotFoundError:
                  { 
-				 #ifdef K_DEBUG
-                     tError() << "TupWebHunter::slotError() - Network Error: Host not found";
-				 #endif
+                 #ifdef K_DEBUG
+                     QString msg = "TupWebHunter::slotError() - Network Error: Host not found";
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tError() << msg;
+                     #endif
+                 #endif
                  }
             break;
             case QNetworkReply::TimeoutError:
                  {
-				 #ifdef K_DEBUG
-                     tError() << "TupWebHunter::slotError() - Network Error: Time out!";
-				 #endif
+                 #ifdef K_DEBUG
+                     QString msg = "TupWebHunter::slotError() - Network Error: Time out!";
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tError() << msg;
+                     #endif
+                 #endif
                  }
             break;
             case QNetworkReply::ConnectionRefusedError:
                  {
-				 #ifdef K_DEBUG
-                     tError() << "TupWebHunter::slotError() - Network Error: Connection Refused!";
+                 #ifdef K_DEBUG
+                     QString msg = "TupWebHunter::slotError() - Network Error: Connection Refused!";
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tError() << msg;
+                     #endif
                  #endif
-				 }
+                 }
             break;
             case QNetworkReply::ContentNotFoundError:
                  {
-				 #ifdef K_DEBUG
-                     tError() << "TupWebHunter::slotError() - Network Error: Content not found!";
+                 #ifdef K_DEBUG
+                     QString msg = "TupWebHunter::slotError() - Network Error: Content not found!";
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tError() << msg;
+                     #endif
                  #endif
-				 }
+                 }
             break;
             case QNetworkReply::UnknownNetworkError:
             default:
                  {
-				 #ifdef K_DEBUG
-                     tError() << "TupWebHunter::slotError() - Network Error: Unknown Network error!";
+                 #ifdef K_DEBUG
+                     QString msg = "TupWebHunter::slotError() - Network Error: Unknown Network error!";
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tError() << msg;
+                     #endif
                  #endif
-				 }
+                 }
             break;
     }
 }

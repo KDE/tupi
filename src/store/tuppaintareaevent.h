@@ -36,8 +36,8 @@
 #ifndef TUPPAINTAREAEVENT_H
 #define TUPPAINTAREAEVENT_H
 
-#include "tupprojectrequest.h"
 #include "tglobal.h"
+#include "tupprojectrequest.h"
 
 /**
  * @author David Cuadrado

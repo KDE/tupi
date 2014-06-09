@@ -106,7 +106,11 @@ Tweener::~Tweener()
 void Tweener::init(TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::init()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (k->nodesGroup) {
@@ -164,7 +168,11 @@ QStringList Tweener::keys() const
 void Tweener::press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::press()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(brushManager);
@@ -196,7 +204,11 @@ void Tweener::move(const TupInputDeviceInformation *input, TupBrushManager *brus
 void Tweener::release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::release()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(input);
@@ -512,7 +524,11 @@ void Tweener::applyReset()
 void Tweener::applyTween()
 {
     #ifdef K_DEBUG
-       T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::applyTween()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     QString name = k->configurator->currentTweenName();
@@ -656,7 +672,11 @@ void Tweener::applyTween()
 void Tweener::updatePath()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::updatePath()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     k->configurator->updateSteps(k->path);
@@ -673,7 +693,11 @@ void Tweener::saveConfig()
 void Tweener::updateScene(TupGraphicsScene *scene)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::updateScene()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     k->mode = k->configurator->mode();
@@ -841,7 +865,11 @@ void Tweener::disableSelection()
 void Tweener::sceneResponse(const TupSceneResponse *event)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::sceneResponse()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if ((event->action() == TupProjectRequest::Remove || event->action() == TupProjectRequest::Reset)
@@ -856,7 +884,11 @@ void Tweener::sceneResponse(const TupSceneResponse *event)
 void Tweener::layerResponse(const TupLayerResponse *event)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::layerResponse()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (event->action() == TupProjectRequest::Remove)
@@ -866,7 +898,11 @@ void Tweener::layerResponse(const TupLayerResponse *event)
 void Tweener::frameResponse(const TupFrameResponse *event)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Tweener::frameResponse()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (event->action() == TupProjectRequest::Remove && k->scene->currentLayerIndex() == event->layerIndex())
@@ -889,5 +925,3 @@ TupToolPlugin::EditMode Tweener::currentEditMode()
 {
     return k->editMode;
 }
-
-// Q_EXPORT_PLUGIN2(tup_tweener, Tweener);

@@ -36,10 +36,11 @@
 #ifndef TUPPIXMAPITEM_H
 #define TUPPIXMAPITEM_H
 
-#include "tupabstractserializable.h"
 #include "tglobal.h"
+#include "tupabstractserializable.h"
 
 #include <QGraphicsPixmapItem>
+#include <QPixmap>
 
 /**
  * @author David Cuadrado

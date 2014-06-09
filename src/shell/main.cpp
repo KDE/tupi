@@ -83,7 +83,7 @@ int main(int argc, char ** argv)
     TupApplication application(argc, argv);
     QString slash = QDir::separator();
 
-#ifdef K_DEBUG
+#ifdef K_DEBUG && !defined(Q_OS_WIN32) 
        TDebug::setOutputChannel();
 #endif
 
@@ -162,7 +162,12 @@ int main(int argc, char ** argv)
 
     // Looking for plugins for Tupi
     #ifdef K_DEBUG
-           tWarning() << "main.cpp - Loading plugins from: " << kAppProp->pluginDir();
+        QString msg = "main.cpp - Loading plugins from: " + kAppProp->pluginDir();
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
     #endif
     QApplication::addLibraryPath(kAppProp->pluginDir());
 

@@ -40,15 +40,14 @@
 #include "tupabstractserializable.h"
 #include "tuplibraryobject.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
 #include <QHash>
 #include <QMap>
 #include <QByteArray>
 #include <QTextStream>
+#include <QFileInfo>
+#include <QFile>
+#include <QDir>
 
 class TupProject;
 class TupLibraryFolder;

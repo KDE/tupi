@@ -39,12 +39,9 @@
 #include "tglobal.h"
 #include "tupabstractserializable.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QPointF>
 #include <QColor>
+#include <QVector>
 
 /**
  * @author David Cuadrado

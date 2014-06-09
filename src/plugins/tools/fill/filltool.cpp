@@ -98,14 +98,24 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
 
         if (!item) {
             #ifdef K_DEBUG
-                   tWarning() << "FillTool::press() - No item found";
+                QString msg = "FillTool::press() - No item found";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
             return;
         } else {
             if (TupGraphicLibraryItem *libraryItem = qgraphicsitem_cast<TupGraphicLibraryItem *>(item)) {
                 if (libraryItem->type() == TupLibraryObject::Image) {
                     #ifdef K_DEBUG
-                           tWarning() << "FillTool::press() - Warning: is a RASTER object!"; 
+                        QString msg = "FillTool::press() - Warning: is a RASTER object!";
+                        #ifdef Q_OS_WIN32
+                            qWarning() << msg;
+                        #else
+                            tWarning() << msg;
+                        #endif
                     #endif
                     return;
                 }
@@ -113,14 +123,24 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                 TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
                 if (svg) {
                     #ifdef K_DEBUG
-                           tWarning() << "FillTool::press() - Warning: is a SVG object!";                         
+                        QString msg = "FillTool::press() - Warning: is a SVG object!";
+                        #ifdef Q_OS_WIN32
+                            qWarning() << msg;
+                        #else
+                            tWarning() << msg;
+                        #endif
                     #endif
                     return;
                 }
 
                 if (item->zValue() < 20000 && scene->spaceMode() == TupProject::FRAMES_EDITION) {
                     #ifdef K_DEBUG
-                           tWarning() << "FillTool::press() - Warning: Object belongs to the background frames";
+                        QString msg = "FillTool::press() - Warning: Object belongs to the background frames";
+                        #ifdef Q_OS_WIN32
+                            qWarning() << msg;
+                        #else
+                            tWarning() << msg;
+                        #endif
                     #endif
                     return;
                 }
@@ -142,8 +162,13 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                            position = frame->indexOf(shape);
                 } else {
                     #ifdef K_DEBUG
-                           tError() << "FillTool::press() - Fatal Error: Invalid spaceMode!";
-                    #endif
+                        QString msg = "FillTool::press() - Fatal Error: Invalid spaceMode!"; 
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
+                    #endif 
                     return;
                 }
             }
@@ -169,7 +194,12 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                 emit requested(&event);
             } else {
                 #ifdef K_DEBUG
-                       tError() << "FillTool::press() - Fatal Error: Invalid object index [ " << position << " ]";
+                    QString msg = "FillTool::press() - Fatal Error: Invalid object index [ " + QString::number(position) + " ]";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
             }
         }
@@ -253,5 +283,3 @@ QCursor FillTool::cursor() const
 
     return QCursor(Qt::ArrowCursor);
 }
-
-// Q_EXPORT_PLUGIN2(tup_fill, FillTool)

@@ -114,7 +114,12 @@ void TupBackground::fromXml(const QString &xml)
                           }
                } else {
                    #ifdef K_DEBUG
-                          tError() << "TupBackground::fromXml() - Error: The background input is invalid";
+                       QString msg = "TupBackground::fromXml() - Error: The background input is invalid";
+                       #ifdef Q_OS_WIN32
+                           qDebug() << msg;
+                       #else
+                           tError() << msg;
+                       #endif
                    #endif
                }
            }

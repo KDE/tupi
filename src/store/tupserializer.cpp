@@ -36,9 +36,6 @@
 #include "tupserializer.h"
 #include "tupsvg2qt.h"
 
-#include <QGraphicsItem>
-#include <QFont>
-
 TupSerializer::TupSerializer()
 {
 }
@@ -88,7 +85,6 @@ void TupSerializer::loadProperties(QGraphicsItem *item, const QXmlAttributes &at
 void TupSerializer::loadProperties(QGraphicsItem *item, const QDomElement &e)
 {
     if (e.tagName() == "properties") {
-
         QMatrix matrix;
         TupSvg2Qt::svgmatrix2qtmatrix(e.attribute("transform"), matrix);
         QTransform transform(matrix);

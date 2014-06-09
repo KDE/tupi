@@ -113,7 +113,11 @@ struct TupColorValue::Private
 TupColorValue::TupColorValue(QWidget *parent) : QFrame(parent), k(new Private)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupColorValue()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     k->ok = true;
@@ -125,7 +129,11 @@ TupColorValue::TupColorValue(QWidget *parent) : QFrame(parent), k(new Private)
 TupColorValue::~TupColorValue()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupColorValue()]";
+        #else
+            TEND;
+        #endif
     #endif
 }
 

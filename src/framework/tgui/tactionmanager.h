@@ -44,6 +44,8 @@
 #include <QWidget>
 #include <QList>
 #include <QHash>
+#include <QMenuBar>
+#include <QToolBar>
 
 typedef QList<QAction *> TActionList;
 typedef QHash<QString, QAction *> TActionDict;

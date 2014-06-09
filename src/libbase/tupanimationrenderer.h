@@ -40,6 +40,7 @@
 
 #include <QColor>
 #include <QSize>
+#include <QPainter>
 
 class QPainter;
 class TupScene;

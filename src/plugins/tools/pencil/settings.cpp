@@ -40,7 +40,11 @@
 Settings::Settings(QWidget *parent) : QWidget(parent)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Settings()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     QBoxLayout *mainLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
@@ -72,7 +76,11 @@ Settings::Settings(QWidget *parent) : QWidget(parent)
 Settings::~Settings()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~Settings()]";
+        #else
+            TEND;
+        #endif
     #endif
 }
 

@@ -220,7 +220,7 @@ void TCellView::addItem(TCellViewItem *item)
     }
 
     m_countColor++;
-    setItem(m_row-1 , m_col , item);
+    setItem(m_row-1, m_col, item);
 
     fixSize();
 }
@@ -244,9 +244,13 @@ void TCellView::addItem(const QImage &i)
 void TCellView::wheelEvent(QWheelEvent *event)
 {
     if (event->modifiers() == Qt::ControlModifier) {
-#ifdef K_DEBUG
-        SHOW_VAR(event->delta());
-#endif
+        #ifdef K_DEBUG
+            #ifdef Q_OS_WIN32
+                qDebug() << "[TCellView::wheelEvent()] - event->delta(): " << event->delta();
+            #else
+                SHOW_VAR(event->delta());
+            #endif
+        #endif
     } else {
         QTableWidget::wheelEvent(event);
     }

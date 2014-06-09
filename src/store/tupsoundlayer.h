@@ -39,6 +39,8 @@
 #include "tglobal.h"
 #include "tuplayer.h"
 
+#include <QFileInfo>
+
 /**
     @author David Cuadrado
 **/

@@ -616,7 +616,12 @@ void TupStoryBoardDialog::exportAsPDF()
 void TupStoryBoardDialog::postStoryboardAtServer()
 {
     #ifdef K_DEBUG
-           tWarning() << "TupStoryBoardDialog::postStoryBoardAtServer() - Posting in Tupitube!";
+        QString msg = "TupStoryBoardDialog::postStoryBoardAtServer() - Posting in Tupitube!";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
     #endif
 
     saveLastComponent();

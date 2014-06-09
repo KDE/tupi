@@ -61,7 +61,11 @@ TupCanvas::TupCanvas(QWidget *parent, Qt::WindowFlags flags, TupGraphicsScene *s
                    int angle, TupBrushManager *brushManager, bool isNetworked, const QStringList &onLineUsers) : QFrame(parent, flags), k(new Private)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupCanvas()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     setWindowTitle(tr("Tupi: Open 2D Magic"));

@@ -38,14 +38,6 @@
 #include "tupgraphicalgorithm.h"
 #include "tupserializer.h"
 
-#include <QMimeData>
-#include <QBrush>
-#include <QGraphicsSceneDragDropEvent>
-#include <QPainter>
-#include <QPainterPath>
-#include <QCursor>
-
-// TupPathItem::TupPathItem(QGraphicsItem * parent, QGraphicsScene * scene) : QGraphicsPathItem(parent, scene), m_dragOver(false)
 TupPathItem::TupPathItem(QGraphicsItem * parent) : QGraphicsPathItem(parent), m_dragOver(false)
 {
     setAcceptDrops(true);

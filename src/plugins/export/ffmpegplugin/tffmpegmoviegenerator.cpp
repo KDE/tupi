@@ -83,7 +83,12 @@ static AVStream *addVideoStream(AVFormatContext *oc, AVCodec **codec, enum AVCod
         errorMsg = "ffmpeg error: Could not find encoder. This is not a problem directly related to Tupi. \
                     Please, check your ffmpeg installation and codec support. More info: http://ffmpeg.org/";
         #ifdef K_DEBUG
-               tError() << "TFFMpegMovieGenerator::addVideoStream() - " << errorMsg;
+            QString msg = QString("TFFMpegMovieGenerator::addVideoStream() - ") + errorMsg;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return 0;
     }
@@ -93,7 +98,12 @@ static AVStream *addVideoStream(AVFormatContext *oc, AVCodec **codec, enum AVCod
         errorMsg = "ffmpeg error: Could not alloc stream. This is not a problem directly related to Tupi. \
                     Please, check your ffmpeg installation and codec support. More info: http://ffmpeg.org/";
         #ifdef K_DEBUG
-               tError() << "TFFMpegMovieGenerator::addVideoStream() - " << errorMsg;
+            QString msg = QString("") + "TFFMpegMovieGenerator::addVideoStream() - " + errorMsg;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return 0;
     }
@@ -186,9 +196,13 @@ bool TFFMpegMovieGenerator::Private::openVideo(AVCodec *codec, AVStream *st)
                     Please, check your ffmpeg installation and codec support. \
                     More info: http://ffmpeg.org/";
         #ifdef K_DEBUG
-               tError() << "TFFMpegMovieGenerator::openVideo() - " << errorMsg;
+            QString msg = QString("") + "TFFMpegMovieGenerator::openVideo() - " + errorMsg;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
-
         return false;
     }
 
@@ -197,9 +211,13 @@ bool TFFMpegMovieGenerator::Private::openVideo(AVCodec *codec, AVStream *st)
     if (!frame) {
         errorMsg = "There is no available memory to export your project as a video";
         #ifdef K_DEBUG
-               tError() << "TFFMpegMovieGenerator::openVideo() - " << errorMsg;
+            QString msg = QString("") + "TFFMpegMovieGenerator::openVideo() - " + errorMsg;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
-
         return false;
     }
 	
@@ -252,7 +270,12 @@ void TFFMpegMovieGenerator::Private::RGBtoYUV420P(const uint8_t *bufferRGB, uint
 bool TFFMpegMovieGenerator::Private::writeVideoFrame(const QString &movieFile, const QImage &image)
 {
     #ifdef K_DEBUG
-           tWarning() << "TFFMpegMovieGenerator::writeVideoFrame() - Generating frame #" << frameCount;
+        QString msg = "TFFMpegMovieGenerator::writeVideoFrame() - Generating frame #" + QString::number(frameCount);
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
     #endif
 
     int ret;
@@ -283,9 +306,13 @@ bool TFFMpegMovieGenerator::Private::writeVideoFrame(const QString &movieFile, c
     if (ret < 0) {
         errorMsg = "[1] Error while encoding the video of your project";
         #ifdef K_DEBUG
-               tError() << "TFFMpegMovieGenerator::writeVideoFrame() - " << errorMsg;
+            QString msg = QString("") + "TFFMpegMovieGenerator::writeVideoFrame() - " + errorMsg;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
-
         return false;
     }
 
@@ -305,9 +332,13 @@ bool TFFMpegMovieGenerator::Private::writeVideoFrame(const QString &movieFile, c
     if (ret != 0) {
         errorMsg = "[2] Error while encoding the video of your project";
         #ifdef K_DEBUG
-               tError() << "TFFMpegMovieGenerator::writeVideoFrame() - " << errorMsg;
+            QString msg = QString("") + "TFFMpegMovieGenerator::writeVideoFrame() - " + errorMsg;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
-
         return false;
     }
 
@@ -378,7 +409,12 @@ bool TFFMpegMovieGenerator::begin()
         k->errorMsg = "ffmpeg error: Error while doing export. This is not a problem directly related to Tupi. \
                        Please, check your ffmpeg installation and codec support. More info: http://ffmpeg.org/";
         #ifdef K_DEBUG
-               tError() << "TFFMpegMovieGenerator::begin() - " << k->errorMsg;
+            QString msg = QString("") + "TFFMpegMovieGenerator::begin() - " + k->errorMsg;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return false;
     }
@@ -396,7 +432,12 @@ bool TFFMpegMovieGenerator::begin()
         k->errorMsg = "ffmpeg error: Can't add video stream. This is not a problem directly related to Tupi. \
                        Please, check your ffmpeg installation and codec support. More info: http://ffmpeg.org/";
         #ifdef K_DEBUG
-               tError() << "TFFMpegMovieGenerator::begin() - " << k->errorMsg;
+            QString msg = QString("") + "TFFMpegMovieGenerator::begin() - " + k->errorMsg;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else 
+                tError() << msg;
+            #endif
         #endif
         return false;
     }
@@ -406,7 +447,12 @@ bool TFFMpegMovieGenerator::begin()
         if (ret < 0) {
             k->errorMsg = "ffmpeg error: could not open video file";
             #ifdef K_DEBUG
-                   tError() << "TFFMpegMovieGenerator::begin() - " << k->errorMsg;
+                QString msg = QString("") + "TFFMpegMovieGenerator::begin() - " + k->errorMsg;
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
             return false;
         }
@@ -441,15 +487,26 @@ void TFFMpegMovieGenerator::handle(const QImage& image)
 
     if (!k->video_st || k->video_pts >= k->streamDuration) {
         #ifdef K_DEBUG
-               tWarning() << "TFFMpegMovieGenerator::handle() - The total of frames has been processed (" << k->streamDuration << " seg)";
+            QString msg = "TFFMpegMovieGenerator::handle() - The total of frames has been processed (" + QString::number(k->streamDuration) + " seg)";
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                tWarning() << msg;
+            #endif
         #endif
-
         return;
     }
 
     #ifdef K_DEBUG
-           tWarning() << "Duration: " << k->streamDuration;
-           tWarning() << "Video PTS: " << k->video_pts;
+        QString msg1 = "TFFMpegMovieGenerator::handle() - Duration: " + QString::number(k->streamDuration); 
+        QString msg2 = "TFFMpegMovieGenerator::handle() - Video PTS: " + QString::number(k->video_pts);
+        #ifdef Q_OS_WIN32
+            qWarning() << msg1;
+            qWarning() << msg2;
+        #else
+            tWarning() << msg1;
+            tWarning() << msg2;
+        #endif
     #endif
 
     k->writeVideoFrame(k->movieFile, image);

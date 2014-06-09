@@ -38,6 +38,8 @@
 
 #include "tglobal.h"
 #include <QLabel>
+#include <QBoxLayout>
+#include <QTextEdit>
 
 /**
  * @author Gustav Gonzalez 

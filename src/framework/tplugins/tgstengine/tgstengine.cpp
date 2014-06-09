@@ -35,7 +35,6 @@
 
 #include "tgstengine.h"
 #include "talgorithm.h"
-#include "tdebug.h"
 
 #include <QtDebug>
 #include <QTimer>

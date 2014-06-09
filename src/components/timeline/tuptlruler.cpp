@@ -38,7 +38,11 @@
 TupTLRuler::TupTLRuler(QWidget *parent) : QHeaderView(Qt::Horizontal, parent)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupTLRuler()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     setHighlightSections(true);
@@ -50,7 +54,11 @@ TupTLRuler::TupTLRuler(QWidget *parent) : QHeaderView(Qt::Horizontal, parent)
 TupTLRuler::~TupTLRuler()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupTLRuler()]";
+        #else
+            TEND;
+        #endif
     #endif
 }
 

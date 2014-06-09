@@ -43,10 +43,6 @@
 #include "tupbackground.h"
 #include "tupitemtweener.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QDomDocument>
 #include <QDomElement>
 #include <QGraphicsScene>
@@ -55,6 +51,8 @@
 #include <QPainter>
 #include <QGraphicsItem>
 #include <QStyleOptionGraphicsItem>
+#include <QDir>
+#include <QGraphicsView>
 
 class TupLayer;
 class TupSoundLayer;

@@ -38,9 +38,6 @@
 #include "tuppixmapitem.h"
 // #include "taudioplayer.h"
 
-#include <QTemporaryFile>
-#include <QDir>
-
 struct TupLibraryObject::Private
 {
     TupLibraryObject::Type type;
@@ -123,9 +120,15 @@ void TupLibraryObject::fromXml(const QString &xml)
     QDomDocument document;
     
     if (! document.setContent(xml)) {
-        #ifdef K_DEBUG  
-               tError() << "TupLibraryObject::fromXml() - Fatal Error: Invalid XML structure!";
+        #ifdef K_DEBUG
+            QString msg = "TupLibraryObject::fromXml() - Fatal Error: Invalid XML structure!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
+
         return;
     }
     
@@ -135,8 +138,14 @@ void TupLibraryObject::fromXml(const QString &xml)
         setSymbolName(objectTag.attribute("id"));
         if (k->symbolName.isEmpty()) {
             #ifdef K_DEBUG
-                   tError() << "TupLibraryObject::fromXml - Fatal Error: Symbol name is empty!";
+                QString msg = "TupLibraryObject::fromXml - Fatal Error: Symbol name is empty!";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
+
             return;
         }
        
@@ -146,7 +155,12 @@ void TupLibraryObject::fromXml(const QString &xml)
             k->type = TupLibraryObject::Type(index);
         } else {
             #ifdef K_DEBUG
-                   tError() << "TupLibraryObject::fromXml - Fatal Error: Invalid object type!";
+                QString msg = "TupLibraryObject::fromXml - Fatal Error: Invalid object type!";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
             return;
         }
@@ -168,13 +182,23 @@ void TupLibraryObject::fromXml(const QString &xml)
                                  loadRawData(array);
                              } else {
                                  #ifdef K_DEBUG
-                                        tError() << "TupLibraryObject::fromXml() - Object data is empty! [ " << k->symbolName << " ]";
+                                     QString msg = "TupLibraryObject::fromXml() - Object data is empty! -> " + k->symbolName;
+                                     #ifdef Q_OS_WIN32
+                                         qDebug() << msg;
+                                     #else
+                                         tError() << msg;
+                                     #endif
                                  #endif
                                  return;
                              }
                          } else {
                              #ifdef K_DEBUG
-                                        tError() << "TupLibraryObject::fromXml() - Object data from xml is NULL! [ " << k->symbolName << " ]";
+                                 QString msg = "TupLibraryObject::fromXml() - Fatal Error: Object data from xml is NULL -> " + k->symbolName;
+                                 #ifdef Q_OS_WIN32
+                                     qDebug() << msg;
+                                 #else
+                                     tError() << msg;
+                                 #endif
                              #endif
                              return;
                          }
@@ -190,8 +214,14 @@ void TupLibraryObject::fromXml(const QString &xml)
                 default:
                      {
                          #ifdef K_DEBUG
-                                tError() << "TupLibraryObject::fromXml() - Unknown object type: " << k->type;
+                             QString msg = "TupLibraryObject::fromXml() - Unknown object type: " + k->type;
+                             #ifdef Q_OS_WIN32
+                                 qWarning() << msg;
+                             #else
+                                 tWarning() << msg;
+                             #endif
                          #endif
+
                          return;
                      }
                 break;
@@ -283,7 +313,12 @@ bool TupLibraryObject::loadRawData(const QByteArray &data)
 
                  if (!isOk) {
                      #ifdef K_DEBUG
-                            tError() << "TupLibraryObject::loadRawData() - [ Fatal Error ] - Can't load image -> " << k->symbolName;
+                         QString msg = "TupLibraryObject::loadRawData() - [ Fatal Error ] - Can't load image -> " + k->symbolName;
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tError() << msg;
+                         #endif
                      #endif
                      return false;
                  }
@@ -360,26 +395,48 @@ bool TupLibraryObject::loadData(const QString &path)
                      if (file.open(QIODevice::ReadOnly)) {
                          QByteArray array = file.readAll(); 
                          #ifdef K_DEBUG
-                                tWarning() << "TupLibraryObject::loadData() - Object path: " << path;
-                                tWarning() << "TupLibraryObject::loadData() - Object size: " << array.size();
+                             QString msg1 = "TupLibraryObject::loadData() - Object path: " + path;
+                             QString msg2 = "TupLibraryObject::loadData() - Object size: " + array.size();
+                             #ifdef Q_OS_WIN32
+                                 qWarning() << msg1;
+                                 qWarning() << msg2;
+                             #else
+                                 tWarning() << msg1;
+                                 tWarning() << msg2;
+                             #endif
                          #endif
                          if (!array.isEmpty() && !array.isNull()) {
                              loadRawData(array);
                          } else {
                              #ifdef K_DEBUG
-                                    tWarning() << "TupLibraryObject::loadData() - Warning: Image file is empty -> " << path;
+                                 QString msg = "TupLibraryObject::loadData() - Warning: Image file is empty -> " + path;
+                                 #ifdef Q_OS_WIN32
+                                     qDebug() << msg;
+                                 #else
+                                     tError() << msg;
+                                 #endif
                              #endif
                              return false;
                          }
                      } else {
                          #ifdef K_DEBUG
-                                tError() << "TupLibraryObject::loadData() - Fatal Error: Can't access image file -> " << path;
+                             QString msg = "TupLibraryObject::loadData() - Fatal Error: Can't access image file -> " + path; 
+                             #ifdef Q_OS_WIN32
+                                 qDebug() << msg;
+                             #else
+                                 tError() << msg;
+                             #endif
                          #endif
                          return false;
                      }
                  } else {
                      #ifdef K_DEBUG
-                            tError() << "TupLibraryObject::loadData() - Fatal Error: Image file doesn't exist -> " << path;
+                         QString msg = "TupLibraryObject::loadData() - Fatal Error: Image file doesn't exist -> " + path;
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tError() << msg;
+                         #endif
                      #endif
                      return false;
                  }
@@ -400,7 +457,11 @@ bool TupLibraryObject::loadData(const QString &path)
 void TupLibraryObject::saveData(const QString &dataDir)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupLibraryObject::saveData()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     switch (k->type) {
@@ -449,7 +510,12 @@ void TupLibraryObject::saveData(const QString &dataDir)
                      dir.mkpath(destination);
 
                      #ifdef K_DEBUG
-                            tWarning() << "TupLibraryObject::saveData() - Creating directory -> " << destination;
+                         QString msg = "TupLibraryObject::saveData() - Creating directory -> " + destination;
+                         #ifdef Q_OS_WIN32
+                             qWarning() << msg;
+                         #else
+                             tWarning() << msg;
+                         #endif
                      #endif
                  }
 
@@ -458,19 +524,36 @@ void TupLibraryObject::saveData(const QString &dataDir)
                  QFile file(k->dataPath);
                  if (!file.open(QIODevice::WriteOnly)) {
                      #ifdef K_DEBUG
-                            tError() << "TupLibraryObject::saveData() - [ Fatal Error ] - Insufficient permissions to save file -> " << destination + k->symbolName;
+                         QString msg = "TupLibraryObject::saveData() - [ Fatal Error ] - Insufficient permissions to save file -> " + destination + k->symbolName;
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tError() << msg;
+                         #endif
                      #endif
+                     return;
                  } else {
                      qint64 isOk = file.write(k->rawData);
                      file.close();
 
                      if (isOk == -1) {
                          #ifdef K_DEBUG
-                                tError() << "TupLibraryObject::saveData() - [ Fatal Error ] - Can't save file -> " << destination + k->symbolName;
+                             QString msg = "TupLibraryObject::saveData() - [ Fatal Error ] - Can't save file -> " + destination + k->symbolName;
+                             #ifdef Q_OS_WIN32
+                                 qDebug() << msg;
+                             #else
+                                 tError() << msg;
+                             #endif
                          #endif
+                         return;
                      } else {
                          #ifdef K_DEBUG
-                                tWarning() << "TupLibraryObject::saveData() - Image file saved successfully -> " << destination + k->symbolName;
+                             QString msg = "TupLibraryObject::saveData() - Image file saved successfully -> " + destination + k->symbolName;
+                             #ifdef Q_OS_WIN32
+                                 qWarning() << msg;
+                             #else
+                                 tWarning() << msg;
+                             #endif
                          #endif
                      }
                  }

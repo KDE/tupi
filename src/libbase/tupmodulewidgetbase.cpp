@@ -35,10 +35,6 @@
 
 #include "tupmodulewidgetbase.h"
 
-#include <QEvent>
-#include <QBoxLayout>
-#include <QDialog>
-
 struct TupModuleWidgetBase::Private
 {
     QBoxLayout *container;

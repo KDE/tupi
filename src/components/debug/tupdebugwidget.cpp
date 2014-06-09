@@ -37,9 +37,7 @@
 
 TupDebugWidget::TupDebugWidget(QWidget *parent, int width) : TupModuleWidgetBase(parent, "Debug Terminal")
 {
-    #ifdef K_DEBUG
-           TINIT;
-    #endif
+    TINIT;
   
     setWindowTitle(tr("Debug Console"));
     setWindowIcon(QIcon(THEME_DIR + "icons/debug.png"));
@@ -55,15 +53,10 @@ TupDebugWidget::TupDebugWidget(QWidget *parent, int width) : TupModuleWidgetBase
 
 TupDebugWidget::~TupDebugWidget()
 {
-    #ifdef K_DEBUG
-           TEND;
-    #endif
+    TEND;
 }
 
 void TupDebugWidget::setProjectStatus(bool status)
 {
-    #ifdef K_DEBUG
-           term->setProjectStatus(status);
-    #endif
+    term->setProjectStatus(status);
 }
-

@@ -37,8 +37,6 @@
 #include "tupprojectrequest.h"
 #include "tupprojectresponse.h"
 
-#include <QDomDocument>
-
 TupRequestBuilder::TupRequestBuilder()
 {
 }
@@ -276,7 +274,12 @@ TupProjectRequest TupRequestBuilder::fromResponse(TupProjectResponse *response)
             default:
                  {
                     #ifdef K_DEBUG
-                           tWarning() << "wOw! Unknown response! O_o";
+                        QString msg = "TupRequestBuilder::fromResponse() - Error: wOw! Unknown response! O_o";
+                        #ifdef Q_OS_WIN32
+                            qWarning() << msg;
+                        #else
+                            tWarning() << msg;
+                        #endif
                     #endif
                  }
     }

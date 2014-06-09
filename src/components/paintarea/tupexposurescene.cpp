@@ -37,9 +37,6 @@
 #include "tpushbutton.h"
 #include "tuplayer.h"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-
 struct TupExposureScene::Private
 {
     TupScene *scene;
@@ -64,7 +61,6 @@ TupExposureScene::TupExposureScene(const QString &title, TupScene *scene, int cu
     k->frameCounter = k->scene->framesTotal();
 
     for (int j=0; j< scene->layersTotal(); j++) {
-
          if (j < 4) { // SQA: Temporary condition
              QGroupBox *layerGroup = new QGroupBox(tr("Layer") + " " + QString::number(j+1));
              QHBoxLayout *layerLayout = new QHBoxLayout;

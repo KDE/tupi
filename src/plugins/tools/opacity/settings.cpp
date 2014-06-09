@@ -465,7 +465,6 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
                  reference = initFactor;
              } else if (reverse) { // if reverse option is enabled
                         reference += delta;
-
                         if (cycle < reverseTop)
                             cycle++;
                         else

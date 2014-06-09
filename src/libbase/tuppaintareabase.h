@@ -40,6 +40,17 @@
 #include "tuptoolplugin.h"
 
 #include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QMouseEvent>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsRectItem>
+#include <QPolygon>
+#include <QApplication>
+#include <QTimer>
+#include <QStyleOptionGraphicsItem>
+#include <QClipboard>
+
+#include <cmath>
 
 class QGraphicsRectItem;
 class TupBrushManager;

@@ -49,10 +49,6 @@
 #include "tuprequestparser.h"
 #include "talgorithm.h"
 
-#include <QUndoStack>
-#include <QDir>
-#include <QFileInfo>
-
 // This class handles the current animation project 
 
 class TupProjectManager::Private
@@ -89,7 +85,7 @@ TupProjectManager::TupProjectManager(QObject *parent) : QObject(parent), k(new P
         #ifdef Q_OS_WIN32
             qDebug() << "[TupProjectManager()]";
         #else
-            T_INIT;
+            TINIT;
         #endif
     #endif
     
@@ -110,7 +106,7 @@ TupProjectManager::~TupProjectManager()
         #ifdef Q_OS_WIN32
             qDebug() << "[~TupProjectManager()]";
         #else
-            T_END;
+            TEND;
         #endif
     #endif
 

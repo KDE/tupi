@@ -192,7 +192,6 @@ QVariant TControlNode::itemChange(GraphicsItemChange change, const QVariant &val
 void TControlNode::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (k->centralNode) {
-
         setSelected(true);
         k->centralNode->setSelected(true);
 
@@ -224,7 +223,11 @@ void TControlNode::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void TControlNode::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TControlNode::mouseReleaseEvent()]";
+        #else
            T_FUNCINFO;
+        #endif
     #endif
 
     Q_UNUSED(event);

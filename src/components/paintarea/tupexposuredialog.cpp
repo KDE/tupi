@@ -110,7 +110,6 @@ void TupExposureDialog::setSheet(int sceneIndex, int layerIndex, int frameIndex)
     k->sceneColumn = new QVBoxLayout;
 
     for (int i=0; i < k->project->scenesTotal(); i++) {
-
          // List of scene buttons
          TPushButton *sceneButton = new TPushButton(this, tr("Scene") + " " + QString::number(i+1), 0, i);
          sceneButton->setFixedSize(100, 70);
@@ -167,8 +166,13 @@ void TupExposureDialog::setSheet(int sceneIndex, int layerIndex, int frameIndex)
 void TupExposureDialog::goToScene(int column, int sceneIndex)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupExposureDialog::goToScene()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
+
     Q_UNUSED(column);
 
     // tError() << "TupExposureDialog::goToScene() - sceneIndex: " << sceneIndex;
@@ -209,7 +213,11 @@ void TupExposureDialog::goToScene(int column, int sceneIndex)
 void TupExposureDialog::refreshUI(int frame, int layer)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupExposureDialog::refreshUI()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     for(int i=0; i<k->sceneList.size(); i++) {

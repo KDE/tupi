@@ -79,7 +79,11 @@ struct TupLibraryWidget::Private
 TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent), k(new Private)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupLibraryWidget()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     k->childCount = 0;
@@ -192,8 +196,13 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
 TupLibraryWidget::~TupLibraryWidget()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupLibraryWidget()]";
+        #else
+            TEND;
+        #endif
     #endif
+
     delete k;
 }
 
@@ -230,13 +239,16 @@ void TupLibraryWidget::activeRefresh(QTreeWidgetItem *item)
 void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupLibraryWidget::previewItem()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     RETURN_IF_NOT_LIBRARY;
 
     if (item) {
-
         k->currentItemDisplayed = item;
 
         if (item->text(2).length() == 0) {
@@ -249,10 +261,16 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
 
         if (!object) {
             #ifdef K_DEBUG
-                   tError() << "TupLibraryWidget::previewItem() - Fatal Error: Cannot find the object: " << item->text(1) + "." + item->text(2).toLower();
+                QString msg = "TupLibraryWidget::previewItem() - Fatal Error: Cannot find the object: " + item->text(1) + "." + item->text(2).toLower();
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
-            QGraphicsTextItem *msg = new QGraphicsTextItem(tr("No preview available"));
-            k->display->render(static_cast<QGraphicsItem *>(msg));
+
+            QGraphicsTextItem *text = new QGraphicsTextItem(tr("No preview available"));
+            k->display->render(static_cast<QGraphicsItem *>(text));
 
             return;
         }
@@ -293,7 +311,12 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
                 default:
                    {
                      #ifdef K_DEBUG
-                            tDebug("library") << "Unknown symbol id: " << object->type();
+                         QString msg = "TupLibraryWidget::previewItem() - Unknown symbol id: " + object->type();
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tError("library") << msg;
+                         #endif
                      #endif
                    }
                    break;
@@ -307,17 +330,31 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
 void TupLibraryWidget::insertObjectInWorkspace()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupLibraryWidget::insertObjectInWorkspace()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (!k->libraryTree->currentItem()) { 
         #ifdef K_DEBUG
-               tFatal() << "TupLibraryWidget::insertObjectInWorkspace() - There's no current selection!";
+            QString msg = "TupLibraryWidget::insertObjectInWorkspace() - There's no current selection!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return;
     } else if (k->libraryTree->currentItem()->text(2).length() == 0) {
                #ifdef K_DEBUG
-                      tFatal() << "TupLibraryWidget::insertObjectInWorkspace() - It's a directory!";
+                   QString msg = "TupLibraryWidget::insertObjectInWorkspace() - It's a directory!";
+                   #ifdef Q_OS_WIN32
+                       qDebug() << msg;
+                   #else
+                       tFatal() << msg;
+                   #endif
                #endif
                return;
     }
@@ -391,7 +428,12 @@ void TupLibraryWidget::cloneObject(QTreeWidgetItem* item)
 
             if (!isOk) {
                 #ifdef K_DEBUG
-                       tError() << "TupLibraryWidget::cloneObject() - Fatal Error: Object file couldn't be cloned!";
+                    QString msg = "TupLibraryWidget::cloneObject() - Fatal Error: Object file couldn't be cloned!";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return;
             }
@@ -404,7 +446,12 @@ void TupLibraryWidget::cloneObject(QTreeWidgetItem* item)
 
             if (!isOk) {
                 #ifdef K_DEBUG
-                       tError() << "TupLibraryWidget::cloneObject() - Fatal Error: Object file couldn't be loaded!";
+                    QString msg = "TupLibraryWidget::cloneObject() - Fatal Error: Object file couldn't be loaded!";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return;
             } 
@@ -452,8 +499,14 @@ void TupLibraryWidget::cloneObject(QTreeWidgetItem* item)
 
         } else {
             #ifdef K_DEBUG
-                   tError() << "TupLibraryWidget::cloneObject() - Fatal Error: Object doesn't exist! [ " << id << " ]";
+                QString msg = "TupLibraryWidget::cloneObject() - Fatal Error: Object doesn't exist! [ " + id + " ]";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
+
             return;
         }
     }
@@ -487,7 +540,12 @@ void TupLibraryWidget::exportObject(QTreeWidgetItem *item)
             if (QFile::exists(target)) {
                 if (!QFile::remove(target)) {
                     #ifdef K_DEBUG
-                           tError() << "TupLibraryWidget::exportObject() - Fatal Error: destination path already exists! [ " << id << " ]";
+                        QString msg = "TupLibraryWidget::exportObject() - Fatal Error: destination path already exists! [ " + id + " ]";
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
                     #endif
                     return;
                 }
@@ -495,7 +553,12 @@ void TupLibraryWidget::exportObject(QTreeWidgetItem *item)
 
             if (!QFile::copy(path, target)) {
                 #ifdef K_DEBUG
-                       tError() << "TupLibraryWidget::exportObject() - Error: Object file couldn't be exported! [ " << id << " ]";
+                    QString msg = "TupLibraryWidget::exportObject() - Error: Object file couldn't be exported! [ " + id + " ]";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return;
             } else {
@@ -503,13 +566,23 @@ void TupLibraryWidget::exportObject(QTreeWidgetItem *item)
             }
         } else {
             #ifdef K_DEBUG
-                   tError() << "TupLibraryWidget::exportObject() - Error: Object path is null! [ " << id << " ]";
+                QString msg = "TupLibraryWidget::exportObject() - Error: Object path is null! [ " + id + " ]";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
             return;
         }
     } else {
         #ifdef K_DEBUG
-               tError() << "TupLibraryWidget::exportObject() - Error: Object doesn't exist! [ " << id << " ]";
+            QString msg = "TupLibraryWidget::exportObject() - Error: Object doesn't exist! [ " + id + " ]";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
         return;
     }
@@ -556,7 +629,12 @@ void TupLibraryWidget::createRasterObject()
             QDir dir;
             if (!dir.mkpath(imagesDir)) {
                 #ifdef K_DEBUG
-                       tError() << "TupLibraryWidget::createRasterObject() - Fatal Error: Couldn't create directory " << imagesDir;
+                    QString msg = "TupLibraryWidget::createRasterObject() - Fatal Error: Couldn't create directory " + imagesDir;
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 TOsd::self()->display(tr("Error"), tr("Couldn't create images directory!"), TOsd::Error);
                 return;
@@ -605,13 +683,23 @@ void TupLibraryWidget::createRasterObject()
                 executeSoftware(editor, path);
             } else {
                 #ifdef K_DEBUG
-                       tError() << "TupLibraryWidget::createRasterObject() - Fatal Error: Object file couldn't be loaded from -> " << path;
+                    QString msg = "TupLibraryWidget::createRasterObject() - Fatal Error: Object file couldn't be loaded from -> " + path;
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return;
             }
         } else {
             #ifdef K_DEBUG
-                   tError() << "TupLibraryWidget::createRasterObject() - Fatal Error: Object file couldn't be saved at -> " << path;
+                QString msg = "TupLibraryWidget::createRasterObject() - Fatal Error: Object file couldn't be saved at -> " + path;
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
             return;
         }
@@ -649,8 +737,14 @@ void TupLibraryWidget::createVectorObject()
             QDir dir;
             if (!dir.mkpath(vectorDir)) {
                 #ifdef K_DEBUG
-                       tError() << "TupLibraryWidget::createVectorObject() - Fatal Error: Couldn't create directory " << vectorDir;
+                    QString msg = "TupLibraryWidget::createVectorObject() - Fatal Error: Couldn't create directory " + vectorDir;
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
+
                 TOsd::self()->display(tr("Error"), tr("Couldn't create vector directory!"), TOsd::Error);
                 return;
             }
@@ -698,13 +792,23 @@ void TupLibraryWidget::createVectorObject()
                 executeSoftware(editor, path);
             } else {
                 #ifdef K_DEBUG
-                       tError() << "TupLibraryWidget::createVectorObject() - Fatal Error: Object file couldn't be loaded from -> " << path;
+                    QString msg = "TupLibraryWidget::createVectorObject() - Fatal Error: Object file couldn't be loaded from -> " + path;
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return;
             }
         } else {
                 #ifdef K_DEBUG
-                       tError() << "TupLibraryWidget::createVectorObject() - Fatal Error: Object file couldn't be saved at -> " << path;
+                    QString msg = "TupLibraryWidget::createVectorObject() - Fatal Error: Object file couldn't be saved at -> " + path;
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
                 return;
         }
@@ -741,9 +845,15 @@ void TupLibraryWidget::importBitmap(const QString &image)
         int projectHeight = k->project->dimension().height();
 
         #ifdef K_DEBUG
-               tFatal() << "TupLibraryWidget::importBitmap() - Image filename: " << key << " | Raw Size: " << data.size();
-               tFatal() << "TupLibraryWidget::importBitmap() - Image Size: " << "[" << picWidth << ", " << picHeight << "]" 
+            #ifdef Q_OS_WIN32
+               qDebug() << "TupLibraryWidget::importBitmap() - Image filename: " << key << " | Raw Size: " << data.size();
+               qDebug() << "TupLibraryWidget::importBitmap() - Image Size: " << "[" << picWidth << ", " << picHeight << "]"
                         << " | Project Size: " << "[" << projectWidth << ", " << projectHeight << "]";
+            #else
+               tFatal() << "TupLibraryWidget::importBitmap() - Image filename: " << key << " | Raw Size: " << data.size();
+               tFatal() << "TupLibraryWidget::importBitmap() - Image Size: " << "[" << picWidth << ", " << picHeight << "]"
+                        << " | Project Size: " << "[" << projectWidth << ", " << projectHeight << "]";
+            #endif
         #endif
 
         if (picWidth > projectWidth || picHeight > projectHeight) {
@@ -823,11 +933,20 @@ void TupLibraryWidget::importSvg(const QString &svgPath)
         file.close();
 
         #ifdef K_DEBUG
-               tFatal() << "TupLibraryWidget::importSvg() - Inserting SVG into project: " << k->project->projectName();
-               int projectWidth = k->project->dimension().width();
-               int projectHeight = k->project->dimension().height();
-               tFatal() << "TupLibraryWidget::importSvg() - Project Size: " << "[" << projectWidth << ", " << projectHeight << "]";
+            QString msg1 = "TupLibraryWidget::importSvg() - Inserting SVG into project: " + k->project->projectName();
+            int projectWidth = k->project->dimension().width();
+            int projectHeight = k->project->dimension().height();
+            QString msg2 = "TupLibraryWidget::importSvg() - Project Size: [" + QString::number(projectWidth) + QString(", ") + QString::number(projectHeight) + QString("]"); 
+
+            #ifdef Q_OS_WIN32
+                qDebug() << msg1;
+                qDebug() << msg2;
+            #else
+                tFatal() << msg1;
+                tFatal() << msg2;
+            #endif
         #endif
+
 
         int i = 0;
         int index = key.lastIndexOf(".");
@@ -873,7 +992,6 @@ void TupLibraryWidget::importBitmapArray()
     }
 
     if (imagesCounter > 0) {
-
         QString text = tr("Image files found: %1.").arg(imagesCounter);
         bool resize = false;
 
@@ -963,7 +1081,6 @@ void TupLibraryWidget::importBitmapArray()
                              emit requestTriggered(&request);
 
                              if (i < photograms.size()-1 && imagesCounter > 1) {
-
                                  TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->currentFrame.scene, k->currentFrame.layer, 
                                                                               k->currentFrame.frame + 1, TupProjectRequest::Add, tr("Frame %1").arg(k->currentFrame.frame + 2));
                                  emit requestTriggered(&request);
@@ -1018,7 +1135,6 @@ void TupLibraryWidget::importSvgArray()
     }
 
     if (svgCounter > 0) {
-
         QString testFile = photograms.at(0).absoluteFilePath();
         QFile file(testFile);
         file.close();
@@ -1039,7 +1155,6 @@ void TupLibraryWidget::importSvgArray()
         int answer = msgBox.exec();
 
         if (answer == QMessageBox::Ok) {
-
             QString directory = source.dirName();
             k->libraryTree->createFolder(directory);
 
@@ -1071,7 +1186,6 @@ void TupLibraryWidget::importSvgArray()
                          QFile f(path);
 
                          if (f.open(QIODevice::ReadOnly)) {
-
                              QByteArray data = f.readAll();
                              f.close();
 
@@ -1222,7 +1336,12 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
 
                  } else {
                      #ifdef K_DEBUG
-                            tFatal() << "TupLibraryWidget::libraryResponse() - No object found: " << id;
+                         QString msg = "TupLibraryWidget::libraryResponse() - No object found: " + id;
+                         #ifdef Q_OS_WIN32
+                             qDebug() << msg;
+                         #else
+                             tFatal() << msg;
+                         #endif
                      #endif
                  }
               }
@@ -1230,7 +1349,12 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
             case TupProjectRequest::InsertSymbolIntoFrame:
               {
                  #ifdef K_DEBUG
-                        tFatal() << "*** TupLibraryWidget::libraryResponse() -> InsertSymbolIntoFrame : No action taken";
+                     QString msg = "TupLibraryWidget::libraryResponse() -> InsertSymbolIntoFrame : No action taken";
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tFatal() << msg;
+                     #endif
                  #endif
               }
             break;
@@ -1264,14 +1388,24 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
             case TupProjectRequest::Remove:
               {
                  #ifdef K_DEBUG
-                        tFatal() << "*** TupLibraryWidget::libraryResponse() -> Remove : No action taken";
+                     QString msg = "TupLibraryWidget::libraryResponse() -> Remove : No action taken";
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tFatal() << msg;
+                     #endif
                  #endif
               }
             break;
             default:
               {
                  #ifdef K_DEBUG
-                        tFatal() << "*** TupLibraryWidget::libraryResponse() - Unknown/Unhandled project action: " << response->action();
+                     QString msg = "TupLibraryWidget::libraryResponse() - Unknown/Unhandled project action: " + response->action();
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tFatal() << msg;
+                     #endif
                  #endif
               }
             break;
@@ -1451,12 +1585,22 @@ void TupLibraryWidget::callExternalEditor(QTreeWidgetItem *item, const QString &
             executeSoftware(software, path);
         } else {
             #ifdef K_DEBUG
-                   tError() << "TupLibraryWidget::callExternalEditor() - Fatal Error: No object related to the current library item -" << id << "- was found!";
+                QString msg = "TupLibraryWidget::callExternalEditor() - Fatal Error: No object related to the current library item -" + id + "- was found!";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
         }
     } else {
         #ifdef K_DEBUG
-               tError() << "TupLibraryWidget::callExternalEditor() - Error: Current library item is invalid!";
+            QString msg = "TupLibraryWidget::callExternalEditor() - Error: Current library item is invalid!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     }
 }
@@ -1476,7 +1620,12 @@ void TupLibraryWidget::executeSoftware(const QString &software, QString &path)
         k->watcher->addPath(path);
     } else {
         #ifdef K_DEBUG
-               tError() << "TupLibraryWidget::executeSoftware() - Fatal Error: Item path either doesn't exist or is empty";
+            QString msg = "TupLibraryWidget::executeSoftware() - Fatal Error: Item path either doesn't exist or is empty";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     }
 }
@@ -1492,7 +1641,12 @@ void TupLibraryWidget::updateItemFromSaveAction()
                updateItem(object->smallId(), object->extension().toLower(), object);
            } else {
                #ifdef K_DEBUG
-                      tError() << "TupLibraryWidget::updateItemFromSaveAction() - Fatal Error: The library item modified was not found!";
+                   QString msg = "TupLibraryWidget::updateItemFromSaveAction() - Fatal Error: The library item modified was not found!";
+                   #ifdef Q_OS_WIN32
+                       qDebug() << msg;
+                   #else
+                       tError() << msg;
+                   #endif
                #endif
            }
     }
@@ -1624,7 +1778,12 @@ QString TupLibraryWidget::verifyNameAvailability(QString &name, QString &extensi
                 } else {
                     name = TAlgorithm::randomString(8);
                     #ifdef K_DEBUG
-                           tWarning() << "TupLibraryWidget::verifyNameAvailability() - Warning: error while processing item name!";
+                        QString msg = "TupLibraryWidget::verifyNameAvailability() - Warning: error while processing item name!";
+                        #ifdef Q_OS_WIN32
+                            qWarning() << msg;
+                        #else
+                            tWarning() << msg;
+                        #endif
                     #endif
                 }
             } else {
@@ -1641,7 +1800,12 @@ QString TupLibraryWidget::verifyNameAvailability(QString &name, QString &extensi
                     } else {
                         name = TAlgorithm::randomString(8);
                         #ifdef K_DEBUG
-                               tWarning() << "TupLibraryWidget::verifyNameAvailability() - Warning: error while processing item name!";
+                            QString msg = "TupLibraryWidget::verifyNameAvailability() - Warning: error while processing item name!";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg;
+                            #else
+                                tWarning() << msg;
+                            #endif
                         #endif
                     }
                 }

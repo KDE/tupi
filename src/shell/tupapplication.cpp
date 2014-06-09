@@ -36,9 +36,6 @@
 #include "tupapplication.h"
 #include "tapplicationproperties.h"
 
-#include <QDesktopWidget>
-#include <QRect>
-
 /**
  * Support Class for main.cpp
  * This class contains some of the basic methods required when Tupi is launched
@@ -53,7 +50,12 @@ TupApplication::TupApplication(int &argc, char **argv) : TApplication(argc, argv
 TupApplication::~TupApplication()
 {
     #ifdef K_DEBUG
-           tDebug("[Destroying ~TupApplication]");
+        QString msg = "[Destroying ~TupApplication]";
+        #ifdef Q_OS_WIN32
+           qDebug() << msg;
+        #else
+           tDebug() << msg;
+        #endif
     #endif
 }
 
@@ -62,12 +64,22 @@ void TupApplication::createCache(const QString &cacheDir)
     QDir cache(cacheDir);
     if (!cache.exists()) {
         #ifdef K_DEBUG
-               tWarning() << "Initializing repository: " << cacheDir;
+            QString msg = "Initializing repository: " + cacheDir;
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                tWarning() << msg;
+            #endif
         #endif
 
        if (!cache.mkdir(cacheDir)) {
            #ifdef K_DEBUG
-                  tError() << "TupApplication::createCache() - Fatal Error: Can't create project repository";
+               QString msg = "TupApplication::createCache() - Fatal Error: Can't create project repository";
+               #ifdef Q_OS_WIN32
+                   qDebug() << msg;
+               #else
+                   tError() << msg;
+               #endif
            #endif
        }
     }

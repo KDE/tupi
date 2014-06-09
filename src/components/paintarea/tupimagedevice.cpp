@@ -38,7 +38,11 @@
 TupImageDevice::TupImageDevice(QWidget *parent) : QWidget(parent)
 {
     #ifdef K_DEBUG
-           TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupImageDevice()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     m_image = QImage(300,300, QImage::Format_RGB32);
@@ -53,20 +57,24 @@ TupImageDevice::TupImageDevice(QWidget *parent) : QWidget(parent)
 TupImageDevice::~TupImageDevice()
 {
     #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupImageDevice()]";
+        #else
            TEND;
+        #endif
     #endif
 }
 
 QPaintEngine *TupImageDevice::paintEngine() const
 {
-    qDebug("TupImageDevice: paint engine *****************************************");
+    // qDebug("TupImageDevice: paint engine *****************************************");
 
     return QWidget::paintEngine();
 }
 
 void TupImageDevice::paintEvent(QPaintEvent *)
 {
-    qDebug("TupImageDevice: Paint event #####################################################");
+    // qDebug("TupImageDevice: Paint event #####################################################");
     QPainter p(this);
     p.drawImage(0, 0, m_image);
 }

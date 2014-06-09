@@ -37,7 +37,14 @@
 #define TUPLINEGUIDE_H
 
 #include "tglobal.h"
+
 #include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QPainter>
+#include <QCursor>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsView>
+#include <QApplication>
 
 /**
  * @author Jorge Cuadrado

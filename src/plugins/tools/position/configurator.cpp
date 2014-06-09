@@ -104,7 +104,11 @@ Configurator::~Configurator()
 void Configurator::loadTweenList(QList<QString> tweenList)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Configurator::loadTweenList()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     k->tweenManager->loadTweenList(tweenList);
@@ -260,7 +264,11 @@ void Configurator::editTween()
 void Configurator::closeTweenProperties()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Configurator::closeTweenProperties()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (k->mode == TupToolPlugin::Add)
@@ -307,7 +315,11 @@ void Configurator::notifySelection(bool flag)
 void Configurator::closeSettingsPanel()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Configurator::closeSettingsPanel()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (k->state == Properties) {
@@ -332,7 +344,11 @@ void Configurator::applyItem()
 void Configurator::resetUI()
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Configurator::resetUI()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     k->tweenManager->resetUI();

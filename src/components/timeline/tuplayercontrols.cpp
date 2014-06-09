@@ -164,7 +164,11 @@ struct TupLayerControls::Private
 TupLayerControls::TupLayerControls(int sceneIndex, QWidget *parent) : QTableWidget(0, 2, parent), k(new Private)
 {
     #ifdef K_DEBUG
-        TINIT;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupLayerControls()]";
+        #else
+            TINIT;
+        #endif
     #endif
 
     setItemDelegate(new TupLayerControlsItemDelegate(this));
@@ -192,7 +196,11 @@ TupLayerControls::TupLayerControls(int sceneIndex, QWidget *parent) : QTableWidg
 TupLayerControls::~TupLayerControls()
 {
     #ifdef K_DEBUG
-        TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupLayerControls()]";
+        #else
+            TEND;
+        #endif
     #endif
 
     delete k;
@@ -201,7 +209,6 @@ TupLayerControls::~TupLayerControls()
 void TupLayerControls::insertLayer(int position)
 {
     if (position >= 0 && position <= rowCount()) {
-
         insertRow(position);
 
         QTableWidgetItem *lockItem = new QTableWidgetItem;

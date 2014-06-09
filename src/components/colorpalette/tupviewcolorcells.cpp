@@ -71,7 +71,12 @@ TupViewColorCells::~TupViewColorCells()
         brushesDir.mkdir(brushesDir.path());
 
     #ifdef K_DEBUG
-           tWarning("palette") << "TupViewColorCells::~TupViewColorCells() - Saving color palettes in: " << brushesDir.path();
+        QString msg = "TupViewColorCells::~TupViewColorCells() - Saving color palettes in: " + brushesDir.path();
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning("palette") << msg;
+        #endif
     #endif
 
     for (int i = 0; i < k->containerPalette->count(); i++) {
@@ -85,7 +90,11 @@ TupViewColorCells::~TupViewColorCells()
     delete k;
 	
     #ifdef K_DEBUG
-          TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupViewColorCells()]";
+        #else
+            TEND;
+        #endif
     #endif
 }
 
@@ -141,8 +150,14 @@ void TupViewColorCells::setupForm()
 void TupViewColorCells::readPalettes(const QString &paletteDir)
 {
     #ifdef K_DEBUG
-           tDebug("palette") << "Reading palettes from: " << paletteDir;
+        QString msg = "TupViewColorCells::readPalettes() - Reading palettes from: " + paletteDir;
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning("palette") << msg;
+        #endif
     #endif
+
     QDir dir(paletteDir);
 
     if (dir.exists ()) {
@@ -167,7 +182,12 @@ void TupViewColorCells::readPaletteFile(const QString &file)
         addPalette(name,brushes,editable );
     } else {
         #ifdef K_DEBUG
-               tError() << "Error while parse palette file: " << file;
+            QString msg = "TupViewColorCells::readPaletteFile() - Error while parse palette file: " + file;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
         #endif
     }
 }
@@ -215,7 +235,11 @@ void TupViewColorCells::addPalette(TupCellsColor *palette)
 void TupViewColorCells::changeColor(QTableWidgetItem* item)
 {
     #ifdef K_DEBUG
-           T_FUNCINFO;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupViewColorCells::changeColor()]";
+        #else
+            T_FUNCINFO;
+        #endif
     #endif
 
     if (item)

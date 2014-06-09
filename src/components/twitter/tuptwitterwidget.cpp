@@ -58,7 +58,11 @@ TupTwitterWidget::TupTwitterWidget(QWidget *parent) : QWidget(parent)
 TupTwitterWidget::~TupTwitterWidget()
 {
     #ifdef K_DEBUG
-           TEND;
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupTwitterWidget()]";
+        #else
+            TEND;
+        #endif
     #endif
 }
 

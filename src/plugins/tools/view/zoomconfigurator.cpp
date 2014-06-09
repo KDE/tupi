@@ -40,9 +40,13 @@
 
 ZoomConfigurator::ZoomConfigurator(QWidget *parent) :QWidget(parent)
 {
-#ifdef K_DEBUG
-    TINIT;
-#endif
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[ZoomConfigurator()]";
+        #else
+            TINIT;
+        #endif
+    #endif
 
     QBoxLayout *mainLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom);
@@ -90,9 +94,13 @@ ZoomConfigurator::ZoomConfigurator(QWidget *parent) :QWidget(parent)
 
 ZoomConfigurator::~ZoomConfigurator()
 {
-#ifdef K_DEBUG
-    TEND;
-#endif
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~ZoomConfigurator()]";
+        #else
+            TEND;
+        #endif
+    #endif
 }
 
 double ZoomConfigurator::getFactor() const

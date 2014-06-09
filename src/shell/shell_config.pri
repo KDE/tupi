@@ -13,7 +13,6 @@ IMPORT_DIR = ../components/import
 EXPORT_DIR = ../components/export 
 EXPOSURE_DIR = ../components/exposure 
 TIMELINE_DIR = ../components/timeline 
-DEBUG_DIR = ../components/debug
 LIBRARY_DIR = ../components/library
 SCENES_DIR = ../components/scenes 
 TWITTER_DIR = ../components/twitter
@@ -33,7 +32,6 @@ include($$IMPORT_DIR/import.pri)
 include($$EXPORT_DIR/export.pri)
 include($$EXPOSURE_DIR/exposure.pri)
 include($$TIMELINE_DIR/timeline.pri)
-include($$DEBUG_DIR/debug.pri)
 include($$LIBRARY_DIR/library.pri)
 include($$SCENES_DIR/scenes.pri)
 include($$TWITTER_DIR/twitter.pri)
@@ -42,3 +40,8 @@ include($$STORE_DIR/store.pri)
 include($$LIBTUPI_DIR/libtupi.pri)
 include($$LIBBASE_DIR/libbase.pri)
 include($$NET_DIR/net.pri)
+
+unix {
+    DEBUG_DIR = ../components/debug
+    include($$DEBUG_DIR/debug.pri)
+}

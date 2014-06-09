@@ -169,5 +169,3 @@ void TextTool::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_F11 || event->key() == Qt::Key_Escape)
         emit closeHugeCanvas();
 }
-
-// Q_EXPORT_PLUGIN2(tup_textool, TextTool);

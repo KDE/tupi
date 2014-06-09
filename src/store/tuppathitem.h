@@ -39,11 +39,13 @@
 #include "tglobal.h"
 #include "tupabstractserializable.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QGraphicsPathItem>
+#include <QMimeData>
+#include <QBrush>
+#include <QGraphicsSceneDragDropEvent>
+#include <QPainter>
+#include <QPainterPath>
+#include <QCursor>
 
 /**
  * @author David Cuadrado

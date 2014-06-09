@@ -41,14 +41,12 @@
 #include "tapplicationproperties.h"
 #include "tuplibraryobject.h"
 
-#ifdef K_DEBUG
-#include "tdebug.h"
-#endif
-
 #include <QObject>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QSize>
+#include <QDir>
+#include <QGraphicsView>
 
 class TupScene;
 class TupLayer;
