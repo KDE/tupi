@@ -36,12 +36,11 @@
 #ifndef TUPCRASHWIDGET_H
 #define TUPCRASHWIDGET_H
 
+#ifdef K_DEBUG
+
 #include "tupcrashhandler.h"
 #include "tconfig.h"
-
-#ifdef K_DEBUG
 #include "tdebug.h"
-#endif
 
 #include <unistd.h>
 #include <QDialog>
@@ -81,4 +80,5 @@ class TupCrashWidget : public QDialog
         QTabWidget *m_tabber;
 };
 
+#endif
 #endif

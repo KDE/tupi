@@ -40,17 +40,12 @@
 #include "tcollapsiblewidget.h"
 
 #ifdef K_DEBUG
-
 #ifdef Q_OS_WIN32
 #include <QDebug>
 #else
 #include "tdebug.h"
-#endif
-
-#endif
-
-#ifdef Q_OS_UNIX
 #include "tupcrashhandler.h"
+#endif
 #endif
 
 #ifdef ENABLE_TUPISTYLE
@@ -83,13 +78,12 @@ int main(int argc, char ** argv)
     TupApplication application(argc, argv);
     QString slash = QDir::separator();
 
-#ifdef K_DEBUG && !defined(Q_OS_WIN32) 
-       TDebug::setOutputChannel();
-#endif
-
 #ifdef Q_OS_UNIX
+#ifdef K_DEBUG
+    TDebug::setOutputChannel();
     // Initializing the crash handler, very useful to catch bugs
     TupCrashHandler::init();
+#endif
 #endif
 
     // Setting the current version for Tupi
@@ -173,8 +167,10 @@ int main(int argc, char ** argv)
 
     // Loading visual components required for the Crash Handler
     #ifdef Q_OS_UNIX
+    #ifdef K_DEBUG
            CHANDLER->setConfig(DATA_DIR + "crashhandler.xml");
            CHANDLER->setImagePath(THEME_DIR + "icons/");
+    #endif
     #endif
 
     // If there is a second argument, it means to open a project from the command line

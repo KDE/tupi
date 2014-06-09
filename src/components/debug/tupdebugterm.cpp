@@ -35,6 +35,8 @@
 
 #include "tupdebugterm.h"
 
+#ifdef K_DEBUG
+
 TupDebugTerm::TupDebugTerm(QWidget *parent, int width) : QWidget(parent)
 {
     TINIT;
@@ -53,3 +55,5 @@ void TupDebugTerm::setProjectStatus(bool status)
 {
     TDebug::setProjectStatus(status);     
 }
+
+#endif

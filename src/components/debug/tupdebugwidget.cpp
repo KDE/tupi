@@ -35,6 +35,8 @@
 
 #include "tupdebugwidget.h"
 
+#ifdef K_DEBUG
+
 TupDebugWidget::TupDebugWidget(QWidget *parent, int width) : TupModuleWidgetBase(parent, "Debug Terminal")
 {
     TINIT;
@@ -60,3 +62,5 @@ void TupDebugWidget::setProjectStatus(bool status)
 {
     term->setProjectStatus(status);
 }
+
+#endif

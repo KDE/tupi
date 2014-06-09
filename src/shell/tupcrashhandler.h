@@ -36,11 +36,10 @@
 #ifndef TUPCRASHHANDLER_H
 #define TUPCRASHHANDLER_H
 
-#include "tapplicationproperties.h"
-
 #ifdef K_DEBUG
+
+#include "tapplicationproperties.h"
 #include "tdebug.h"
-#endif
 
 extern "C"
 {
@@ -66,8 +65,6 @@ extern "C"
 #include <cstdio>
 
 class TupCrashHandler;
-
-#ifdef Q_OS_UNIX
 
 class TupCrashHandler
 {
@@ -118,6 +115,5 @@ class TupCrashHandler
 
 #define CHANDLER TupCrashHandler::instance()
 
-#endif // Q_OS_UNIX
-
+#endif
 #endif

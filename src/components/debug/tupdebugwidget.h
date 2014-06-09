@@ -36,6 +36,8 @@
 #ifndef TUPDEBUGWIDGET_H
 #define TUPDEBUGWIDGET_H
 
+#ifdef K_DEBUG
+
 #include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "tupdebugterm.h"
@@ -59,4 +61,5 @@ class TUPI_EXPORT TupDebugWidget : public TupModuleWidgetBase
         TupDebugTerm *term;
 };
 
+#endif
 #endif

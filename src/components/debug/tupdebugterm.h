@@ -36,6 +36,8 @@
 #ifndef TUPDEBUGTERM_H
 #define TUPDEBUGTERM_H
 
+#ifdef K_DEBUG
+
 #include "tglobal.h"
 
 #include <QWidget>
@@ -61,4 +63,5 @@ class TUPI_EXPORT TupDebugTerm : public QWidget
         QTextEdit *debugBrowser;
 };
 
+#endif
 #endif

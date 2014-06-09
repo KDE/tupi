@@ -1,3 +1,5 @@
+# QT += xml opengl network
+
 SUBDIRS += scenes \
            colorpalette \
            library \
@@ -18,5 +20,3 @@ unix {
 
 CONFIG += ordered warn_on
 TEMPLATE = subdirs
-
-QT += xml opengl network

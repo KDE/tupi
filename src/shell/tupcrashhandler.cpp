@@ -33,6 +33,8 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
+#ifdef K_DEBUG
+
 #include "tupcrashhandler.h"
 #include "tupcrashwidget.h"
 
@@ -83,7 +85,6 @@ void TupCrashHandler::init()
 
 void TupCrashHandler::setTrapper (void (*trapper)(int))
 {
-#ifdef Q_OS_UNIX
     if (!trapper)
         trapper = SIG_DFL;
 
@@ -99,7 +100,6 @@ void TupCrashHandler::setTrapper (void (*trapper)(int))
     signal(SIGBUS,trapper);
     signal(SIGIOT,trapper);
     sigprocmask(SIG_UNBLOCK, &mask, 0);
-#endif
 }
 
 QString TupCrashHandler::program() const
@@ -180,10 +180,8 @@ bool TupCrashHandler::containsSignalEntry(int signal)
 
 void TupCrashHandler::setConfig(const QString &filePath)
 {
-#ifdef K_DEBUG
-       T_FUNCINFO;
-       //SHOW_VAR(filePath);
-#endif
+    T_FUNCINFO;
+    //SHOW_VAR(filePath);
 
     QDomDocument doc;
     QFile file(filePath);
@@ -229,9 +227,7 @@ static QString runCommand(const QString &command)
     static char buf[SIZE];
     QString result = "";
 
-#ifdef K_DEBUG
     tDebug() << "Running command: " << command;
-#endif
 
     FILE *process = ::popen(command.toLocal8Bit().data(), "r");
 
@@ -249,8 +245,6 @@ static QString runCommand(const QString &command)
 
 void crashTrapper(int sig)
 {
-
-#ifdef K_DEBUG
     qDebug("\n*** Fatal error: %s is crashing with signal %d :(", CHANDLER->program().toLocal8Bit().data(), sig);
 
     if (sig == 6) {
@@ -262,7 +256,6 @@ void crashTrapper(int sig)
         qDebug("Signal 11: Officially known as \"segmentation fault\", means that the program");
         qDebug("accessed a memory location that was not assigned. That's usually a bug in the program.");
     }
-#endif
 
     CHANDLER->setTrapper(0); // Unactive crash handler
 
@@ -283,8 +276,6 @@ void crashTrapper(int sig)
 
         // so we can read stderr too
         ::dup2(fileno(stdout), fileno(stderr));
-
-#ifdef K_DEBUG
 
 #ifdef UBUNTU
         if (QFile::exists("/usr/bin/sudo") && QFile::exists("/usr/bin/gdb")) {
@@ -307,7 +298,6 @@ void crashTrapper(int sig)
             bt = bt.simplified();
         } 
 
-#endif
         execInfo = runCommand("file " + BIN_DIR + "tupi.bin");
 
         // Widget
@@ -332,3 +322,5 @@ void crashTrapper(int sig)
 
     exit(128);
 }
+
+#endif
