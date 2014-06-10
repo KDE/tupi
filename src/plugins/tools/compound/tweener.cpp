@@ -171,8 +171,13 @@ void Tweener::press(const TupInputDeviceInformation *input, TupBrushManager *bru
             }
         } else {
         #ifdef K_DEBUG
-            tFatal() << "Tweener::press() - No position!";
-        #endif
+            QString msg = "Tweener::press() - Error: No position!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tFatal() << msg;
+            #endif
+        #endif 
         }
     } 
 }

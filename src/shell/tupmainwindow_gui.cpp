@@ -130,7 +130,12 @@ void TupMainWindow::createGUI()
 
     // Adding the help widget to the right side of the interface
 
-    m_helper = new TupHelpWidget(SHARE_DIR + "data/help/");
+#ifdef Q_OS_WIN32
+    QString helpPath = SHARE_DIR + "help" + QDir::separator();
+#else
+	QString helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+#endif	
+    m_helper = new TupHelpWidget(helpPath);
     helpView = addToolView(m_helper, Qt::RightDockWidgetArea, All, "Help", QKeySequence(tr("Shift+H")));
     m_actionManager->insert(helpView->toggleViewAction(), "show_help");
     addToPerspective(helpView->toggleViewAction(), All);
@@ -153,7 +158,7 @@ void TupMainWindow::createGUI()
     connectWidgetToManager(m_timeLine);
     connectWidgetToLocalManager(m_timeLine);
 
-#if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
+#if defined(QT_GUI_LIB) && defined(K_DEBUG) && defined(Q_OS_UNIX)
     QDesktopWidget desktop;
     m_debug = new TupDebugWidget(this, desktop.screenGeometry().width());
     debugView = addToolView(m_debug, Qt::BottomDockWidgetArea, Animation, "Debug Term", QKeySequence(tr("Shift+D")));
@@ -253,7 +258,7 @@ void TupMainWindow::setupMenu()
     m_windowMenu->addAction(m_actionManager->find("show_exposure"));
     m_windowMenu->addAction(m_actionManager->find("show_help"));
 
-#if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
+#if defined(QT_GUI_LIB) && defined(K_DEBUG) && defined(Q_OS_UNIX)
     m_windowMenu->addAction(m_actionManager->find("show_debug"));
 #endif
 
@@ -469,7 +474,7 @@ void TupMainWindow::setupHelpActions()
 void TupMainWindow::setupWindowActions()
 {
     // Temporary commented code - SQA required 
-    #if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
+    #if defined(QT_GUI_LIB) && defined(K_DEBUG) && defined(Q_OS_UNIX)
         new TAction(QPixmap(), tr("Show Debug Dialog"), QKeySequence(), TDebug::browser(), SLOT(show()), m_actionManager,
                     "show debug");
     #endif

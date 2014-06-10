@@ -335,15 +335,23 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
         QString lang = (QLocale::system().name()).left(2);
         if (lang.length() < 2)  
             lang = "en";
-
-        QString helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator() + lang + QDir::separator() + "cover.html";
-
+			
+        QString cover = QString() + "help" + QDir::separator() + lang + QDir::separator() + "cover.html";			
+    #ifdef Q_OS_WIN32
+        QString helpPath = SHARE_DIR + cover;
+    #else
+        QString helpPath = SHARE_DIR + "data" + QDir::separator() + cover;
+    #endif
         QFile file(helpPath);
-        if (!file.exists())
+        if (!file.exists()) {
+	    #ifdef Q_OS_WIN32
+            helpPath = SHARE_DIR + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
+        #else
             helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
+        #endif
+		}
 
         helpTab->setSource(helpPath);
-
         addWidget(helpTab);
 
         QString twitterPath = QDir::homePath() + QDir::separator() + "." + QCoreApplication::applicationName() 

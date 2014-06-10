@@ -162,9 +162,13 @@ TupFrame* TupBackground::dynamicFrame()
 void TupBackground::renderDynamicView()
 {
     #ifdef K_DEBUG
-       T_FUNCINFO;
-    #endif
-
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupBackground::renderDynamicView()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif 
+	
     TupBackgroundScene bgScene(dimension, bgColor, dynamicBg);
     QImage image(dimension, QImage::Format_ARGB32);
     {

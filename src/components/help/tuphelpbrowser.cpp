@@ -62,12 +62,18 @@ void TupHelpBrowser::setSource(const QString &filePath)
         locale = "en";
 
     QStringList path;
-    QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+	
+#ifdef Q_OS_WIN32
+    QString resources = SHARE_DIR + "help" + QDir::separator();
+#else
+	QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+#endif	
+    // QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
     path << resources + "css";
     path << resources + "images";
     m_pageArea->setSearchPaths(path);
 
-    m_pageArea->setSource(filePath);
+    m_pageArea->setSource(QUrl::fromLocalFile(filePath));
 }
 
 // SQA: These methods are just temporary for developing reasons

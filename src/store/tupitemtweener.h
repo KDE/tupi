@@ -43,6 +43,8 @@
 #include <QMatrix>
 #include <QPointF>
 #include <QColor>
+#include <QGraphicsItem>
+#include <QHash>
 
 class QGraphicsItem;
 class QGraphicsPathItem;

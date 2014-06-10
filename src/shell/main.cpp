@@ -126,12 +126,17 @@ int main(int argc, char ** argv)
     if (locale.length() < 2)
         locale = "en";
 
-    QDir dir(kAppProp->shareDir() + "data" + slash + "xml" + slash + locale + slash);
+#ifdef Q_OS_WIN32
+    QString xmlDir = kAppProp->shareDir() + "xml" + slash;
+#else
+    QString xmlDir = kAppProp->shareDir() + "data" + slash + "xml" + slash;
+#endif
+    QDir dir(xmlDir + locale + slash);
     if (! dir.exists())
-        kAppProp->setDataDir(kAppProp->shareDir() + "data" + slash + "xml" + slash + "en" + slash);
+        kAppProp->setDataDir(xmlDir + "en" + slash);
     else
-        kAppProp->setDataDir(kAppProp->shareDir() + "data" + slash + "xml" + slash + locale + slash);
-
+        kAppProp->setDataDir(xmlDir + locale + slash);
+		
     kAppProp->setThemeDir(kAppProp->shareDir() + "themes" + slash + "default" + slash);
 
     // Setting the repository directory (where the projects are saved)
@@ -144,12 +149,27 @@ int main(int argc, char ** argv)
 
     QStyle *style = QStyleFactory::create("fusion");
     QApplication::setStyle(style);
-
-    // Loading localization files... now you got Tupi in your native language
-
-    QTranslator *translator = new QTranslator;
-    translator->load(kAppProp->shareDir() + "data" + slash + "translations" + slash + "tupi_" + locale + ".qm");
-    application.installTranslator(translator);
+	
+#ifdef Q_OS_WIN32
+    QString langFile = kAppProp->shareDir() + "translations" + slash + "tupi_" + locale + ".qm";
+#else
+    QString langFile = kAppProp->shareDir() + "data" + slash + "translations" + slash + "tupi_" + locale + ".qm";
+#endif
+	if (QFile::exists(langFile)) {
+        // Loading localization files...
+        QTranslator *translator = new QTranslator;
+        translator->load(langFile);
+        application.installTranslator(translator);
+    } else {
+        #ifdef K_DEBUG
+            QString msg = "main.cpp - Error: Can't open file -> " + langFile;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
+        #endif	
+	}
 
     TupMainWindow mainWindow(argc);
     mainWindow.showMaximized();

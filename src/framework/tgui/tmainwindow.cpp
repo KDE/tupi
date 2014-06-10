@@ -93,7 +93,12 @@ void DefaultSettings::save(TMainWindow *w)
 void DefaultSettings::restore(TMainWindow *w)
 {
     #ifdef K_DEBUG
-           tFatal() << "Restoring Interface...";
+	    QString msg = "Restoring Interface...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
     #endif
 
     QSettings settings(qApp->applicationName(), "ideality", this);

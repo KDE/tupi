@@ -50,6 +50,15 @@ TupHelpWidget::TupHelpWidget(const QString &path, QWidget *parent) : TupModuleWi
         m_helpPath = new QDir(path + "en");
     }
 
+    #ifdef K_DEBUG
+        QString msg = "TupHelpWidget() - Loading help files from -> " + m_helpPath->path();
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
+    #endif	
+	
     QTreeWidget *contentsListView = new QTreeWidget(this);
     contentsListView->setHeaderLabels(QStringList() << tr(""));
     contentsListView->header()->hide();

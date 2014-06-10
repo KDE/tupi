@@ -64,11 +64,15 @@ TConfig::TConfig() : QObject(), k(new Private)
 
     QString base = QDir::homePath() + QDir::separator();
 
+	/*
     #ifdef Q_OS_WIN32
             k->configDirectory.setPath(base + QCoreApplication::applicationName());
     #else
             k->configDirectory.setPath(base + "." + QCoreApplication::applicationName());
     #endif
+	*/
+	
+	k->configDirectory.setPath(base + "." + QCoreApplication::applicationName());
 
     if (!k->configDirectory.exists()) {
         k->firstTime = true;

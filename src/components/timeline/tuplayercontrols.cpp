@@ -301,10 +301,15 @@ void TupLayerControls::lockLayer(int position, bool locked)
 
 void TupLayerControls::setLocalRequest(int layerIndex, int column)
 {
-    if (column == 0) {
-	#ifdef K_DEBUG
-        tFatal() << "TupLayerControls::setLocalRequest -> Column 0!";
-	#endif
+    if (column == 0) {	
+        #ifdef K_DEBUG
+            QString msg = "TupLayerControls::setLocalRequest -> Column 0!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tFatal() << msg;
+            #endif
+        #endif 
     }
 
     if (column == 1) {

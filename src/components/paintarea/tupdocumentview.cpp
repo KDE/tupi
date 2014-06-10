@@ -190,7 +190,12 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
 
             default:
                  #ifdef K_DEBUG
-                        tWarning() << "Unsopported render, switching to native!";
+                     QString msg = "TupDocumentView() - Unsopported render, switching to native!";
+                     #ifdef Q_OS_WIN32
+                         qWarning() << msg;
+                     #else
+                         tWarning() << msg;
+                     #endif
                  #endif
                  k->paintArea->setUseOpenGL(false);
             break;
@@ -430,6 +435,7 @@ void TupDocumentView::loadPlugins()
              if (plugin) {
                  TupExportInterface *exporter = qobject_cast<TupExportInterface *>(plugin);
                  if (exporter) {
+				     qDebug() << "TupDocumentView::loadPlugins() - plugin: " << exporter->key();
                      if (exporter->key().compare(tr("Image Array")) == 0) {
                          k->imagePlugin = exporter;
                          imagePluginLoaded = true;
@@ -441,9 +447,9 @@ void TupDocumentView::loadPlugins()
 
     if (!imagePluginLoaded) {
         #ifdef K_DEBUG
-            QString msg = "TupDocumentView::loadPlugins() - Warning: Couldn't found the \"Image Array\" plugin!";
+            QString msg = "TupDocumentView::loadPlugins() - Warning: Couldn't found plugin -> " + tr("Image Array");
             #ifdef Q_OS_WIN32
-                qWarninig() << msg;
+                qWarning() << msg;
             #else
                 tWarning() << msg;
             #endif
@@ -603,11 +609,14 @@ void TupDocumentView::loadPlugins()
     } // end foreach
 
     for (int i = 0; i < brushTools.size(); ++i) {
+	     qDebug() << "TupDocumentView::loadPlugins() - Adding plugin / Brush tool";
          k->brushesMenu->addAction(brushTools.at(i));
     }
 
-    for (int i = 0; i < tweenTools.size(); ++i)
+    for (int i = 0; i < tweenTools.size(); ++i) {
+	     qDebug() << "TupDocumentView::loadPlugins() - Adding plugin / Tween tool";
          k->motionMenu->addAction(tweenTools.at(i));
+    }
 
     foreach (QObject *plugin, TupPluginManager::instance()->filters()) {
              AFilterInterface *filter = qobject_cast<AFilterInterface *>(plugin);

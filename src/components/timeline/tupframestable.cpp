@@ -283,9 +283,14 @@ void TupFramesTable::emitFrameSelected(QTableWidgetItem *current, QTableWidgetIt
             emit emitRequestChangeFrame(k->sceneIndex, verticalHeader()->visualIndex(this->row(item)), this->column(item));
             // emit frameRequest(TupProjectActionBar::SelectFrame, this->column(item), verticalHeader()->visualIndex(this->row(item)), -1);
         } else {
-		#ifdef K_DEBUG
-            tFatal() << "TupFramesTable::emitFrameSelected <- item exists but isn't used right now";
-	    #endif
+        #ifdef K_DEBUG
+            QString msg = "TupFramesTable::emitFrameSelected <- item exists but isn't used right now";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tFatal() << msg;
+            #endif
+        #endif  
 	    }
     } else { 
         emit frameRequest(TupProjectActionBar::InsertFrame, currentColumn(), currentRow(), k->sceneIndex);

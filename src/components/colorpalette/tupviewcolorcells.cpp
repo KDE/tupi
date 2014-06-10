@@ -83,7 +83,7 @@ TupViewColorCells::~TupViewColorCells()
          TupCellsColor *palette = qobject_cast<TupCellsColor *>(k->containerPalette->widget(i));
          if (palette) {
              if (!palette->isReadOnly())
-                 palette->save(CONFIG_DIR + "palettes/" + palette->name() + ".tpal");
+                 palette->save(CONFIG_DIR + "palettes" + QDir::separator() + palette->name() + ".tpal");
          }
     }
 
@@ -142,8 +142,13 @@ void TupViewColorCells::setupForm()
         k->chooserPalette->setCurrentIndex(lastIndex);
         k->containerPalette->setCurrentIndex(lastIndex);
     }
-	
-    readPalettes(SHARE_DIR + "data/palettes"); // Pre-installed
+
+#ifdef Q_OS_WIN32
+    QString palettesPath = SHARE_DIR + "palettes";
+#else
+    QString palettesPath = SHARE_DIR + "data" + QDir::separator() + "palettes";
+#endif
+    readPalettes(palettesPath); // Pre-installed
     readPalettes(CONFIG_DIR + "palettes"); // Locals
 }
 
@@ -160,7 +165,7 @@ void TupViewColorCells::readPalettes(const QString &paletteDir)
 
     QDir dir(paletteDir);
 
-    if (dir.exists ()) {
+    if (dir.exists()) {
         QStringList files = dir.entryList(QStringList() << "*.tpal");
         QStringList::ConstIterator it = files.begin();
 
@@ -168,7 +173,16 @@ void TupViewColorCells::readPalettes(const QString &paletteDir)
                readPaletteFile(dir.path() + "/" + *it);
                ++it;
         }
-    }
+    } else {
+        #ifdef K_DEBUG
+            QString msg = "TupViewColorCells::readPalettes() - Error: Invalid path -> " + paletteDir;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError("palette") << msg;
+            #endif
+        #endif	
+	}
 }
 
 void TupViewColorCells::readPaletteFile(const QString &file)

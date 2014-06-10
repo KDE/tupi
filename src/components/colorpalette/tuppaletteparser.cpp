@@ -58,7 +58,6 @@ TupPaletteParser::TupPaletteParser(): TXmlParserBase(), k(new Private)
      k->gradient = 0;
 }
 
-
 TupPaletteParser::~TupPaletteParser()
 {
      delete k;
@@ -80,9 +79,14 @@ bool TupPaletteParser::startTag(const QString &tag, const QXmlAttributes &atts)
                    if (c.isValid()) {
                        k->brushes << c;
                    } else {
-                    #ifdef K_DEBUG
-		           tError() << "Invalid Color";
-                    #endif
+                   #ifdef K_DEBUG
+                       QString msg = "TupPaletteParser::startTag() - Error: Invalid color!";
+                       #ifdef Q_OS_WIN32
+                           qDebug() << msg;
+                       #else
+                           tError() << msg;
+                       #endif
+                   #endif 					
                    }
         } else if (tag == "Gradient") {
                    if (k->gradient) 

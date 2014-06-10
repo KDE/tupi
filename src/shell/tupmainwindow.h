@@ -264,7 +264,7 @@ class TupMainWindow : public TabbedMainWindow
           TupScenesWidget *m_scenes;
           TupTimeLine *m_timeLine;
 
-#if defined(QT_GUI_LIB) && defined(K_DEBUG)
+#if defined(QT_GUI_LIB) && defined(K_DEBUG) && defined(Q_OS_UNIX)
           TupDebugWidget *m_debug;
 #endif
           TupHelpWidget *m_helper;

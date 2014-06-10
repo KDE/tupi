@@ -151,9 +151,13 @@ TupPenWidget::TupPenWidget(QWidget *parent) : TupModuleWidgetBase(parent), k(new
 TupPenWidget::~TupPenWidget()
 {
     #ifdef K_DEBUG
-           TEND;
-    #endif
-
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupPenWidget()]";
+        #else
+            TEND;
+        #endif
+    #endif 
+		
     delete k;
 }
 

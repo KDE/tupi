@@ -437,8 +437,13 @@ void TupTimeLine::requestCommand(int action)
             // tFatal() << "TupTimeLine::requestCommand -> It isn't layer action";
             if (!requestSceneAction(action, scenePos)) {
                 #ifdef K_DEBUG
-                    tFatal("timeline") << "Can't handle action";
-                #endif
+                    QString msg = "TupTimeLine::requestCommand() - Error: Can't handle action";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tFatal("timeline") << msg;
+                    #endif
+                #endif 
             }
         }
     }

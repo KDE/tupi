@@ -36,14 +36,13 @@
 #include "tupitemtweener.h"
 #include "tupsvg2qt.h"
 
-#include <QGraphicsItem>
-#include <QHash>
-
 #ifdef K_DEBUG
-#define VERIFY_STEP(index) if (index > k->frames || k->frames == 0) { \
-                               tWarning("items") << "Invalid step " << index << " for tweening, maximun step are " \
-                                                 << k->frames << "; In " << __FUNCTION__; \
-                               return; }
+    #ifdef Q_OS_UNIX
+        #define VERIFY_STEP(index) if (index > k->frames || k->frames == 0) { \
+                                   tWarning("items") << "Invalid step " << index << " for tweening, maximun step are " \
+                                                     << k->frames << "; In " << __FUNCTION__; \
+                                   return; }
+    #endif
 #endif
 
 #define STEP(index) index / (double)k->frames
@@ -158,7 +157,7 @@ void TupItemTweener::addStep(const TupTweenerStep &step)
   
 #ifdef K_DEBUG
     #ifdef Q_OS_WIN32
-        tWarning() << "TupItemTweener::addStep() - counter: " << counter;
+        qWarning() << "TupItemTweener::addStep() - counter: " << counter;
     #else
         VERIFY_STEP(counter);
     #endif
@@ -192,7 +191,7 @@ void TupItemTweener::setPosAt(int index, const QPointF &pos)
 {
 #ifdef K_DEBUG
     #ifdef Q_OS_WIN32
-        tWarning() << "TupItemTweener::setPosAt() - index: " << index;
+        qWarning() << "TupItemTweener::setPosAt() - index: " << index;
     #else
         VERIFY_STEP(index);
     #endif
@@ -205,7 +204,7 @@ void TupItemTweener::setRotationAt(int index, double angle)
 {
 #ifdef K_DEBUG
     #ifdef Q_OS_WIN32
-        tWarning() << "TupItemTweener::setRotationAt() - index: " << index;
+        qWarning() << "TupItemTweener::setRotationAt() - index: " << index;
     #else
         VERIFY_STEP(index);
     #endif
@@ -218,7 +217,7 @@ void TupItemTweener::setScaleAt(int index, double sx, double sy)
 {
 #ifdef K_DEBUG
     #ifdef Q_OS_WIN32
-        tWarning() << "TupItemTweener::setScaleAt() - index: " << index;
+        qWarning() << "TupItemTweener::setScaleAt() - index: " << index;
     #else
         VERIFY_STEP(index);
     #endif
@@ -231,7 +230,7 @@ void TupItemTweener::setShearAt(int index, double sx, double sy)
 {
 #ifdef K_DEBUG
     #ifdef Q_OS_WIN32
-        tWarning() << "TupItemTweener::setShearAt() - index: " << index;
+        qWarning() << "TupItemTweener::setShearAt() - index: " << index;
     #else
         VERIFY_STEP(index);
     #endif
@@ -244,7 +243,7 @@ void TupItemTweener::setOpacityAt(int index, double opacity)
 {
 #ifdef K_DEBUG
     #ifdef Q_OS_WIN32
-        tWarning() << "TupItemTweener::setOpacityAt() - index: " << index;
+        qWarning() << "TupItemTweener::setOpacityAt() - index: " << index;
     #else
         VERIFY_STEP(index);
     #endif
@@ -257,7 +256,7 @@ void TupItemTweener::setColorAt(int index, const QColor &color)
 {
 #ifdef K_DEBUG
     #ifdef Q_OS_WIN32
-        tWarning() << "TupItemTweener::setColorAt() - index: " << index;
+        qWarning() << "TupItemTweener::setColorAt() - index: " << index;
     #else
         VERIFY_STEP(index);
     #endif

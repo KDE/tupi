@@ -69,7 +69,12 @@ void TipDialog::setupGUI()
     textBrowser->setOpenExternalLinks(true);
 
     QStringList path;
-    QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+#ifdef Q_OS_WIN32
+    QString resources = SHARE_DIR + "help" + QDir::separator();
+#else
+	QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+#endif	
+
     path << resources + "css";
     path << resources + "images";
     textBrowser->setSearchPaths(path);

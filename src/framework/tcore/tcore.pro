@@ -7,7 +7,7 @@ unix {
 }
 
 win32 {
-    include(../../../../win.pri)
+    include(../../../win.pri)
 }
 
 INSTALLS += target

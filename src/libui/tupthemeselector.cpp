@@ -307,8 +307,12 @@ void TupThemeSelector::loadSchemaFromListView(QTreeWidgetItem *item, int)
         
         if (! item->text(0).isEmpty()) {
             #ifdef K_DEBUG
-                T_FUNCINFO;
-            #endif
+                #ifdef Q_OS_WIN32
+                    qDebug() << "[TupThemeSelector::loadSchemaFromListView()]";
+                #else
+                    T_FUNCINFO;
+                #endif
+            #endif 			
             TCONFIG->beginGroup("General");
             TCONFIG->setValue("ThemeFile", SHARE_DIR + "themes/" + item->text(0));
             m_lastFile = SHARE_DIR + "themes/" + item->text(0);

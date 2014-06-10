@@ -71,9 +71,14 @@ TupLuminancePicker::TupLuminancePicker(QWidget* parent) : QWidget(parent), k(new
 TupLuminancePicker::~TupLuminancePicker()
 {
     delete k;
+
     #ifdef K_DEBUG
-           TEND;
-    #endif
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupLuminancePicker()]";
+        #else
+            TEND;
+        #endif
+    #endif 	
 }
 
 void TupLuminancePicker::mouseMoveEvent(QMouseEvent *event)
