@@ -1313,15 +1313,18 @@ void TupPaintArea::keyPressEvent(QKeyEvent *event)
 {
     #ifdef K_DEBUG
         QString msg1 = "TupPaintArea::keyPressEvent() - Current tool: " + k->currentTool;
-        QString msg2 = "TupPaintArea::keyPressEvent() - Key: " + event->key();
+        QString msg2 = "TupPaintArea::keyPressEvent() - Key: " + QString::number(event->key());
+        QString msg3 = "TupPaintArea::keyPressEvent() - Key: " + event->text(); 
         #ifdef Q_OS_WIN32
             qDebug() << "[TupPaintArea::keyPressEvent()]";
             qDebug() << msg1;
             qDebug() << msg2;
+            qDebug() << msg3;
         #else
             T_FUNCINFO;
             tDebug() << msg1;
             tDebug() << msg2;
+            tDebug() << msg3;
         #endif
     #endif
 

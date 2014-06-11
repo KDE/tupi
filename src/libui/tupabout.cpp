@@ -121,32 +121,49 @@ TupAbout::TupAbout(QWidget *parent) : TabDialog(Cancel, parent)
 
     // Acknowledgment Tab 
 
+    QString sponsorFile = QString() + "help" + QDir::separator() + lang + QDir::separator() + "thanks.html";
+#ifdef Q_OS_WIN32
+    QString sponsorPath = SHARE_DIR + sponsorFile;
+#else
+    QString sponsorPath = SHARE_DIR + "data" + QDir::separator() + sponsorFile;
+#endif
     QTextBrowser *sponsorsText = new QTextBrowser;
     sponsorsText->setSearchPaths(path);
     sponsorsText->setOpenExternalLinks(true);
-    sponsorsText->setSource(QUrl::fromLocalFile(SHARE_DIR + "help" + QDir::separator() + lang + QDir::separator() + "thanks.html"));
+    sponsorsText->setSource(QUrl::fromLocalFile(sponsorPath));
     sponsorsText->moveCursor(QTextCursor::Start);
 
     addTab(sponsorsText, tr("Thanks"));
 
     // Tupi Description Tab 
 
+    QString tupiFile = QString() + "help" + QDir::separator() + lang + QDir::separator() + "tupi_short.html";
+#ifdef Q_OS_WIN32
+    QString tupiPath = SHARE_DIR + tupiFile;
+#else
+    QString tupiPath = SHARE_DIR + "data" + QDir::separator() + tupiFile;
+#endif
     QTextBrowser *tupiText = new QTextBrowser;
     tupiText->setSearchPaths(path);
     tupiText->setOpenExternalLinks(true);
-    tupiText->setSource(QUrl::fromLocalFile(SHARE_DIR + "help" + QDir::separator() + lang + QDir::separator() + "tupi_short.html"));
+    tupiText->setSource(QUrl::fromLocalFile(tupiPath));
     tupiText->moveCursor(QTextCursor::Start);
 
     addTab(tupiText, tr("About"));
 
     // 4: License Terms Tab
 
+    QString licenseFile = QString() + "help" + QDir::separator() + lang + QDir::separator() + "philosophy.html"; 
+#ifdef Q_OS_WIN32
+    QString licensePath = SHARE_DIR + licenseFile;
+#else
+    QString licensePath = SHARE_DIR + "data" + QDir::separator() + licenseFile;
+#endif
     QTextBrowser *licenseText = new QTextBrowser;
     licenseText->setSearchPaths(path);
     licenseText->setOpenExternalLinks(true);
-    licenseText->setSource(QUrl::fromLocalFile(SHARE_DIR + "help" + QDir::separator() + lang + QDir::separator() + "philosophy.html"));
+    licenseText->setSource(QUrl::fromLocalFile(licensePath));
     licenseText->moveCursor(QTextCursor::Start);
-    qDebug() << "URL: " << QUrl::fromLocalFile(SHARE_DIR + "help" + QDir::separator() + lang + QDir::separator() + "philosophy.html").toString();
     addTab(licenseText, tr("License Agreement"));
     setButtonText(Cancel, tr("Close"));
 }

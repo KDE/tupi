@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es">
+<TS version="2.1" language="es">
 <context>
     <name>ButtonsPanel</name>
     <message>
@@ -81,17 +81,6 @@
     <message>
         <source>Run simulation</source>
         <translation>Ejecutar Simulación</translation>
-    </message>
-</context>
-<context>
-    <name>ContourSelection</name>
-    <message>
-        <source>Line Selection</source>
-        <translation>Selección de Contorno</translation>
-    </message>
-    <message>
-        <source>N</source>
-        <translation>N</translation>
     </message>
 </context>
 <context>
@@ -204,13 +193,6 @@
     </message>
 </context>
 <context>
-    <name>GenericExportPlugin</name>
-    <message>
-        <source>Image Array</source>
-        <translation>Arreglo de Imágenes</translation>
-    </message>
-</context>
-<context>
     <name>GeometricTool</name>
     <message>
         <source>Rectangle</source>
@@ -238,6 +220,13 @@
     </message>
 </context>
 <context>
+    <name>ImagePlugin</name>
+    <message>
+        <source>Image Array</source>
+        <translation>Arreglo de Imágenes</translation>
+    </message>
+</context>
+<context>
     <name>InfoPanel</name>
     <message>
         <source>Shift + Left Mouse Button</source>
@@ -256,10 +245,6 @@
         <translation>Aplicar dimensiones de ancho/altura proporcionales</translation>
     </message>
     <message>
-        <source>Mouse Double Click</source>
-        <translation>Doble Clic</translation>
-    </message>
-    <message>
         <source>Close the line path</source>
         <translation>Terminar trazo</translation>
     </message>
@@ -274,6 +259,10 @@
     <message>
         <source>Shift</source>
         <translation>Desplazamiento</translation>
+    </message>
+    <message>
+        <source>Mouse Right Click</source>
+        <translation>Botón derecho del ratón</translation>
     </message>
 </context>
 <context>
@@ -295,6 +284,17 @@
     </message>
 </context>
 <context>
+    <name>NodesTool</name>
+    <message>
+        <source>Line Selection</source>
+        <translation>Selección de Contorno</translation>
+    </message>
+    <message>
+        <source>N</source>
+        <translation>N</translation>
+    </message>
+</context>
+<context>
     <name>PencilTool</name>
     <message>
         <source>Pencil</source>
@@ -306,7 +306,7 @@
     </message>
 </context>
 <context>
-    <name>PolyLine</name>
+    <name>PolyLineTool</name>
     <message>
         <source>PolyLine</source>
         <translation>Polilínea</translation>
@@ -524,10 +524,10 @@
     </message>
 </context>
 <context>
-    <name>SelectTool</name>
+    <name>SelectionTool</name>
     <message>
-        <source>Select</source>
-        <translation>Select</translation>
+        <source>Selection</source>
+        <translation>Selección</translation>
     </message>
     <message>
         <source>Object Selection</source>
@@ -1076,6 +1076,10 @@
         <source>Can&apos;t create pictures directory</source>
         <translation>No se puede crear el directorio de imágenes</translation>
     </message>
+    <message>
+        <source>Close manager</source>
+        <translation>Cerrar interfaz</translation>
+    </message>
 </context>
 <context>
     <name>TupCameraBar</name>
@@ -1205,6 +1209,10 @@
         <source>Can&apos;t create pictures directory</source>
         <translation>No se puede crear el directorio de imágenes</translation>
     </message>
+    <message>
+        <source>Close manager</source>
+        <translation>Cerrar interfaz</translation>
+    </message>
 </context>
 <context>
     <name>TupCameraStatus</name>
@@ -1250,6 +1258,25 @@
     <message>
         <source>Size</source>
         <translation>Dimensión</translation>
+    </message>
+</context>
+<context>
+    <name>TupCameraWindow</name>
+    <message>
+        <source>General Camera error</source>
+        <translation>Error general de cámara</translation>
+    </message>
+    <message>
+        <source>Camera invalid request error</source>
+        <translation>Error de solicitud invalida</translation>
+    </message>
+    <message>
+        <source>Camera service missing error</source>
+        <translation>Error de servicio ausente</translation>
+    </message>
+    <message>
+        <source>Camera not supported error</source>
+        <translation>Error de camara no soportada</translation>
     </message>
 </context>
 <context>
@@ -3233,10 +3260,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
 </context>
 <context>
     <name>TupPaintAreaBase</name>
-    <message>
-        <source>OpenGL isn&apos;t supported</source>
-        <translation>OpenGL no es soportado</translation>
-    </message>
     <message>
         <source>Locked!</source>
         <translation>Bloqueado!</translation>

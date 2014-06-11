@@ -217,18 +217,18 @@ bool TupLayer::expandFrame(int position, int size)
 
 TupFrame *TupLayer::frame(int position) const
 {
-    if (position < 0 || position >= k->frames.count()) {		
+    if (position < 0 || position >= k->frames.count()) {        
         #ifdef K_DEBUG
-            QString msg1 = "TupLayer::frame() - FATAL ERROR: frame index out of bound : " + position;
-			QString msg2 = "TupLayer::frame() - FATAL ERROR: index limit : " + QString::number(k->frames.count()-1);
+            QString msg1 = "TupLayer::frame() - FATAL ERROR: frame index out of bound : " + QString::number(position);
+            QString msg2 = "TupLayer::frame() - FATAL ERROR: index limit : " + QString::number(k->frames.count()-1);
             #ifdef Q_OS_WIN32
                 qDebug() << msg1;
-				qDebug() << msg2;
+                qDebug() << msg2;
             #else
                 tError() << msg1;
-				tError() << msg2;
+                tError() << msg2;
             #endif
-        #endif	
+        #endif    
 
         return 0;
     }
