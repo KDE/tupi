@@ -62,7 +62,7 @@ fileSystem.CopyFile sourceDir & "\plugins\tools\shear\release\tupisheartool.dll"
 fileSystem.CopyFile sourceDir & "\plugins\tools\text\release\tupitexttool.dll", tupiDir & "\plugins\tupitexttool.dll"
 fileSystem.CopyFile sourceDir & "\plugins\tools\view\release\tupiviewtool.dll", tupiDir & "\plugins\tupiviewtool.dll"
 fileSystem.CopyFile sourceDir & "\plugins\export\imageplugin\release\tupiimageplugin.dll", tupiDir & "\plugins\tupiimageplugin.dll"
-
+fileSystem.CopyFile sourceDir & "\plugins\export\ffmpegplugin\release\tupiffmpegplugin.dll", tupiDir & "\plugins\tupiffmpegplugin.dll"
 
 fileSystem.CopyFolder sourceDir & "\shell\data", tupiDir & "\data"
 fileSystem.CopyFolder sourceDir & "\components\help\help", tupiDir & "\data\help"

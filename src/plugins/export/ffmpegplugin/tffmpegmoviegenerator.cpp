@@ -207,7 +207,8 @@ bool TFFMpegMovieGenerator::Private::openVideo(AVCodec *codec, AVStream *st)
     }
 
     /* allocate and init a re-usable frame */
-    frame = avcodec_alloc_frame();
+    // frame = avcodec_alloc_frame();
+	frame = av_frame_alloc();
     if (!frame) {
         errorMsg = "There is no available memory to export your project as a video";
         #ifdef K_DEBUG

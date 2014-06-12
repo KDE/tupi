@@ -41,7 +41,7 @@
  * @author David Cuadrado
 */
 
-class SelectPlugin : public TupExportWizardPage
+class TUPI_EXPORT SelectPlugin : public TupExportWizardPage
 {
     Q_OBJECT
 
@@ -275,7 +275,7 @@ const char* SelectPlugin::getFileExtension()
     return extension;
 }
 
-class SelectScenes : public TupExportWizardPage
+class TUPI_EXPORT SelectScenes : public TupExportWizardPage
 {
     Q_OBJECT
 
@@ -379,7 +379,7 @@ void SelectScenes::updateScenesList()
     // SQA: Pending code right over here
 }
 
-class ExportTo : public TupExportWizardPage
+class TUPI_EXPORT ExportTo : public TupExportWizardPage
 {
     Q_OBJECT
 
@@ -437,6 +437,14 @@ class ExportTo : public TupExportWizardPage
 ExportTo::ExportTo(const TupProject *project, TupExportWidget::OutputFormat outputFormat, QString title, const TupExportWidget *widget) : TupExportWizardPage(title), m_currentExporter(0), 
                    m_currentFormat(TupExportInterface::NONE), m_project(project)
 {
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[ExportTo::ExportTo()]";
+        #else
+            TINIT;
+        #endif
+    #endif
+
     output = outputFormat;
     transparency = false;
 
@@ -452,7 +460,8 @@ ExportTo::ExportTo(const TupProject *project, TupExportWidget::OutputFormat outp
 
     QWidget *container = new QWidget;
     QVBoxLayout *layout = new QVBoxLayout(container);
-    path = getenv("HOME");
+    // path = getenv("HOME");
+	path = QDir::homePath();
 
     ////////////////
 
@@ -590,16 +599,18 @@ void ExportTo::setCurrentFormat(int currentFormat, const QString &value)
     extension = value;
     filename = path;
 
-#if defined(Q_OS_UNIX)
-
     if (m_currentFormat == TupExportInterface::APNG || (m_currentFormat != TupExportInterface::PNG && m_currentFormat != TupExportInterface::JPEG)) { // Animated Image or Animation
         if (!filename.endsWith(QDir::separator()))
             filename += QDir::separator();
 
         filename += m_project->projectName();
         filename += extension;
+		
+		qDebug() << "ExportTo::setCurrentFormat() - Tracing name: " << filename;
+		
     } else { // Images Array
-        filename = getenv("HOME");
+        // filename = getenv("HOME");
+		filename = QDir::homePath();
 
         if (m_currentFormat == TupExportInterface::JPEG) {
             if (bgTransparency->isEnabled())
@@ -608,11 +619,15 @@ void ExportTo::setCurrentFormat(int currentFormat, const QString &value)
             if (!bgTransparency->isEnabled())
                 bgTransparency->setEnabled(true);
         }
+		
+		qDebug() << "ExportTo::setCurrentFormat() - Tracing name: " << filename;
     } 
 
+	#ifdef Q_OS_WIN32
+	    filename.replace(QString("/"), QString("\\"));
+	#endif
+	
     m_filePath->setText(filename);
-
-#endif
 }
 
 void ExportTo::updateNameField()
@@ -643,7 +658,8 @@ void ExportTo::chooseFile()
 
 void ExportTo::chooseDirectory()
 {
-    QString dir = getenv("HOME");
+    // QString dir = getenv("HOME");
+	QString dir = QDir::homePath();
     filename = QFileDialog::getExistingDirectory(this, tr("Choose a directory..."), dir,
                                                  QFileDialog::ShowDirsOnly
                                                  | QFileDialog::DontResolveSymlinks);
@@ -684,7 +700,8 @@ void ExportTo::exportIt()
         }
 
         if (path.length() == 0)
-            path = getenv("HOME");
+		    path = QDir::homePath();
+            // path = getenv("HOME");
 
         filename = path + QDir::separator() + name;
     } else { // Animation or Animated Image
@@ -714,7 +731,8 @@ void ExportTo::exportIt()
             name += extension;
 
         if (path.length() == 0) {
-            path = getenv("HOME");
+            //path = getenv("HOME");
+			path = QDir::homePath();
             filename = path + QDir::separator() + name;
         }
 
@@ -821,7 +839,7 @@ QList<TupScene *> ExportTo::scenesToExport() const
     return scenes;
 }
 
-class VideoProperties : public TupExportWizardPage
+class TUPI_EXPORT VideoProperties : public TupExportWizardPage
 {
     Q_OBJECT
 
@@ -1118,7 +1136,7 @@ void TupExportWidget::setExporter(const QString &plugin)
         m_exportImagesArray->setCurrentExporter(currentExporter);
     } else {
         #ifdef K_DEBUG
-            QString msg = "TupExportWidget::setExporter() - [ Fatal Error ] - Can't load export plugin";
+            QString msg = "TupExportWidget::setExporter() - [ Fatal Error ] - Can't load export plugin -> " + plugin;
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
             #else

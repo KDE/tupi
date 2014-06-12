@@ -608,15 +608,11 @@ void TupDocumentView::loadPlugins()
              }
     } // end foreach
 
-    for (int i = 0; i < brushTools.size(); ++i) {
-	     qDebug() << "TupDocumentView::loadPlugins() - Adding plugin / Brush tool";
+    for (int i = 0; i < brushTools.size(); ++i) 
          k->brushesMenu->addAction(brushTools.at(i));
-    }
 
-    for (int i = 0; i < tweenTools.size(); ++i) {
-	     qDebug() << "TupDocumentView::loadPlugins() - Adding plugin / Tween tool";
+    for (int i = 0; i < tweenTools.size(); ++i)
          k->motionMenu->addAction(tweenTools.at(i));
-    }
 
     foreach (QObject *plugin, TupPluginManager::instance()->filters()) {
              AFilterInterface *filter = qobject_cast<AFilterInterface *>(plugin);
@@ -1640,8 +1636,16 @@ void TupDocumentView::cameraInterface()
         QList<QSize> resolutions = imageCapture->supportedResolutions();
         */
 
-        QList<QSize> resolutions;
+        QList<QSize> resolutions;	
+        resolutions << QSize(1280, 1024);
+        resolutions << QSize(1280, 960);
+        resolutions << QSize(1224, 768);
+        resolutions << QSize(800, 600);
         resolutions << QSize(640, 480);
+        resolutions << QSize(352, 288);
+        resolutions << QSize(320, 240);
+        resolutions << QSize(176, 144);
+        resolutions << QSize(160, 120);
 
         QDesktopWidget desktop;
         QSize projectSize = k->project->dimension();

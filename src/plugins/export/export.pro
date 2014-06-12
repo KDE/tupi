@@ -4,6 +4,10 @@ unix {
     }
 }
 
+win32 {
+    include(../../../win.pri)
+}
+
 SUBDIRS += imageplugin 
 
 # SMIL plugin will be disabled temporary 

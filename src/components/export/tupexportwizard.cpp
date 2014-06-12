@@ -257,9 +257,9 @@ TupExportWizardPage::TupExportWizardPage(const QString &title, QWidget *parent) 
     hide();
 }
 
-void TupExportWizardPage::setPixmap(const QPixmap &px)
+void TupExportWizardPage::setPixmap(const QPixmap &pixmap)
 {
-    k->image->setPixmap(px);
+    k->image->setPixmap(pixmap);
     k->image->show();
 }
 
@@ -278,4 +278,6 @@ const QString TupExportWizardPage::getTag()
     return k->tag;
 }
 
-TupExportWizardPage::~TupExportWizardPage() {};
+TupExportWizardPage::~TupExportWizardPage() 
+{
+}

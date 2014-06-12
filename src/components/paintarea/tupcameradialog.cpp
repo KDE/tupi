@@ -139,8 +139,16 @@ void TupCameraDialog::changeCameraDevice(const QString &cameraReference)
     // k->resolutions = imageCapture->supportedResolutions();
 
     k->resolutions.clear();
+    k->resolutions << QSize(1280, 1024);
+    k->resolutions << QSize(1280, 960);
+    k->resolutions << QSize(1224, 768);
+    k->resolutions << QSize(800, 600);
     k->resolutions << QSize(640, 480);
-
+    k->resolutions << QSize(352, 288);
+    k->resolutions << QSize(320, 240);
+    k->resolutions << QSize(176, 144);
+    k->resolutions << QSize(160, 120);
+	
     k->resolutionCombo->clear();
 
     for (int i=0; i<k->resolutions.size(); i++) {

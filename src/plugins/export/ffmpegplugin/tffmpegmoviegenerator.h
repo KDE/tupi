@@ -43,7 +43,7 @@
     @author David Cuadrado
 */
 
-class TFFMpegMovieGenerator : public TMovieGenerator
+class TUPI_PLUGIN TFFMpegMovieGenerator : public TMovieGenerator
 {
     public:
         TFFMpegMovieGenerator(TMovieGeneratorInterface::Format format, int width, int height, int fps = 24, double duration = 0);
