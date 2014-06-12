@@ -5,6 +5,7 @@ DefaultDirName={pf}\Tupi
 DefaultGroupName=Tupi Open 2D Magic
 OutputDir=c:\tupi\installer
 ChangesEnvironment=yes
+ChangesAssociations=yes
 
 [Dirs]
 Name: "{app}\bin"
@@ -76,6 +77,10 @@ Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environmen
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}\lib;{app}\lib\qt5"
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: string; ValueName: "TUPI_SHARE"; ValueData: "{app}\data"
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: string; ValueName: "TUPI_PLUGIN"; ValueData: "{app}\plugins"
+Root: HKCR; Subkey: ".tup"; ValueType: string; ValueName: ""; ValueData: "TupiOpen2DMagic"; Flags: uninsdeletevalue 
+Root: HKCR; Subkey: "TupiOpen2DMagic"; ValueType: string; ValueName: ""; ValueData: "Tupi Open 2D Magic"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "TupiOpen2DMagic\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\tupi.ico,0" 
+Root: HKCR; Subkey: "TupiOpen2DMagic\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\tupi.exe"" ""%1""" 
 
 [Icons]
 Name: "{group}\Tupi"; Filename: "{app}\bin\tupi.exe"; IconFilename: "{app}\bin\tupi.ico"
