@@ -33,68 +33,68 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "ffmpegplugin.h"
+#include "libavplugin.h"
 
-FFMpegPlugin::FFMpegPlugin()
+LibavPlugin::LibavPlugin()
 {
 }
 
-FFMpegPlugin::~FFMpegPlugin()
+LibavPlugin::~LibavPlugin()
 {
 }
 
-QString FFMpegPlugin::key() const
+QString LibavPlugin::key() const
 {
     return "Video Formats";
 }
 
-TupExportInterface::Formats FFMpegPlugin::availableFormats()
+TupExportInterface::Formats LibavPlugin::availableFormats()
 {
     return TupExportInterface::WEBM | TupExportInterface::OGV | TupExportInterface::MPEG | TupExportInterface::SWF 
            | TupExportInterface::AVI | TupExportInterface::ASF | TupExportInterface::MOV | TupExportInterface::GIF;
 }
 
-TMovieGeneratorInterface::Format FFMpegPlugin::videoFormat(TupExportInterface::Format format)
+TMovieGeneratorInterface::Format LibavPlugin::videoFormat(TupExportInterface::Format format)
 {
     switch (format) {
             case TupExportInterface::WEBM:
                  {
-                   return TFFMpegMovieGenerator::WEBM;
+                   return TLibavMovieGenerator::WEBM;
                  }
                  break;
             case TupExportInterface::OGV:
                  {
-                   return TFFMpegMovieGenerator::OGV;
+                   return TLibavMovieGenerator::OGV;
                  }
                  break;
             case TupExportInterface::SWF:
                  {
-                   return TFFMpegMovieGenerator::SWF;
+                   return TLibavMovieGenerator::SWF;
                  }
                  break;
             case TupExportInterface::MPEG:
                  {
-                   return TFFMpegMovieGenerator::MPEG;
+                   return TLibavMovieGenerator::MPEG;
                  }
                  break;
             case TupExportInterface::AVI:
                  {
-                   return TFFMpegMovieGenerator::AVI;
+                   return TLibavMovieGenerator::AVI;
                  }
                  break;
             case TupExportInterface::MOV:
                  {
-                   return TFFMpegMovieGenerator::MOV;
+                   return TLibavMovieGenerator::MOV;
                  }
                  break;
             case TupExportInterface::ASF:
                  {
-                   return TFFMpegMovieGenerator::ASF;
+                   return TLibavMovieGenerator::ASF;
                  }
                  break;
             case TupExportInterface::GIF:
                  {
-                   return TFFMpegMovieGenerator::GIF;
+                   return TLibavMovieGenerator::GIF;
                  }
                  break;
             case TupExportInterface::PNG:
@@ -103,38 +103,38 @@ TMovieGeneratorInterface::Format FFMpegPlugin::videoFormat(TupExportInterface::F
             case TupExportInterface::SMIL:
             case TupExportInterface::NONE:
                  {
-                   return TFFMpegMovieGenerator::NONE;
+                   return TLibavMovieGenerator::NONE;
                  }
             default:
                  {
-                   return TFFMpegMovieGenerator::NONE;
+                   return TLibavMovieGenerator::NONE;
                  }
                  break;
     }
 
-    return TFFMpegMovieGenerator::NONE;
+    return TLibavMovieGenerator::NONE;
 }
 
-bool FFMpegPlugin::exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format fmt, const QSize &size, int fps)
+bool LibavPlugin::exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format fmt, const QSize &size, int fps)
 {
     qreal duration = 0;
     foreach (TupScene *scene, scenes)
              duration += (qreal) scene->framesTotal() / (qreal) fps;
 
-    TFFMpegMovieGenerator *generator = 0;
+    TLibavMovieGenerator *generator = 0;
     TMovieGeneratorInterface::Format format = videoFormat(fmt);
 
-    if (format == TFFMpegMovieGenerator::NONE)
+    if (format == TLibavMovieGenerator::NONE)
         return false;
 
-    generator = new TFFMpegMovieGenerator(format, size, fps, duration);
+    generator = new TLibavMovieGenerator(format, size, fps, duration);
 
     TupAnimationRenderer renderer(color);
     {
          if (!generator->movieHeaderOk()) {
              errorMsg = generator->getErrorMsg();
              #ifdef K_DEBUG
-                 QString msg = "FFMpegPlugin::exportToFormat() - [ Fatal Error ] - Can't create video -> " + filePath;
+                 QString msg = "LibavPlugin::exportToFormat() - [ Fatal Error ] - Can't create video -> " + filePath;
                  #ifdef Q_OS_WIN32
                      qDebug() << msg;
                  #else
@@ -165,7 +165,7 @@ bool FFMpegPlugin::exportToFormat(const QColor color, const QString &filePath, c
     return true;
 }
 
-bool FFMpegPlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size)
+bool LibavPlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size)
 {
     Q_UNUSED(frameIndex);
     Q_UNUSED(color);
@@ -176,7 +176,7 @@ bool FFMpegPlugin::exportFrame(int frameIndex, const QColor color, const QString
     return false;
 }
 
-const char* FFMpegPlugin::getExceptionMsg() {
+const char* LibavPlugin::getExceptionMsg() {
     return errorMsg;
 }
 

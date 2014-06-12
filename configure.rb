@@ -55,9 +55,9 @@ Use: ./configure [options]
   --bindir=[path]:      Set binaries path [/usr/bin]
   --libdir=[path]:      Set library path [/usr/lib/tupi | /usr/lib64/tupi]
   --sharedir=[path]:    Set data path [/usr/share]
-  --with-ffmpeg=[path]: Set ffmpeg installation path [/usr]
+  --with-libav=[path]: Set libav installation path [/usr]
   --with-quazip=[path]: Set quazip installation path [/usr]
-  --without-ffmpeg:     Disable ffmpeg support
+  --without-libav:     Disable libav support
   --without-debug:      Disable debug
   --with-qtdir=[path]:  Set Qt directory [i.e. /usr/local/qt]
   --package-build:      Option exclusive for package maintainers
@@ -71,8 +71,8 @@ _EOH_
        debug = 0
     end
 
-    if conf.hasArgument?("with-ffmpeg") and conf.hasArgument?("without-ffmpeg")  
-       Info.error << " ERROR: Options --with-ffmpeg and --without-ffmpeg are mutually exclusive\n"
+    if conf.hasArgument?("with-libav") and conf.hasArgument?("without-libav")  
+       Info.error << " ERROR: Options --with-libav and --without-libav are mutually exclusive\n"
        exit 0
     end
 
@@ -85,20 +85,20 @@ _EOH_
        conf.verifyQtVersion("5.2.0", debug, "")
     end
 
-    if conf.hasArgument?("with-ffmpeg")
-       ffmpegDir = conf.argumentValue("with-ffmpeg")
-       if File.directory? ffmpegDir 
-          ffmpegLib = ffmpegDir + "/lib"
-          ffmpegInclude = ffmpegDir + "/include"
-          config.addLib("-L" + ffmpegLib)
-          config.addIncludePath(ffmpegInclude)
+    if conf.hasArgument?("with-libav")
+       libavDir = conf.argumentValue("with-libav")
+       if File.directory? libavDir 
+          libavLib = libavDir + "/lib"
+          libavInclude = libavDir + "/include"
+          config.addLib("-L" + libavLib)
+          config.addIncludePath(libavInclude)
        else
-          Info.error << " ERROR: ffmpeg directory does not exist!\n"
+          Info.error << " ERROR: libav directory does not exist!\n"
           exit 0
        end
     else
-       if conf.hasArgument?("without-ffmpeg")
-          Info.warn << "Disabling ffmpeg support: " << $endl
+       if conf.hasArgument?("without-libav")
+          Info.warn << "Disabling libav support: " << $endl
           conf.disableFFmpeg()
        end
     end

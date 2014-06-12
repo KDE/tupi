@@ -18,9 +18,9 @@ installed the next list of dependencies in your computer:
 * Qt: The full development toolkit used to create Tupi
 * ruby: A script language used to do the configuration process previous 
   to the compilation
-* libavcodec-dev: A subcomponent of the project ffmpeg, to deal with 
+* libavcodec-dev: A subcomponent of the project libav, to deal with 
   video manipulation
-* libavformat-dev: A subcomponent of the project ffmpeg, to deal with 
+* libavformat-dev: A subcomponent of the project libav, to deal with 
   video manipulation
 * zlib-dev: A file-compression library
 * quazip: A very handy API to deal with zip files

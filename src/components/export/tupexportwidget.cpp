@@ -173,7 +173,7 @@ void SelectPlugin::setFormats(TupExportInterface::Formats formats)
         format->setData(3124, TupExportInterface::MOV);
     }
 
-    // SQA: The ffmpeg procedure to export animated GIF files must be implemented
+    // SQA: The libav procedure to export animated GIF files must be implemented
     /*
     if (formats & TupExportInterface::GIF) {
         QListWidgetItem *format = new QListWidgetItem(tr("Gif Image"), m_formatList);
@@ -797,7 +797,7 @@ void ExportTo::exportIt()
         if (scenes.count() > 0) { 
             int width = (int) m_size->x();
             int height = (int) m_size->y();
-            /* ffmpeg requirement: resolution must be a multiple of two */
+            /* libav requirement: resolution must be a multiple of two */
             if (width%2 != 0)
                 width++;
             if (height%2 != 0)

@@ -6,7 +6,7 @@
  *                                                                         *
  *   Developers:                                                           *
  *   2010:                                                                 *
- *    Gustavo Gonzalez / xtingray                                          *
+ *    Gustav Gonzalez / xtingray                                           *
  *                                                                         *
  *   KTooN's versions:                                                     * 
  *                                                                         *
@@ -33,43 +33,34 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef FFMPEGPLUGIN_H
-#define FFMPEGPLUGIN_H
+#ifndef TLIBAVMOVIEGENERATOR_H
+#define TLIBAVMOVIEGENERATOR_H
 
 #include "tglobal.h"
-#include "tupexportpluginobject.h"
-#include "tupexportinterface.h"
-#include "tmoviegeneratorinterface.h"
-#include "tffmpegmoviegenerator.h"
-#include "tuplayer.h"
-#include "tupanimationrenderer.h"
-
-#include <QImage>
-#include <QPainter>
+#include "tmoviegenerator.h"
 
 /**
- * @author David Cuadrado
+    @author David Cuadrado
 */
 
-class TUPI_PLUGIN FFMpegPlugin : public TupExportPluginObject
+class TUPI_PLUGIN TLibavMovieGenerator : public TMovieGenerator
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "ffmpegplugin.json")
-
     public:
-        FFMpegPlugin();
-        virtual ~FFMpegPlugin();
-        virtual QString key() const;
-        TupExportInterface::Formats availableFormats();
+        TLibavMovieGenerator(TMovieGeneratorInterface::Format format, int width, int height, int fps = 24, double duration = 0);
+        TLibavMovieGenerator(TMovieGeneratorInterface::Format format, const QSize &size, int fps = 24, double duration = 0);
+        ~TLibavMovieGenerator();
+        virtual bool movieHeaderOk();
+        virtual const char* getErrorMsg();
 
-        virtual bool exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format format, const QSize &size, int fps);
-        virtual bool exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size);
-
-        virtual const char* getExceptionMsg();
-        const char *errorMsg;
+    protected:
+        void __saveMovie(const QString &fileName);
+        virtual void handle(const QImage &image);
+        virtual bool begin();
+        virtual void end();
 
     private:
-        TMovieGeneratorInterface::Format videoFormat(TupExportInterface::Format format);
+        struct Private;
+        Private *const k;
 };
 
 #endif

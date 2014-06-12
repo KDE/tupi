@@ -67,7 +67,7 @@ module RQonf
       @qmake = QMake.new
       @properties = {}
 
-      @ffmpeg = true
+      @libav = true
 
       setPath()
       Makefile::setArgs(@options)
@@ -111,7 +111,7 @@ module RQonf
     end
 
     def disableFFmpeg()
-      @ffmpeg = false
+      @libav = false
     end
 
     def verifyQtVersion(minqtversion, verbose, qtdir)
@@ -203,9 +203,9 @@ module RQonf
             findTest(file)
           end
         elsif file =~ /.qonf$/
-          if file.include? "ffmpeg"
-             if @ffmpeg
-                Info.warn << "Adding ffmpeg support: " << @ffmpeg << $endl
+          if file.include? "libav"
+             if @libav
+                Info.warn << "Adding libav support: " << @libav << $endl
                 @tests << Test.new(file, @qmake)
              end
           else
@@ -274,8 +274,8 @@ module RQonf
         newfile += "open ${TUPI_BIN}/Tupi.app $*"
       else
         path = ""
-        unless @options['with-ffmpeg'].nil? then
-           value = @options['with-ffmpeg']
+        unless @options['with-libav'].nil? then
+           value = @options['with-libav']
            path = value + "/lib:" 
         end
 

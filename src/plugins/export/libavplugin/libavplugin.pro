@@ -8,21 +8,21 @@ unix {
 
 win32 {
     include(../../../../win.pri)
-    include(../../../../ffmpeg.win.pri)	
+    include(../../../../libav.win.pri)	
 }
 
 INSTALLS += target
 target.path = /plugins/
 
-HEADERS += tffmpegmoviegenerator.h \
-           ffmpegplugin.h
+HEADERS += tlibavmoviegenerator.h \
+           libavplugin.h
 
-SOURCES += tffmpegmoviegenerator.cpp \
-           ffmpegplugin.cpp
+SOURCES += tlibavmoviegenerator.cpp \
+           libavplugin.cpp
 
 CONFIG += plugin warn_on
 TEMPLATE = lib 
-TARGET = tupiffmpegplugin
+TARGET = tupilibavplugin
 
 FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
