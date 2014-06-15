@@ -258,10 +258,10 @@ static void tDebugOutput(DebugType t, DebugOutput o, const char *data)
                             debugBrowser->append(QString(data));
                             QScrollBar *bar = debugBrowser->verticalScrollBar();
                             bar->setValue(bar->maximum());
-                            fprintf(stderr, output, data);
                            }
                        } 
                    }
+                   fprintf(stderr, output, data);
                }
             break;
             // #endif

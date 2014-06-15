@@ -122,7 +122,6 @@ int main(int argc, char ** argv)
 #endif
 
     QString locale = QString(QLocale::system().name()).left(2);
-
     if (locale.length() < 2)
         locale = "en";
 
@@ -132,44 +131,45 @@ int main(int argc, char ** argv)
     QString xmlDir = kAppProp->shareDir() + "data" + slash + "xml" + slash;
 #endif
     QDir dir(xmlDir + locale + slash);
-    if (! dir.exists())
+    if (!dir.exists())
         kAppProp->setDataDir(xmlDir + "en" + slash);
     else
         kAppProp->setDataDir(xmlDir + locale + slash);
-		
+        
     kAppProp->setThemeDir(kAppProp->shareDir() + "themes" + slash + "default" + slash);
 
     // Setting the repository directory (where the projects are saved)
     application.createCache(TCONFIG->value("Cache").toString());
 
-    // SQA: Temporarily disabled until starting the port to Qt5
     // Downloading maefloresta Twitter status
-    // Tupwitter *twitter = new Tupwitter();
-    // twitter->start();
+    TupTwitter *twitter = new TupTwitter();
+    twitter->start();
 
     QStyle *style = QStyleFactory::create("fusion");
     QApplication::setStyle(style);
-	
-#ifdef Q_OS_WIN32
-    QString langFile = kAppProp->shareDir() + "translations" + slash + "tupi_" + locale + ".qm";
-#else
-    QString langFile = kAppProp->shareDir() + "data" + slash + "translations" + slash + "tupi_" + locale + ".qm";
-#endif
-	if (QFile::exists(langFile)) {
-        // Loading localization files...
-        QTranslator *translator = new QTranslator;
-        translator->load(langFile);
-        application.installTranslator(translator);
-    } else {
-        #ifdef K_DEBUG
-            QString msg = "main.cpp - Error: Can't open file -> " + langFile;
-            #ifdef Q_OS_WIN32
-                qDebug() << msg;
-            #else
-                tError() << msg;
-            #endif
-        #endif	
-	}
+
+    if (locale.compare("en") != 0) {
+        #ifdef Q_OS_WIN32
+            QString langFile = kAppProp->shareDir() + "translations" + slash + "tupi_" + locale + ".qm";
+        #else
+            QString langFile = kAppProp->shareDir() + "data" + slash + "translations" + slash + "tupi_" + locale + ".qm";
+        #endif
+        if (QFile::exists(langFile)) {
+            // Loading localization files...
+            QTranslator *translator = new QTranslator;
+            translator->load(langFile);
+            application.installTranslator(translator);
+        } else {
+            #ifdef K_DEBUG
+                QString msg = "main.cpp - Error: Can't open file -> " + langFile;
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
+            #endif    
+        }
+    }
 
     TupMainWindow mainWindow(argc);
     mainWindow.showMaximized();
@@ -186,11 +186,9 @@ int main(int argc, char ** argv)
     QApplication::addLibraryPath(kAppProp->pluginDir());
 
     // Loading visual components required for the Crash Handler
-    #ifdef Q_OS_UNIX
-    #ifdef K_DEBUG
-           CHANDLER->setConfig(DATA_DIR + "crashhandler.xml");
-           CHANDLER->setImagePath(THEME_DIR + "icons/");
-    #endif
+    #if defined(Q_OS_UNIX) && defined(K_DEBUG)
+        CHANDLER->setConfig(DATA_DIR + "crashhandler.xml");
+        CHANDLER->setImagePath(THEME_DIR + "icons/");
     #endif
 
     // If there is a second argument, it means to open a project from the command line

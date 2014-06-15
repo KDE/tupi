@@ -139,7 +139,7 @@ TupMainWindow::TupMainWindow(int parameters) : TabbedMainWindow(), m_projectMana
     // Time to load plugins... 
     TupPluginManager::instance()->loadPlugins();
 
-    // Defining the Animation view, as the first interface to show up	
+    // Defining the Animation view, as the first interface to show up   
     setCurrentPerspective(Animation);
 
     TCONFIG->beginGroup("General");
@@ -250,9 +250,7 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
         #endif
     #endif
 
-
     if (m_projectManager->isOpen()) {
-
         if (TupMainWindow::requestType == NewLocalProject || TupMainWindow::requestType == NewNetProject)
             TOsd::self()->display(tr("Information"), tr("Opening a new document..."));
 
@@ -330,26 +328,25 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
         addWidget(playerTab);
 
         helpTab = new TupHelpBrowser(this);
-        // helpTab->setDataDirs(QStringList() << m_helper->helpPath());
 
         QString lang = (QLocale::system().name()).left(2);
         if (lang.length() < 2)  
             lang = "en";
-			
-        QString cover = QString() + "help" + QDir::separator() + lang + QDir::separator() + "cover.html";			
-    #ifdef Q_OS_WIN32
+         
+        QString cover = QString() + "help" + QDir::separator() + lang + QDir::separator() + "cover.html";         
+ #ifdef Q_OS_WIN32
         QString helpPath = SHARE_DIR + cover;
-    #else
+ #else
         QString helpPath = SHARE_DIR + "data" + QDir::separator() + cover;
-    #endif
+ #endif
         QFile file(helpPath);
         if (!file.exists()) {
-	    #ifdef Q_OS_WIN32
-            helpPath = SHARE_DIR + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
-        #else
-            helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
-        #endif
-		}
+            #ifdef Q_OS_WIN32
+                helpPath = SHARE_DIR + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
+            #else
+                helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
+            #endif
+        }
 
         helpTab->setSource(helpPath);
         addWidget(helpTab);
@@ -358,11 +355,29 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
                               + QDir::separator() + "twitter.html";
 
         if (QFile::exists(twitterPath)) {
+            #ifdef K_DEBUG
+                QString msg = "TupMainWindow::setWorkSpace() - Loading page -> " + twitterPath;
+                #ifdef Q_OS_WIN32
+                    qWarning() << msg;
+                #else
+                    tWarning() << msg;
+                #endif
+            #endif
+
             internetOn = true;
             newsTab = new TupTwitterWidget(this); 
             newsTab->setSource(twitterPath);
             addWidget(newsTab);
-        } 
+        } else {
+            #ifdef K_DEBUG
+                QString msg = "TupMainWindow::setWorkSpace() - Fatal Error: Couldn't load page -> " + twitterPath;
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
+            #endif
+        }
 
         connect(this, SIGNAL(tabHasChanged(int)), this, SLOT(updateCurrentTab(int)));
 

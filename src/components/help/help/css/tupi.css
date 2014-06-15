@@ -138,25 +138,25 @@ body {
 
 a:link {
      text-decoration:underline;
-     color:#000000;
+     color:#004000;
      font-weight:bold;
 }
 
 a:visited {
      text-decoration:underline;
-     color:#000000;
+     color:#004000;
      font-weight:bold;
 }
 
 a:active {
      text-decoration:underline;
-     color:#000000;
+     color:#004000;
      font-weight:bold;
 }
 
 a:hover {
      text-decoration:underline;
-     color:#000000;
+     color:#004000;
      font-weight:bold;
 }
 
@@ -168,122 +168,6 @@ a:hover {
      font-style:normal;
      font-size:36px;
      font-weight:bold;
-}
-
-.status_table {
-     background-color:#ffffff;
-     color:#000000;
-     margin-left:10px;
-     margin-right:10px;
-     margin-top:10px;
-     margin-bottom:10px;
-}
-
-.twitter_status {
-     background-color:#ffffff;
-     color:#000000;
-}
-
-.desc_table {
-     margin-left:10px;
-     margin-right:10px;
-     margin-top:10px;
-
-     background-color:#ddeef6;
-
-     color:#000000;
-     text-align:left;
-     text-decoration:none;
-     font-family:"Times New Roman", Times, serif;
-     font-style:normal;
-     font-size:13px;
-     font-weight:normal;
-}
-
-.twitter_desc {
-     background-color:#ddeef6;
-}
-
-.twitter_base {
-     margin-top:10px;
-     margin-bottom:10px;
-     margin-left:100px;
-     margin-right:100px;
-}
-
-.date {
-     margin-left:10px;
-     color:#000000;
-     text-align:left;
-     text-decoration:none;
-     font-family:"Times New Roman", Times, serif;
-     font-style:normal;
-     font-size:11px;
-     font-weight:normal;
-}
-
-.twitter_headline {
-     color:#000000;
-     text-align:left;
-     text-decoration:none;
-     font-family:"Arial", Times, serif;
-     font-style:normal;
-     font-size:26px;
-     font-weight:bold;
-}
-
-.twitter_logo {
-     vertical-align:middle;
-}
-
-.twitter_header {
-     border-style:solid;
-     border-width:5px;
-     border-color:#ff0000;
-}
-
-.twitter_slang { 
-     margin-left:5px;
-     margin-right:5px;
-     margin-top:5px;
-     margin-bottom:5px;
-     background-color:#edfeff;
-}
-
-.twitter_slang_td {
-     margin-left:5px;
-     margin-right:5px;
-     margin-top:5px;
-     margin-bottom:5px;
-     color:#000000;
-     text-align:justify;
-     text-decoration:none;
-     font-family:"Arial", Times, serif;
-     font-style:normal;
-     font-size:10px;
-     font-weight:normal;
-}
-
-.tupi_version {
-     background-color:#f3f3f3;
-     color:#000000;
-     text-align:center;
-     text-decoration:none;
-     font-family:"Arial", Times, serif;
-     font-style:normal;
-     font-size:11px;
-     font-weight:normal;
-}
-
-.tupi_update {
-     background-color:#ff5d5d;
-     color:#000000;
-     text-align:center;
-     text-decoration:none;
-     font-family:"Arial", Times, serif;
-     font-style:normal;
-     font-size:11px;
-     font-weight:normal;
 }
 
 .shortcut_table {
@@ -310,3 +194,72 @@ a:hover {
      font-size:10px;
      font-weight:normal;
 }
+
+.twitter_white {
+     background-color:#fff;
+}
+
+.twitter_headline {
+     background-image:url('file:bg1.png');
+     color:#000000;
+     text-align:left;
+     text-decoration:none;
+     font-family:"Arial", Times, serif;
+     font-style:normal;
+     font-size:26px;
+     font-weight:bold;
+}
+
+.twitter_logo {
+     vertical-align:middle;
+}
+
+.twitter_tupi_version {
+     background-color:#eee;
+     color:#000000;
+     text-align:center;
+     text-decoration:none;
+     font-family:"Arial", Times, serif;
+     font-style:normal;
+     font-size:12px;
+     font-weight:normal;
+}
+
+.twitter_tupi_update {
+     background-color:#eee; 
+     color:#000000;
+     text-align:center;
+     text-decoration:none;
+     font-family:"Arial", Times, serif;
+     font-style:normal;
+     font-size:12px;
+     font-weight:normal;
+}
+
+.twitter_tweet {
+     /* background-color:#fff; */
+     color:#000000;
+     text-align:justify;
+     text-decoration:none;
+     font-family:"Arial", Times, serif;
+     font-style:normal;
+     font-size:14px;
+     font-weight:normal;
+}
+
+.twitter_separator {
+     height:10px;     
+}
+
+.twitter_more {
+     color:#000000;
+     text-align:center;
+     text-decoration:none;
+     font-family:"Arial", Times, serif;
+     font-style:normal;
+     font-size:12px;
+     font-weight:normal;
+     font-weight:bold;
+}
+
+

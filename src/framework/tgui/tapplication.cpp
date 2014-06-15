@@ -37,6 +37,7 @@
 
 TApplication::TApplication(int & argc, char ** argv) : QApplication(argc, argv)
 {
+    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TApplication()]";
@@ -44,6 +45,7 @@ TApplication::TApplication(int & argc, char ** argv) : QApplication(argc, argv)
             TINIT;
         #endif
     #endif
+    */
 
     QApplication::setEffectEnabled(Qt::UI_AnimateMenu, true);
     QApplication::setEffectEnabled(Qt::UI_AnimateCombo, true);
@@ -59,6 +61,7 @@ TApplication::~TApplication()
 {
     TCONFIG->sync();
 
+    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[~TApplication()]";
@@ -66,6 +69,7 @@ TApplication::~TApplication()
             TEND;
         #endif
     #endif
+    */
 }
 
 void TApplication::applyTheme(const QString &file)

@@ -72,10 +72,8 @@ class TUPI_EXPORT TupTwitterWidget : public QWidget
 
     private:
         void downLoadNews();
-
-        QSplitter *m_separator;
-        QTextBrowser *m_pageArea;
-        QTextDocument *m_document;
+        struct Private;
+        Private *const k;
 };
 
 #endif

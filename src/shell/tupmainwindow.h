@@ -65,14 +65,12 @@
 #include "tupnetprojectmanagerhandler.h"
 
 #ifdef K_DEBUG
-
 #ifdef Q_OS_WIN32
 #include <QDebug>
 #else
 #include "tdebug.h"
 #include "tupdebugwidget.h"
 #endif
-
 #endif
 
 #include <QMainWindow>

@@ -50,13 +50,13 @@
 #include <QDomDocument>
 #include <QEventLoop>
 
-class TUPI_EXPORT Tupwitter : public QWidget
+class TUPI_EXPORT TupTwitter : public QWidget
 {
     Q_OBJECT
 
     public:
-        Tupwitter(QWidget *parent=0);
-        ~Tupwitter();
+        TupTwitter(QWidget *parent=0);
+        ~TupTwitter();
         void start();
 
     private slots:
@@ -70,10 +70,9 @@ class TUPI_EXPORT Tupwitter : public QWidget
         void requestFile(QString target);
         void checkSoftwareUpdates(QByteArray array);
         void formatStatus(QByteArray array);
-        void loadTwitterMeaning();
 
-        static QString TWITTER_HOST;
-        static QString IS_TWITTER_UP_URL;
+        static QString NEWS_HOST;
+        static QString IS_HOST_UP_URL;
         static QString USER_TIMELINE_URL;
         static QString TUPI_VERSION_URL;
         static QString BROWSER_FINGERPRINT;

@@ -35,24 +35,39 @@
 
 #include "tuptwitterwidget.h"
 
-// Twitter Widget 
+struct TupTwitterWidget::Private
+{
+    QSplitter *separator;
+    QTextBrowser *pageArea;
+    QTextDocument *document;
+};
 
-TupTwitterWidget::TupTwitterWidget(QWidget *parent) : QWidget(parent)
+TupTwitterWidget::TupTwitterWidget(QWidget *parent) : QWidget(parent), k(new Private)
 {
     setWindowTitle(tr("News!"));
     setWindowIcon(QIcon(QPixmap(THEME_DIR + "icons/news_mode.png")));
 
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->setMargin(15);
-    m_separator = new QSplitter(this);
-    layout->addWidget(m_separator);
+    k->separator = new QSplitter(this);
+    layout->addWidget(k->separator);
 
-    m_pageArea = new QTextBrowser(m_separator);
-    m_pageArea->setOpenExternalLinks(true);
+    QStringList path;
+#ifdef Q_OS_WIN32
+    QString resources = SHARE_DIR + "help" + QDir::separator();
+#else
+    QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+#endif
+    path << resources + "css";
+    path << resources + "images";
 
-    m_document = new QTextDocument(m_pageArea);
+    k->pageArea = new QTextBrowser(k->separator);
+    k->pageArea->setSearchPaths(path);
+    k->pageArea->setOpenExternalLinks(true);
 
-    m_pageArea->setDocument(m_document);
+    k->document = new QTextDocument(k->pageArea);
+
+    k->pageArea->setDocument(k->document);
 }
 
 TupTwitterWidget::~TupTwitterWidget()
@@ -68,12 +83,12 @@ TupTwitterWidget::~TupTwitterWidget()
 
 void TupTwitterWidget::setDocument(const QString &doc)
 {
-    m_document->setHtml(doc);
+    k->document->setHtml(doc);
 }
 
 void TupTwitterWidget::setSource(const QString &filePath)
 {
-    m_pageArea->setSource(filePath);
+    k->pageArea->setSource(filePath);
 }
 
 void TupTwitterWidget::keyPressEvent(QKeyEvent * event) {
@@ -88,12 +103,12 @@ void TupTwitterWidget::keyPressEvent(QKeyEvent * event) {
 void TupTwitterWidget::downLoadNews()
 {
     // Downloading maefloresta Twitter status
-    Tupwitter *tuptwitter = new Tupwitter();
-    connect(tuptwitter, SIGNAL(pageReady()), this, SLOT(reload()));
-    tuptwitter->start();
+    TupTwitter *twitter = new TupTwitter();
+    connect(twitter, SIGNAL(pageReady()), this, SLOT(reload()));
+    twitter->start();
 }
 
 void TupTwitterWidget::reload()
 {
-    m_pageArea->reload(); 
+    k->pageArea->reload(); 
 }
