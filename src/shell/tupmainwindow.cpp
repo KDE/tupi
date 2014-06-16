@@ -343,6 +343,7 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
         if (!file.exists()) {
             #ifdef Q_OS_WIN32
                 helpPath = SHARE_DIR + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
+				helpPath.replace("/","\\");
             #else
                 helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
             #endif
@@ -353,7 +354,10 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
 
         QString twitterPath = QDir::homePath() + QDir::separator() + "." + QCoreApplication::applicationName() 
                               + QDir::separator() + "twitter.html";
-
+        #ifdef Q_OS_WIN32
+            twitterPath.replace("/", "\\");
+        #endif
+			  
         if (QFile::exists(twitterPath)) {
             #ifdef K_DEBUG
                 QString msg = "TupMainWindow::setWorkSpace() - Loading page -> " + twitterPath;

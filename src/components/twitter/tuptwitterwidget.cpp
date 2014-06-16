@@ -52,21 +52,8 @@ TupTwitterWidget::TupTwitterWidget(QWidget *parent) : QWidget(parent), k(new Pri
     k->separator = new QSplitter(this);
     layout->addWidget(k->separator);
 
-    QStringList path;
-#ifdef Q_OS_WIN32
-    QString resources = SHARE_DIR + "help" + QDir::separator();
-#else
-    QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
-#endif
-    path << resources + "css";
-    path << resources + "images";
-
     k->pageArea = new QTextBrowser(k->separator);
-    k->pageArea->setSearchPaths(path);
-    k->pageArea->setOpenExternalLinks(true);
-
     k->document = new QTextDocument(k->pageArea);
-
     k->pageArea->setDocument(k->document);
 }
 
@@ -81,14 +68,20 @@ TupTwitterWidget::~TupTwitterWidget()
     #endif
 }
 
-void TupTwitterWidget::setDocument(const QString &doc)
-{
-    k->document->setHtml(doc);
-}
-
 void TupTwitterWidget::setSource(const QString &filePath)
 {
-    k->pageArea->setSource(filePath);
+    QStringList path;
+#ifdef Q_OS_WIN32
+    QString resources = SHARE_DIR + "help" + QDir::separator();
+#else
+    QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+#endif
+
+    path << resources + "css";
+    path << resources + "images";
+    k->pageArea->setSearchPaths(path);
+    k->pageArea->setOpenExternalLinks(true);
+    k->pageArea->setSource(QUrl::fromLocalFile(filePath));
 }
 
 void TupTwitterWidget::keyPressEvent(QKeyEvent * event) {

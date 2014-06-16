@@ -61,7 +61,6 @@ class TUPI_EXPORT TupTwitterWidget : public QWidget
         ~TupTwitterWidget();
 
     public slots:
-        void setDocument(const QString &doc);
         void setSource(const QString &filePath);
 
     private slots: 

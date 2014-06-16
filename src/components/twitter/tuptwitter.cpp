@@ -251,24 +251,16 @@ void TupTwitter::checkSoftwareUpdates(QByteArray array)
 void TupTwitter::formatStatus(QByteArray array)
 {
     QString tweets = QString(array);
-    QString output = "";
-    QString name = "";
-    QString description = "";
-    QString website = "";
-    QString followers = "";
-    QString image = "";
-
     QString html = "";
 
-    html += "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n";
     html += "<html>\n";
     html += "<head>\n";
     html += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n";
-    html += "<link rel=\"stylesheet\" type=\"text/css\" href=\"tupi.css\">\n";
+    html += "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:tupi.css\">\n";
     html += "</head>\n";
     html += "<body class=\"twitter_white\">\n";
     html += "<div class=\"tupi_background1\">";
-    html += "<center><img src=\"twitter01.png\" alt=\"maefloresta\"/></center>\n";
+    html += "<center><img src=\"file:twitter01.png\" alt=\"maefloresta\"/></center>\n";
     html += "<div class=\"twitter_headline\"><center>&nbsp;&nbsp;@maefloresta</center></div>\n";
     QString css = "twitter_tupi_version";  
     if (k->update)
