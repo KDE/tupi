@@ -1,5 +1,5 @@
 set TUPI_HOME=c:\Kartoon
-set PATH=c:\libav\bin;c:\Kartoon\lib;c:\Kartoon\lib\qt5
+set PATH=c:\Kartoon\lib;c:\Kartoon\lib\qt5;c:\Kartoon\lib\ffmpeg
 set TUPI_SHARE=c:\Kartoon\data
 set TUPI_PLUGIN=c:\Kartoon\plugins
 tupi.exe
