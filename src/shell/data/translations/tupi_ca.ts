@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ca" sourcelanguage="en_US">
+<TS version="2.1" language="ca" sourcelanguage="en_US">
 <context>
     <name>ButtonsPanel</name>
     <message>
@@ -81,17 +81,6 @@
     <message>
         <source>Shear Tween</source>
         <translation>Tall de la interpolació</translation>
-    </message>
-</context>
-<context>
-    <name>ContourSelection</name>
-    <message>
-        <source>Line Selection</source>
-        <translation>Selecció de línia</translation>
-    </message>
-    <message>
-        <source>N</source>
-        <translation>N</translation>
     </message>
 </context>
 <context>
@@ -204,13 +193,6 @@
     </message>
 </context>
 <context>
-    <name>GenericExportPlugin</name>
-    <message>
-        <source>Image Array</source>
-        <translation>Matriu d&apos;imatge</translation>
-    </message>
-</context>
-<context>
     <name>GeometricTool</name>
     <message>
         <source>Rectangle</source>
@@ -238,14 +220,17 @@
     </message>
 </context>
 <context>
+    <name>ImagePlugin</name>
+    <message>
+        <source>Image Array</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>InfoPanel</name>
     <message>
         <source>Tips</source>
         <translation>Consells</translation>
-    </message>
-    <message>
-        <source>Mouse Double Click</source>
-        <translation>Doble clic del ratolí</translation>
     </message>
     <message>
         <source>Close the line path</source>
@@ -275,6 +260,10 @@
         <source>X key or Right mouse button</source>
         <translation>Tecla X o botó dret del ratolí</translation>
     </message>
+    <message>
+        <source>Mouse Right Click</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InkTool</name>
@@ -295,6 +284,17 @@
     </message>
 </context>
 <context>
+    <name>NodesTool</name>
+    <message>
+        <source>Line Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N</source>
+        <translation type="unfinished">N</translation>
+    </message>
+</context>
+<context>
     <name>PencilTool</name>
     <message>
         <source>Pencil</source>
@@ -306,14 +306,14 @@
     </message>
 </context>
 <context>
-    <name>PolyLine</name>
+    <name>PolyLineTool</name>
     <message>
         <source>PolyLine</source>
-        <translation>Polilínia</translation>
+        <translation type="unfinished">Polilínia</translation>
     </message>
     <message>
         <source>S</source>
-        <translation>S</translation>
+        <translation type="unfinished">S</translation>
     </message>
 </context>
 <context>
@@ -524,18 +524,18 @@
     </message>
 </context>
 <context>
-    <name>SelectTool</name>
+    <name>SelectionTool</name>
     <message>
-        <source>Select</source>
-        <translation>Selecciona</translation>
+        <source>Selection</source>
+        <translation type="unfinished">Selecció</translation>
     </message>
     <message>
         <source>Object Selection</source>
-        <translation>Selecciona objectes</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>O</source>
-        <translation>O</translation>
+        <translation type="unfinished">O</translation>
     </message>
 </context>
 <context>
@@ -1076,6 +1076,10 @@
         <source>Can&apos;t create pictures directory</source>
         <translation>No s&apos;ha pogut crear el directori imatges</translation>
     </message>
+    <message>
+        <source>Close manager</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TupCameraBar</name>
@@ -1205,6 +1209,10 @@
         <source>Can&apos;t create pictures directory</source>
         <translation>No s&apos;ha pogut crear el directori imatges</translation>
     </message>
+    <message>
+        <source>Close manager</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TupCameraStatus</name>
@@ -1250,6 +1258,25 @@
     <message>
         <source>Size</source>
         <translation>Mida</translation>
+    </message>
+</context>
+<context>
+    <name>TupCameraWindow</name>
+    <message>
+        <source>General Camera error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera invalid request error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera service missing error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera not supported error</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3234,10 +3261,6 @@ Contacta amb l&apos;administrador del servidor d&apos;animació per obtenir acc�
 <context>
     <name>TupPaintAreaBase</name>
     <message>
-        <source>OpenGL isn&apos;t supported</source>
-        <translation>Sense suport per OpenGL</translation>
-    </message>
-    <message>
         <source>Locked!</source>
         <translation>Bloquejat!</translation>
     </message>
@@ -3964,6 +3987,25 @@ Contacta amb l&apos;administrador del servidor d&apos;animació per obtenir acc�
     </message>
 </context>
 <context>
+    <name>TupTwitter</name>
+    <message>
+        <source>Latest version</source>
+        <translation type="unfinished">Última versió</translation>
+    </message>
+    <message>
+        <source>Revision</source>
+        <translation type="unfinished">Revisió</translation>
+    </message>
+    <message>
+        <source>Code Name</source>
+        <translation type="unfinished">Nom en clau</translation>
+    </message>
+    <message>
+        <source>It&apos;s time to upgrade! Click here!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TupTwitterWidget</name>
     <message>
         <source>News!</source>
@@ -4002,45 +4044,6 @@ Contacta amb l&apos;administrador del servidor d&apos;animació per obtenir acc�
     <message>
         <source>Information Temporarily Unavailable</source>
         <translation>Informació no disponible temporalment</translation>
-    </message>
-</context>
-<context>
-    <name>Tupwitter</name>
-    <message>
-        <source>Latest version</source>
-        <translation>Última versió</translation>
-    </message>
-    <message>
-        <source>Revision</source>
-        <translation>Revisió</translation>
-    </message>
-    <message>
-        <source>Code Name</source>
-        <translation>Nom en clau</translation>
-    </message>
-    <message>
-        <source>Update here!</source>
-        <translation>Actualitza aquí!</translation>
-    </message>
-    <message>
-        <source>This is what&apos;s happening</source>
-        <translation>Això és el que està passant</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Nom</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation>Descripció</translation>
-    </message>
-    <message>
-        <source>Website</source>
-        <translation>Lloc web</translation>
-    </message>
-    <message>
-        <source>Followers</source>
-        <translation>Seguidors</translation>
     </message>
 </context>
 <context>

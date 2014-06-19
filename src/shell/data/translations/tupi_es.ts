@@ -3987,6 +3987,25 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
 </context>
 <context>
+    <name>TupTwitter</name>
+    <message>
+        <source>Latest version</source>
+        <translation type="unfinished">Última versión</translation>
+    </message>
+    <message>
+        <source>Revision</source>
+        <translation type="unfinished">Revisión</translation>
+    </message>
+    <message>
+        <source>Code Name</source>
+        <translation type="unfinished">Nombre código</translation>
+    </message>
+    <message>
+        <source>It&apos;s time to upgrade! Click here!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TupTwitterWidget</name>
     <message>
         <source>News!</source>
@@ -4025,45 +4044,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Information Temporarily Unavailable</source>
         <translation>Información Temporalmente No Disponible</translation>
-    </message>
-</context>
-<context>
-    <name>Tupwitter</name>
-    <message>
-        <source>Latest version</source>
-        <translation>Última versión</translation>
-    </message>
-    <message>
-        <source>Revision</source>
-        <translation>Revisión</translation>
-    </message>
-    <message>
-        <source>Code Name</source>
-        <translation>Nombre código</translation>
-    </message>
-    <message>
-        <source>Update here!</source>
-        <translation>Actualiza aquí!</translation>
-    </message>
-    <message>
-        <source>This is what&apos;s happening</source>
-        <translation>Esto es lo que está sucediendo</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Nombre</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation>Descripción</translation>
-    </message>
-    <message>
-        <source>Website</source>
-        <translation>Sitio Web</translation>
-    </message>
-    <message>
-        <source>Followers</source>
-        <translation>Seguidores</translation>
     </message>
 </context>
 <context>
