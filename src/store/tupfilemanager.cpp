@@ -259,17 +259,14 @@ bool TupFileManager::load(const QString &fileName, TupProject *project)
                 QString msg1 = "TupFileManager::load() - Error while open .tpp file. Name: " + pfile.fileName();
                 QString msg2 = "TupFileManager::load() - Path: " + projectDir.path();
                 QString msg3 = "TupFileManager::load() - Error Description: " + pfile.errorString(); 
-                QString msg4 = "TupFileManager::load() - Error type: " + pfile.error();
                 #ifdef Q_OS_WIN32
                     qDebug() << msg1;
                     qDebug() << msg2;
                     qDebug() << msg3;
-                    qDebug() << msg4;
                 #else
                     tError() << msg1;
                     tError() << msg2;
                     tError() << msg3;
-                    tError() << msg4;
                 #endif
             #endif
 

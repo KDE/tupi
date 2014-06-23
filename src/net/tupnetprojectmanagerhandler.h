@@ -33,8 +33,8 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPNETPROJECTMANAGER_H
-#define TUPNETPROJECTMANAGER_H
+#ifndef TUPNETPROJECTMANAGERHANDLER_H
+#define TUPNETPROJECTMANAGERHANDLER_H
 
 #include "tglobal.h"
 #include "tupabstractprojectmanagerhandler.h"

@@ -138,7 +138,7 @@ void TupProjectCommand::initText()
             default:
              {				  
                  #ifdef K_DEBUG
-                     QString msg = "TProjectCommand::initText() - Error: can't handle ID: " + k->response->part();
+                     QString msg = "TProjectCommand::initText() - Error: can't handle ID: " + QString::number(k->response->part());
                      #ifdef Q_OS_WIN32
                          qDebug() << msg;
                      #else

@@ -493,7 +493,7 @@ QDomElement TupItemTweener::toXml(QDomDocument &doc) const
 {
     #ifdef K_DEBUG
         QString msg1 = "TupItemTweener::toXml() - Saving tween: " + k->name;
-        QString msg2 = "TupItemTweener::toXml() - Type: " + k->type;
+        QString msg2 = "TupItemTweener::toXml() - Type: " + QString::number(k->type);
         #ifdef Q_OS_WIN32
            qWarning() << msg1;
            qWarning() << msg2;

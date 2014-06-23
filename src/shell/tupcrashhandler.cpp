@@ -42,7 +42,8 @@ TupCrashHandler *TupCrashHandler::m_instance = 0;
 
 void crashTrapper(int sig);
 
-TupCrashHandler::TupCrashHandler() : m_verbose(false)
+// TupCrashHandler::TupCrashHandler() : m_verbose(false)
+TupCrashHandler::TupCrashHandler()
 {
     m_program = QCoreApplication::applicationName();
     setTrapper(crashTrapper);

@@ -60,7 +60,7 @@ TupGraphicLibraryItem::~TupGraphicLibraryItem()
     delete k;
 }
 
-TupLibraryObject::Type TupGraphicLibraryItem::type()
+TupLibraryObject::Type TupGraphicLibraryItem::itemType()
 {
     return k->itemType;
 }

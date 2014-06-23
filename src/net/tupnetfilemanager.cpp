@@ -47,7 +47,7 @@ TupNetFileManager::~TupNetFileManager()
 {
 }
 
-bool TupNetFileManager::save(const QString &_filename, const TupProject *project)
+bool TupNetFileManager::save(const QString &_filename, TupProject *project)
 {
     QString filename = _filename;
     

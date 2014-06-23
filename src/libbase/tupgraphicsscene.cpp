@@ -186,7 +186,7 @@ void TupGraphicsScene::drawCurrentPhotogram()
     // } else if (k->spaceMode == TupProject::STATIC_BACKGROUND_EDITION) {
     } else {
         cleanWorkSpace();
-        drawBackground(k->framePosition.frame);
+        drawSceneBackground(k->framePosition.frame);
     }
 }
 
@@ -228,7 +228,7 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                      if (layer->isVisible()) {
 
                          // Painting the background
-                         drawBackground(photogram);
+                         drawSceneBackground(photogram);
 
                          // Painting previews frames
                          if (drawContext) {
@@ -311,12 +311,12 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
         k->tool->updateScene(this);
 }
 
-void TupGraphicsScene::drawBackground(int photogram)
+void TupGraphicsScene::drawSceneBackground(int photogram)
 {
     /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
-            qDebug() << "[TupGraphicsScene::drawBackground()]";
+            qDebug() << "[TupGraphicsScene::drawSceneBackground()]";
         #else
             T_FUNCINFO;
         #endif
@@ -337,7 +337,7 @@ void TupGraphicsScene::drawBackground(int photogram)
                     addFrame(frame, 1.0);
             } else {
                 #ifdef K_DEBUG
-                    QString msg = "TupGraphicsScene::drawBackground() - Dynamic background frame is empty";
+                    QString msg = "TupGraphicsScene::drawSceneBackground() - Dynamic background frame is empty";
                     #ifdef Q_OS_WIN32
                         qWarning() << msg;
                     #else
@@ -355,7 +355,7 @@ void TupGraphicsScene::drawBackground(int photogram)
                        addItem(item);
                    } else {
                        #ifdef K_DEBUG
-                           QString msg = "TupGraphicsScene::drawBackground() - Dynamic background frame is empty";
+                           QString msg = "TupGraphicsScene::drawSceneBackground() - Dynamic background frame is empty";
                            #ifdef Q_OS_WIN32
                                qWarning() << msg;
                            #else
@@ -383,7 +383,7 @@ void TupGraphicsScene::drawBackground(int photogram)
                     addFrame(frame, 1.0);
             } else {
                 #ifdef K_DEBUG
-                    QString msg = "TupGraphicsScene::drawBackground() - Static background frame is empty";
+                    QString msg = "TupGraphicsScene::drawSceneBackground() - Static background frame is empty";
                     #ifdef Q_OS_WIN32
                         qWarning() << msg;
                     #else
@@ -1049,7 +1049,7 @@ void TupGraphicsScene::setCurrentScene(TupScene *scene)
     if (k->spaceMode == TupProject::FRAMES_EDITION) {
         drawCurrentPhotogram();
     } else if (k->spaceMode == TupProject::STATIC_BACKGROUND_EDITION) {
-               drawBackground(k->framePosition.frame);
+               drawSceneBackground(k->framePosition.frame);
     }
 }
 
@@ -1106,7 +1106,7 @@ void TupGraphicsScene::setTool(TupToolPlugin *tool)
         drawCurrentPhotogram();
     } else {
         cleanWorkSpace();
-        drawBackground(k->framePosition.frame);
+        drawSceneBackground(k->framePosition.frame);
     }
 
     /* SQA: Code under revision

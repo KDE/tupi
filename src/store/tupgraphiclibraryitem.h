@@ -56,7 +56,7 @@ class TUPI_EXPORT TupGraphicLibraryItem : public TupProxyItem, public TupAbstrac
         TupGraphicLibraryItem(TupLibraryObject *object);
         ~TupGraphicLibraryItem();
 
-        TupLibraryObject::Type type();
+        TupLibraryObject::Type itemType();
         
         QDomElement toXml(QDomDocument &doc) const;
         void fromXml(const QString &xml);

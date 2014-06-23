@@ -35,7 +35,7 @@
 
 #include "tupchat.h"
 
-class TupChat::Private
+struct TupChat::Private
 {
     public:
         Private()

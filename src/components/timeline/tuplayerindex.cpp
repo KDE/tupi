@@ -35,7 +35,7 @@
 
 #include "tuplayerindex.h"
 
-const int LAYER_COLUMN = 0;
+// const int LAYER_COLUMN = 0;
 
 // Header
 

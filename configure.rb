@@ -57,6 +57,7 @@ Use: ./configure [options]
   --sharedir=[path]:    Set data path [/usr/share]
   --with-libav=[path]: Set libav installation path [/usr]
   --with-quazip=[path]: Set quazip installation path [/usr]
+  --with-theora=[path]: Set theora installation path [/usr]
   --without-libav:     Disable libav support
   --without-debug:      Disable debug
   --with-qtdir=[path]:  Set Qt directory [i.e. /usr/local/qt]
@@ -112,6 +113,19 @@ _EOH_
           config.addIncludePath(quazipInclude)
        else
           Info.error << " ERROR: quazip directory does not exist!\n"
+          exit 0
+       end
+    end
+
+    if conf.hasArgument?("with-theora")
+       theoraDir = conf.argumentValue("with-theora")
+       if File.directory? theoraDir
+          theoraLib = theoraDir + "/lib"
+          theoraInclude = theoraDir + "/include"
+          config.addLib("-L" + theoraLib)
+          config.addIncludePath(theoraInclude)
+       else
+          Info.error << " ERROR: theora directory does not exist!\n"
           exit 0
        end
     end

@@ -122,7 +122,7 @@ bool TupPaletteParser::startTag(const QString &tag, const QXmlAttributes &atts)
                            default:
                              {
                                #ifdef K_DEBUG
-                                   QString msg = "TupPaletteParser::startTag() - No gradient type: " + type;
+                                   QString msg = "TupPaletteParser::startTag() - No gradient type: " + QString::number(type);
                                    #ifdef Q_OS_WIN32
                                        qDebug() << msg;
                                    #else

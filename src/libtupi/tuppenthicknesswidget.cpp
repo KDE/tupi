@@ -103,7 +103,8 @@ void TupPenThicknessWidget::paintEvent(QPaintEvent *)
      painter.fillRect(0, 0, width(), height(), QColor(255, 255, 255));
 
      QPen border(QColor(0, 0, 0));
-     border.setWidth(0.5);
+     // border.setWidth(0.5);
+     border.setWidth(1);
      painter.setPen(border);
      painter.drawRect(0, 0, width(), height());
 

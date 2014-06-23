@@ -16,13 +16,13 @@ LIBS += -ltheora -ltheoraenc -ltheoradec -logg
 INCLUDEPATH += ../../../libbase
 INCLUDEPATH += ../../../store
 INCLUDEPATH += ../../../libtupi
-LIBS += -L../../../libbase
-LIBS += -L../../../store
-LIBS += -L../../../libtupi
+LIBS += -L../../../libbase -ltupibase
+LIBS += -L../../../store -ltupistore 
+LIBS += -L../../../libtupi -ltupi
 
 FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
-include(../export_config.pri)
+# include(../export_config.pri)
 
 unix {
     !include(../../../../tupiglobal.pri) {

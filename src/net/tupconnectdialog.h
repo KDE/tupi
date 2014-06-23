@@ -81,7 +81,7 @@ class TUPI_EXPORT TupConnectDialog : public QDialog
         void saveSettings();
         
     private:
-        class Private;
+        struct Private;
         Private *const k;
 };
 

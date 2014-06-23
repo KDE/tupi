@@ -214,7 +214,7 @@ void TupLibraryObject::fromXml(const QString &xml)
                 default:
                      {
                          #ifdef K_DEBUG
-                             QString msg = "TupLibraryObject::fromXml() - Unknown object type: " + k->type;
+                             QString msg = "TupLibraryObject::fromXml() - Unknown object type: " + QString::number(k->type);
                              #ifdef Q_OS_WIN32
                                  qWarning() << msg;
                              #else
@@ -396,7 +396,7 @@ bool TupLibraryObject::loadData(const QString &path)
                          QByteArray array = file.readAll(); 
                          #ifdef K_DEBUG
                              QString msg1 = "TupLibraryObject::loadData() - Object path: " + path;
-                             QString msg2 = "TupLibraryObject::loadData() - Object size: " + array.size();
+                             QString msg2 = "TupLibraryObject::loadData() - Object size: " + QString::number(array.size());
                              #ifdef Q_OS_WIN32
                                  qWarning() << msg1;
                                  qWarning() << msg2;

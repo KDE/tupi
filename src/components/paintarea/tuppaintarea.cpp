@@ -320,7 +320,7 @@ void TupPaintArea::frameResponse(TupFrameResponse *event)
                             guiScene->drawPhotogram(event->frameIndex(), true);
                         } else {
                             guiScene->cleanWorkSpace();
-                            guiScene->drawBackground(guiScene->currentFrameIndex());
+                            guiScene->drawSceneBackground(guiScene->currentFrameIndex());
                         }
 
                         if (guiScene->currentTool()->toolType() == TupToolInterface::Selection)
@@ -387,7 +387,7 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
             guiScene->drawCurrentPhotogram();
         } else {
             guiScene->cleanWorkSpace();
-            guiScene->drawBackground(frameIndex);
+            guiScene->drawSceneBackground(frameIndex);
         }
 
         viewport()->update(scene()->sceneRect().toRect());
@@ -405,7 +405,7 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
                     guiScene->drawCurrentPhotogram();
                 } else {
                     guiScene->cleanWorkSpace();
-                    guiScene->drawBackground(frameIndex);
+                    guiScene->drawSceneBackground(frameIndex);
                 }
             } else {
                 if (scene->layersTotal() == 1) {
@@ -417,7 +417,7 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
                         guiScene->drawCurrentPhotogram();
                     } else {
                         guiScene->cleanWorkSpace();
-                        guiScene->drawBackground(frameIndex);
+                        guiScene->drawSceneBackground(frameIndex);
                     }
                 } 
             }
@@ -536,7 +536,7 @@ void TupPaintArea::itemResponse(TupItemResponse *event)
                              guiScene->drawCurrentPhotogram();
                          } else {
                              guiScene->cleanWorkSpace();
-                             guiScene->drawBackground(guiScene->currentFrameIndex());
+                             guiScene->drawSceneBackground(guiScene->currentFrameIndex());
                          }
 
                          viewport()->update(scene()->sceneRect().toRect());
@@ -550,7 +550,7 @@ void TupPaintArea::itemResponse(TupItemResponse *event)
                         guiScene->drawCurrentPhotogram();
                      } else {
                         guiScene->cleanWorkSpace();
-                        guiScene->drawBackground(guiScene->currentFrameIndex());
+                        guiScene->drawSceneBackground(guiScene->currentFrameIndex());
                      }
 
                      viewport()->update(scene()->sceneRect().toRect());
@@ -603,7 +603,7 @@ void TupPaintArea::libraryResponse(TupLibraryResponse *request)
                              guiScene->drawCurrentPhotogram();
                          } else {
                              guiScene->cleanWorkSpace();
-                             guiScene->drawBackground(frameIndex);
+                             guiScene->drawSceneBackground(frameIndex);
                          }
 
                          viewport()->update(scene()->sceneRect().toRect());
@@ -619,7 +619,7 @@ void TupPaintArea::libraryResponse(TupLibraryResponse *request)
                              guiScene->drawCurrentPhotogram();
                          } else {
                              guiScene->cleanWorkSpace();
-                             guiScene->drawBackground(frameIndex);
+                             guiScene->drawSceneBackground(frameIndex);
                          }
 
                          viewport()->update(scene()->sceneRect().toRect());
@@ -1269,7 +1269,7 @@ void TupPaintArea::paintBackground()
 
     TupGraphicsScene* currentScene = graphicsScene();
     currentScene->cleanWorkSpace();
-    currentScene->drawBackground(currentScene->currentFrameIndex());
+    currentScene->drawSceneBackground(currentScene->currentFrameIndex());
 }
 
 void TupPaintArea::setCurrentTool(QString tool) 

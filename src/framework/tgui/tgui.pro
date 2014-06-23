@@ -165,6 +165,6 @@ win32 {
     INCLUDEPATH += ..\tcore
 }
 
-macx {
-    LIBS += -lavcodec -lavformat -lavutil 
-}
+# macx {
+#    LIBS += -lavcodec -lavformat -lavutil 
+# }

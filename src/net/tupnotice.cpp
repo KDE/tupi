@@ -35,7 +35,7 @@
 
 #include "tupnotice.h"
 
-class TupNotice::Private
+struct TupNotice::Private
 {
     public:
         Private()

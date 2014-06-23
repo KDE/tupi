@@ -277,7 +277,7 @@ bool TupCameraWidget::handleProjectResponse(TupProjectResponse *response)
             default:
             {
                  #ifdef K_DEBUG
-                     QString msg = "TupCameraWidget::handleProjectResponse() - Unknown/Unhandled project action: " + sceneResponse->action();
+                     QString msg = "TupCameraWidget::handleProjectResponse() - Unknown/Unhandled project action: " + QString::number(sceneResponse->action());
                      #ifdef Q_OS_WIN32
                          qDebug() << msg;
                      #else

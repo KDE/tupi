@@ -33,7 +33,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPAINTAREACOMMAND_H
+#ifndef TUPPAINTAREACOMMAND_H
 #define TUPPAINTAREACOMMAND_H
 
 #include "tglobal.h"

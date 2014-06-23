@@ -33,7 +33,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPVIDEOEXPORTTPACKAGE_H
+#ifndef TUPVIDEOEXPORTPACKAGE_H
 #define TUPVIDEOEXPORTPACKAGE_H
 
 #include "tglobal.h"

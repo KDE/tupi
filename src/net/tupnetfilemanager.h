@@ -61,7 +61,8 @@ class TUPI_EXPORT TupNetFileManager : public TupFileManager
         TupNetFileManager(const QString &server, int port);
         ~TupNetFileManager();
         
-        virtual bool save(const QString &filename, const TupProject *project);
+        // virtual bool save(const QString &filename, const TupProject *project);
+        virtual bool save(const QString &filename, TupProject *project);
         virtual bool load(const QString &filename, TupProject *project);
         
         TupNetProjectManagerParams *params(const QString &filename);

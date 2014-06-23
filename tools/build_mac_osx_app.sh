@@ -38,6 +38,9 @@
 #Usage:
 # ./tools/build_mac_osx_app.sh /Users/username/Projects/tupi /Users/username/Projects/dist
 
+export PATH=/Users/parquesoft/Qt5.3.0/5.3/clang_64/bin:$PATH
+export DYLD_LIBRARY_PATH=/usr/local/lib:$DYLD_LIBRARY_PATH
+
 TUPI_GIT_REPOSITORY=$1
 TUPI_INSTALL=$2
 INSTALL_NAME=$TUPI_GIT_REPOSITORY/tools/update_dylib_path.rb
@@ -48,7 +51,7 @@ declare -a LIBS=('libtupigui.dylib' 'libtupistore.dylib' 'libtupi.dylib' \
 
 cd $TUPI_GIT_REPOSITORY
 
-make uninstall
+# make uninstall
 make install
 
 cd $TUPI_INSTALL
@@ -67,17 +70,16 @@ for lib in ${LIBS[@]}; do
     find . -name "*.dylib" -exec $INSTALL_NAME $TUPI_INSTALL/Tupi.app/Contents/MacOS/plugins/{} $lib @executable_path/../Frameworks/$lib \;
 done
 
-
 cd $TUPI_INSTALL/Tupi.app/Contents/MacOS
 
 for lib in ${LIBS[@]}; do
     $INSTALL_NAME $TUPI_INSTALL/Tupi.app/Contents/MacOS/Tupi $lib @executable_path/../Frameworks/$lib  \;
 done
 
-cp -r /usr/local/Cellar/qt/4.8.3/lib/QtGui.framework/Versions/4/Resources/qt_menu.nib $TUPI_INSTALL/Tupi.app/Contents/Resources
+# cp -r /usr/local/Cellar/qt/4.8.3/lib/QtGui.framework/Versions/4/Resources/qt_menu.nib $TUPI_INSTALL/Tupi.app/Contents/Resources
+cp -r /Users/parquesoft/Qt5.3.0/MaintenanceTool.app/Contents/Resources/qt_menu.nib $TUPI_INSTALL/Tupi.app/Contents/Resources
 
 cd $TUPI_INSTALL
-
 
 mkdir Tupi.app/Contents/Frameworks/
 

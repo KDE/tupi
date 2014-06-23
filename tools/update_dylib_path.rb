@@ -43,7 +43,7 @@ libs = %x[otool -L #{library} |awk '{print $1}'|grep "#{oldpath}"]
 
 puts "---------------------------------------------"
 puts "Libs for: #{library}"
-libs.each do |line|
+libs.each_line do |line|
   parsed = line.chop().gsub(/#{oldpath}/, newpath)
   cmd = "install_name_tool -change #{line.chop()} #{parsed} #{library}"
   puts cmd

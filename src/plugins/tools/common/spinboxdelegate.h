@@ -51,13 +51,12 @@ class TUPI_EXPORT SpinBoxDelegate : public QItemDelegate
         QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,  const QModelIndex &index) const;
 
         void setEditorData(QWidget *editor, const QModelIndex &index) const;
-        void setModelData(QWidget *editor, QAbstractItemModel *model,
-                  const QModelIndex &index);
+        virtual void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
 
         void updateEditorGeometry(QWidget *editor,
                       const QStyleOptionViewItem &option, const QModelIndex &index) const;
     signals:
-        void dataUpdated();
+        void dataUpdated() const;
 };
 
 #endif

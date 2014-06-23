@@ -142,7 +142,7 @@ module RQonf
       Info.info << "Creating makefiles..." << $endl
 
       if RUBY_PLATFORM.downcase.include?("darwin")
-        qmakeLine = "'CONFIG += console warn_on' 'INCLUDEPATH += /usr/local/include/quazip LIBS += -L/usr/local/lib -lavcodec -lavutil -lavformat -framework CoreFoundation'"
+        qmakeLine = "'CONFIG += console warn_on' 'INCLUDEPATH += /opt/local/include LIBS += -L/opt/local/lib -lavcodec -lavutil -lavformat -framework CoreFoundation'"
         @qmake.run(qmakeLine, true)
       else
         @qmake.run("", true)
@@ -281,6 +281,11 @@ module RQonf
 
         unless @options['with-quazip'].nil? then
            value = @options['with-quazip']
+           path += value + "/lib:"
+        end
+
+        unless @options['with-theora'].nil? then
+           value = @options['with-theora']
            path += value + "/lib:"
         end
 

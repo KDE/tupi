@@ -79,7 +79,7 @@ class TUPI_EXPORT TupGraphicsScene : public QGraphicsScene
         void drawCurrentPhotogram();
         
         void drawPhotogram(int photogram, bool drawContext);
-        void drawBackground(int photogram);
+        void drawSceneBackground(int photogram);
 
         void cleanWorkSpace();
         void removeScene();

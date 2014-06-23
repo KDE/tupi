@@ -135,7 +135,7 @@ void TupNetProjectManagerHandler::handleProjectRequest(const TupProjectRequest* 
             k->socket->send(request->xml());
         } else {
             #ifdef K_DEBUG
-                QString msg = "TupNetProjectManagerHandler::handleProjectRequest() - INVALID REQUEST! ID: " + request->id();
+                QString msg = "TupNetProjectManagerHandler::handleProjectRequest() - INVALID REQUEST! ID: " + QString::number(request->id());
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
                 #else

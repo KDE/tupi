@@ -311,7 +311,7 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
                 default:
                    {
                      #ifdef K_DEBUG
-                         QString msg = "TupLibraryWidget::previewItem() - Unknown symbol id: " + object->type();
+                         QString msg = "TupLibraryWidget::previewItem() - Unknown symbol id: " + QString::number(object->type());
                          #ifdef Q_OS_WIN32
                              qDebug() << msg;
                          #else
@@ -1400,7 +1400,7 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
             default:
               {
                  #ifdef K_DEBUG
-                     QString msg = "TupLibraryWidget::libraryResponse() - Unknown/Unhandled project action: " + response->action();
+                     QString msg = "TupLibraryWidget::libraryResponse() - Unknown/Unhandled project action: " + QString::number(response->action());
                      #ifdef Q_OS_WIN32
                          qDebug() << msg;
                      #else

@@ -170,7 +170,7 @@ void TupExposureHeader::mousePressEvent(QMouseEvent * event)
         emitVisibilityChanged(section);
     } else {
         if (currentCol != section)
-            emit selectionChanged(section);
+            emit selectionHasChanged(section);
         QHeaderView::mousePressEvent(event);
     }
 }

@@ -110,7 +110,7 @@ class TupCrashHandler
         static TupCrashHandler *m_instance; // Singleton
         QString m_program;
         QString m_imagePath;
-        bool m_verbose;
+        // bool m_verbose;
 };
 
 #define CHANDLER TupCrashHandler::instance()

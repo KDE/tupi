@@ -1,7 +1,7 @@
 QT += opengl core gui svg xml network
 
 unix {
-    !include(../../../../tupiglobal.pri){
+    !include(../../../../tupiglobal.pri) {
         error("Please run configure first")
     }
 }
@@ -9,6 +9,10 @@ unix {
 win32 {
     include(../../../../win.pri)
     include(../../../../libav.win.pri)	
+}
+
+mac {
+    LIBS += -lavutil
 }
 
 INSTALLS += target
@@ -26,7 +30,7 @@ TARGET = tupilibavplugin
 
 FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)
-include(../export_config.pri)
+# include(../export_config.pri)
 
 LIBBASE_DIR = ../../../libbase
 STORE_DIR = ../../../store
