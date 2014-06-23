@@ -269,26 +269,26 @@ module RQonf
       newfile += "export TUPI_PLUGIN=\"" + launcher_libdir + "/plugins\"\n"
       newfile += "export TUPI_BIN=\"" + launcher_bindir + "\"\n\n"
 
+      path = ""
+      unless @options['with-libav'].nil? then
+        value = @options['with-libav']
+        path = value + "/lib:"
+      end
+
+      unless @options['with-quazip'].nil? then
+        value = @options['with-quazip']
+        path += value + "/lib:"
+      end
+
+      unless @options['with-theora'].nil? then
+        value = @options['with-theora']
+        path += value + "/lib:"
+      end
+
       if RUBY_PLATFORM.downcase.include?("darwin")
-        newfile += "export DYLD_FALLBACK_LIBRARY_PATH=\"\$\{TUPI_LIB\}:\$\{TUPI_PLUGIN\}:$DYLD_FALLBACK_LIBRARY_PATH\"\n\n"
+        newfile += "export DYLD_FALLBACK_LIBRARY_PATH=\"" + path + "\$\{TUPI_LIB\}:\$\{TUPI_PLUGIN\}:$DYLD_FALLBACK_LIBRARY_PATH\"\n\n"
         newfile += "open ${TUPI_BIN}/Tupi.app $*"
       else
-        path = ""
-        unless @options['with-libav'].nil? then
-           value = @options['with-libav']
-           path = value + "/lib:" 
-        end
-
-        unless @options['with-quazip'].nil? then
-           value = @options['with-quazip']
-           path += value + "/lib:"
-        end
-
-        unless @options['with-theora'].nil? then
-           value = @options['with-theora']
-           path += value + "/lib:"
-        end
-
         newfile += "export LD_LIBRARY_PATH=\"" + path + "\$\{TUPI_LIB\}:\$\{TUPI_PLUGIN\}:$LD_LIBRARY_PATH\"\n\n"
         newfile += "exec ${TUPI_BIN}/tupi.bin $*"
       end
