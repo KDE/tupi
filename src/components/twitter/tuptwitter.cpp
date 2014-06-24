@@ -260,8 +260,11 @@ void TupTwitter::formatStatus(QByteArray array)
     html += "</head>\n";
     html += "<body class=\"twitter_white\">\n";
     html += "<div class=\"tupi_background1\">";
-    html += "<center><img src=\"file:twitter01.png\" alt=\"maefloresta\"/></center>\n";
-    html += "<div class=\"twitter_headline\"><center>&nbsp;&nbsp;@maefloresta</center></div>\n";
+    // SQA: Pending to add these icons/links to the News page
+    // html += "<img src=\"file:twitter.png\" alt=\"Twitter\"/>\n";
+    // html += "<img src=\"file:facebook.png\" alt=\"Facebook\"/>\n";
+    html += "<center><img src=\"file:maefloresta.png\" alt=\"maefloresta\"/></center>\n";
+    html += "<div class=\"twitter_headline\"><center>&nbsp;&nbsp;@maefloresta</center></div></div>\n";
     QString css = "twitter_tupi_version";  
     if (k->update)
         css = "twitter_tupi_update"; 
@@ -274,7 +277,7 @@ void TupTwitter::formatStatus(QByteArray array)
     if (k->update)
         html += "&nbsp;&nbsp;&nbsp;<b>[</b> <a href=\"http://www.maefloresta.com\">" + tr("It's time to upgrade! Click here!") + "</a>  <b>]</b>"; 
 
-    html += "</center></div></div>\n";
+    html += "</center></div>\n";
     html += tweets;
     html += "</body>\n";
     html += "</html>";

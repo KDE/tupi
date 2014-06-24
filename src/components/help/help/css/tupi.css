@@ -248,10 +248,11 @@ a:hover {
 }
 
 .twitter_separator {
-     height:10px;     
+     height:2px;     
+     font-size:5px;
 }
 
-.twitter_more {
+.twitter_links {
      color:#000000;
      text-align:center;
      text-decoration:none;
