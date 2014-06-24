@@ -35,7 +35,7 @@
 
 #include "tmainwindow.h"
 
-class DefaultSettings : public TMainWindowAbstractSettings
+class T_GUI_EXPORT DefaultSettings : public TMainWindowAbstractSettings
 {
     public:
         DefaultSettings(QObject *parent);
