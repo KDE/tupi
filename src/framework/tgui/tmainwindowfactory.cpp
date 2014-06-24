@@ -38,14 +38,7 @@
 #include "tstackedmainwindow.h"
 #include "tworkspacemainwindow.h"
 
-#include <QDockWidget>
-#include <QToolBar>
-#include <QTabWidget>
-#include <QEvent>
-#include <QApplication>
-#include <QShowEvent>
-
-class EventFilter : public QObject
+class T_GUI_EXPORT EventFilter : public QObject
 {
     public:
         EventFilter(TMainWindow *mw, QObject *parent = 0);

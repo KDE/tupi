@@ -38,6 +38,13 @@
 
 #include "tglobal.h"
 
+#include <QDockWidget>
+#include <QToolBar>
+#include <QTabWidget>
+#include <QEvent>
+#include <QApplication>
+#include <QShowEvent>
+
 class TMainWindow;
 class QMainWindow;
 
