@@ -54,6 +54,15 @@ DefaultSettings::~DefaultSettings()
 
 void DefaultSettings::save(TMainWindow *w)
 {
+    #ifdef K_DEBUG
+            QString msg = "DefaultSettings::save() - Saving UI settings...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
+    #endif
+
     QSettings settings(qApp->applicationName(), "ideality", this);
 
     QHash<Qt::ToolBarArea, TButtonBar *> buttonBars = w->buttonBars();
@@ -93,7 +102,7 @@ void DefaultSettings::save(TMainWindow *w)
 void DefaultSettings::restore(TMainWindow *w)
 {
     #ifdef K_DEBUG
-	    QString msg = "Restoring Interface...";
+	    QString msg = "DefaultSettings::restore() - Restoring UI settings...";
         #ifdef Q_OS_WIN32
             qWarning() << msg;
         #else
@@ -396,8 +405,17 @@ Qt::DockWidgetArea TMainWindow::toDockWidgetArea(Qt::ToolBarArea area)
                }
                break;
             default: 
-                 qWarning("toDockWidgetArea: Floating... %d", area); 
-                 break;
+               {
+                   #ifdef K_DEBUG
+                       QString msg = "TMainWindow::toDockWidgetArea() - Floating -> " + QString::number(area);
+                       #ifdef Q_OS_WIN32
+                           qWarning() << msg;
+                       #else
+                           tWarning() << msg;
+                       #endif
+                   #endif
+               }
+               break;
     }
 
     return Qt::LeftDockWidgetArea;
@@ -427,8 +445,17 @@ Qt::ToolBarArea TMainWindow::toToolBarArea(Qt::DockWidgetArea area)
                }
                break;
             default: 
-                 qWarning("toToolBarArea: Floating... %d", area); 
-                 break;
+               {
+                 #ifdef K_DEBUG
+                     QString msg = "TMainWindow::toToolBarArea() - Floating -> " + QString::number(area);
+                     #ifdef Q_OS_WIN32
+                         qWarning() << msg;
+                     #else
+                         tWarning() << msg;
+                     #endif
+                 #endif
+               }
+               break;
     }
 
     return Qt::LeftToolBarArea;
