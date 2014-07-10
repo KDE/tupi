@@ -33,8 +33,8 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPSCENEMANAGER_H
-#define TUPSCENEMANAGER_H
+#ifndef TUPSCENE_H
+#define TUPSCENE_H
 
 #include "tglobal.h"
 #include "tupabstractserializable.h"
@@ -61,6 +61,7 @@ class TupSvgItem;
 class TupBackground;
 class TupItemTweener;
 
+typedef QList<TupFrame *> Frames;
 typedef QList<TupLayer *> Layers;
 typedef QList<TupSoundLayer *> SoundLayers;
 

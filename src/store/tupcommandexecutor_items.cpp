@@ -398,7 +398,7 @@ bool TupCommandExecutor::moveItem(TupItemResponse *response)
                         return true;
                     }
                 }
-            }
+            } 
         } else {
             TupBackground *bg = scene->background();
             if (bg) {

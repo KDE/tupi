@@ -42,7 +42,7 @@
 #include <QPainter>
 #include <QStyleOptionButton>
 #include <QMap>
-#include <QVector>
+#include <QList>
 #include <QItemDelegate>
 #include <QLineEdit>
 #include <QMouseEvent>
@@ -92,7 +92,7 @@ class TUPI_EXPORT TupExposureHeader: public QHeaderView
         virtual void mousePressEvent(QMouseEvent * event);
 
     private:
-        QVector<LayerItem> m_layers;
+        QList<LayerItem> m_layers;
         QLineEdit *m_editor;
         int m_sectionEdited;
         int m_blockSectionMoved;

@@ -137,16 +137,16 @@ TupLayer *TupScene::createLayer(QString name, int position, bool loaded)
 {
     // Q_CHECK_PTR(k->layers);
 
-    if (position < 0 || position > k->layers.count()) {		
-	    #ifdef K_DEBUG
+    if (position < 0 || position > k->layers.count()) {        
+        #ifdef K_DEBUG
             QString msg = "TupScene::createLayer() - Invalid index -> " + QString::number(position);
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
             #else
                 tError() << msg;
             #endif
-        #endif	
-		
+        #endif    
+        
         return 0;
     }
 
@@ -170,9 +170,9 @@ TupSoundLayer *TupScene::createSoundLayer(int position, bool loaded)
         #else
             T_FUNCINFO << position;
         #endif
-    #endif	
-	
-    if (position < 0 || position > k->soundLayers.count()) {	
+    #endif    
+    
+    if (position < 0 || position > k->soundLayers.count()) {    
         #ifdef K_DEBUG
             QString msg = "TupScene::createSoundLayer() - [ Fatal Error ] - Index incorrect!";
             #ifdef Q_OS_WIN32
@@ -180,7 +180,7 @@ TupSoundLayer *TupScene::createSoundLayer(int position, bool loaded)
             #else
                 tError() << msg;
             #endif
-        #endif		
+        #endif        
         return 0;
     }
 
@@ -231,19 +231,19 @@ TupLayer *TupScene::layer(int position) const
 {
     //if (position < 0 || position >= k->layers.count()) {
 
-    if (position < 0) {	
+    if (position < 0) {    
         #ifdef K_DEBUG
             QString msg1 = " FATAL ERROR: LAYERS TOTAL: " + QString::number(k->layers.count());
-			QString msg2 = " FATAL ERROR: index out of bound -> Position: " + QString::number(position);
-			QString msg3 = " FATAL ERROR: The layer requested doesn't exist anymore";
+            QString msg2 = " FATAL ERROR: index out of bound -> Position: " + QString::number(position);
+            QString msg3 = " FATAL ERROR: The layer requested doesn't exist anymore";
             #ifdef Q_OS_WIN32
                 qDebug() << msg1;
-				qDebug() << msg2;
-				qDebug() << msg3;
+                qDebug() << msg2;
+                qDebug() << msg3;
             #else
                 tError() << msg1;
-				tError() << msg2;
-				tError() << msg3;
+                tError() << msg2;
+                tError() << msg3;
             #endif
         #endif
         return 0;
@@ -256,13 +256,13 @@ TupSoundLayer *TupScene::soundLayer(int position) const
 {
     if (position < 0 || position >= k->soundLayers.count()) {
         #ifdef K_DEBUG
-		    QString msg = " FATAL ERROR: index out of bound " + QString::number(position);
-		    #ifdef Q_OS_WIN32
-			   qDebug() << msg;
-			#else
+            QString msg = " FATAL ERROR: index out of bound " + QString::number(position);
+            #ifdef Q_OS_WIN32
+               qDebug() << msg;
+            #else
                T_FUNCINFO << msg;
             #endif
-		#endif
+        #endif
         return 0;
     }
 
@@ -362,13 +362,38 @@ QDomElement TupScene::toXml(QDomDocument &doc) const
 
 bool TupScene::moveLayer(int from, int to)
 {
-    if (from < 0 || from >= k->layers.count() || to < 0 || to >= k->layers.count())
+    if (from < 0 || from >= k->layers.count() || to < 0 || to >= k->layers.count()) {
+        #ifdef K_DEBUG
+            QString msg = "TupScene::moveLayer() - FATAL ERROR: Layer index out of bound " + QString::number(to);
+            #ifdef Q_OS_WIN32
+                 qDebug() << msg;
+            #else
+                 tError() << msg;
+            #endif
+        #endif
         return false;
+    }
 
-    TupLayer *layer = k->layers[from];
+    TupLayer *sourceLayer = k->layers[from];
+    TupLayer *destinyLayer = k->layers[to];
 
-    k->layers.insert(to, layer);
-    k->layers.removeAt(from);
+    Frames frames = sourceLayer->frames(); 
+    int totalFrames = frames.size();
+    int zLevelIndex = (to + 2)*10000;
+    for (int i = 0; i < totalFrames; i++) {
+         TupFrame *frame = frames.at(i);
+         frame->updateZLevel(zLevelIndex);
+    }
+
+    frames = destinyLayer->frames(); 
+    totalFrames = frames.size();
+    zLevelIndex = (from + 2)*10000;
+    for (int i = 0; i < totalFrames; i++) {
+         TupFrame *frame = frames.at(i);
+         frame->updateZLevel(zLevelIndex);
+    }
+
+    k->layers.swap(from, to);
 
     return true;
 }

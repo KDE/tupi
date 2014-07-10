@@ -194,21 +194,21 @@ void TupFrame::fromXml(const QString &xml)
     #endif
 
     QDomDocument document;
-	
-    if (! document.setContent(xml)) {	
+    
+    if (! document.setContent(xml)) {    
         #ifdef K_DEBUG
             QString msg = "TupFrame::fromXml() - File corrupted!";
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
-				qWarning() << "Content:";
-				qWarning() << xml;
+                qWarning() << "Content:";
+                qWarning() << xml;
             #else
                 tError() << msg;
                 tWarning() << "Content:";
-                tWarning() << xml;			
+                tWarning() << xml;            
             #endif
         #endif
-		
+        
         return;
     }
 
@@ -302,7 +302,7 @@ void TupFrame::fromXml(const QString &xml)
 
                                      n2 = n2.nextSibling(); 
                               }
-                          } else {							  
+                          } else {                              
                               #ifdef K_DEBUG
                                   QString msg = "TupFrame::fromXml() - Fatal Error: Object id is NULL!";
                                   #ifdef Q_OS_WIN32
@@ -310,11 +310,11 @@ void TupFrame::fromXml(const QString &xml)
                                   #else
                                       tError() << msg;
                                   #endif
-                              #endif	
+                              #endif    
                           }
                } 
            }
-		
+        
            n = n.nextSibling();
     }
 }
@@ -390,7 +390,7 @@ void TupFrame::addSvgItem(const QString &id, TupSvgItem *item)
             T_FUNCINFO << id;
         #endif
     #endif
-	
+    
     k->svgIndexes.append(id);
     item->setZValue(k->zLevelIndex);
     k->zLevelIndex++;
@@ -442,7 +442,7 @@ QGraphicsItemGroup *TupFrame::createItemGroupAt(int position, QList<qreal> group
         #endif
     #endif
 
-	Q_UNUSED(position);
+    Q_UNUSED(position);
     qSort(group.begin(), group.end());
 
     TupItemGroup *itemGroup = new TupItemGroup(0);
@@ -500,8 +500,17 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
 
                 if (type == TupLibraryObject::Svg) {
                     int zLimit = k->svg.at(currentIndex)->zValue();
-                    if (zLimit == zMin)
+                    if (zLimit == zMin) {
+                        #ifdef K_DEBUG
+                            QString msg = "TupFrame::moveItem() - MoveBack: Minimum level has been reached! (SVG)";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg;
+                            #else
+                                tWarning() << msg;
+                            #endif
+                        #endif
                         return true;
+                    }
 
                     if (k->svg.size() > 1) {
                         TupSvgItem *object = k->svg.takeAt(currentIndex);
@@ -529,8 +538,17 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                     return true;
                 } else {
                     int zLimit = k->graphics.at(currentIndex)->itemZValue();
-                    if (zLimit == zMin)
+                    if (zLimit == zMin) {
+                        #ifdef K_DEBUG
+                            QString msg = "TupFrame::moveItem() - MoveBack: Minimum level has been reached! (VECTOR/RASTER)";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg; 
+                            #else
+                                tWarning() << msg;
+                            #endif
+                        #endif
                         return true;
+                    }
 
                     if (k->graphics.size() > 1) {
                         TupGraphicObject *object = k->graphics.takeAt(currentIndex);
@@ -565,8 +583,17 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                 int zMax = k->zLevelIndex - 1;
                 if (type == TupLibraryObject::Svg) {
                     int zLimit = k->svg.at(currentIndex)->zValue();
-                    if (zLimit == zMax)
+                    if (zLimit == zMax) {
+                        #ifdef K_DEBUG
+                            QString msg = "TupFrame::moveItem() - MoveToFront: Maximum level has been reached! (SVG)";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg;
+                            #else
+                                tWarning() << msg;
+                            #endif
+                        #endif
                         return true;
+                    }
 
                     if (k->svg.size() > 1) {
                         TupSvgItem *object = k->svg.takeAt(currentIndex);
@@ -593,8 +620,17 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                     return true;
                 } else {
                     int zLimit = k->graphics.at(currentIndex)->itemZValue();
-                    if (zLimit == zMax)
+                    if (zLimit == zMax) {
+                        #ifdef K_DEBUG
+                            QString msg = "TupFrame::moveItem() - MoveToFront: Maximum level has been reached! (VECTOR/RASTER)";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg;
+                            #else
+                                tWarning() << msg;
+                            #endif
+                        #endif
                         return true;
+                    }
 
                     if (k->graphics.size() > 1) {
                         TupGraphicObject *object = k->graphics.takeAt(currentIndex);
@@ -627,8 +663,17 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                 int zMin = (k->layerIndex + 1)*10000;
 
                 if (type == TupLibraryObject::Svg) {
-                    if (k->svg.at(currentIndex)->zValue() == zMin)
+                    if (k->svg.at(currentIndex)->zValue() == zMin) {
+                        #ifdef K_DEBUG
+                            QString msg = "TupFrame::moveItem() - MoveOneLevelBack: Minimum level has been reached! (SVG)";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg;
+                            #else
+                                tWarning() << msg;
+                            #endif
+                        #endif
                         return true;
+                    }
 
                     TupSvgItem *object = k->svg.at(currentIndex);
                     int zLimit = object->zValue();
@@ -662,8 +707,8 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                                      return true;
                                  }
                             }
-                        } else {							
-						    #ifdef K_DEBUG
+                        } else {                            
+                            #ifdef K_DEBUG
                                 QString msg = "TupFrame::moveItem() - Fatal Error: Something went wrong [ case MoveOneLevelBack/Svg ]";
                                 #ifdef Q_OS_WIN32
                                     qDebug() << msg;
@@ -676,8 +721,17 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                         }
                     }
                 } else {
-                    if (k->graphics.at(currentIndex)->itemZValue() == zMin)
+                    if (k->graphics.at(currentIndex)->itemZValue() == zMin) {
+                        #ifdef K_DEBUG
+                            QString msg = "TupFrame::moveItem() - MoveOneLevelBack: Minimum level has been reached! (VECTOR/RASTER)";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg;
+                            #else
+                                tWarning() << msg;
+                            #endif
+                        #endif
                         return true;
+                    }
 
                     TupGraphicObject *object = k->graphics.at(currentIndex);
                     int zLimit = object->itemZValue();
@@ -711,8 +765,8 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                                      return true;
                                  }
                             }
-                        } else {							
-						    #ifdef K_DEBUG
+                        } else {                            
+                            #ifdef K_DEBUG
                                 QString msg = "TupFrame::moveItem() - Fatal Error: Something went wrong [ case MoveOneLevelBack/Items ]";
                                 #ifdef Q_OS_WIN32
                                     qDebug() << msg;
@@ -720,7 +774,7 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                                     tError() << msg;
                                 #endif
                             #endif
-							
+                            
                             return false;
                         }
                     }
@@ -732,8 +786,17 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                 int zMax = k->zLevelIndex - 1;
 
                 if (type == TupLibraryObject::Svg) {
-                    if (k->svg.at(currentIndex)->zValue() == zMax)
+                    if (k->svg.at(currentIndex)->zValue() == zMax) {
+                        #ifdef K_DEBUG
+                            QString msg = "TupFrame::moveItem() - MoveOneLevelToFront: Maximum level has been reached! (SVG)";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg;
+                            #else
+                                tWarning() << msg;
+                            #endif
+                        #endif
                         return true;
+                    }
 
                     TupSvgItem *object = k->svg.at(currentIndex);
                     int zLimit = object->zValue();
@@ -767,8 +830,8 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                                      return true;
                                  }
                             }
-                        } else {							
-						    #ifdef K_DEBUG
+                        } else {                            
+                            #ifdef K_DEBUG
                                 QString msg = "TupFrame::moveItem() - Fatal Error: Something went wrong [ case MoveOneLevelToFront/Svg ]";
                                 #ifdef Q_OS_WIN32
                                     qDebug() << msg;
@@ -776,13 +839,22 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                                     tError() << msg;
                                 #endif
                             #endif
-							
+                            
                             return false;
                         }
                     }
                 } else {
-                    if (k->graphics.at(currentIndex)->itemZValue() == zMax)
+                    if (k->graphics.at(currentIndex)->itemZValue() == zMax) {
+                        #ifdef K_DEBUG
+                            QString msg = "TupFrame::moveItem() - MoveOneLevelToFront: Maximum level has been reached! (VECTOR/RASTER)";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg;
+                            #else
+                                tWarning() << msg;
+                            #endif
+                        #endif
                         return true;
+                    }
 
                     TupGraphicObject *object = k->graphics.at(currentIndex);
                     int zLimit = object->itemZValue();
@@ -817,7 +889,7 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
                                  }
                             }
                         } else {
-						    #ifdef K_DEBUG
+                            #ifdef K_DEBUG
                                 QString msg = "TupFrame::moveItem() - Fatal Error: Something went wrong [ case MoveOneLevelToFront/Items ]";
                                 #ifdef Q_OS_WIN32
                                     qDebug() << msg;
@@ -841,7 +913,7 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
             tError() << msg;
         #endif
     #endif
-	
+    
     return false;
 }
 
@@ -903,8 +975,8 @@ bool TupFrame::removeSvgAt(int position)
             T_FUNCINFO;
         #endif
     #endif
-	
-    if ((position < 0) || (position >= k->svg.size())) {	
+    
+    if ((position < 0) || (position >= k->svg.size())) {    
         #ifdef K_DEBUG
             QString msg = "TupFrame::removeSvgAt() - Fatal Error: invalid object index! [ " + QString::number(position) + " ]";
             #ifdef Q_OS_WIN32
@@ -984,15 +1056,15 @@ QGraphicsItem *TupFrame::createItem(QPointF coords, const QString &xml, bool loa
 
     #ifdef K_DEBUG
         QString msg1 = "TupFrame::createItem() - Fatal Error: Couldn't create QGraphicsItem object";
-		QString msg2 = "TupFrame::createItem() - xml: ";
+        QString msg2 = "TupFrame::createItem() - xml: ";
         #ifdef Q_OS_WIN32
             qDebug() << msg1;
-	        qDebug() << msg2;
-			qDebug() << xml;
+            qDebug() << msg2;
+            qDebug() << xml;
         #else
             tError() << msg1;
-            tError() << msg2;	
-			tError() << xml;
+            tError() << msg2;    
+            tError() << xml;
         #endif
     #endif
 
@@ -1005,15 +1077,15 @@ TupSvgItem *TupFrame::createSvgItem(QPointF coords, const QString &xml, bool loa
     if (!document.setContent(xml)) {
         #ifdef K_DEBUG
             QString msg1 = "TupFrame::createSvgItem() - Fatal Error: Svg xml content is invalid!";
-		    QString msg2 = "TupFrame::createSvgItem() - xml: ";
+            QString msg2 = "TupFrame::createSvgItem() - xml: ";
             #ifdef Q_OS_WIN32
                 qDebug() << msg1;
-	            qDebug() << msg2;
-			    qDebug() << xml;
+                qDebug() << msg2;
+                qDebug() << xml;
             #else
                 tError() << msg1;
-                tError() << msg2;	
-			    tError() << xml;
+                tError() << msg2;    
+                tError() << xml;
             #endif
         #endif
         return 0;
@@ -1033,12 +1105,12 @@ TupSvgItem *TupFrame::createSvgItem(QPointF coords, const QString &xml, bool loa
                 TupProjectLoader::createItem(scene()->objectIndex(), layer()->objectIndex(), index(), 
                                              k->svg.size() - 1, coords, TupLibraryObject::Svg, xml, project());
             return item;
-        } else {		
+        } else {        
             #ifdef K_DEBUG
                 QString msg = "TupFrame::createSvgItem() - Fatal Error: Svg object is invalid!";
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
-	            #else
+                #else
                     tError() << msg;
                 #endif
             #endif
@@ -1054,7 +1126,7 @@ TupSvgItem *TupFrame::createSvgItem(QPointF coords, const QString &xml, bool loa
             tError() << msg;
         #endif
     #endif
-	
+    
     return 0;
 }
 
@@ -1081,15 +1153,15 @@ SvgObjects TupFrame::svgItems() const
 TupGraphicObject *TupFrame::graphic(int position) const
 {
     if ((position < 0) || (position >= k->graphics.count())) {
-		#ifdef K_DEBUG
+        #ifdef K_DEBUG
             QString msg = "TupFrame::graphic() - Fatal Error: index out of bound [ " + QString::number(position) + " ] /  Total items: " + QString::number(k->graphics.count());
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
-	        #else
+            #else
                 tError() << msg;
             #endif
         #endif
-		
+        
         return 0;
     } 
 
@@ -1099,15 +1171,15 @@ TupGraphicObject *TupFrame::graphic(int position) const
 TupSvgItem *TupFrame::svg(int position) const
 {
     if ((position < 0) || (position >= k->svg.count())) {
-		#ifdef K_DEBUG
+        #ifdef K_DEBUG
             QString msg = "TupFrame::svg() -  Fatal Error: index out of bound [ " + QString::number(position) + " ] / Total items: " + QString::number(k->svg.count());
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
-	        #else
+            #else
                 tError() << msg;
             #endif
         #endif
-		
+        
         return 0;
     }
 
@@ -1117,11 +1189,11 @@ TupSvgItem *TupFrame::svg(int position) const
 QGraphicsItem *TupFrame::item(int position) const
 {
     if ((position < 0) || (position >= k->graphics.count())) {
-		#ifdef K_DEBUG
+        #ifdef K_DEBUG
             QString msg = "TupFrame::item() -  Fatal Error: index out of bound [ " + QString::number(position) + " ] / Total items: " + QString::number(k->graphics.count());
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
-	        #else
+            #else
                 tError() << msg;
             #endif
         #endif
@@ -1135,15 +1207,15 @@ QGraphicsItem *TupFrame::item(int position) const
         if (item) {
             return item;
         } else {
-		    #ifdef K_DEBUG
+            #ifdef K_DEBUG
                 QString msg = "TupFrame::item() -  Fatal Error: QGraphicsItem object is NULL!";
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
-	            #else
+                #else
                     tError() << msg;
                 #endif
             #endif
-            return 0;		
+            return 0;        
         }
     }
 
@@ -1222,6 +1294,11 @@ int TupFrame::svgItemsCount()
     return k->svg.count();
 }
 
+int TupFrame::itemsTotalCount()
+{
+    return k->graphics.count() + k->svg.count();
+}
+
 int TupFrame::getTopZLevel()
 {
     return k->zLevelIndex;
@@ -1279,4 +1356,35 @@ void TupFrame::reloadSVGItem(const QString &id, TupLibraryObject *object)
              k->svg[i] = item;
          }
     }
+}
+
+void TupFrame::updateZLevel(int zLevelIndex)
+{
+    int max = 0;
+    int graphicsSize = k->graphics.size();
+    for (int i = 0; i < graphicsSize; ++i) {
+         TupGraphicObject *object = k->graphics.at(i); 
+         int currentZValue = object->itemZValue();
+         int zLevel = zLevelIndex + (currentZValue % 10000);
+         object->setItemZValue(zLevel);
+         if (i == (graphicsSize-1)) {
+             if (zLevel > max)
+                 max = zLevel;
+         }
+    }
+
+    graphicsSize = k->svgIndexes.size(); 
+    for (int i = 0; i < graphicsSize; ++i) {
+         TupSvgItem *item = k->svg.value(i);
+         int currentZValue = item->zValue();
+         int zLevel = zLevelIndex + (currentZValue % 10000);
+         item->setZValue(zLevel);
+         if (i == (graphicsSize-1)) {
+             if (zLevel > max)
+                 max = zLevel;
+         }
+    }
+ 
+    k->zLevelIndex = max;
+    k->zLevelIndex++;
 }

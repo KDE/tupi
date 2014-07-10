@@ -135,6 +135,7 @@ class TUPI_EXPORT TupFrame : public QObject, public TupAbstractSerializable
        void clear();
        int graphicItemsCount();
        int svgItemsCount();
+       int itemsTotalCount();
 
        int getTopZLevel();
 
@@ -142,6 +143,7 @@ class TUPI_EXPORT TupFrame : public QObject, public TupAbstractSerializable
 
        void reloadGraphicItem(const QString &id, const QString &path);
        void reloadSVGItem(const QString &id, TupLibraryObject *object);
+       void updateZLevel(int zLevelIndex);
        
     public:
        virtual void fromXml(const QString &xml);

@@ -602,6 +602,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
             break;
             case TupProjectRequest::Move:
             {
+                 /*
                  k->nodeManagers.clear();
 
                  foreach (QGraphicsItem *item, k->selectedObjects) {
@@ -611,6 +612,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                               k->nodeManagers << node;
                           }
                  }
+                 */
 
                  syncNodes();
             }
@@ -849,7 +851,6 @@ void SelectionTool::applyOrderAction(Settings::Order action)
     k->selectedObjects = k->scene->selectedItems();
 
     foreach (QGraphicsItem *item, k->selectedObjects) {
-
              TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
              int position = -1;
              TupLibraryObject::Type type = TupLibraryObject::Item;
@@ -858,7 +859,7 @@ void SelectionTool::applyOrderAction(Settings::Order action)
 
              if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
                  if (svg)
-                      position = k->scene->currentFrame()->indexOf(svg);
+                     position = k->scene->currentFrame()->indexOf(svg);
                  else
                      position = k->scene->currentFrame()->indexOf(item);
              } else {

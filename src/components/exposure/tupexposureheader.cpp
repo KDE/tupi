@@ -52,11 +52,8 @@ struct LayerItem
 TupExposureHeader::TupExposureHeader(QWidget * parent) : QHeaderView(Qt::Horizontal, parent), m_sectionEdited(-1),
                                                        m_blockSectionMoved(false)
 {
-    // setClickable(true);
     setSectionsClickable(true);
-
-    //SQA: Disabled while layers movability is enhanced 
-    //setMovable(true);
+    setSectionsMovable(true);
 
     connect(this, SIGNAL(sectionDoubleClicked(int)), this, SLOT(showEditorName(int)));
 
@@ -142,6 +139,7 @@ void TupExposureHeader::moveLayer(int position, int newPosition)
 {
     m_blockSectionMoved = true;
     moveSection(position, newPosition);
+    m_layers.swap(position, newPosition);
     m_blockSectionMoved = false;
 }
 
@@ -152,7 +150,7 @@ int TupExposureHeader::lastFrame(int layerIndex)
 
 void TupExposureHeader::removeLayer(int layerIndex)
 {
-    m_layers.remove(layerIndex);
+    m_layers.removeAt(layerIndex);
 }
 
 void TupExposureHeader::setLastFrame(int layerIndex, int num)
@@ -175,7 +173,7 @@ void TupExposureHeader::mousePressEvent(QMouseEvent * event)
     }
 }
 
-void TupExposureHeader::paintSection(QPainter * painter, const QRect & rect, int layerIndex) const
+void TupExposureHeader::paintSection(QPainter *painter, const QRect & rect, int layerIndex) const
 {
     if (!rect.isValid()) 
         return;
@@ -211,14 +209,14 @@ void TupExposureHeader::paintSection(QPainter * painter, const QRect & rect, int
         painter->fillRect(rect.normalized().adjusted(0, 1, 0, -1), color);
     }
 
-    if ((layerIndex == currentCol) || (m_layers.size() == 1)) {
+    if ((layerIndex == currentCol) || (m_layers.size() == 1)) { // Header selected
         QColor color(250, 209, 132, 80);
         painter->fillRect(rect.normalized().adjusted(0, 1, 0, -1), color);
         if (m_layers[layerIndex].isVisible) {
-            painter->setPen(QPen(QColor(250, 209, 132, 255), 2, Qt::SolidLine)); // Header selected
+            painter->setPen(QPen(QColor(250, 209, 132, 255), 2, Qt::SolidLine)); 
             painter->drawRect(rect.normalized().adjusted(0, 1, 0, -1));
         } else { 
-            painter->setPen(QPen(QColor(255, 0, 0, 70), 2, Qt::SolidLine)); // Header locked
+            painter->setPen(QPen(QColor(255, 0, 0, 70), 2, Qt::SolidLine)); // Header is locked
             painter->drawRect(rect.normalized().adjusted(0, 1, 0, -1));
         }
     }

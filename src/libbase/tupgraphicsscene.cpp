@@ -202,8 +202,6 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
     #endif
     */
 
-    // Q_CHECK_PTR(k->scene);
-
     if (photogram < 0 || !k->scene) 
         return;
 
@@ -1023,9 +1021,6 @@ TupFrame *TupGraphicsScene::currentFrame()
 
 void TupGraphicsScene::setCurrentScene(TupScene *scene)
 {
-    Q_CHECK_PTR(scene);
-
-    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupGraphicsScene::setCurrentScene()]";
@@ -1033,7 +1028,8 @@ void TupGraphicsScene::setCurrentScene(TupScene *scene)
             T_FUNCINFO;
         #endif
     #endif
-    */
+
+    Q_CHECK_PTR(scene);
 
     setCurrentFrame(0, 0);
 

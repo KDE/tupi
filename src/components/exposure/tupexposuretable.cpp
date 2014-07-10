@@ -195,7 +195,8 @@ TupExposureTable::TupExposureTable(QWidget * parent) : QTableWidget(parent), k(n
     connect(k->header, SIGNAL(changedName(int, const QString &)), this, SIGNAL(requestRenameLayer(int, 
                               const QString & )));
     connect(k->header, SIGNAL(sectionMoved(int, int, int)), this, SLOT(emitRequestMoveLayer(int, int, int)));
-    connect(k->header, SIGNAL(selectionChanged(int)), this, SLOT(updateLayerSelection(int)));
+    // connect(k->header, SIGNAL(selectionChanged(int)), this, SLOT(updateLayerSelection(int)));
+    connect(k->header, SIGNAL(selectionHasChanged(int)), this, SLOT(updateLayerSelection(int)));
 
     setHorizontalHeader(k->header);
 
@@ -228,7 +229,6 @@ void TupExposureTable::emitRequestSelectFrame(int currentSelectedRow, int curren
     // tError() << "TupExposureTable::emitRequestSelectFrame() - Previous frame: " << previousRow;
 
     if (!k->removingLayer) { 
-
         if (k->removingFrame) {
             k->removingFrame = false;
 
@@ -262,9 +262,9 @@ void TupExposureTable::emitRequestMoveLayer(int logicalIndex, int oldVisualIndex
 {
     Q_UNUSED(logicalIndex);
 
-    if (! k->header->signalMovedBlocked()) {
-        k->header->moveLayer(newVisualIndex, oldVisualIndex);
+    if (!k->header->signalMovedBlocked()) {
         emit requestMoveLayer(oldVisualIndex, newVisualIndex);
+        emit requestSelectFrame(newVisualIndex, currentRow());
     }
 }
 
@@ -510,6 +510,8 @@ void TupExposureTable::exchangeFrame(int oldPosLayer, int oldPosFrame, int newPo
 void TupExposureTable::moveLayer(int oldPosLayer, int newPosLayer)
 {
     k->header->moveLayer(oldPosLayer, newPosLayer);
+    for (int frameIndex = 0; frameIndex < k->header->lastFrame(oldPosLayer); frameIndex++)
+         exchangeFrame(oldPosLayer, frameIndex, newPosLayer, frameIndex, true);
 }
 
 void TupExposureTable::emitRequestSetUsedFrame(int frameIndex, int layerIndex)
