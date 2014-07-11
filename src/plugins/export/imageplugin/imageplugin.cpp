@@ -85,8 +85,6 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
                  break;
     }
 
-    // QColor color = bgColor;
-    // color.setAlpha(255);
     TupAnimationRenderer renderer(bgColor);
 
     foreach (TupScene *scene, scenes) {
@@ -95,6 +93,11 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
              int photogram = 0;
              while (renderer.nextPhotogram()) {
                     QImage image(size, imageFormat);
+                    if (bgColor.alpha() == 0)
+                        image.fill(Qt::transparent);
+                    else
+                        image.fill(bgColor);
+
                     {
                      QPainter painter(&image);
                      painter.setRenderHint(QPainter::Antialiasing, true);
@@ -111,7 +114,6 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
                     }
 
                     index += QString("%1").arg(photogram);
-
                     image.save(fileInfo.absolutePath() + QDir::separator() + QString(m_baseName + "%1.%2").arg(index).arg(QString(extension).toLower()), extension, 100);
 
                     photogram++;

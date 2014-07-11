@@ -77,11 +77,7 @@ TupAnimationRenderer::TupAnimationRenderer(const QColor color) : k(new Private)
     k->bgColor = color;
     k->scene = new TupGraphicsScene;
 
-    int alpha = color.alpha();
-    if (alpha == 0)
-        k->scene->setBackgroundBrush(Qt::NoBrush);
-    else
-        k->scene->setBackgroundBrush(k->bgColor);
+    k->scene->setBackgroundBrush(k->bgColor);
 }
 
 TupAnimationRenderer::~TupAnimationRenderer()
@@ -94,7 +90,7 @@ void TupAnimationRenderer::setScene(TupScene *scene, QSize dimension)
     k->scene->setCurrentScene(scene);
     k->scene->setSceneRect(QRectF(QPointF(0,0), dimension));
 
-    k->scene->drawPhotogram(0, false); // ### SQA: Why whithout this doesn't work?
+    // k->scene->drawPhotogram(0, false); // ### SQA: Why whithout this doesn't work?
     k->currentPhotogram = -1;
 
     k->totalPhotograms = k->calculateTotalPhotograms(scene);
@@ -122,9 +118,6 @@ void TupAnimationRenderer::renderPhotogram(int index)
 
 void TupAnimationRenderer::render(QPainter *painter)
 {
-    // k->scene->render(painter, QRect(0, 0, painter->device()->width(), painter->device()->height()), 
-    //                  k->scene->sceneRect().toRect(), Qt::IgnoreAspectRatio);
-
     k->scene->render(painter, k->scene->sceneRect().toRect(), k->scene->sceneRect().toRect(), Qt::IgnoreAspectRatio);
 }
 
