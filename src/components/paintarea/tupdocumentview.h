@@ -96,7 +96,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void setOpenGL(bool useIt);
 
         QPainter::RenderHints renderHints() const;
-        void setZoom(qreal factor);
+        void setZoomFactor(qreal factor);
 
         TupBrushManager *brushManager() const;
         TupPaintAreaCommand *createCommand(const TupPaintAreaEvent *event);
@@ -105,7 +105,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         TupProject *project();
         int currentFramesTotal();
         int currentSceneIndex();
-        void setZoomView(const QString &percent);
+        void setZoomPercent(const QString &percent);
         void setRotationAngle(int angle);
         QSize workSpaceSize() const;
         void updateUsersOnLine(const QString &login, int state);
@@ -114,8 +114,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
     private slots:
         void setNextOnionSkin(int n);
         void setPreviousOnionSkin(int n);
-        // void setZoomFactor(int porcent);
-        void updateScaleVars(double factor);
+        void updateZoomVars(qreal factor);
         void updateRotationVars(int angle);
         void changeRulerOrigin(const QPointF &zero);
         void saveTimer();
@@ -158,7 +157,6 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
     private slots:
         void showPos(const QPointF &point);	
         void setCursor(const QCursor &cursor);
-        void updateZoomFactor(double factor);
         void selectToolFromMenu(QAction *action);
         void callAutoSave();
         void sendStoryboard(TupStoryboard *storyboard, int sceneIndex);

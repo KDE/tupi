@@ -194,6 +194,7 @@ void SelectionTool::press(const TupInputDeviceInformation *input, TupBrushManage
                  }
             
                  if (!found) {
+                     tError() << "SelectionTool::press() - Calling manager->resizeNodes() with factor: " << k->realFactor;
                      NodeManager *manager = new NodeManager(item, scene, k->baseZValue);
                      manager->show();
                      manager->resizeNodes(k->realFactor);
@@ -237,6 +238,7 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
         foreach (QGraphicsItem *item, k->selectedObjects) {
                  if (item && dynamic_cast<TupAbstractSerializable* > (item)) {
                      NodeManager *node = new NodeManager(item, scene, k->baseZValue);
+                     tError() << "SelectionTool::release() - calling manager->resizeNodes() with factor: " << k->realFactor;
                      node->resizeNodes(k->realFactor);
                      k->nodeManagers << node;
                  }
@@ -602,18 +604,6 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
             break;
             case TupProjectRequest::Move:
             {
-                 /*
-                 k->nodeManagers.clear();
-
-                 foreach (QGraphicsItem *item, k->selectedObjects) {
-                          if (item && dynamic_cast<TupAbstractSerializable* > (item)) {
-                              NodeManager *node = new NodeManager(item, k->scene, k->baseZValue);
-                              node->resizeNodes(k->realFactor);
-                              k->nodeManagers << node;
-                          }
-                 }
-                 */
-
                  syncNodes();
             }
             break;
@@ -913,33 +903,18 @@ QCursor SelectionTool::cursor() const
 
 void SelectionTool::resizeNodes(qreal scaleFactor)
 {
-    k->scaleFactor *= scaleFactor;
-    updateRealZoomFactor();
+    tError() << "SelectionTool::resizeNodes() - Getting factor: " << scaleFactor;
 
-    foreach (NodeManager *node, k->nodeManagers)
-             node->resizeNodes(k->realFactor);
+    k->realFactor = scaleFactor;
+    foreach (NodeManager *node, k->nodeManagers) {
+             node->resizeNodes(scaleFactor);
+    }
 }
 
-void SelectionTool::updateZoomFactor(qreal globalFactor)
+void SelectionTool::updateZoomFactor(qreal scaleFactor)
 {
-    k->scaleFactor = globalFactor;
-    updateRealZoomFactor();
-}
-
-void SelectionTool::updateRealZoomFactor()
-{
-    if (k->scaleFactor <= 1)
-        k->realFactor = 1;
-    else if (k->scaleFactor > 1 && k->scaleFactor < 1.5)
-             k->realFactor = 0.8;
-    else if (k->scaleFactor >= 1.5 && k->scaleFactor < 2)
-             k->realFactor = 0.6;
-    else if (k->scaleFactor >= 2 && k->scaleFactor <= 3)
-             k->realFactor = 0.4;
-    else if (k->scaleFactor > 3)
-             k->realFactor = 0.3;
-    else if (k->scaleFactor > 4)
-             k->realFactor = 0.2;
+    tError() << "SelectionTool::updateZoomFactor() - Updating k->scaleFactor to: " << scaleFactor;
+    k->realFactor = scaleFactor;
 }
 
 void SelectionTool::sceneResponse(const TupSceneResponse *event)

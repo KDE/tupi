@@ -67,7 +67,7 @@ class TUPI_EXPORT TupPaintAreaStatus : public QStatusBar
         TupPaintAreaStatus(TupDocumentView *parent);
         ~TupPaintAreaStatus();
         void updateTool(const QString &label, const QPixmap &pixmap);
-        void setZoomFactor(const QString &text);
+        void setZoomPercent(const QString &percent);
         void updateZoomFactor(double factor);
         qreal currentZoomFactor();
         void updateRotationAngle(int angle);

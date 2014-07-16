@@ -254,14 +254,14 @@ void TupPaintAreaStatus::applyZoom(const QString &text)
     int input = text.toInt();
     qreal factor = (qreal)input / (qreal)k->scaleFactor;
 
-    k->documentView->setZoom(factor);
+    k->documentView->setZoomFactor(factor);
     k->scaleFactor = input;
 }
 
-void TupPaintAreaStatus::setZoomFactor(const QString &text)
+void TupPaintAreaStatus::setZoomPercent(const QString &percent)
 {
-    updateZoomField(text);
-    applyZoom(text);
+    updateZoomField(percent);
+    applyZoom(percent);
 }
 
 void TupPaintAreaStatus::updateZoomField(const QString &text)

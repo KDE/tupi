@@ -300,13 +300,13 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
             proportion = (double) height / (double) pHeight;
 
         if (proportion <= 0.5) {
-            animationTab->setZoomView("20");
+            animationTab->setZoomPercent("20");
         } else if (proportion > 0.5 && proportion <= 0.75) {
-                   animationTab->setZoomView("25");
+                   animationTab->setZoomPercent("25");
         } else if (proportion > 0.75 && proportion <= 1.5) {
-                   animationTab->setZoomView("50");
+                   animationTab->setZoomPercent("50");
         } else if (proportion > 1.5 && proportion < 2) {
-                   animationTab->setZoomView("75");
+                   animationTab->setZoomPercent("75");
         }
 
         // TupCamera Widget

@@ -90,7 +90,7 @@ class TUPI_PLUGIN SelectionTool : public TupToolPlugin
         QCursor cursor() const;
 
         void resizeNodes(qreal scaleFactor);
-        void updateZoomFactor(qreal globalFactor);
+        void updateZoomFactor(qreal scaleFactor);
 
     signals:
         void closeHugeCanvas();
@@ -106,7 +106,6 @@ class TUPI_PLUGIN SelectionTool : public TupToolPlugin
     private:
         void setupActions();
         void verifyActiveSelection();
-        void updateRealZoomFactor();
         void reset(TupGraphicsScene *scene);
         void updateItemPosition();
 

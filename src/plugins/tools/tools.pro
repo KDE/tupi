@@ -6,7 +6,7 @@ SUBDIRS += common \
            nodes \
            text \
            geometric \
-           view \
+           hand \
            fill \
            eraser \
            polyline \

@@ -90,7 +90,6 @@ struct TupDocumentView::Private
     QToolBar *toolbar;
     QToolBar *propertiesBar;
 
-    QDoubleSpinBox *zoomFactorSpin;
     QDoubleSpinBox *onionFactorSpin;
     QSpinBox *prevOnionSkinSpin;
     QSpinBox *nextOnionSkinSpin;
@@ -127,6 +126,8 @@ struct TupDocumentView::Private
     QTimer *timer;
 
     TupExportInterface *imagePlugin;
+
+    qreal selectionScaleFactor;
 };
 
 TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNetworked, const QStringList &users) : QMainWindow(parent), k(new Private)
@@ -150,6 +151,7 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
     k->onLineUsers = users;
     k->dynamicFlag = false;
     k->photoCounter = 1;
+    k->selectionScaleFactor = 1;
 
     k->actionManager = new TActionManager(this);
 
@@ -173,7 +175,7 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
     layout->addWidget(k->horizontalRuler, 0, 1);
     layout->addWidget(k->verticalRuler, 1, 0);
 
-    connect(k->paintArea, SIGNAL(scaled(double)), this, SLOT(updateScaleVars(double)));
+    connect(k->paintArea, SIGNAL(scaled(qreal)), this, SLOT(updateZoomVars(qreal)));
     connect(k->paintArea, SIGNAL(rotated(int)), this, SLOT(updateRotationVars(int)));
     connect(k->paintArea, SIGNAL(updateStatusBgColor(QColor)), this, SLOT(updateStatusBgColor(QColor)));
 
@@ -314,21 +316,36 @@ void TupDocumentView::updateRotationVars(int angle)
     k->status->updateRotationAngle(angle);
 }
 
-void TupDocumentView::setZoom(qreal factor)
+void TupDocumentView::setZoomFactor(qreal factor)
 {
     k->paintArea->setZoom(factor);
     k->verticalRuler->setRulerZoom(factor);
     k->horizontalRuler->setRulerZoom(factor);
+    k->selectionScaleFactor *= factor;
 
     if (k->currentTool) {
-        if (k->currentTool->name().compare(tr("Object Selection")) == 0)
-            k->currentTool->resizeNodes(factor);
+        if (k->currentTool->name().compare(tr("Object Selection")) == 0) {
+            k->currentTool->resizeNodes(1 / k->selectionScaleFactor);
+        }
     }
 }
 
-void TupDocumentView::setZoomView(const QString &percent)
+void TupDocumentView::updateZoomVars(qreal factor)
 {
-    k->status->setZoomFactor(percent);
+    k->status->updateZoomFactor(factor);
+    k->verticalRuler->setRulerZoom(factor);
+    k->horizontalRuler->setRulerZoom(factor);
+    k->selectionScaleFactor *= factor;
+
+    if (k->currentTool) {
+        if (k->currentTool->name().compare(tr("Object Selection")) == 0)
+            k->currentTool->resizeNodes(1 / k->selectionScaleFactor);
+    }
+}
+
+void TupDocumentView::setZoomPercent(const QString &percent)
+{
+    k->status->setZoomPercent(percent);
 }
 
 void TupDocumentView::showPos(const QPointF &point)
@@ -413,9 +430,9 @@ void TupDocumentView::createTools()
 
     k->toolbar->addAction(k->fillMenu->menuAction());
 
-    // View menu
-    k->viewToolMenu = new QMenu(tr("View"), k->toolbar);
-    k->viewToolMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "zoom.png"));
+    // Hand menu
+    k->viewToolMenu = new QMenu(tr("Hand"), k->toolbar);
+    k->viewToolMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "hand.png"));
     connect(k->fillMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 
     k->toolbar->addAction(k->viewToolMenu->menuAction());
@@ -435,7 +452,15 @@ void TupDocumentView::loadPlugins()
              if (plugin) {
                  TupExportInterface *exporter = qobject_cast<TupExportInterface *>(plugin);
                  if (exporter) {
-				     qDebug() << "TupDocumentView::loadPlugins() - plugin: " << exporter->key();
+                     #ifdef K_DEBUG
+                         QString msg = "TupDocumentView::loadPlugins() - plugin: " + exporter->key();
+                         #ifdef Q_OS_WIN32
+                             qWarning() << msg;
+                         #else
+                             tWarning() << msg;
+                         #endif
+                     #endif
+
                      if (exporter->key().compare(tr("Image Array")) == 0) {
                          k->imagePlugin = exporter;
                          imagePluginLoaded = true;
@@ -595,10 +620,12 @@ void TupDocumentView::loadPlugins()
                                  break;
                                case TupToolInterface::View:
                                  {
-                                   k->viewToolMenu->addAction(action);
-                                   if (toolName.compare(tr("Zoom In")) == 0)
+                                   // k->viewToolMenu->addAction(action);
+                                   // if (toolName.compare(tr("Zoom In")) == 0)
+                                   if (toolName.compare(tr("Hand")) == 0) {
+                                       k->viewToolMenu->addAction(action);
                                        k->viewToolMenu->setDefaultAction(action);
-
+                                   }
                                  }
                                  break;
                                default:
@@ -910,12 +937,8 @@ void TupDocumentView::selectTool()
         k->paintArea->setTool(tool);
         k->paintArea->viewport()->setCursor(action->cursor());
 
-        if (toolName.compare(tr("Object Selection"))==0) {
-            qreal globalFactor = k->status->currentZoomFactor();
-            qreal factor = globalFactor*0.01;
-            tool->updateZoomFactor(factor);
-        }
-
+        if (toolName.compare(tr("Object Selection"))==0)
+            tool->updateZoomFactor(1 / k->selectionScaleFactor);
     } else {
         #ifdef K_DEBUG
             QString msg = "TupDocumentView::selectTool() - Fatal Error: Action from sender() is NULL";
@@ -997,13 +1020,6 @@ void TupDocumentView::applyFilter()
         }
         */
     }
-}
-
-void TupDocumentView::updateZoomFactor(double factor)
-{
-    k->zoomFactorSpin->blockSignals(true);
-    k->zoomFactorSpin->setValue(factor*100);
-    k->zoomFactorSpin->blockSignals(false);
 }
 
 void TupDocumentView::createToolBar()
@@ -1165,25 +1181,6 @@ void TupDocumentView::setNextOnionSkin(int level)
     TCONFIG->setValue("NextFrames", level);
 
     k->paintArea->setNextFramesOnionSkinCount(level);
-}
-
-/*
-void TupDocumentView::showGrid()
-{
-    k->paintArea->drawGrid(!k->paintArea->gridFlag());
-}
-*/
-
-void TupDocumentView::updateScaleVars(double factor)
-{
-    k->status->updateZoomFactor(factor);
-    k->verticalRuler->setRulerZoom(factor);
-    k->horizontalRuler->setRulerZoom(factor);
-
-    if (k->currentTool) {
-        if (k->currentTool->name().compare(tr("Object Selection")) == 0)
-            k->currentTool->resizeNodes(factor);
-    }
 }
 
 void TupDocumentView::changeRulerOrigin(const QPointF &zero)
@@ -1704,13 +1701,13 @@ void TupDocumentView::resizeProjectDimension(const QSize dimension)
         proportion = (double) height / (double) pHeight;
 
     if (proportion <= 0.5) {
-        setZoomView("20");
+        setZoomPercent("20");
     } else if (proportion > 0.5 && proportion <= 0.75) {
-               setZoomView("25");
+               setZoomPercent("25");
     } else if (proportion > 0.75 && proportion <= 1.5) {
-               setZoomView("50");
+               setZoomPercent("50");
     } else if (proportion > 1.5 && proportion < 2) {
-               setZoomView("75");
+               setZoomPercent("75");
     }
 
     emit projectSizeHasChanged(dimension);

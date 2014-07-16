@@ -47,6 +47,7 @@ struct ViewTool::Private
     QMap<QString, TAction *> actions;
     QGraphicsRectItem *rect;
     bool added;
+    QPointF currentCenter;
     QPointF firstPoint;
     TupGraphicsScene *scene;
     ZoomConfigurator *configurator;
@@ -74,6 +75,7 @@ void ViewTool::init(TupGraphicsScene *scene)
     k->scene = scene;
 
     foreach (QGraphicsView *view, scene->views()) {
+             k->currentCenter =  view->sceneRect().center();
              view->setDragMode(QGraphicsView::NoDrag);
              foreach (QGraphicsItem *item, scene->items()) {
                       item->setFlag(QGraphicsItem::ItemIsSelectable, false);
@@ -84,11 +86,18 @@ void ViewTool::init(TupGraphicsScene *scene)
 
 QStringList ViewTool::keys() const
 {
-    return QStringList() << tr("Zoom In") << tr("Zoom Out") << tr("Hand");
+    return QStringList() << tr("Hand") << tr("Zoom In") << tr("Zoom Out");
 }
 
 void ViewTool::setupActions()
 {
+    TAction *handAction = new TAction(QIcon(kAppProp->themeDir() + "icons/hand.png"), tr("Hand"), this);
+    handAction->setShortcut(QKeySequence(tr("H")));
+    k->handCursor = QCursor(kAppProp->themeDir() + "cursors/hand.png");
+    handAction->setCursor(k->handCursor);
+
+    k->actions.insert(tr("Hand"), handAction);
+
     TAction *zoomIn = new TAction(QIcon(kAppProp->themeDir() + "icons/zoom_in.png"), tr("Zoom In"), this);
     zoomIn->setShortcut(QKeySequence(tr("Z")));
     k->zoomInCursor = QCursor(kAppProp->themeDir() + "cursors/zoom.png");
@@ -102,13 +111,6 @@ void ViewTool::setupActions()
     zoomOut->setCursor(k->zoomOutCursor);
    
     k->actions.insert(tr("Zoom Out"), zoomOut);
-    
-    TAction *handAction = new TAction(QIcon(kAppProp->themeDir() + "icons/hand.png"), tr("Hand"), this);
-    handAction->setShortcut(QKeySequence(tr("H")));
-    k->handCursor = QCursor(kAppProp->themeDir() + "cursors/hand.png");
-    handAction->setCursor(k->handCursor);
-
-    k->actions.insert(tr("Hand"), handAction);
 }
 
 void ViewTool::press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
@@ -187,19 +189,13 @@ void ViewTool::release(const TupInputDeviceInformation *input, TupBrushManager *
         qreal deltaX = initX - x;
         qreal deltaY = initY - y; 
 
-        /*
-        if (fabs(deltaX) > 50)
-            deltaX = 50;
+        qreal centerX = k->currentCenter.x() + deltaX;
+        qreal centerY = k->currentCenter.y() + deltaY;
 
-        if (fabs(deltaY) > 50)
-            deltaY = 50;
-        */
-
-        qreal centerX = initX + deltaX;
-        qreal centerY = initY + deltaY;
+        k->currentCenter = QPointF(centerX, centerY);
 
         foreach (QGraphicsView *view, scene->views()) {
-                 view->centerOn(QPointF(centerX, centerY));
+                 view->centerOn(k->currentCenter);
                  view->setSceneRect(centerX - (k->projectSize.width()/2), centerY - (k->projectSize.height()/2), 
                                     k->projectSize.width(), k->projectSize.height());
         }
@@ -285,10 +281,14 @@ int ViewTool::toolType() const
 
 QWidget *ViewTool::configurator()
 {
-    if (! k->configurator)
-        k->configurator = new ZoomConfigurator;
+    if (name() != tr("Hand")) {
+        if (! k->configurator)
+            k->configurator = new ZoomConfigurator;
 
-    return k->configurator;
+        return k->configurator;
+    }
+
+    return 0;
 }
 
 void ViewTool::aboutToChangeScene(TupGraphicsScene *)

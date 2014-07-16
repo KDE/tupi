@@ -542,13 +542,6 @@ QPointF TupPaintAreaBase::centerPoint() const
 void TupPaintAreaBase::wheelEvent(QWheelEvent *event)
 {
     scaleView(pow((double)2, event->delta() / 520.0));
-
-    /*
-    if (event->modifiers() == Qt::ControlModifier)
-        scaleView(pow((double)2, -event->delta() / 240.0));
-    else
-        QGraphicsView::wheelEvent(event);
-    */
 }
 
 bool TupPaintAreaBase::viewportEvent(QEvent *event)
@@ -565,8 +558,6 @@ bool TupPaintAreaBase::viewportEvent(QEvent *event)
 
 void TupPaintAreaBase::scaleView(qreal scaleFactor)
 {
-    // SQA: Check if this method is called for some class
-
     qreal factor = matrix().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width();
 
     if (factor < 0.07 || factor > 100)
