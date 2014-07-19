@@ -80,6 +80,9 @@ class TUPI_PLUGIN PolyLineTool : public TupToolPlugin
         virtual void saveConfig();
         virtual QCursor cursor() const;
 
+        void resizeNodes(qreal scaleFactor);
+        void updateZoomFactor(qreal scaleFactor);
+
     protected:
         virtual void itemResponse(const TupItemResponse *response);
 

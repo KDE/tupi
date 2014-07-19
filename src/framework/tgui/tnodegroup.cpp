@@ -81,15 +81,19 @@ TNodeGroup::~TNodeGroup()
         #endif
     #endif
 
-    // clear();
     delete k;
 }
 
 void TNodeGroup::clear()
 {
-    // SQA: Check if exists a better way to clean nodes 
-    qDeleteAll(k->nodes);
+    // qDeleteAll(k->nodes);
 
+    foreach (TControlNode *node, k->nodes) {
+             if (node)
+                 k->scene->removeItem(node);
+    }
+
+    k->nodes.clear();
     k->parentItem->update();
 }
 
@@ -149,6 +153,7 @@ void TNodeGroup::setParentItem(QGraphicsItem *newParent)
 
 void TNodeGroup::moveElementTo(int index, const QPointF& pos)
 {
+    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TNodeGroup::moveElementTo()]";
@@ -156,6 +161,7 @@ void TNodeGroup::moveElementTo(int index, const QPointF& pos)
             T_FUNCINFO;
         #endif
     #endif
+    */
 
     QPainterPath path = qgraphicsitem_cast<QGraphicsPathItem *>(k->parentItem)->path();
     path.setElementPositionAt(index, pos.x(), pos.y());
@@ -345,4 +351,12 @@ bool TNodeGroup::isSelected()
 int TNodeGroup::size()
 {
     return k->nodes.count();
+}
+
+void TNodeGroup::resizeNodes(qreal scaleFactor)
+{
+    foreach (TControlNode *node, k->nodes) {
+             if (node)
+                 node->resize(scaleFactor);
+    }
 }

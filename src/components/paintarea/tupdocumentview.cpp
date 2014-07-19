@@ -127,7 +127,8 @@ struct TupDocumentView::Private
 
     TupExportInterface *imagePlugin;
 
-    qreal selectionScaleFactor;
+    qreal nodesScaleFactor;
+    qreal cacheScaleFactor;
 };
 
 TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNetworked, const QStringList &users) : QMainWindow(parent), k(new Private)
@@ -151,7 +152,7 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
     k->onLineUsers = users;
     k->dynamicFlag = false;
     k->photoCounter = 1;
-    k->selectionScaleFactor = 1;
+    k->nodesScaleFactor = 1;
 
     k->actionManager = new TActionManager(this);
 
@@ -321,13 +322,8 @@ void TupDocumentView::setZoomFactor(qreal factor)
     k->paintArea->setZoom(factor);
     k->verticalRuler->setRulerZoom(factor);
     k->horizontalRuler->setRulerZoom(factor);
-    k->selectionScaleFactor *= factor;
 
-    if (k->currentTool) {
-        if (k->currentTool->name().compare(tr("Object Selection")) == 0) {
-            k->currentTool->resizeNodes(1 / k->selectionScaleFactor);
-        }
-    }
+    updateNodesScale(factor);
 }
 
 void TupDocumentView::updateZoomVars(qreal factor)
@@ -335,11 +331,17 @@ void TupDocumentView::updateZoomVars(qreal factor)
     k->status->updateZoomFactor(factor);
     k->verticalRuler->setRulerZoom(factor);
     k->horizontalRuler->setRulerZoom(factor);
-    k->selectionScaleFactor *= factor;
 
+    updateNodesScale(factor);
+}
+
+void TupDocumentView::updateNodesScale(qreal factor)
+{
     if (k->currentTool) {
-        if (k->currentTool->name().compare(tr("Object Selection")) == 0)
-            k->currentTool->resizeNodes(1 / k->selectionScaleFactor);
+        k->nodesScaleFactor *= factor;
+        QString toolName = k->currentTool->name();
+        if (toolName.compare(tr("Object Selection")) == 0 || toolName.compare(tr("Line Selection")) == 0 || toolName.compare(tr("PolyLine")) == 0)
+            k->currentTool->resizeNodes(1 / k->nodesScaleFactor);
     }
 }
 
@@ -804,8 +806,8 @@ void TupDocumentView::loadPlugin(int menu, int index)
             if (k->fullScreenOn) {
                 action->trigger();
                 k->fullScreen->updateCursor(action->cursor());
-                TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(action->parent());
-                tool->autoZoom();
+                // TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(action->parent());
+                // tool->autoZoom();
             }
         } else if (toolName.compare(k->currentTool->name()) != 0) {
             if (k->fullScreenOn) {
@@ -937,8 +939,8 @@ void TupDocumentView::selectTool()
         k->paintArea->setTool(tool);
         k->paintArea->viewport()->setCursor(action->cursor());
 
-        if (toolName.compare(tr("Object Selection"))==0)
-            tool->updateZoomFactor(1 / k->selectionScaleFactor);
+        if (toolName.compare(tr("Object Selection"))==0 || toolName.compare(tr("Line Selection"))==0 || toolName.compare(tr("PolyLine"))==0)
+            tool->updateZoomFactor(1 / k->nodesScaleFactor);
     } else {
         #ifdef K_DEBUG
             QString msg = "TupDocumentView::selectTool() - Fatal Error: Action from sender() is NULL";
@@ -1388,25 +1390,30 @@ void TupDocumentView::showFullScreen()
     int screenW = desktop.screenGeometry().width();
     int screenH = desktop.screenGeometry().height();
 
-    double scale = 1;
+    k->cacheScaleFactor = k->nodesScaleFactor;
+
+    qreal scaleFactor = 1;
 
     QSize projectSize = k->project->dimension();
     if (projectSize.width() < projectSize.height())
-        scale = (double) (screenW - 50) / (double) projectSize.width();
+        scaleFactor = (double) (screenW - 50) / (double) projectSize.width();
     else
-        scale = (double) (screenH - 50) / (double) projectSize.height();
+        scaleFactor = (double) (screenH - 50) / (double) projectSize.height();
 
     k->fullScreen = new TupCanvas(this, Qt::Window|Qt::FramelessWindowHint, k->paintArea->graphicsScene(), 
-                                 k->paintArea->centerPoint(), QSize(screenW, screenH), k->project, scale,
+                                 k->paintArea->centerPoint(), QSize(screenW, screenH), k->project, scaleFactor,
                                  k->viewAngle, brushManager(), k->isNetworked, k->onLineUsers); 
 
     k->fullScreen->updateCursor(k->currentTool->cursor());
     k->fullScreen->showFullScreen();
+    k->nodesScaleFactor = 1;
+    updateNodesScale(scaleFactor);
 
     connect(this, SIGNAL(openColorDialog(const QColor &)), k->fullScreen, SLOT(colorDialog(const QColor &)));
     connect(k->fullScreen, SIGNAL(updateColorFromFullScreen(const QColor &)), this, SIGNAL(updateColorFromFullScreen(const QColor &)));
     connect(k->fullScreen, SIGNAL(updatePenThicknessFromFullScreen(int)), this, SLOT(updatePenThickness(int)));
     connect(k->fullScreen, SIGNAL(updateOnionOpacityFromFullScreen(double)), this, SLOT(updateOnionOpacity(double)));
+    connect(k->fullScreen, SIGNAL(updateZoomFactorFromFullScreen(qreal)), this, SLOT(updateNodesScale(qreal)));
     connect(k->fullScreen, SIGNAL(callAction(int, int)), this, SLOT(loadPlugin(int, int)));
     connect(k->fullScreen, SIGNAL(requestTriggered(const TupProjectRequest *)), this, SIGNAL(requestTriggered(const TupProjectRequest *)));
     connect(k->fullScreen, SIGNAL(localRequestTriggered(const TupProjectRequest *)), this, SIGNAL(localRequestTriggered(const TupProjectRequest *)));
@@ -1436,6 +1443,7 @@ void TupDocumentView::closeFullScreen()
         disconnect(k->fullScreen, SIGNAL(updateColorFromFullScreen(const QColor &)), this, SIGNAL(updateColorFromFullScreen(const QColor &)));
         disconnect(k->fullScreen, SIGNAL(updatePenThicknessFromFullScreen(int)), this, SLOT(updatePenThickness(int))); 
         disconnect(k->fullScreen, SIGNAL(updateOnionOpacityFromFullScreen(double)), this, SLOT(updateOnionOpacity(double)));
+        disconnect(k->fullScreen, SIGNAL(updateZoomFactorFromFullScreen(qreal)), this, SLOT(updateNodesScale(qreal)));
         disconnect(k->fullScreen, SIGNAL(callAction(int, int)), this, SLOT(loadPlugin(int, int)));
         disconnect(k->fullScreen, SIGNAL(requestTriggered(const TupProjectRequest *)), this, SIGNAL(requestTriggered(const TupProjectRequest *)));
         disconnect(k->fullScreen, SIGNAL(localRequestTriggered(const TupProjectRequest *)), this, SIGNAL(localRequestTriggered(const TupProjectRequest *)));
@@ -1447,6 +1455,9 @@ void TupDocumentView::closeFullScreen()
         k->fullScreenOn = false;
         k->currentTool->init(k->paintArea->graphicsScene());
         k->fullScreen = 0;
+
+        k->nodesScaleFactor = k->cacheScaleFactor;
+        updateNodesScale(1);
     }
 }
 

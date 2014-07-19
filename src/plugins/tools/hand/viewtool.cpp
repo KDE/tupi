@@ -255,11 +255,13 @@ void ViewTool::release(const TupInputDeviceInformation *input, TupBrushManager *
 
 void ViewTool::autoZoom() 
 {
+    qreal factor = k->configurator->getFactor(); 
+    tError() << "ViewTool::autoZoom() - Factor: " << factor;
     foreach (QGraphicsView * view, k->scene->views()) {
              if (name() == tr("Zoom In")) {
-                 view->scale(1 + k->configurator->getFactor(), 1 + k->configurator->getFactor());
+                 view->scale(1 + factor, 1 + factor);
              } else if (name() == tr("Zoom Out")) {
-                        view->scale(1 - k->configurator->getFactor(), 1 - k->configurator->getFactor());
+                        view->scale(1 - factor, 1 - factor);
              }
     }
 }

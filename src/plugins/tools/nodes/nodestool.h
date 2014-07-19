@@ -102,6 +102,9 @@ class TUPI_PLUGIN NodesTool : public TupToolPlugin
         virtual void saveConfig();
         virtual QCursor cursor() const;
 
+        void resizeNodes(qreal scaleFactor);
+        void updateZoomFactor(qreal scaleFactor);
+
     signals:
         void closeHugeCanvas();
         void callForPlugin(int menu, int index);

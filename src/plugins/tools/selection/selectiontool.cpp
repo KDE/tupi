@@ -194,7 +194,6 @@ void SelectionTool::press(const TupInputDeviceInformation *input, TupBrushManage
                  }
             
                  if (!found) {
-                     tError() << "SelectionTool::press() - Calling manager->resizeNodes() with factor: " << k->realFactor;
                      NodeManager *manager = new NodeManager(item, scene, k->baseZValue);
                      manager->show();
                      manager->resizeNodes(k->realFactor);
@@ -238,7 +237,6 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
         foreach (QGraphicsItem *item, k->selectedObjects) {
                  if (item && dynamic_cast<TupAbstractSerializable* > (item)) {
                      NodeManager *node = new NodeManager(item, scene, k->baseZValue);
-                     tError() << "SelectionTool::release() - calling manager->resizeNodes() with factor: " << k->realFactor;
                      node->resizeNodes(k->realFactor);
                      k->nodeManagers << node;
                  }
@@ -903,17 +901,13 @@ QCursor SelectionTool::cursor() const
 
 void SelectionTool::resizeNodes(qreal scaleFactor)
 {
-    tError() << "SelectionTool::resizeNodes() - Getting factor: " << scaleFactor;
-
     k->realFactor = scaleFactor;
-    foreach (NodeManager *node, k->nodeManagers) {
-             node->resizeNodes(scaleFactor);
-    }
+    foreach (NodeManager *manager, k->nodeManagers)
+             manager->resizeNodes(scaleFactor);
 }
 
 void SelectionTool::updateZoomFactor(qreal scaleFactor)
 {
-    tError() << "SelectionTool::updateZoomFactor() - Updating k->scaleFactor to: " << scaleFactor;
     k->realFactor = scaleFactor;
 }
 

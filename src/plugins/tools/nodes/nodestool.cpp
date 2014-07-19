@@ -41,6 +41,8 @@ struct NodesTool::Private
     TNodeGroup *nodeGroup;
     TupGraphicsScene *scene;
     int baseZValue;
+    qreal realFactor;
+    bool activeSelection;
 };
 
 NodesTool::NodesTool(): k(new Private)
@@ -56,8 +58,12 @@ NodesTool::~NodesTool()
 void NodesTool::init(TupGraphicsScene *scene)
 {
     k->scene = scene;
+    if (k->scene->selectedItems().count() > 0)
+        k->scene->clearSelection();
+
     k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000);
-    k->nodeGroup = 0;
+    if (k->activeSelection)
+        k->nodeGroup->clear();
 
     foreach (QGraphicsView * view, scene->views()) {
              foreach (QGraphicsItem *item, view->scene()->items()) {
@@ -105,7 +111,7 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
         QList<QGraphicsItem *> currentSelection = scene->selectedItems();
         QGraphicsItem *item = currentSelection.at(0);
 
-        if (k->nodeGroup) {
+        if (k->activeSelection) { 
             int index1 = scene->currentFrame()->indexOf(k->nodeGroup->parentItem());
             int index2 = scene->currentFrame()->indexOf(item);
             if (index1 == index2 || index2 < 0) {
@@ -117,6 +123,8 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
 
         k->nodeGroup = new TNodeGroup(item, scene, TNodeGroup::LineSelection, k->baseZValue);
         k->nodeGroup->show();
+        k->activeSelection = true;
+        k->nodeGroup->resizeNodes(k->realFactor);
 
         if (!k->nodeGroup->changedNodes().isEmpty()) {
             int position = scene->currentFrame()->indexOf(k->nodeGroup->parentItem());
@@ -143,9 +151,10 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
             k->nodeGroup->clearChangesNodes();
         }
     } else {
-        if (k->nodeGroup) {
+        if (k->activeSelection) {
             k->nodeGroup->clear();
             k->nodeGroup = 0;
+            k->activeSelection = false;
         }
     } 
 }
@@ -313,7 +322,7 @@ void NodesTool::itemResponse(const TupItemResponse *response)
             break;
             default:
             {
-                 if (k->nodeGroup) {
+                 if (k->activeSelection) {
                      k->nodeGroup->show();
                      if (k->nodeGroup->parentItem()) {
                          k->nodeGroup->parentItem()->setSelected(true);
@@ -338,6 +347,7 @@ void NodesTool::keyPressEvent(QKeyEvent *event)
 
 void NodesTool::setupActions()
 {
+    k->activeSelection = false;
     TAction *select = new TAction(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "nodes.png"), tr("Line Selection"), this);
     select->setShortcut(QKeySequence(tr("N")));
 
@@ -381,4 +391,16 @@ void NodesTool::saveConfig()
 QCursor NodesTool::cursor() const
 {
     return QCursor(Qt::ArrowCursor);
+}
+
+void NodesTool::resizeNodes(qreal scaleFactor)
+{
+    k->realFactor = scaleFactor;
+    if (k->activeSelection)
+        k->nodeGroup->resizeNodes(scaleFactor);
+}
+
+void NodesTool::updateZoomFactor(qreal scaleFactor)
+{
+    k->realFactor = scaleFactor;
 }

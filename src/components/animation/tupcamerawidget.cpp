@@ -281,7 +281,7 @@ bool TupCameraWidget::handleProjectResponse(TupProjectResponse *response)
                      #ifdef Q_OS_WIN32
                          qDebug() << msg;
                      #else
-                         tError() << msg;
+                         tFatal() << msg;
                      #endif
                  #endif
             }

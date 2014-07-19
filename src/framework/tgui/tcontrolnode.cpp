@@ -68,13 +68,6 @@ TControlNode::TControlNode(int index, TNodeGroup *nodeGroup, const QPointF & pos
     setFlag(ItemSendsGeometryChanges, true);
     setPos(pos);
 
-    /*
-    if (level > 0)
-        setZValue(level + 1);
-    else
-        setZValue(graphicParent->zValue() + 1);
-    */
-
     setZValue(level);
     setGraphicParent(graphicParent);
 }
@@ -128,7 +121,7 @@ void TControlNode::paintLinesToChildNodes(QPainter *painter)
 
 QRectF TControlNode::boundingRect() const
 {
-    QSizeF size(8, 8);
+    QSizeF size(10, 10);
     QRectF rect(QPointF(-size.width()/2, -size.height()/2), size);
 
     if (k->rightNode) {
@@ -333,3 +326,9 @@ void TControlNode::hasChanged(bool unchanged)
 {
     k->unchanged = unchanged;
 }
+
+void TControlNode::resize(qreal factor)
+{
+    setScale(factor);
+}
+

@@ -52,7 +52,7 @@ struct PolyLineTool::Private
     QPointF right;
     QPointF mirror;
     
-    TNodeGroup *nodegroup;
+    TNodeGroup *nodeGroup;
     QPainterPath path;
     
     QMap<QString, TAction *> actions;
@@ -64,12 +64,14 @@ struct PolyLineTool::Private
     QGraphicsLineItem *line2;
     InfoPanel *configurator;
     QCursor cursor;
+
+    qreal realFactor;
 };
 
 PolyLineTool::PolyLineTool(): k(new Private)
 {
     k->configurator = 0;
-    k->nodegroup = 0;
+    k->nodeGroup = 0;
     k->item = 0;
 
     k->cursor = QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "polyline.png");
@@ -197,14 +199,15 @@ void PolyLineTool::release(const TupInputDeviceInformation *input, TupBrushManag
     Q_UNUSED(input);
     Q_UNUSED(brushManager);
 
-    if (!k->nodegroup) {
-        k->nodegroup = new TNodeGroup(k->item, scene, TNodeGroup::Polyline, k->item->zValue()+1);
-        connect(k->nodegroup, SIGNAL(nodeReleased()), this, SLOT(nodeChanged()));
+    if (!k->nodeGroup) {
+        k->nodeGroup = new TNodeGroup(k->item, scene, TNodeGroup::Polyline, k->item->zValue()+1);
+        connect(k->nodeGroup, SIGNAL(nodeReleased()), this, SLOT(nodeChanged()));
     } else {
-        k->nodegroup->createNodes(k->item);
+        k->nodeGroup->createNodes(k->item);
     }
 
-    k->nodegroup->show();
+    k->nodeGroup->show();
+    k->nodeGroup->resizeNodes(k->realFactor);
     
     if (k->begin) {
         QDomDocument doc;
@@ -344,8 +347,8 @@ void PolyLineTool::itemResponse(const TupItemResponse *response)
             if (TupPathItem *path = qgraphicsitem_cast<TupPathItem *>(item)) {
                 if (k->item != path) {
                     k->item = path;
-                    if (k->nodegroup)
-                        k->nodegroup->setParentItem(path);
+                    if (k->nodeGroup)
+                        k->nodeGroup->setParentItem(path);
                 }
             }
         }
@@ -358,19 +361,19 @@ void PolyLineTool::itemResponse(const TupItemResponse *response)
                 k->path = QPainterPath();
                 delete k->item;
                 k->item = 0;
-                delete k->nodegroup;
-                k->nodegroup = 0;
+                delete k->nodeGroup;
+                k->nodeGroup = 0;
             }
             */
         }
         break;
         case TupProjectRequest::EditNodes:
         {
-            if (item && k->nodegroup) {
-                if (qgraphicsitem_cast<QGraphicsPathItem *>(k->nodegroup->parentItem()) == item) {
-                    k->nodegroup->show();
-                    k->nodegroup->syncNodesFromParent();
-                    k->nodegroup->saveParentProperties();
+            if (item && k->nodeGroup) {
+                if (qgraphicsitem_cast<QGraphicsPathItem *>(k->nodeGroup->parentItem()) == item) {
+                    k->nodeGroup->show();
+                    k->nodeGroup->syncNodesFromParent();
+                    k->nodeGroup->saveParentProperties();
                     break;
                 }
             } else {
@@ -417,9 +420,9 @@ void PolyLineTool::initEnv()
     k->path = QPainterPath();
     k->item = 0;
 
-    if (k->nodegroup) { 
-        k->nodegroup->clear();
-        k->nodegroup = 0;
+    if (k->nodeGroup) { 
+        k->nodeGroup->clear();
+        k->nodeGroup = 0;
     }
 
     if (k->line1) {
@@ -442,19 +445,19 @@ void PolyLineTool::nodeChanged()
         #endif
     #endif
 
-    if (k->nodegroup) {
-        if (!k->nodegroup->changedNodes().isEmpty()) {
+    if (k->nodeGroup) {
+        if (!k->nodeGroup->changedNodes().isEmpty()) {
             int position = -1;
             TupProject *project = k->scene->scene()->project();
             if (project->spaceContext() == TupProject::FRAMES_EDITION) {
-                position = k->scene->currentFrame()->indexOf(k->nodegroup->parentItem());
+                position = k->scene->currentFrame()->indexOf(k->nodeGroup->parentItem());
             } else {
                 TupBackground *bg = k->scene->scene()->background();
                 if (bg) {
                     if (project->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                         TupFrame *frame = bg->staticFrame();
                         if (frame) {
-                            position = frame->indexOf(k->nodegroup->parentItem());
+                            position = frame->indexOf(k->nodeGroup->parentItem());
                         } else {
                             #ifdef K_DEBUG
                                 QString msg = "PolyLineTool::nodeChanged() - Fatal Error: Static bg frame is NULL!";
@@ -469,7 +472,7 @@ void PolyLineTool::nodeChanged()
                     } else if (project->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                TupFrame *frame = bg->dynamicFrame();
                                if (frame) {
-                                   position = frame->indexOf(k->nodegroup->parentItem());
+                                   position = frame->indexOf(k->nodeGroup->parentItem());
                                } else {
                                    #ifdef K_DEBUG
                                        QString msg = "PolyLineTool::nodeChanged() - Fatal Error: Dynamic bg frame is NULL!";
@@ -503,18 +506,18 @@ void PolyLineTool::nodeChanged()
                 }
             }
 
-            if (position >= 0 && qgraphicsitem_cast<QGraphicsPathItem *>(k->nodegroup->parentItem())) {
+            if (position >= 0 && qgraphicsitem_cast<QGraphicsPathItem *>(k->nodeGroup->parentItem())) {
                     QDomDocument doc;
-                    doc.appendChild(qgraphicsitem_cast<TupPathItem *>(k->nodegroup->parentItem())->toXml(doc));
+                    doc.appendChild(qgraphicsitem_cast<TupPathItem *>(k->nodeGroup->parentItem())->toXml(doc));
                 
                     TupProjectRequest event = TupRequestBuilder::createItemRequest(k->scene->currentSceneIndex(), k->scene->currentLayerIndex(), k->scene->currentFrameIndex(), 
                                                                                  position, QPointF(), k->scene->spaceMode(), TupLibraryObject::Item, TupProjectRequest::EditNodes, 
                                                                                  doc.toString());
                     emit requested(&event);
-                    // k->nodegroup->restoreItem();
+                    // k->nodeGroup->restoreItem();
              } else {
                #ifdef K_DEBUG
-                   QString msg = "PolyLineTool::nodeChanged() - Fatal Error: Invalid object index || No nodegroup parent item";
+                   QString msg = "PolyLineTool::nodeChanged() - Fatal Error: Invalid object index || No nodeGroup parent item";
                    #ifdef Q_OS_WIN32
                        qDebug() << msg;
                    #else
@@ -577,4 +580,16 @@ void PolyLineTool::saveConfig()
 QCursor PolyLineTool::cursor() const
 {
     return k->cursor;
+}
+
+void PolyLineTool::resizeNodes(qreal scaleFactor)
+{
+    k->realFactor = scaleFactor;
+    if (k->nodeGroup)
+        k->nodeGroup->resizeNodes(scaleFactor);
+}
+
+void PolyLineTool::updateZoomFactor(qreal scaleFactor)
+{
+    k->realFactor = scaleFactor;
 }

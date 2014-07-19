@@ -169,6 +169,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void drawGrid();
         void drawActionSafeArea();
         bool handleProjectResponse(TupProjectResponse *event);
+        void updateNodesScale(qreal factor);
 
     signals:
         void requestTriggered(const TupProjectRequest *event);

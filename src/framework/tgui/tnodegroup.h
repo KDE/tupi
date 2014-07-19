@@ -87,6 +87,7 @@ class T_GUI_EXPORT TNodeGroup : public QObject
         void expandAllNodes();
         bool isSelected();
         int size();
+        void resizeNodes(qreal scaleFactor);
         
     private:
         struct Private;

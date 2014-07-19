@@ -57,7 +57,7 @@ struct TupCanvas::Private
 };
 
 TupCanvas::TupCanvas(QWidget *parent, Qt::WindowFlags flags, TupGraphicsScene *scene, 
-                   const QPointF centerPoint, const QSize &screenSize, TupProject *project, double scaleFactor,
+                   const QPointF centerPoint, const QSize &screenSize, TupProject *project, qreal scaleFactor,
                    int angle, TupBrushManager *brushManager, bool isNetworked, const QStringList &onLineUsers) : QFrame(parent, flags), k(new Private)
 {
     #ifdef K_DEBUG
@@ -511,21 +511,17 @@ void TupCanvas::wakeUpDeleteSelection()
 void TupCanvas::wakeUpZoomIn()
 {
     updateMenuStates();
-    // emit callAction(TupToolPlugin::ZoomMenu, TupToolPlugin::ZoomInTool);
+    graphicsView->scale(1.3, 1.3);
 
-    foreach (QGraphicsView * view, k->scene->views()) {
-             view->scale(1 + 0.3, 1 + 0.3);
-    }
+    emit updateZoomFactorFromFullScreen(1.3);
 }
 
 void TupCanvas::wakeUpZoomOut()
 {
     updateMenuStates();
-    // emit callAction(TupToolPlugin::ZoomMenu, TupToolPlugin::ZoomOutTool);
+    graphicsView->scale(0.7, 0.7);
 
-    foreach (QGraphicsView * view, k->scene->views()) {
-             view->scale(1 - 0.3, 1 - 0.3);
-    }
+    emit updateZoomFactorFromFullScreen(0.7);
 }
 
 void TupCanvas::wakeUpHand()
