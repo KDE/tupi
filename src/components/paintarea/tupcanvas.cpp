@@ -199,6 +199,7 @@ void TupCanvas::updateCursor(const QCursor &cursor)
 
 void TupCanvas::closeEvent(QCloseEvent *event)
 {
+    delete graphicsView; 
     event->accept();
 }
 

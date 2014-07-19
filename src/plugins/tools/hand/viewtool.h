@@ -85,6 +85,8 @@ class TUPI_PLUGIN ViewTool: public TupToolPlugin
         virtual void autoZoom();
         virtual void setProjectSize(const QSize size);
 
+        virtual void setActiveView(const QString &viewID);
+
     signals:
         void closeHugeCanvas();
         void callForPlugin(int menu, int index);

@@ -241,6 +241,7 @@ QPair<int, int> TupToolPlugin::setKeyAction(int key, Qt::KeyboardModifiers modif
                  tool = TupToolPlugin::ContourTool;
             break;
 
+            /*
             case Qt::Key_Z:
                  menu = TupToolPlugin::ZoomMenu;
                  if (modifiers == Qt::ShiftModifier)
@@ -248,6 +249,7 @@ QPair<int, int> TupToolPlugin::setKeyAction(int key, Qt::KeyboardModifiers modif
                  else
                      tool = TupToolPlugin::ZoomInTool;
             break;
+            */
 
             case Qt::Key_H:
                  menu = TupToolPlugin::ZoomMenu;
@@ -294,4 +296,9 @@ TupToolPlugin::Mode TupToolPlugin::currentMode()
 TupToolPlugin::EditMode TupToolPlugin::currentEditMode()
 {
     return TupToolPlugin::None;
+}
+
+void TupToolPlugin::setActiveView(const QString &viewID)
+{
+    Q_UNUSED(viewID);
 }

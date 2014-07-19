@@ -623,7 +623,6 @@ void TupDocumentView::loadPlugins()
                                case TupToolInterface::View:
                                  {
                                    // k->viewToolMenu->addAction(action);
-                                   // if (toolName.compare(tr("Zoom In")) == 0)
                                    if (toolName.compare(tr("Hand")) == 0) {
                                        k->viewToolMenu->addAction(action);
                                        k->viewToolMenu->setDefaultAction(action);
@@ -802,6 +801,14 @@ void TupDocumentView::loadPlugin(int menu, int index)
     if (action) {
         QString toolName = tr("%1").arg(action->text());
 
+        if (toolName.compare(k->currentTool->name()) != 0) {
+            if (k->fullScreenOn) {
+                action->trigger();
+                k->fullScreen->updateCursor(action->cursor());
+            }
+        }
+
+        /*
         if (index == TupToolPlugin::ZoomInTool || index == TupToolPlugin::ZoomOutTool) {
             if (k->fullScreenOn) {
                 action->trigger();
@@ -813,8 +820,14 @@ void TupDocumentView::loadPlugin(int menu, int index)
             if (k->fullScreenOn) {
                 action->trigger();
                 k->fullScreen->updateCursor(action->cursor());
+
+                if (index == TupToolPlugin::HandTool) {
+                    TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(action->parent());
+                    tool->setActiveView("FULL_SCREEN");
+                }
             }
         }
+        */
     } else {
         #ifdef K_DEBUG
             QString msg = "TupDocumentView::loadPlugin() - Error: Action pointer is NULL!";
@@ -918,6 +931,10 @@ void TupDocumentView::selectTool()
 
                      if (toolName.compare(tr("Hand"))==0) {
                          tool->setProjectSize(k->project->dimension());
+                         if (k->fullScreenOn)
+                             tool->setActiveView("FULL_SCREEN");
+                         else
+                             tool->setActiveView("WORKSPACE");
                      }
                      break;
         }
@@ -1405,6 +1422,11 @@ void TupDocumentView::showFullScreen()
                                  k->viewAngle, brushManager(), k->isNetworked, k->onLineUsers); 
 
     k->fullScreen->updateCursor(k->currentTool->cursor());
+
+    QString toolName = k->currentTool->name();
+    if (toolName.compare(tr("Hand")) == 0)
+        k->currentTool->setActiveView("FULL_SCREEN");
+
     k->fullScreen->showFullScreen();
     k->nodesScaleFactor = 1;
     updateNodesScale(scaleFactor);
@@ -1455,6 +1477,10 @@ void TupDocumentView::closeFullScreen()
         k->fullScreenOn = false;
         k->currentTool->init(k->paintArea->graphicsScene());
         k->fullScreen = 0;
+
+        QString toolName = k->currentTool->name();
+        if (toolName.compare(tr("Hand")) == 0) 
+            k->currentTool->setActiveView("WORKSPACE");
 
         k->nodesScaleFactor = k->cacheScaleFactor;
         updateNodesScale(1);

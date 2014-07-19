@@ -66,6 +66,8 @@ TupPaintArea::TupPaintArea(TupProject *project, QWidget * parent) : TupPaintArea
         #endif
     #endif
 
+    setAccessibleName("WORKSPACE");
+
     k->canvasEnabled = false;
 
     k->project = project;

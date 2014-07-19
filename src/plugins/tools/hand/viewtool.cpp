@@ -44,6 +44,7 @@
 
 struct ViewTool::Private
 {
+    QString activeView;
     QMap<QString, TAction *> actions;
     QGraphicsRectItem *rect;
     bool added;
@@ -59,6 +60,7 @@ struct ViewTool::Private
 
 ViewTool::ViewTool() : k(new Private)
 {
+    k->activeView = "WORKSPACE";
     k->rect = 0;
     k->scene = 0;
     k->configurator = 0;
@@ -131,17 +133,16 @@ void ViewTool::move(const TupInputDeviceInformation *input, TupBrushManager *bru
     Q_UNUSED(input);
     Q_UNUSED(brushManager);
 
-    foreach (QGraphicsView * view, scene->views()) {
-             if (name() == tr("Zoom In") || name() == tr("Zoom Out"))
-                 view->setDragMode(QGraphicsView::NoDrag);
-             // else if (name() == tr("Hand"))
-             //          view->setDragMode(QGraphicsView::ScrollHandDrag);
+    foreach (QGraphicsView *view, scene->views()) {
+             if (k->activeView.compare(view->accessibleName()) == 0) {
+                 view->setDragMode(QGraphicsView::ScrollHandDrag);
+                 break;
+             }
     }
 
     if (name() == tr("Hand")) {
         k->scene = scene; // <- SQA: Trace this variable
     } else if (name() == tr("Zoom In") && input->keyModifiers() == Qt::ControlModifier) {
-
                if (!k->added) {
                    scene->addItem(k->rect);
                    k->added = true;
@@ -195,11 +196,13 @@ void ViewTool::release(const TupInputDeviceInformation *input, TupBrushManager *
         k->currentCenter = QPointF(centerX, centerY);
 
         foreach (QGraphicsView *view, scene->views()) {
-                 view->centerOn(k->currentCenter);
-                 view->setSceneRect(centerX - (k->projectSize.width()/2), centerY - (k->projectSize.height()/2), 
-                                    k->projectSize.width(), k->projectSize.height());
+                 if (k->activeView.compare(view->accessibleName()) == 0) {
+                     view->centerOn(k->currentCenter);
+                     view->setSceneRect(centerX - (k->projectSize.width()/2), centerY - (k->projectSize.height()/2), 
+                                        k->projectSize.width(), k->projectSize.height());
+                     break;
+                 }
         }
-
     } else if (name() == tr("Zoom In") || name() == tr("Zoom Out")) { 
                // Zoom Square mode
                if (input->button() == Qt::LeftButton && input->keyModifiers() == Qt::ControlModifier) {    
@@ -256,7 +259,6 @@ void ViewTool::release(const TupInputDeviceInformation *input, TupBrushManager *
 void ViewTool::autoZoom() 
 {
     qreal factor = k->configurator->getFactor(); 
-    tError() << "ViewTool::autoZoom() - Factor: " << factor;
     foreach (QGraphicsView * view, k->scene->views()) {
              if (name() == tr("Zoom In")) {
                  view->scale(1 + factor, 1 + factor);
@@ -338,4 +340,9 @@ QCursor ViewTool::cursor() const
    } 
 
    return QCursor(Qt::ArrowCursor);
+}
+
+void ViewTool::setActiveView(const QString &viewID)
+{
+    k->activeView = viewID;
 }

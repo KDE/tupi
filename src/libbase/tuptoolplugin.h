@@ -66,7 +66,8 @@ class TUPI_EXPORT TupToolPlugin : public QObject, public TupToolInterface
         enum BrushTools { InvalidBrush = -1, PencilTool = 0, InkTool, EraserTool, PolyLineTool, LineTool, RectangleTool, EllipseTool, TextTool, FrameBack, FrameForward, QuickCopy, Delete };
         enum SelectTools { InvalidSelection = -1, NodesTool = 0, ObjectsTool };
         enum FillTools { InvalidFill = -1, InsideTool = 0, ContourTool };
-        enum ViewTools { InvalidView = -1, ZoomInTool = 0, ZoomOutTool, HandTool };
+        // enum ViewTools { InvalidView = -1, ZoomInTool = 0, ZoomOutTool, HandTool };
+        enum ViewTools { InvalidView = -1, HandTool };
         enum ColorTools { InvalidColor = -1, ColorTool = 0 };
 
         enum Mode { Add = 1, Edit, View };
@@ -115,6 +116,8 @@ class TUPI_EXPORT TupToolPlugin : public QObject, public TupToolInterface
 
         virtual TupToolPlugin::Mode currentMode();
         virtual TupToolPlugin::EditMode currentEditMode();
+
+        virtual void setActiveView(const QString &viewID);
         
     signals:
         void requested(const TupProjectRequest *request);
