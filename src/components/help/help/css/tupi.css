@@ -236,6 +236,17 @@ a:hover {
      font-weight:normal;
 }
 
+.twitter_tupi_donation {
+     background-color:#ddd;
+     color:#000000;
+     text-align:center;
+     text-decoration:none;
+     font-family:"Arial", Times, serif;
+     font-style:normal;
+     font-size:12px;
+     font-weight:normal;
+}
+
 .twitter_tweet {
      /* background-color:#fff; */
      color:#000000;
