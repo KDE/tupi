@@ -627,7 +627,9 @@ QString TupItemTweener::tweenType()
             case TupItemTweener::Compound :
                  type = QString(tr("Compound Tween"));
                  break;
-
+            case TupItemTweener::Papagayo :
+                 type = QString(tr("Papagayo Lip-sync"));
+                 break;
     }
 
     return type;

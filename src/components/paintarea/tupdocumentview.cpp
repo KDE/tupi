@@ -510,9 +510,9 @@ void TupDocumentView::loadPlugins()
                   #endif
 
                   TAction *action = tool->actions()[*it];
-                  action->setIconVisibleInMenu(true);
 
                   if (action) {
+                      action->setIconVisibleInMenu(true);
                       connect(action, SIGNAL(triggered()), this, SLOT(selectTool()));
                       action->setParent(plugin);
                       QString toolName = action->text();
@@ -604,6 +604,10 @@ void TupDocumentView::loadPlugins()
                                        action->setDisabled(true);
                                        tweenTools[6] = action;
                                    }
+
+                                   if (toolName.compare(tr("Papagayo Lip-sync")) == 0) {
+                                       // tError() << "TupDocumentView::loadPlugins() - Tracing Papagayo plugin...";   
+                                   }
                                  }
                                  break;
                               case TupToolInterface::Selection:
@@ -632,6 +636,15 @@ void TupDocumentView::loadPlugins()
                                default:
                                  break;
                       }
+                  } else {
+                      #ifdef K_DEBUG
+                          QString msg = "TupDocumentView::loadPlugins() - Fatal Error: Tool action is NULL -> " + *it;
+                          #ifdef Q_OS_WIN32
+                              qDebug() << msg;
+                          #else
+                              tError() << msg;
+                          #endif
+                      #endif
                   }
              }
     } // end foreach

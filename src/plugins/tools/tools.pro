@@ -16,7 +16,8 @@ SUBDIRS += common \
            shear \
            opacity \
            color \
-           compound
+           compound \
+           papagayo
 
 CONFIG += ordered warn_on
 TEMPLATE = subdirs

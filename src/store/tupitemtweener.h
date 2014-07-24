@@ -66,8 +66,10 @@ class TUPI_EXPORT TupItemTweener : public QObject, public TupAbstractSerializabl
              Shear = 3,
              Opacity = 4,
              Coloring = 5,
-             Compound = 6 
+             Compound = 6, 
+             Papagayo = 7
         };
+
         enum RotationType { Continuos = 0, Partial };
         enum RotateDirection { Clockwise = 0, Counterclockwise };
         enum TransformAxes { XY = 0, X, Y };
