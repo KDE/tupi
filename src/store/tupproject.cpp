@@ -74,8 +74,8 @@ TupProject::TupProject(QObject *parent) : QObject(parent), k(new Private)
         #else
             TINIT;
         #endif
-    #endif	
-	
+    #endif    
+    
     k->spaceMode = TupProject::NONE;
     k->bgColor = QColor("#fff");
     k->sceneCounter = 0;
@@ -95,8 +95,8 @@ TupProject::~TupProject()
         #else
             TEND;
         #endif
-    #endif	
-		
+    #endif    
+        
     deleteDataDir();
     k->scenes.clear();
     delete k;
@@ -112,7 +112,7 @@ void TupProject::loadLibrary(const QString &filename)
     if (lfile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         k->library->fromXml(QString::fromLocal8Bit(lfile.readAll()));
         lfile.close();
-    } else {			   
+    } else {               
         #ifdef K_DEBUG
             QString msg = "TupProject::loadLibrary() - Cannot open library from: " + filename;
             #ifdef Q_OS_WIN32
@@ -272,15 +272,15 @@ bool TupProject::removeScene(int position)
         #else
             T_FUNCINFO;
         #endif
-    #endif		
-	
+    #endif        
+    
     TupScene *toRemove = scene(position);
 
     if (toRemove) {
 
         QString path = dataDir() + QDir::separator() + "scene" + QString::number(position) + ".tps";
 
-        if (!QFile::remove(path)) {		
+        if (!QFile::remove(path)) {        
             #ifdef K_DEBUG
                 QString msg = "TupProject::removeScene() - Error removing file " + path;
                 #ifdef Q_OS_WIN32
@@ -289,7 +289,7 @@ bool TupProject::removeScene(int position)
                     tError() << msg;
                 #endif
             #endif
-			
+            
             return false;
         } else {
             int total = k->sceneCounter - 1;
@@ -335,14 +335,14 @@ bool TupProject::moveScene(int position, int newPosition)
 }
 
 TupScene *TupProject::scene(int position) const
-{	
+{    
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupProject::scene()] - position: " << position;
         #else
             T_FUNCINFOX("project") << position;
         #endif
-    #endif	
+    #endif    
 
     if (position < 0) {
         #ifdef K_DEBUG
@@ -481,8 +481,8 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
             T_FUNCINFOX("symbol");
         #endif
     #endif
-	
-    if (!k->isOpen) {		
+    
+    if (!k->isOpen) {        
         #ifdef K_DEBUG
             QString msg = "TupProject::createSymbol() - Fatal error: project is NOT open!";
             #ifdef Q_OS_WIN32
@@ -491,7 +491,7 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
                 tError() << msg;
             #endif
         #endif
-		
+        
         return false;
     }
 
@@ -503,9 +503,9 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
             #else
                 tError() << msg;
             #endif
-        #endif	
+        #endif    
 
-    } else {		
+    } else {        
         #ifdef K_DEBUG
             QString msg = "TupProject::createSymbol() - Object added successfully -> " + name;
             #ifdef Q_OS_WIN32
@@ -513,7 +513,7 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
             #else
                 tError() << msg;
             #endif
-        #endif	
+        #endif    
     }
 
     return true;
@@ -529,8 +529,8 @@ bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbol
         #else
             T_FUNCINFO;
         #endif
-    #endif	
-	
+    #endif    
+    
     Q_UNUSED(name);
 
     TupFrame *frame = 0;
@@ -549,13 +549,13 @@ bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbol
                         } else {
                             #ifdef K_DEBUG
                                 QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove SVG object at index [ " + QString::number(lastIndex) + " ]";
-								QString msg2 = "TupProject::removeSymbol() - Context Mode: Frames Edition";
+                                QString msg2 = "TupProject::removeSymbol() - Context Mode: Frames Edition";
                                 #ifdef Q_OS_WIN32
                                     qDebug() << msg1;
-									qDebug() << msg2;
+                                    qDebug() << msg2;
                                 #else
                                     tError() << msg1;
-									tError() << msg2;
+                                    tError() << msg2;
                                 #endif
                             #endif
                             return false;
@@ -567,13 +567,13 @@ bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbol
                         } else {
                             #ifdef K_DEBUG
                                 QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove SVG object at index [ " + QString::number(lastIndex) + " ]";
-								QString msg2 = "TupProject::removeSymbol() - Context Mode: Frames Edition";
+                                QString msg2 = "TupProject::removeSymbol() - Context Mode: Frames Edition";
                                 #ifdef Q_OS_WIN32
                                     qDebug() << msg1;
-									qDebug() << msg2;
+                                    qDebug() << msg2;
                                 #else
                                     tError() << msg1;
-									tError() << msg2;
+                                    tError() << msg2;
                                 #endif
                             #endif
                             return false;
@@ -591,16 +591,16 @@ bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbol
                                int lastIndex = frame->svgItemsCount()-1;
                                if (frame->removeSvgAt(lastIndex)) {
                                    return true;
-                               } else {								   
+                               } else {                                   
                                    #ifdef K_DEBUG
                                        QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove SVG object at index [ " + QString::number(lastIndex) + " ]";
-								       QString msg2 = "TupProject::removeSymbol() - Context Mode: Static Bg Edition";
+                                       QString msg2 = "TupProject::removeSymbol() - Context Mode: Static Bg Edition";
                                        #ifdef Q_OS_WIN32
                                            qDebug() << msg1;
-									       qDebug() << msg2;
+                                           qDebug() << msg2;
                                        #else
                                            tError() << msg1;
-									       tError() << msg2;
+                                           tError() << msg2;
                                        #endif
                                    #endif
                                    return false;
@@ -609,19 +609,19 @@ bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbol
                                int lastIndex = frame->graphicItemsCount()-1;
                                if (frame->removeGraphicAt(lastIndex)) {
                                    return true;
-                               } else {								   
+                               } else {                                   
                                    #ifdef K_DEBUG
                                        QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove ITEM at index [ " + QString::number(lastIndex) + " ]";
-								       QString msg2 = "TupProject::removeSymbol() - Context Mode: Static Bg Edition";
+                                       QString msg2 = "TupProject::removeSymbol() - Context Mode: Static Bg Edition";
                                        #ifdef Q_OS_WIN32
                                            qDebug() << msg1;
-									       qDebug() << msg2;
+                                           qDebug() << msg2;
                                        #else
                                            tError() << msg1;
-									       tError() << msg2;
+                                           tError() << msg2;
                                        #endif
                                    #endif
-								   
+                                   
                                    return false;
                                }
                            }
@@ -637,19 +637,19 @@ bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbol
                                int lastIndex = frame->svgItemsCount()-1;
                                if (frame->removeSvgAt(lastIndex)) {
                                    return true;
-                               } else {								   
+                               } else {                                   
                                    #ifdef K_DEBUG
                                        QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove SVG at index [ " + QString::number(lastIndex) + " ]";
-								       QString msg2 = "TupProject::removeSymbol() - Context Mode: Dynamic Bg Edition";
+                                       QString msg2 = "TupProject::removeSymbol() - Context Mode: Dynamic Bg Edition";
                                        #ifdef Q_OS_WIN32
                                            qDebug() << msg1;
-									       qDebug() << msg2;
+                                           qDebug() << msg2;
                                        #else
                                            tError() << msg1;
-									       tError() << msg2;
+                                           tError() << msg2;
                                        #endif
                                    #endif
-								   
+                                   
                                    return false;
                                }
                            } else {
@@ -659,16 +659,16 @@ bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbol
                                } else {
                                    #ifdef K_DEBUG
                                        QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove ITEM at index [ " + QString::number(lastIndex) + " ]";
-								       QString msg2 = "TupProject::removeSymbol() - Context Mode: Dynamic Bg Edition";
+                                       QString msg2 = "TupProject::removeSymbol() - Context Mode: Dynamic Bg Edition";
                                        #ifdef Q_OS_WIN32
                                            qDebug() << msg1;
-									       qDebug() << msg2;
+                                           qDebug() << msg2;
                                        #else
                                            tError() << msg1;
-									       tError() << msg2;
+                                           tError() << msg2;
                                        #endif
                                    #endif
-								   
+                                   
                                    return false;
                                }
                            }
@@ -697,22 +697,35 @@ bool TupProject::removeSymbol(const QString &name)
         #else
             T_FUNCINFO;
         #endif
-    #endif	
-	
+    #endif    
+    
     return k->library->removeObject(name, true);
+}
+
+bool TupProject::removeFolder(const QString &name)
+{
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupProject::removeFolder()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+
+    return k->library->removeFolder(name);
 }
 
 bool TupProject::insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString &name, int sceneIndex, 
                                    int layerIndex, int frameIndex)
-{	
+{    
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupProject::insertSymbolIntoFrame()]";
         #else
             T_FUNCINFO;
         #endif
-    #endif		
-	
+    #endif        
+    
     TupFrame *frame = 0;
     TupScene *scene = this->scene(sceneIndex);
 
@@ -825,19 +838,19 @@ bool TupProject::insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString
                         }
                         break;
                         default:
-	                         #ifdef K_DEBUG
+                             #ifdef K_DEBUG
                                  QString msg = "TupProject::insertSymbolIntoFrame() -> Unknown Object Type";
                                  #ifdef Q_OS_WIN32
                                      qDebug() << msg;
                                  #else
                                      tFatal() << msg;
                                  #endif
-                             #endif						 
+                             #endif                         
                         break;
                 }
 
                 return true;
-            } else {				
+            } else {                
                 #ifdef K_DEBUG
                     QString msg = "TupProject::insertSymbolIntoFrame() - Object NOT found at library! " + name;
                     #ifdef Q_OS_WIN32
@@ -846,7 +859,7 @@ bool TupProject::insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString
                         tError() << msg;
                     #endif
                 #endif
-				
+                
                 return false;
             }
         } else {
@@ -859,7 +872,7 @@ bool TupProject::insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString
                     #endif
                 #endif
         }
-    } else {		
+    } else {        
         #ifdef K_DEBUG
             QString msg = "TupProject::insertSymbolIntoFrame() - Invalid scene!";
             #ifdef Q_OS_WIN32
@@ -867,7 +880,7 @@ bool TupProject::insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString
             #else
                 tError() << msg;
             #endif
-        #endif		
+        #endif        
     }
 
     return false;
@@ -882,8 +895,8 @@ bool TupProject::removeSymbolFromFrame(const QString &name, TupLibraryObject::Ty
         #else
             tFatal() << msg;
         #endif
-    #endif	
-	
+    #endif    
+    
     if (type == TupLibraryObject::Folder)
         return true;
 
@@ -1040,7 +1053,7 @@ bool TupProject::deleteDataDir()
                      dir.remove(scene);
         }
 
-        if (dir.exists("audio") || dir.exists("video") || dir.exists("images") || dir.exists("svg")) {			
+        if (dir.exists("audio") || dir.exists("video") || dir.exists("images") || dir.exists("svg")) {            
             #ifdef K_DEBUG
                 QString msg = "TupProject::deleteDataDir() - Removing directory -> " + dir.absolutePath();
                 #ifdef Q_OS_WIN32

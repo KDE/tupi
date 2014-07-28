@@ -55,9 +55,9 @@ bool TupFileManager::save(const QString &fileName, TupProject *project)
     #ifdef K_DEBUG
         QString msg = "TupFileManager::save() - Saving file -> " + fileName;
             #ifdef Q_OS_WIN32
-                qDebug() << msg;
+                qWarning() << msg;
             #else
-                tError() << msg;
+                tWarning() << msg;
         #endif
     #endif
 
@@ -79,9 +79,9 @@ bool TupFileManager::save(const QString &fileName, TupProject *project)
                 #ifdef K_DEBUG
                     QString msg = "TupFileManager::save() - Directory renamed to -> " + projectDir.path(); 
                     #ifdef Q_OS_WIN32
-                        qDebug() << msg;
+                        qWarning() << msg;
                     #else
-                        tError() << msg;
+                        tWarning() << msg;
                     #endif
                 #endif
             } else {

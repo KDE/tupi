@@ -67,6 +67,7 @@ struct TupLibraryWidget::Private
     QTreeWidgetItem *lastItemEdited;
     QTreeWidgetItem *currentItemDisplayed;
     QFileSystemWatcher *watcher;
+    QList<QString> editorItems;
 
     struct Frame
     {
@@ -114,6 +115,9 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
 
     connect(k->libraryTree, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this,
                                    SLOT(refreshItem(QTreeWidgetItem*)));
+
+    connect(k->libraryTree, SIGNAL(editorClosed()), this,
+                                   SLOT(updateItemEditionState()));
 
     connect(k->libraryTree, SIGNAL(itemMoved(QString, QString)), this,
                                    SLOT(updateLibrary(QString, QString)));
@@ -228,6 +232,16 @@ void TupLibraryWidget::addFolder(const QString &folderName)
 {
     k->libraryTree->createFolder(folderName);
     k->mkdir = true;
+}
+
+void TupLibraryWidget::updateItemEditionState()
+{
+    if (k->editorItems.count() == 2) {
+        TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Remove, k->editorItems.at(0), TupLibraryObject::Folder); 
+        emit requestTriggered(&request);
+    }
+
+    k->editorItems.clear();
 }
 
 void TupLibraryWidget::activeRefresh(QTreeWidgetItem *item)
@@ -1469,11 +1483,14 @@ void TupLibraryWidget::refreshItem(QTreeWidgetItem *item)
         }
 
         item->setText(1, tag);
+
         TupLibraryFolder *folder = new TupLibraryFolder(tag, k->project);
         k->library->addFolder(folder);
 
         QGraphicsTextItem *msg = new QGraphicsTextItem(tr("Directory"));
         k->display->render(static_cast<QGraphicsItem *>(msg));
+
+        k->editorItems << tag;
 
         return;
     }

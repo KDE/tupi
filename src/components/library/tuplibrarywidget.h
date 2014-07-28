@@ -122,6 +122,7 @@ class TUPI_EXPORT TupLibraryWidget : public TupModuleWidgetBase
         void openKritaToEdit(QTreeWidgetItem *item);
         void openMyPaintToEdit(QTreeWidgetItem *item);
         void updateItemFromSaveAction();
+        void updateItemEditionState();
 
     public slots:
         void addFolder(const QString &folderName = QString());

@@ -71,7 +71,8 @@ class T_GUI_EXPORT TreeListWidget : public QTreeWidget
         virtual void closeEditor(QWidget * editor, QAbstractItemDelegate::EndEditHint hint);
         
     signals:
-        void itemRenamed(QTreeWidgetItem *item);
+        // void itemRenamed(QTreeWidgetItem *item);
+        void editorClosed();
         
     private:
         bool m_isEditable;

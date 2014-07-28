@@ -123,11 +123,8 @@ void TreeListWidget::closeEditor(QWidget * editor, QAbstractItemDelegate::EndEdi
 
     QLineEdit *edit = qobject_cast<QLineEdit *>(editor);
 
-    if (edit) {
-        QTreeWidgetItem *item = currentItem();
-        if (item)
-            emit itemRenamed(item);
-    }
+    if (edit)
+        emit editorClosed();
 
     QTreeWidget::closeEditor(editor, hint);
 }

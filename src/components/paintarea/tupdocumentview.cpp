@@ -1824,3 +1824,32 @@ void TupDocumentView::insertPictureInFrame(int id, const QString path)
         k->photoCounter = id + 1;
     }
 }
+
+void TupDocumentView::importPapagayoLipSync(const QString &file)
+{
+    QFileInfo info(file);
+    QString folder = info.fileName();  
+    QString mouthPath = info.absolutePath() + QDir::separator() + "mouth";
+    QDir mouthDir = QDir(mouthPath);
+
+    /*
+    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, folder,
+                                                                        TupLibraryObject::Folder, k->project->spaceContext(), 0, QString(), 0, 0, 0);
+    emit requestTriggered(&request);
+
+    foreach (QString fileName, mouthDir.entryList(QStringList() << "*.png", QDir::Files)) {
+             tError() << "TupDocumentView::importPapagayoLipSync() - Tracing: " << mouthPath << " " << fileName;
+             QString key = fileName.toLower();
+             QFile f(mouthPath + QDir::separator() + fileName);
+             if (f.open(QIODevice::ReadOnly)) {
+                 QByteArray data = f.readAll();
+                 f.close();
+                 request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key,
+                                                                                     TupLibraryObject::Image, k->project->spaceContext(), data, folder,
+                                                                                     k->paintArea->currentSceneIndex(), k->paintArea->currentLayerIndex(),
+                                                                                     k->paintArea->currentFrameIndex());
+                 emit requestTriggered(&request);
+             }
+    }
+    */
+}
