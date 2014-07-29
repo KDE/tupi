@@ -243,6 +243,7 @@ void TupMainWindow::setupMenu()
 
     m_insertMenu->addSeparator();
     m_insertMenu->addAction(m_actionManager->find("importGimpPalettes"));
+
     // SQA: Action disabled while Library module is fixed
     // m_insertMenu->addAction(m_actionManager->find("importPapagayoLipSync"));
 

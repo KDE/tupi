@@ -114,6 +114,7 @@ class TUPI_EXPORT TupProject : public QObject, public TupAbstractSerializable
         bool removeSymbol(const QString &name, TupLibraryObject::Type symbolType, TupProject::Mode spaceMode, 
                           int sceneIndex, int layerIndex, int frameIndex);
         bool removeSymbol(const QString &name);
+        bool addFolder(const QString &name);
         bool removeFolder(const QString &name);
 
         bool insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString &name, int scene, int layer, int frame);

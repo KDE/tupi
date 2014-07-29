@@ -481,6 +481,8 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
             T_FUNCINFOX("symbol");
         #endif
     #endif
+
+    tError() << "TupProject::createSymbol() - Related folder: " << folder;
     
     if (!k->isOpen) {        
         #ifdef K_DEBUG
@@ -700,6 +702,21 @@ bool TupProject::removeSymbol(const QString &name)
     #endif    
     
     return k->library->removeObject(name, true);
+}
+
+bool TupProject::addFolder(const QString &name)
+{
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupProject::addFolder()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+
+    TupLibraryFolder *folder = new TupLibraryFolder(name, this);
+
+    return k->library->addFolder(folder);
 }
 
 bool TupProject::removeFolder(const QString &name)

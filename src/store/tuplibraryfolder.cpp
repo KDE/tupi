@@ -66,7 +66,7 @@ TupLibraryObject *TupLibraryFolder::createSymbol(TupLibraryObject::Type type, co
         #ifdef Q_OS_WIN32
             qDebug() << "[TupLibraryFolder::createSymbol()]";
         #else
-            T_FUNCINFO;
+            T_FUNCINFO << " - Creating symbol -> " << name;
         #endif
     #endif
 

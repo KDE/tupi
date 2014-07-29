@@ -59,6 +59,7 @@
 #include "tupbasiccamerainterface.h"
 #include "tupcameradialog.h"
 #include "tuplibrary.h"
+#include "tuppapagayoparser.h"
 
 /**
  * This class defines all the environment for the Ilustration interface.
@@ -1827,14 +1828,15 @@ void TupDocumentView::insertPictureInFrame(int id, const QString path)
 
 void TupDocumentView::importPapagayoLipSync(const QString &file)
 {
+    TupPapagayoParser *parser = new TupPapagayoParser(file);
+
+    /*
     QFileInfo info(file);
-    QString folder = info.fileName();  
+    QString folder = info.fileName().toLower();  
     QString mouthPath = info.absolutePath() + QDir::separator() + "mouth";
     QDir mouthDir = QDir(mouthPath);
 
-    /*
-    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, folder,
-                                                                        TupLibraryObject::Folder, k->project->spaceContext(), 0, QString(), 0, 0, 0);
+    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, folder, TupLibraryObject::Folder);
     emit requestTriggered(&request);
 
     foreach (QString fileName, mouthDir.entryList(QStringList() << "*.png", QDir::Files)) {
@@ -1844,10 +1846,9 @@ void TupDocumentView::importPapagayoLipSync(const QString &file)
              if (f.open(QIODevice::ReadOnly)) {
                  QByteArray data = f.readAll();
                  f.close();
-                 request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key,
-                                                                                     TupLibraryObject::Image, k->project->spaceContext(), data, folder,
-                                                                                     k->paintArea->currentSceneIndex(), k->paintArea->currentLayerIndex(),
-                                                                                     k->paintArea->currentFrameIndex());
+                 request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key, TupLibraryObject::Image, k->project->spaceContext(), data, folder,
+                                                                   k->paintArea->currentSceneIndex(), k->paintArea->currentLayerIndex(),
+                                                                   k->paintArea->currentFrameIndex());
                  emit requestTriggered(&request);
              }
     }

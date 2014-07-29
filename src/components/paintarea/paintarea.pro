@@ -35,7 +35,8 @@ HEADERS += tuppaintarea.h \
            tupbasiccamerainterface.h \
            tupcameradialog.h \
            tupcamerawindow.h \
-           tupvideosurface.h
+           tupvideosurface.h \
+           tuppapagayoparser.h
 
 SOURCES += tuppaintarea.cpp \
            tupconfigurationarea.cpp \
@@ -62,7 +63,8 @@ SOURCES += tuppaintarea.cpp \
            tupbasiccamerainterface.cpp \
            tupcameradialog.cpp \
            tupcamerawindow.cpp \
-           tupvideosurface.cpp
+           tupvideosurface.cpp \
+           tuppapagayoparser.cpp
 
 *:!macx{
     CONFIG += dll warn_on

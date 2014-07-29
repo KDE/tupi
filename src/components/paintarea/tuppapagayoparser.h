@@ -6,9 +6,9 @@
  *                                                                         *
  *   Developers:                                                           *
  *   2010:                                                                 *
- *    Gustavo Gonzalez / xtingray                                          *
+ *    Gustavo Gonzalez                                                     *
  *                                                                         *
- *   KTooN's versions:                                                     * 
+ *   KTooN's versions:                                                     *
  *                                                                         *
  *   2006:                                                                 *
  *    David Cuadrado                                                       *
@@ -33,91 +33,64 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPLIBRARYFOLDER_H
-#define TUPLIBRARYFOLDER_H
+#ifndef TUPPAPAGAYOPARSER_H
+#define TUPPAPAGAYOPARSER_H
 
 #include "tglobal.h"
-#include "tupabstractserializable.h"
-#include "tuplibraryobject.h"
 
-#include <QObject>
-#include <QHash>
-#include <QMap>
-#include <QByteArray>
-#include <QTextStream>
-#include <QFileInfo>
 #include <QFile>
-#include <QDir>
+#include <QTextStream>
 
-class TupProject;
-class TupLibraryFolder;
-class TupLibraryObject;
+class TUPI_EXPORT LipsyncPhoneme
+{
+    public:
+        LipsyncPhoneme();
+        ~LipsyncPhoneme();
 
-typedef QMap<QString, TupLibraryFolder *> Folders;
-typedef QMap<QString, TupLibraryObject *> LibraryObjects;
+        QString fText;
+        int     fFrame;
+        int     fTop;
+        int     fBottom;
+};
 
-/**
- * @author David Cuadrado
-**/
+class TUPI_EXPORT LipsyncWord
+{
+    public:
+        LipsyncWord();
+        ~LipsyncWord();
 
-class TUPI_EXPORT TupLibraryFolder : public QObject, public TupAbstractSerializable
+        QString                 fText;
+        int                     fStartFrame;
+        int                     fEndFrame;
+        int                     fTop;
+        int                     fBottom;
+        QList<LipsyncPhoneme *> fPhonemes;
+};
+
+class TUPI_EXPORT LipsyncPhrase
+{
+    public:
+        LipsyncPhrase();
+        ~LipsyncPhrase();
+
+        QString               fText;
+        int                   fStartFrame;
+        int                   fEndFrame;
+        int                   fTop;
+        int                   fBottom;
+        QList<LipsyncWord *>  fWords;
+};
+
+class TUPI_EXPORT TupPapagayoParser : public QObject
 {
     Q_OBJECT
-    
+
     public:
-        TupLibraryFolder(const QString &id, TupProject *project, QObject *parent = 0);
-        ~TupLibraryFolder();
-        
-        void setId(const QString &id);
-        QString id() const;
-        
-        TupLibraryObject *createSymbol(TupLibraryObject::Type type, const QString &name, const QByteArray &data = QByteArray(), const QString &folder = QString(), bool loaded = false);
-        
-        bool addObject(TupLibraryObject *object); 
-        bool addObject(const QString &folderName, TupLibraryObject *object);
+        TupPapagayoParser(const QString &file);
+        ~TupPapagayoParser();
+        bool fileIsValid();
 
-        bool reloadObject(const QString &id);
-
-        bool addFolder(TupLibraryFolder *folder);
-
-        bool removeObject(const QString &id, bool absolute);
-
-        bool removeFolder(const QString &id);
-
-        bool renameObject(const QString &folder, const QString &oldId, const QString &newId);
-        bool renameFolder(const QString &oldId, const QString &newId);
-        
-        bool moveObject(const QString &id, const QString &folder);
-        bool moveObjectToRoot(const QString &id);
-
-        bool exists(const QString &id);
-        
-        TupLibraryObject *getObject(const QString &id) const;
-        
-        Folders folders() const;
-        LibraryObjects objects() const;
-        
-        int objectsCount() const;
-        int foldersCount() const;
-        
-        TupProject *project() const;
-        void reset();
-
-        TupLibraryFolder *getFolder(const QString &id) const;
-        bool folderExists(const QString &id) const;
-
-        void updatePaths(const QString &newPath);
-
-        bool loadingProject();
-        
-    public:
-        virtual void fromXml(const QString &xml);
-        virtual QDomElement toXml(QDomDocument &doc) const;
-        
     private:
-        void loadObjects(const QString &folder, const QString &xml);
-        void loadItem(const QString &folder, QDomNode xml);
-
         struct Private;
         Private *const k;
 };

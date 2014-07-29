@@ -54,12 +54,17 @@ bool TupCommandExecutor::createSymbol(TupLibraryResponse *response)
         #endif
     #endif
 
-    if (m_project->createSymbol(response->symbolType(), response->arg().toString(), 
-                                response->data(), response->parent())) {
-        emit responsed(response);
-
-        return true;
-    } 
+    if (response->symbolType() == TupLibraryObject::Folder) {
+        if (m_project->addFolder(response->arg().toString())) {
+            emit responsed(response);
+            return true;
+        }
+    } else {
+        if (m_project->createSymbol(response->symbolType(), response->arg().toString(), response->data(), response->parent())) {
+            emit responsed(response);
+            return true;
+        } 
+    }
 
     return false;
 }
