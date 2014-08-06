@@ -223,7 +223,7 @@
     <name>ImagePlugin</name>
     <message>
         <source>Image Array</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Contenidor d&apos;imatges</translation>
     </message>
 </context>
 <context>
@@ -292,6 +292,37 @@
     <message>
         <source>N</source>
         <translation type="unfinished">N</translation>
+    </message>
+</context>
+<context>
+    <name>PapagayoTool</name>
+    <message>
+        <source>Papagayo Lip-sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shift+R</source>
+        <translation type="unfinished">Maj+R</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Error</translation>
+    </message>
+    <message>
+        <source>Tween name is missing!</source>
+        <translation type="unfinished">No es troba aquest nom d&apos;interpolaci처!</translation>
+    </message>
+    <message>
+        <source>Frame %1</source>
+        <translation type="unfinished">Fotograma %1</translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation type="unfinished">Informaci처</translation>
+    </message>
+    <message>
+        <source>Tween %1 applied!</source>
+        <translation type="unfinished">Interpolaci처 %1 aplicada!</translation>
     </message>
 </context>
 <context>
@@ -1602,10 +1633,6 @@
         <translation>Emplena</translation>
     </message>
     <message>
-        <source>View</source>
-        <translation>Visualitza</translation>
-    </message>
-    <message>
         <source>Tweening</source>
         <translation>Interpola</translation>
     </message>
@@ -1796,6 +1823,18 @@
     <message>
         <source>Frame %1</source>
         <translation>Fotograma %1</translation>
+    </message>
+    <message>
+        <source>Line Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo Lip-sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo file has been imported successfully</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2226,6 +2265,10 @@
     <message>
         <source>Compound Tween</source>
         <translation>Composici처 de la interpolaci처</translation>
+    </message>
+    <message>
+        <source>Papagayo Lip-sync</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2867,6 +2910,30 @@
     </message>
     <message>
         <source>Shift+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Papagayo Lip-sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Papagayo lip-sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Papagayo project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo Project (*.pgo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo project is invalid!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4002,6 +4069,10 @@ Contacta amb l&apos;administrador del servidor d&apos;animaci처 per obtenir acc�
     </message>
     <message>
         <source>It&apos;s time to upgrade! Click here!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Want to help us to make a better project? Click here!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

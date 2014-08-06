@@ -295,6 +295,37 @@
     </message>
 </context>
 <context>
+    <name>PapagayoTool</name>
+    <message>
+        <source>Papagayo Lip-sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shift+R</source>
+        <translation type="unfinished">Maiús+R</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Produciuse un erro</translation>
+    </message>
+    <message>
+        <source>Tween name is missing!</source>
+        <translation type="unfinished">Non se atopa o nome da interpolación!</translation>
+    </message>
+    <message>
+        <source>Frame %1</source>
+        <translation type="unfinished">Fotograma %1</translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation type="unfinished">Información</translation>
+    </message>
+    <message>
+        <source>Tween %1 applied!</source>
+        <translation type="unfinished">Aplicouse a interpolación %1!</translation>
+    </message>
+</context>
+<context>
     <name>PencilTool</name>
     <message>
         <source>Pencil</source>
@@ -1602,10 +1633,6 @@
         <translation>Recheo</translation>
     </message>
     <message>
-        <source>View</source>
-        <translation>Ver</translation>
-    </message>
-    <message>
         <source>Tweening</source>
         <translation>Interpolación</translation>
     </message>
@@ -1796,6 +1823,18 @@
     <message>
         <source>Frame %1</source>
         <translation>Fotograma %1</translation>
+    </message>
+    <message>
+        <source>Line Selection</source>
+        <translation type="unfinished">Selección de contorno</translation>
+    </message>
+    <message>
+        <source>Papagayo Lip-sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo file has been imported successfully</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2226,6 +2265,10 @@
     <message>
         <source>Compound Tween</source>
         <translation>Composición da interpolación</translation>
+    </message>
+    <message>
+        <source>Papagayo Lip-sync</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2868,6 +2911,30 @@
     </message>
     <message>
         <source>Shift+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Papagayo Lip-sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Papagayo lip-sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Papagayo project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo Project (*.pgo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo project is invalid!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4003,6 +4070,10 @@ Póñase en contacto co administrador do servidor da animación para que lle dea
     </message>
     <message>
         <source>It&apos;s time to upgrade! Click here!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Want to help us to make a better project? Click here!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

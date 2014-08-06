@@ -295,6 +295,37 @@
     </message>
 </context>
 <context>
+    <name>PapagayoTool</name>
+    <message>
+        <source>Papagayo Lip-sync</source>
+        <translation>Papagayo Lip-sync</translation>
+    </message>
+    <message>
+        <source>Shift+R</source>
+        <translation>Shift+R</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <source>Tween name is missing!</source>
+        <translation>El nombre del Tween no ha sido asignado!</translation>
+    </message>
+    <message>
+        <source>Frame %1</source>
+        <translation>Marco %1</translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Información</translation>
+    </message>
+    <message>
+        <source>Tween %1 applied!</source>
+        <translation>Tween %1 aplicado!</translation>
+    </message>
+</context>
+<context>
     <name>PencilTool</name>
     <message>
         <source>Pencil</source>
@@ -1602,10 +1633,6 @@
         <translation>Relleno</translation>
     </message>
     <message>
-        <source>View</source>
-        <translation>Ver</translation>
-    </message>
-    <message>
         <source>Tweening</source>
         <translation>Tweening</translation>
     </message>
@@ -1796,6 +1823,18 @@
     <message>
         <source>Frame %1</source>
         <translation>Marco %1</translation>
+    </message>
+    <message>
+        <source>Line Selection</source>
+        <translation>Selección de Contorno</translation>
+    </message>
+    <message>
+        <source>Papagayo Lip-sync</source>
+        <translation>Papagayo Lip-sync</translation>
+    </message>
+    <message>
+        <source>Papagayo file has been imported successfully</source>
+        <translation>El archivo PGO ha sido importado satisfactoriamente</translation>
     </message>
 </context>
 <context>
@@ -2226,6 +2265,10 @@
     <message>
         <source>Compound Tween</source>
         <translation>Tween Compuesto</translation>
+    </message>
+    <message>
+        <source>Papagayo Lip-sync</source>
+        <translation>Papagayo Lip-sync</translation>
     </message>
 </context>
 <context>
@@ -2868,6 +2911,30 @@
     <message>
         <source>Gimp Palette (*.gpl *.txt *.css)</source>
         <translation>Paleta Gimp (*.gpl *.txt *.css)</translation>
+    </message>
+    <message>
+        <source>&amp;Import Papagayo Lip-sync</source>
+        <translation>&amp;Importar Papagayo Lip-sync</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation>Alt+P</translation>
+    </message>
+    <message>
+        <source>Import Papagayo lip-sync</source>
+        <translation>Importar Papagayo lip-sync</translation>
+    </message>
+    <message>
+        <source>Import Papagayo project</source>
+        <translation>Importar proyecto Papagayo</translation>
+    </message>
+    <message>
+        <source>Papagayo Project (*.pgo)</source>
+        <translation>Proyecto Papagayo (*.pgo)</translation>
+    </message>
+    <message>
+        <source>Papagayo project is invalid!</source>
+        <translation>Proyecto Papagayo es inválido!</translation>
     </message>
 </context>
 <context>
@@ -3990,19 +4057,23 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <name>TupTwitter</name>
     <message>
         <source>Latest version</source>
-        <translation type="unfinished">Última versión</translation>
+        <translation>Última versión</translation>
     </message>
     <message>
         <source>Revision</source>
-        <translation type="unfinished">Revisión</translation>
+        <translation>Revisión</translation>
     </message>
     <message>
         <source>Code Name</source>
-        <translation type="unfinished">Nombre código</translation>
+        <translation>Nombre código</translation>
     </message>
     <message>
         <source>It&apos;s time to upgrade! Click here!</source>
-        <translation type="unfinished"></translation>
+        <translation>Es momento de actulizar! Haga clic aquí!</translation>
+    </message>
+    <message>
+        <source>Want to help us to make a better project? Click here!</source>
+        <translation>Quiere ayudarnos a mejorar? Haga clic aquí!</translation>
     </message>
 </context>
 <context>
