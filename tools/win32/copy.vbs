@@ -3,7 +3,7 @@ Set fileSystem = CreateObject("Scripting.FileSystemObject")
 zlibDir = "c:\GnuWin32\bin"
 quazipDir = "c:\Quazip\lib"
 sourceDir = "c:\tupi\sources\tupi\src"
-tupiDir = "c:\Kartoon"
+tupiDir = "c:\maefloresta"
 
 If fileSystem.FolderExists(tupiDir) Then
 fileSystem.DeleteFolder tupiDir
