@@ -481,9 +481,7 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
             T_FUNCINFOX("symbol");
         #endif
     #endif
-
-    tError() << "TupProject::createSymbol() - Related folder: " << folder;
-    
+   
     if (!k->isOpen) {        
         #ifdef K_DEBUG
             QString msg = "TupProject::createSymbol() - Fatal error: project is NOT open!";

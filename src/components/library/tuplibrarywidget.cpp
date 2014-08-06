@@ -1283,8 +1283,6 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
     switch (response->action()) {
             case TupProjectRequest::Add:
               {
-                 tError() << "TupLibraryWidget::libraryResponse() - Adding object: " << response->arg().toString();
-
                  if (response->symbolType() == TupLibraryObject::Folder) {
                      k->libraryTree->createFolder(response->arg().toString());
                      return;
@@ -1327,9 +1325,7 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
                                  k->libraryTree->setCurrentItem(item);
                                  previewItem(item);
                                  // if (!k->isNetworked && k->project->spaceContext() != TupProject::NONE && !k->library->loadingProject())
-
-                                 tError() << "TupLibraryWidget::libraryResponse() - folder: " << folderName;
-                                 
+                               
                                  if (!k->isNetworked && !folderName.endsWith(".pgo") && !k->library->loadingProject())
                                      insertObjectInWorkspace();
                                }

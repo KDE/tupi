@@ -437,7 +437,6 @@ void TupProjectCommand::layerCommand()
             break;
             case TupProjectRequest::AddLipSync:
             {
-                 tError() << "TupProjectCommand::layerCommand() - Tracing...";
                  k->executor->addLipSync(response);
             }
             break;
