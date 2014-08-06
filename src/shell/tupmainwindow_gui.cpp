@@ -245,7 +245,7 @@ void TupMainWindow::setupMenu()
     m_insertMenu->addAction(m_actionManager->find("importGimpPalettes"));
 
     // SQA: Action disabled while Library module is fixed
-    m_insertMenu->addAction(m_actionManager->find("importPapagayoLipSync"));
+    // m_insertMenu->addAction(m_actionManager->find("importPapagayoLipSync"));
 
     // Setting up the window menu
     // setupWindowActions();
