@@ -36,10 +36,13 @@
 #ifndef TUPLIPSYNC_H
 #define TUPLIPSYNC_H
 
-#include "tglobal.h"
 #include "tupabstractserializable.h"
 
 #include <QDomDocument>
+#include <QDomElement>
+#include <QStringList>
+#include <QPoint>
+#include <QTextStream>
 
 class TUPI_EXPORT TupPhoneme : public QObject, public TupAbstractSerializable
 {
