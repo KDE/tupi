@@ -6,9 +6,9 @@
  *                                                                         *
  *   Developers:                                                           *
  *   2010:                                                                 *
- *    Gustavo Gonzalez / xtingray                                          *
+ *    Gustavo Gonzalez                                                     *
  *                                                                         *
- *   KTooN's versions:                                                     * 
+ *   KTooN's versions:                                                     *
  *                                                                         *
  *   2006:                                                                 *
  *    David Cuadrado                                                       *
@@ -33,123 +33,93 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPLAYER_H
-#define TUPLAYER_H
+#ifndef TUPLIPSYNC_H
+#define TUPLIPSYNC_H
 
 #include "tglobal.h"
 #include "tupabstractserializable.h"
-#include "tupframe.h"
-#include "tuplipsync.h"
 
 #include <QDomDocument>
-#include <QDomElement>
-#include <QList>
-#include <QTextStream>
 
-typedef QList<TupFrame *> Frames;
-typedef QList<TupLipSync *> Mouths;
-
-class TupScene;
-class TupProject;
-
-/**
- * @brief This class represents a layer. Layers are defined by the TupDocument class and they contain TupFrames
- * @author David Cuadrado 
-*/
-
-class TUPI_EXPORT TupLayer : public QObject, public TupAbstractSerializable
+class TUPI_EXPORT TupPhoneme : public QObject, public TupAbstractSerializable
 {
-    Q_OBJECT
-
     public:
-        /**
-         * Default Constructor
-         */
-        TupLayer(TupScene *parent, int index = 0);
-        
-        /**
-         * Destructor
-         */
-        ~TupLayer();
-        
-        /**
-         * Retorna los frames del layer
-         */
-        Frames frames();
-        
-        /**
-         * Pone la lista de frames, esta funcion reemplaza los frames anteriores
-         */
-        void setFrames(const Frames &frames);
+        TupPhoneme();
+        TupPhoneme(const QString &value, int duration);
+        ~TupPhoneme();
 
-        /**
-         * Actualiza el frame ubicado en la posicion index 
-         */
-        void setFrame(int index, TupFrame *frame);
-        
-        /**
-         * Pone el nombre del layer
-         */
-        void setLayerName(const QString &name);
-        
-        /**
-         * Bloquea el layer
-         */
-        void setLocked(bool isLocked);
-        
-        /**
-         * Pone la visibilidad del layer
-         */
-        void setVisible(bool isVisible);
-        
-        /**
-         * Retorna el nombre del layer
-         */
-        QString layerName() const;
-        
-        /**
-         * Returna verdadero cuando el layer esta bloqueado
-        */
-        bool isLocked() const;
-        
-        /**
-         * Retorna verdadero si el layer es visible
-         */
-        bool isVisible() const;
-        
-        TupFrame *createFrame(QString name, int position, bool loaded = false);
+        void setDuration(int duration);
+        int duration();
+        void setValue(const QString &value);
+        QString value() const;
 
-        bool removeFrame(int position);
-
-        bool resetFrame(int position);
-        
-        bool moveFrame(int from, int to);
-
-        bool exchangeFrame(int from, int to);
-        
-        bool expandFrame(int position, int size);
-        
-        TupFrame *frame(int position) const;
-
-        TupLipSync *createLipSync(const QString &name, const QString &soundFile);
-        void addLipSync(TupLipSync *lipsync);
-        bool removeLipSync(const QString &name);
-        
-        TupScene *scene() const;
-        TupProject *project() const;
-
-        int layerIndex();
-        
-        int visualIndexOf(TupFrame *frame) const;
-        
-        int objectIndex() const;
-
-        int framesTotal() const;
-
-    public:
         virtual void fromXml(const QString &xml);
         virtual QDomElement toXml(QDomDocument &doc) const;
-        
+
+    private:
+        int frames;
+        QString phoneme;
+};
+
+class TUPI_EXPORT TupPhrase : public QObject, public TupAbstractSerializable
+{
+    public:
+        TupPhrase(int index);
+        ~TupPhrase();
+        void setInitFrame(int index);
+        int initFrame();
+        void addPhoneme(TupPhoneme *phoneme);
+
+        virtual void fromXml(const QString &xml);
+        virtual QDomElement toXml(QDomDocument &doc) const;
+
+    private:
+        int frameIndex; 
+        QList<TupPhoneme *> phonemes;
+};
+
+class TUPI_EXPORT TupVoice : public QObject, public TupAbstractSerializable
+{
+    public:
+        TupVoice();
+        TupVoice(const QString &label, QPoint pos);
+        ~TupVoice();
+        void setVoiceTitle(const QString &label);
+        QString voiceTitle() const;
+        void setMouthPos(QPoint pos);
+        QPoint mouthPos();
+        void setText(const QString &content);
+        QString text() const;
+        void addPhrase(TupPhrase *phrase);
+
+        virtual void fromXml(const QString &xml);
+        virtual QDomElement toXml(QDomDocument &doc) const;
+
+    private:
+        QString title;
+        QPoint point;
+        QString script;
+        QList<TupPhrase *> phrases;
+};
+
+class TUPI_EXPORT TupLipSync : public QObject, public TupAbstractSerializable
+{
+    public:
+        TupLipSync();
+        TupLipSync(const QString &name, const QString &soundFile);
+        ~TupLipSync();
+        void addPhrase(TupPhrase *phrase);
+        QString name() const;
+        void setName(const QString &title);
+        QString soundFile() const;
+        void setSoundFile(const QString &file);
+        int framesTotal();
+        void setFramesTotal(int framesTotal);
+        void addVoice(TupVoice *voice);
+
+        virtual void fromXml(const QString &xml);
+        virtual QDomElement toXml(QDomDocument &doc) const;
+
     private:
         struct Private;
         Private *const k;

@@ -33,62 +33,26 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPPAPAGAYOPARSER_H
-#define TUPPAPAGAYOPARSER_H
+#ifndef TUPPAPAGAYOIMPORTER_H
+#define TUPPAPAGAYOIMPORTER_H
 
 #include "tglobal.h"
+#include "tuplipsync.h"
 
 #include <QFile>
+#include <QFileInfo>
 #include <QTextStream>
 
-class TUPI_EXPORT LipsyncPhoneme
-{
-    public:
-        LipsyncPhoneme();
-        ~LipsyncPhoneme();
-
-        QString fText;
-        int     fFrame;
-        int     fTop;
-        int     fBottom;
-};
-
-class TUPI_EXPORT LipsyncWord
-{
-    public:
-        LipsyncWord();
-        ~LipsyncWord();
-
-        QString                 fText;
-        int                     fStartFrame;
-        int                     fEndFrame;
-        int                     fTop;
-        int                     fBottom;
-        QList<LipsyncPhoneme *> fPhonemes;
-};
-
-class TUPI_EXPORT LipsyncPhrase
-{
-    public:
-        LipsyncPhrase();
-        ~LipsyncPhrase();
-
-        QString               fText;
-        int                   fStartFrame;
-        int                   fEndFrame;
-        int                   fTop;
-        int                   fBottom;
-        QList<LipsyncWord *>  fWords;
-};
-
-class TUPI_EXPORT TupPapagayoParser : public QObject
+class TUPI_EXPORT TupPapagayoImporter : public QObject
 {
     Q_OBJECT
 
     public:
-        TupPapagayoParser(const QString &file);
-        ~TupPapagayoParser();
+        TupPapagayoImporter(const QString &file);
+        ~TupPapagayoImporter();
         bool fileIsValid();
+        QString file2Text() const;
+        int framesTotal();
 
     private:
         struct Private;

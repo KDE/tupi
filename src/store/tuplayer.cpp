@@ -40,9 +40,11 @@
 struct TupLayer::Private
 {
     Frames frames;
+    Mouths lipsyncList;
     bool isVisible;
     QString name;
     int framesCount;
+    int lipsyncCount;
     bool isLocked;
     int index;
 };
@@ -53,12 +55,15 @@ TupLayer::TupLayer(TupScene *parent, int index) : QObject(parent), k(new Private
     k->isVisible = true;
     k->name = tr("Layer");
     k->framesCount = 0;
+    k->lipsyncCount = 0;
     k->isLocked = false;
 }
 
 TupLayer::~TupLayer()
 {
     k->frames.clear();
+    k->lipsyncList.clear();
+
     delete k;
 }
 
@@ -127,9 +132,24 @@ TupFrame *TupLayer::createFrame(QString name, int position, bool loaded)
     k->frames.insert(position, frame);
 
     if (loaded)
-        TupProjectLoader::createFrame(scene()->objectIndex(), objectIndex(), position, frame->frameName(), project());
+        TupProjectLoader::createFrame(scene()->objectIndex(), objectIndex(), position, name, project());
 
     return frame;
+}
+
+TupLipSync *TupLayer::createLipSync(const QString &name, const QString &soundFile)
+{
+    TupLipSync *lipsync = new TupLipSync(name, soundFile);
+    k->lipsyncCount++;
+    k->lipsyncList << lipsync;
+
+    return lipsync;
+}
+
+void TupLayer::addLipSync(TupLipSync *lipsync)
+{
+    if (lipsync)
+        k->lipsyncList << lipsync;
 }
 
 bool TupLayer::removeFrame(int position)
@@ -143,6 +163,19 @@ bool TupLayer::removeFrame(int position)
         k->framesCount--;
 
         return true;
+    }
+
+    return false;
+}
+
+bool TupLayer::removeLipSync(const QString &name)
+{
+    for (int i = 0; i < k->lipsyncCount; i++) {
+         TupLipSync *lipsync = k->lipsyncList.at(i);
+         if (lipsync->name().compare(name) == 0) {
+             k->lipsyncList.removeAt(i);
+             return true;
+         }
     }
 
     return false;
@@ -267,9 +300,20 @@ void TupLayer::fromXml(const QString &xml)
 
                        frame->fromXml(newDoc);
                    }
+               } else if (e.tagName() == "lipsync") {
+                          TupLipSync *lipsync = createLipSync(e.attribute("name"), e.attribute("soundFile")); 
+                          if (lipsync) {
+                              QString newDoc;
+
+                              {
+                                QTextStream ts(&newDoc);
+                                ts << n;
+                              }
+
+                              lipsync->fromXml(newDoc);
+                          }
                }
            }
-
            n = n.nextSibling();
     }
 }
@@ -280,10 +324,16 @@ QDomElement TupLayer::toXml(QDomDocument &doc) const
     root.setAttribute("name", k->name);
     doc.appendChild(root);
 
-    int totalFrames = k->frames.size();
-    for (int i = 0; i < totalFrames; i++) {
+    int framesTotal = k->frames.size();
+    for (int i = 0; i < framesTotal; i++) {
          TupFrame *frame = k->frames.at(i);
          root.appendChild(frame->toXml(doc));
+    }
+
+    int lipsyncTotal = k->lipsyncList.size();
+    for (int i = 0; i < lipsyncTotal; i++) {
+         TupLipSync *lipSync = k->lipsyncList.at(i);
+         root.appendChild(lipSync->toXml(doc));
     }
 
     return root;

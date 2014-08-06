@@ -435,6 +435,12 @@ void TupProjectCommand::layerCommand()
                  k->executor->createLayer(response);
             }
             break;
+            case TupProjectRequest::AddLipSync:
+            {
+                 tError() << "TupProjectCommand::layerCommand() - Tracing...";
+                 k->executor->addLipSync(response);
+            }
+            break;
             case TupProjectRequest::Remove:
             {
                  k->executor->removeLayer(response);

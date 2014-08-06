@@ -68,7 +68,8 @@ HEADERS += tuplayer.h \
            tupsvgitem.h \
            tupbackgroundscene.h \
            tupbackground.h \
-           tupstoryboard.h
+           tupstoryboard.h \
+           tuplipsync.h
 
 SOURCES += tuplayer.cpp \
            tuppalettedocument.cpp \
@@ -115,7 +116,8 @@ SOURCES += tuplayer.cpp \
            tupsvgitem.cpp \
            tupbackgroundscene.cpp \
            tupbackground.cpp \
-           tupstoryboard.cpp
+           tupstoryboard.cpp \
+           tuplipsync.cpp
 
 *:!macx{
     CONFIG += dll warn_on

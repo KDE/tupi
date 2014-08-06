@@ -74,7 +74,6 @@ void TupProjectLoader::createFrame(int scenePosition, int layerPosition, int fra
     project->emitResponse(&response);
 }
 
-
 void TupProjectLoader::createLayer(int scenePosition, int layerPosition, const QString &name, TupProject *project)
 {
     TupLayerResponse response(TupProjectRequest::Layer, TupProjectRequest::Add);

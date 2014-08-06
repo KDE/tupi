@@ -65,6 +65,7 @@ class TUPI_EXPORT TupCommandExecutor : public QObject
         void getScenes(TupSceneResponse *response);
         bool createScene(TupSceneResponse *response);
         bool createLayer(TupLayerResponse *response);
+        bool addLipSync(TupLayerResponse *response);
         bool createFrame(TupFrameResponse *response);
         
         bool createItem(TupItemResponse *response);

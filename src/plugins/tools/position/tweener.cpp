@@ -644,10 +644,10 @@ void Tweener::applyTween()
 
     int framesNumber = framesTotal();
     int total = k->initFrame + k->configurator->totalSteps() - 1;
-    int layersTotal = k->scene->scene()->layersTotal();
     TupProjectRequest request;
 
     if (total > framesNumber) {
+        int layersTotal = k->scene->scene()->layersTotal();
         for (int i = framesNumber; i <= total; i++) {
              for (int j = 0; j < layersTotal; j++) {
                   request = TupRequestBuilder::createFrameRequest(k->initScene, j, i, TupProjectRequest::Add,

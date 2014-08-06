@@ -59,7 +59,7 @@
 #include "tupbasiccamerainterface.h"
 #include "tupcameradialog.h"
 #include "tuplibrary.h"
-#include "tuppapagayoparser.h"
+#include "tuppapagayoimporter.h"
 
 /**
  * This class defines all the environment for the Ilustration interface.
@@ -1828,29 +1828,54 @@ void TupDocumentView::insertPictureInFrame(int id, const QString path)
 
 void TupDocumentView::importPapagayoLipSync(const QString &file)
 {
-    TupPapagayoParser *parser = new TupPapagayoParser(file);
+    TupPapagayoImporter *parser = new TupPapagayoImporter(file);
+    if (parser->fileIsValid()) {
+        int sceneIndex = k->paintArea->currentSceneIndex();
+        int layerIndex = k->paintArea->currentLayerIndex();
+        int currentIndex = k->paintArea->currentFrameIndex();
+        QString xml = parser->file2Text();
 
-    /*
-    QFileInfo info(file);
-    QString folder = info.fileName().toLower();  
-    QString mouthPath = info.absolutePath() + QDir::separator() + "mouth";
-    QDir mouthDir = QDir(mouthPath);
+        TupProjectRequest request = TupRequestBuilder::createLayerRequest(sceneIndex, layerIndex, TupProjectRequest::AddLipSync, xml);
+        emit requestTriggered(&request);
 
-    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, folder, TupLibraryObject::Folder);
-    emit requestTriggered(&request);
+        QFileInfo info(file);
+        QString folder = info.fileName().toLower();  
+        QString mouthPath = info.absolutePath() + QDir::separator() + "mouth";
+        QDir mouthDir = QDir(mouthPath);
 
-    foreach (QString fileName, mouthDir.entryList(QStringList() << "*.png", QDir::Files)) {
-             tError() << "TupDocumentView::importPapagayoLipSync() - Tracing: " << mouthPath << " " << fileName;
-             QString key = fileName.toLower();
-             QFile f(mouthPath + QDir::separator() + fileName);
-             if (f.open(QIODevice::ReadOnly)) {
-                 QByteArray data = f.readAll();
-                 f.close();
-                 request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key, TupLibraryObject::Image, k->project->spaceContext(), data, folder,
-                                                                   k->paintArea->currentSceneIndex(), k->paintArea->currentLayerIndex(),
-                                                                   k->paintArea->currentFrameIndex());
-                 emit requestTriggered(&request);
-             }
+        request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, folder, TupLibraryObject::Folder);
+        emit requestTriggered(&request);
+
+        foreach (QString fileName, mouthDir.entryList(QStringList() << "*.png", QDir::Files)) {
+                 QString key = fileName.toLower();
+                 QFile f(mouthPath + QDir::separator() + fileName);
+                 if (f.open(QIODevice::ReadOnly)) {
+                     QByteArray data = f.readAll();
+                     f.close();
+                     request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key, TupLibraryObject::Image, k->project->spaceContext(), data, folder,
+                                                                       sceneIndex, layerIndex, currentIndex);
+                     emit requestTriggered(&request);
+                 }
+        }
+
+        TupScene *scene = k->project->scene(sceneIndex);
+        if (scene) {
+            int sceneFrames = scene->framesTotal(); 
+            int lipSyncFrames = currentIndex + parser->framesTotal();
+
+            if (lipSyncFrames > sceneFrames) {
+                int layersTotal = scene->layersTotal();
+                for (int i = sceneFrames; i < lipSyncFrames; i++) {
+                     for (int j = 0; j < layersTotal; j++) {
+                          request = TupRequestBuilder::createFrameRequest(sceneIndex, j, i, TupProjectRequest::Add, tr("Frame %1").arg(i + 1));
+                          emit requestTriggered(&request);
+                     }
+                }
+                request = TupRequestBuilder::createFrameRequest(sceneIndex, layerIndex, currentIndex, TupProjectRequest::Select, "1");
+                emit requestTriggered(&request);
+            }
+        }
+
+        TOsd::self()->display(tr("Information"), tr("Papagayo file has been imported successfully"));
     }
-    */
 }

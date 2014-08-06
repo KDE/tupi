@@ -133,7 +133,10 @@ class TUPI_EXPORT TupProjectRequest
 
             // scenes
             GetInfo = 22, 
-            BgColor = 23
+            BgColor = 23,
+
+            // layer
+            AddLipSync = 24
         };
         
         enum Part

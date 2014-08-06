@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>ButtonsPanel</name>
     <message>
@@ -191,7 +191,7 @@
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="459"/>
         <source>Enable background transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Povolit průhlednost pozadí</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="698"/>
@@ -202,7 +202,7 @@
         <location filename="../src/components/export/tupexportwidget.cpp" line="711"/>
         <location filename="../src/components/export/tupexportwidget.cpp" line="752"/>
         <source>Directory doesn&apos;t exist! Please, choose another path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresář neexistuje! Vyberte, prosím, jinou cestu.</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="767"/>
@@ -212,7 +212,7 @@
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="818"/>
         <source>Format problem. Tupi Internal error.</source>
-        <translation>Potíže s formátem. Vnitřní chyba Tupi.</translation>
+        <translation>Potíže s formátem. Vnitřní chyba Tupí.</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="825"/>
@@ -319,7 +319,7 @@
     <message>
         <location filename="../src/plugins/export/imageplugin/imageplugin.cpp" line="48"/>
         <source>Image Array</source>
-        <translation type="unfinished"></translation>
+        <translation>Řada obrázků</translation>
     </message>
 </context>
 <context>
@@ -338,7 +338,7 @@
     <message>
         <location filename="../src/plugins/tools/geometric/infopanel.cpp" line="55"/>
         <source>Mouse Right Click</source>
-        <translation type="unfinished"></translation>
+        <translation>Klepnutí pravým tlačítkem myši</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/geometric/infopanel.cpp" line="56"/>
@@ -391,7 +391,7 @@
     <message>
         <location filename="../src/components/kinas/kinaswidget.cpp" line="42"/>
         <source>Tupi Script</source>
-        <translation>Skript Tupi</translation>
+        <translation>Skript Tupí</translation>
     </message>
 </context>
 <context>
@@ -401,12 +401,12 @@
         <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="341"/>
         <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="344"/>
         <source>Line Selection</source>
-        <translation type="unfinished">Výběr čáry</translation>
+        <translation>Výběr čáry</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="342"/>
         <source>N</source>
-        <translation type="unfinished">N</translation>
+        <translation>N</translation>
     </message>
 </context>
 <context>
@@ -431,12 +431,12 @@
         <location filename="../src/plugins/tools/polyline/polylinetool.cpp" line="95"/>
         <location filename="../src/plugins/tools/polyline/polylinetool.cpp" line="120"/>
         <source>PolyLine</source>
-        <translation type="unfinished"></translation>
+        <translation>Lomená čára</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/polyline/polylinetool.cpp" line="92"/>
         <source>S</source>
-        <translation type="unfinished">J</translation>
+        <translation>S</translation>
     </message>
 </context>
 <context>
@@ -521,7 +521,7 @@
     <message>
         <location filename="../src/shell/tupcrashhandler.cpp" line="51"/>
         <source>Well, Tupi has crashed...</source>
-        <translation>Tak dobře, Tupi spadl...</translation>
+        <translation>Tak dobře, Tupí spadl...</translation>
     </message>
     <message>
         <location filename="../src/shell/tupcrashhandler.cpp" line="52"/>
@@ -531,7 +531,7 @@
     <message>
         <location filename="../src/shell/tupcrashhandler.cpp" line="53"/>
         <source>Re-launch Tupi</source>
-        <translation>Spustit Tupi znovu</translation>
+        <translation>Spustit Tupí znovu</translation>
     </message>
     <message>
         <location filename="../src/shell/tupcrashhandler.cpp" line="54"/>
@@ -591,7 +591,7 @@
     <message>
         <location filename="../src/net/tupnetprojectmanagerhandler.cpp" line="535"/>
         <source>Wall from</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeď od</translation>
     </message>
 </context>
 <context>
@@ -650,7 +650,7 @@
         <location filename="../src/components/export/tupexportwidget.cpp" line="195"/>
         <location filename="../src/components/export/tupexportwidget.cpp" line="241"/>
         <source>Animated PNG (APNG)</source>
-        <translation type="unfinished"></translation>
+        <translation>Animované PNG (APNG)</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="223"/>
@@ -660,12 +660,12 @@
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="259"/>
         <source>Animated Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Animovaný obrázek</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="261"/>
         <source>Image Array</source>
-        <translation type="unfinished">Řady obrázků</translation>
+        <translation>Řada obrázků</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="167"/>
@@ -717,17 +717,17 @@
         <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="161"/>
         <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="369"/>
         <source>Selection</source>
-        <translation type="unfinished">Výběr</translation>
+        <translation>Výběr</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="366"/>
         <source>Object Selection</source>
-        <translation type="unfinished">Výběr předmětu</translation>
+        <translation>Výběr předmětu</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="367"/>
         <source>O</source>
-        <translation type="unfinished">O</translation>
+        <translation>O</translation>
     </message>
 </context>
 <context>
@@ -1044,129 +1044,129 @@
     <message>
         <location filename="../src/plugins/tools/pencil/settings.cpp" line="53"/>
         <source>Smoothness</source>
-        <translation type="unfinished">Hladkost</translation>
+        <translation>Hladkost</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="59"/>
         <source>Flips</source>
-        <translation type="unfinished">Přetočení</translation>
+        <translation>Přetočení</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="70"/>
         <source>Horizontal Flip</source>
-        <translation type="unfinished">Vodorovné přetočení</translation>
+        <translation>Vodorovné přetočení</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="73"/>
         <source>Vertical Flip</source>
-        <translation type="unfinished">Svislé přetočení</translation>
+        <translation>Svislé přetočení</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="76"/>
         <source>Crossed Flip</source>
-        <translation type="unfinished">Křižné přetočení</translation>
+        <translation>Křižné přetočení</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="89"/>
         <source>Order</source>
-        <translation type="unfinished">Pořadí</translation>
+        <translation>Pořadí</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="99"/>
         <source>Send object to back</source>
-        <translation type="unfinished"></translation>
+        <translation>Poslat předmět do pozadí</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="102"/>
         <source>Send object to back one level</source>
-        <translation type="unfinished"></translation>
+        <translation>Poslat předmět o jednu úroveň do pozadí</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="105"/>
         <source>Send object to front</source>
-        <translation type="unfinished"></translation>
+        <translation>Poslat předmět do popředí</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="108"/>
         <source>Send object to front one level</source>
-        <translation type="unfinished"></translation>
+        <translation>Poslat předmět o jednu úroveň do popředí</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="124"/>
         <source>Position</source>
-        <translation type="unfinished">Poloha</translation>
+        <translation>Poloha</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="150"/>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="229"/>
         <source>Show Tips</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat rady</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="151"/>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="230"/>
         <source>A little help for the Selection tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Malá nápověda k nástroji pro výběr</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="166"/>
         <source>Rotation mode</source>
-        <translation type="unfinished">Režim otáčení</translation>
+        <translation>Režim otáčení</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="166"/>
         <source>Double click on any node or shortcut Alt + R</source>
-        <translation type="unfinished">Dvojité klepnutí na jakýkoli uzel nebo klávesová zkratka Alt + R</translation>
+        <translation>Dvojité klepnutí na jakýkoli uzel nebo klávesová zkratka Alt + R</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="167"/>
         <source>Arrows</source>
-        <translation type="unfinished">Šipky</translation>
+        <translation>Šipky</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="167"/>
         <source>Movement on selection</source>
-        <translation type="unfinished">Přesunutí se na výběr</translation>
+        <translation>Přesunutí se na výběr</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="168"/>
         <source>Shift + Arrows</source>
-        <translation type="unfinished">Shift + šipky</translation>
+        <translation>Shift + šipky</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="168"/>
         <source>Slow movement on selection</source>
-        <translation type="unfinished">Pomalé přesunutí se na výběr</translation>
+        <translation>Pomalé přesunutí se na výběr</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="169"/>
         <source>Ctrl + Arrows</source>
-        <translation type="unfinished">Ctrl + šipky</translation>
+        <translation>Ctrl + šipky</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="169"/>
         <source>Fast movement on selection</source>
-        <translation type="unfinished">Rychlé přesunutí se na výběr</translation>
+        <translation>Rychlé přesunutí se na výběr</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="170"/>
         <source>Shift + Left Mouse Button</source>
-        <translation type="unfinished">Shift + levé tlačítko myši</translation>
+        <translation>Shift + levé tlačítko myši</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="170"/>
         <source>Proportional scaling on selection</source>
-        <translation type="unfinished">Poměrná změna velikosti na výběr</translation>
+        <translation>Poměrná změna velikosti na výběr</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="224"/>
         <source>Show Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat nástroje</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/selection/settings.cpp" line="225"/>
         <source>Options panel for the Selection tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Panel s volbami pro nástroj pro výběr</translation>
     </message>
 </context>
 <context>
@@ -1174,12 +1174,12 @@
     <message>
         <location filename="../src/libtupi/tupgradientcreator.h" line="221"/>
         <source>Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Poloměr</translation>
     </message>
     <message>
         <location filename="../src/libtupi/tupgradientcreator.h" line="230"/>
         <source>Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Úhel</translation>
     </message>
 </context>
 <context>
@@ -1439,7 +1439,7 @@
     <message>
         <location filename="../src/libui/tupabout.cpp" line="152"/>
         <source>About</source>
-        <translation>O</translation>
+        <translation>Program</translation>
     </message>
     <message>
         <location filename="../src/libui/tupabout.cpp" line="115"/>
@@ -1449,7 +1449,7 @@
     <message>
         <location filename="../src/libui/tupabout.cpp" line="48"/>
         <source>About Tupi</source>
-        <translation type="unfinished">O Tupi</translation>
+        <translation>O programu Tupí</translation>
     </message>
     <message>
         <location filename="../src/libui/tupabout.cpp" line="136"/>
@@ -1472,42 +1472,42 @@
     <message>
         <location filename="../src/components/paintarea/tupbasiccamerainterface.cpp" line="61"/>
         <source>Tupi Camera Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Správce kamery Tupí</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupbasiccamerainterface.cpp" line="61"/>
         <source>Current resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nynější rozlišení:</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupbasiccamerainterface.cpp" line="122"/>
         <source>Cameras</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamery</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupbasiccamerainterface.cpp" line="124"/>
         <source>Camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupbasiccamerainterface.cpp" line="130"/>
         <source>Take picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Udělat obrázek</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupbasiccamerainterface.cpp" line="147"/>
         <source>Close manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít správce</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupbasiccamerainterface.cpp" line="219"/>
         <source>Error</source>
-        <translation type="unfinished">Chyba</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupbasiccamerainterface.cpp" line="219"/>
         <source>Can&apos;t create pictures directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vytvořit adresář pro obrázky</translation>
     </message>
 </context>
 <context>
@@ -1543,42 +1543,42 @@
     <message>
         <location filename="../src/components/paintarea/tupcameradialog.cpp" line="56"/>
         <source>Camera Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení kamery</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcameradialog.cpp" line="72"/>
         <source>Available Camera Devices:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostupná kamerová zařízení:</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcameradialog.cpp" line="77"/>
         <source>Camera Detected:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zjištěna kamera:</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcameradialog.cpp" line="89"/>
         <source>Available Camera Resolutions:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostupná rozlišení kamery:</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcameradialog.cpp" line="101"/>
         <source>Resize my project to fit camera resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit velikost projektu, aby odpovídala rozlišení kamery</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcameradialog.cpp" line="104"/>
         <source>Use the basic camera interface (low resources)</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít základní rozhraní kamery (nízké zdroje)</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcameradialog.cpp" line="110"/>
         <source>Cancel</source>
-        <translation type="unfinished">Zrušit</translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcameradialog.cpp" line="114"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -1586,92 +1586,92 @@
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="63"/>
         <source>Tupi Camera Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Správce kamery Tupí</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="63"/>
         <source>Current resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nynější rozlišení:</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="125"/>
         <source>Cameras</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamery</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="127"/>
         <source>Camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="133"/>
         <source>Take picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Udělat obrázek</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="138"/>
         <source>Show safe area</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat bezpečnou oblast</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="139"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation>+</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="145"/>
         <source>Show grid</source>
-        <translation type="unfinished">Ukázat mřížku</translation>
+        <translation>Ukázat mřížku</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="146"/>
         <source>#</source>
-        <translation type="unfinished">#</translation>
+        <translation>#</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="156"/>
         <source>Grid spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozestupy v mřížce</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="167"/>
         <source>Grid color</source>
-        <translation type="unfinished">Barva mřížky</translation>
+        <translation>Barva mřížky</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="183"/>
         <source>Show previous images</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat předchozí obrázky</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="184"/>
         <source>P</source>
-        <translation type="unfinished">P</translation>
+        <translation>P</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="194"/>
         <source>Image opacity level</source>
-        <translation type="unfinished"></translation>
+        <translation>Úroveň neprůhlednosti obrázku</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="204"/>
         <source>Amount of images to show</source>
-        <translation type="unfinished"></translation>
+        <translation>Množství obrázků k ukázání</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="231"/>
         <source>Close manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít správce</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="302"/>
         <source>Error</source>
-        <translation type="unfinished">Chyba</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerainterface.cpp" line="302"/>
         <source>Can&apos;t create pictures directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vytvořit adresář pro obrázky</translation>
     </message>
 </context>
 <context>
@@ -1717,17 +1717,17 @@
     <message>
         <location filename="../src/components/animation/tupcamerawidget.cpp" line="91"/>
         <source>Scene Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Náhled výjevu</translation>
     </message>
     <message>
         <location filename="../src/components/animation/tupcamerawidget.cpp" line="159"/>
         <source>Scale</source>
-        <translation type="unfinished">Velikost</translation>
+        <translation>Měřítko</translation>
     </message>
     <message>
         <location filename="../src/components/animation/tupcamerawidget.cpp" line="182"/>
         <source>Size</source>
-        <translation type="unfinished">Velikost</translation>
+        <translation>Velikost</translation>
     </message>
 </context>
 <context>
@@ -1735,22 +1735,22 @@
     <message>
         <location filename="../src/components/paintarea/tupcamerawindow.cpp" line="95"/>
         <source>General Camera error</source>
-        <translation type="unfinished"></translation>
+        <translation>Obecná chyba kamery</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerawindow.cpp" line="100"/>
         <source>Camera invalid request error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba: Neplatný požadavek kamery</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerawindow.cpp" line="105"/>
         <source>Camera service missing error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba: Chybí služba kamery</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcamerawindow.cpp" line="110"/>
         <source>Camera not supported error</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba: Kamera nepodporována</translation>
     </message>
 </context>
 <context>
@@ -1772,12 +1772,12 @@
         <location filename="../src/components/paintarea/tupcanvas.pc.cpp" line="78"/>
         <location filename="../src/components/paintarea/tupcanvas.tablet.cpp" line="79"/>
         <source>Tupi: Open 2D Magic</source>
-        <translation type="unfinished">Tupi: Otevřené dvojrozměrné kouzlo</translation>
+        <translation>Tupí: Otevřené dvojrozměrné kouzlo</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcanvas.cpp" line="109"/>
         <source>Selection Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Nástroje výběru</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcanvas.cpp" line="113"/>
@@ -1845,7 +1845,7 @@
         <location filename="../src/components/paintarea/tupcanvas.pc.cpp" line="294"/>
         <location filename="../src/components/paintarea/tupcanvas.tablet.cpp" line="296"/>
         <source>Vector</source>
-        <translation type="unfinished"></translation>
+        <translation>Vektor</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcanvas.cpp" line="462"/>
@@ -2089,367 +2089,367 @@
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="913"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1184"/>
         <source>Object Selection</source>
-        <translation type="unfinished">Výběr předmětu</translation>
+        <translation>Výběr předmětu</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="342"/>
         <source>Copy</source>
-        <translation type="unfinished">Kopírovat</translation>
+        <translation>Kopírovat</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="342"/>
         <source>Ctrl+C</source>
-        <translation type="unfinished">Ctrl+C</translation>
+        <translation>Ctrl+C</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="345"/>
         <source>Paste</source>
-        <translation type="unfinished">Vložit</translation>
+        <translation>Vložit</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="345"/>
         <source>Ctrl+V</source>
-        <translation type="unfinished">Ctrl+V</translation>
+        <translation>Ctrl+V</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="348"/>
         <source>Cut</source>
-        <translation type="unfinished">Vyjmout</translation>
+        <translation>Vyjmout</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="348"/>
         <source>Ctrl+X</source>
-        <translation type="unfinished">Ctrl+X</translation>
+        <translation>Ctrl+X</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="351"/>
         <source>Delete</source>
-        <translation type="unfinished">Smazat</translation>
+        <translation>Smazat</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="354"/>
         <source>&amp;Group</source>
-        <translation type="unfinished">&amp;Skupina</translation>
+        <translation>&amp;Skupina</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="354"/>
         <source>Ctrl+G</source>
-        <translation type="unfinished">Ctrl+G</translation>
+        <translation>Ctrl+G</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="358"/>
         <source>&amp;Ungroup</source>
-        <translation type="unfinished">&amp;Zrušit seskupení</translation>
+        <translation>&amp;Zrušit seskupení</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="359"/>
         <source>Ctrl+Shift+G</source>
-        <translation type="unfinished">Ctrl+Shift+G</translation>
+        <translation>Ctrl+Shift+G</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="363"/>
         <source>Onion Skin</source>
-        <translation type="unfinished">Vzhled Onion</translation>
+        <translation>Cibulový vzhled</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="363"/>
         <source>Ctrl+Shift+O</source>
-        <translation type="unfinished">Ctrl+Shift+O</translation>
+        <translation>Ctrl+Shift+O</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="366"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1074"/>
         <source>Onion Skin Factor</source>
-        <translation type="unfinished">Násobek cibulového vzhledu</translation>
+        <translation>Násobek cibulového vzhledu</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="366"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="380"/>
         <source>Ctrl+Shift+S</source>
-        <translation type="unfinished">Ctrl+Shift+S</translation>
+        <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="369"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="376"/>
         <source>@</source>
-        <translation type="unfinished">@</translation>
+        <translation>@</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="369"/>
         <source>Export Current Frame As Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvést nynější snímek jako obrázek</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="376"/>
         <source>Export Current Frame To Gallery</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvést nynější snímek do galerie</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="380"/>
         <source>Storyboard Settings</source>
-        <translation type="unfinished">Nastavení obrázkového scénáře</translation>
+        <translation>Nastavení obrázkového scénáře</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="383"/>
         <source>Camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamera</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="383"/>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="389"/>
         <source>Draw tools</source>
-        <translation type="unfinished">Nástroje na kreslení</translation>
+        <translation>Nástroje na kreslení</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="396"/>
         <source>Brushes</source>
-        <translation type="unfinished">Štětce</translation>
+        <translation>Štětce</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="403"/>
         <source>Selection</source>
-        <translation type="unfinished">Výběr</translation>
+        <translation>Výběr</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="410"/>
         <source>Fill</source>
-        <translation type="unfinished">Vyplnit</translation>
+        <translation>Výplň</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="417"/>
         <source>View</source>
-        <translation type="unfinished">Pohled</translation>
+        <translation>Pohled</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="424"/>
         <source>Tweening</source>
-        <translation type="unfinished">Tvorba výsledného sledu snímků</translation>
+        <translation>Tvorba výsledného sledu snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="439"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="450"/>
         <source>Image Array</source>
-        <translation type="unfinished">Řady obrázků</translation>
+        <translation>Řada obrázků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="504"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="840"/>
         <source>Pencil</source>
-        <translation type="unfinished">Tužka</translation>
+        <translation>Tužka</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="510"/>
         <source>Ink</source>
-        <translation type="unfinished">Inkoust</translation>
+        <translation>Inkoust</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="514"/>
         <source>Eraser</source>
-        <translation type="unfinished">Guma</translation>
+        <translation>Guma</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="519"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="844"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1600"/>
         <source>PolyLine</source>
-        <translation type="unfinished"></translation>
+        <translation>Lomená čára</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="526"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="845"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1603"/>
         <source>Line</source>
-        <translation type="unfinished">Čára</translation>
+        <translation>Čára</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="533"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="844"/>
         <source>Rectangle</source>
-        <translation type="unfinished">Obdélník</translation>
+        <translation>Obdélník</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="536"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="845"/>
         <source>Ellipse</source>
-        <translation type="unfinished">Elipsa</translation>
+        <translation>Elipsa</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="539"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="842"/>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="547"/>
         <source>Position Tween</source>
-        <translation type="unfinished">Poloha výsledného sledu snímků</translation>
+        <translation>Poloha výsledného sledu snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="552"/>
         <source>Rotation Tween</source>
-        <translation type="unfinished">Otočení výsledného sledu snímků</translation>
+        <translation>Otočení výsledného sledu snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="556"/>
         <source>Scale Tween</source>
-        <translation type="unfinished">Měřítko výsledného sledu snímků</translation>
+        <translation>Měřítko výsledného sledu snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="561"/>
         <source>Shear Tween</source>
-        <translation type="unfinished">Deformace výsledného sledu snímků bočním tlakem</translation>
+        <translation>Deformace výsledného sledu snímků bočním tlakem</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="566"/>
         <source>Opacity Tween</source>
-        <translation type="unfinished">Neprůhlednost výsledného sledu snímků</translation>
+        <translation>Neprůhlednost výsledného sledu snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="571"/>
         <source>Coloring Tween</source>
-        <translation type="unfinished">Zbarvení výsledného sledu snímků</translation>
+        <translation>Zbarvení výsledného sledu snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="576"/>
         <source>Compound Tween</source>
-        <translation type="unfinished">Složený výsledný sled snímků</translation>
+        <translation>Složený výsledný sled snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="592"/>
         <source>Internal fill</source>
-        <translation type="unfinished">Vnitřní výplň</translation>
+        <translation>Vnitřní výplň</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="599"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="887"/>
         <source>Zoom In</source>
-        <translation type="unfinished">Přiblížit</translation>
+        <translation>Přiblížit</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="774"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="815"/>
         <source>%1</source>
-        <translation type="unfinished">%1</translation>
+        <translation>%1</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="887"/>
         <source>Zoom Out</source>
-        <translation type="unfinished">Oddálit</translation>
+        <translation>Oddálit</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="890"/>
         <source>Hand</source>
-        <translation type="unfinished">Ruční</translation>
+        <translation>Ruční</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1011"/>
         <source>Paint area actions</source>
-        <translation type="unfinished">Činnosti pro oblast malování</translation>
+        <translation>Činnosti pro oblast malování</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1014"/>
         <source>Dynamic Background Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Dynamické vlastnosti pozadí</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1019"/>
         <source>Frames Mode</source>
-        <translation type="unfinished">Režim snímků</translation>
+        <translation>Režim snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1020"/>
         <source>Static BG Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Statický režim pozadí</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1021"/>
         <source>Dynamic BG Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Dynamický režim pozadí</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1046"/>
         <source>Previous Frames</source>
-        <translation type="unfinished">Předchozí snímky</translation>
+        <translation>Předchozí snímky</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1058"/>
         <source>Next Frames</source>
-        <translation type="unfinished">Další snímky</translation>
+        <translation>Další snímky</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1093"/>
         <source>Direction</source>
-        <translation type="unfinished">Směr</translation>
+        <translation>Směr</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1096"/>
         <source>Left to Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Zleva doprava</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1097"/>
         <source>Right to Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Zprava do leva</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1098"/>
         <source>Top to Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Shora dolů</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1099"/>
         <source>Bottom to Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdola nahoru</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1102"/>
         <source>Shift Length</source>
-        <translation type="unfinished"></translation>
+        <translation>Délka posunu</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1471"/>
         <source>Export Frame As</source>
-        <translation type="unfinished">Vyvést snímek jako</translation>
+        <translation>Vyvést snímek jako</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1472"/>
         <source>Images</source>
-        <translation type="unfinished">Obrázek</translation>
+        <translation>Obrázky</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1477"/>
         <source>Information</source>
-        <translation type="unfinished">Informace</translation>
+        <translation>Informace</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1477"/>
         <source>Frame has been exported successfully</source>
-        <translation type="unfinished">Snímek byl uložen úspěšně</translation>
+        <translation>Snímek byl uložen úspěšně</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1479"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1686"/>
         <source>Error</source>
-        <translation type="unfinished">Chyba</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1479"/>
         <source>Can&apos;t export frame as image</source>
-        <translation type="unfinished">Nelze vyvést snímek jako obrázek</translation>
+        <translation>Nelze vyvést snímek jako obrázek</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1686"/>
         <source>No cameras detected</source>
-        <translation type="unfinished"></translation>
+        <translation>Nezjištěna žádná kamera</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1749"/>
         <source>Frame %1</source>
-        <translation type="unfinished">Snímek %1</translation>
+        <translation>Snímek %1</translation>
     </message>
 </context>
 <context>
@@ -2472,32 +2472,32 @@
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="1047"/>
         <source>Export to Animated Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvést do animovaného souboru</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="1063"/>
         <source>Post Animation in Tupitube</source>
-        <translation type="unfinished"></translation>
+        <translation>Poslat kreslený film do Tupí bedny</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="1097"/>
         <source>Video Formats</source>
-        <translation type="unfinished"></translation>
+        <translation>Formáty videa</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="1099"/>
         <source>Open Video Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřený formát videa</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="1101"/>
         <source>Image Array</source>
-        <translation type="unfinished">Řady obrázků</translation>
+        <translation>Řada obrázků</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="1103"/>
         <source>Animated Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Animovaný obrázek</translation>
     </message>
 </context>
 <context>
@@ -2505,29 +2505,29 @@
     <message>
         <location filename="../src/components/export/tupexportwizard.cpp" line="54"/>
         <source>Cancel</source>
-        <translation type="unfinished">Zrušit</translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwizard.cpp" line="55"/>
         <source>Back</source>
-        <translation type="unfinished">Praskliny</translation>
+        <translation>Zpět</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwizard.cpp" line="56"/>
         <location filename="../src/components/export/tupexportwizard.cpp" line="149"/>
         <source>Next</source>
-        <translation type="unfinished">Další</translation>
+        <translation>Další</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwizard.cpp" line="179"/>
         <location filename="../src/components/export/tupexportwizard.cpp" line="206"/>
         <source>Export</source>
-        <translation type="unfinished">Vyvést do souboru</translation>
+        <translation>Vyvést</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwizard.cpp" line="208"/>
         <source>Post</source>
-        <translation type="unfinished">Poslat</translation>
+        <translation>Poslat</translation>
     </message>
 </context>
 <context>
@@ -2606,17 +2606,17 @@
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="117"/>
         <source>20 frames</source>
-        <translation type="unfinished">10 snímků {20 ?}</translation>
+        <translation>20 snímků</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="122"/>
         <source>50 frames</source>
-        <translation type="unfinished">10 snímků {50 ?}</translation>
+        <translation>50 snímků</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="127"/>
         <source>100 frames</source>
-        <translation type="unfinished">10 snímků {100 ?}</translation>
+        <translation>100 snímků</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="134"/>
@@ -2651,32 +2651,32 @@
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="168"/>
         <source>Copy TL forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopírovat časovou přímku dopředu</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="169"/>
         <source>1 time</source>
-        <translation type="unfinished"></translation>
+        <translation>1 krát</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="170"/>
         <source>2 times</source>
-        <translation type="unfinished"></translation>
+        <translation>2 krát</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="171"/>
         <source>3 times</source>
-        <translation type="unfinished"></translation>
+        <translation>3 krát</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="172"/>
         <source>4 times</source>
-        <translation type="unfinished"></translation>
+        <translation>4 krát</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="173"/>
         <source>5 times</source>
-        <translation type="unfinished"></translation>
+        <translation>5 krát</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="247"/>
@@ -2730,7 +2730,7 @@
     <message>
         <location filename="../src/libbase/tupgraphicsscene.cpp" line="155"/>
         <source>PolyLine</source>
-        <translation>Řetěz čar</translation>
+        <translation>Lomená čára</translation>
     </message>
     <message>
         <location filename="../src/libbase/tupgraphicsscene.cpp" line="585"/>
@@ -2897,65 +2897,65 @@
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="70"/>
         <source>New folder %1</source>
-        <translation type="unfinished">Nová složka %1</translation>
+        <translation>Nová složka %1</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="227"/>
         <location filename="../src/components/library/tupitemmanager.cpp" line="339"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Volby</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="230"/>
         <source>Edit with Inkscape</source>
-        <translation type="unfinished">Upravit s Inkscape</translation>
+        <translation>Upravit s Inkscape</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="240"/>
         <source>Edit with Gimp</source>
-        <translation type="unfinished">Upravit s Gimp</translation>
+        <translation>Upravit s Gimp</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="250"/>
         <source>Edit with Krita</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit s Krita</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="260"/>
         <source>Edit with MyPaint</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit s MyPaint</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="271"/>
         <source>Clone</source>
-        <translation type="unfinished"></translation>
+        <translation>Klonovat</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="274"/>
         <source>Export</source>
-        <translation type="unfinished">Vyvést do souboru</translation>
+        <translation>Vyvést</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="277"/>
         <source>Rename</source>
-        <translation type="unfinished">Přejmenovat</translation>
+        <translation>Přejmenovat</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="280"/>
         <source>Delete</source>
-        <translation type="unfinished">Smazat</translation>
+        <translation>Smazat</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="291"/>
         <location filename="../src/components/library/tupitemmanager.cpp" line="343"/>
         <source>Create new raster item</source>
-        <translation type="unfinished"></translation>
+        <translation>Vytvořit novou rastrovou položku</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupitemmanager.cpp" line="299"/>
         <location filename="../src/components/library/tupitemmanager.cpp" line="351"/>
         <source>Create new svg item</source>
-        <translation type="unfinished"></translation>
+        <translation>Vytvořit novou vektorovou položku</translation>
     </message>
 </context>
 <context>
@@ -3099,43 +3099,43 @@
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="536"/>
         <source>Export object...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvést předmět...</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="565"/>
         <source>Info</source>
-        <translation type="unfinished">Informace</translation>
+        <translation>Informace</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="565"/>
         <source>Item exported successfully!</source>
-        <translation type="unfinished"></translation>
+        <translation>Položka vyvedena úspěšně!</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="639"/>
         <source>Couldn&apos;t create images directory!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vytvořit adresář pro obrázky!</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="748"/>
         <source>Couldn&apos;t create vector directory!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vytvořit adresář pro vektory!</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="767"/>
         <source>Tupi library item</source>
-        <translation type="unfinished"></translation>
+        <translation>Položka knihovny Tupí</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="523"/>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="822"/>
         <source>Images</source>
-        <translation>Obrázek</translation>
+        <translation>Obrázky</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="821"/>
         <source>Import images...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavést obrázky...</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="862"/>
@@ -3175,12 +3175,12 @@
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="915"/>
         <source>Import SVG files...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavést soubory SVG...</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="916"/>
         <source>Vector</source>
-        <translation type="unfinished"></translation>
+        <translation>Vektor</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="972"/>
@@ -3320,7 +3320,7 @@
     <message>
         <location filename="../src/net/tuplistprojectdialog.cpp" line="141"/>
         <source>Author</source>
-        <translation></translation>
+        <translation>Autor</translation>
     </message>
 </context>
 <context>
@@ -3334,7 +3334,7 @@
         <location filename="../src/shell/tupmainwindow.cpp" line="1138"/>
         <location filename="../src/shell/tupmainwindow.cpp" line="1173"/>
         <source>Tupi: Open 2D Magic</source>
-        <translation>Tupi: Otevřené dvojrozměrné kouzlo</translation>
+        <translation>Tupí: Otevřené dvojrozměrné kouzlo</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="216"/>
@@ -3413,14 +3413,14 @@
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="746"/>
         <source>Open Tupi project</source>
-        <translation>Otevřít projekt Tupi</translation>
+        <translation>Otevřít projekt Tupí</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="747"/>
         <location filename="../src/shell/tupmainwindow.cpp" line="1093"/>
         <location filename="../src/shell/tupmainwindow.cpp" line="1429"/>
         <source>Tupi Project Package (*.tup)</source>
-        <translation>Balíček s projektem Tupi (*.tup)</translation>
+        <translation>Balíček s projektem Tupí (*.tup)</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="824"/>
@@ -3441,22 +3441,22 @@
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="954"/>
         <source>Import Gimp palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavést palety z Gimpu</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="954"/>
         <source>Gimp Palette (*.gpl *.txt *.css)</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta z Gimpu (*.gpl *.txt *.css)</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="994"/>
         <source>Gimp palette import was successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavedení palety z Gimpu proběhlo úspěšně</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="996"/>
         <source>Gimp palette import was unsuccessful</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavedení palety z Gimpu neproběhlo úspěšně</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="933"/>
@@ -3493,7 +3493,7 @@
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="1109"/>
         <source>Directory does not exist! Please, choose another path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresář neexistuje! Vyberte, prosím, jinou cestu.</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="1124"/>
@@ -3753,7 +3753,7 @@
     <message>
         <location filename="../src/shell/tupmainwindow_gui.cpp" line="406"/>
         <source>Shift+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift+G</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow_gui.cpp" line="407"/>
@@ -3808,7 +3808,7 @@
     <message>
         <location filename="../src/shell/tupmainwindow_gui.cpp" line="460"/>
         <source>About Tupi</source>
-        <translation>O Tupi</translation>
+        <translation>O programu Tupí</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow_gui.cpp" line="460"/>
@@ -3823,7 +3823,7 @@
     <message>
         <location filename="../src/shell/tupmainwindow_gui.cpp" line="518"/>
         <source>Actions Bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Pruh s činnostmi</translation>
     </message>
     <message>
         <location filename="../src/shell/tupmainwindow_gui.cpp" line="659"/>
@@ -3884,7 +3884,7 @@
         <source>User &quot;%1&quot; is disabled.
 Please, contact the animation server admin to get access.</source>
         <translation>Uživatel &quot;%1&quot; je zakázán.
-Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.</translation>
+Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání přístupu.</translation>
     </message>
     <message>
         <location filename="../src/net/tupnetprojectmanagerhandler.cpp" line="471"/>
@@ -3895,7 +3895,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/net/tupnetprojectmanagerhandler.cpp" line="471"/>
         <source>User has no available projects in the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Uživatel nemá na serveru žádné dostupné projekty</translation>
     </message>
     <message>
         <location filename="../src/net/tupnetprojectmanagerhandler.cpp" line="505"/>
@@ -3913,7 +3913,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="66"/>
         <source>Create new raster item</source>
-        <translation type="unfinished"></translation>
+        <translation>Vytvořit novou rastrovou položku</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="73"/>
@@ -3922,52 +3922,52 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="205"/>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="209"/>
         <source>Transparent</source>
-        <translation type="unfinished"></translation>
+        <translation>Průhledná</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="74"/>
         <source>White</source>
-        <translation type="unfinished">Bílá</translation>
+        <translation>Bílá</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="75"/>
         <source>Black</source>
-        <translation type="unfinished"></translation>
+        <translation>Černá</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="87"/>
         <source>Create new vector item</source>
-        <translation type="unfinished"></translation>
+        <translation>Vytvořit novou vektorovou položku</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="123"/>
         <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Název:</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="124"/>
         <source>&amp;Extension:</source>
-        <translation type="unfinished"></translation>
+        <translation>Příp&amp;ona souboru:</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="125"/>
         <source>&amp;Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Šíř&amp;ka:</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="126"/>
         <source>&amp;Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Výška:</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="129"/>
         <source>&amp;Background:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pozadí:</translation>
     </message>
     <message>
         <location filename="../src/components/library/tupnewitemdialog.cpp" line="133"/>
         <source>&amp;Open it with:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Otevřít s:</translation>
     </message>
 </context>
 <context>
@@ -3990,7 +3990,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/shell/tupnewproject.cpp" line="88"/>
         <source>Author</source>
-        <translation></translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <location filename="../src/shell/tupnewproject.cpp" line="92"/>
@@ -4020,12 +4020,12 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/shell/tupnewproject.cpp" line="107"/>
         <source>520x380 - 24</source>
-        <translation type="unfinished"></translation>
+        <translation>520 x 380 - 24</translation>
     </message>
     <message>
         <location filename="../src/shell/tupnewproject.cpp" line="108"/>
         <source>640x480 - 24</source>
-        <translation type="unfinished"></translation>
+        <translation>640 x 480 - 24</translation>
     </message>
     <message>
         <location filename="../src/shell/tupnewproject.cpp" line="109"/>
@@ -4242,32 +4242,32 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="206"/>
         <source>Paste in...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit...</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="207"/>
         <source>next 5 frames</source>
-        <translation type="unfinished"></translation>
+        <translation>dalších 5 snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="208"/>
         <source>next 10 frames</source>
-        <translation type="unfinished"></translation>
+        <translation>dalších 10 snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="209"/>
         <source>next 20 frames</source>
-        <translation type="unfinished"></translation>
+        <translation>dalších 20 snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="210"/>
         <source>next 50 frames</source>
-        <translation type="unfinished"></translation>
+        <translation>dalších 50 snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="211"/>
         <source>next 100 frames</source>
-        <translation type="unfinished"></translation>
+        <translation>dalších 100 snímků</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="221"/>
@@ -4284,32 +4284,32 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="558"/>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1331"/>
         <source>PolyLine</source>
-        <translation>Vícečára</translation>
+        <translation>Lomená čára</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="224"/>
         <source>Send</source>
-        <translation type="unfinished">Poslat</translation>
+        <translation>Poslat</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="227"/>
         <source>To back</source>
-        <translation type="unfinished"></translation>
+        <translation>Do pozadí</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="228"/>
         <source>To front</source>
-        <translation type="unfinished"></translation>
+        <translation>Do popředí</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="229"/>
         <source>One level to back</source>
-        <translation type="unfinished"></translation>
+        <translation>O jednu úroveň do pozadí</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="230"/>
         <source>One level to front</source>
-        <translation type="unfinished"></translation>
+        <translation>O jednu úroveň do popředí</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1152"/>
@@ -4402,32 +4402,32 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="76"/>
         <source>Action Safe Area</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezpečná oblast pro činnost</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="77"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation>+</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="85"/>
         <source>Show grid</source>
-        <translation type="unfinished">Ukázat mřížku</translation>
+        <translation>Ukázat mřížku</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="86"/>
         <source>#</source>
-        <translation type="unfinished">#</translation>
+        <translation>#</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="94"/>
         <source>Full screen</source>
-        <translation type="unfinished">Celá obrazovka</translation>
+        <translation>Celá obrazovka</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="95"/>
         <source>F11</source>
-        <translation type="unfinished">F11</translation>
+        <translation>F11</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="106"/>
@@ -4625,7 +4625,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/libui/tuppreferences.cpp" line="127"/>
         <source>Tupi Home</source>
-        <translation>Instalační adresář s Tupi</translation>
+        <translation>Instalační adresář s Tupí</translation>
     </message>
     <message>
         <location filename="../src/libui/tuppreferences.cpp" line="127"/>
@@ -4854,7 +4854,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/animation/tupscreen.cpp" line="482"/>
         <source>Rendering...</source>
-        <translation type="unfinished">Dělá se...</translation>
+        <translation>Dělá se...</translation>
     </message>
 </context>
 <context>
@@ -4875,32 +4875,32 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="128"/>
         <source>&amp;PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;PDF</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="129"/>
         <source>Export as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvést jako PDF</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="132"/>
         <source>&amp;HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;HTML</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="133"/>
         <source>Export as HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvést jako HTML</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="137"/>
         <source>Close</source>
-        <translation type="unfinished">Zavřít</translation>
+        <translation>Zavřít</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="146"/>
         <source>&amp;Post</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Poslat</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="202"/>
@@ -4916,7 +4916,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="212"/>
         <source>Author</source>
-        <translation></translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="217"/>
@@ -4926,7 +4926,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="236"/>
         <source>Topics</source>
-        <translation type="unfinished">Náměty</translation>
+        <translation>Náměty</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="265"/>
@@ -4958,7 +4958,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="360"/>
         <source>Scene</source>
-        <translation type="unfinished">Výjev</translation>
+        <translation>Výjev</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="374"/>
@@ -4968,7 +4968,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="570"/>
         <source>Choose a directory...</source>
-        <translation type="unfinished">Vybrat adresář...</translation>
+        <translation>Vybrat adresář...</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="574"/>
@@ -4985,22 +4985,22 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="587"/>
         <source>Save PDF file</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit soubor PDF</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="587"/>
         <source>PDF file (*.pdf)</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor PDF (*.pdf)</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="700"/>
         <source>PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="702"/>
         <source>Html</source>
-        <translation type="unfinished">HTML</translation>
+        <translation>HTML</translation>
     </message>
 </context>
 <context>
@@ -5220,7 +5220,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/paintarea/tuptoolsdialog.cpp" line="75"/>
         <source>Polyline</source>
-        <translation>Řetěz čar</translation>
+        <translation>Lomená čára</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuptoolsdialog.cpp" line="83"/>
@@ -5263,22 +5263,22 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/twitter/tuptwitter.cpp" line="270"/>
         <source>Latest version</source>
-        <translation type="unfinished">Poslední verze</translation>
+        <translation>Poslední verze</translation>
     </message>
     <message>
         <location filename="../src/components/twitter/tuptwitter.cpp" line="271"/>
         <source>Revision</source>
-        <translation type="unfinished">Změna</translation>
+        <translation>Změna</translation>
     </message>
     <message>
         <location filename="../src/components/twitter/tuptwitter.cpp" line="272"/>
         <source>Code Name</source>
-        <translation type="unfinished">Název kódu</translation>
+        <translation>Kódový název</translation>
     </message>
     <message>
         <location filename="../src/components/twitter/tuptwitter.cpp" line="275"/>
         <source>It&apos;s time to upgrade! Click here!</source>
-        <translation type="unfinished"></translation>
+        <translation>Je čas na povýšení! Klepněte sem!</translation>
     </message>
 </context>
 <context>
@@ -5394,7 +5394,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/plugins/tools/color/tweener.cpp" line="164"/>
         <source>Coloring Tween can&apos;t be applied to SVG files</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbarvení výsledného sledu snímků nelze použít na soubory SVG</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/color/tweener.cpp" line="241"/>
@@ -5652,7 +5652,7 @@ Spojte se, prosím, se správcem serveru s animacemi pro získání přístupu.<
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="877"/>
         <source>Set Animation Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit vlastnosti kresleného filmu</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="889"/>

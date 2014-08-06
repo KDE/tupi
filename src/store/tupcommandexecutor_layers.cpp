@@ -236,3 +236,41 @@ bool TupCommandExecutor::setLayerVisibility(TupLayerResponse *response)
 
     return false;
 }
+
+bool TupCommandExecutor::addLipSync(TupLayerResponse *response)
+{
+    int scenePos = response->sceneIndex();
+    int position = response->layerIndex();
+    QString xml = response->arg().toString();
+
+    #ifdef K_DEBUG
+        QString msg = "TupCommandExecutor::addLipSync() - Adding lipsync...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
+    #endif
+
+    QString oldName;
+
+    TupScene *scene = m_project->scene(scenePos);
+
+    if (!scene)
+        return false;
+
+    TupLayer *layer = scene->layer(position);
+
+    if (layer) {
+        TupLipSync *lipsync = new TupLipSync();
+        lipsync->fromXml(xml);
+        layer->addLipSync(lipsync);
+
+        emit responsed(response);
+
+        return true;
+    }
+
+    return false;
+}
+
