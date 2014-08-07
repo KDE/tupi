@@ -61,16 +61,22 @@ bool TupFileManager::save(const QString &fileName, TupProject *project)
         #endif
     #endif
 
+	/* 
     int indexPath = fileName.lastIndexOf(QDir::separator());
     int indexFile = fileName.length() - indexPath;
     QString name = fileName.right(indexFile - 1);
     int indexDot = name.lastIndexOf(".");
     name = name.left(indexDot);
-
+    */
+	
+	QFileInfo info(fileName);
+	QString name = info.baseName();
+	
     QString oldDirName = CACHE_DIR + project->projectName();
 	
-	// qDebug() << "TupFileManager::save() - project->projectName(): " << project->projectName();
-	// qDebug() << "TupFileManager::save() - name: " << name;
+	qDebug() << "TupFileManager::save() - project->projectName(): " << project->projectName();
+	qDebug() << "TupFileManager::save() - name: " << name;
+	qDebug() << "TupFileManager::save() - CACHE_DIR: " << CACHE_DIR;
 	
     QDir projectDir(oldDirName);
 

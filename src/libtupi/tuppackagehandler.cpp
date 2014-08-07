@@ -190,6 +190,8 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
     // k->importedProjectPath = CACHE_DIR + file.baseName();
     // QStringList list = JlCompress::extractDir(packagePath, k->importedProjectPath);
 
+	qDebug() << "TupPackageHandler::importPackage() - packagePath: " << packagePath;
+	
     QuaZip zip(packagePath);
     
     if (!zip.open(QuaZip::mdUnzip)) {
@@ -242,8 +244,17 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
                return false;
            }
         
+		   qDebug() << "";
+		   qDebug() << "TupPackageHandler::importPackage() - file.getActualFileName(): " << file.getActualFileName();
            name = CACHE_DIR + file.getActualFileName();
-
+		   
+		   /*
+           QFileInfo fileInfo(file.getActualFileName());
+		   name = CACHE_DIR + fileInfo.completeBaseName();
+		   qDebug() << "TupPackageHandler::importPackage() - name: " << name;
+		   qDebug()<< "";
+		   */
+		   
            if (name.endsWith(QDir::separator()))
                name.remove(name.count()-1, 1);
 
