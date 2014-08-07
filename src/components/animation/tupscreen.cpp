@@ -297,6 +297,10 @@ void TupScreen::nextFrame()
         render();
 
     k->currentFramePosition += 1;
+
+    if (k->currentFramePosition == k->photograms.count())
+        k->currentFramePosition = 0;
+
     repaint();
 }
 
@@ -314,6 +318,10 @@ void TupScreen::previousFrame()
         render();
 
     k->currentFramePosition -= 1;
+
+    if (k->currentFramePosition < 0)
+        k->currentFramePosition = k->photograms.count() - 1;
+
     repaint();
 }
 

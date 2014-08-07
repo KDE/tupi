@@ -41,7 +41,7 @@ Name: "{app}\data\xml\uk"
 Name: "{app}\plugins"
 Name: "{app}\lib"
 Name: "{app}\lib\qt5"
-Name: "{app}\lib\ffmpeg"
+Name: "{app}\lib\libav"
 
 [Files]
 Source: "bin\*"; DestDir: "{app}\bin"
@@ -72,11 +72,11 @@ Source: "data\xml\uk\*"; DestDir: "{app}\data\xml\uk"
 Source: "plugins\*"; DestDir: "{app}\plugins"
 Source: "lib\*"; DestDir: "{app}\lib"
 Source: "lib\qt5\*"; DestDir: "{app}\lib\qt5"
-Source: "lib\ffmpeg\*"; DestDir: "{app}\lib\ffmpeg"
+Source: "lib\libav\*"; DestDir: "{app}\lib\libav"
 
 [Registry]
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: string; ValueName: "TUPI_HOME"; ValueData: "{app}"
-Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}\lib;{app}\lib\qt5;{app}\lib\ffmpeg"
+Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}\lib;{app}\lib\qt5;{app}\lib\libav"
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: string; ValueName: "TUPI_SHARE"; ValueData: "{app}\data"
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; ValueType: string; ValueName: "TUPI_PLUGIN"; ValueData: "{app}\plugins"
 Root: HKCR; Subkey: ".tup"; ValueType: string; ValueName: ""; ValueData: "TupiOpen2DMagic"; Flags: uninsdeletevalue 

@@ -395,7 +395,7 @@ void TupLibraryWidget::removeCurrentGraphic()
     // If it's NOT a directory
     if (extension.length() > 0) {
         objectKey = k->libraryTree->currentItem()->text(3);
-        if (extension.compare("JPG")==0 || extension.compare("PNG")==0 || extension.compare("GIF")==0)
+        if (extension.compare("JPEG")==0 || extension.compare("JPG")==0 || extension.compare("PNG")==0 || extension.compare("GIF")==0)
             type = TupLibraryObject::Image;
         if (extension.compare("SVG")==0)
             type = TupLibraryObject::Svg;
@@ -999,7 +999,7 @@ void TupLibraryWidget::importBitmapArray()
     for (int i = 0; i < size; ++i) {
          if (photograms.at(i).isFile()) {
              QString extension = photograms.at(i).suffix().toUpper();
-             if (extension.compare("JPG")==0 || extension.compare("PNG")==0 || extension.compare("GIF")==0 || 
+             if (extension.compare("JPEG")==0 || extension.compare("JPG")==0 || extension.compare("PNG")==0 || extension.compare("GIF")==0 || 
                  extension.compare("XPM")==0)
                  imagesCounter++;
          }
@@ -1063,7 +1063,7 @@ void TupLibraryWidget::importBitmapArray()
             for (int i = 0; i < size; ++i) {
                  if (photograms.at(i).isFile()) {
                      QString extension = photograms.at(i).suffix().toUpper();
-                     if (extension.compare("JPG")==0 || extension.compare("PNG")==0 || extension.compare("GIF")==0 ||
+                     if (extension.compare("JPEG")==0 || extension.compare("JPG")==0 || extension.compare("PNG")==0 || extension.compare("GIF")==0 ||
                          extension.compare("XPM")==0) {
                          QString path = photograms.at(i).absoluteFilePath(); 
                          QString symName = photograms.at(i).fileName().toLower();

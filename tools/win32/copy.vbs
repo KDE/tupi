@@ -16,7 +16,7 @@ fileSystem.CreateFolder tupiDir & "\data"
 fileSystem.CreateFolder tupiDir & "\plugins"
 fileSystem.CreateFolder tupiDir & "\lib"
 fileSystem.CreateFolder tupiDir & "\lib\qt5"
-fileSystem.CreateFolder tupiDir & "\lib\ffmpeg"
+fileSystem.CreateFolder tupiDir & "\lib\libav"
 
 fileSystem.CopyFile "c:\Qt-5.3.0\5.3\mingw482_32\plugins\platforms\qwindows.dll", tupiDir & "\bin\platforms\qwindows.dll"
 fileSystem.CopyFile zlibDir & "\zlib1.dll", tupiDir & "\lib\zlib1.dll"
@@ -70,6 +70,6 @@ fileSystem.CopyFolder sourceDir & "\components\help\help", tupiDir & "\data\help
 fileSystem.CopyFolder sourceDir & "\components\colorpalette\palettes", tupiDir & "\data\palettes"
 fileSystem.CopyFolder sourceDir & "\themes", tupiDir & "\data\themes"
 fileSystem.CopyFolder "c:\tupi\sources\qt5", tupiDir & "\lib\qt5"
-fileSystem.CopyFolder "c:\tupi\sources\ffmpeg", tupiDir & "\lib\ffmpeg"
+fileSystem.CopyFolder "c:\tupi\sources\libav", tupiDir & "\lib\libav"
 
 MsgBox "Copy is done! :D"
