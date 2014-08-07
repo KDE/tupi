@@ -68,6 +68,10 @@ bool TupFileManager::save(const QString &fileName, TupProject *project)
     name = name.left(indexDot);
 
     QString oldDirName = CACHE_DIR + project->projectName();
+	
+	// qDebug() << "TupFileManager::save() - project->projectName(): " << project->projectName();
+	// qDebug() << "TupFileManager::save() - name: " << name;
+	
     QDir projectDir(oldDirName);
 
     if (name.compare(project->projectName()) != 0) {

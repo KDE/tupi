@@ -143,10 +143,12 @@ void SelectPlugin::setFormats(TupExportInterface::Formats formats)
         format->setData(3124, TupExportInterface::WEBM);
     }
 
+#ifdef Q_OS_UNIX
     if (formats & TupExportInterface::OGV) {
         QListWidgetItem *format = new QListWidgetItem(tr("OGV Video"), m_formatList);
         format->setData(3124, TupExportInterface::OGV);
     }
+#endif
 
     if (formats & TupExportInterface::MPEG) {
         QListWidgetItem *format = new QListWidgetItem(tr("MPEG Video"), m_formatList);
@@ -208,8 +210,10 @@ char const* SelectPlugin::getFormatExtension(const QString format)
     if (format.compare(tr("WEBM Video")) == 0)
         return ".webm";
 
+#ifdef Q_OS_UNIX		
     if (format.compare(tr("OGV Video")) == 0)
         return ".ogv";
+#endif
 
     if (format.compare(tr("MPEG Video")) == 0)
         return ".mpg";
