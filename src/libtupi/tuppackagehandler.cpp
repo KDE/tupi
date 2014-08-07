@@ -244,20 +244,19 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
                return false;
            }
         
-           qDebug() << "";
-           qDebug() << "TupPackageHandler::importPackage() - file.getActualFileName(): " << file.getActualFileName();
            #ifdef Q_OS_WIN32
-
+		       QStringList parts = file.getActualFileName().split("/");
+			   int size = parts.size();
+			   if (size > 1) {
+			       QString project = parts.at(size - 2);
+	               QString component = parts.at(size - 1);
+				   name = CACHE_DIR + project + "/" + component;
+			   } else {
+                   qDebug() << "TupPackageHandler::importPackage() - Fatal error: Wrong path -> " << file.getActualFileName();
+               }			   
            #else
                name = CACHE_DIR + file.getActualFileName();    
            #endif
-           
-           /*
-           QFileInfo fileInfo(file.getActualFileName());
-           name = CACHE_DIR + fileInfo.completeBaseName();
-           qDebug() << "TupPackageHandler::importPackage() - name: " << name;
-           qDebug()<< "";
-           */
            
            if (name.endsWith(QDir::separator()))
                name.remove(name.count()-1, 1);
