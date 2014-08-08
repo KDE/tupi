@@ -253,11 +253,12 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
 
                return false;
            }
+
+           qDebug() << "TupPackageHandler::importPackage() - file.getFileName() : " << file.getFileName();
+           qDebug() << "TupPackageHandler::importPackage() - file.getZipName() : " << file.getZipName();
+           qDebug() << "TupPackageHandler::importPackage() - file.getActualFileName() : " << file.getActualFileName();
         
            #ifdef Q_OS_WIN32
-               qDebug() << "TupPackageHandler::importPackage() - file.getFileName() : " << file.getFileName();
-               qDebug() << "TupPackageHandler::importPackage() - file.getZipName() : " << file.getZipName();
-               qDebug() << "TupPackageHandler::importPackage() - file.getActualFileName() : " << file.getActualFileName();
                QStringList parts = file.getActualFileName().split("/");
                int size = parts.size();
                if (size > 1) {
