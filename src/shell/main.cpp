@@ -112,7 +112,9 @@ int main(int argc, char ** argv)
 	            QDir dir("C:\temp");
 				if (!dir.exists()) {
 				    if (!dir.mkdir("C:\temp")) {
-					    qDebug() << "main.cpp - Fatal error: WinXP issue!";
+					    #ifdef K_DEBUG
+					        qDebug() << "main.cpp - Fatal error: WinXP issue!";
+						#endif
 					    return 0;
 					}
 				}

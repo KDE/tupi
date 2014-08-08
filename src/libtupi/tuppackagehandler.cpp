@@ -189,8 +189,6 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
     // QFileInfo file(packagePath);
     // k->importedProjectPath = CACHE_DIR + file.baseName();
     // QStringList list = JlCompress::extractDir(packagePath, k->importedProjectPath);
-
-    qDebug() << "TupPackageHandler::importPackage() - packagePath: " << packagePath;
     
     QuaZip zip(packagePath);
     
@@ -252,7 +250,10 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
 	               QString component = parts.at(size - 1);
 				   name = CACHE_DIR + project + "/" + component;
 			   } else {
-                   qDebug() << "TupPackageHandler::importPackage() - Fatal error: Wrong path -> " << file.getActualFileName();
+                   #ifdef K_DEBUG
+                       qDebug() << "TupPackageHandler::importPackage() - Fatal error: Wrong path -> " << file.getActualFileName();
+                   #endif
+                   return false; 
                }			   
            #else
                name = CACHE_DIR + file.getActualFileName();    
