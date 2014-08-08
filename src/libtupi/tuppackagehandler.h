@@ -37,9 +37,10 @@
 #define TUPPACKAGEHANDLER_H
 
 #include "tglobal.h"
+#include "tapplicationproperties.h"
 #include "quazip.h"
 #include "quazipfile.h"
-#include "tapplicationproperties.h"
+#include <JlCompress.h>
 
 #include <QString>
 #include <QFile>
