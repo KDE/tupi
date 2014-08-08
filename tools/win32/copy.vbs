@@ -18,7 +18,7 @@ fileSystem.CreateFolder tupiDir & "\lib"
 fileSystem.CreateFolder tupiDir & "\lib\qt5"
 fileSystem.CreateFolder tupiDir & "\lib\libav"
 
-fileSystem.CopyFile "c:\Qt-5.3.0\5.3\mingw482_32\plugins\platforms\qwindows.dll", tupiDir & "\bin\platforms\qwindows.dll"
+fileSystem.CopyFile "c:\Qt-5.3.1\5.3\mingw482_32\plugins\platforms\qwindows.dll", tupiDir & "\bin\platforms\qwindows.dll"
 fileSystem.CopyFile zlibDir & "\zlib1.dll", tupiDir & "\lib\zlib1.dll"
 fileSystem.CopyFile quazipDir & "\quazip.dll", tupiDir & "\lib\quazip.dll"
 fileSystem.CopyFile "c:\tupi\sources\tupi\tools\win32\tupi.iss", tupiDir & "\tupi.iss"
