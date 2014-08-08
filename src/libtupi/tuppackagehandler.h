@@ -40,7 +40,9 @@
 #include "tapplicationproperties.h"
 #include "quazip.h"
 #include "quazipfile.h"
-#include <JlCompress.h>
+
+// SQA: Pending to enable in the future
+// #include <JlCompress.h>
 
 #include <QString>
 #include <QFile>
