@@ -93,7 +93,7 @@ void TApplicationProperties::setPluginDir(const QString &path)
 
 void TApplicationProperties::setCacheDir(const QString &path)
 {
-    k->cacheDir = path;
+	k->cacheDir = path;
 }
 
 void TApplicationProperties::setRepositoryDir(const QString &path)

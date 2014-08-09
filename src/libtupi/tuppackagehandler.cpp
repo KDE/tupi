@@ -253,31 +253,12 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
 
                return false;
            }
-
-           qDebug() << "TupPackageHandler::importPackage() - file.getFileName() : " << file.getFileName();
-           qDebug() << "TupPackageHandler::importPackage() - file.getZipName() : " << file.getZipName();
-           qDebug() << "TupPackageHandler::importPackage() - file.getActualFileName() : " << file.getActualFileName();
-        
+		   
            #ifdef Q_OS_WIN32
-               QStringList parts = file.getActualFileName().split("/");
-               int size = parts.size();
-               if (size > 1) {
-                   QString project = parts.at(size - 2);
-                   QString component = parts.at(size - 1);
-                   name = CACHE_DIR + project + "/" + component;
-                   qDebug() << "TupPackageHandler::importPackage() - project: " << project;
-                   qDebug() << "TupPackageHandler::importPackage() - component: " << component;
-                   qDebug() << "TupPackageHandler::importPackage() - name: " << name;
-               } else {
-                   #ifdef K_DEBUG
-                       qDebug() << "TupPackageHandler::importPackage() - Fatal error: Wrong path -> " << file.getActualFileName();
-                   #endif
-                   return false; 
-               }               
-           #else
+			   name = file.getActualFileName();
+            #else
                name = CACHE_DIR + file.getActualFileName();    
            #endif
-           
            
            if (name.endsWith(QDir::separator()))
                name.remove(name.count()-1, 1);
@@ -400,7 +381,7 @@ bool TupPackageHandler::createPath(const QString &filePath)
     QFileInfo info(filePath);
     QDir path = info.dir();
     QString target = path.path();
-
+	
     if (!path.exists()) 
         return path.mkpath(target);
     else 
