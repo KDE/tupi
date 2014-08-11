@@ -400,8 +400,15 @@ void TupDocumentView::setupDrawActions()
     new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "storyboard.png"), tr("Storyboard Settings"), QKeySequence(tr("Ctrl+Shift+S")),
                 this, SLOT(storyboardSettings()), k->actionManager, "storyboard");
 
-    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "camera.png"), tr("Camera"), QKeySequence(tr("Ctrl+Shift+C")),
-                this, SLOT(cameraInterface()), k->actionManager, "camera");
+	#ifdef Q_OS_WIN32
+        if (QSysInfo::windowsVersion() != QSysInfo::WV_XP) {
+            new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "camera.png"), tr("Camera"), QKeySequence(tr("Ctrl+Shift+C")),
+                        this, SLOT(cameraInterface()), k->actionManager, "camera");
+        }
+    #else
+        new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "camera.png"), tr("Camera"), QKeySequence(tr("Ctrl+Shift+C")),
+                    this, SLOT(cameraInterface()), k->actionManager, "camera");
+    #endif
 }
 
 void TupDocumentView::createTools()

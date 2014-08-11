@@ -45,7 +45,7 @@ LibavPlugin::~LibavPlugin()
 
 QString LibavPlugin::key() const
 {
-    return "Video Formats";
+    return tr("Video Formats");
 }
 
 TupExportInterface::Formats LibavPlugin::availableFormats()
@@ -179,4 +179,3 @@ bool LibavPlugin::exportFrame(int frameIndex, const QColor color, const QString 
 const char* LibavPlugin::getExceptionMsg() {
     return errorMsg;
 }
-

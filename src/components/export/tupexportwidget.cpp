@@ -112,7 +112,17 @@ void SelectPlugin::reset()
 
 void SelectPlugin::addPlugin(const QString &plugin)
 {
-    new QListWidgetItem(plugin, m_exporterList);
+    qDebug() << "SelectPlugin::addPlugin() - plugin: " << plugin;
+    #ifdef Q_OS_WIN32
+       if (QSysInfo::windowsVersion() != QSysInfo::WV_XP) {
+           new QListWidgetItem(plugin, m_exporterList);
+       } else {
+	       if (plugin.compare(tr("Video Formats")) != 0)
+		       new QListWidgetItem(plugin, m_exporterList);
+	   }
+    #else
+       new QListWidgetItem(plugin, m_exporterList);
+    #endif
 }
 
 void SelectPlugin::selectedPluginItem(QListWidgetItem *item)
