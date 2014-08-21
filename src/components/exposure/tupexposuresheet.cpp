@@ -938,16 +938,29 @@ void TupExposureSheet::insertFrames(int n)
     int target = k->currentTable->currentFrame() + 1;
     int lastFrame = k->currentTable->framesTotalAtCurrentLayer() - 1;
 
-    for (int i=0; i<n; i++)
-         insertFrame(layer, k->currentTable->framesTotalAtCurrentLayer());
+    if (target > lastFrame) {
+        for (int i=0; i<n; i++)
+             insertFrame(layer, k->currentTable->framesTotalAtCurrentLayer());
 
-    for (int index=lastFrame; index >= target; index--) {
-         TupProjectRequest event = TupRequestBuilder::createFrameRequest(scene,
-                                  layer, index, TupProjectRequest::Move, index + n);
-         emit requestTriggered(&event);
+        selectFrame(layer, k->currentTable->currentFrame());
+    } else {
+        for (int i=0; i<n; i++)
+             insertFrame(layer, k->currentTable->framesTotalAtCurrentLayer());
+
+        for (int index=lastFrame; index >= target; index--) {
+             TupProjectRequest event = TupRequestBuilder::createFrameRequest(scene, layer, index, TupProjectRequest::Exchange, index + n);
+             emit requestTriggered(&event);
+        }
+
+        selectFrame(layer, k->currentTable->currentFrame());
+
+        lastFrame = k->currentTable->framesTotalAtCurrentLayer() - 1;
+        for (int index=target; index <= lastFrame; index++) {
+             target++;
+             TupProjectRequest event = TupRequestBuilder::createFrameRequest(scene, layer, index, TupProjectRequest::Rename, tr("Frame %1").arg(target));
+             emit requestTriggered(&event);
+        }
     }
-   
-    selectFrame(layer, k->currentTable->currentFrame());
 }
 
 void TupExposureSheet::removeOne()
