@@ -133,6 +133,8 @@ class TUPI_EXPORT TupLayer : public QObject, public TupAbstractSerializable
 
         TupLipSync *createLipSync(const QString &name, const QString &soundFile);
         void addLipSync(TupLipSync *lipsync);
+        int lipSyncCount();
+        Mouths lipSyncList();
         bool removeLipSync(const QString &name);
         
         TupScene *scene() const;

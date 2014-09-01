@@ -62,7 +62,8 @@ TupExportInterface::Formats TheoraPlugin::availableFormats()
     return TupExportInterface::OGV;
 }
 
-bool TheoraPlugin::exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format fmt, const QSize &size, int fps)
+bool TheoraPlugin::exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, 
+                                  TupExportInterface::Format fmt, const QSize &size, int fps, TupLibrary *library)
 {
     Q_UNUSED(fmt);
 
@@ -76,7 +77,7 @@ bool TheoraPlugin::exportToFormat(const QColor color, const QString &filePath, c
     TheoraMovieGenerator *generator = 0;
     generator = new TheoraMovieGenerator(size, fps, duration, frames);
 
-    TupAnimationRenderer renderer(color);
+    TupAnimationRenderer renderer(color, library);
     {
          if (!generator->movieHeaderOk()) {
              errorMsg = generator->getErrorMsg();
@@ -113,13 +114,14 @@ bool TheoraPlugin::exportToFormat(const QColor color, const QString &filePath, c
     return true;
 }
 
-bool TheoraPlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size)
+bool TheoraPlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size, TupLibrary *library)
 {
     Q_UNUSED(frameIndex);
     Q_UNUSED(color);
     Q_UNUSED(filePath);
     Q_UNUSED(scene);
     Q_UNUSED(size);
+    Q_UNUSED(library);
 
     return false;
 }

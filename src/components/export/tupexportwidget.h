@@ -84,7 +84,7 @@ class TUPI_EXPORT TupExportWidget : public TupExportWizard
 
     public:
         enum OutputFormat { Animation = 0, ImagesArray, AnimatedImage };
-        TupExportWidget(const TupProject *project, QWidget *parent = 0, bool isLocal = true);
+        TupExportWidget(TupProject *project, QWidget *parent = 0, bool isLocal = true);
         ~TupExportWidget();
         QString videoTitle() const;
         QString videoTopics() const;

@@ -398,7 +398,7 @@ class TUPI_EXPORT ExportTo : public TupExportWizardPage
     Q_OBJECT
 
     public:
-        ExportTo(const TupProject *project, TupExportWidget::OutputFormat output, QString title, const TupExportWidget *widget);
+        ExportTo(TupProject *project, TupExportWidget::OutputFormat output, QString title, const TupExportWidget *widget);
         ~ExportTo();
 
         bool isComplete() const;
@@ -436,7 +436,8 @@ class TUPI_EXPORT ExportTo : public TupExportWizardPage
         TupExportInterface::Format m_currentFormat;
         TupExportWidget::OutputFormat output;
 
-        const TupProject *m_project;
+        // const TupProject *m_project;
+        TupProject *m_project;
         QLineEdit *m_filePath;
         QLineEdit *m_prefix;
         QSpinBox *m_fps;
@@ -448,7 +449,7 @@ class TUPI_EXPORT ExportTo : public TupExportWizardPage
         bool transparency;
 };
 
-ExportTo::ExportTo(const TupProject *project, TupExportWidget::OutputFormat outputFormat, QString title, const TupExportWidget *widget) : TupExportWizardPage(title), m_currentExporter(0), 
+ExportTo::ExportTo(TupProject *project, TupExportWidget::OutputFormat outputFormat, QString title, const TupExportWidget *widget) : TupExportWizardPage(title), m_currentExporter(0), 
                    m_currentFormat(TupExportInterface::NONE), m_project(project)
 {
     #ifdef K_DEBUG
@@ -826,7 +827,7 @@ void ExportTo::exportIt()
             }
 
             done = m_currentExporter->exportToFormat(color, filename, scenes, m_currentFormat, 
-                                                     QSize(width, height), m_fps->value());
+                                                     QSize(width, height), m_fps->value(), m_project->library());
         }
     } else {
         TOsd::self()->display(tr("Error"), tr("Format problem. Tupi Internal error."), TOsd::Error);
@@ -1030,7 +1031,7 @@ TupExportWidget::Format VideoProperties::workType()
 }
 */
 
-TupExportWidget::TupExportWidget(const TupProject *project, QWidget *parent, bool isLocal) : TupExportWizard(parent), m_project(project)
+TupExportWidget::TupExportWidget(TupProject *project, QWidget *parent, bool isLocal) : TupExportWizard(parent), m_project(project)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32

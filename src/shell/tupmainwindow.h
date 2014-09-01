@@ -59,6 +59,7 @@
 #include "tupstatusbar.h"
 #include "tosd.h"
 #include "toolview.h"
+#include "tuppapagayodialog.h"
 
 // Including headers about projects management
 #include "tupprojectmanager.h"

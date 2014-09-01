@@ -152,6 +152,16 @@ void TupLayer::addLipSync(TupLipSync *lipsync)
         k->lipsyncList << lipsync;
 }
 
+int TupLayer::lipSyncCount()
+{
+     return k->lipsyncList.count();
+}
+
+Mouths TupLayer::lipSyncList()
+{
+     return k->lipsyncList;
+}
+
 bool TupLayer::removeFrame(int position)
 {
     TupFrame *toRemove = frame(position);

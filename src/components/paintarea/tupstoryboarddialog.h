@@ -76,7 +76,7 @@ class TUPI_EXPORT TupStoryBoardDialog : public QDialog
 
     public:
         TupStoryBoardDialog(bool isNetworked, TupExportInterface *imagePlugin, const QColor &color, 
-                            const QSize &size, TupScene *scene, int sceneIndex, QWidget *parent);
+                            const QSize &size, TupScene *scene, int sceneIndex, TupLibrary *library, QWidget *parent);
         ~TupStoryBoardDialog();
         enum DocType { HTML = 1, PDF };
 

@@ -42,7 +42,8 @@ struct TupPapagayoImporter::Private
     TupLipSync *lipsync;
 };
 
-TupPapagayoImporter::TupPapagayoImporter(const QString &file) : QObject(), k(new Private)
+TupPapagayoImporter::TupPapagayoImporter(const QString &file, const QSize &projectSize, 
+                                         const QSize &mouthSize, const QString &extension) : QObject(), k(new Private)
 {
     k->framesTotal = 0;
     k->isValid = true;
@@ -52,6 +53,7 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file) : QObject(), k(new
     QString name = info.fileName().toLower();
     k->lipsync = new TupLipSync();
     k->lipsync->setName(name);
+    k->lipsync->setPicsExtension(extension);
 
     if (input.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream stream(&input);
@@ -85,8 +87,13 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file) : QObject(), k(new
                i++;
         }
 
-        for(int j=0; j<voicesNumber; j++) {
+        int x = projectSize.width()/(voicesNumber+1) - (mouthSize.width()/2);
+        int y = projectSize.height()/2 - (mouthSize.height()/2); 
+
+        for(int j=1; j<=voicesNumber; j++) {
             TupVoice *voice = new TupVoice(); 
+            x = x*j;
+            voice->setMouthPos(QPoint(x, y));
             voice->setVoiceTitle(stream.readLine().trimmed());
             voice->setText(stream.readLine().trimmed());
             int numPhrases = stream.readLine().toInt();
@@ -96,18 +103,21 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file) : QObject(), k(new
             for (int p = 0; p < numPhrases; p++) {
                  QString text = stream.readLine().trimmed();
                  int initFrame = stream.readLine().toInt();
-                 int endFrame = stream.readLine().toInt();
+                 // int endFrame = stream.readLine().toInt();
+                 stream.readLine();
                  TupPhrase *phrase = new TupPhrase(initFrame);
                  numWords = stream.readLine().toInt();
                  for (int w = 0; w < numWords; w++) {
                       QString str = stream.readLine().trimmed();
                       QStringList strList = str.split(' ', QString::SkipEmptyParts);
-                      QString word; 
+                      QString strWord; 
                       int firstFrame = 0;
                       int lastFrame = 0;
+                      TupWord *word = 0;
                       if (strList.size() >= 4) {
-                          word = strList.at(0);   
+                          strWord = strList.at(0);   
                           firstFrame = strList.at(1).toInt();
+                          word = new TupWord(firstFrame);
                           lastFrame = strList.at(2).toInt();
                           numPhonemes = strList.at(3).toInt();
                       }
@@ -118,24 +128,25 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file) : QObject(), k(new
                            QStringList strList = str.split(' ', QString::SkipEmptyParts);
                            if (strList.size() >= 2) {
                                frames << strList.at(0).toInt();
-                               blocks << strList.at(1);
+                               blocks << strList.at(1).toLower();
                            }
                       } // for ph
 
                       for (int ph = 0; ph < numPhonemes-1; ph++) {
                            int total = frames.at(ph+1) - frames.at(ph);
                            TupPhoneme *phoneme = new TupPhoneme(blocks.at(ph), total);
-                           phrase->addPhoneme(phoneme);
+                           word->addPhoneme(phoneme);
                       } // for ph
 
                       int total = (lastFrame - frames.at(numPhonemes-1)) + 1;
                       TupPhoneme *phoneme = new TupPhoneme(blocks.at(numPhonemes-1), total);
-                      phrase->addPhoneme(phoneme);
+                      word->addPhoneme(phoneme);
 
                       if (w == numWords - 1) {
                           if (lastFrame > k->framesTotal)
                               k->framesTotal = lastFrame;
                       }
+                      phrase->addWord(word);
                  } // for w
                  voice->addPhrase(phrase); 
             }

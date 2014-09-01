@@ -245,7 +245,7 @@ void TupMainWindow::setupMenu()
     m_insertMenu->addAction(m_actionManager->find("importGimpPalettes"));
 
     // SQA: Action disabled while Library module is fixed
-    // m_insertMenu->addAction(m_actionManager->find("importPapagayoLipSync"));
+    m_insertMenu->addAction(m_actionManager->find("importPapagayoLipSync"));
 
     // Setting up the window menu
     // setupWindowActions();
@@ -681,43 +681,77 @@ void TupMainWindow::setUndoRedoActions()
 
 void TupMainWindow::importPapagayoLipSync()
 {
-    QString file = QFileDialog::getOpenFileName(this, tr("Import Papagayo project"), QDir::homePath(), tr("Papagayo Project (*.pgo)"));
-    if (file.length() > 0) {
-        QFile project(file);
-        if (project.exists()) {
-            if (project.size() > 0) {
-                animationTab->importPapagayoLipSync(file);
+    TupPapagayoDialog *dialog = new TupPapagayoDialog();
+    dialog->show();
+
+    if (dialog->exec() != QDialog::Rejected) {
+        QString file = dialog->getPGOFile();
+        QString imagesDir = dialog->getImagesFile();
+        if (file.length() > 0) {
+            QFile project(file);
+            if (project.exists()) {
+                if (project.size() > 0) {
+                    QDir dir(imagesDir);
+                    QStringList imagesList = dir.entryList(QStringList() << "*.png" << "*.jpg" << "*.jpeg" << "*.gif" << "*.svg");
+                    if (imagesList.count() > 0) {
+                        QSize size;
+                        QString extension = ".svg";
+                        QString firstImage = imagesList.at(0);
+                        QString pic = imagesDir + QDir::separator() + firstImage;
+                        if (firstImage.endsWith(".svg")) {
+                            QSvgRenderer *renderer = new QSvgRenderer(pic);
+                            QRect rect = renderer->viewBox();
+                            size = rect.size();
+                        } else {
+                            QImage *image = new QImage(pic);
+                            size = image->size();
+                            int dot = firstImage.lastIndexOf(".");
+                            extension = firstImage.mid(dot);
+                        }
+                        animationTab->importPapagayoLipSync(file, imagesDir, imagesList, extension, size);
+                    } else { 
+                        TOsd::self()->display(tr("Error"), tr("Images directory is empty!"), TOsd::Error);
+                        #ifdef K_DEBUG
+                            QString msg = "TupMainWindow::importPapagayoLipSync() - Fatal Error: Images directory is empty!";
+                            #ifdef Q_OS_WIN32
+                                qDebug() << msg;
+                            #else
+                                tError() << msg;
+                            #endif
+                        #endif
+                    }
+                } else {
+                    TOsd::self()->display(tr("Error"), tr("Papagayo project is invalid!"), TOsd::Error);
+                    #ifdef K_DEBUG
+                        QString msg = "TupMainWindow::importPapagayoLipSync() - Fatal Error: Papagayo file is empty!";
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
+                    #endif
+               }
             } else {
-                TOsd::self()->display(tr("Error"), tr("Papagayo project is invalid!"), TOsd::Error);
-                #ifdef K_DEBUG
-                    QString msg = "TupMainWindow::importPapagayoLipSync() - Fatal Error: Papagayo file is empty!";
+               TOsd::self()->display(tr("Error"), tr("Papagayo project is invalid!"), TOsd::Error);
+               #ifdef K_DEBUG
+                   QString msg = "TupMainWindow::importPapagayoLipSync() - Fatal Error: Papagayo file doesn't exist!";
                     #ifdef Q_OS_WIN32
                         qDebug() << msg;
                     #else
                         tError() << msg;
                     #endif
-                #endif
+               #endif
             }
         } else {
             TOsd::self()->display(tr("Error"), tr("Papagayo project is invalid!"), TOsd::Error);
             #ifdef K_DEBUG
-                QString msg = "TupMainWindow::importPapagayoLipSync() - Fatal Error: Papagayo file doesn't exist!";
+                QString msg = "TupMainWindow::importPapagayoLipSync() - Fatal Error: Papagayo file name is empty!";
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
                 #else
                     tError() << msg;
                 #endif
             #endif
-        }
-    } else {
-        TOsd::self()->display(tr("Error"), tr("Papagayo project is invalid!"), TOsd::Error);
-        #ifdef K_DEBUG
-            QString msg = "TupMainWindow::importPapagayoLipSync() - Fatal Error: Papagayo file name is empty!";
-            #ifdef Q_OS_WIN32
-                qDebug() << msg;
-            #else
-                tError() << msg;
-            #endif
-        #endif
-    }    
+        }    
+    }
 }

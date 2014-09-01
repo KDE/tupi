@@ -33,43 +33,83 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef LIBAVPLUGIN_H
-#define LIBAVPLUGIN_H
+#include "tuppapagayodialog.h"
 
-#include "tglobal.h"
-#include "tupexportpluginobject.h"
-#include "tupexportinterface.h"
-#include "tmoviegeneratorinterface.h"
-#include "tlibavmoviegenerator.h"
-#include "tuplayer.h"
-#include "tupanimationrenderer.h"
-
-#include <QImage>
-#include <QPainter>
-
-/**
- * @author David Cuadrado
-*/
-
-class TUPI_PLUGIN LibavPlugin : public TupExportPluginObject
+struct TupPapagayoDialog::Private
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "libavplugin.json")
-
-    public:
-        LibavPlugin();
-        virtual ~LibavPlugin();
-        virtual QString key() const;
-        TupExportInterface::Formats availableFormats();
-
-        virtual bool exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format format, const QSize &size, int fps, TupLibrary *library);
-        virtual bool exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size, TupLibrary *library);
-
-        virtual const char* getExceptionMsg();
-        const char *errorMsg;
-
-    private:
-        TMovieGeneratorInterface::Format videoFormat(TupExportInterface::Format format);
+    QCheckBox *fileCheck;
+    QCheckBox *imagesCheck;
+    QLineEdit *filePath;
+    QLineEdit *imagesPath;
+    QString pgo;
+    QString images;
 };
 
-#endif
+TupPapagayoDialog::TupPapagayoDialog() : QDialog(), k(new Private)
+{
+    setWindowTitle(tr("Import Papagayo project"));
+    setWindowIcon(QIcon(QPixmap(THEME_DIR + "icons/papagayo.png")));
+
+    QVBoxLayout *layout = new QVBoxLayout(this);
+
+    QHBoxLayout *blockLayout = new QHBoxLayout;
+    QVBoxLayout *buttonsLayout = new QVBoxLayout;
+    QVBoxLayout *textLayout = new QVBoxLayout;
+
+    QPushButton *fileButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "papagayo.png")), " " + tr("&Load PGO File"), this); 
+    connect(fileButton, SIGNAL(clicked()), this, SLOT(openFileDialog()));
+
+    QPushButton *imagesButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "bitmap_array.png")), " " + tr("Load &Images"), this);
+    connect(imagesButton, SIGNAL(clicked()), this, SLOT(openImagesDialog()));
+
+    buttonsLayout->addWidget(fileButton);
+    buttonsLayout->addWidget(imagesButton);
+
+    k->filePath = new QLineEdit();
+    k->filePath->setReadOnly(true);
+    k->imagesPath = new QLineEdit();
+    k->imagesPath->setReadOnly(true);
+
+    textLayout->addWidget(k->filePath);
+    textLayout->addWidget(k->imagesPath);
+
+    blockLayout->addLayout(buttonsLayout);
+    blockLayout->addLayout(textLayout);
+
+    layout->addLayout(blockLayout);
+
+    QDialogButtonBox *buttons = new QDialogButtonBox(QDialogButtonBox::Ok 
+                                | QDialogButtonBox::Cancel, Qt::Horizontal);
+    connect(buttons, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttons, SIGNAL(rejected()), this, SLOT(reject()));
+
+    layout->addWidget(buttons, 0, Qt::AlignCenter);
+}
+
+TupPapagayoDialog::~TupPapagayoDialog()
+{
+    delete k;
+}
+
+void TupPapagayoDialog::openFileDialog()
+{
+    QString file = QFileDialog::getOpenFileName(this, tr("Load Papagayo project"), QDir::homePath(), tr("Papagayo Project (*.pgo)"));
+    k->filePath->setText(file);
+}
+
+void TupPapagayoDialog::openImagesDialog()
+{
+    QString path = QFileDialog::getExistingDirectory(this, tr("Choose the images directory..."), getenv("HOME"), 
+                                                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    k->imagesPath->setText(path);
+}
+
+QString TupPapagayoDialog::getPGOFile() const
+{
+    return k->filePath->text();
+}
+
+QString TupPapagayoDialog::getImagesFile() const
+{
+    return k->imagesPath->text();
+}

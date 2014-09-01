@@ -107,11 +107,11 @@ TupProject::~TupProject()
  */
 void TupProject::loadLibrary(const QString &filename)
 {
-    QFile lfile(filename);
+    QFile file(filename);
 
-    if (lfile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        k->library->fromXml(QString::fromLocal8Bit(lfile.readAll()));
-        lfile.close();
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        k->library->fromXml(QString::fromLocal8Bit(file.readAll()));
+        file.close();
     } else {               
         #ifdef K_DEBUG
             QString msg = "TupProject::loadLibrary() - Cannot open library from: " + filename;

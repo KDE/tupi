@@ -56,6 +56,19 @@ struct TupAnimationRenderer::Private
     int calculateTotalPhotograms(TupScene *scene);
 };
 
+TupAnimationRenderer::TupAnimationRenderer(const QColor color, TupLibrary *library) : k(new Private)
+{
+    k->bgColor = color;
+    k->scene = new TupGraphicsScene;
+    k->scene->setLibrary(library);
+    k->scene->setBackgroundBrush(k->bgColor);
+}
+
+TupAnimationRenderer::~TupAnimationRenderer()
+{
+    delete k;
+}
+
 int TupAnimationRenderer::Private::calculateTotalPhotograms(TupScene *scene)
 {
     Layers layers = scene->layers();
@@ -70,19 +83,6 @@ int TupAnimationRenderer::Private::calculateTotalPhotograms(TupScene *scene)
     }
 
     return total;
-}
-
-TupAnimationRenderer::TupAnimationRenderer(const QColor color) : k(new Private)
-{
-    k->bgColor = color;
-    k->scene = new TupGraphicsScene;
-
-    k->scene->setBackgroundBrush(k->bgColor);
-}
-
-TupAnimationRenderer::~TupAnimationRenderer()
-{
-    delete k;
 }
 
 void TupAnimationRenderer::setScene(TupScene *scene, QSize dimension)

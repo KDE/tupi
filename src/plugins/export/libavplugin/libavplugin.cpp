@@ -115,7 +115,7 @@ TMovieGeneratorInterface::Format LibavPlugin::videoFormat(TupExportInterface::Fo
     return TLibavMovieGenerator::NONE;
 }
 
-bool LibavPlugin::exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format fmt, const QSize &size, int fps)
+bool LibavPlugin::exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format fmt, const QSize &size, int fps, TupLibrary *library)
 {
     qreal duration = 0;
     foreach (TupScene *scene, scenes)
@@ -129,7 +129,7 @@ bool LibavPlugin::exportToFormat(const QColor color, const QString &filePath, co
 
     generator = new TLibavMovieGenerator(format, size, fps, duration);
 
-    TupAnimationRenderer renderer(color);
+    TupAnimationRenderer renderer(color, library);
     {
          if (!generator->movieHeaderOk()) {
              errorMsg = generator->getErrorMsg();
@@ -165,13 +165,14 @@ bool LibavPlugin::exportToFormat(const QColor color, const QString &filePath, co
     return true;
 }
 
-bool LibavPlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size)
+bool LibavPlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size, TupLibrary *library)
 {
     Q_UNUSED(frameIndex);
     Q_UNUSED(color);
     Q_UNUSED(filePath);
     Q_UNUSED(scene);
     Q_UNUSED(size);
+    Q_UNUSED(library);
 
     return false;
 }

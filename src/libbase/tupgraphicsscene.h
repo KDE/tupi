@@ -123,6 +123,8 @@ class TUPI_EXPORT TupGraphicsScene : public QGraphicsScene
 
         int framesTotal();
 
+        void setLibrary(TupLibrary *library);
+
     // private slots:
     //  void updateObjectInformation(const QString &value);
     //  void showInfoWidget();
@@ -137,6 +139,7 @@ class TUPI_EXPORT TupGraphicsScene : public QGraphicsScene
         void addSvgObject(TupSvgItem *svgItem, double opacity = 1.0);
         void addTweeningObjects(int photogram);
         void addSvgTweeningObjects(int photogram);
+        void addLipSyncObjects(int photogram);
 
     protected:
         virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);

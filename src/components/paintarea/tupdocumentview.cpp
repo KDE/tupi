@@ -1526,7 +1526,7 @@ void TupDocumentView::exportImage()
     QString fileName = QFileDialog::getSaveFileName(this, tr("Export Frame As"), QDir::homePath(),
                                                         tr("Images") + " (*.png *.jpg)");
     if (!fileName.isNull()) {
-        bool isOk = k->imagePlugin->exportFrame(frameIndex, k->project->bgColor(), fileName, k->project->scene(sceneIndex), k->project->dimension()); 
+        bool isOk = k->imagePlugin->exportFrame(frameIndex, k->project->bgColor(), fileName, k->project->scene(sceneIndex), k->project->dimension(), k->project->library()); 
         updatePaintArea();
         if (isOk)
             TOsd::self()->display(tr("Information"), tr("Frame has been exported successfully"));
@@ -1568,7 +1568,7 @@ void TupDocumentView::storyboardSettings()
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     TupStoryBoardDialog *storySettings = new TupStoryBoardDialog(k->isNetworked, k->imagePlugin, k->project->bgColor(), k->project->dimension(), 
-                                                                 k->project->scene(sceneIndex), currentSceneIndex(), this);
+                                                                 k->project->scene(sceneIndex), currentSceneIndex(), k->project->library(), this);
     connect(storySettings, SIGNAL(updateStoryboard(TupStoryboard *, int)), this, SLOT(sendStoryboard(TupStoryboard *, int)));
 
     if (k->isNetworked)
@@ -1833,9 +1833,10 @@ void TupDocumentView::insertPictureInFrame(int id, const QString path)
     }
 }
 
-void TupDocumentView::importPapagayoLipSync(const QString &file)
+void TupDocumentView::importPapagayoLipSync(const QString &file, const QString &imagesDir, const QStringList imagesList, 
+                                            const QString &extension, const QSize &mouthSize)
 {
-    TupPapagayoImporter *parser = new TupPapagayoImporter(file);
+    TupPapagayoImporter *parser = new TupPapagayoImporter(file, k->project->dimension(), mouthSize, extension);
     if (parser->fileIsValid()) {
         int sceneIndex = k->paintArea->currentSceneIndex();
         int layerIndex = k->paintArea->currentLayerIndex();
@@ -1847,13 +1848,13 @@ void TupDocumentView::importPapagayoLipSync(const QString &file)
 
         QFileInfo info(file);
         QString folder = info.fileName().toLower();  
-        QString mouthPath = info.absolutePath() + QDir::separator() + "mouth";
+        QString mouthPath = imagesDir;
         QDir mouthDir = QDir(mouthPath);
 
         request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, folder, TupLibraryObject::Folder);
         emit requestTriggered(&request);
 
-        foreach (QString fileName, mouthDir.entryList(QStringList() << "*.png", QDir::Files)) {
+        foreach (QString fileName, imagesList) {
                  QString key = fileName.toLower();
                  QFile f(mouthPath + QDir::separator() + fileName);
                  if (f.open(QIODevice::ReadOnly)) {

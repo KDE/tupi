@@ -74,7 +74,8 @@ class TUPI_EXPORT TupProjectManager : public QObject
 
         bool isOpen() const;
         bool isModified() const;
-        TupProject *project() const;
+        // TupProject *project() const;
+        TupProject *project();
         void setHandler(TupAbstractProjectHandler *handler, bool isNetworked);
         TupAbstractProjectHandler *handler() const;
 

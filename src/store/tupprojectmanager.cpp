@@ -437,7 +437,8 @@ void TupProjectManager::createCommand(const TupProjectRequest *request, bool add
     }
 }
 
-TupProject *TupProjectManager::project() const
+// TupProject *TupProjectManager::project() const
+TupProject *TupProjectManager::project()
 {
     return k->project;
 }

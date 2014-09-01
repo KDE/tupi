@@ -68,7 +68,7 @@ class TUPI_EXPORT TupPaintAreaBase : public QGraphicsView
     Q_OBJECT
 
     public:
-        TupPaintAreaBase(QWidget * parent = 0, QSize dimension = QSize(0, 0));
+        TupPaintAreaBase(QWidget * parent = 0, QSize dimension = QSize(0, 0), TupLibrary *library = 0);
         ~TupPaintAreaBase();
 
         void setBgColor(const QColor color);

@@ -99,9 +99,10 @@ struct TupPaintAreaBase::Private
     QPen blackPen;
 };
 
-TupPaintAreaBase::TupPaintAreaBase(QWidget *parent, QSize dimension) : QGraphicsView(parent), k(new Private)
+TupPaintAreaBase::TupPaintAreaBase(QWidget *parent, QSize dimension, TupLibrary *library) : QGraphicsView(parent), k(new Private)
 {
     k->scene = new TupGraphicsScene();
+    k->scene->setLibrary(library);
     k->grid = 0;
 
     k->greenThickPen = QPen(QColor(0, 135, 0, 255), 2);

@@ -54,7 +54,7 @@ TupExportInterface::Formats ImagePlugin::availableFormats()
 }
 
 bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, const QList<TupScene *> &scenes, 
-                                         TupExportInterface::Format format, const QSize &size, int fps)
+                                         TupExportInterface::Format format, const QSize &size, int fps, TupLibrary *library)
 {
     Q_UNUSED(fps);
 
@@ -85,7 +85,7 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
                  break;
     }
 
-    TupAnimationRenderer renderer(bgColor);
+    TupAnimationRenderer renderer(bgColor, library);
 
     foreach (TupScene *scene, scenes) {
              renderer.setScene(scene, size);
@@ -123,7 +123,7 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
     return true;
 }
 
-bool ImagePlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size)
+bool ImagePlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size, TupLibrary *library)
 {
     QString path = filePath;
     const char *extension;
@@ -143,7 +143,7 @@ bool ImagePlugin::exportFrame(int frameIndex, const QColor color, const QString 
         imageFormat = QImage::Format_ARGB32;
     }
 
-    TupAnimationRenderer renderer(bgColor);
+    TupAnimationRenderer renderer(bgColor, library);
     renderer.setScene(scene, size);
 
     renderer.renderPhotogram(frameIndex);

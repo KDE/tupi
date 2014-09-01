@@ -69,10 +69,11 @@ struct TupStoryBoardDialog::Private
     QTextEdit *sceneDescriptionEdit;
 
     QLocale utf;
+    TupLibrary *library;
 };
 
 TupStoryBoardDialog::TupStoryBoardDialog(bool isNetworked, TupExportInterface *imagePlugin, const QColor &color, 
-                                         const QSize &size, TupScene *scene, int sceneIndex, QWidget *parent) : QDialog(parent), k(new Private)
+                                         const QSize &size, TupScene *scene, int sceneIndex, TupLibrary *library, QWidget *parent) : QDialog(parent), k(new Private)
 {
     k->isNetworked = isNetworked;
     k->imagePlugin = imagePlugin;
@@ -81,6 +82,7 @@ TupStoryBoardDialog::TupStoryBoardDialog(bool isNetworked, TupExportInterface *i
     k->scene = scene;
     k->sceneIndex = sceneIndex;
     k->storyboard = k->scene->storyboard();
+    k->library = library;
     k->utf = QLocale(QLocale::AnyLanguage, QLocale::AnyCountry);
 
     QDesktopWidget desktop;
@@ -342,7 +344,7 @@ void TupStoryBoardDialog::thumbnailGenerator()
 
     for (int i=0; i < framesTotal; i++) {
          QString fileName = k->path + "scene" + QString::number(i);
-         bool isOk = k->imagePlugin->exportFrame(i, k->bgColor, fileName, k->scene, k->size);
+         bool isOk = k->imagePlugin->exportFrame(i, k->bgColor, fileName, k->scene, k->size, k->library);
          fileName += ".png";
          QPixmap resized(fileName);
          resized = resized.scaledToWidth(k->scaledSize.width(), Qt::SmoothTransformation);

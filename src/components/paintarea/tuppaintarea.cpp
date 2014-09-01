@@ -79,8 +79,10 @@ TupPaintArea::TupPaintArea(TupProject *project, QWidget * parent) : TupPaintArea
     setCurrentScene(0);
     k->currentTool = tr("Pencil");
 
-    if (graphicsScene()->scene())
+    if (graphicsScene()->scene()) {
         graphicsScene()->setCurrentFrame(0, 0);
+        graphicsScene()->setLibrary(project->library());
+    }
 }
 
 TupPaintArea::~TupPaintArea()
@@ -379,6 +381,11 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
 
     switch (event->action()) {
             case TupProjectRequest::Add:
+                {
+                    return;
+                }
+            break;
+            case TupProjectRequest::AddLipSync:
                 {
                     return;
                 }

@@ -33,43 +33,41 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef LIBAVPLUGIN_H
-#define LIBAVPLUGIN_H
+#ifndef TUPPAPAGAYODIALOG_H
+#define TUPPAPAGAYODIALOG_H
 
 #include "tglobal.h"
-#include "tupexportpluginobject.h"
-#include "tupexportinterface.h"
-#include "tmoviegeneratorinterface.h"
-#include "tlibavmoviegenerator.h"
-#include "tuplayer.h"
-#include "tupanimationrenderer.h"
+#include "tapplicationproperties.h"
 
-#include <QImage>
-#include <QPainter>
+#include <QDialog>
+#include <QBoxLayout>
+#include <QDialogButtonBox>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QPushButton>
+#include <QFileDialog>
 
 /**
  * @author David Cuadrado
-*/
+**/
 
-class TUPI_PLUGIN LibavPlugin : public TupExportPluginObject
+class TUPI_EXPORT TupPapagayoDialog : public QDialog
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "libavplugin.json")
 
     public:
-        LibavPlugin();
-        virtual ~LibavPlugin();
-        virtual QString key() const;
-        TupExportInterface::Formats availableFormats();
-
-        virtual bool exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, TupExportInterface::Format format, const QSize &size, int fps, TupLibrary *library);
-        virtual bool exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size, TupLibrary *library);
-
-        virtual const char* getExceptionMsg();
-        const char *errorMsg;
+        TupPapagayoDialog();
+        ~TupPapagayoDialog();
+        QString getPGOFile() const;
+        QString getImagesFile() const;
 
     private:
-        TMovieGeneratorInterface::Format videoFormat(TupExportInterface::Format format);
+        struct Private;
+        Private *const k;
+
+    private slots:
+        void openFileDialog();
+        void openImagesDialog();
 };
 
 #endif

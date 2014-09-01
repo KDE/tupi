@@ -57,9 +57,11 @@ struct TupScreen::Private
     QList<photoArray> animationList;
     QList<bool> renderControl;
     QSize screenDimension;
+
+    TupLibrary *library;
 };
 
-TupScreen::TupScreen(const TupProject *project, const QSize viewSize, bool isScaled, QWidget *parent) : QFrame(parent), k(new Private)
+TupScreen::TupScreen(TupProject *project, const QSize viewSize, bool isScaled, QWidget *parent) : QFrame(parent), k(new Private)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
@@ -71,6 +73,7 @@ TupScreen::TupScreen(const TupProject *project, const QSize viewSize, bool isSca
 
     k->container = parent;
     k->project = project;
+    k->library = project->library();
     k->isScaled = isScaled;
 
     k->screenDimension = viewSize;
@@ -87,9 +90,9 @@ TupScreen::TupScreen(const TupProject *project, const QSize viewSize, bool isSca
     connect(k->playBackTimer, SIGNAL(timeout()), this, SLOT(back()));
 
     initPhotogramsArray();
-    updateFirstFrame();
 
     updateSceneIndex(0);
+    updateFirstFrame();
 }
 
 TupScreen::~TupScreen()
@@ -306,6 +309,7 @@ void TupScreen::nextFrame()
 
 void TupScreen::previousFrame()
 {
+    /* 
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupScreen::previousFrame()]";
@@ -313,6 +317,7 @@ void TupScreen::previousFrame()
             T_FUNCINFO;
         #endif
     #endif
+    */
 
     if (!k->renderControl.at(k->currentSceneIndex))
         render();
@@ -479,7 +484,7 @@ void TupScreen::render()
          k->sounds << layer;
     }
 
-    TupAnimationRenderer renderer(k->project->bgColor());
+    TupAnimationRenderer renderer(k->project->bgColor(), k->library);
     renderer.setScene(scene, k->project->dimension());
 
     QFont font = this->font();
@@ -679,7 +684,7 @@ void TupScreen::updateFirstFrame()
     if (k->currentSceneIndex > -1 && k->currentSceneIndex < k->animationList.count()) {
         TupScene *scene = k->project->scene(k->currentSceneIndex);
         if (scene) { 
-            TupAnimationRenderer renderer(k->project->bgColor());
+            TupAnimationRenderer renderer(k->project->bgColor(), k->library);
             renderer.setScene(scene, k->project->dimension());
             renderer.renderPhotogram(0);
 

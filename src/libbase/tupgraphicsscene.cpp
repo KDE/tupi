@@ -52,6 +52,7 @@
 #include "tuprectitem.h"
 #include "tupellipseitem.h"
 #include "tupguideline.h"
+#include "tuplibrary.h"
 
 /**
  * This class defines the data structure and methods for handling animation scenes.
@@ -87,6 +88,7 @@ struct TupGraphicsScene::Private
 
     QList<TupLineGuide *> lines;
     TupProject::Mode spaceMode;   
+    TupLibrary *library;
 };
 
 TupGraphicsScene::TupGraphicsScene() : QGraphicsScene(), k(new Private)
@@ -301,6 +303,7 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
     if (valid) {
         addTweeningObjects(photogram);
         addSvgTweeningObjects(photogram);
+        addLipSyncObjects(photogram);
 
         update();
     }
@@ -857,6 +860,54 @@ void TupGraphicsScene::addSvgTweeningObjects(int photogram)
                  #endif
              }
          }
+    }
+}
+
+void TupGraphicsScene::addLipSyncObjects(int photogram)
+{
+    // tError() << "TupGraphicsScene::addLipSyncObjects() - Frame: " << photogram;
+    // tError() << "TupGraphicsScene::addLipSyncObjects() - Layer: " << k->framePosition.layer;
+
+    TupLayer *layer = k->scene->layer(k->framePosition.layer);
+    if (layer) {
+        if (layer->lipSyncCount() > 0) {
+            Mouths mouths = layer->lipSyncList();
+            for (int i=0; i<mouths.count(); i++) {
+                 // tError() << "TupGraphicsScene::addLipSyncObjects() - Processing lipsync...";
+                 TupLipSync *lipSync = mouths.at(i);
+                 QString name = lipSync->name();
+                 // tError() << "TupGraphicsScene::addLipSyncObjects() - lipSync folder: " << name;
+                 TupLibraryFolder *folder = k->library->getFolder(name);
+                 if (folder) {
+                     QList<TupVoice *> voices = lipSync->voices();
+                     int total = voices.count();
+                     for(int i=0; i < total; i++) {
+                         TupVoice *voice = voices.at(i);
+                         // int initFrame = voice->initFrame();
+                         // int endFrame = voice->endFrame();
+                         // tError() << "TupGraphicsScene::addLipSyncObjects() - initFrame: " << initFrame;
+                         // tError() << "TupGraphicsScene::addLipSyncObjects() - endFrame: " << endFrame;
+
+                         if (voice->contains(photogram)) {
+                             // Add image here
+                             QString phoneme = voice->getPhoneme(photogram);
+                             // tError() << "TupGraphicsScene::addLipSyncObjects() - Adding phoneme: " << phoneme + lipSync->picExtension();
+                             TupLibraryObject *image = folder->getObject(phoneme + lipSync->picExtension());
+                             if (image) {
+                                 TupGraphicLibraryItem *item = new TupGraphicLibraryItem(image);
+                                 if (item) {
+                                     item->setPos(voice->mouthPos());
+                                     item->setToolTip(tr("Lipsync:") + QString::number(photogram));
+                                     includeObject(item);
+                                 }
+                             }
+                         }
+                     }
+                 } else {
+                     // tError() << "TupGraphicsScene::addLipSyncObjects() - Folder is invalid! -> " << name;
+                 }
+            }
+        }
     }
 }
 
@@ -1578,4 +1629,9 @@ int TupGraphicsScene::framesTotal()
         return layer->framesTotal();
     else
         return -1;
+}
+
+void TupGraphicsScene::setLibrary(TupLibrary *library)
+{
+    k->library = library;
 }

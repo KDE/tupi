@@ -336,13 +336,13 @@ TupLibraryFolder *TupLibraryFolder::getFolder(const QString &id) const
              if (folder->id().compare(id) == 0) 
                  return folder;
     }
-   
+
     #ifdef K_DEBUG
         QString msg = "TupLibraryFolder::getFolder() - [ Fatal Error ] - Can't find folder with id -> " + id;
         #ifdef Q_OS_WIN32
-            qDebug() << msg;
+           qDebug() << msg;
         #else
-            tError() << msg;
+           tError() << msg;
         #endif
     #endif
    

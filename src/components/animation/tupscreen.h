@@ -65,7 +65,7 @@ class TUPI_EXPORT TupScreen : public QFrame, public TupAbstractProjectResponseHa
     Q_OBJECT
 
     public:
-        TupScreen(const TupProject *project, const QSize viewSize = QSize(), bool isScaled = false, QWidget *parent = 0);
+        TupScreen(TupProject *project, const QSize viewSize = QSize(), bool isScaled = false, QWidget *parent = 0);
         ~TupScreen();
 
         QSize sizeHint() const;

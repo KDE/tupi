@@ -93,38 +93,61 @@ QDomElement TupPhoneme::toXml(QDomDocument &doc) const
     return root;
 }
 
-TupPhrase::TupPhrase(int index) : QObject()
-{
-    frameIndex = index;
-}
-
-TupPhrase::~TupPhrase()
+TupWord::TupWord()
 {
 }
 
-void TupPhrase::setInitFrame(int index)
+TupWord::TupWord(int index)
 {
-    frameIndex = index;
+    initIndex = index;
 }
 
-int TupPhrase::initFrame()
+TupWord::~TupWord()
 {
-    return frameIndex;
 }
 
-void TupPhrase::addPhoneme(TupPhoneme *phoneme)
+void TupWord::setInitFrame(int index)
+{
+    initIndex = index;
+}
+
+int TupWord::initFrame()
+{
+    return initIndex;
+}
+
+int TupWord::endFrame()
+{
+    return endIndex;
+}
+
+void TupWord::addPhoneme(TupPhoneme *phoneme)
 {
     if (phoneme)
         phonemes << phoneme;
 }
 
-void TupPhrase::fromXml(const QString &xml)
+QList<TupPhoneme *> TupWord::phonemesList()
+{
+    return phonemes;
+}
+
+bool TupWord::contains(int frame)
+{
+    if (frame >= initIndex && frame <= endIndex)
+        return true;
+
+    return false;
+}
+
+void TupWord::fromXml(const QString &xml)
 {
     QDomDocument document;
 
     if (document.setContent(xml)) {
         QDomElement root = document.documentElement();
-        frameIndex = root.attribute("initFrame").toInt();
+        initIndex = root.attribute("initFrame").toInt();
+        endIndex = initIndex - 1;
         QDomNode n = root.firstChild();
 
         while (!n.isNull()) {
@@ -133,6 +156,7 @@ void TupPhrase::fromXml(const QString &xml)
                    if (e.tagName() == "phoneme") {
                        QString value = e.attribute("value");
                        int duration = e.attribute("duration").toInt();
+                       endIndex += duration;
 
                        TupPhoneme *phoneme = new TupPhoneme(value, duration);
                        phonemes << phoneme;
@@ -144,15 +168,109 @@ void TupPhrase::fromXml(const QString &xml)
     }
 }
 
-QDomElement TupPhrase::toXml(QDomDocument &doc) const
+QDomElement TupWord::toXml(QDomDocument &doc) const
 {
-    QDomElement root = doc.createElement("phrase");
-    root.setAttribute("initFrame", frameIndex);
+    QDomElement root = doc.createElement("word");
+    root.setAttribute("initFrame", initIndex);
 
     int total = phonemes.size();
     for(int i=0; i<total; i++) {
         TupPhoneme *phoneme = phonemes.at(i);
         root.appendChild(phoneme->toXml(doc));
+    }
+
+    return root;
+}
+
+TupPhrase::TupPhrase()
+{
+}
+
+TupPhrase::TupPhrase(int index) : QObject()
+{
+    initIndex = index;
+}
+
+TupPhrase::~TupPhrase()
+{
+}
+
+void TupPhrase::setInitFrame(int index)
+{
+    initIndex = index;
+}
+
+int TupPhrase::initFrame()
+{
+    return initIndex;
+}
+
+int TupPhrase::endFrame()
+{
+    return endIndex;
+}
+
+void TupPhrase::addWord(TupWord *word)
+{
+    if (word)
+        words << word;
+}
+
+QList<TupWord *> TupPhrase::wordsList()
+{
+    return words;
+}
+
+bool TupPhrase::contains(int frame)
+{
+    if (frame >= initIndex && frame <= endIndex) 
+        return true;
+
+    return false;
+}
+
+void TupPhrase::fromXml(const QString &xml)
+{
+    QDomDocument document;
+
+    if (document.setContent(xml)) {
+        QDomElement root = document.documentElement();
+        initIndex = root.attribute("initFrame").toInt();
+        QDomNode n = root.firstChild();
+
+        while (!n.isNull()) {
+               QDomElement e = n.toElement();
+               if (!e.isNull()) {
+                   if (e.tagName() == "word") {
+                       TupWord *word = new TupWord();
+                       QString newDoc;
+                       {
+                           QTextStream ts(&newDoc);
+                           ts << n;
+                       }
+
+                       word->fromXml(newDoc);
+                       words << word;
+                   }
+               }
+
+               n = n.nextSibling();
+        }
+
+        TupWord *last = words.last();
+        endIndex = last->endFrame();
+    }
+}
+
+QDomElement TupPhrase::toXml(QDomDocument &doc) const
+{
+    QDomElement root = doc.createElement("phrase");
+    root.setAttribute("initFrame", initIndex);
+
+    int total = words.size();
+    for(int i=0; i<total; i++) {
+        TupWord *word = words.at(i);
+        root.appendChild(word->toXml(doc));
     }
 
     return root;
@@ -202,10 +320,55 @@ QString TupVoice::text() const
     return script;
 }
 
+int TupVoice::initFrame()
+{
+    return initIndex;
+}
+
+int TupVoice::endFrame()
+{
+    return endIndex;
+}
+
 void TupVoice::addPhrase(TupPhrase *phrase)
 {
     if (phrase)
         phrases << phrase;
+}
+
+QString TupVoice::getPhoneme(int frame)
+{
+    QString mouth = "rest";
+
+    foreach (TupPhrase *phrase, phrases) {
+             if (phrase->contains(frame)) {
+                 foreach (TupWord *word, phrase->wordsList()) {
+                          if (word->contains(frame)) {
+                              int initFrame = word->initFrame();
+                              foreach (TupPhoneme *phoneme, word->phonemesList()) {
+                                       int duration = phoneme->duration();
+                                       int first = initFrame; 
+                                       int last = first + duration - 1;
+                                       if (frame >= first && frame <= last) {
+                                           mouth = phoneme->value();
+                                           return mouth;
+                                       }
+                                       initFrame = last + 1;
+                              }
+                          }
+                 }
+             }
+    }
+
+    return mouth;
+}
+
+bool TupVoice::contains(int frame)
+{
+    if (frame >= initIndex && frame <= endIndex)
+        return true;
+
+    return false;
 }
 
 void TupVoice::fromXml(const QString &xml)
@@ -220,8 +383,7 @@ void TupVoice::fromXml(const QString &xml)
                QDomElement e = n.toElement();
                if (!e.isNull()) {
                    if (e.tagName() == "phrase") {
-                       int initFrame = e.attribute("initFrame").toInt();
-                       TupPhrase *phrase = new TupPhrase(initFrame);
+                       TupPhrase *phrase = new TupPhrase();
                        QString newDoc;
                        {
                            QTextStream ts(&newDoc);
@@ -234,6 +396,12 @@ void TupVoice::fromXml(const QString &xml)
                }
                n = n.nextSibling();
         }
+
+        TupPhrase *first = phrases.first();
+        initIndex = first->initFrame();
+
+        TupPhrase *last = phrases.last();
+        endIndex = last->endFrame();
     }
 }
 
@@ -256,6 +424,7 @@ struct TupLipSync::Private
 {
     QString name;
     QString soundFile;
+    QString extension;
     int framesTotal;
     QList<TupVoice *> voices;
 };
@@ -282,6 +451,16 @@ QString TupLipSync::name() const
 void TupLipSync::setName(const QString &title)
 {
     k->name = title;
+}
+
+void TupLipSync::setPicsExtension(const QString &extension)
+{
+    k->extension = extension;
+}
+
+QString TupLipSync::picExtension() const
+{
+    return k->extension;
 }
 
 QString TupLipSync::soundFile() const
@@ -335,6 +514,7 @@ void TupLipSync::fromXml(const QString &xml)
     k->name = root.attribute("name");
     k->soundFile = root.attribute("soundFile");
     k->framesTotal = root.attribute("framesTotal").toInt();
+    k->extension = root.attribute("extension");
 
     QDomNode n = root.firstChild();
 
@@ -367,6 +547,7 @@ QDomElement TupLipSync::toXml(QDomDocument &doc) const
     root.setAttribute("name", k->name);
     root.setAttribute("soundFile", k->soundFile);
     root.setAttribute("framesTotal", k->framesTotal);
+    root.setAttribute("extension", k->extension);
 
     int total = k->voices.size();
     for(int i=0; i<total; i++) {
@@ -375,4 +556,9 @@ QDomElement TupLipSync::toXml(QDomDocument &doc) const
     }
 
     return root;
+}
+
+QList<TupVoice *> TupLipSync::voices()
+{
+    return k->voices;
 }

@@ -39,6 +39,7 @@
 #include "tglobal.h"
 #include "tupscene.h"
 #include "qplugin.h" // Q_EXPORT_PLUGIN
+#include "tuplibrary.h"
 
 #include <QStringList>
 #include <QDir>
@@ -74,8 +75,8 @@ class TUPI_EXPORT TupExportInterface
         virtual ~TupExportInterface() {};
         virtual QString key() const = 0;
         virtual Formats availableFormats() = 0;
-        virtual bool exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, Format format, const QSize &size, int fps) = 0;
-        virtual bool exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size) = 0;
+        virtual bool exportToFormat(const QColor color, const QString &filePath, const QList<TupScene *> &scenes, Format format, const QSize &size, int fps, TupLibrary *library) = 0;
+        virtual bool exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size, TupLibrary *library) = 0;
         virtual const char* getExceptionMsg() = 0;
 };
 

@@ -110,7 +110,8 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         QSize workSpaceSize() const;
         void updateUsersOnLine(const QString &login, int state);
         void resizeProjectDimension(const QSize dimension);
-        void importPapagayoLipSync(const QString &file);
+        void importPapagayoLipSync(const QString &file, const QString &imagesDir, const QStringList imagesList, 
+                                   const QString &extension, const QSize &mouthSize);
 
     private slots:
         void setNextOnionSkin(int n);
