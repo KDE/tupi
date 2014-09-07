@@ -130,6 +130,8 @@ struct TupDocumentView::Private
 
     qreal nodesScaleFactor;
     qreal cacheScaleFactor;
+
+    TAction *papagayoAction;
 };
 
 TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNetworked, const QStringList &users) : QMainWindow(parent), k(new Private)
@@ -400,7 +402,7 @@ void TupDocumentView::setupDrawActions()
     new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "storyboard.png"), tr("Storyboard Settings"), QKeySequence(tr("Ctrl+Shift+S")),
                 this, SLOT(storyboardSettings()), k->actionManager, "storyboard");
 
-	#ifdef Q_OS_WIN32
+    #ifdef Q_OS_WIN32
         if (QSysInfo::windowsVersion() != QSysInfo::WV_XP) {
             new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "camera.png"), tr("Camera"), QKeySequence(tr("Ctrl+Shift+C")),
                         this, SLOT(cameraInterface()), k->actionManager, "camera");
@@ -409,6 +411,9 @@ void TupDocumentView::setupDrawActions()
         new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "camera.png"), tr("Camera"), QKeySequence(tr("Ctrl+Shift+C")),
                     this, SLOT(cameraInterface()), k->actionManager, "camera");
     #endif
+
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "papagayo.png"), tr("Papagayo Lip-sync Files"), QKeySequence(tr("Ctrl+Shift+P")),
+                this, SLOT(papagayoManager()), k->actionManager, "papagayo");
 }
 
 void TupDocumentView::createTools()
@@ -499,7 +504,7 @@ void TupDocumentView::loadPlugins()
     foreach (QObject *plugin, TupPluginManager::instance()->tools()) {
              TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(plugin);
 
-             if (tool->toolType() != TupToolInterface::Tweener) {
+             if (tool->toolType() != TupToolInterface::Tweener && tool->toolType() != TupToolInterface::LipSync) {
                  connect(tool, SIGNAL(closeHugeCanvas()), this, SLOT(closeFullScreen()));
                  connect(tool, SIGNAL(callForPlugin(int, int)), this, SLOT(loadPlugin(int, int)));
              }
@@ -612,10 +617,6 @@ void TupDocumentView::loadPlugins()
                                        action->setDisabled(true);
                                        tweenTools[6] = action;
                                    }
-
-                                   if (toolName.compare(tr("Papagayo Lip-sync")) == 0) {
-                                       // tError() << "TupDocumentView::loadPlugins() - Tracing Papagayo plugin...";   
-                                   }
                                  }
                                  break;
                               case TupToolInterface::Selection:
@@ -638,6 +639,14 @@ void TupDocumentView::loadPlugins()
                                    if (toolName.compare(tr("Hand")) == 0) {
                                        k->viewToolMenu->addAction(action);
                                        k->viewToolMenu->setDefaultAction(action);
+                                   }
+                                 }
+                                 break;
+                               case TupToolInterface::LipSync:
+                                 {
+                                   if (toolName.compare(tr("Papagayo Lip-sync")) == 0) {
+                                       tError() << "TupDocumentView::loadPlugins() - Tracing Papagayo plugin...";
+                                       k->papagayoAction = action;
                                    }
                                  }
                                  break;
@@ -958,6 +967,12 @@ void TupDocumentView::selectTool()
                              tool->setActiveView("WORKSPACE");
                      }
                      break;
+                case TupToolInterface::LipSync:
+                     k->status->enableFullScreenFeature(false);
+                     minWidth = 220;
+                     break;
+                default:
+                     break;
         }
 
         QWidget *toolConfigurator = tool->configurator();
@@ -1144,6 +1159,8 @@ void TupDocumentView::createToolBar()
 
     k->barGrid->addAction(k->actionManager->find("camera"));
 
+    k->barGrid->addAction(k->actionManager->find("papagayo"));
+
     addToolBarBreak();
 
     QLabel *dirLabel = new QLabel(tr("Direction") + ": ");
@@ -1324,7 +1341,8 @@ void TupDocumentView::setSpaceContext()
 
    if (k->currentTool) {
        k->currentTool->init(k->paintArea->graphicsScene()); 
-       if ((k->currentTool->toolType() == TupToolInterface::Tweener) && (mode != TupProject::FRAMES_EDITION)) {
+       if (((k->currentTool->toolType() == TupToolInterface::Tweener) || (k->currentTool->toolType() == TupToolInterface::LipSync))
+           && (mode != TupProject::FRAMES_EDITION)) {
            QAction *pencil = k->brushesMenu->actions().at(0);
            pencil->trigger();
        }
@@ -1419,7 +1437,7 @@ void TupDocumentView::setOnionFactor(double opacity)
 
 void TupDocumentView::showFullScreen()
 {
-    if (k->fullScreenOn || k->currentTool->toolType() == TupToolInterface::Tweener)
+    if (k->fullScreenOn || k->currentTool->toolType() == TupToolInterface::Tweener || k->currentTool->toolType() == TupToolInterface::LipSync)
         return;
 
     k->fullScreenOn = true;
@@ -1691,7 +1709,7 @@ void TupDocumentView::cameraInterface()
         QList<QSize> resolutions = imageCapture->supportedResolutions();
         */
 
-        QList<QSize> resolutions;	
+        QList<QSize> resolutions;    
         resolutions << QSize(1280, 1024);
         resolutions << QSize(1280, 960);
         resolutions << QSize(1224, 768);
@@ -1884,6 +1902,23 @@ void TupDocumentView::importPapagayoLipSync(const QString &file, const QString &
             }
         }
 
+        if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) != 0)
+            k->papagayoAction->trigger();
+        else
+            k->currentTool->setCurrentItem(folder);
+
         TOsd::self()->display(tr("Information"), tr("Papagayo file has been imported successfully"));
     }
+}
+
+void TupDocumentView::papagayoManager()
+{
+    tError() << "TupDocumentView::papagayoManager() - Tracing name -> " << k->currentTool->name();
+    if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) != 0)
+        k->papagayoAction->trigger();
+}
+
+void TupDocumentView::updatePapagayoFlag()
+{
+    tError() << "TupDocumentView::updatePapagayoFlag() - Tracing...";
 }

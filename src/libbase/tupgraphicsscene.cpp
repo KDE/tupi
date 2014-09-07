@@ -897,7 +897,7 @@ void TupGraphicsScene::addLipSyncObjects(int photogram)
                                  TupGraphicLibraryItem *item = new TupGraphicLibraryItem(image);
                                  if (item) {
                                      item->setPos(voice->mouthPos());
-                                     item->setToolTip(tr("Lipsync:") + QString::number(photogram));
+                                     item->setToolTip(tr("lipsync:") + name + ":" + i);
                                      includeObject(item);
                                  }
                              }
@@ -1634,4 +1634,9 @@ int TupGraphicsScene::framesTotal()
 void TupGraphicsScene::setLibrary(TupLibrary *library)
 {
     k->library = library;
+}
+
+void TupGraphicsScene::resetCurrentTool() 
+{
+    k->tool->init(this);
 }

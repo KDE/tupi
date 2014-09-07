@@ -13,13 +13,19 @@ win32 {
 INSTALLS += target 
 target.path = /plugins/
 
-HEADERS += papagayotool.h \
+HEADERS += target.h \
+           settings.h \
+           buttonspanel.h \
            configurator.h \
-           settings.h
+           lipsyncmanager.h \
+           papagayotool.h 
 
-SOURCES += papagayotool.cpp \
+SOURCES += target.cpp \
+           settings.cpp \
+           buttonspanel.cpp \
            configurator.cpp \
-           settings.cpp
+           lipsyncmanager.cpp \
+           papagayotool.cpp
 
 CONFIG += plugin warn_on
 TEMPLATE = lib
@@ -31,9 +37,9 @@ include($$FRAMEWORK_DIR/framework.pri)
 LIBBASE_DIR = ../../../libbase
 STORE_DIR = ../../../store
 LIBTUPI_DIR = ../../../libtupi
-COMMON_DIR = ../common
+# COMMON_DIR = ../common
 
 include($$LIBBASE_DIR/libbase.pri)	
 include($$STORE_DIR/store.pri)
 include($$LIBTUPI_DIR/libtupi.pri)
-include($$COMMON_DIR/common.pri)
+# include($$COMMON_DIR/common.pri)

@@ -77,6 +77,8 @@ struct PapagayoTool::Private
 
 PapagayoTool::PapagayoTool() : TupToolPlugin(), k(new Private)
 {
+    tError() << "PapagayoTool::PapagayoTool() - Just tracing...";
+
     setupActions();
 
     k->configurator = 0;
@@ -93,6 +95,8 @@ PapagayoTool::~PapagayoTool()
 
 void PapagayoTool::init(TupGraphicsScene *scene)
 {
+    tError() << "PapagayoTool::init() - Just tracing...";
+
     k->scene = scene;
     k->objects.clear();
 
@@ -110,11 +114,11 @@ void PapagayoTool::init(TupGraphicsScene *scene)
 
     k->configurator->resetUI();
 
-    QList<QString> tweenList = k->scene->scene()->getTweenNames(TupItemTweener::Papagayo);
-    if (tweenList.size() > 0) {
-        k->configurator->loadTweenList(tweenList);
-        QString tweenName = tweenList.at(0);
-        setCurrentTween(tweenName);
+    QList<QString> lipSyncList = k->scene->scene()->getLipSyncNames();
+    if (lipSyncList.size() > 0) {
+        k->configurator->loadLipSyncList(lipSyncList);
+        QString lipSyncName = lipSyncList.at(0);
+        setCurrentLipSync(lipSyncName);
     }
 
     int total = framesTotal();
@@ -203,7 +207,7 @@ QMap<QString, TAction *> PapagayoTool::actions() const
 
 int PapagayoTool::toolType() const
 {
-    return TupToolInterface::Tweener;
+    return TupToolInterface::LipSync;
 }
 
 /* This method returns the tool panel associated to this plugin */
@@ -214,14 +218,18 @@ QWidget *PapagayoTool::configurator()
         k->mode = TupToolPlugin::View;
 
         k->configurator = new Configurator;
+        connect(k->configurator, SIGNAL(removeCurrentLipSync(const QString &)), this, SLOT(removeLipSync(const QString &)));
+
+        /*
         connect(k->configurator, SIGNAL(startingPointChanged(int)), this, SLOT(updateStartPoint(int)));
-        connect(k->configurator, SIGNAL(clickedApplyTween()), this, SLOT(applyTween()));
+        connect(k->configurator, SIGNAL(clickedApplyTween()), this, SLOT(applyLipSync()));
         connect(k->configurator, SIGNAL(clickedSelect()), this, SLOT(setSelection()));
         connect(k->configurator, SIGNAL(clickedResetInterface()), this, SLOT(applyReset()));
         connect(k->configurator, SIGNAL(setMode(TupToolPlugin::Mode)), this, SLOT(updateMode(TupToolPlugin::Mode)));
         connect(k->configurator, SIGNAL(clickedDefineAngle()), this, SLOT(setPropertiesMode()));
-        connect(k->configurator, SIGNAL(getTweenData(const QString &)), this, SLOT(setCurrentTween(const QString &)));
+        connect(k->configurator, SIGNAL(getTweenData(const QString &)), this, SLOT(setCurrentLipSync(const QString &)));
         connect(k->configurator, SIGNAL(clickedRemoveTween(const QString &)), this, SLOT(removeTween(const QString &)));
+        */
     } 
 
     return k->configurator;
@@ -236,6 +244,9 @@ void PapagayoTool::aboutToChangeScene(TupGraphicsScene *)
 
 void PapagayoTool::aboutToChangeTool()
 {
+    tError() << "PapagayoTool::aboutToChangeTool() - Leaving PapagayoTool...";
+    // emit pluginIsClosed();
+
     if (k->editMode == TupToolPlugin::Selection) {
         clearSelection();
         disableSelection();
@@ -255,8 +266,8 @@ void PapagayoTool::setupActions()
 {
     TAction *translater = new TAction(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "papagayo.png"), 
                                       tr("Papagayo Lip-sync"), this);
-    translater->setCursor(QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "tweener.png"));
-    translater->setShortcut(QKeySequence(tr("Shift+R")));
+    translater->setCursor(QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "selection.png"));
+    translater->setShortcut(QKeySequence(tr("Ctrl+Shift+P")));
 
     k->actions.insert(tr("Papagayo Lip-sync"), translater);
 }
@@ -279,8 +290,8 @@ void PapagayoTool::updateScene(TupGraphicsScene *scene)
         if (k->configurator->startComboSize() < framesNumber)
             k->configurator->initStartCombo(framesNumber, k->initFrame);
 
-        int tweenLimit = k->initFrame + (k->configurator->totalSteps() - 1);
-        if (scene->currentFrameIndex() >= k->initFrame && scene->currentFrameIndex() <= tweenLimit)
+        int lipSyncLimit = k->initFrame + (k->configurator->totalSteps() - 1);
+        if (scene->currentFrameIndex() >= k->initFrame && scene->currentFrameIndex() <= lipSyncLimit)
             k->scene->addItem(k->target);
 
     } else if (k->mode == TupToolPlugin::Add) {
@@ -312,13 +323,13 @@ void PapagayoTool::updateScene(TupGraphicsScene *scene)
     }
 }
 
-void PapagayoTool::setCurrentTween(const QString &name)
+void PapagayoTool::setCurrentLipSync(const QString &name)
 {
     TupScene *scene = k->scene->scene();
-    k->currentTween = scene->tween(name, TupItemTweener::Papagayo);
+    // k->currentTween = scene->tween(name, TupItemTweener::Papagayo);
 
-    if (k->currentTween)
-        k->configurator->setCurrentTween(k->currentTween);
+    // if (k->currentTween)
+          // k->configurator->setCurrentLipSync(k->currentTween);
 }
 
 int PapagayoTool::framesTotal()
@@ -419,9 +430,9 @@ void PapagayoTool::applyReset()
 
 /* This method applies to the project, the Tween created from this plugin */
 
-void PapagayoTool::applyTween()
+void PapagayoTool::applyLipSync()
 {
-    QString name = k->configurator->currentTweenName();
+    QString name = k->configurator->currentLipSyncName();
 
     if (name.length() == 0) {
         TOsd::self()->display(tr("Error"), tr("Tween name is missing!"), TOsd::Error);
@@ -447,15 +458,17 @@ void PapagayoTool::applyTween()
                          origin = k->origin;
                  }
 
+                 /*
                  TupProjectRequest request = TupRequestBuilder::createItemRequest(
                                              k->initScene, k->initLayer, k->initFrame,
                                              objectIndex, QPointF(), k->scene->spaceMode(), type,
                                              TupProjectRequest::SetTween,
-                                             k->configurator->tweenToXml(k->initScene, k->initLayer, k->initFrame, origin));
+                                             k->configurator->lipSyncToXml(k->initScene, k->initLayer, k->initFrame, origin));
                  emit requested(&request);
+                 */
         }
     } else {
-        removeTweenFromProject(name);
+        removeLipSyncFromProject(name);
         QList<QGraphicsItem *> newList;
 
         k->initFrame = k->configurator->startFrame();
@@ -509,12 +522,14 @@ void PapagayoTool::applyTween()
                      }
                  }
 
+                 /* 
                  TupProjectRequest request = TupRequestBuilder::createItemRequest(
                                              k->initScene, k->initLayer, k->initFrame,
                                              objectIndex, QPointF(), k->scene->spaceMode(), 
                                              type, TupProjectRequest::SetTween,
-                                             k->configurator->tweenToXml(k->initScene, k->initLayer, k->initFrame, origin));
+                                             k->configurator->lipSyncToXml(k->initScene, k->initLayer, k->initFrame, origin));
                  emit requested(&request);
+                 */
         }
 
         if (newList.size() > 0)
@@ -540,28 +555,45 @@ void PapagayoTool::applyTween()
                                                     TupProjectRequest::Select, "1");
     emit requested(&request);
 
-    setCurrentTween(name);
+    setCurrentLipSync(name);
     TOsd::self()->display(tr("Info"), tr("Tween %1 applied!").arg(name), TOsd::Info);
 }
 
-void PapagayoTool::removeTweenFromProject(const QString &name)
+void PapagayoTool::removeLipSyncFromProject(const QString &name)
 {
     TupScene *scene = k->scene->scene();
-    scene->removeTween(name, TupItemTweener::Papagayo);
+    scene->removeLipSync(name);
+
+    /*
+    foreach (QGraphicsView * view, k->scene->views()) {
+             foreach (QGraphicsItem *item, view->scene()->items()) {
+                      QString tip = item->toolTip();
+                      if (tip.startsWith(tr("lipsync:") + name))
+                          item->setToolTip("");
+             }
+    }
+    */
+}
+
+void PapagayoTool::removeLipSync(const QString &name)
+{
+    // removeLipSyncFromProject(name);
+    // applyReset();
+
+    tError() << "PapagayoTool::removeLipSync() - Tracing...";
+
+    TupScene *scene = k->scene->scene();
+    scene->removeLipSync(name);
 
     foreach (QGraphicsView * view, k->scene->views()) {
              foreach (QGraphicsItem *item, view->scene()->items()) {
                       QString tip = item->toolTip();
-                      if (tip.startsWith(tr("Papagayo Lip-sync") + ": " + name))
-                          item->setToolTip("");
+                      if (tip.length() > 0) {
+                          if (tip.startsWith(tr("lipsync:") + name))
+                              k->scene->removeItem(item);
+                      }
              }
     }
-}
-
-void PapagayoTool::removeTween(const QString &name)
-{
-    removeTweenFromProject(name);
-    applyReset();
 }
 
 void PapagayoTool::updateOriginPoint(const QPointF &point)
@@ -645,4 +677,9 @@ TupToolPlugin::Mode PapagayoTool::currentMode()
 TupToolPlugin::EditMode PapagayoTool::currentEditMode()
 {
     return k->editMode;
+}
+
+void PapagayoTool::setCurrentItem(const QString &name)
+{
+    tError() << "PapagayoTool::setCurrentItem() - Opening edition for -> " << name;
 }

@@ -48,7 +48,8 @@
 #include <QCheckBox>
 #include <QDir>
 
-class TupItemTweener;
+// class TupItemTweener;
+class TupLipSync;
 
 /**
  * @author Gustav Gonzalez 
@@ -63,7 +64,7 @@ class TUPI_PLUGIN Settings : public QWidget
         ~Settings();
 
         void setParameters(const QString &name, int framesTotal, int startFrame);
-        void setParameters(TupItemTweener *currentTween);
+        void setParameters(TupLipSync *lipsync);
         void initStartCombo(int totalFrames, int currentIndex);
         void setStartFrame(int currentIndex);
         int startFrame();
@@ -72,35 +73,35 @@ class TUPI_PLUGIN Settings : public QWidget
 
         void notifySelection(bool flag);
         int startComboSize();
-        QString currentTweenName() const;
+        QString currentLipSyncName() const;
         void activateMode(TupToolPlugin::EditMode mode);
-        QString tweenToXml(int currentScene, int currentLayer, int currentFrame, QPointF point);
+        QString lipSyncToXml(int currentScene, int currentLayer, int currentFrame, QPointF point);
 
     private slots:
-        void applyTween();
+        void applyLipSync();
         void emitOptionChanged(int option);
         void refreshForm(int type);
         void checkTopLimit(int index);
-        void updateRangeCheckbox(int state);
-        void updateReverseCheckbox(int state);
+        // void updateRangeCheckbox(int state);
+        // void updateReverseCheckbox(int state);
         void updateTotalSteps(const QString &text);
         void checkRange(int index);
         void updateLastFrame();
         
     signals:
         void clickedSelect();
-        void clickedDefineAngle();
-        void clickedApplyTween();
-        void clickedResetTween();
+        void clickedDefineRange();
+        void clickedApplyLipSync();
+        void clickedResetLipSync();
         void startingPointChanged(int index);
         
     private:
         void setInnerForm();
         void activeInnerForm(bool enable);
-        void setClockForm();
-        void activeClockForm(bool enable); 
-        void setRangeForm();
-        void activeRangeForm(bool enable);
+        // void setClockForm();
+        // void activeClockForm(bool enable); 
+        // void setRangeForm();
+        // void activeRangeForm(bool enable);
         void setEditMode();
         void checkFramesRange();
 

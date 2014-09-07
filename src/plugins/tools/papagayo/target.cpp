@@ -6,7 +6,7 @@
  *                                                                         *
  *   Developers:                                                           *
  *   2010:                                                                 *
- *    Gustavo Gonzalez / xtingray                                          *
+ *    Gustav Gonzalez / xtingray                                           *
  *                                                                         *
  *   KTooN's versions:                                                     * 
  *                                                                         *
@@ -33,86 +33,86 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef PAPAGAYOTOOL_H
-#define PAPAGAYOTOOL_H
-
-#include "tglobal.h"
-#include "tuptoolplugin.h"
-#include "settings.h"
-#include "tupprojectresponse.h"
-
-#include <QPointF>
-#include <QKeySequence>
-#include <QMatrix>
-#include <QGraphicsView>
-#include <QDomDocument>
-#include <QDir>
-#include <QPointF>
+#include "target.h"
 
 /**
- * @author Gustav Gonzalez 
+ * This class defines the data structure for a node, and all the methods required to manipulate it.
  * 
+ * @author Gustav Gonzalez 
 */
 
-class TUPI_PLUGIN PapagayoTool : public TupToolPlugin
+// Target::Target(const QPointF & pos, int zLevel, QGraphicsScene *scene) : QGraphicsItem(0, scene)
+Target::Target(const QPointF & pos, int zLevel) : QGraphicsItem(0)
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "papagayotool.json")
+    QGraphicsItem::setCursor(QCursor(Qt::PointingHandCursor));
+    setFlag(ItemIsSelectable, false);
+    setFlag(ItemIsMovable, true);
+    setFlag(ItemIsFocusable, true);
 
-    public:
-        PapagayoTool();
-        virtual ~PapagayoTool();
-        virtual void init(TupGraphicsScene *scene);
+    setPos(pos);
+    setZValue(zLevel);
+}
 
-        virtual QStringList keys() const;
-        virtual void press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
-        virtual void move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
-        virtual void release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
+Target::~Target()
+{
+}
 
-        virtual QMap<QString, TAction *>actions() const;
-        int toolType() const;
-        virtual QWidget *configurator();
+void Target::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *w)
+{
+    Q_UNUSED(w);
+    Q_UNUSED(option);
+    
+    QColor color;
+    color = QColor("green");
+    color.setAlpha(180);
 
-        void aboutToChangeScene(TupGraphicsScene *scene);
-        virtual void aboutToChangeTool();
+    QRectF square = boundingRect();
+    painter->setBrush(color);
+    painter->drawRoundRect(square);
 
-        virtual void updateScene(TupGraphicsScene *scene);
-        virtual void saveConfig();
+    painter->save();
+    color = QColor("white");
+    color.setAlpha(220); 
+    painter->setPen(color);
+    QPointF point1 = QPointF(square.topLeft().x() + 3, square.topLeft().y() + 3); 
+    QPointF point2 = QPointF(square.bottomRight().x() - 3, square.bottomRight().y() - 3);
+    QPointF point3 = QPointF(square.bottomLeft().x() + 3, square.bottomLeft().y() - 3);
+    QPointF point4 = QPointF(square.topRight().x() - 3, square.topRight().y() + 3);
 
-        virtual void sceneResponse(const TupSceneResponse *event);
-        virtual void layerResponse(const TupLayerResponse *event);
-        virtual void frameResponse(const TupFrameResponse *event);
+    painter->drawLine(point1, point2);
+    painter->drawLine(point3, point4);
+    painter->restore();
+}
 
-        virtual TupToolPlugin::Mode currentMode();
-        virtual TupToolPlugin::EditMode currentEditMode();
-        virtual void setCurrentItem(const QString &name);
+QRectF Target::boundingRect() const
+{
+    QSizeF size(10, 10);
+    QRectF rect(QPointF(-size.width()/2, -size.height()/2), size);
 
+    return rect;
+}
 
-    // signals:
-    //  void pluginIsClosed();
+void Target::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    QGraphicsItem::mousePressEvent(event);
+}
 
-    private:
-        void setupActions();
-        int framesTotal();
-        void clearSelection();
-        void disableSelection();
-        void addTarget();
-        void removeLipSyncFromProject(const QString &name);
+void Target::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[Target::mouseReleaseEvent()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
 
-    private:
-        struct Private;
-        Private *const k;
+    emit positionUpdated(event->scenePos()); 
 
-    private slots:
-        void setSelection();
-        void setPropertiesMode();
-        void updateMode(TupToolPlugin::Mode mode);
-        void applyReset();
-        void applyLipSync();
-        void removeLipSync(const QString &name);
-        void updateStartPoint(int index);
-        void setCurrentLipSync(const QString &name);
-        void updateOriginPoint(const QPointF &point);
-};
+    QGraphicsItem::mouseReleaseEvent(event);
+}
 
-#endif
+void Target::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    QGraphicsItem::mouseMoveEvent(event);
+}

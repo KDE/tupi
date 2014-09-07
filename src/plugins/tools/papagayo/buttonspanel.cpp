@@ -33,86 +33,31 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef PAPAGAYOTOOL_H
-#define PAPAGAYOTOOL_H
+#include "buttonspanel.h"
 
-#include "tglobal.h"
-#include "tuptoolplugin.h"
-#include "settings.h"
-#include "tupprojectresponse.h"
-
-#include <QPointF>
-#include <QKeySequence>
-#include <QMatrix>
-#include <QGraphicsView>
-#include <QDomDocument>
-#include <QDir>
-#include <QPointF>
-
-/**
- * @author Gustav Gonzalez 
- * 
-*/
-
-class TUPI_PLUGIN PapagayoTool : public TupToolPlugin
+ButtonsPanel::ButtonsPanel(QWidget *parent) : QWidget(parent)
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "papagayotool.json")
+    TImageButton *editButton = new TImageButton(QPixmap(kAppProp->themeDir() + QDir::separator() + "icons" + QDir::separator() + "tweening.png"), 22);
+    editButton->setToolTip(tr("Edit Tween"));
+    connect(editButton, SIGNAL(clicked()), this, SIGNAL(clickedEditTween()));
 
-    public:
-        PapagayoTool();
-        virtual ~PapagayoTool();
-        virtual void init(TupGraphicsScene *scene);
+    TImageButton *removeButton = new TImageButton(QPixmap(kAppProp->themeDir() + QDir::separator() + "icons" + QDir::separator() + "minus_sign.png"), 22);
+    removeButton->setToolTip(tr("Remove Tween"));
+    connect(removeButton, SIGNAL(clicked()), this, SIGNAL(clickedRemoveTween()));
 
-        virtual QStringList keys() const;
-        virtual void press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
-        virtual void move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
-        virtual void release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
+    QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
+    layout->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 
-        virtual QMap<QString, TAction *>actions() const;
-        int toolType() const;
-        virtual QWidget *configurator();
+    QHBoxLayout *controlLayout = new QHBoxLayout;
+    controlLayout->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    controlLayout->setMargin(1);
+    controlLayout->setSpacing(5);
+    controlLayout->addWidget(editButton);
+    controlLayout->addWidget(removeButton);
 
-        void aboutToChangeScene(TupGraphicsScene *scene);
-        virtual void aboutToChangeTool();
+    layout->addLayout(controlLayout);
+}
 
-        virtual void updateScene(TupGraphicsScene *scene);
-        virtual void saveConfig();
-
-        virtual void sceneResponse(const TupSceneResponse *event);
-        virtual void layerResponse(const TupLayerResponse *event);
-        virtual void frameResponse(const TupFrameResponse *event);
-
-        virtual TupToolPlugin::Mode currentMode();
-        virtual TupToolPlugin::EditMode currentEditMode();
-        virtual void setCurrentItem(const QString &name);
-
-
-    // signals:
-    //  void pluginIsClosed();
-
-    private:
-        void setupActions();
-        int framesTotal();
-        void clearSelection();
-        void disableSelection();
-        void addTarget();
-        void removeLipSyncFromProject(const QString &name);
-
-    private:
-        struct Private;
-        Private *const k;
-
-    private slots:
-        void setSelection();
-        void setPropertiesMode();
-        void updateMode(TupToolPlugin::Mode mode);
-        void applyReset();
-        void applyLipSync();
-        void removeLipSync(const QString &name);
-        void updateStartPoint(int index);
-        void setCurrentLipSync(const QString &name);
-        void updateOriginPoint(const QPointF &point);
-};
-
-#endif
+ButtonsPanel::~ButtonsPanel()
+{
+}

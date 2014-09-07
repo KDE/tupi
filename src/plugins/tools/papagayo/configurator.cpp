@@ -34,9 +34,8 @@
  ***************************************************************************/
 
 #include "configurator.h"
-#include "tweenmanager.h"
+#include "lipsyncmanager.h"
 #include "buttonspanel.h"
-#include "tupitemtweener.h"
 #include "tosd.h"
 
 struct Configurator::Private
@@ -44,10 +43,10 @@ struct Configurator::Private
     QBoxLayout *layout;
     QBoxLayout *settingsLayout;
     Settings *settingsPanel;
-    TweenManager *tweenManager;
+    LipSyncManager *manager;
     ButtonsPanel *controlPanel;
 
-    TupItemTweener *currentTween;
+    TupLipSync *lipSync;
 
     int framesTotal;
     int currentFrame;
@@ -67,7 +66,7 @@ Configurator::Configurator(QWidget *parent) : QFrame(parent), k(new Private)
     k->layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     k->layout->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
-    QLabel *title = new QLabel(tr("Rotation Tween"));
+    QLabel *title = new QLabel(tr("Papagayo LipSync Files"));
     title->setAlignment(Qt::AlignHCenter);
     title->setFont(QFont("Arial", 8, QFont::Bold));
 
@@ -78,7 +77,7 @@ Configurator::Configurator(QWidget *parent) : QFrame(parent), k(new Private)
     k->settingsLayout->setMargin(0);
     k->settingsLayout->setSpacing(0);
 
-    setTweenManagerPanel();
+    setLipSyncManagerPanel();
     setButtonsPanel();
     setPropertiesPanel();
 
@@ -91,22 +90,28 @@ Configurator::~Configurator()
     delete k;
 }
 
-void Configurator::loadTweenList(QList<QString> tweenList)
+void Configurator::loadLipSyncList(QList<QString> list)
 {
-    k->tweenManager->loadTweenList(tweenList);
-    if (tweenList.count() > 0)
+    k->manager->loadLipSyncList(list);
+    /*
+    if (list.count() > 0) {
+        tError() << "Configurator::loadLipSyncList() - Tracing!";
         activeButtonsPanel(true);
+    }
+    */
 }
 
 void Configurator::setPropertiesPanel()
 {
     k->settingsPanel = new Settings(this);
 
+    /*
     connect(k->settingsPanel, SIGNAL(startingPointChanged(int)), this, SIGNAL(startingPointChanged(int)));
     connect(k->settingsPanel, SIGNAL(clickedSelect()), this, SIGNAL(clickedSelect()));
     connect(k->settingsPanel, SIGNAL(clickedDefineAngle()), this, SIGNAL(clickedDefineAngle()));
-    connect(k->settingsPanel, SIGNAL(clickedApplyTween()), this, SLOT(applyItem()));
-    connect(k->settingsPanel, SIGNAL(clickedResetTween()), this, SLOT(closeTweenProperties()));
+    connect(k->settingsPanel, SIGNAL(clickedApplyLipSync()), this, SLOT(applyItem()));
+    connect(k->settingsPanel, SIGNAL(clickedResetLipSync()), this, SLOT(closeLipSyncProperties()));
+    */
 
     k->settingsLayout->addWidget(k->settingsPanel);
 
@@ -121,39 +126,47 @@ void Configurator::activePropertiesPanel(bool enable)
         k->settingsPanel->hide();
 }
 
-void Configurator::setCurrentTween(TupItemTweener *currentTween)
+void Configurator::setCurrentLipSync(TupLipSync *lipsync)
 {
-    k->currentTween = currentTween;
+    k->lipSync = lipsync;
 }
 
-void Configurator::setTweenManagerPanel()
+void Configurator::setLipSyncManagerPanel()
 {
-    k->tweenManager = new TweenManager(this);
-    connect(k->tweenManager, SIGNAL(addNewTween(const QString &)), this, SLOT(addTween(const QString &)));
-    connect(k->tweenManager, SIGNAL(editCurrentTween(const QString &)), this, SLOT(editTween()));
-    connect(k->tweenManager, SIGNAL(removeCurrentTween(const QString &)), this, SLOT(removeTween(const QString &)));
-    connect(k->tweenManager, SIGNAL(getTweenData(const QString &)), this, SLOT(updateTweenData(const QString &)));
+    k->manager = new LipSyncManager(this);
+    connect(k->manager, SIGNAL(removeCurrentLipSync(const QString &)), this, SIGNAL(removeCurrentLipSync(const QString &)));
 
-    k->settingsLayout->addWidget(k->tweenManager);
+    /*
+    connect(k->manager, SIGNAL(addNewLipSync(const QString &)), this, SLOT(addLipSync(const QString &)));
+    connect(k->manager, SIGNAL(editCurrentLipSync(const QString &)), this, SLOT(editLipSync()));
+    connect(k->manager, SIGNAL(getLipSyncData(const QString &)), this, SLOT(updateLipSyncData(const QString &)));
+    */
+
+    k->settingsLayout->addWidget(k->manager);
     k->state = Manager;
 }
 
-void Configurator::activeTweenManagerPanel(bool enable)
+void Configurator::activeLipSyncManagerPanel(bool enable)
 {
     if (enable)
-        k->tweenManager->show();
+        k->manager->show();
     else
-        k->tweenManager->hide();
+        k->manager->hide();
 
-    if (k->tweenManager->listSize() > 0)
+    if (k->manager->listSize() > 0) {
+        tError() << "Configurator::activeLipSyncManagerPanel() - Tracing! -> " << enable;
+
         activeButtonsPanel(enable);
+    }
 }
 
 void Configurator::setButtonsPanel()
 {
     k->controlPanel = new ButtonsPanel(this);
-    connect(k->controlPanel, SIGNAL(clickedEditTween()), this, SLOT(editTween()));
-    connect(k->controlPanel, SIGNAL(clickedRemoveTween()), this, SLOT(removeTween()));
+    /*
+    connect(k->controlPanel, SIGNAL(clickedEditLipSync()), this, SLOT(editLipSync()));
+    connect(k->controlPanel, SIGNAL(clickedRemoveLipSync()), this, SLOT(removeLipSync()));
+    */
 
     k->settingsLayout->addWidget(k->controlPanel);
 
@@ -191,9 +204,9 @@ int Configurator::startComboSize()
     return k->settingsPanel->startComboSize();
 }
 
-QString Configurator::tweenToXml(int currentScene, int currentLayer, int currentFrame, QPointF point)
+QString Configurator::lipSyncToXml(int currentScene, int currentLayer, int currentFrame, QPointF point)
 {
-    return k->settingsPanel->tweenToXml(currentScene, currentLayer, currentFrame, point);
+    return k->settingsPanel->lipSyncToXml(currentScene, currentLayer, currentFrame, point);
 }
 
 int Configurator::totalSteps()
@@ -206,12 +219,12 @@ void Configurator::activateMode(TupToolPlugin::EditMode mode)
     k->settingsPanel->activateMode(mode);
 }
 
-void Configurator::addTween(const QString &name)
+void Configurator::addLipSync(const QString &name)
 {
     k->mode = TupToolPlugin::Add;
     emit setMode(k->mode);
 
-    activeTweenManagerPanel(false);
+    activeLipSyncManagerPanel(false);
 
     // k->mode = TupToolPlugin::Add;
     k->state = Properties;
@@ -222,46 +235,33 @@ void Configurator::addTween(const QString &name)
     // emit setMode(k->mode);
 }
 
-void Configurator::editTween()
+void Configurator::editLipSync()
 {
     k->mode = TupToolPlugin::Edit;
     emit setMode(k->mode);
 
-    activeTweenManagerPanel(false);
+    activeLipSyncManagerPanel(false);
 
     // k->mode = TupToolPlugin::Edit;
     k->state = Properties;
 
     k->settingsPanel->notifySelection(true);
-    k->settingsPanel->setParameters(k->currentTween);
+    k->settingsPanel->setParameters(k->lipSync);
     activePropertiesPanel(true);
 
     // emit setMode(k->mode);
 }
 
-void Configurator::removeTween()
+QString Configurator::currentLipSyncName() const
 {
-    QString name = k->tweenManager->currentTweenName();
-    k->tweenManager->removeItemFromList();
-
-    removeTween(name);
-}
-
-void Configurator::removeTween(const QString &name)
-{
-    if (k->tweenManager->listSize() == 0)
-        activeButtonsPanel(false);
-
-    emit clickedRemoveTween(name);
-}
-
-QString Configurator::currentTweenName() const
-{
-    QString oldName = k->tweenManager->currentTweenName();
-    QString newName = k->settingsPanel->currentTweenName();
+/*
+    QString oldName = k->manager->lipSyncName();
+    QString newName = k->settingsPanel->lipSyncName();
 
     if (oldName.compare(newName) != 0)
-        k->tweenManager->updateTweenName(newName);
+        k->manager->updateLipSyncName(newName);
+*/
+    QString newName = "";
 
     return newName;
 }
@@ -271,10 +271,10 @@ void Configurator::notifySelection(bool flag)
     k->settingsPanel->notifySelection(flag);
 }
 
-void Configurator::closeTweenProperties()
+void Configurator::closeLipSyncProperties()
 {
-    if (k->mode == TupToolPlugin::Add)
-        k->tweenManager->removeItemFromList();
+    // if (k->mode == TupToolPlugin::Add)
+    //     k->manager->removeItemFromList();
 
     emit clickedResetInterface();
 
@@ -284,16 +284,11 @@ void Configurator::closeTweenProperties()
 void Configurator::closeSettingsPanel()
 {
     if (k->state == Properties) {
-        activeTweenManagerPanel(true);
+        activeLipSyncManagerPanel(true);
         activePropertiesPanel(false);
         k->mode = TupToolPlugin::View;
         k->state = Manager;
     } 
-    /*
-    else {
-        k->settingsPanel->activateMode(TupToolPlugin::Properties);
-    }
-    */
 }
 
 TupToolPlugin::Mode Configurator::mode()
@@ -304,17 +299,17 @@ TupToolPlugin::Mode Configurator::mode()
 void Configurator::applyItem()
 {
      k->mode = TupToolPlugin::Edit;
-     emit clickedApplyTween();
+     emit clickedApplyLipSync();
 }
 
 void Configurator::resetUI()
 {
-    k->tweenManager->resetUI();
+    k->manager->resetUI();
     closeSettingsPanel();
     k->settingsPanel->notifySelection(false);
 }
 
-void Configurator::updateTweenData(const QString &name)
+void Configurator::updateLipSyncData(const QString &name)
 {
-    emit getTweenData(name);
+    emit getLipSyncData(name);
 }

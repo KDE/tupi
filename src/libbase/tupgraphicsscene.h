@@ -125,6 +125,8 @@ class TUPI_EXPORT TupGraphicsScene : public QGraphicsScene
 
         void setLibrary(TupLibrary *library);
 
+        void resetCurrentTool(); 
+
     // private slots:
     //  void updateObjectInformation(const QString &value);
     //  void showInfoWidget();

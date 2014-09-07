@@ -302,3 +302,9 @@ void TupToolPlugin::setActiveView(const QString &viewID)
 {
     Q_UNUSED(viewID);
 }
+
+void TupToolPlugin::setCurrentItem(const QString &id)
+{
+    Q_UNUSED(id);
+}
+

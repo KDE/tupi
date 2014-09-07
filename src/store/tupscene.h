@@ -186,6 +186,9 @@ class TUPI_EXPORT TupScene : public QObject, public TupAbstractSerializable
         void resetStoryBoardScene(int index);
         void removeStoryBoardScene(int index);
 
+        QList<QString> getLipSyncNames();
+        bool removeLipSync(const QString &name);
+
     private:
         void removeTweensFromLayer(int layer);
 

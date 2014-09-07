@@ -618,12 +618,10 @@ int TupScene::framesTotal()
 {
     int total = 0;
 
-    int layersTotal = k->layers.size();
-    for (int i = 0; i < layersTotal; ++i) {
-         TupLayer *layer = k->layers.at(i);
-         int frames = layer->framesTotal();
-         if (frames > total)
-             total = frames;
+    foreach (TupLayer *layer, k->layers) {
+             int frames = layer->framesTotal();
+             if (frames > total)
+                 total = frames;
     }
 
     return total;
@@ -684,4 +682,29 @@ void TupScene::resetStoryBoardScene(int index)
 void TupScene::removeStoryBoardScene(int index)
 {
     k->storyboard->removeScene(index);
+}
+
+QList<QString> TupScene::getLipSyncNames()
+{
+    QList<QString> names;
+
+    foreach (TupLayer *layer, k->layers) {
+             if (layer->lipSyncCount() > 0) {
+                 Mouths mouths = layer->lipSyncList();
+                 foreach (TupLipSync *lipsync, mouths)
+                          names << lipsync->name();
+             }
+    }
+
+    return names;
+}
+
+bool TupScene::removeLipSync(const QString &name)
+{
+    foreach (TupLayer *layer, k->layers) {
+             if (layer->removeLipSync(name))
+                 return true;
+    }
+
+    return false;
 }

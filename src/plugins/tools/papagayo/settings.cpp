@@ -35,8 +35,8 @@
 
 #include "settings.h"
 #include "tradiobuttongroup.h"
-#include "tupitemtweener.h"
-#include "tuptweenerstep.h"
+#include "tuplipsync.h"
+// #include "tuptweenerstep.h"
 #include "timagebutton.h"
 #include "tseparator.h"
 #include "tosd.h"
@@ -44,8 +44,8 @@
 struct Settings::Private
 {
     QWidget *innerPanel;
-    QWidget *rangePanel;
-    QWidget *clockPanel;
+    // QWidget *rangePanel;
+    // QWidget *clockPanel;
 
     QBoxLayout *layout;
     TupToolPlugin::Mode mode;
@@ -56,16 +56,16 @@ struct Settings::Private
     QSpinBox *comboEnd;
 
     QComboBox *comboType;
-    TupItemTweener::RotationType rotationType;
+    // TupItemTweener::RotationType rotationType;
 
     QSpinBox *comboStart;
     QSpinBox *comboFinish;
 
-    QSpinBox *degreesSpinbox;
-    QCheckBox *rangeLoopBox;
-    QCheckBox *reverseLoopBox;
+    // QSpinBox *degreesSpinbox;
+    // QCheckBox *rangeLoopBox;
+    // QCheckBox *reverseLoopBox;
     QLabel *totalLabel;
-    QComboBox *comboClock;
+    // QComboBox *comboClock;
     int totalSteps;
 
     bool selectionDone;
@@ -79,7 +79,7 @@ Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
 {
     k->selectionDone = false;
     k->propertiesDone = false;
-    k->rotationType = TupItemTweener::Continuos;
+    // k->rotationType = TupItemTweener::Continuos;
     k->totalSteps = 0;
 
     k->layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
@@ -105,10 +105,10 @@ Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
     connect(k->options, SIGNAL(clicked(int)), this, SLOT(emitOptionChanged(int)));
 
     k->apply = new TImageButton(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "save.png"), 22);
-    connect(k->apply, SIGNAL(clicked()), this, SLOT(applyTween()));
+    connect(k->apply, SIGNAL(clicked()), this, SLOT(applyLipSync()));
 
     k->remove = new TImageButton(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "close.png"), 22);
-    connect(k->remove, SIGNAL(clicked()), this, SIGNAL(clickedResetTween()));
+    // connect(k->remove, SIGNAL(clicked()), this, SIGNAL(clickedResetTween()));
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
@@ -181,6 +181,7 @@ void Settings::setInnerForm()
     totalLayout->setSpacing(0);
     totalLayout->addWidget(k->totalLabel);
 
+    /*
     k->comboType = new QComboBox();
     k->comboType->addItem(tr("Continuous"));
     k->comboType->addItem(tr("Partial"));
@@ -216,11 +217,13 @@ void Settings::setInnerForm()
     speedLayout2->setMargin(0);
     speedLayout2->setSpacing(0);
     speedLayout2->addWidget(k->degreesSpinbox);
+    */
 
     innerLayout->addLayout(startLayout);
     innerLayout->addLayout(endLayout);
     innerLayout->addLayout(totalLayout);
 
+    /*
     innerLayout->addSpacing(15);
     innerLayout->addWidget(new TSeparator(Qt::Horizontal));
     innerLayout->addLayout(typeLayout);
@@ -236,6 +239,7 @@ void Settings::setInnerForm()
     innerLayout->addLayout(speedLayout2);
 
     innerLayout->addWidget(new TSeparator(Qt::Horizontal));
+    */
 
     k->layout->addWidget(k->innerPanel);
 
@@ -253,6 +257,7 @@ void Settings::activeInnerForm(bool enable)
     }
 }
 
+/*
 void Settings::setClockForm()
 {
     k->clockPanel = new QWidget;
@@ -363,7 +368,9 @@ void Settings::activeRangeForm(bool enable)
         k->rangePanel->hide();
 }
 
-// Adding new Tween
+*/
+
+// Adding new LipSync 
 
 void Settings::setParameters(const QString &name, int framesTotal, int initFrame)
 {
@@ -372,26 +379,26 @@ void Settings::setParameters(const QString &name, int framesTotal, int initFrame
 
     activateMode(TupToolPlugin::Selection);
 
-    k->apply->setToolTip(tr("Save Tween"));
+    k->apply->setToolTip(tr("Save LipSync"));
     k->remove->setIcon(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "close.png"));
     k->remove->setToolTip(tr("Cancel Tween"));
 
     initStartCombo(framesTotal, initFrame);
 }
 
-// Editing new Tween
+// Editing new LipSync 
 
-void Settings::setParameters(TupItemTweener *currentTween)
+void Settings::setParameters(TupLipSync *lipsync)
 {
     setEditMode();
     activateMode(TupToolPlugin::Properties);
 
-    k->input->setText(currentTween->name());
+    /*
+    k->input->setText(lipsync->name());
 
     k->comboInit->setEnabled(true);
-    k->comboInit->setValue(currentTween->initFrame());
-
-    k->comboEnd->setValue(currentTween->initFrame() + currentTween->frames());
+    k->comboInit->setValue(lipsync->initFrame());
+    k->comboEnd->setValue(lipsync->initFrame() + lipsync->frames());
 
     checkFramesRange();
 
@@ -407,6 +414,7 @@ void Settings::setParameters(TupItemTweener *currentTween)
         k->rangeLoopBox->setChecked(currentTween->tweenRotateLoop());
         k->reverseLoopBox->setChecked(currentTween->tweenRotateReverseLoop());
     }
+    */
 }
 
 void Settings::initStartCombo(int framesTotal, int currentIndex)
@@ -448,17 +456,17 @@ int Settings::totalSteps()
 void Settings::setEditMode()
 {
     k->mode = TupToolPlugin::Edit;
-    k->apply->setToolTip(tr("Update Tween"));
+    k->apply->setToolTip(tr("Update LipSync"));
     k->remove->setIcon(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "close_properties.png"));
     k->remove->setToolTip(tr("Close Tween properties"));
 }
 
-void Settings::applyTween()
+void Settings::applyLipSync()
 {
     if (!k->selectionDone) {
         TOsd::self()->display(tr("Info"), tr("You must select at least one object!"), TOsd::Info); 
         #ifdef K_DEBUG
-            QString msg = "Settings::applyTween() - You must select at least one object!";
+            QString msg = "Settings::applyLipSync() - You must select at least one object!";
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
             #else
@@ -472,7 +480,7 @@ void Settings::applyTween()
     if (!k->propertiesDone) {
         TOsd::self()->display(tr("Info"), tr("You must set Tween properties first!"), TOsd::Info);
         #ifdef K_DEBUG
-            QString msg = "Settings::applyTween() - You must set Tween properties first!";
+            QString msg = "Settings::applyLipSync() - You must set Tween properties first!";
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
             #else
@@ -488,7 +496,7 @@ void Settings::applyTween()
     if (!k->comboInit->isEnabled())
         k->comboInit->setEnabled(true);
 
-    emit clickedApplyTween();
+    emit clickedApplyLipSync();
 }
 
 void Settings::notifySelection(bool flag)
@@ -496,13 +504,14 @@ void Settings::notifySelection(bool flag)
     k->selectionDone = flag;
 }
 
-QString Settings::currentTweenName() const
+QString Settings::currentLipSyncName() const
 {
-    QString tweenName = k->input->text();
-    if (tweenName.length() > 0)
-        k->input->setFocus();
+    QString lipsync = k->input->text();
 
-    return tweenName;
+    // if (lipsync.length() > 0)
+    //     k->input->setFocus();
+
+    return lipsync;
 }
 
 void Settings::emitOptionChanged(int option)
@@ -516,10 +525,10 @@ void Settings::emitOptionChanged(int option)
             break;
             case 1:
             {
-                if (k->selectionDone) {
+                // if (k->selectionDone) {
                     activeInnerForm(true);
-                    emit clickedDefineAngle();
-                } else {
+                    emit clickedDefineRange();
+                /* } else {
                     k->options->setCurrentIndex(0);
                     TOsd::self()->display(tr("Info"), tr("Select objects for Tweening first!"), TOsd::Info);
                     #ifdef K_DEBUG
@@ -530,15 +539,16 @@ void Settings::emitOptionChanged(int option)
                             tError() << msg;
                         #endif
                     #endif
-                }
+                } */
             }
     }
 }
 
-QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFrame, QPointF point)
+QString Settings::lipSyncToXml(int currentScene, int currentLayer, int currentFrame, QPointF point)
 {
     QDomDocument doc;
 
+/*
     QDomElement root = doc.createElement("tweening");
     root.setAttribute("name", currentTweenName());
     root.setAttribute("type", TupItemTweener::Rotation);
@@ -639,6 +649,7 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
     }
 
     doc.appendChild(root);
+ */
 
     return doc.toString();
 }
@@ -648,6 +659,7 @@ void Settings::activateMode(TupToolPlugin::EditMode mode)
     k->options->setCurrentIndex(mode);
 }
 
+/*
 void Settings::refreshForm(int type)
 {
     if (type == 0) {
@@ -660,6 +672,7 @@ void Settings::refreshForm(int type)
         activeRangeForm(true);
     }
 }
+*/
 
 void Settings::checkTopLimit(int index)
 {
@@ -687,6 +700,7 @@ void Settings::checkFramesRange()
     k->totalLabel->setText(tr("Frames Total") + ": " + QString::number(k->totalSteps));
 }
 
+/*
 void Settings::updateRangeCheckbox(int state)
 {
     Q_UNUSED(state);
@@ -702,6 +716,7 @@ void Settings::updateReverseCheckbox(int state)
     if (k->reverseLoopBox->isChecked() && k->rangeLoopBox->isChecked())
         k->reverseLoopBox->setChecked(false);
 }
+*/
 
 void Settings::updateTotalSteps(const QString &text)
 {

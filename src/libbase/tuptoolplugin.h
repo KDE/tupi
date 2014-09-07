@@ -118,6 +118,7 @@ class TUPI_EXPORT TupToolPlugin : public QObject, public TupToolInterface
         virtual TupToolPlugin::EditMode currentEditMode();
 
         virtual void setActiveView(const QString &viewID);
+        virtual void setCurrentItem(const QString &id);
         
     signals:
         void requested(const TupProjectRequest *request);

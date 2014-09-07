@@ -76,13 +76,14 @@ TupPaintArea::TupPaintArea(TupProject *project, QWidget * parent) : TupPaintArea
     k->deleteMode = false;
     k->menuOn = false;
 
-    setCurrentScene(0);
     k->currentTool = tr("Pencil");
 
     if (graphicsScene()->scene()) {
         graphicsScene()->setCurrentFrame(0, 0);
         graphicsScene()->setLibrary(project->library());
     }
+
+    setCurrentScene(0);
 }
 
 TupPaintArea::~TupPaintArea()
@@ -328,7 +329,8 @@ void TupPaintArea::frameResponse(TupFrameResponse *event)
                         }
 
                         if (guiScene->currentTool()->toolType() == TupToolInterface::Selection)
-                            guiScene->currentTool()->init(graphicsScene());
+                            guiScene->resetCurrentTool();
+                            // guiScene->currentTool()->init(graphicsScene());
                     }
                 break;
                 case TupProjectRequest::Lock:
@@ -596,7 +598,8 @@ void TupPaintArea::itemResponse(TupItemResponse *event)
                      viewport()->update(scene()->sceneRect().toRect());
 
                      if (guiScene->currentTool()->toolType() != TupToolInterface::Tweener && k->currentTool.compare(tr("PolyLine")) != 0)
-                         guiScene->currentTool()->init(graphicsScene());          
+                         guiScene->resetCurrentTool();
+                         // guiScene->currentTool()->init(graphicsScene());          
                 }
                 break;
             }

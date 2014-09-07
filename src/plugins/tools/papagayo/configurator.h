@@ -45,7 +45,7 @@
 #include <QGraphicsPathItem>
 #include <QListWidgetItem>
 
-class TupItemTweener;
+class TupLipSync;
 
 /**
  * @author Gustav Gonzalez 
@@ -61,7 +61,7 @@ class TUPI_PLUGIN Configurator : public QFrame
         Configurator(QWidget *parent = 0);
         ~Configurator();
 
-        void loadTweenList(QList<QString> tweenList);
+        void loadLipSyncList(QList<QString> list);
 
         void initStartCombo(int framesTotal, int currentFrame);
         void setStartFrame(int currentIndex);
@@ -69,39 +69,37 @@ class TUPI_PLUGIN Configurator : public QFrame
 
         int totalSteps();
         void activateMode(TupToolPlugin::EditMode mode);
-        void setCurrentTween(TupItemTweener *currentTween);
-        QString currentTweenName() const;
+        void setCurrentLipSync(TupLipSync *lipsync);
+        QString currentLipSyncName() const;
         void notifySelection(bool flag);
         int startComboSize();
         void closeSettingsPanel();
         TupToolPlugin::Mode mode();
         void resetUI();
-        QString tweenToXml(int currentScene, int currentLayer, int currentFrame, QPointF point);
+        QString lipSyncToXml(int currentScene, int currentLayer, int currentFrame, QPointF point);
         
     private slots:
         void applyItem();
-        void addTween(const QString &name);
-        void editTween();
-        void removeTween();
-        void removeTween(const QString &name);
-        void closeTweenProperties();
-        void updateTweenData(const QString &name);
+        void addLipSync(const QString &name);
+        void editLipSync();
+        void closeLipSyncProperties();
+        void updateLipSyncData(const QString &name);
         
     signals:
         void startingPointChanged(int index);
         void clickedSelect();
         void clickedDefineAngle();
-        void clickedRemoveTween(const QString &name);
+        void removeCurrentLipSync(const QString &name);
         void setMode(TupToolPlugin::Mode mode);
-        void clickedApplyTween();
+        void clickedApplyLipSync();
         void clickedResetInterface();
-        void getTweenData(const QString &name);
+        void getLipSyncData(const QString &name);
         
     private:
         void setPropertiesPanel();
         void activePropertiesPanel(bool enable);
-        void setTweenManagerPanel();
-        void activeTweenManagerPanel(bool enable);
+        void setLipSyncManagerPanel();
+        void activeLipSyncManagerPanel(bool enable);
         void setButtonsPanel();
         void activeButtonsPanel(bool enable);
 

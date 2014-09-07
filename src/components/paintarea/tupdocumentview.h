@@ -132,6 +132,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void fullScreenRightClick();
         void cameraInterface();
         void insertPictureInFrame(int id, const QString path);
+        void papagayoManager();
 
     private:
         struct Private;
@@ -172,6 +173,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void drawActionSafeArea();
         bool handleProjectResponse(TupProjectResponse *event);
         void updateNodesScale(qreal factor);
+        void updatePapagayoFlag();
 
     signals:
         void requestTriggered(const TupProjectRequest *event);

@@ -69,7 +69,8 @@ class TUPI_EXPORT TupToolInterface
             Fill,
             Selection,
             View,
-            Tweener
+            Tweener,
+            LipSync
         };
         
         virtual ~TupToolInterface() {};
