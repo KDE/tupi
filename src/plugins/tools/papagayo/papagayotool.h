@@ -43,11 +43,8 @@
 
 #include <QPointF>
 #include <QKeySequence>
-#include <QMatrix>
 #include <QGraphicsView>
 #include <QDomDocument>
-#include <QDir>
-#include <QPointF>
 
 /**
  * @author Gustav Gonzalez 
@@ -83,36 +80,28 @@ class TUPI_PLUGIN PapagayoTool : public TupToolPlugin
         virtual void layerResponse(const TupLayerResponse *event);
         virtual void frameResponse(const TupFrameResponse *event);
 
-        virtual TupToolPlugin::Mode currentMode();
-        virtual TupToolPlugin::EditMode currentEditMode();
-        virtual void setCurrentItem(const QString &name);
+        virtual void addNewItem(const QString &name);
+        virtual void updateWorkSpaceContext();
 
-
-    // signals:
-    //  void pluginIsClosed();
-
-    private:
-        void setupActions();
-        int framesTotal();
-        void clearSelection();
-        void disableSelection();
-        void addTarget();
-        void removeLipSyncFromProject(const QString &name);
-
-    private:
-        struct Private;
-        Private *const k;
+    signals:
+        void importLipSync();
 
     private slots:
-        void setSelection();
-        void setPropertiesMode();
-        void updateMode(TupToolPlugin::Mode mode);
-        void applyReset();
-        void applyLipSync();
-        void removeLipSync(const QString &name);
-        void updateStartPoint(int index);
+        void removeCurrentLipSync(const QString &name);
         void setCurrentLipSync(const QString &name);
         void updateOriginPoint(const QPointF &point);
+        void resetCanvas();
+        void addTarget(const QString &id, int index);
+        void updateInitFrame(int index);
+
+    private:
+        void setTargetEnvironment();
+        void setupActions();
+        void addTarget();
+        void removeTarget();
+
+        struct Private;
+        Private *const k;
 };
 
 #endif

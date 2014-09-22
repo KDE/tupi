@@ -280,7 +280,7 @@ TupVoice::TupVoice()
 {
 }
 
-TupVoice::TupVoice(const QString &label, QPoint pos) 
+TupVoice::TupVoice(const QString &label, QPointF pos) 
 {
     title = label;
     point = pos;
@@ -300,12 +300,12 @@ QString TupVoice::voiceTitle() const
     return title;
 }
 
-void TupVoice::setMouthPos(QPoint pos)
+void TupVoice::setMouthPos(QPointF pos)
 {
     point = pos;
 }
 
-QPoint TupVoice::mouthPos()
+QPointF TupVoice::mouthPos()
 {
     return point;
 }
@@ -425,6 +425,7 @@ struct TupLipSync::Private
     QString name;
     QString soundFile;
     QString extension;
+    int initFrame;
     int framesTotal;
     QList<TupVoice *> voices;
 };
@@ -433,10 +434,11 @@ TupLipSync::TupLipSync() : QObject(), k(new Private)
 {
 }
 
-TupLipSync::TupLipSync(const QString &name, const QString &soundFile) : QObject(), k(new Private)
+TupLipSync::TupLipSync(const QString &name, const QString &soundFile, int initFrame) : QObject(), k(new Private)
 {
     k->name = name;
     k->soundFile = soundFile;
+    k->initFrame = initFrame;
 }
 
 TupLipSync::~TupLipSync()
@@ -471,6 +473,16 @@ QString TupLipSync::soundFile() const
 void TupLipSync::setSoundFile(const QString &file)
 {
     k->soundFile = file;
+}
+
+int TupLipSync::initFrame()
+{
+    return k->initFrame;
+}
+
+void TupLipSync::setInitFrame(int frame)
+{
+    k->initFrame = frame;
 }
 
 int TupLipSync::framesTotal()
@@ -513,6 +525,7 @@ void TupLipSync::fromXml(const QString &xml)
     QDomElement root = document.documentElement();
     k->name = root.attribute("name");
     k->soundFile = root.attribute("soundFile");
+    k->initFrame = root.attribute("initFrame").toInt();
     k->framesTotal = root.attribute("framesTotal").toInt();
     k->extension = root.attribute("extension");
 
@@ -524,7 +537,9 @@ void TupLipSync::fromXml(const QString &xml)
                if (e.tagName() == "voice") {
                    QString name = e.attribute("name");
                    QStringList xy = e.attribute("origin").split(",");
-                   QPoint point = QPoint(xy.at(0).toInt(), xy.at(1).toInt());
+                   double x = xy.first().toDouble();
+                   double y = xy.last().toDouble();
+                   QPointF point = QPointF(x, y);
                    TupVoice *voice = new TupVoice(name, point);
 
                    QString newDoc;
@@ -546,6 +561,7 @@ QDomElement TupLipSync::toXml(QDomDocument &doc) const
     QDomElement root = doc.createElement("lipsync");
     root.setAttribute("name", k->name);
     root.setAttribute("soundFile", k->soundFile);
+    root.setAttribute("initFrame", k->initFrame);
     root.setAttribute("framesTotal", k->framesTotal);
     root.setAttribute("extension", k->extension);
 
@@ -561,4 +577,12 @@ QDomElement TupLipSync::toXml(QDomDocument &doc) const
 QList<TupVoice *> TupLipSync::voices()
 {
     return k->voices;
+}
+
+TupVoice * TupLipSync::voiceAt(int index)
+{
+    if (index >= 0 && index < k->voices.count())
+        return k->voices.at(index);
+
+    return 0;
 }

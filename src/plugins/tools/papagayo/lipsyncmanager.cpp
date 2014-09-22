@@ -68,7 +68,7 @@ LipSyncManager::LipSyncManager(QWidget *parent) : QWidget(parent), k(new Private
 
     k->addButton = new TImageButton(QPixmap(kAppProp->themeDir() + QDir::separator() + "icons" + QDir::separator() + "plus_sign.png"), 22);
     k->addButton->setToolTip(tr("Import LipSync"));
-    connect(k->addButton, SIGNAL(clicked()), this, SLOT(importLipSync()));
+    connect(k->addButton, SIGNAL(clicked()), this, SIGNAL(importLipSync()));
 
     k->editButton = new TImageButton(QPixmap(kAppProp->themeDir() + QDir::separator() + "icons" + QDir::separator() + "edit_sign.png"), 22);
     k->editButton->setToolTip(tr("Edit LipSync"));
@@ -100,7 +100,8 @@ void LipSyncManager::loadLipSyncList(QList<QString> list)
     QFont f = font();
     f.setPointSize(8);
 
-    for (int i=0; i < list.size(); i++) {
+    int total = list.size();
+    for (int i=0; i < total; i++) {
         QListWidgetItem *item = new QListWidgetItem(k->lipSyncList);
         item->setFont(f);
         item->setText(list.at(i));
@@ -119,11 +120,6 @@ bool LipSyncManager::itemExists(const QString &name)
     }
 
      return false;
-}
-
-void LipSyncManager::importLipSync()
-{
-    emit importNewLipSync();
 }
 
 void LipSyncManager::editLipSync()
@@ -164,11 +160,15 @@ int LipSyncManager::listSize()
     return k->lipSyncList->count();
 }
 
-/*
-void LipSyncManager::updateLipSyncName(const QString &name)
+void LipSyncManager::addNewRecord(const QString &name)
 {
-    QListWidgetItem *item = k->lipSyncList->currentItem();
+    QFont f = font();
+    f.setPointSize(8);
+
+    QListWidgetItem *item = new QListWidgetItem(k->lipSyncList);
+    item->setFont(f);
     item->setText(name);
-    k->target = name;
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+    k->lipSyncList->setCurrentItem(item);
 }
-*/

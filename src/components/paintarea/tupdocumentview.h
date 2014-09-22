@@ -110,8 +110,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         QSize workSpaceSize() const;
         void updateUsersOnLine(const QString &login, int state);
         void resizeProjectDimension(const QSize dimension);
-        void importPapagayoLipSync(const QString &file, const QString &imagesDir, const QStringList imagesList, 
-                                   const QString &extension, const QSize &mouthSize);
+        void updatePerspective();
 
     private slots:
         void setNextOnionSkin(int n);
@@ -173,7 +172,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void drawActionSafeArea();
         bool handleProjectResponse(TupProjectResponse *event);
         void updateNodesScale(qreal factor);
-        void updatePapagayoFlag();
+        void importPapagayoLipSync();
 
     signals:
         void requestTriggered(const TupProjectRequest *event);

@@ -41,7 +41,6 @@
  * @author Gustav Gonzalez 
 */
 
-// Target::Target(const QPointF & pos, int zLevel, QGraphicsScene *scene) : QGraphicsItem(0, scene)
 Target::Target(const QPointF & pos, int zLevel) : QGraphicsItem(0)
 {
     QGraphicsItem::setCursor(QCursor(Qt::PointingHandCursor));
@@ -49,8 +48,8 @@ Target::Target(const QPointF & pos, int zLevel) : QGraphicsItem(0)
     setFlag(ItemIsMovable, true);
     setFlag(ItemIsFocusable, true);
 
-    setPos(pos);
     setZValue(zLevel);
+    setPos(pos);
 }
 
 Target::~Target()
@@ -107,7 +106,7 @@ void Target::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         #endif
     #endif
 
-    emit positionUpdated(event->scenePos()); 
+    emit positionUpdated(pos());
 
     QGraphicsItem::mouseReleaseEvent(event);
 }
@@ -115,4 +114,10 @@ void Target::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void Target::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseMoveEvent(event);
+}
+
+QPointF Target::currentPos()
+{
+    QPointF xy = pos();
+    return xy;
 }

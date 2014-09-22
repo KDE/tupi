@@ -42,6 +42,7 @@
 #include "tupstoryboard.h"
 #include "tupbackground.h"
 #include "tupitemtweener.h"
+#include "tuplipsync.h"
 
 #include <QDomDocument>
 #include <QDomElement>
@@ -187,6 +188,10 @@ class TUPI_EXPORT TupScene : public QObject, public TupAbstractSerializable
         void removeStoryBoardScene(int index);
 
         QList<QString> getLipSyncNames();
+        bool lipSyncExists(const QString &name);
+        int getLipSyncLayerIndex(const QString &name);
+        TupLipSync * getLipSync(const QString &name);
+        bool updateLipSync(TupLipSync *lipsync);
         bool removeLipSync(const QString &name);
 
     private:

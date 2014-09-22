@@ -42,7 +42,6 @@
 #include <QFrame>
 #include <QLabel>
 #include <QBoxLayout>
-#include <QGraphicsPathItem>
 #include <QListWidgetItem>
 
 class TupLipSync;
@@ -62,46 +61,32 @@ class TUPI_PLUGIN Configurator : public QFrame
         ~Configurator();
 
         void loadLipSyncList(QList<QString> list);
-
-        void initStartCombo(int framesTotal, int currentFrame);
-        void setStartFrame(int currentIndex);
-        int startFrame();
-
-        int totalSteps();
-        void activateMode(TupToolPlugin::EditMode mode);
         void setCurrentLipSync(TupLipSync *lipsync);
-        QString currentLipSyncName() const;
-        void notifySelection(bool flag);
-        int startComboSize();
-        void closeSettingsPanel();
-        TupToolPlugin::Mode mode();
-        void resetUI();
-        QString lipSyncToXml(int currentScene, int currentLayer, int currentFrame, QPointF point);
-        
-    private slots:
-        void applyItem();
+
         void addLipSync(const QString &name);
-        void editLipSync();
-        void closeLipSyncProperties();
-        void updateLipSyncData(const QString &name);
+        void setMouthPos(QPointF pos);
+        void updateInterfaceRecords();
+
+        void resetUI();
+        void closePanels();
+
+    private slots:
+        void editCurrentLipSync(const QString &name);
+        void closeSettingsPanel();
         
     signals:
-        void startingPointChanged(int index);
-        void clickedSelect();
-        void clickedDefineAngle();
+        void importLipSync();
+        void selectMouth(const QString &name, int index);
+        void closeLipSyncProperties();
+        void updateLipSyncSelection(const QString &lipSyncName);
+        void initFrameHasChanged(int index);
         void removeCurrentLipSync(const QString &name);
-        void setMode(TupToolPlugin::Mode mode);
-        void clickedApplyLipSync();
-        void clickedResetInterface();
-        void getLipSyncData(const QString &name);
         
     private:
         void setPropertiesPanel();
         void activePropertiesPanel(bool enable);
         void setLipSyncManagerPanel();
         void activeLipSyncManagerPanel(bool enable);
-        void setButtonsPanel();
-        void activeButtonsPanel(bool enable);
 
         struct Private;
         Private *const k;

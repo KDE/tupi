@@ -699,6 +699,76 @@ QList<QString> TupScene::getLipSyncNames()
     return names;
 }
 
+
+bool TupScene::lipSyncExists(const QString &name)
+{
+    foreach (TupLayer *layer, k->layers) {
+             if (layer->lipSyncCount() > 0) {
+                 Mouths mouths = layer->lipSyncList();
+                 foreach (TupLipSync *lipsync, mouths) {
+                          if (lipsync->name().compare(name) == 0)
+                              return true;
+                 }
+             }
+    }
+
+    return false;
+}
+
+int TupScene::getLipSyncLayerIndex(const QString &name)
+{
+    int index = 0;
+    foreach (TupLayer *layer, k->layers) {
+             if (layer->lipSyncCount() > 0) {
+                 Mouths mouths = layer->lipSyncList();
+                 foreach (TupLipSync *lipsync, mouths) {
+                          if (lipsync->name().compare(name) == 0)
+                              break;
+                          index++;
+                 }
+             }
+    }
+
+    return index;
+}
+
+TupLipSync * TupScene::getLipSync(const QString &name)
+{
+    TupLipSync *project = 0;
+
+    foreach (TupLayer *layer, k->layers) {
+             if (layer->lipSyncCount() > 0) {
+                 Mouths mouths = layer->lipSyncList();
+                 foreach (TupLipSync *lipsync, mouths) {
+                          if (lipsync->name().compare(name) == 0) {
+                              return lipsync;
+                          }
+                 }
+             }
+    }
+
+    return project;
+}
+
+bool TupScene::updateLipSync(TupLipSync *lipsync)
+{
+    QString name = lipsync->name();
+
+    foreach (TupLayer *layer, k->layers) {
+             if (layer->lipSyncCount() > 0) {
+                 Mouths mouths = layer->lipSyncList();
+                 foreach (TupLipSync *record, mouths) {
+                          if (record->name().compare(name) == 0) {
+                              record = lipsync;
+                              return true;
+                          }
+                 }
+             }
+    }
+
+    return false;
+}
+
 bool TupScene::removeLipSync(const QString &name)
 {
     foreach (TupLayer *layer, k->layers) {

@@ -113,12 +113,12 @@ class TUPI_EXPORT TupVoice : public QObject, public TupAbstractSerializable
 {
     public:
         TupVoice();
-        TupVoice(const QString &label, QPoint pos);
+        TupVoice(const QString &label, QPointF pos);
         ~TupVoice();
         void setVoiceTitle(const QString &label);
         QString voiceTitle() const;
-        void setMouthPos(QPoint pos);
-        QPoint mouthPos();
+        void setMouthPos(QPointF pos);
+        QPointF mouthPos();
         void setText(const QString &content);
         QString text() const;
         int initFrame();
@@ -132,7 +132,7 @@ class TUPI_EXPORT TupVoice : public QObject, public TupAbstractSerializable
 
     private:
         QString title;
-        QPoint point;
+        QPointF point;
         QString script;
         int initIndex;
         int endIndex;
@@ -143,7 +143,7 @@ class TUPI_EXPORT TupLipSync : public QObject, public TupAbstractSerializable
 {
     public:
         TupLipSync();
-        TupLipSync(const QString &name, const QString &soundFile);
+        TupLipSync(const QString &name, const QString &soundFile, int initFrame);
         ~TupLipSync();
         void addPhrase(TupPhrase *phrase);
         QString name() const;
@@ -152,9 +152,12 @@ class TUPI_EXPORT TupLipSync : public QObject, public TupAbstractSerializable
         QString picExtension() const;
         QString soundFile() const;
         void setSoundFile(const QString &file);
+        int initFrame();
+	void setInitFrame(int frame);
         int framesTotal();
         void setFramesTotal(int framesTotal);
         void addVoice(TupVoice *voice);
+        TupVoice *voiceAt(int index);
         QList<TupVoice *> voices();
 
         virtual void fromXml(const QString &xml);

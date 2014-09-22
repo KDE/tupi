@@ -37,21 +37,12 @@
 #include "configurator.h"
 #include "target.h"
 #include "taction.h"
-#include "tosd.h"
 #include "tupinputdeviceinformation.h"
 #include "tupbrushmanager.h"
 #include "tupgraphicsscene.h"
-#include "tupgraphicobject.h"
-#include "tupsvgitem.h"
-#include "tuppathitem.h"
-#include "tuprectitem.h"
-#include "tuppixmapitem.h"
-#include "tupitemtweener.h"
 #include "tuprequestbuilder.h"
 #include "tupprojectrequest.h"
-#include "tuplibraryobject.h"
 #include "tupscene.h"
-#include "tuplayer.h"
 
 struct PapagayoTool::Private
 {
@@ -59,9 +50,8 @@ struct PapagayoTool::Private
     Configurator *configurator;
 
     TupGraphicsScene *scene;
-    QList<QGraphicsItem *> objects;
 
-    TupItemTweener *currentTween;
+    TupLipSync *currentLipSync;
     int initFrame;
     int initLayer;
     int initScene;
@@ -70,15 +60,17 @@ struct PapagayoTool::Private
     Target *target;
 
     TupToolPlugin::Mode mode;
-    TupToolPlugin::EditMode editMode;
 
     int baseZValue;
+
+    QGraphicsItem *mouth;
+    QPointF mouthOffset;
+    QString currentMouth;
+    int currentMouthIndex;
 };
 
 PapagayoTool::PapagayoTool() : TupToolPlugin(), k(new Private)
 {
-    tError() << "PapagayoTool::PapagayoTool() - Just tracing...";
-
     setupActions();
 
     k->configurator = 0;
@@ -95,22 +87,13 @@ PapagayoTool::~PapagayoTool()
 
 void PapagayoTool::init(TupGraphicsScene *scene)
 {
-    tError() << "PapagayoTool::init() - Just tracing...";
-
     k->scene = scene;
-    k->objects.clear();
-
-    if (k->target) {
-        k->scene->removeItem(k->target);
-        k->target = 0;
-    }
-
     k->mode = TupToolPlugin::View;
-    k->editMode = TupToolPlugin::None;
     k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000);
     k->initFrame = k->scene->currentFrameIndex();
-    k->initLayer = k->scene->currentLayerIndex();
     k->initScene = k->scene->currentSceneIndex();
+
+    removeTarget();
 
     k->configurator->resetUI();
 
@@ -118,18 +101,20 @@ void PapagayoTool::init(TupGraphicsScene *scene)
     if (lipSyncList.size() > 0) {
         k->configurator->loadLipSyncList(lipSyncList);
         QString lipSyncName = lipSyncList.at(0);
-        setCurrentLipSync(lipSyncName);
+        TupScene *currentScene = k->scene->scene();
+        k->currentLipSync = currentScene->getLipSync(lipSyncName);
+        if (k->currentLipSync)
+            k->configurator->setCurrentLipSync(k->currentLipSync);
     }
-
-    int total = framesTotal();
-    k->configurator->initStartCombo(total, k->initFrame);
 }
 
+/*
 void PapagayoTool::updateStartPoint(int index)
 {
      if (k->initFrame != index && index >= 0)
          k->initFrame = index;
 }
+*/
 
 /* This method returns the plugin name */
 
@@ -182,18 +167,7 @@ void PapagayoTool::release(const TupInputDeviceInformation *input, TupBrushManag
 
     Q_UNUSED(input);
     Q_UNUSED(brushManager);
-
-    if (scene->currentFrameIndex() == k->initFrame) {
-        if (k->editMode == TupToolPlugin::Selection) {
-            if (scene->selectedItems().size() > 0) {
-                k->objects = scene->selectedItems();
-                k->configurator->notifySelection(true);
-                QGraphicsItem *item = k->objects.at(0);
-                QRectF rect = item->sceneBoundingRect();
-                k->origin = rect.center();
-            }
-        }
-    }
+    Q_UNUSED(scene);
 }
 
 /* This method returns the list of actions defined in this plugin */
@@ -218,21 +192,21 @@ QWidget *PapagayoTool::configurator()
         k->mode = TupToolPlugin::View;
 
         k->configurator = new Configurator;
-        connect(k->configurator, SIGNAL(removeCurrentLipSync(const QString &)), this, SLOT(removeLipSync(const QString &)));
-
-        /*
-        connect(k->configurator, SIGNAL(startingPointChanged(int)), this, SLOT(updateStartPoint(int)));
-        connect(k->configurator, SIGNAL(clickedApplyTween()), this, SLOT(applyLipSync()));
-        connect(k->configurator, SIGNAL(clickedSelect()), this, SLOT(setSelection()));
-        connect(k->configurator, SIGNAL(clickedResetInterface()), this, SLOT(applyReset()));
-        connect(k->configurator, SIGNAL(setMode(TupToolPlugin::Mode)), this, SLOT(updateMode(TupToolPlugin::Mode)));
-        connect(k->configurator, SIGNAL(clickedDefineAngle()), this, SLOT(setPropertiesMode()));
-        connect(k->configurator, SIGNAL(getTweenData(const QString &)), this, SLOT(setCurrentLipSync(const QString &)));
-        connect(k->configurator, SIGNAL(clickedRemoveTween(const QString &)), this, SLOT(removeTween(const QString &)));
-        */
+        connect(k->configurator, SIGNAL(importLipSync()), this, SIGNAL(importLipSync()));
+        connect(k->configurator, SIGNAL(removeCurrentLipSync(const QString &)), this, SLOT(removeCurrentLipSync(const QString &)));
+        connect(k->configurator, SIGNAL(selectMouth(const QString &, int)), this, SLOT(addTarget(const QString &, int)));
+        connect(k->configurator, SIGNAL(updateLipSyncSelection(const QString &)), this, SLOT(setCurrentLipSync(const QString &)));
+        connect(k->configurator, SIGNAL(closeLipSyncProperties()), this, SLOT(resetCanvas()));
+        connect(k->configurator, SIGNAL(initFrameHasChanged(int)), this, SLOT(updateInitFrame(int)));
     } 
 
     return k->configurator;
+}
+
+void PapagayoTool::resetCanvas()
+{
+    k->mode = TupToolPlugin::View;
+    removeTarget();
 }
 
 /* This method is called when there's a change on/of scene */
@@ -244,20 +218,6 @@ void PapagayoTool::aboutToChangeScene(TupGraphicsScene *)
 
 void PapagayoTool::aboutToChangeTool()
 {
-    tError() << "PapagayoTool::aboutToChangeTool() - Leaving PapagayoTool...";
-    // emit pluginIsClosed();
-
-    if (k->editMode == TupToolPlugin::Selection) {
-        clearSelection();
-        disableSelection();
-
-        return;
-    }
-
-    if (k->editMode == TupToolPlugin::Properties) {
-        k->scene->removeItem(k->target);
-        k->target = 0;
-    }
 }
 
 /* This method defines the actions contained in this plugin */
@@ -266,7 +226,6 @@ void PapagayoTool::setupActions()
 {
     TAction *translater = new TAction(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "papagayo.png"), 
                                       tr("Papagayo Lip-sync"), this);
-    translater->setCursor(QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "selection.png"));
     translater->setShortcut(QKeySequence(tr("Ctrl+Shift+P")));
 
     k->actions.insert(tr("Papagayo Lip-sync"), translater);
@@ -282,364 +241,98 @@ void PapagayoTool::saveConfig()
 
 void PapagayoTool::updateScene(TupGraphicsScene *scene)
 { 
-    k->mode = k->configurator->mode();
-
-    if (k->mode == TupToolPlugin::Edit) {
-        int framesNumber = framesTotal();
-
-        if (k->configurator->startComboSize() < framesNumber)
-            k->configurator->initStartCombo(framesNumber, k->initFrame);
-
-        int lipSyncLimit = k->initFrame + (k->configurator->totalSteps() - 1);
-        if (scene->currentFrameIndex() >= k->initFrame && scene->currentFrameIndex() <= lipSyncLimit)
-            k->scene->addItem(k->target);
-
-    } else if (k->mode == TupToolPlugin::Add) {
-               int total = framesTotal();
-
-               if (k->editMode == TupToolPlugin::Properties) {
-                   if (total > k->configurator->startComboSize()) {
-                       k->configurator->activateMode(TupToolPlugin::Selection);
-                       clearSelection();
-                       setSelection();
-                   } 
-               } else if (k->editMode == TupToolPlugin::Selection) {
-                          if (scene->currentFrameIndex() != k->initFrame)
-                              clearSelection();
-                          k->initFrame = scene->currentFrameIndex();
-                          setSelection();
-               }
-
-               if (k->configurator->startComboSize() < total) {
-                   k->configurator->initStartCombo(total, k->initFrame);
-               } else {
-                   if (scene->currentFrameIndex() != k->initFrame)
-                       k->configurator->setStartFrame(scene->currentFrameIndex());
-               }
-
-    } else {
-        if (scene->currentFrameIndex() != k->initFrame)
-            k->configurator->setStartFrame(scene->currentFrameIndex());
-    }
+    Q_UNUSED(scene); 
 }
 
 void PapagayoTool::setCurrentLipSync(const QString &name)
 {
     TupScene *scene = k->scene->scene();
-    // k->currentTween = scene->tween(name, TupItemTweener::Papagayo);
+    int initFrame = k->currentLipSync->initFrame();
 
-    // if (k->currentTween)
-          // k->configurator->setCurrentLipSync(k->currentTween);
-}
+    if (initFrame != k->scene->currentFrameIndex()) {
+        int initLayer = scene->getLipSyncLayerIndex(name);
 
-int PapagayoTool::framesTotal()
-{
-    int total = 1;
-    TupLayer *layer = k->scene->scene()->layer(k->scene->currentLayerIndex());
-    if (layer)
-        total = layer->framesTotal();
+        TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->initScene, initLayer, initFrame,
+                                                                          TupProjectRequest::Select, "1");
+        emit requested(&request);
+    }
 
-    return total;
-}
-
-/* This method clears selection */
-
-void PapagayoTool::clearSelection()
-{
-    if (k->objects.size() > 0) {
-        foreach (QGraphicsItem *item, k->objects) {
-                 if (item->isSelected())
-                     item->setSelected(false);
-        }
-
-        k->objects.clear();
-        k->configurator->notifySelection(false);
+    if (name.compare(k->currentLipSync->name()) != 0) {
+        k->currentLipSync = scene->getLipSync(name);
+        if (k->currentLipSync)
+            k->configurator->setCurrentLipSync(k->currentLipSync);
     }
 }
 
-/* This method disables object selection */
-
-void PapagayoTool::disableSelection()
+void PapagayoTool::removeCurrentLipSync(const QString &name)
 {
-    foreach (QGraphicsView *view, k->scene->views()) {
-             view->setDragMode (QGraphicsView::NoDrag);
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      item->setFlag(QGraphicsItem::ItemIsSelectable, false);
-                      item->setFlag(QGraphicsItem::ItemIsMovable, false);
-             }
-    }
-}
-
-/* This method initializes the "Select object" mode */
-
-void PapagayoTool::setSelection()
-{
-    if (k->editMode == TupToolPlugin::Properties)
-        k->scene->removeItem(k->target);
-
-    k->editMode = TupToolPlugin::Selection;
-
-    int bottomBoundary = 20000 + (k->initLayer*10000);
-    int topBoundary = bottomBoundary + 10000;
-
-    foreach (QGraphicsView * view, k->scene->views()) {
-             view->setDragMode(QGraphicsView::RubberBandDrag);
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      if ((item->zValue() >= bottomBoundary) && (item->zValue() < topBoundary) && (item->toolTip().length()==0))
-                          item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
+    QGraphicsView * view = k->scene->views().first();
+    foreach (QGraphicsItem *item, view->scene()->items()) {
+             QString tip = item->toolTip();
+             if (tip.length() > 0) {
+                 if (tip.startsWith(tr("lipsync:") + name))
+                     k->scene->removeItem(item);
              }
     }
 
-    // When Object selection is enabled, previous selection is set
-    if (k->objects.size() > 0) {
-        foreach (QGraphicsItem *item, k->objects) {
-                 item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
-                 item->setSelected(true);
-        }
-        k->configurator->notifySelection(true);
-    }
-}
-
-void PapagayoTool::setPropertiesMode()
-{
-    k->editMode = TupToolPlugin::Properties;
-    disableSelection();
-
-    addTarget();
-}
-
-/* This method resets this plugin */
-
-void PapagayoTool::applyReset()
-{
-    if ((k->mode == TupToolPlugin::Edit || k->mode == TupToolPlugin::Add) && k->editMode == TupToolPlugin::Properties) {
-        k->scene->removeItem(k->target);
-        k->target = 0;
-    }     
-
-    disableSelection();
-    clearSelection();
-
-    k->mode = TupToolPlugin::View;
-    k->editMode = TupToolPlugin::None;
-
-    k->initFrame = k->scene->currentFrameIndex();
-    k->initLayer = k->scene->currentLayerIndex();
-    k->initScene = k->scene->currentSceneIndex();
-}
-
-/* This method applies to the project, the Tween created from this plugin */
-
-void PapagayoTool::applyLipSync()
-{
-    QString name = k->configurator->currentLipSyncName();
-
-    if (name.length() == 0) {
-        TOsd::self()->display(tr("Error"), tr("Tween name is missing!"), TOsd::Error);
-        return;
-    }
-
-    if (!k->scene->scene()->tweenExists(name, TupItemTweener::Papagayo)) {
-        k->initFrame = k->scene->currentFrameIndex();
-        k->initLayer = k->scene->currentLayerIndex();
-        k->initScene = k->scene->currentSceneIndex();
-
-        foreach (QGraphicsItem *item, k->objects) {
-                 TupLibraryObject::Type type = TupLibraryObject::Item;
-                 int objectIndex = -1;
-                 QPointF origin = item->mapFromParent(k->origin);
-
-                 if (TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item)) {
-                     type = TupLibraryObject::Svg;
-                     objectIndex = k->scene->currentFrame()->indexOf(svg);
-                 } else {
-                     objectIndex = k->scene->currentFrame()->indexOf(item);
-                     if (qgraphicsitem_cast<TupPathItem *>(item))
-                         origin = k->origin;
-                 }
-
-                 /*
-                 TupProjectRequest request = TupRequestBuilder::createItemRequest(
-                                             k->initScene, k->initLayer, k->initFrame,
-                                             objectIndex, QPointF(), k->scene->spaceMode(), type,
-                                             TupProjectRequest::SetTween,
-                                             k->configurator->lipSyncToXml(k->initScene, k->initLayer, k->initFrame, origin));
-                 emit requested(&request);
-                 */
-        }
-    } else {
-        removeLipSyncFromProject(name);
-        QList<QGraphicsItem *> newList;
-
-        k->initFrame = k->configurator->startFrame();
-        k->initLayer = k->currentTween->initLayer();
-        k->initScene = k->scene->currentSceneIndex();
-
-        foreach (QGraphicsItem *item, k->objects) {
-                 TupLibraryObject::Type type = TupLibraryObject::Item;
-                 TupProject *project = k->scene->scene()->project();
-                 TupScene *scene = project->scene(k->initScene);
-                 TupLayer *layer = scene->layer(k->initLayer);
-                 TupFrame *frame = layer->frame(k->currentTween->initFrame());
-                 int objectIndex = -1;
-                 QPointF origin = item->mapFromParent(k->origin);
-                 TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
-
-                 if (svg) {
-                     type = TupLibraryObject::Svg;
-                     objectIndex = frame->indexOf(svg);
-                 } else {
-                     objectIndex = frame->indexOf(item);
-                     if (qgraphicsitem_cast<TupPathItem *>(item))
-                         origin = k->origin;
-                 }
-
-                 if (k->initFrame != k->currentTween->initFrame()) {
-                     QDomDocument dom;
-                     if (type == TupLibraryObject::Svg)
-                         dom.appendChild(svg->toXml(dom));
-                     else
-                         dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
-
-                     TupProjectRequest request = TupRequestBuilder::createItemRequest(k->initScene, k->initLayer, k->initFrame, 
-                                                                                      0, QPointF(), k->scene->spaceMode(), 
-                                                                                      type, TupProjectRequest::Add, dom.toString());
-                     emit requested(&request);
-
-                     request = TupRequestBuilder::createItemRequest(k->initScene, k->initLayer,
-                                                                    k->currentTween->initFrame(),
-                                                                    objectIndex, QPointF(), k->scene->spaceMode(),
-                                                                    type, TupProjectRequest::Remove);
-                     emit requested(&request);
-
-                     frame = layer->frame(k->initFrame);
-                     if (type == TupLibraryObject::Item) {
-                         objectIndex = frame->graphicItemsCount() - 1;
-                         newList.append(frame->graphic(objectIndex)->item());
-                     } else {
-                         objectIndex = frame->svgItemsCount() - 1;
-                         newList.append(frame->svg(objectIndex));
-                     }
-                 }
-
-                 /* 
-                 TupProjectRequest request = TupRequestBuilder::createItemRequest(
-                                             k->initScene, k->initLayer, k->initFrame,
-                                             objectIndex, QPointF(), k->scene->spaceMode(), 
-                                             type, TupProjectRequest::SetTween,
-                                             k->configurator->lipSyncToXml(k->initScene, k->initLayer, k->initFrame, origin));
-                 emit requested(&request);
-                 */
-        }
-
-        if (newList.size() > 0)
-            k->objects = newList;
-    }
-
-    int total = k->initFrame + k->configurator->totalSteps();
-    int framesNumber = framesTotal();
-    int layersTotal = k->scene->scene()->layersTotal();
-    TupProjectRequest request;
-
-    if (total >= framesNumber) {
-        for (int i = framesNumber; i < total; i++) {
-             for (int j = 0; j < layersTotal; j++) {
-                  request = TupRequestBuilder::createFrameRequest(k->initScene, j, i,
-                                                                  TupProjectRequest::Add, tr("Frame %1").arg(i + 1));
-                  emit requested(&request);
-             }
-        }
-    }
-
-    request = TupRequestBuilder::createFrameRequest(k->initScene, k->initLayer, k->initFrame,
-                                                    TupProjectRequest::Select, "1");
+    TupProjectRequest request = TupRequestBuilder::createLayerRequest(k->initScene, k->initLayer, TupProjectRequest::RemoveLipSync, name);
     emit requested(&request);
-
-    setCurrentLipSync(name);
-    TOsd::self()->display(tr("Info"), tr("Tween %1 applied!").arg(name), TOsd::Info);
-}
-
-void PapagayoTool::removeLipSyncFromProject(const QString &name)
-{
-    TupScene *scene = k->scene->scene();
-    scene->removeLipSync(name);
-
-    /*
-    foreach (QGraphicsView * view, k->scene->views()) {
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      QString tip = item->toolTip();
-                      if (tip.startsWith(tr("lipsync:") + name))
-                          item->setToolTip("");
-             }
-    }
-    */
-}
-
-void PapagayoTool::removeLipSync(const QString &name)
-{
-    // removeLipSyncFromProject(name);
-    // applyReset();
-
-    tError() << "PapagayoTool::removeLipSync() - Tracing...";
-
-    TupScene *scene = k->scene->scene();
-    scene->removeLipSync(name);
-
-    foreach (QGraphicsView * view, k->scene->views()) {
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      QString tip = item->toolTip();
-                      if (tip.length() > 0) {
-                          if (tip.startsWith(tr("lipsync:") + name))
-                              k->scene->removeItem(item);
-                      }
-             }
-    }
 }
 
 void PapagayoTool::updateOriginPoint(const QPointF &point)
 {
-    k->origin = point;
+    k->origin = point - k->mouthOffset;
+    k->mouth->setPos(k->origin);
+    k->configurator->setMouthPos(k->origin);
+}
+
+void PapagayoTool::addTarget(const QString &id, int index)
+{
+    k->mode = TupToolPlugin::Edit;
+
+    k->currentMouth = id;
+    k->currentMouthIndex = index;
+    addTarget();
 }
 
 void PapagayoTool::addTarget()
 {
-    if (k->mode == TupToolPlugin::Add) {
-        k->target = new Target(k->origin, k->baseZValue);
-        connect(k->target, SIGNAL(positionUpdated(const QPointF &)), this, SLOT(updateOriginPoint(const QPointF &)));
-        k->scene->addItem(k->target);
-    } else {
-        if (k->mode == TupToolPlugin::Edit) {
-            QGraphicsItem *item = k->objects.at(0);
-            k->origin = item->mapToParent(k->currentTween->transformOriginPoint());
-            k->target = new Target(k->origin, k->baseZValue);
-            connect(k->target, SIGNAL(positionUpdated(const QPointF &)), this, SLOT(updateOriginPoint(const QPointF &)));
-            k->scene->addItem(k->target);
-        }
-    }
+    TupScene *scene = k->scene->scene();
+    int initLayer = scene->getLipSyncLayerIndex(k->currentLipSync->name());
+    int initFrame = k->currentLipSync->initFrame();
+
+    TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->initScene, initLayer, initFrame,
+                                                                          TupProjectRequest::Select, "1");
+    emit requested(&request);
+
+    removeTarget();
+    setTargetEnvironment();
 }
 
-void PapagayoTool::updateMode(TupToolPlugin::Mode mode)
+void PapagayoTool::setTargetEnvironment()
 {
-    k->mode = mode;
+    QGraphicsView *view = k->scene->views().at(0);
+    foreach (QGraphicsItem *item, view->scene()->items()) {
+             QString tip = item->toolTip();
+             if (tip.length() > 0) {
+                 if (tip.compare(k->currentMouth) == 0) {
+                     k->mouthOffset = item->boundingRect().center();
+                     k->origin = item->pos() + k->mouthOffset;
+                     k->mouth = item;
+                 }
+             }
+    }
 
-    if (k->mode == TupToolPlugin::Edit) {
-        k->editMode = TupToolPlugin::Properties;
+    k->target = new Target(k->origin, k->baseZValue);
+    connect(k->target, SIGNAL(positionUpdated(const QPointF &)), this, SLOT(updateOriginPoint(const QPointF &)));
+    k->scene->addItem(k->target);
+}
 
-        k->initScene = k->currentTween->initScene();
-        k->initLayer = k->currentTween->initLayer();
-        k->initFrame = k->currentTween->initFrame();
-
-        if (k->initFrame != k->scene->currentFrameIndex() || k->initLayer != k->scene->currentLayerIndex()) {
-            TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->initScene,
-                                                                              k->initLayer,
-                                                                              k->initFrame, TupProjectRequest::Select, "1");
-            emit requested(&request);
-        }
-
-        if (k->objects.isEmpty()) {
-            k->objects = k->scene->scene()->getItemsFromTween(k->currentTween->name(), TupItemTweener::Papagayo);
-            k->origin = k->currentTween->transformOriginPoint();
-        }
+void PapagayoTool::removeTarget()
+{
+    if (k->target) {
+        k->scene->removeItem(k->target);
+        k->target = 0;
     }
 }
 
@@ -655,31 +348,75 @@ void PapagayoTool::sceneResponse(const TupSceneResponse *event)
 
 void PapagayoTool::layerResponse(const TupLayerResponse *event)
 {
-    if (event->action() == TupProjectRequest::Remove)
-        init(k->scene);
+    if (event->action() == TupProjectRequest::UpdateLipSync) {
+        setCurrentLipSync(k->currentLipSync->name());
+        k->configurator->updateInterfaceRecords();
+
+        addTarget();
+
+        TupScene *scene = k->scene->scene();
+        int sceneFrames = scene->framesTotal();
+        int lipSyncFrames = k->currentLipSync->initFrame() + k->currentLipSync->framesTotal();
+        k->initFrame = k->scene->currentFrameIndex();
+        k->initLayer = scene->getLipSyncLayerIndex(k->currentLipSync->name());
+
+        if (lipSyncFrames > sceneFrames) {
+            int layersTotal = scene->layersTotal();
+            for (int i = sceneFrames; i < lipSyncFrames; i++) {
+                 for (int j = 0; j < layersTotal; j++) {
+                      TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->initScene, j, i, TupProjectRequest::Add, tr("Frame %1").arg(i + 1));
+                      emit requested(&request);
+                 }
+            }
+            TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->initScene, k->initLayer, k->initFrame, TupProjectRequest::Select, "1");
+            emit requested(&request);
+        }
+    }
 }
 
 void PapagayoTool::frameResponse(const TupFrameResponse *event)
 {
-    if (event->action() == TupProjectRequest::Remove && k->initLayer == event->layerIndex())
-        init(k->scene);
+    Q_UNUSED(event);
 
-    if (event->action() == TupProjectRequest::Select)
-        if (k->initLayer != event->layerIndex() || k->initScene != event->sceneIndex())
-            init(k->scene);
+    if (event->action() == TupProjectRequest::Select) {
+        if (k->mode == TupToolPlugin::Edit) {
+            int frameIndex = event->frameIndex();
+            int lastFrame = k->currentLipSync->initFrame() + k->currentLipSync->framesTotal() - 1;
+            if (frameIndex >= k->currentLipSync->initFrame() && frameIndex <= lastFrame)
+                setTargetEnvironment();
+        }
+    }
 }
 
-TupToolPlugin::Mode PapagayoTool::currentMode()
+void PapagayoTool::addNewItem(const QString &name)
 {
-    return k->mode;
+    k->configurator->addLipSync(name);
 }
 
-TupToolPlugin::EditMode PapagayoTool::currentEditMode()
+void PapagayoTool::updateWorkSpaceContext()
 {
-    return k->editMode;
+    if (k->mode == TupToolPlugin::Edit)
+        k->configurator->closePanels();
 }
 
-void PapagayoTool::setCurrentItem(const QString &name)
+void PapagayoTool::updateInitFrame(int index)
 {
-    tError() << "PapagayoTool::setCurrentItem() - Opening edition for -> " << name;
+    removeTarget();
+
+    k->currentLipSync->setInitFrame(index);
+
+    QDomDocument document;
+    QDomElement root = k->currentLipSync->toXml(document);
+    QString xml;
+    {
+      QTextStream ts(&xml);
+      ts << root;
+    }
+
+    TupScene *scene = k->scene->scene();
+    k->initLayer = scene->getLipSyncLayerIndex(k->currentLipSync->name());
+
+    TupProjectRequest request = TupRequestBuilder::createLayerRequest(k->initScene, k->initLayer, TupProjectRequest::UpdateLipSync, xml);
+    emit requested(&request);
 }
+

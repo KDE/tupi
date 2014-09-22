@@ -59,7 +59,6 @@
 #include "tupstatusbar.h"
 #include "tosd.h"
 #include "toolview.h"
-#include "tuppapagayodialog.h"
 
 // Including headers about projects management
 #include "tupprojectmanager.h"
@@ -181,6 +180,7 @@ class TupMainWindow : public TabbedMainWindow
 
     private slots:
           void setWorkSpace(const QStringList &users = QStringList() = QStringList());
+          void updateTabContext(int tab);
           void createNewLocalProject();
           void newProject();
           bool closeProject();

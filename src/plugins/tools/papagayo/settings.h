@@ -41,14 +41,10 @@
 
 #include <QWidget>
 #include <QLabel>
-#include <QLineEdit>
 #include <QBoxLayout>
-#include <QComboBox>
 #include <QSpinBox>
-#include <QCheckBox>
-#include <QDir>
+#include <QListWidget>
 
-// class TupItemTweener;
 class TupLipSync;
 
 /**
@@ -63,47 +59,22 @@ class TUPI_PLUGIN Settings : public QWidget
         Settings(QWidget *parent = 0);
         ~Settings();
 
-        void setParameters(const QString &name, int framesTotal, int startFrame);
         void setParameters(TupLipSync *lipsync);
-        void initStartCombo(int totalFrames, int currentIndex);
-        void setStartFrame(int currentIndex);
-        int startFrame();
-
-        int totalSteps();
-
-        void notifySelection(bool flag);
-        int startComboSize();
-        QString currentLipSyncName() const;
-        void activateMode(TupToolPlugin::EditMode mode);
-        QString lipSyncToXml(int currentScene, int currentLayer, int currentFrame, QPointF point);
+        void setMouthPos(QPointF pos);
+        void updateInterfaceRecords();
 
     private slots:
-        void applyLipSync();
-        void emitOptionChanged(int option);
         void refreshForm(int type);
-        void checkTopLimit(int index);
-        // void updateRangeCheckbox(int state);
-        // void updateReverseCheckbox(int state);
-        void updateTotalSteps(const QString &text);
-        void checkRange(int index);
-        void updateLastFrame();
+        void setCurrentMouth(int index);
+        void updateInitFrame(int index);
         
     signals:
-        void clickedSelect();
-        void clickedDefineRange();
-        void clickedApplyLipSync();
-        void clickedResetLipSync();
-        void startingPointChanged(int index);
-        
+        void initFrameHasChanged(int index);
+        void selectMouth(const QString &id, int index);
+        void closeLipSyncProperties();
+
     private:
         void setInnerForm();
-        void activeInnerForm(bool enable);
-        // void setClockForm();
-        // void activeClockForm(bool enable); 
-        // void setRangeForm();
-        // void activeRangeForm(bool enable);
-        void setEditMode();
-        void checkFramesRange();
 
         struct Private;
         Private *const k;

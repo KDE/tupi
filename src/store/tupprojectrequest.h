@@ -136,7 +136,9 @@ class TUPI_EXPORT TupProjectRequest
             BgColor = 23,
 
             // layer
-            AddLipSync = 24
+            AddLipSync = 24,
+            UpdateLipSync = 25,
+            RemoveLipSync = 26
         };
         
         enum Part

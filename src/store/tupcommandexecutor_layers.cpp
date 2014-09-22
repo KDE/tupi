@@ -184,7 +184,7 @@ bool TupCommandExecutor::renameLayer(TupLayerResponse *response)
         #endif
     #endif	
 
-    QString oldName;
+    // QString oldName;
 
     TupScene *scene = m_project->scene(scenePos);
 
@@ -239,10 +239,6 @@ bool TupCommandExecutor::setLayerVisibility(TupLayerResponse *response)
 
 bool TupCommandExecutor::addLipSync(TupLayerResponse *response)
 {
-    int scenePos = response->sceneIndex();
-    int position = response->layerIndex();
-    QString xml = response->arg().toString();
-
     #ifdef K_DEBUG
         QString msg = "TupCommandExecutor::addLipSync() - Adding lipsync...";
         #ifdef Q_OS_WIN32
@@ -252,7 +248,9 @@ bool TupCommandExecutor::addLipSync(TupLayerResponse *response)
         #endif
     #endif
 
-    QString oldName;
+    int scenePos = response->sceneIndex();
+    int position = response->layerIndex();
+    QString xml = response->arg().toString();
 
     TupScene *scene = m_project->scene(scenePos);
 
@@ -268,6 +266,63 @@ bool TupCommandExecutor::addLipSync(TupLayerResponse *response)
 
         emit responsed(response);
 
+        return true;
+    }
+
+    return false;
+}
+
+bool TupCommandExecutor::updateLipSync(TupLayerResponse *response)
+{
+    #ifdef K_DEBUG
+        QString msg = "TupCommandExecutor::updateLipSync() - Updating lipsync...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
+    #endif
+
+    int scenePos = response->sceneIndex();
+    // int position = response->layerIndex();
+    QString xml = response->arg().toString();
+
+    TupScene *scene = m_project->scene(scenePos);
+
+    if (!scene)
+        return false;
+
+    TupLipSync *lipsync = new TupLipSync();
+    lipsync->fromXml(xml);
+    if (scene->updateLipSync(lipsync)) {
+        emit responsed(response);
+        return true;
+    }
+
+    return false;
+}
+
+bool TupCommandExecutor::removeLipSync(TupLayerResponse *response)
+{
+    #ifdef K_DEBUG
+        QString msg = "TupCommandExecutor::removeLipSync() - Adding lipsync...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
+    #endif
+
+    int scenePos = response->sceneIndex();
+    QString name = response->arg().toString();
+
+    TupScene *scene = m_project->scene(scenePos);
+
+    if (!scene)
+        return false;
+
+    if (scene->removeLipSync(name)) {
+        emit responsed(response);
         return true;
     }
 

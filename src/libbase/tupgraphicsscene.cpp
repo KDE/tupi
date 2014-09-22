@@ -233,7 +233,6 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                          // Painting previews frames
                          if (drawContext) {
                              if (k->onionSkin.previous > 0 && photogram > 0) {
-
                                  double opacity = k->opacity;
                                  double opacityFactor = opacity / (double)qMin(layer->frames().count(), k->onionSkin.previous);
 
@@ -257,9 +256,6 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                              }
                          }
 
-                         // valid = true;
-                         // k->layerCounter = i;
-                         // addFrame(mainFrame, Current);
                          addFrame(mainFrame);
 
                          // Painting next frames
@@ -287,6 +283,8 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                              }
                          }
 
+                         addLipSyncObjects(layer, photogram, mainFrame->getTopZLevel());
+
                          // SQA: Crashpoint when layers are deleted 
 
                          valid = true;
@@ -303,8 +301,6 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
     if (valid) {
         addTweeningObjects(photogram);
         addSvgTweeningObjects(photogram);
-        addLipSyncObjects(photogram);
-
         update();
     }
 
@@ -863,50 +859,40 @@ void TupGraphicsScene::addSvgTweeningObjects(int photogram)
     }
 }
 
-void TupGraphicsScene::addLipSyncObjects(int photogram)
+void TupGraphicsScene::addLipSyncObjects(TupLayer *layer, int photogram, int zLevel)
 {
-    // tError() << "TupGraphicsScene::addLipSyncObjects() - Frame: " << photogram;
-    // tError() << "TupGraphicsScene::addLipSyncObjects() - Layer: " << k->framePosition.layer;
+    if (layer->lipSyncCount() > 0) {
+        Mouths mouths = layer->lipSyncList();
+        for (int i=0; i<mouths.count(); i++) {
+             TupLipSync *lipSync = mouths.at(i);
+             int initFrame = lipSync->initFrame();
 
-    TupLayer *layer = k->scene->layer(k->framePosition.layer);
-    if (layer) {
-        if (layer->lipSyncCount() > 0) {
-            Mouths mouths = layer->lipSyncList();
-            for (int i=0; i<mouths.count(); i++) {
-                 // tError() << "TupGraphicsScene::addLipSyncObjects() - Processing lipsync...";
-                 TupLipSync *lipSync = mouths.at(i);
+             if ((photogram >= initFrame) && (photogram <= initFrame + lipSync->framesTotal())) {
                  QString name = lipSync->name();
-                 // tError() << "TupGraphicsScene::addLipSyncObjects() - lipSync folder: " << name;
                  TupLibraryFolder *folder = k->library->getFolder(name);
                  if (folder) {
                      QList<TupVoice *> voices = lipSync->voices();
                      int total = voices.count();
                      for(int i=0; i < total; i++) {
                          TupVoice *voice = voices.at(i);
-                         // int initFrame = voice->initFrame();
-                         // int endFrame = voice->endFrame();
-                         // tError() << "TupGraphicsScene::addLipSyncObjects() - initFrame: " << initFrame;
-                         // tError() << "TupGraphicsScene::addLipSyncObjects() - endFrame: " << endFrame;
-
-                         if (voice->contains(photogram)) {
+                         int index = photogram - initFrame; 
+                         if (voice->contains(index)) {
                              // Add image here
-                             QString phoneme = voice->getPhoneme(photogram);
-                             // tError() << "TupGraphicsScene::addLipSyncObjects() - Adding phoneme: " << phoneme + lipSync->picExtension();
+                             QString phoneme = voice->getPhoneme(index);
                              TupLibraryObject *image = folder->getObject(phoneme + lipSync->picExtension());
                              if (image) {
                                  TupGraphicLibraryItem *item = new TupGraphicLibraryItem(image);
                                  if (item) {
                                      item->setPos(voice->mouthPos());
-                                     item->setToolTip(tr("lipsync:") + name + ":" + i);
-                                     includeObject(item);
+                                     item->setToolTip(tr("lipsync:") + name + ":" + QString::number(i));
+                                     item->setZValue(zLevel);
+                                     addItem(item);
                                  }
                              }
                          }
                      }
-                 } else {
-                     // tError() << "TupGraphicsScene::addLipSyncObjects() - Folder is invalid! -> " << name;
-                 }
-            }
+                 } 
+             }
         }
     }
 }

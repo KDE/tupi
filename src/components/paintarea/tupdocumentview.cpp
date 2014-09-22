@@ -60,6 +60,7 @@
 #include "tupcameradialog.h"
 #include "tuplibrary.h"
 #include "tuppapagayoimporter.h"
+#include "tuppapagayodialog.h"
 
 /**
  * This class defines all the environment for the Ilustration interface.
@@ -644,10 +645,8 @@ void TupDocumentView::loadPlugins()
                                  break;
                                case TupToolInterface::LipSync:
                                  {
-                                   if (toolName.compare(tr("Papagayo Lip-sync")) == 0) {
-                                       tError() << "TupDocumentView::loadPlugins() - Tracing Papagayo plugin...";
+                                   if (toolName.compare(tr("Papagayo Lip-sync")) == 0)
                                        k->papagayoAction = action;
-                                   }
                                  }
                                  break;
                                default:
@@ -970,6 +969,7 @@ void TupDocumentView::selectTool()
                 case TupToolInterface::LipSync:
                      k->status->enableFullScreenFeature(false);
                      minWidth = 220;
+                     connect(k->currentTool, SIGNAL(importLipSync()), this, SLOT(importPapagayoLipSync()));
                      break;
                 default:
                      break;
@@ -1851,74 +1851,172 @@ void TupDocumentView::insertPictureInFrame(int id, const QString path)
     }
 }
 
-void TupDocumentView::importPapagayoLipSync(const QString &file, const QString &imagesDir, const QStringList imagesList, 
-                                            const QString &extension, const QSize &mouthSize)
+void TupDocumentView::importPapagayoLipSync()
 {
-    TupPapagayoImporter *parser = new TupPapagayoImporter(file, k->project->dimension(), mouthSize, extension);
-    if (parser->fileIsValid()) {
-        int sceneIndex = k->paintArea->currentSceneIndex();
-        int layerIndex = k->paintArea->currentLayerIndex();
-        int currentIndex = k->paintArea->currentFrameIndex();
-        QString xml = parser->file2Text();
+    TupPapagayoDialog *dialog = new TupPapagayoDialog();
+    dialog->show();
 
-        TupProjectRequest request = TupRequestBuilder::createLayerRequest(sceneIndex, layerIndex, TupProjectRequest::AddLipSync, xml);
-        emit requestTriggered(&request);
-
+    if (dialog->exec() != QDialog::Rejected) {
+        QString file = dialog->getPGOFile();
         QFileInfo info(file);
-        QString folder = info.fileName().toLower();  
-        QString mouthPath = imagesDir;
-        QDir mouthDir = QDir(mouthPath);
+        QString folder = info.fileName().toLower();
 
-        request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, folder, TupLibraryObject::Folder);
-        emit requestTriggered(&request);
-
-        foreach (QString fileName, imagesList) {
-                 QString key = fileName.toLower();
-                 QFile f(mouthPath + QDir::separator() + fileName);
-                 if (f.open(QIODevice::ReadOnly)) {
-                     QByteArray data = f.readAll();
-                     f.close();
-                     request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key, TupLibraryObject::Image, k->project->spaceContext(), data, folder,
-                                                                       sceneIndex, layerIndex, currentIndex);
-                     emit requestTriggered(&request);
-                 }
-        }
-
+        int sceneIndex = k->paintArea->currentSceneIndex();
         TupScene *scene = k->project->scene(sceneIndex);
-        if (scene) {
-            int sceneFrames = scene->framesTotal(); 
-            int lipSyncFrames = currentIndex + parser->framesTotal();
-
-            if (lipSyncFrames > sceneFrames) {
-                int layersTotal = scene->layersTotal();
-                for (int i = sceneFrames; i < lipSyncFrames; i++) {
-                     for (int j = 0; j < layersTotal; j++) {
-                          request = TupRequestBuilder::createFrameRequest(sceneIndex, j, i, TupProjectRequest::Add, tr("Frame %1").arg(i + 1));
-                          emit requestTriggered(&request);
-                     }
-                }
-                request = TupRequestBuilder::createFrameRequest(sceneIndex, layerIndex, currentIndex, TupProjectRequest::Select, "1");
-                emit requestTriggered(&request);
-            }
+        if (scene->lipSyncExists(folder)) {
+            TOsd::self()->display(tr("Error"), tr("Papagayo project already exists!\nPlease, rename the project's file"), TOsd::Error);
+            #ifdef K_DEBUG
+                   QString msg = "TupDocumentView::importPapagayoLipSync() - Fatal Error: Papagayo file is invalid!";
+                   #ifdef Q_OS_WIN32
+                       qDebug() << msg;
+                   #else
+                       tError() << msg;
+                   #endif
+            #endif
+            return;
         }
 
-        if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) != 0)
-            k->papagayoAction->trigger();
-        else
-            k->currentTool->setCurrentItem(folder);
+        QString imagesDir = dialog->getImagesFile();
+        if (file.length() > 0) {
+            QFile project(file);
+            if (project.exists()) {
+                if (project.size() > 0) {
+                    QDir dir(imagesDir);
+                    QStringList imagesList = dir.entryList(QStringList() << "*.png" << "*.jpg" << "*.jpeg" << "*.gif" << "*.svg");
+                    if (imagesList.count() > 0) {
+                        QSize mouthSize;
+                        QString extension = ".svg";
+                        QString firstImage = imagesList.at(0);
+                        QString pic = imagesDir + QDir::separator() + firstImage;
+                        if (firstImage.endsWith(".svg")) {
+                            QSvgRenderer *renderer = new QSvgRenderer(pic);
+                            QRect rect = renderer->viewBox();
+                            mouthSize = rect.size();
+                        } else {
+                            QImage *image = new QImage(pic);
+                            mouthSize = image->size();
+                            int dot = firstImage.lastIndexOf(".");
+                            extension = firstImage.mid(dot);
+                        }
 
-        TOsd::self()->display(tr("Information"), tr("Papagayo file has been imported successfully"));
+                        int currentIndex = k->paintArea->currentFrameIndex();
+                        TupPapagayoImporter *parser = new TupPapagayoImporter(file, k->project->dimension(), mouthSize, extension, currentIndex);
+                        if (parser->fileIsValid()) {
+                            int layerIndex = k->paintArea->currentLayerIndex();
+                            QString xml = parser->file2Text();
+
+                            TupProjectRequest request = TupRequestBuilder::createLayerRequest(sceneIndex, layerIndex, TupProjectRequest::AddLipSync, xml);
+                            emit requestTriggered(&request);
+
+                            QString mouthPath = imagesDir;
+                            QDir mouthDir = QDir(mouthPath);
+
+                            request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, folder, TupLibraryObject::Folder);
+                            emit requestTriggered(&request);
+
+                            foreach (QString fileName, imagesList) {
+                                     QString key = fileName.toLower();
+                                     QFile f(mouthPath + QDir::separator() + fileName);
+                                     if (f.open(QIODevice::ReadOnly)) {
+                                         QByteArray data = f.readAll();
+                                         f.close();
+                                         request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key, TupLibraryObject::Image, k->project->spaceContext(), data, folder,
+                                                                                           sceneIndex, layerIndex, currentIndex);
+                                         emit requestTriggered(&request);
+                                     }
+                            }
+
+                            TupScene *scene = k->project->scene(sceneIndex);
+                            if (scene) {
+                                int sceneFrames = scene->framesTotal();
+                                int lipSyncFrames = currentIndex + parser->framesTotal();
+
+                                if (lipSyncFrames > sceneFrames) {
+                                    int layersTotal = scene->layersTotal();
+                                    for (int i = sceneFrames; i < lipSyncFrames; i++) {
+                                         for (int j = 0; j < layersTotal; j++) {
+                                              request = TupRequestBuilder::createFrameRequest(sceneIndex, j, i, TupProjectRequest::Add, tr("Frame %1").arg(i + 1));
+                                              emit requestTriggered(&request);
+                                         }
+                                    }
+                                    request = TupRequestBuilder::createFrameRequest(sceneIndex, layerIndex, currentIndex, TupProjectRequest::Select, "1");
+                                    emit requestTriggered(&request);
+                                }
+                            }
+
+                            if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) != 0)
+                                k->papagayoAction->trigger();
+
+                            k->currentTool->addNewItem(folder);
+
+                            TOsd::self()->display(tr("Information"), tr("Papagayo file has been imported successfully"));
+                        } else {
+                            TOsd::self()->display(tr("Error"), tr("Papagayo file is invalid!"), TOsd::Error);
+                            #ifdef K_DEBUG
+                                QString msg = "TupDocumentView::importPapagayoLipSync() - Fatal Error: Papagayo file is invalid!";
+                                #ifdef Q_OS_WIN32
+                                    qDebug() << msg;
+                                #else
+                                    tError() << msg;
+                                #endif
+                            #endif
+                        }
+                    } else {
+                        TOsd::self()->display(tr("Error"), tr("Images directory is empty!"), TOsd::Error);
+                        #ifdef K_DEBUG
+                            QString msg = "TupDocumentView::importPapagayoLipSync() - Fatal Error: Images directory is empty!";
+                            #ifdef Q_OS_WIN32
+                                qDebug() << msg;
+                            #else
+                                tError() << msg;
+                            #endif
+                        #endif
+                    }
+                } else {
+                    TOsd::self()->display(tr("Error"), tr("Papagayo project is invalid!"), TOsd::Error);
+                    #ifdef K_DEBUG
+                        QString msg = "TupDocumentView::importPapagayoLipSync() - Fatal Error: Papagayo file is invalid!";
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
+                    #endif
+               }
+            } else {
+               TOsd::self()->display(tr("Error"), tr("Papagayo project is invalid!"), TOsd::Error);
+               #ifdef K_DEBUG
+                   QString msg = "TupDocumentView::importPapagayoLipSync() - Fatal Error: Papagayo file doesn't exist!";
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
+               #endif
+            }
+        } else {
+            TOsd::self()->display(tr("Error"), tr("Papagayo project is invalid!"), TOsd::Error);
+            #ifdef K_DEBUG
+                QString msg = "TupDocumentView::importPapagayoLipSync() - Fatal Error: Papagayo file name is empty!";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
+            #endif
+        }
     }
 }
 
 void TupDocumentView::papagayoManager()
 {
-    tError() << "TupDocumentView::papagayoManager() - Tracing name -> " << k->currentTool->name();
     if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) != 0)
         k->papagayoAction->trigger();
 }
 
-void TupDocumentView::updatePapagayoFlag()
+void TupDocumentView::updatePerspective()
 {
-    tError() << "TupDocumentView::updatePapagayoFlag() - Tracing...";
+    if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) == 0)
+        k->currentTool->updateWorkSpaceContext();
 }
+

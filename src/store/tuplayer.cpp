@@ -44,7 +44,6 @@ struct TupLayer::Private
     bool isVisible;
     QString name;
     int framesCount;
-    int lipsyncCount;
     bool isLocked;
     int index;
 };
@@ -55,7 +54,6 @@ TupLayer::TupLayer(TupScene *parent, int index) : QObject(parent), k(new Private
     k->isVisible = true;
     k->name = tr("Layer");
     k->framesCount = 0;
-    k->lipsyncCount = 0;
     k->isLocked = false;
 }
 
@@ -137,10 +135,9 @@ TupFrame *TupLayer::createFrame(QString name, int position, bool loaded)
     return frame;
 }
 
-TupLipSync *TupLayer::createLipSync(const QString &name, const QString &soundFile)
+TupLipSync *TupLayer::createLipSync(const QString &name, const QString &soundFile, int initFrame)
 {
-    TupLipSync *lipsync = new TupLipSync(name, soundFile);
-    k->lipsyncCount++;
+    TupLipSync *lipsync = new TupLipSync(name, soundFile, initFrame);
     k->lipsyncList << lipsync;
 
     return lipsync;
@@ -180,7 +177,8 @@ bool TupLayer::removeFrame(int position)
 
 bool TupLayer::removeLipSync(const QString &name)
 {
-    for (int i = 0; i < k->lipsyncCount; i++) {
+    int size = k->lipsyncList.size();
+    for (int i = 0; i < size; i++) {
          TupLipSync *lipsync = k->lipsyncList.at(i);
          if (lipsync->name().compare(name) == 0) {
              k->lipsyncList.removeAt(i);
@@ -311,7 +309,7 @@ void TupLayer::fromXml(const QString &xml)
                        frame->fromXml(newDoc);
                    }
                } else if (e.tagName() == "lipsync") {
-                          TupLipSync *lipsync = createLipSync(e.attribute("name"), e.attribute("soundFile")); 
+                          TupLipSync *lipsync = createLipSync(e.attribute("name"), e.attribute("soundFile"), e.attribute("initFrame").toInt()); 
                           if (lipsync) {
                               QString newDoc;
 

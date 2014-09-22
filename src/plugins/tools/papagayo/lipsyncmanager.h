@@ -64,15 +64,14 @@ class TUPI_EXPORT LipSyncManager: public QWidget
         void resetUI();
         QString currentLipSyncName() const;
         int listSize(); 
+        void addNewRecord(const QString &name);
 
     signals:
-        void importNewLipSync();
+        void importLipSync();
         void editCurrentLipSync(const QString &name);
         void removeCurrentLipSync(const QString &name);
-        // void getLipSyncData(const QString &name);
 
     private slots:
-        void importLipSync();
         void editLipSync();
         void removeLipSync();
 

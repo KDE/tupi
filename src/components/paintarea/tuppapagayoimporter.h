@@ -48,7 +48,7 @@ class TUPI_EXPORT TupPapagayoImporter : public QObject
     Q_OBJECT
 
     public:
-        TupPapagayoImporter(const QString &file, const QSize &projectSize, const QSize &mouthSize, const QString &extension);
+        TupPapagayoImporter(const QString &file, const QSize &projectSize, const QSize &mouthSize, const QString &extension, int initFrame);
         ~TupPapagayoImporter();
         bool fileIsValid();
         QString file2Text() const;

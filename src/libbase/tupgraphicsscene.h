@@ -141,7 +141,7 @@ class TUPI_EXPORT TupGraphicsScene : public QGraphicsScene
         void addSvgObject(TupSvgItem *svgItem, double opacity = 1.0);
         void addTweeningObjects(int photogram);
         void addSvgTweeningObjects(int photogram);
-        void addLipSyncObjects(int photogram);
+        void addLipSyncObjects(TupLayer *layer, int photogram, int zLevel);
 
     protected:
         virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);

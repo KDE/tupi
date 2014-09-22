@@ -408,6 +408,14 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
         // connect(m_projectManager, SIGNAL(projectHasChanged(bool)), this, SLOT(updatePlayer(bool)));
         // connect(animationTab, SIGNAL(projectHasChanged()), this, SLOT(updatePlayer()));
     }
+
+    connect(this, SIGNAL(tabHasChanged(int)), this, SLOT(updateTabContext(int)));
+}
+
+void TupMainWindow::updateTabContext(int tab)
+{
+    if (tab == 0)
+        animationTab->updatePerspective();
 }
 
 /**

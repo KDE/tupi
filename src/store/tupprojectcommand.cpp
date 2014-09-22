@@ -440,9 +440,19 @@ void TupProjectCommand::layerCommand()
                  k->executor->addLipSync(response);
             }
             break;
+            case TupProjectRequest::UpdateLipSync:
+            {
+                 k->executor->updateLipSync(response);
+            }
+            break;
             case TupProjectRequest::Remove:
             {
                  k->executor->removeLayer(response);
+            }
+            break;
+            case TupProjectRequest::RemoveLipSync:
+            {
+                 k->executor->removeLipSync(response);
             }
             break;
             case TupProjectRequest::Move:

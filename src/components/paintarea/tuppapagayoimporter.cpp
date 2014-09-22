@@ -43,7 +43,7 @@ struct TupPapagayoImporter::Private
 };
 
 TupPapagayoImporter::TupPapagayoImporter(const QString &file, const QSize &projectSize, 
-                                         const QSize &mouthSize, const QString &extension) : QObject(), k(new Private)
+                                         const QSize &mouthSize, const QString &extension, int initFrame) : QObject(), k(new Private)
 {
     k->framesTotal = 0;
     k->isValid = true;
@@ -53,6 +53,7 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file, const QSize &proje
     QString name = info.fileName().toLower();
     k->lipsync = new TupLipSync();
     k->lipsync->setName(name);
+    k->lipsync->setInitFrame(initFrame);
     k->lipsync->setPicsExtension(extension);
 
     if (input.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -189,6 +190,9 @@ QString TupPapagayoImporter::file2Text() const
       QTextStream ts(&xml);
       ts << root;
     }
+
+    tError() << "TupPapagayoImporter::file2Text() - Tracing...";
+    tError() << xml;
 
     return xml;
 }

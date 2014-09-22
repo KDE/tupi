@@ -73,8 +73,7 @@ HEADERS += tupmainwindow.h \
            # tupcrashhandler.h \
            # tupcrashwidget.h \
            tupapplication.h \
-           tuplocalprojectmanagerhandler.h \
-           tuppapagayodialog.h
+           tuplocalprojectmanagerhandler.h
 
 SOURCES += main.cpp \
            tupmainwindow.cpp \
@@ -85,8 +84,7 @@ SOURCES += main.cpp \
            # tupcrashwidget.cpp \
            tupapplication.cpp \
            tupmainwindow_gui.cpp \
-           tuplocalprojectmanagerhandler.cpp \
-           tuppapagayodialog.cpp
+           tuplocalprojectmanagerhandler.cpp
 
 unix {
     HEADERS += tupcrashhandler.h \

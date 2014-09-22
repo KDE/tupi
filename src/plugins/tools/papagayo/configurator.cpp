@@ -35,42 +35,26 @@
 
 #include "configurator.h"
 #include "lipsyncmanager.h"
-#include "buttonspanel.h"
-#include "tosd.h"
 
 struct Configurator::Private
 {
-    QBoxLayout *layout;
     QBoxLayout *settingsLayout;
     Settings *settingsPanel;
     LipSyncManager *manager;
-    ButtonsPanel *controlPanel;
 
     TupLipSync *lipSync;
-
-    int framesTotal;
-    int currentFrame;
-
-    TupToolPlugin::Mode mode;
-    GuiState state;
 };
 
 Configurator::Configurator(QWidget *parent) : QFrame(parent), k(new Private)
 {
-    k->framesTotal = 1;
-    k->currentFrame = 0;
-
-    k->mode = TupToolPlugin::View;
-    k->state = Manager;
-
-    k->layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
-    k->layout->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
+    layout->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
     QLabel *title = new QLabel(tr("Papagayo LipSync Files"));
     title->setAlignment(Qt::AlignHCenter);
     title->setFont(QFont("Arial", 8, QFont::Bold));
 
-    k->layout->addWidget(title);
+    layout->addWidget(title);
 
     k->settingsLayout = new QBoxLayout(QBoxLayout::TopToBottom);
     k->settingsLayout->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
@@ -78,11 +62,10 @@ Configurator::Configurator(QWidget *parent) : QFrame(parent), k(new Private)
     k->settingsLayout->setSpacing(0);
 
     setLipSyncManagerPanel();
-    setButtonsPanel();
     setPropertiesPanel();
 
-    k->layout->addLayout(k->settingsLayout);
-    k->layout->addStretch(2);
+    layout->addLayout(k->settingsLayout);
+    layout->addStretch(2);
 }
 
 Configurator::~Configurator()
@@ -93,25 +76,14 @@ Configurator::~Configurator()
 void Configurator::loadLipSyncList(QList<QString> list)
 {
     k->manager->loadLipSyncList(list);
-    /*
-    if (list.count() > 0) {
-        tError() << "Configurator::loadLipSyncList() - Tracing!";
-        activeButtonsPanel(true);
-    }
-    */
 }
 
 void Configurator::setPropertiesPanel()
 {
     k->settingsPanel = new Settings(this);
-
-    /*
-    connect(k->settingsPanel, SIGNAL(startingPointChanged(int)), this, SIGNAL(startingPointChanged(int)));
-    connect(k->settingsPanel, SIGNAL(clickedSelect()), this, SIGNAL(clickedSelect()));
-    connect(k->settingsPanel, SIGNAL(clickedDefineAngle()), this, SIGNAL(clickedDefineAngle()));
-    connect(k->settingsPanel, SIGNAL(clickedApplyLipSync()), this, SLOT(applyItem()));
-    connect(k->settingsPanel, SIGNAL(clickedResetLipSync()), this, SLOT(closeLipSyncProperties()));
-    */
+    connect(k->settingsPanel, SIGNAL(selectMouth(const QString &, int)), this, SIGNAL(selectMouth(const QString &, int)));
+    connect(k->settingsPanel, SIGNAL(closeLipSyncProperties()), this, SLOT(closeSettingsPanel())); 
+    connect(k->settingsPanel, SIGNAL(initFrameHasChanged(int)), this, SIGNAL(initFrameHasChanged(int)));
 
     k->settingsLayout->addWidget(k->settingsPanel);
 
@@ -134,16 +106,11 @@ void Configurator::setCurrentLipSync(TupLipSync *lipsync)
 void Configurator::setLipSyncManagerPanel()
 {
     k->manager = new LipSyncManager(this);
+    connect(k->manager, SIGNAL(importLipSync()), this, SIGNAL(importLipSync()));
+    connect(k->manager, SIGNAL(editCurrentLipSync(const QString &)), this, SLOT(editCurrentLipSync(const QString &)));
     connect(k->manager, SIGNAL(removeCurrentLipSync(const QString &)), this, SIGNAL(removeCurrentLipSync(const QString &)));
 
-    /*
-    connect(k->manager, SIGNAL(addNewLipSync(const QString &)), this, SLOT(addLipSync(const QString &)));
-    connect(k->manager, SIGNAL(editCurrentLipSync(const QString &)), this, SLOT(editLipSync()));
-    connect(k->manager, SIGNAL(getLipSyncData(const QString &)), this, SLOT(updateLipSyncData(const QString &)));
-    */
-
     k->settingsLayout->addWidget(k->manager);
-    k->state = Manager;
 }
 
 void Configurator::activeLipSyncManagerPanel(bool enable)
@@ -152,164 +119,45 @@ void Configurator::activeLipSyncManagerPanel(bool enable)
         k->manager->show();
     else
         k->manager->hide();
-
-    if (k->manager->listSize() > 0) {
-        tError() << "Configurator::activeLipSyncManagerPanel() - Tracing! -> " << enable;
-
-        activeButtonsPanel(enable);
-    }
-}
-
-void Configurator::setButtonsPanel()
-{
-    k->controlPanel = new ButtonsPanel(this);
-    /*
-    connect(k->controlPanel, SIGNAL(clickedEditLipSync()), this, SLOT(editLipSync()));
-    connect(k->controlPanel, SIGNAL(clickedRemoveLipSync()), this, SLOT(removeLipSync()));
-    */
-
-    k->settingsLayout->addWidget(k->controlPanel);
-
-    activeButtonsPanel(false);
-}
-
-void Configurator::activeButtonsPanel(bool enable)
-{
-    if (enable)
-        k->controlPanel->show();
-    else
-        k->controlPanel->hide();
-}
-
-void Configurator::initStartCombo(int framesTotal, int currentFrame)
-{
-    k->framesTotal = framesTotal;
-    k->currentFrame = currentFrame;
-    k->settingsPanel->initStartCombo(framesTotal, currentFrame);
-}
-
-void Configurator::setStartFrame(int currentIndex)
-{
-    k->currentFrame = currentIndex;
-    k->settingsPanel->setStartFrame(currentIndex);
-}
-
-int Configurator::startFrame()
-{
-    return k->settingsPanel->startFrame();
-}
-
-int Configurator::startComboSize()
-{
-    return k->settingsPanel->startComboSize();
-}
-
-QString Configurator::lipSyncToXml(int currentScene, int currentLayer, int currentFrame, QPointF point)
-{
-    return k->settingsPanel->lipSyncToXml(currentScene, currentLayer, currentFrame, point);
-}
-
-int Configurator::totalSteps()
-{
-    return k->settingsPanel->totalSteps();
-}
-
-void Configurator::activateMode(TupToolPlugin::EditMode mode)
-{
-    k->settingsPanel->activateMode(mode);
 }
 
 void Configurator::addLipSync(const QString &name)
 {
-    k->mode = TupToolPlugin::Add;
-    emit setMode(k->mode);
-
-    activeLipSyncManagerPanel(false);
-
-    // k->mode = TupToolPlugin::Add;
-    k->state = Properties;
-
-    k->settingsPanel->setParameters(name, k->framesTotal, k->currentFrame);
-    activePropertiesPanel(true);
-
-    // emit setMode(k->mode);
+    k->manager->addNewRecord(name);
 }
 
-void Configurator::editLipSync()
+void Configurator::editCurrentLipSync(const QString &name)
 {
-    k->mode = TupToolPlugin::Edit;
-    emit setMode(k->mode);
-
+    emit updateLipSyncSelection(name); 
     activeLipSyncManagerPanel(false);
-
-    // k->mode = TupToolPlugin::Edit;
-    k->state = Properties;
-
-    k->settingsPanel->notifySelection(true);
+    activePropertiesPanel(true);
     k->settingsPanel->setParameters(k->lipSync);
-    activePropertiesPanel(true);
-
-    // emit setMode(k->mode);
-}
-
-QString Configurator::currentLipSyncName() const
-{
-/*
-    QString oldName = k->manager->lipSyncName();
-    QString newName = k->settingsPanel->lipSyncName();
-
-    if (oldName.compare(newName) != 0)
-        k->manager->updateLipSyncName(newName);
-*/
-    QString newName = "";
-
-    return newName;
-}
-
-void Configurator::notifySelection(bool flag)
-{
-    k->settingsPanel->notifySelection(flag);
-}
-
-void Configurator::closeLipSyncProperties()
-{
-    // if (k->mode == TupToolPlugin::Add)
-    //     k->manager->removeItemFromList();
-
-    emit clickedResetInterface();
-
-    closeSettingsPanel();
-}
-
-void Configurator::closeSettingsPanel()
-{
-    if (k->state == Properties) {
-        activeLipSyncManagerPanel(true);
-        activePropertiesPanel(false);
-        k->mode = TupToolPlugin::View;
-        k->state = Manager;
-    } 
-}
-
-TupToolPlugin::Mode Configurator::mode()
-{
-    return k->mode;
-}
-
-void Configurator::applyItem()
-{
-     k->mode = TupToolPlugin::Edit;
-     emit clickedApplyLipSync();
 }
 
 void Configurator::resetUI()
 {
     k->manager->resetUI();
     closeSettingsPanel();
-    k->settingsPanel->notifySelection(false);
 }
 
-void Configurator::updateLipSyncData(const QString &name)
+void Configurator::closeSettingsPanel()
 {
-    emit getLipSyncData(name);
+    emit closeLipSyncProperties();
+    closePanels();
+}
+
+void Configurator::closePanels()
+{
+    activeLipSyncManagerPanel(true);
+    activePropertiesPanel(false);
+}
+
+void Configurator::setMouthPos(QPointF pos)
+{
+    k->settingsPanel->setMouthPos(pos);
+}
+
+void Configurator::updateInterfaceRecords()
+{
+    k->settingsPanel->updateInterfaceRecords();
 }
