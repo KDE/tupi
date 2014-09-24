@@ -191,9 +191,6 @@ QString TupPapagayoImporter::file2Text() const
       ts << root;
     }
 
-    tError() << "TupPapagayoImporter::file2Text() - Tracing...";
-    tError() << xml;
-
     return xml;
 }
 

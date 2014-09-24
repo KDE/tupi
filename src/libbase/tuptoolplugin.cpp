@@ -304,10 +304,12 @@ void TupToolPlugin::setActiveView(const QString &viewID)
     Q_UNUSED(viewID);
 }
 
+/*
 void TupToolPlugin::addNewItem(const QString &id)
 {
     Q_UNUSED(id);
 }
+*/
 
 void TupToolPlugin::setCurrentItem(const QString &id)
 {

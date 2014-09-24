@@ -49,7 +49,10 @@ struct Settings::Private
     QLabel *totalLabel;
 
     QListWidget *mouthsList;
-    TupLipSync *currentLipSync;
+
+    QString name;
+    int initFrame;
+    int framesTotal;
 };
 
 Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
@@ -161,18 +164,19 @@ void Settings::setInnerForm()
 
 // Editing new LipSync 
 
-void Settings::setParameters(TupLipSync *lipsync)
+void Settings::openLipSyncProperties(TupLipSync *lipsync)
 {
-    k->currentLipSync = lipsync;
+    k->name = lipsync->name();
+    k->initFrame = lipsync->initFrame();
+    k->framesTotal = lipsync->framesTotal();
 
-    k->lipSyncName->setText(lipsync->name());
+    k->lipSyncName->setText(k->name);
     k->comboInit->setEnabled(true);
-    k->comboInit->setValue(lipsync->initFrame() + 1);
+    k->comboInit->setValue(k->initFrame + 1);
 
-    int framesTotal = lipsync->framesTotal(); 
-    int endIndex = lipsync->initFrame() + framesTotal;
+    int endIndex = k->initFrame + k->framesTotal;
     k->endingLabel->setText(tr("Ending at frame") + ": " + QString::number(endIndex));
-    k->totalLabel->setText(tr("Frames Total") + ": " + QString::number(framesTotal));
+    k->totalLabel->setText(tr("Frames Total") + ": " + QString::number(k->framesTotal));
 
     disconnect(k->mouthsList, SIGNAL(currentRowChanged(int)), this, SLOT(setCurrentMouth(int)));
     k->mouthsList->clear();
@@ -192,34 +196,26 @@ void Settings::setParameters(TupLipSync *lipsync)
     k->mouthsList->setCurrentRow(0);
 }
 
-void Settings::setMouthPos(QPointF pos)
-{
-    int mouth = k->mouthsList->currentRow();
-
-    QList<TupVoice *> voices = k->currentLipSync->voices();
-    TupVoice *voice = k->currentLipSync->voiceAt(mouth);
-    if (voice)
-        voice->setMouthPos(pos);
-}
-
 void Settings::setCurrentMouth(int index) 
 {
     QString tail = ":" + QString::number(index);
-    QString id = "lipsync:" + k->currentLipSync->name() + tail;
+    QString id = "lipsync:" + k->name + tail;
 
-    emit selectMouth(QString("lipsync:" + k->currentLipSync->name() + tail), index);
+    emit selectMouth(id, index);
 }
 
 void Settings::updateInitFrame(int index)
 {
     int frame = index - 1;
 
-    if (frame != k->currentLipSync->initFrame())
+    if (frame != k->initFrame) {
+        k->initFrame = frame;
         emit initFrameHasChanged(frame);
+    }
 }
 
 void Settings::updateInterfaceRecords()
 {
-    int endIndex = k->currentLipSync->initFrame() + k->currentLipSync->framesTotal();
+    int endIndex = k->initFrame + k->framesTotal;
     k->endingLabel->setText(tr("Ending at frame") + ": " + QString::number(endIndex));
 }

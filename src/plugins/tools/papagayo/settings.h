@@ -59,12 +59,10 @@ class TUPI_PLUGIN Settings : public QWidget
         Settings(QWidget *parent = 0);
         ~Settings();
 
-        void setParameters(TupLipSync *lipsync);
-        void setMouthPos(QPointF pos);
+        void openLipSyncProperties(TupLipSync *lipsync);
         void updateInterfaceRecords();
 
     private slots:
-        void refreshForm(int type);
         void setCurrentMouth(int index);
         void updateInitFrame(int index);
         

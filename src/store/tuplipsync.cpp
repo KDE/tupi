@@ -586,3 +586,11 @@ TupVoice * TupLipSync::voiceAt(int index)
 
     return 0;
 }
+
+void TupLipSync::updateMouthPosition(int mouthIndex, QPointF point)
+{
+    TupVoice *voice = k->voices.at(mouthIndex);
+    if (voice)
+        voice->setMouthPos(point);
+}
+

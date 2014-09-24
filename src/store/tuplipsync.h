@@ -159,6 +159,7 @@ class TUPI_EXPORT TupLipSync : public QObject, public TupAbstractSerializable
         void addVoice(TupVoice *voice);
         TupVoice *voiceAt(int index);
         QList<TupVoice *> voices();
+        void updateMouthPosition(int mouthIndex, QPointF point);
 
         virtual void fromXml(const QString &xml);
         virtual QDomElement toXml(QDomDocument &doc) const;

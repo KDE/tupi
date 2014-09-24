@@ -80,15 +80,16 @@ class TUPI_PLUGIN PapagayoTool : public TupToolPlugin
         virtual void layerResponse(const TupLayerResponse *event);
         virtual void frameResponse(const TupFrameResponse *event);
 
-        virtual void addNewItem(const QString &name);
+        // virtual void addNewItem(const QString &name);
         virtual void updateWorkSpaceContext();
 
     signals:
         void importLipSync();
 
     private slots:
+        void editLipSyncSelection(const QString &name);
         void removeCurrentLipSync(const QString &name);
-        void setCurrentLipSync(const QString &name);
+        // void setCurrentLipSync(const QString &name);
         void updateOriginPoint(const QPointF &point);
         void resetCanvas();
         void addTarget(const QString &id, int index);
@@ -97,7 +98,6 @@ class TUPI_PLUGIN PapagayoTool : public TupToolPlugin
     private:
         void setTargetEnvironment();
         void setupActions();
-        void addTarget();
         void removeTarget();
 
         struct Private;

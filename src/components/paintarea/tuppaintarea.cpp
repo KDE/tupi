@@ -387,11 +387,13 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
                     return;
                 }
             break;
+            /*
             case TupProjectRequest::AddLipSync:
                 {
                     return;
                 }
             break;
+            */
             case TupProjectRequest::Remove:
                 {
                     TupScene *scene = k->project->scene(k->currentSceneIndex);

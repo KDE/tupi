@@ -61,10 +61,9 @@ class TUPI_PLUGIN Configurator : public QFrame
         ~Configurator();
 
         void loadLipSyncList(QList<QString> list);
-        void setCurrentLipSync(TupLipSync *lipsync);
+        void openLipSyncProperties(TupLipSync *lipsync);
 
-        void addLipSync(const QString &name);
-        void setMouthPos(QPointF pos);
+        void addLipSyncRecord(const QString &name);
         void updateInterfaceRecords();
 
         void resetUI();
@@ -78,7 +77,8 @@ class TUPI_PLUGIN Configurator : public QFrame
         void importLipSync();
         void selectMouth(const QString &name, int index);
         void closeLipSyncProperties();
-        void updateLipSyncSelection(const QString &lipSyncName);
+        void editLipSyncSelection(const QString &lipSyncName);
+        // void updateLipSyncSelection(const QString &lipSyncName);
         void initFrameHasChanged(int index);
         void removeCurrentLipSync(const QString &name);
         

@@ -41,8 +41,6 @@ struct Configurator::Private
     QBoxLayout *settingsLayout;
     Settings *settingsPanel;
     LipSyncManager *manager;
-
-    TupLipSync *lipSync;
 };
 
 Configurator::Configurator(QWidget *parent) : QFrame(parent), k(new Private)
@@ -98,11 +96,6 @@ void Configurator::activePropertiesPanel(bool enable)
         k->settingsPanel->hide();
 }
 
-void Configurator::setCurrentLipSync(TupLipSync *lipsync)
-{
-    k->lipSync = lipsync;
-}
-
 void Configurator::setLipSyncManagerPanel()
 {
     k->manager = new LipSyncManager(this);
@@ -121,17 +114,22 @@ void Configurator::activeLipSyncManagerPanel(bool enable)
         k->manager->hide();
 }
 
-void Configurator::addLipSync(const QString &name)
+void Configurator::addLipSyncRecord(const QString &name)
 {
     k->manager->addNewRecord(name);
 }
 
 void Configurator::editCurrentLipSync(const QString &name)
 {
-    emit updateLipSyncSelection(name); 
+    emit editLipSyncSelection(name);
+
     activeLipSyncManagerPanel(false);
     activePropertiesPanel(true);
-    k->settingsPanel->setParameters(k->lipSync);
+}
+
+void Configurator::openLipSyncProperties(TupLipSync *lipsync)
+{
+    k->settingsPanel->openLipSyncProperties(lipsync);
 }
 
 void Configurator::resetUI()
@@ -150,11 +148,6 @@ void Configurator::closePanels()
 {
     activeLipSyncManagerPanel(true);
     activePropertiesPanel(false);
-}
-
-void Configurator::setMouthPos(QPointF pos)
-{
-    k->settingsPanel->setMouthPos(pos);
 }
 
 void Configurator::updateInterfaceRecords()

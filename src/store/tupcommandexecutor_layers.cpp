@@ -265,7 +265,6 @@ bool TupCommandExecutor::addLipSync(TupLayerResponse *response)
         layer->addLipSync(lipsync);
 
         emit responsed(response);
-
         return true;
     }
 
@@ -284,7 +283,6 @@ bool TupCommandExecutor::updateLipSync(TupLayerResponse *response)
     #endif
 
     int scenePos = response->sceneIndex();
-    // int position = response->layerIndex();
     QString xml = response->arg().toString();
 
     TupScene *scene = m_project->scene(scenePos);

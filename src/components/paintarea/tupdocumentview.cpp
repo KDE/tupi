@@ -1947,7 +1947,7 @@ void TupDocumentView::importPapagayoLipSync()
                             if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) != 0)
                                 k->papagayoAction->trigger();
 
-                            k->currentTool->addNewItem(folder);
+                            // k->currentTool->addNewItem(folder);
 
                             TOsd::self()->display(tr("Information"), tr("Papagayo file has been imported successfully"));
                         } else {
@@ -2010,13 +2010,19 @@ void TupDocumentView::importPapagayoLipSync()
 
 void TupDocumentView::papagayoManager()
 {
-    if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) != 0)
+    if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) != 0) {
+        TupProject::Mode mode = TupProject::Mode(k->spaceMode->currentIndex());
+        if (mode != TupProject::FRAMES_EDITION)
+            k->spaceMode->setCurrentIndex(TupProject::FRAMES_EDITION);
         k->papagayoAction->trigger();
+    }
 }
 
 void TupDocumentView::updatePerspective()
 {
-    if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) == 0)
-        k->currentTool->updateWorkSpaceContext();
+    if (k->currentTool) {
+        if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) == 0)
+            k->currentTool->updateWorkSpaceContext();
+    }
 }
 
