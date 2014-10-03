@@ -38,7 +38,8 @@
 
 #include "tglobal.h"
 #include "tupmodulewidgetbase.h"
-#include "tupitempreview.h"
+#include "tuplibrarydisplay.h"
+// #include "tupitempreview.h"
 #include "timagebutton.h"
 #include "tupitemmanager.h"
 #include "tupnewitemdialog.h"
@@ -107,13 +108,13 @@ class TUPI_EXPORT TupLibraryWidget : public TupModuleWidgetBase
     private slots:
         void previewItem(QTreeWidgetItem *item);
         void insertObjectInWorkspace();
-        void removeCurrentGraphic();
+        void removeCurrentItem();
         void cloneObject(QTreeWidgetItem *item);
         void exportObject(QTreeWidgetItem *item);
         void createRasterObject();
         void createVectorObject();
         void renameObject(QTreeWidgetItem *item);
-        void importGraphicObject();
+        void importLibraryObject();
         void refreshItem(QTreeWidgetItem *item);
         void updateLibrary(QString node, QString target);
         void activeRefresh(QTreeWidgetItem *item);

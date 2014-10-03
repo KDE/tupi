@@ -49,6 +49,9 @@ struct Settings::Private
     QLabel *totalLabel;
 
     QListWidget *mouthsList;
+    QList<TupVoice *> voices;
+
+    QTextEdit *textArea;
 
     QString name;
     int initFrame;
@@ -140,6 +143,9 @@ void Settings::setInnerForm()
     listLayout->addWidget(mouthsLabel);
     listLayout->addWidget(k->mouthsList);
 
+    k->textArea = new QTextEdit;
+    k->textArea->setReadOnly(true);
+
     TImageButton *remove = new TImageButton(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "close_properties.png"), 22);
     remove->setToolTip(tr("Close properties"));
     connect(remove, SIGNAL(clicked()), this, SIGNAL(closeLipSyncProperties()));
@@ -155,6 +161,7 @@ void Settings::setInnerForm()
     innerLayout->addLayout(endLayout);
     innerLayout->addLayout(totalLayout);
     innerLayout->addLayout(listLayout);
+    innerLayout->addWidget(k->textArea);
     innerLayout->addSpacing(10);
     innerLayout->addLayout(buttonsLayout);
     innerLayout->addSpacing(5);
@@ -183,23 +190,31 @@ void Settings::openLipSyncProperties(TupLipSync *lipsync)
     QFont f = font();
     f.setPointSize(8);
 
-    QList<TupVoice *> voices = lipsync->voices();
-    int total = voices.size();
-    for (int i=0; i < total; i++) {
-         QListWidgetItem *item = new QListWidgetItem(k->mouthsList);
-         item->setFont(f);
-         item->setText(tr("mouth") + "_" + QString::number(i));
-         item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-    }
+    k->voices = lipsync->voices();
+    int total = k->voices.size();
+    if (total > 0) {
+        for (int i=0; i < total; i++) {
+             QListWidgetItem *item = new QListWidgetItem(k->mouthsList);
+             item->setFont(f);
+             item->setText(tr("mouth") + "_" + QString::number(i));
+             item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        }
 
-    connect(k->mouthsList, SIGNAL(currentRowChanged(int)), this, SLOT(setCurrentMouth(int)));
-    k->mouthsList->setCurrentRow(0);
+        TupVoice *voice = k->voices.at(0);
+        k->textArea->setText(voice->text());
+
+        connect(k->mouthsList, SIGNAL(currentRowChanged(int)), this, SLOT(setCurrentMouth(int)));
+        k->mouthsList->setCurrentRow(0);
+    }
 }
 
 void Settings::setCurrentMouth(int index) 
 {
     QString tail = ":" + QString::number(index);
     QString id = "lipsync:" + k->name + tail;
+
+    TupVoice *voice = k->voices.at(index);
+    k->textArea->setText(voice->text());
 
     emit selectMouth(id, index);
 }

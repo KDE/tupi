@@ -377,6 +377,8 @@ void TupVoice::fromXml(const QString &xml)
 
     if (document.setContent(xml)) {
         QDomElement root = document.documentElement();
+        script = root.attribute("text");
+
         QDomNode n = root.firstChild();
 
         while (!n.isNull()) {
@@ -410,6 +412,7 @@ QDomElement TupVoice::toXml(QDomDocument &doc) const
     QDomElement root = doc.createElement("voice");
     root.setAttribute("name", title);
     root.setAttribute("origin", QString::number(point.x()) + "," + QString::number(point.y()));
+    root.setAttribute("text", script);
 
     int total = phrases.size();
     for(int i=0; i<total; i++) {

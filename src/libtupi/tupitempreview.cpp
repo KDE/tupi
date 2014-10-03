@@ -106,7 +106,6 @@ void TupItemPreview::paintEvent(QPaintEvent *)
 
         // If preview is for a "path" object
         if (QGraphicsPathItem *path = qgraphicsitem_cast<QGraphicsPathItem *>(k->proxy->item())) {
-
             int pathWidth = path->path().boundingRect().width();
             int pathHeight = path->path().boundingRect().height();
 
@@ -143,16 +142,12 @@ void TupItemPreview::paintEvent(QPaintEvent *)
                 newPosX = -path->path().boundingRect().topLeft().x();
                 newPosY = -path->path().boundingRect().topLeft().y(); 
                 painter.translate(newPosX, newPosY);
-
             } else { // if object is smaller than canvas, just show it
-
                 painter.translate((rect().width() - pathWidth)/2, (rect().height() - pathHeight)/2);
                 painter.translate(-path->path().boundingRect().topLeft().x(), -path->path().boundingRect().topLeft().y());
-
             }
-
-        } else { // if preview is for images or svg objects 
-
+        } else { 
+                // if preview is for images or svg objects 
                 // if object is bigger than canvas, resize
                 if (opt.exposedRect.width() > rect().width() || opt.exposedRect.height() > rect().height()) {
                     float distance = 0;

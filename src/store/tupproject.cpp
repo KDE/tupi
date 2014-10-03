@@ -521,7 +521,7 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
 
 // SQA: Parameter name is really used here?
 bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbolType, TupProject::Mode spaceMode, 
-                             int sceneIndex, int layerIndex, int frameIndex)
+                              int sceneIndex, int layerIndex, int frameIndex)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
@@ -728,6 +728,11 @@ bool TupProject::removeFolder(const QString &name)
     #endif
 
     return k->library->removeFolder(name);
+}
+
+bool TupProject::removeSound(const QString &name)
+{
+    return k->library->removeObject(name, true);
 }
 
 bool TupProject::insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString &name, int sceneIndex, 

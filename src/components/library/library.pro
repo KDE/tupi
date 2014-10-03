@@ -11,13 +11,15 @@ HEADERS += tuplibrarywidget.h \
            tupitemmanager.h  \
            tupsymboleditor.h \
            tuptreedelegate.h \
-           tupnewitemdialog.h
+           tupnewitemdialog.h \
+           tuplibrarydisplay.h
 
 SOURCES += tuplibrarywidget.cpp \
            tupitemmanager.cpp  \
            tupsymboleditor.cpp \
            tuptreedelegate.cpp \
-           tupnewitemdialog.cpp
+           tupnewitemdialog.cpp \
+           tuplibrarydisplay.cpp
 
 *:!macx{
     CONFIG += dll warn_on

@@ -87,16 +87,23 @@ bool TupCommandExecutor::removeSymbol(TupLibraryResponse *response)
             return true;
         }
     } else {
-        if ((response->sceneIndex() > -1) && (response->layerIndex() > -1) && (response->frameIndex() > -1)) {
-            if (m_project->removeSymbol(response->arg().toString(), response->symbolType(), response->spaceMode(),
-                response->sceneIndex(), response->layerIndex(), response->frameIndex())) {
+        if (response->symbolType() == TupLibraryObject::Sound) {
+            if (m_project->removeSound(response->arg().toString())) {
                 emit responsed(response);
                 return true;
             }
         } else {
-            if (m_project->removeSymbol(response->arg().toString())) {
-                emit responsed(response);
-                return true;
+            if ((response->sceneIndex() > -1) && (response->layerIndex() > -1) && (response->frameIndex() > -1)) {
+                if (m_project->removeSymbol(response->arg().toString(), response->symbolType(), response->spaceMode(),
+                    response->sceneIndex(), response->layerIndex(), response->frameIndex())) {
+                    emit responsed(response);
+                    return true;
+                }
+            } else {
+                if (m_project->removeSymbol(response->arg().toString())) {
+                    emit responsed(response);
+                    return true;
+                }
             }
         }
     }

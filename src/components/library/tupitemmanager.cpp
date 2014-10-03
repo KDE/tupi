@@ -46,7 +46,6 @@ TupItemManager::TupItemManager(QWidget *parent) : TreeListWidget(parent), m_curr
     currentSelection = "";
     setHeaderLabels(QStringList() << "" << "");
 
-    // header()->setResizeMode(QHeaderView::ResizeToContents);
     header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     setItemDelegate(new TupTreeDelegate(this));
@@ -238,7 +237,12 @@ void TupItemManager::mousePressEvent(QMouseEvent *event)
                 menu->addAction(rename);
                 menu->addAction(remove);
             } else {
-                if (item->text(2).compare("SVG")==0) {
+                QString extension = item->text(2);
+                bool isSound = false;
+                if ((extension.compare("OGG") == 0) || (extension.compare("MP3") == 0) || (extension.compare("WAV") == 0))
+                    isSound = true; 
+
+                if (extension.compare("SVG") == 0) {
                     QAction *edit = new QAction(tr("Edit with Inkscape"), this);
                     connect(edit, SIGNAL(triggered()), this, SLOT(callInkscapeToEdit()));
                     #ifdef Q_OS_UNIX
@@ -248,7 +252,7 @@ void TupItemManager::mousePressEvent(QMouseEvent *event)
                         edit->setDisabled(true);
                     #endif
                     menu->addAction(edit);
-                } else if (item->text(2).compare("OBJ")!=0) {
+                } else if ((extension.compare("OBJ") != 0) && !isSound) {
                            QAction *gimpEdit = new QAction(tr("Edit with Gimp"), this);
                            connect(gimpEdit, SIGNAL(triggered()), this, SLOT(callGimpToEdit()));
                            #ifdef Q_OS_UNIX
@@ -280,8 +284,11 @@ void TupItemManager::mousePressEvent(QMouseEvent *event)
                            menu->addAction(myPaintEdit);
                 }
 
-                QAction *clone = new QAction(tr("Clone"), this);
-                connect(clone, SIGNAL(triggered()), this, SLOT(cloneItem()));
+                if (!isSound) {
+                    QAction *clone = new QAction(tr("Clone"), this);
+                    connect(clone, SIGNAL(triggered()), this, SLOT(cloneItem()));
+                    menu->addAction(clone);
+                }
 
                 QAction *exportObject = new QAction(tr("Export"), this);
                 connect(exportObject, SIGNAL(triggered()), this, SLOT(exportItem()));
@@ -292,23 +299,24 @@ void TupItemManager::mousePressEvent(QMouseEvent *event)
                 QAction *remove = new QAction(tr("Delete"), this);
                 connect(remove, SIGNAL(triggered()), this, SIGNAL(itemRemoved()));
 
-                menu->addAction(clone);
                 menu->addAction(exportObject);
                 menu->addAction(rename);
                 menu->addAction(remove);
                 menu->addSeparator();
 
                 #ifdef Q_OS_UNIX
-                    if (QFile::exists("/usr/bin/gimp") || QFile::exists("/usr/bin/krita") || QFile::exists("/usr/bin/mypaint")) {
-                        QAction *raster = new QAction(tr("Create new raster item"), this);
-                        connect(raster, SIGNAL(triggered()), this, SLOT(createNewRaster()));
-                        menu->addAction(raster);
-                    }
+                    if (!isSound) {
+                        if (QFile::exists("/usr/bin/gimp") || QFile::exists("/usr/bin/krita") || QFile::exists("/usr/bin/mypaint")) {
+                            QAction *raster = new QAction(tr("Create new raster item"), this);
+                            connect(raster, SIGNAL(triggered()), this, SLOT(createNewRaster()));
+                            menu->addAction(raster);
+                        }
 
-                    if (QFile::exists("/usr/bin/inkscape")) {
-                        QAction *svg = new QAction(tr("Create new svg item"), this);
-                        connect(svg, SIGNAL(triggered()), this, SLOT(createNewSVG()));
-                        menu->addAction(svg);
+                        if (QFile::exists("/usr/bin/inkscape")) {
+                            QAction *svg = new QAction(tr("Create new svg item"), this);
+                            connect(svg, SIGNAL(triggered()), this, SLOT(createNewSVG()));
+                            menu->addAction(svg);
+                        }
                     }
                 #endif
             }

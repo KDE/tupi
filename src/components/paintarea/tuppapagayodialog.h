@@ -38,6 +38,7 @@
 
 #include "tglobal.h"
 #include "tapplicationproperties.h"
+#include "tosd.h"
 
 #include <QDialog>
 #include <QBoxLayout>
@@ -60,14 +61,17 @@ class TUPI_EXPORT TupPapagayoDialog : public QDialog
         ~TupPapagayoDialog();
         QString getPGOFile() const;
         QString getImagesFile() const;
-
-    private:
-        struct Private;
-        Private *const k;
+        QString getSoundFile() const;
 
     private slots:
         void openFileDialog();
         void openImagesDialog();
+        void openSoundDialog();
+        void checkRecords();
+
+    private:
+        struct Private;
+        Private *const k;
 };
 
 #endif

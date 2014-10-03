@@ -37,12 +37,9 @@
 
 struct TupPapagayoDialog::Private
 {
-    QCheckBox *fileCheck;
-    QCheckBox *imagesCheck;
     QLineEdit *filePath;
     QLineEdit *imagesPath;
-    QString pgo;
-    QString images;
+    QLineEdit *soundPath;
 };
 
 TupPapagayoDialog::TupPapagayoDialog() : QDialog(), k(new Private)
@@ -62,16 +59,23 @@ TupPapagayoDialog::TupPapagayoDialog() : QDialog(), k(new Private)
     QPushButton *imagesButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "bitmap_array.png")), " " + tr("Load &Images"), this);
     connect(imagesButton, SIGNAL(clicked()), this, SLOT(openImagesDialog()));
 
+    QPushButton *soundButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "bitmap_array.png")), " " + tr("Load &Sound"), this);
+    connect(soundButton, SIGNAL(clicked()), this, SLOT(openSoundDialog()));
+
     buttonsLayout->addWidget(fileButton);
     buttonsLayout->addWidget(imagesButton);
+    buttonsLayout->addWidget(soundButton);
 
     k->filePath = new QLineEdit();
     k->filePath->setReadOnly(true);
     k->imagesPath = new QLineEdit();
     k->imagesPath->setReadOnly(true);
+    k->soundPath = new QLineEdit();
+    k->soundPath->setReadOnly(true);
 
     textLayout->addWidget(k->filePath);
     textLayout->addWidget(k->imagesPath);
+    textLayout->addWidget(k->soundPath);
 
     blockLayout->addLayout(buttonsLayout);
     blockLayout->addLayout(textLayout);
@@ -80,7 +84,7 @@ TupPapagayoDialog::TupPapagayoDialog() : QDialog(), k(new Private)
 
     QDialogButtonBox *buttons = new QDialogButtonBox(QDialogButtonBox::Ok 
                                 | QDialogButtonBox::Cancel, Qt::Horizontal);
-    connect(buttons, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttons, SIGNAL(accepted()), this, SLOT(checkRecords()));
     connect(buttons, SIGNAL(rejected()), this, SLOT(reject()));
 
     layout->addWidget(buttons, 0, Qt::AlignCenter);
@@ -104,6 +108,32 @@ void TupPapagayoDialog::openImagesDialog()
     k->imagesPath->setText(path);
 }
 
+void TupPapagayoDialog::openSoundDialog()
+{
+    QString file = QFileDialog::getOpenFileName(this, tr("Load sound file"), QDir::homePath(), tr("Sound file (*.ogg *.wav *.mp3)"));
+    k->soundPath->setText(file);
+}
+
+void TupPapagayoDialog::checkRecords()
+{
+    if (k->filePath->text().length() == 0) {
+        TOsd::self()->display(tr("Error"), tr("PGO path is unset!"), TOsd::Error);
+        return;
+    }
+
+    if (k->imagesPath->text().length() == 0) {
+        TOsd::self()->display(tr("Error"), tr("Images directory is unset!"), TOsd::Error);
+        return;
+    }
+
+    if (k->soundPath->text().length() == 0) {
+        TOsd::self()->display(tr("Error"), tr("Sound path is unset!"), TOsd::Error);
+        return;
+    }
+
+    accept();
+}
+
 QString TupPapagayoDialog::getPGOFile() const
 {
     return k->filePath->text();
@@ -113,3 +143,9 @@ QString TupPapagayoDialog::getImagesFile() const
 {
     return k->imagesPath->text();
 }
+
+QString TupPapagayoDialog::getSoundFile() const
+{
+    return k->soundPath->text();
+}
+

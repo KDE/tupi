@@ -117,6 +117,8 @@ class TUPI_EXPORT TupProject : public QObject, public TupAbstractSerializable
         bool addFolder(const QString &name);
         bool removeFolder(const QString &name);
 
+        bool removeSound(const QString &name);
+
         bool insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString &name, int scene, int layer, int frame);
         bool removeSymbolFromFrame(const QString &name, TupLibraryObject::Type type);
 

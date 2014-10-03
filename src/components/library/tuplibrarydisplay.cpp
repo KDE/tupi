@@ -33,93 +33,21 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPITEMMANAGER_H
-#define TUPITEMMANAGER_H
+#include "tuplibrarydisplay.h"
 
-#include "tglobal.h"
-#include "tuptreedelegate.h"
-#include "treelistwidget.h"
-#include "tapplicationproperties.h"
-
-#include <QKeyEvent>
-#include <QHeaderView>
-#include <QMenu>
-#include <QMimeData>
-#include <QDrag>
-
-/**
- * @author David Cuadrado
-*/
-
-class TUPI_EXPORT TupItemManager : public TreeListWidget
+struct TupLibraryDisplay::Private
 {
-    Q_OBJECT
 
-    public:
-        TupItemManager(QWidget *parent = 0);
-        ~TupItemManager();
-        QTreeWidgetItem *currentFolder();
-        void setCurrentFolder(QTreeWidgetItem *cf);
-        void removeCurrentFolder();
-        void mousePressEvent(QMouseEvent *event);
-        void mouseDoubleClickEvent(QMouseEvent *event);
-        bool isFolder(QTreeWidgetItem *item);
-        int indexOf(QTreeWidgetItem *item);
-        QString oldFolder();
-        QTreeWidgetItem *getFolder(const QString &folderName);
-        void cleanUI();
-
-        enum ObjectType 
-        {
-            Item = 0,
-            Folder
-        };
-
-    signals:
-        void itemSelected(QTreeWidgetItem *item);
-        void itemRemoved();
-        void itemRenamed(QTreeWidgetItem *item);
-        void itemCloned(QTreeWidgetItem *item);
-        void itemExported(QTreeWidgetItem *item);
-        void itemRequired();
-        void itemMoved(QString node, QString target);
-        void itemCreated(QTreeWidgetItem *item);
-        void inkscapeEditCall(QTreeWidgetItem *item);
-        void gimpEditCall(QTreeWidgetItem *item);
-        void kritaEditCall(QTreeWidgetItem *item);
-        void myPaintEditCall(QTreeWidgetItem *item);
-        void newRasterCall();
-        void newVectorCall();
-
-    public slots:
-        void createFolder(const QString &name = QString());
-
-    private slots:
-        void renameItem();
-        void cloneItem();
-        void exportItem();
-        void callInkscapeToEdit();
-        void callGimpToEdit();
-        void callKritaToEdit();
-        void callMyPaintToEdit();
-        void createNewRaster();
-        void createNewSVG();
-
-    protected:
-        void dropEvent(QDropEvent *event);
-        void dragEnterEvent(QDragEnterEvent *event);
-        void dragMoveEvent(QDragMoveEvent *event);
-        void keyPressEvent(QKeyEvent *event);
-
-    private:
-        QTreeWidgetItem *m_currentFolder;
-        int foldersTotal;
-        QString folderName; 
-        QString parentNode;
-        QString currentSelection;
-        QList<QTreeWidgetItem *> nodeChildren;
-        // typedef QList<QTreeWidgetItem *> Lists;
-        // QHash<int, Lists> deepChildren;
 };
 
-#endif
+TupLibraryDisplay::TupLibraryDisplay(TupItemPreview *display) : QWidget(), k(new Private)
+{
+    QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
+    layout->addWidget(display);
+    layout->setContentsMargins(0, 0, 0, 0);
+}
+
+TupLibraryDisplay::~TupLibraryDisplay()
+{
+    delete k;
+}

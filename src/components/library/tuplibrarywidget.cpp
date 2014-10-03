@@ -54,7 +54,8 @@ struct TupLibraryWidget::Private
 
     TupLibrary *library;
     TupProject *project;
-    TupItemPreview *display;
+    TupLibraryDisplay *display;
+    TupItemPreview *previewPanel;
     TupItemManager *libraryTree;
     int childCount;
     QDir libraryDir;
@@ -95,14 +96,15 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
     setWindowTitle(tr("Library"));
 
     k->libraryDir = QDir(CONFIG_DIR + "libraries");
-    k->display = new TupItemPreview(this);
+    k->previewPanel = new TupItemPreview(this);
+    // k->display = new TupLibraryDisplay(k->previewPanel);
     k->libraryTree = new TupItemManager(this);
 
     connect(k->libraryTree, SIGNAL(itemSelected(QTreeWidgetItem *)), this,
                                    SLOT(previewItem(QTreeWidgetItem *)));
 
     connect(k->libraryTree, SIGNAL(itemRemoved()), this,
-                                   SLOT(removeCurrentGraphic()));
+                                   SLOT(removeCurrentItem()));
 
     connect(k->libraryTree, SIGNAL(itemCloned(QTreeWidgetItem*)), this,
                                    SLOT(cloneObject(QTreeWidgetItem*)));
@@ -163,13 +165,15 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
     k->itemType->addItem(QIcon(THEME_DIR + "icons/svg.png"), tr("Svg File"));
     k->itemType->addItem(QIcon(THEME_DIR + "icons/bitmap_array.png"), tr("Image Array"));
     k->itemType->addItem(QIcon(THEME_DIR + "icons/svg_array.png"), tr("Svg Array"));
+    k->itemType->addItem(QIcon(THEME_DIR + "icons/sound_object.png"), tr("Sound File"));
+
     comboLayout->addWidget(k->itemType);
 
-    connect(k->itemType, SIGNAL(currentIndexChanged(int)), this, SLOT(importGraphicObject()));
+    connect(k->itemType, SIGNAL(currentIndexChanged(int)), this, SLOT(importLibraryObject()));
 
     TImageButton *addGC = new TImageButton(QPixmap(THEME_DIR + "icons/plus_sign.png"), 22, buttons);
     addGC->setToolTip(tr("Add an object to library"));
-    connect(addGC, SIGNAL(clicked()), this, SLOT(importGraphicObject()));
+    connect(addGC, SIGNAL(clicked()), this, SLOT(importLibraryObject()));
     comboLayout->addWidget(addGC);
 
     buttonLayout->addLayout(comboLayout);
@@ -188,7 +192,8 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
 
     buttons->setLayout(buttonLayout);
 
-    addChild(k->display);
+    addChild(k->previewPanel);
+    // addChild(k->display);
     addChild(buttons);
     addChild(k->libraryTree);
 
@@ -213,7 +218,7 @@ TupLibraryWidget::~TupLibraryWidget()
 void TupLibraryWidget::resetGUI()
 {
     k->library->reset();
-    k->display->reset();
+    k->previewPanel->reset();
     k->libraryTree->cleanUI();
 }
 
@@ -267,7 +272,7 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
 
         if (item->text(2).length() == 0) {
             QGraphicsTextItem *msg = new QGraphicsTextItem(tr("Directory"));
-            k->display->render(static_cast<QGraphicsItem *>(msg));
+            k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
             return;
         }
 
@@ -284,7 +289,7 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
             #endif
 
             QGraphicsTextItem *text = new QGraphicsTextItem(tr("No preview available"));
-            k->display->render(static_cast<QGraphicsItem *>(text));
+            k->previewPanel->render(static_cast<QGraphicsItem *>(text));
 
             return;
         }
@@ -293,7 +298,7 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
                 case TupLibraryObject::Svg:
                    {
                      QGraphicsSvgItem *svg = new QGraphicsSvgItem(object->dataPath()); 
-                     k->display->render(static_cast<QGraphicsItem *>(svg)); 
+                     k->previewPanel->render(static_cast<QGraphicsItem *>(svg)); 
                    }
                    break;
                 case TupLibraryObject::Image:
@@ -301,7 +306,7 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
                    {
                      if (object->data().canConvert<QGraphicsItem *>()) {
 
-                         k->display->render(qvariant_cast<QGraphicsItem *>(object->data()));
+                         k->previewPanel->render(qvariant_cast<QGraphicsItem *>(object->data()));
 
                          /* SQA: Just a test
                          TupSymbolEditor *editor = new TupSymbolEditor;
@@ -320,6 +325,9 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
                      k->currentPlayerId = TAudioPlayer::instance()->load(object->dataPath());
                      TAudioPlayer::instance()->play(0);
                      */
+
+                     QGraphicsTextItem *text = new QGraphicsTextItem(tr("No preview available"));
+                     k->previewPanel->render(static_cast<QGraphicsItem *>(text));
                    }
                    break;
                 default:
@@ -337,7 +345,7 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
         }
     } else {
         QGraphicsTextItem *msg = new QGraphicsTextItem(tr("No preview available"));
-        k->display->render(static_cast<QGraphicsItem *>(msg));
+        k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
     }
 }
 
@@ -351,7 +359,23 @@ void TupLibraryWidget::insertObjectInWorkspace()
         #endif
     #endif
 
+    tError() << "TupLibraryWidget::insertObjectInWorkspace() - count: " << k->libraryTree->topLevelItemCount();
+
+    if (k->libraryTree->topLevelItemCount() == 0) {
+        TOsd::self()->display(tr("Error"), tr("Library is empty!"), TOsd::Error);
+        #ifdef K_DEBUG
+            QString msg = "TupLibraryWidget::insertObjectInWorkspace() - Library is empty!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
+        #endif
+        return;
+    }
+
     if (!k->libraryTree->currentItem()) { 
+        TOsd::self()->display(tr("Error"), tr("There's no current selection!"), TOsd::Error);
         #ifdef K_DEBUG
             QString msg = "TupLibraryWidget::insertObjectInWorkspace() - There's no current selection!";
             #ifdef Q_OS_WIN32
@@ -361,46 +385,64 @@ void TupLibraryWidget::insertObjectInWorkspace()
             #endif
         #endif
         return;
-    } else if (k->libraryTree->currentItem()->text(2).length() == 0) {
-               #ifdef K_DEBUG
-                   QString msg = "TupLibraryWidget::insertObjectInWorkspace() - It's a directory!";
-                   #ifdef Q_OS_WIN32
-                       qDebug() << msg;
-                   #else
-                       tFatal() << msg;
-                   #endif
-               #endif
-               return;
+    } 
+
+    QString extension = k->libraryTree->currentItem()->text(2);
+    if (extension.length() == 0) {
+        TOsd::self()->display(tr("Error"), tr("It's a directory! Please, pick a graphic object"), TOsd::Error);
+        #ifdef K_DEBUG
+            QString msg = "TupLibraryWidget::insertObjectInWorkspace() - It's a directory!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tFatal() << msg;
+            #endif
+        #endif
+        return;
     }
 
-    QString objectKey = k->libraryTree->currentItem()->text(1) + "." + k->libraryTree->currentItem()->text(2).toLower();
+    if ((extension.compare("OGG") == 0) || (extension.compare("WAV") == 0) || (extension.compare("MP3") == 0)) {
+        TOsd::self()->display(tr("Error"), tr("It's a sound file! Please, pick a graphic object"), TOsd::Error);
+        #ifdef K_DEBUG
+            QString msg = "TupLibraryWidget::insertObjectInWorkspace() - It's a sound file!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tFatal() << msg;
+            #endif
+        #endif
+        return;
+    } 
 
-    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::InsertSymbolIntoFrame, objectKey,
+    QString key = k->libraryTree->currentItem()->text(1) + "." + extension.toLower();
+
+    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::InsertSymbolIntoFrame, key,
                                 TupLibraryObject::Type(k->libraryTree->currentItem()->data(1, 3216).toInt()), k->project->spaceContext(), 
                                 0, QString(), k->currentFrame.scene, k->currentFrame.layer, k->currentFrame.frame);
 
     emit requestTriggered(&request);
 }
 
-void TupLibraryWidget::removeCurrentGraphic()
+void TupLibraryWidget::removeCurrentItem()
 {
     if (!k->libraryTree->currentItem()) 
         return;
 
     QString extension = k->libraryTree->currentItem()->text(2);
-
     QString objectKey = k->libraryTree->currentItem()->text(1);
     TupLibraryObject::Type type = TupLibraryObject::Folder;
 
     // If it's NOT a directory
     if (extension.length() > 0) {
         objectKey = k->libraryTree->currentItem()->text(3);
-        if (extension.compare("JPEG")==0 || extension.compare("JPG")==0 || extension.compare("PNG")==0 || extension.compare("GIF")==0)
+        if (extension.compare("JPEG") == 0 || extension.compare("JPG") == 0 || extension.compare("PNG") == 0 || extension.compare("GIF") == 0)
             type = TupLibraryObject::Image;
         if (extension.compare("SVG")==0)
             type = TupLibraryObject::Svg;
         if (extension.compare("OBJ")==0)
             type = TupLibraryObject::Item;
+        if ((extension.compare("OGG") == 0) || (extension.compare("WAV") == 0) || (extension.compare("MP3") == 0))
+            type = TupLibraryObject::Sound;
     } 
 
     TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::RemoveSymbolFromFrame, 
@@ -503,6 +545,8 @@ void TupLibraryWidget::cloneObject(QTreeWidgetItem* item)
                     case TupLibraryObject::Sound:
                          {
                              item->setIcon(0, QIcon(THEME_DIR + "icons/sound_object.png"));
+                             previewItem(item);
+                             k->previewPanel->hide();
                          }
                          break;
                     default:
@@ -534,18 +578,29 @@ void TupLibraryWidget::exportObject(QTreeWidgetItem *item)
         QString path = object->dataPath();
         if (path.length() > 0) {
             QString fileExtension = object->extension();
-            QString filter = tr("Images") + " ";
+            QString filter;
 
-            if (fileExtension.compare("PNG") == 0)
-                filter += "(*.png)"; 
-            if ((fileExtension.compare("JPG") == 0) || (fileExtension.compare("JPEG") == 0))
-                filter += "(*.jpg *.jpeg)";
-            if (fileExtension.compare("GIF") == 0)
-                filter += "(*.gif)";
-            if (fileExtension.compare("XPM") == 0)
-                filter += "(*.xpm)";
-            if (fileExtension.compare("SVG") == 0)
-                filter += "(*.svg)";
+            if (object->type() == TupLibraryObject::Image) {
+                filter = tr("Images") + " ";
+                if (fileExtension.compare("PNG") == 0)
+                    filter += "(*.png)"; 
+                if ((fileExtension.compare("JPG") == 0) || (fileExtension.compare("JPEG") == 0))
+                    filter += "(*.jpg *.jpeg)";
+                if (fileExtension.compare("GIF") == 0)
+                    filter += "(*.gif)";
+                if (fileExtension.compare("XPM") == 0)
+                    filter += "(*.xpm)";
+                if (fileExtension.compare("SVG") == 0)
+                    filter += "(*.svg)";
+            } else if (object->type() == TupLibraryObject::Sound) {
+                      filter = tr("Sounds") + " ";
+                      if (fileExtension.compare("OGG") == 0)
+                          filter += "(*.ogg)";
+                      if (fileExtension.compare("MP3") == 0)
+                          filter += "(*.mp3)";
+                      if (fileExtension.compare("WAV") == 0)
+                          filter += "(*.wav)";
+            }
 
             QString target = QFileDialog::getSaveFileName(this, tr("Export object..."), QDir::homePath(), filter);
             if (target.isEmpty())
@@ -1241,25 +1296,25 @@ void TupLibraryWidget::importSvgArray()
 
 void TupLibraryWidget::importSound()
 {
-    QString sound = QFileDialog::getOpenFileName(this, tr("Import audio file..."), QDir::homePath(),
+    QString path = QFileDialog::getOpenFileName(this, tr("Import audio file..."), QDir::homePath(),
                                                  tr("Sound file") + " (*.ogg *.wav *.mp3)");
 
-    if (sound.isEmpty()) 
+    if (path.isEmpty()) 
         return;
 
-    QFile f(sound);
-    QFileInfo fileInfo(f);
-    QString symName = fileInfo.baseName();
+    QFile file(path);
+    QFileInfo fileInfo(file);
+    QString key = fileInfo.fileName().toLower();
 
-    if (f.open(QIODevice::ReadOnly)) {
-        QByteArray data = f.readAll();
-        f.close();
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray data = file.readAll();
+        file.close();
 
-        TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, symName,
+        TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key,
                                                      TupLibraryObject::Sound, k->project->spaceContext(), data);
         emit requestTriggered(&request);
     } else {
-        TOsd::self()->display(tr("Error"), tr("Cannot open file: %1").arg(sound), TOsd::Error);
+        TOsd::self()->display(tr("Error"), tr("Error while opening file: %1").arg(path), TOsd::Error);
     }
 }
 
@@ -1290,6 +1345,8 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
 
                  QString folderName = response->parent(); 
                  QString id = response->arg().toString();
+
+                 tError() << "TupLibraryWidget::libraryResponse() - item: " << id;
 
                  int index = id.lastIndexOf(".");
                  QString name = id.mid(0, index);
@@ -1438,7 +1495,7 @@ void TupLibraryWidget::frameResponse(TupFrameResponse *response)
     }
 }
 
-void TupLibraryWidget::importGraphicObject()
+void TupLibraryWidget::importLibraryObject()
 {
     QString option = k->itemType->currentText();
 
@@ -1459,6 +1516,11 @@ void TupLibraryWidget::importGraphicObject()
 
     if (option.compare(tr("Svg Array")) == 0) {
         importSvgArray();
+        return;
+    }
+
+    if (option.compare(tr("Sound File")) == 0) {
+        importSound();
         return;
     }
 }
@@ -1491,7 +1553,7 @@ void TupLibraryWidget::refreshItem(QTreeWidgetItem *item)
         k->library->addFolder(folder);
 
         QGraphicsTextItem *msg = new QGraphicsTextItem(tr("Directory"));
-        k->display->render(static_cast<QGraphicsItem *>(msg));
+        k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
 
         k->editorItems << tag;
 
