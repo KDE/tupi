@@ -38,22 +38,11 @@
 
 #include "tglobal.h"
 #include "tupitempreview.h"
+#include "tupsoundplayer.h"
 
 #include <QWidget>
 #include <QBoxLayout>
-
-/*
-#include "talgorithm.h"
-#include "tapplicationproperties.h"
-
-#include <QDialog>
-#include <QFormLayout>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QSpinBox>
-#include <QDialogButtonBox>
-#include <QFile>
-*/
+#include <QGraphicsItem>
 
 /**
  * @author Gustav Gonzalez
@@ -64,8 +53,14 @@ class TUPI_EXPORT TupLibraryDisplay : public QWidget
     Q_OBJECT
 
     public:
-        TupLibraryDisplay(TupItemPreview *display);
+        TupLibraryDisplay();
         ~TupLibraryDisplay();
+
+        QSize sizeHint() const;
+        void reset();
+        void render(QGraphicsItem *item);
+        void showDisplay();
+        void showSoundPlayer();
 
     private:
         struct Private;

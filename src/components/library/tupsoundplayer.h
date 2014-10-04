@@ -8,7 +8,7 @@
  *   2010:                                                                 *
  *    Gustavo Gonzalez / xtingray                                          *
  *                                                                         *
- *   KTooN's versions:                                                     * 
+ *   KTooN's versions:                                                     *
  *                                                                         *
  *   2006:                                                                 *
  *    David Cuadrado                                                       *
@@ -33,59 +33,40 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "tuplibrarydisplay.h"
+#ifndef TUPSOUNDPLAYER_H
+#define TUPSOUNDPLAYER_H
 
-struct TupLibraryDisplay::Private
+#include "tglobal.h"
+#include "timagebutton.h"
+#include "tapplicationproperties.h"
+
+#include <QFrame>
+#include <QBoxLayout>
+#include <QSlider>
+#include <QLabel>
+
+/**
+ * @author Gustav Gonzalez
+**/
+
+class TUPI_EXPORT TupSoundPlayer : public QFrame
 {
-    TupItemPreview *previewPanel;
-    TupSoundPlayer *soundPlayer;
+    Q_OBJECT
+
+    public:
+        TupSoundPlayer(QWidget *parent);
+        ~TupSoundPlayer();
+
+        QSize sizeHint() const;
+
+    private slots:
+        void playFile();
+
+    private:
+        struct Private;
+        Private *const k;
 };
 
-TupLibraryDisplay::TupLibraryDisplay() : QWidget(), k(new Private)
-{
-    k->previewPanel = new TupItemPreview(this);
-    k->soundPlayer = new TupSoundPlayer(this);
+#endif
 
-    QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
-    layout->addWidget(k->previewPanel);
-    layout->addWidget(k->soundPlayer);
-    layout->setContentsMargins(0, 0, 0, 0);
- 
-    showDisplay();
-}
 
-TupLibraryDisplay::~TupLibraryDisplay()
-{
-    delete k;
-}
-
-QSize TupLibraryDisplay::sizeHint() const
-{
-    return QWidget::sizeHint().expandedTo(QSize(100, 100));
-}
-
-void TupLibraryDisplay::reset()
-{
-    k->previewPanel->reset();
-}
-
-void TupLibraryDisplay::render(QGraphicsItem *item)
-{
-    k->previewPanel->render(item);
-}
-
-void TupLibraryDisplay::showDisplay()
-{
-    if (!k->previewPanel->isVisible()) {
-        k->previewPanel->show();
-        k->soundPlayer->hide();
-    }
-}
-
-void TupLibraryDisplay::showSoundPlayer()
-{
-    if (!k->soundPlayer->isVisible()) {
-        k->previewPanel->hide();
-        k->soundPlayer->show();
-    }
-}

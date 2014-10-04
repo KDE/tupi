@@ -96,8 +96,8 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
     setWindowTitle(tr("Library"));
 
     k->libraryDir = QDir(CONFIG_DIR + "libraries");
-    k->previewPanel = new TupItemPreview(this);
-    // k->display = new TupLibraryDisplay(k->previewPanel);
+    // k->previewPanel = new TupItemPreview(this);
+    k->display = new TupLibraryDisplay();
     k->libraryTree = new TupItemManager(this);
 
     connect(k->libraryTree, SIGNAL(itemSelected(QTreeWidgetItem *)), this,
@@ -192,8 +192,8 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
 
     buttons->setLayout(buttonLayout);
 
-    addChild(k->previewPanel);
-    // addChild(k->display);
+    // addChild(k->previewPanel);
+    addChild(k->display);
     addChild(buttons);
     addChild(k->libraryTree);
 
@@ -218,7 +218,8 @@ TupLibraryWidget::~TupLibraryWidget()
 void TupLibraryWidget::resetGUI()
 {
     k->library->reset();
-    k->previewPanel->reset();
+    // k->previewPanel->reset();
+    k->display->reset();
     k->libraryTree->cleanUI();
 }
 
@@ -271,8 +272,9 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
         k->currentItemDisplayed = item;
 
         if (item->text(2).length() == 0) {
+            k->display->showDisplay();
             QGraphicsTextItem *msg = new QGraphicsTextItem(tr("Directory"));
-            k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
+            k->display->render(static_cast<QGraphicsItem *>(msg));
             return;
         }
 
@@ -288,8 +290,9 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
                 #endif
             #endif
 
+            k->display->showDisplay();
             QGraphicsTextItem *text = new QGraphicsTextItem(tr("No preview available"));
-            k->previewPanel->render(static_cast<QGraphicsItem *>(text));
+            k->display->render(static_cast<QGraphicsItem *>(text));
 
             return;
         }
@@ -297,16 +300,17 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
         switch (object->type()) {
                 case TupLibraryObject::Svg:
                    {
+                     k->display->showDisplay();
                      QGraphicsSvgItem *svg = new QGraphicsSvgItem(object->dataPath()); 
-                     k->previewPanel->render(static_cast<QGraphicsItem *>(svg)); 
+                     k->display->render(static_cast<QGraphicsItem *>(svg));
                    }
                    break;
                 case TupLibraryObject::Image:
                 case TupLibraryObject::Item:
                    {
                      if (object->data().canConvert<QGraphicsItem *>()) {
-
-                         k->previewPanel->render(qvariant_cast<QGraphicsItem *>(object->data()));
+                         k->display->showDisplay();
+                         k->display->render(qvariant_cast<QGraphicsItem *>(object->data()));
 
                          /* SQA: Just a test
                          TupSymbolEditor *editor = new TupSymbolEditor;
@@ -326,8 +330,10 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
                      TAudioPlayer::instance()->play(0);
                      */
 
-                     QGraphicsTextItem *text = new QGraphicsTextItem(tr("No preview available"));
-                     k->previewPanel->render(static_cast<QGraphicsItem *>(text));
+                     // QGraphicsTextItem *text = new QGraphicsTextItem(tr("No preview available"));
+                     // k->previewPanel->render(static_cast<QGraphicsItem *>(text));
+                     // k->display->render(static_cast<QGraphicsItem *>(text));
+                     k->display->showSoundPlayer();
                    }
                    break;
                 default:
@@ -345,7 +351,8 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
         }
     } else {
         QGraphicsTextItem *msg = new QGraphicsTextItem(tr("No preview available"));
-        k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
+        // k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
+        k->display->render(static_cast<QGraphicsItem *>(msg));
     }
 }
 
@@ -546,7 +553,6 @@ void TupLibraryWidget::cloneObject(QTreeWidgetItem* item)
                          {
                              item->setIcon(0, QIcon(THEME_DIR + "icons/sound_object.png"));
                              previewItem(item);
-                             k->previewPanel->hide();
                          }
                          break;
                     default:
@@ -1553,7 +1559,8 @@ void TupLibraryWidget::refreshItem(QTreeWidgetItem *item)
         k->library->addFolder(folder);
 
         QGraphicsTextItem *msg = new QGraphicsTextItem(tr("Directory"));
-        k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
+        // k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
+        k->display->render(static_cast<QGraphicsItem *>(msg));
 
         k->editorItems << tag;
 

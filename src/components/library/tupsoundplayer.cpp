@@ -8,7 +8,7 @@
  *   2010:                                                                 *
  *    Gustavo Gonzalez / xtingray                                          *
  *                                                                         *
- *   KTooN's versions:                                                     * 
+ *   KTooN's versions:                                                     *
  *                                                                         *
  *   2006:                                                                 *
  *    David Cuadrado                                                       *
@@ -33,59 +33,68 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "tuplibrarydisplay.h"
+#include "tupsoundplayer.h"
 
-struct TupLibraryDisplay::Private
+struct TupSoundPlayer::Private
 {
-    TupItemPreview *previewPanel;
-    TupSoundPlayer *soundPlayer;
+    QSlider *slider;
+    QLabel *timer;
+    TImageButton *playButton;
+    bool playing;
 };
 
-TupLibraryDisplay::TupLibraryDisplay() : QWidget(), k(new Private)
+TupSoundPlayer::TupSoundPlayer(QWidget *parent) : QFrame(parent), k(new Private)
 {
-    k->previewPanel = new TupItemPreview(this);
-    k->soundPlayer = new TupSoundPlayer(this);
+    setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+    setMidLineWidth(2);
+    setLineWidth(1);
+
+    k->playing = false;
+
+    k->slider = new QSlider(Qt::Horizontal, this);
+    k->slider->setRange(0, 100);
+
+    k->timer = new QLabel("00:00");
+
+    QBoxLayout *sliderLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    sliderLayout->addWidget(k->slider);
+    sliderLayout->addWidget(k->timer);
+    sliderLayout->setContentsMargins(0, 0, 0, 0);
+
+    k->playButton = new TImageButton(QPixmap(THEME_DIR + "icons/play.png"), 33, this, true);
+    k->playButton->setToolTip(tr("Play"));
+    connect(k->playButton, SIGNAL(clicked()), this, SLOT(playFile()));
+
+    QBoxLayout *buttonLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(k->playButton);
+    buttonLayout->addStretch();
+    buttonLayout->setContentsMargins(0, 0, 0, 0);
 
     QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
-    layout->addWidget(k->previewPanel);
-    layout->addWidget(k->soundPlayer);
-    layout->setContentsMargins(0, 0, 0, 0);
- 
-    showDisplay();
+    layout->addLayout(sliderLayout);
+    layout->addLayout(buttonLayout);
+    layout->setContentsMargins(5, 5, 5, 5);
 }
 
-TupLibraryDisplay::~TupLibraryDisplay()
+TupSoundPlayer::~TupSoundPlayer()
 {
     delete k;
 }
 
-QSize TupLibraryDisplay::sizeHint() const
+QSize TupSoundPlayer::sizeHint() const
 {
     return QWidget::sizeHint().expandedTo(QSize(100, 100));
 }
 
-void TupLibraryDisplay::reset()
+void TupSoundPlayer::playFile()
 {
-    k->previewPanel->reset();
-}
-
-void TupLibraryDisplay::render(QGraphicsItem *item)
-{
-    k->previewPanel->render(item);
-}
-
-void TupLibraryDisplay::showDisplay()
-{
-    if (!k->previewPanel->isVisible()) {
-        k->previewPanel->show();
-        k->soundPlayer->hide();
+    if (!k->playing) {
+        k->playButton->setIcon(QIcon(QPixmap(THEME_DIR + "icons/stop.png")));
+        k->playing = true;
+    } else {
+        k->playButton->setIcon(QIcon(QPixmap(THEME_DIR + "icons/play.png")));
+        k->playing = false;
     }
 }
 
-void TupLibraryDisplay::showSoundPlayer()
-{
-    if (!k->soundPlayer->isVisible()) {
-        k->previewPanel->hide();
-        k->soundPlayer->show();
-    }
-}

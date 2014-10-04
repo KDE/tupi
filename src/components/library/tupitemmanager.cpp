@@ -323,6 +323,7 @@ void TupItemManager::mousePressEvent(QMouseEvent *event)
 
             menu->exec(event->globalPos());
         } else if (event->buttons() == Qt::LeftButton) {
+                   // SQA: This code doesn't work well at all. Reengineering is urgently required right here!
                    // If the node has a parent, get the parent's name
                    QTreeWidgetItem *top = item->parent(); 
                    if (top)

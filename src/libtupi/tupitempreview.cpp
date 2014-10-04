@@ -59,15 +59,17 @@ void TupItemPreview::reset()
 
 QSize TupItemPreview::sizeHint() const
 {
+    /*
     if (k->proxy) {
         int maxY = k->proxy->boundingRect().size().height();
         if (maxY < 100)
             return k->proxy->boundingRect().size().toSize() + QSize(10, 110 - maxY);
         else
-            return k->proxy->boundingRect().size().toSize() + QSize(10,10);
+            return k->proxy->boundingRect().size().toSize() + QSize(10, 10);
     }
+    */
     
-    return QWidget::sizeHint().expandedTo(QSize(100,100));
+    return QWidget::sizeHint().expandedTo(QSize(100, 100));
 }
 
 void TupItemPreview::render(QGraphicsItem *item)
