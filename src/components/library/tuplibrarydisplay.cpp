@@ -82,6 +82,11 @@ void TupLibraryDisplay::showDisplay()
     }
 }
 
+void TupLibraryDisplay::setSoundObject(const QString &path)
+{
+    k->soundPlayer->setSoundObject(path);
+}
+
 void TupLibraryDisplay::showSoundPlayer()
 {
     if (!k->soundPlayer->isVisible()) {

@@ -44,6 +44,8 @@
 #include <QBoxLayout>
 #include <QSlider>
 #include <QLabel>
+#include <QMediaPlayer>
+#include <QUrl>
 
 /**
  * @author Gustav Gonzalez
@@ -58,9 +60,14 @@ class TUPI_EXPORT TupSoundPlayer : public QFrame
         ~TupSoundPlayer();
 
         QSize sizeHint() const;
+        void setSoundObject(const QString &path);
 
     private slots:
         void playFile();
+        void positionChanged(qint64 value);
+        void durationChanged(qint64 value);
+        void stateChanged(QMediaPlayer::State state);
+        void updateSoundPos(int pos);
 
     private:
         struct Private;

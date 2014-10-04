@@ -55,7 +55,6 @@ struct TupLibraryWidget::Private
     TupLibrary *library;
     TupProject *project;
     TupLibraryDisplay *display;
-    TupItemPreview *previewPanel;
     TupItemManager *libraryTree;
     int childCount;
     QDir libraryDir;
@@ -96,7 +95,6 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
     setWindowTitle(tr("Library"));
 
     k->libraryDir = QDir(CONFIG_DIR + "libraries");
-    // k->previewPanel = new TupItemPreview(this);
     k->display = new TupLibraryDisplay();
     k->libraryTree = new TupItemManager(this);
 
@@ -192,7 +190,6 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
 
     buttons->setLayout(buttonLayout);
 
-    // addChild(k->previewPanel);
     addChild(k->display);
     addChild(buttons);
     addChild(k->libraryTree);
@@ -218,7 +215,6 @@ TupLibraryWidget::~TupLibraryWidget()
 void TupLibraryWidget::resetGUI()
 {
     k->library->reset();
-    // k->previewPanel->reset();
     k->display->reset();
     k->libraryTree->cleanUI();
 }
@@ -322,17 +318,7 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
                    break;
                 case TupLibraryObject::Sound:
                    {
-                     /*
-                     TAudioPlayer::instance()->setCurrentPlayer(k->currentPlayerId);
-                     TAudioPlayer::instance()->stop();
-
-                     k->currentPlayerId = TAudioPlayer::instance()->load(object->dataPath());
-                     TAudioPlayer::instance()->play(0);
-                     */
-
-                     // QGraphicsTextItem *text = new QGraphicsTextItem(tr("No preview available"));
-                     // k->previewPanel->render(static_cast<QGraphicsItem *>(text));
-                     // k->display->render(static_cast<QGraphicsItem *>(text));
+                     k->display->setSoundObject(object->dataPath());
                      k->display->showSoundPlayer();
                    }
                    break;
@@ -351,7 +337,6 @@ void TupLibraryWidget::previewItem(QTreeWidgetItem *item)
         }
     } else {
         QGraphicsTextItem *msg = new QGraphicsTextItem(tr("No preview available"));
-        // k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
         k->display->render(static_cast<QGraphicsItem *>(msg));
     }
 }
@@ -365,8 +350,6 @@ void TupLibraryWidget::insertObjectInWorkspace()
             T_FUNCINFO;
         #endif
     #endif
-
-    tError() << "TupLibraryWidget::insertObjectInWorkspace() - count: " << k->libraryTree->topLevelItemCount();
 
     if (k->libraryTree->topLevelItemCount() == 0) {
         TOsd::self()->display(tr("Error"), tr("Library is empty!"), TOsd::Error);
@@ -452,9 +435,16 @@ void TupLibraryWidget::removeCurrentItem()
             type = TupLibraryObject::Sound;
     } 
 
+    /*
     TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::RemoveSymbolFromFrame, 
                                                    objectKey, type, k->project->spaceContext(), 0, QString(),
                                                    k->currentFrame.scene, k->currentFrame.layer, k->currentFrame.frame);
+    */
+
+    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Remove,
+                                                   objectKey, type, k->project->spaceContext(), 0, QString(),
+                                                   k->currentFrame.scene, k->currentFrame.layer, k->currentFrame.frame);
+
     emit requestTriggered(&request);
 }
 
@@ -1352,8 +1342,6 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
                  QString folderName = response->parent(); 
                  QString id = response->arg().toString();
 
-                 tError() << "TupLibraryWidget::libraryResponse() - item: " << id;
-
                  int index = id.lastIndexOf(".");
                  QString name = id.mid(0, index);
                  QString extension = id.mid(index + 1, id.length() - index).toUpper();
@@ -1440,6 +1428,16 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
             break;
             case TupProjectRequest::RemoveSymbolFromFrame:
               {
+                 #ifdef K_DEBUG
+                     QString msg = "TupLibraryWidget::libraryResponse() -> RemoveSymbolFromFrame : No action taken";
+                     #ifdef Q_OS_WIN32
+                         qDebug() << msg;
+                     #else
+                         tFatal() << msg;
+                     #endif
+                 #endif
+
+                 /*
                  QString id = response->arg().toString();
 
                  QTreeWidgetItemIterator it(k->libraryTree);
@@ -1448,7 +1446,6 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
                         if ((*it)->text(2).length() > 0) {
                             if (id == (*it)->text(3)) {
                                 delete (*it);
-                                // k->library->removeObject(id, true);
                                 break;
                             } 
                         } else {
@@ -1463,18 +1460,38 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
                  }
 
                  previewItem(k->libraryTree->currentItem());
+                 */
               }
             break;
             case TupProjectRequest::Remove:
               {
-                 #ifdef K_DEBUG
-                     QString msg = "TupLibraryWidget::libraryResponse() -> Remove : No action taken";
-                     #ifdef Q_OS_WIN32
-                         qDebug() << msg;
-                     #else
-                         tFatal() << msg;
-                     #endif
-                 #endif
+                 QString id = response->arg().toString();
+
+                 QTreeWidgetItemIterator it(k->libraryTree);
+                 while ((*it)) {
+                        // If target is not a folder
+                        if ((*it)->text(2).length() > 0) {
+                            if (id == (*it)->text(3)) {
+                                delete (*it);
+                                break;
+                            }
+                        } else {
+                            // If target is a folder
+                            if (id == (*it)->text(1)) {
+                                delete (*it);
+                                k->library->removeFolder(id);
+                                break;
+                            }
+                        }
+                        ++it;
+                 }
+
+                 if (k->libraryTree->topLevelItemCount() > 0) {
+                     previewItem(k->libraryTree->currentItem());
+                 } else  {
+                     k->display->showDisplay();
+                     k->display->reset();
+                 }
               }
             break;
             default:
@@ -1559,7 +1576,6 @@ void TupLibraryWidget::refreshItem(QTreeWidgetItem *item)
         k->library->addFolder(folder);
 
         QGraphicsTextItem *msg = new QGraphicsTextItem(tr("Directory"));
-        // k->previewPanel->render(static_cast<QGraphicsItem *>(msg));
         k->display->render(static_cast<QGraphicsItem *>(msg));
 
         k->editorItems << tag;

@@ -39,7 +39,6 @@
 #include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "tuplibrarydisplay.h"
-// #include "tupitempreview.h"
 #include "timagebutton.h"
 #include "tupitemmanager.h"
 #include "tupnewitemdialog.h"

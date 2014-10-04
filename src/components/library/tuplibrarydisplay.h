@@ -61,6 +61,7 @@ class TUPI_EXPORT TupLibraryDisplay : public QWidget
         void render(QGraphicsItem *item);
         void showDisplay();
         void showSoundPlayer();
+        void setSoundObject(const QString &path);
 
     private:
         struct Private;

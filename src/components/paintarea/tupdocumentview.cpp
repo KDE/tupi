@@ -1929,7 +1929,7 @@ void TupDocumentView::importPapagayoLipSync()
                         QFile f(soundFile);
                         if (f.open(QIODevice::ReadOnly)) {
                             QFileInfo info(soundFile);
-                            QString key = info.completeBaseName().toLower();
+                            QString key = info.fileName().toLower();
                             QByteArray data = f.readAll();
                             f.close();
                             request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, key, TupLibraryObject::Sound, k->project->spaceContext(), data, folder,
