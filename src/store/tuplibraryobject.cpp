@@ -208,7 +208,6 @@ void TupLibraryObject::fromXml(const QString &xml)
                 case TupLibraryObject::Svg:
                 case TupLibraryObject::Sound:
                      {
-                         tError() << "TupLibraryObject::fromXml() - Adding sound item...";
                          k->dataPath = objectTag.attribute("path");
                      }
                 break;
@@ -265,7 +264,6 @@ QDomElement TupLibraryObject::toXml(QDomDocument &doc) const
             case Image:
             case Sound:
             {
-                 tError() << "TupLibraryObject::toXml() - Adding sound item...";
                  object.setAttribute("path", finfo.fileName());
             }
             break;
@@ -325,18 +323,6 @@ bool TupLibraryObject::loadRawData(const QByteArray &data)
             break;
             case TupLibraryObject::Sound:
             {
-                 tError() << "TupLibraryObject::loadRawData() - Adding sound item...";
-                 /*
-                 QTemporaryFile soundFile(QDir::tempPath() + QDir::separator() + "tupi_sound_file_XXXXXX");
-                 soundFile.setAutoRemove(false);
-
-                 if (soundFile.open()) {
-                     soundFile.write(data);
-                     setData(soundFile.fileName());
-                     soundFile.close();
-                 }
-                 */
-                 
                  setData(QVariant::fromValue(data));
             }
             break;
@@ -360,7 +346,6 @@ bool TupLibraryObject::loadDataFromPath(const QString &dataDir)
             break;
             case TupLibraryObject::Sound:
             {
-                 tError() << "TupLibraryObject::loadDataFromPath() - Adding sound item...";
                  k->dataPath = dataDir + QDir::separator() + "audio" + QDir::separator() + k->dataPath;
             }
             break;
@@ -386,8 +371,6 @@ bool TupLibraryObject::loadData(const QString &path)
             case TupLibraryObject::Svg:
             case TupLibraryObject::Sound:
             {
-                 tError() << "TupLibraryObject::loadData() - Loading file: " << path;
-
                  QFile file(path);
                  if (file.exists()) {
                      if (file.open(QIODevice::ReadOnly)) {
@@ -467,8 +450,6 @@ void TupLibraryObject::saveData(const QString &dataDir)
     switch (k->type) {
             case TupLibraryObject::Sound:
             {
-                 tError() << "TupLibraryObject::saveData() - Saving sound item...";
-
                  QString path = dataDir + QDir::separator() + "audio" + QDir::separator();
             
                  if (! QFile::exists(path)) {

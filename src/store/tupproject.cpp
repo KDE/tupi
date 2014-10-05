@@ -509,9 +509,9 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
         #ifdef K_DEBUG
             QString msg = "TupProject::createSymbol() - Object added successfully -> " + name;
             #ifdef Q_OS_WIN32
-                qDebug() << msg;
+                qWarning() << msg;
             #else
-                tError() << msg;
+                tWarning() << msg;
             #endif
         #endif    
     }
