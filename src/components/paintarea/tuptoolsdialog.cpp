@@ -105,7 +105,7 @@ void TupToolsDialog::setToolsPanel(QList<QString> tools)
 
         if (tools.at(i).compare("NodesTool") == 0) {
             TImageButton *nodes = new TImageButton(QPixmap(THEME_DIR + "icons/nodes_big.png"), 60, this, true);
-            nodes->setToolTip(tr("Line Selection"));
+            nodes->setToolTip(tr("Nodes Selection"));
             connect(nodes, SIGNAL(clicked()), this, SLOT(wakeUpNodeSelection()));
 
             k->layout->addWidget(nodes);

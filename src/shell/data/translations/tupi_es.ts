@@ -286,7 +286,7 @@
 <context>
     <name>NodesTool</name>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selección de Contorno</translation>
     </message>
     <message>
@@ -1409,7 +1409,7 @@
         <translation>Selección de Objetos</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selección de Contorno</translation>
     </message>
     <message>
@@ -1825,7 +1825,7 @@
         <translation>Marco %1</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selección de Contorno</translation>
     </message>
     <message>
@@ -3253,7 +3253,7 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>Lapiz</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selección de Contorno</translation>
     </message>
     <message>
@@ -4037,7 +4037,7 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>Selección de Objetos</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selección de Contorno</translation>
     </message>
     <message>

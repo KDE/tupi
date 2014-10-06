@@ -401,7 +401,7 @@
         <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="88"/>
         <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="351"/>
         <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="354"/>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Výběr čáry</translation>
     </message>
     <message>
@@ -1999,7 +1999,7 @@
     <message>
         <location filename="../src/components/paintarea/tupcanvas.pc.cpp" line="125"/>
         <location filename="../src/components/paintarea/tupcanvas.tablet.cpp" line="126"/>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Výběr čáry</translation>
     </message>
     <message>
@@ -2165,7 +2165,7 @@
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="344"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="973"/>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation type="unfinished">Výběr čáry</translation>
     </message>
     <message>
@@ -4324,7 +4324,7 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
     <message>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="161"/>
         <location filename="../src/components/paintarea/tuppaintarea.cpp" line="696"/>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Výběr čáry</translation>
     </message>
     <message>
@@ -5370,7 +5370,7 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
     </message>
     <message>
         <location filename="../src/components/paintarea/tuptoolsdialog.cpp" line="108"/>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Výběr čáry</translation>
     </message>
     <message>

@@ -161,7 +161,7 @@ void TupPaintArea::mousePressEvent(QMouseEvent *event)
         return;
     }
 
-    if (k->currentTool.compare(tr("Line Selection")) == 0) {
+    if (k->currentTool.compare(tr("Nodes Selection")) == 0) {
         // If a node is the target... abort!
         if (event->buttons() == Qt::RightButton) {
             // if (qgraphicsitem_cast<TControlNode *>(scene()->itemAt(mapToScene(event->pos()))))
@@ -705,7 +705,7 @@ void TupPaintArea::deleteItems()
         #endif
     #endif
 
-    if (k->currentTool.compare(tr("Object Selection")) != 0 && k->currentTool.compare(tr("Line Selection")) != 0)
+    if (k->currentTool.compare(tr("Object Selection")) != 0 && k->currentTool.compare(tr("Nodes Selection")) != 0)
         return;
 
     QList<QGraphicsItem *> selected = scene()->selectedItems();

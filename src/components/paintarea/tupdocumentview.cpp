@@ -71,15 +71,11 @@
 struct TupDocumentView::Private
 {
     QSize wsDimension;
-    QActionGroup *gridGroup; 
-    QActionGroup *editGroup; 
-    QActionGroup *viewNextGroup; 
-    QActionGroup *viewZoomGroup; 
-    QActionGroup *viewPreviousGroup;
+
     QMenu *brushesMenu;
-    QMenu *selectionMenu;
+    // QMenu *selectionMenu;
     QMenu *fillMenu;
-    QMenu *viewToolMenu;
+    // QMenu *viewToolMenu;
     QMenu *motionMenu;
 
     QMenu *filterMenu;
@@ -132,6 +128,9 @@ struct TupDocumentView::Private
     qreal nodesScaleFactor;
     qreal cacheScaleFactor;
 
+    TAction *selectionAction;
+    TAction *nodesAction;
+    TAction *handAction;
     TAction *papagayoAction;
 };
 
@@ -344,7 +343,7 @@ void TupDocumentView::updateNodesScale(qreal factor)
     if (k->currentTool) {
         k->nodesScaleFactor *= factor;
         QString toolName = k->currentTool->name();
-        if (toolName.compare(tr("Object Selection")) == 0 || toolName.compare(tr("Line Selection")) == 0 || toolName.compare(tr("PolyLine")) == 0)
+        if (toolName.compare(tr("Object Selection")) == 0 || toolName.compare(tr("Nodes Selection")) == 0 || toolName.compare(tr("PolyLine")) == 0)
             k->currentTool->resizeNodes(1 / k->nodesScaleFactor);
     }
 }
@@ -430,35 +429,38 @@ void TupDocumentView::createTools()
     k->brushesMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "brush.png"));
     connect(k->brushesMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 
-    k->toolbar->addAction(k->brushesMenu->menuAction());
+    // k->toolbar->addAction(k->brushesMenu->menuAction());
 
     // Selection menu
+    /*
     k->selectionMenu = new QMenu(tr("Selection"), k->toolbar);
     k->selectionMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "selection.png"));
     connect(k->selectionMenu, SIGNAL(triggered(QAction*)), this, SLOT(selectToolFromMenu(QAction*)));
+    */
 
-    k->toolbar->addAction(k->selectionMenu->menuAction());
+    // k->toolbar->addAction(k->selectionMenu->menuAction());
 
     // Fill menu
     k->fillMenu = new QMenu(tr("Fill"), k->toolbar);
     k->fillMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "fillcolor.png"));
     connect(k->fillMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 
-    k->toolbar->addAction(k->fillMenu->menuAction());
+    // k->toolbar->addAction(k->fillMenu->menuAction());
 
     // Hand menu
+    /*
     k->viewToolMenu = new QMenu(tr("Hand"), k->toolbar);
     k->viewToolMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "hand.png"));
     connect(k->fillMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
-
-    k->toolbar->addAction(k->viewToolMenu->menuAction());
+    */
+    // k->toolbar->addAction(k->viewToolMenu->menuAction());
 
     // Motion Tween menu
     k->motionMenu = new QMenu(tr("Tweening"), k->toolbar);
     k->motionMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "tweening.png"));
     connect(k->motionMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 
-    k->toolbar->addAction(k->motionMenu->menuAction());
+    // k->toolbar->addAction(k->motionMenu->menuAction());
 }
 
 void TupDocumentView::loadPlugins()
@@ -622,9 +624,15 @@ void TupDocumentView::loadPlugins()
                                  break;
                               case TupToolInterface::Selection:
                                  {
-                                   k->selectionMenu->addAction(action);
+                                   // k->selectionMenu->addAction(action);
+
                                    if (toolName.compare(tr("Object Selection")) == 0)
-                                       k->selectionMenu->setDefaultAction(action);
+                                       k->selectionAction = action;
+
+                                   if (toolName.compare(tr("Nodes Selection")) == 0)
+                                       k->nodesAction = action;
+
+                                       // k->selectionMenu->setDefaultAction(action);
                                  }
                                  break;
                               case TupToolInterface::Fill:
@@ -638,8 +646,9 @@ void TupDocumentView::loadPlugins()
                                  {
                                    // k->viewToolMenu->addAction(action);
                                    if (toolName.compare(tr("Hand")) == 0) {
-                                       k->viewToolMenu->addAction(action);
-                                       k->viewToolMenu->setDefaultAction(action);
+                                       // k->viewToolMenu->addAction(action);
+                                       // k->viewToolMenu->setDefaultAction(action);
+                                       k->handAction = action;
                                    }
                                  }
                                  break;
@@ -693,6 +702,15 @@ void TupDocumentView::loadPlugins()
                   }
              }
     }
+
+    k->toolbar->addAction(k->brushesMenu->menuAction());
+    // k->toolbar->addAction(k->selectionMenu->menuAction());
+    k->toolbar->addAction(k->selectionAction);
+    k->toolbar->addAction(k->nodesAction);
+    k->toolbar->addAction(k->fillMenu->menuAction());
+    // k->toolbar->addAction(k->viewToolMenu->menuAction());
+    k->toolbar->addAction(k->handAction);
+    k->toolbar->addAction(k->motionMenu->menuAction());
 
     brushTools.clear();
     tweenTools.clear();
@@ -759,20 +777,10 @@ void TupDocumentView::loadPlugin(int menu, int index)
                      if (index == TupToolPlugin::Delete) {
                          k->paintArea->deleteItems();
                      } else {
-                         QList<QAction*> selectionActions = k->selectionMenu->actions();
-                         if (index < selectionActions.size()) {
-                             action = (TAction *) selectionActions[index];
-                         } else {
-                             #ifdef K_DEBUG
-                                 QString msg = "TupDocumentView::loadPlugin() - Error: Invalid Selection Index / No plugin loaded";
-                                 #ifdef Q_OS_WIN32
-                                     qDebug() << msg;
-                                 #else
-                                     tError() << msg;
-                                 #endif
-                             #endif
-                             return;
-                         }
+                         if (index == TupToolPlugin::NodesTool)
+                             action = k->nodesAction;
+                         if (index == TupToolPlugin::ObjectsTool)
+                             action = k->selectionAction;
                      }
                  }
             break;
@@ -796,20 +804,7 @@ void TupDocumentView::loadPlugin(int menu, int index)
             break;
             case TupToolPlugin::ZoomMenu:
                  {
-                     QList<QAction*> viewActions = k->viewToolMenu->actions();
-                     if (index < viewActions.size()) {
-                         action = (TAction *) viewActions[index];
-                     } else {
-                         #ifdef K_DEBUG
-                             QString msg = "TupDocumentView::loadPlugin() - Error: Invalid Zoom Index (" + QString::number(index) + ") / No plugin loaded";
-                             #ifdef Q_OS_WIN32
-                                 qDebug() << msg;
-                             #else
-                                 tError() << msg;
-                             #endif
-                         #endif
-                         return;
-                     }
+                     action = k->handAction;
                  }
             break;
             default:
@@ -836,27 +831,6 @@ void TupDocumentView::loadPlugin(int menu, int index)
                 k->fullScreen->updateCursor(action->cursor());
             }
         }
-
-        /*
-        if (index == TupToolPlugin::ZoomInTool || index == TupToolPlugin::ZoomOutTool) {
-            if (k->fullScreenOn) {
-                action->trigger();
-                k->fullScreen->updateCursor(action->cursor());
-                // TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(action->parent());
-                // tool->autoZoom();
-            }
-        } else if (toolName.compare(k->currentTool->name()) != 0) {
-            if (k->fullScreenOn) {
-                action->trigger();
-                k->fullScreen->updateCursor(action->cursor());
-
-                if (index == TupToolPlugin::HandTool) {
-                    TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(action->parent());
-                    tool->setActiveView("FULL_SCREEN");
-                }
-            }
-        }
-        */
     } else {
         #ifdef K_DEBUG
             QString msg = "TupDocumentView::loadPlugin() - Error: Action pointer is NULL!";
@@ -939,10 +913,10 @@ void TupDocumentView::selectTool()
                      break;
                 case TupToolInterface::Selection:
                      k->status->enableFullScreenFeature(true);
-                     k->selectionMenu->setDefaultAction(action);
-                     k->selectionMenu->setActiveAction(action);
-                     if (!action->icon().isNull())
-                         k->selectionMenu->menuAction()->setIcon(action->icon());
+                     // k->selectionMenu->setDefaultAction(action);
+                     // k->selectionMenu->setActiveAction(action);
+                     // if (!action->icon().isNull())
+                     //     k->selectionMenu->menuAction()->setIcon(action->icon());
                      if (toolName.compare(tr("Object Selection"))==0) {
                          minWidth = 130;
                          connect(k->paintArea, SIGNAL(itemAddedOnSelection(TupGraphicsScene *)), 
@@ -951,10 +925,10 @@ void TupDocumentView::selectTool()
                      break;
                 case TupToolInterface::View:
                      k->status->enableFullScreenFeature(true);
-                     k->viewToolMenu->setDefaultAction(action);
-                     k->viewToolMenu->setActiveAction(action);
-                     if (!action->icon().isNull())
-                         k->viewToolMenu->menuAction()->setIcon(action->icon());
+                     // k->viewToolMenu->setDefaultAction(action);
+                     // k->viewToolMenu->setActiveAction(action);
+                     // if (!action->icon().isNull())
+                     //     k->viewToolMenu->menuAction()->setIcon(action->icon());
                      if (toolName.compare(tr("Zoom In"))==0 || toolName.compare(tr("Zoom Out"))==0)
                          minWidth = 130;
 
@@ -992,7 +966,7 @@ void TupDocumentView::selectTool()
         k->paintArea->setTool(tool);
         k->paintArea->viewport()->setCursor(action->cursor());
 
-        if (toolName.compare(tr("Object Selection"))==0 || toolName.compare(tr("Line Selection"))==0 || toolName.compare(tr("PolyLine"))==0)
+        if (toolName.compare(tr("Object Selection"))==0 || toolName.compare(tr("Nodes Selection"))==0 || toolName.compare(tr("PolyLine"))==0)
             tool->updateZoomFactor(1 / k->nodesScaleFactor);
     } else {
         #ifdef K_DEBUG

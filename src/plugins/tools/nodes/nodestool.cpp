@@ -85,7 +85,7 @@ void NodesTool::init(TupGraphicsScene *scene)
 
 QStringList NodesTool::keys() const
 {
-    return QStringList() << tr("Line Selection") ;
+    return QStringList() << tr("Nodes Selection") ;
 }
 
 void NodesTool::press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
@@ -348,10 +348,10 @@ void NodesTool::keyPressEvent(QKeyEvent *event)
 void NodesTool::setupActions()
 {
     k->activeSelection = false;
-    TAction *select = new TAction(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "nodes.png"), tr("Line Selection"), this);
+    TAction *select = new TAction(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "nodes.png"), tr("Nodes Selection"), this);
     select->setShortcut(QKeySequence(tr("N")));
 
-    k->actions.insert(tr("Line Selection"), select);
+    k->actions.insert(tr("Nodes Selection"), select);
 }
 
 QMap<QString, TAction *> NodesTool::actions() const

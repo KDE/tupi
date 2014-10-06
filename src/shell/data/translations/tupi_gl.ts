@@ -286,7 +286,7 @@
 <context>
     <name>NodesTool</name>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation type="unfinished">Selección de contorno</translation>
     </message>
     <message>
@@ -1421,7 +1421,7 @@
         <translation>Selección de obxectos</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selección de contorno</translation>
     </message>
     <message>
@@ -1825,7 +1825,7 @@
         <translation>Fotograma %1</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation type="unfinished">Selección de contorno</translation>
     </message>
     <message>
@@ -3242,7 +3242,7 @@ Póñase en contacto co administrador do servidor da animación para que lle dea
         <translation>Lapis</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selección de contorno</translation>
     </message>
     <message>
@@ -4038,7 +4038,7 @@ Póñase en contacto co administrador do servidor da animación para que lle dea
         <translation>Selección de obxectos</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selección de contorno</translation>
     </message>
     <message>

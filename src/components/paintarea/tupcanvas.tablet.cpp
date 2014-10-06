@@ -123,7 +123,7 @@ TupCanvas::TupCanvas(QWidget *parent, Qt::WindowFlags flags, TupGraphicsScene *s
     connect(objects, SIGNAL(clicked()), this, SLOT(wakeUpObjectSelection()));
 
     TImageButton *nodes = new TImageButton(QPixmap(THEME_DIR + "icons/nodes_big.png"), 40, this, true);
-    nodes->setToolTip(tr("Line Selection"));
+    nodes->setToolTip(tr("Nodes Selection"));
     connect(nodes, SIGNAL(clicked()), this, SLOT(wakeUpNodeSelection()));
 
     TImageButton *trash = new TImageButton(QPixmap(THEME_DIR + "icons/delete_big.png"), 40, this, true);

@@ -286,7 +286,7 @@
 <context>
     <name>NodesTool</name>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation type="unfinished">Selezione di una linea</translation>
     </message>
     <message>
@@ -1421,7 +1421,7 @@
         <translation type="unfinished">Selezione di un oggetto</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation type="unfinished">Selezione di una linea</translation>
     </message>
     <message>
@@ -1825,7 +1825,7 @@
         <translation type="unfinished">Fotogramma %1</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation type="unfinished">Selezione di una linea</translation>
     </message>
     <message>
@@ -3205,7 +3205,7 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
         <translation>Matita</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selezione di una linea</translation>
     </message>
     <message>
@@ -4033,7 +4033,7 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
         <translation>Selezione di un oggetto</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selezione di una linea</translation>
     </message>
     <message>

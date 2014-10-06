@@ -286,7 +286,7 @@
 <context>
     <name>NodesTool</name>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1421,7 +1421,7 @@
         <translation>Selecció d&apos;objectes</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selecció de línies</translation>
     </message>
     <message>
@@ -1825,7 +1825,7 @@
         <translation>Fotograma %1</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3241,7 +3241,7 @@ Contacta amb l&apos;administrador del servidor d&apos;animació per obtenir acc�
         <translation>Llapis</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selecció de línia</translation>
     </message>
     <message>
@@ -4037,7 +4037,7 @@ Contacta amb l&apos;administrador del servidor d&apos;animació per obtenir acc�
         <translation>Selecció d&apos;objectes</translation>
     </message>
     <message>
-        <source>Line Selection</source>
+        <source>Nodes Selection</source>
         <translation>Selecció de línia</translation>
     </message>
     <message>
