@@ -53,6 +53,7 @@ class TUPI_EXPORT TupPapagayoImporter : public QObject
         bool fileIsValid();
         QString file2Text() const;
         int framesTotal();
+        int fps();
 
     private:
         struct Private;

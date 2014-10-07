@@ -39,6 +39,7 @@ struct TupPapagayoImporter::Private
 {
     bool isValid;
     int framesTotal;
+    int fps;
     TupLipSync *lipsync;
 };
 
@@ -78,10 +79,17 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file, const QSize &proje
                        k->lipsync->setSoundFile(line.trimmed());
                    }
                    break;
+                   case 2:
+                   {
+                       // FPS 
+                       k->fps = line.trimmed().toInt();
+                       k->lipsync->setFPS(k->fps);
+                   }
+                   break;
                    case 4:
                    {
                        // Total of voices 
-                       voicesNumber = line.toInt();
+                       voicesNumber = line.trimmed().toInt();
                    }
                    break;
                }
@@ -198,4 +206,10 @@ int TupPapagayoImporter::framesTotal()
 {
     return k->framesTotal;
 }
+
+int TupPapagayoImporter::fps()
+{
+    return k->fps;
+}
+
 

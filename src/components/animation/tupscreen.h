@@ -52,7 +52,7 @@
 #include <QGraphicsItem>
 #include <QApplication>
 #include <QMessageBox>
-#include <QProgressDialog>
+// #include <QProgressDialog>
 #include <QDesktopWidget>
 #include <QTimer>
 
@@ -103,6 +103,7 @@ class TUPI_EXPORT TupScreen : public QFrame, public TupAbstractProjectResponseHa
         void toStatusBar(const QString &, int);
         void sceneChanged(const TupScene *newScene);
         void requestTriggered(const TupProjectRequest *event);
+        void isRendering(int advance);
 
     protected:
         void paintEvent(QPaintEvent *event);

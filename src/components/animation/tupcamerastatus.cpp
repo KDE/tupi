@@ -37,7 +37,6 @@
 
 struct TupCameraStatus::Private
 {
-    // QComboBox *fps;
     QSpinBox *fps;
     QComboBox *scenes;
     QLabel *framesTotal;

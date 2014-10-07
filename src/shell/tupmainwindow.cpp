@@ -327,6 +327,8 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
         playerTab->setWindowTitle(tr("Player"));
         addWidget(playerTab);
 
+        connect(animationTab, SIGNAL(updateFPS(int)), cameraWidget, SLOT(setStatusFPS(int)));
+
         helpTab = new TupHelpBrowser(this);
 
         QString lang = (QLocale::system().name()).left(2);

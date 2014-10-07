@@ -54,6 +54,7 @@
 #include <QHBoxLayout>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QProgressBar>
 
 class TupProjectResponse;
 class QCheckBox;
@@ -78,10 +79,12 @@ class TUPI_EXPORT TupCameraWidget : public QFrame
     private slots:
         void setLoop();
         void selectScene(int index);
+        void updateProgressBar(int advance);
 
     public slots:
         bool handleProjectResponse(TupProjectResponse *event);
         void setFPS(int fps);
+        void setStatusFPS(int fps);
         void updateFramesTotal(int sceneIndex);
         void exportDialog();
         void postDialog();

@@ -43,6 +43,7 @@ struct Settings::Private
     QBoxLayout *layout;
 
     QLabel *lipSyncName;
+    QLabel *fpsLabel;
     QSpinBox *comboInit;
 
     QLabel *endingLabel;
@@ -93,6 +94,14 @@ void Settings::setInnerForm()
     nameLayout->setSpacing(0);
     nameLayout->addWidget(nameLabel);
     nameLayout->addWidget(k->lipSyncName);
+
+    k->fpsLabel = new QLabel;
+
+    QHBoxLayout *fpsLayout = new QHBoxLayout;
+    fpsLayout->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    fpsLayout->setMargin(0);
+    fpsLayout->setSpacing(0);
+    fpsLayout->addWidget(k->fpsLabel);
 
     QLabel *startingLabel = new QLabel(tr("Starting at frame") + ": ");
     startingLabel->setAlignment(Qt::AlignVCenter);
@@ -157,6 +166,7 @@ void Settings::setInnerForm()
     buttonsLayout->addWidget(remove);
 
     innerLayout->addLayout(nameLayout);
+    innerLayout->addLayout(fpsLayout);
     innerLayout->addLayout(startLayout);
     innerLayout->addLayout(endLayout);
     innerLayout->addLayout(totalLayout);
@@ -178,6 +188,8 @@ void Settings::openLipSyncProperties(TupLipSync *lipsync)
     k->framesTotal = lipsync->framesTotal();
 
     k->lipSyncName->setText(k->name);
+    k->fpsLabel->setText(tr("Lip-Sync FPS") + ": " + QString::number(lipsync->fps()));
+
     k->comboInit->setEnabled(true);
     k->comboInit->setValue(k->initFrame + 1);
 

@@ -152,6 +152,8 @@ class TUPI_EXPORT TupLipSync : public QObject, public TupAbstractSerializable
         QString picExtension() const;
         QString soundFile() const;
         void setSoundFile(const QString &file);
+        int fps();
+        void setFPS(int fps);
         int initFrame();
 	void setInitFrame(int frame);
         int framesTotal();

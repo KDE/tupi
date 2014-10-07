@@ -428,6 +428,7 @@ struct TupLipSync::Private
     QString name;
     QString soundFile;
     QString extension;
+    int fps;
     int initFrame;
     int framesTotal;
     QList<TupVoice *> voices;
@@ -476,6 +477,16 @@ QString TupLipSync::soundFile() const
 void TupLipSync::setSoundFile(const QString &file)
 {
     k->soundFile = file;
+}
+
+int TupLipSync::fps()
+{
+    return k->fps;
+}
+
+void TupLipSync::setFPS(int fps)
+{
+    k->fps = fps;
 }
 
 int TupLipSync::initFrame()
@@ -531,6 +542,7 @@ void TupLipSync::fromXml(const QString &xml)
     k->initFrame = root.attribute("initFrame").toInt();
     k->framesTotal = root.attribute("framesTotal").toInt();
     k->extension = root.attribute("extension");
+    k->fps = root.attribute("fps").toInt();
 
     QDomNode n = root.firstChild();
 
@@ -567,6 +579,7 @@ QDomElement TupLipSync::toXml(QDomDocument &doc) const
     root.setAttribute("initFrame", k->initFrame);
     root.setAttribute("framesTotal", k->framesTotal);
     root.setAttribute("extension", k->extension);
+    root.setAttribute("fps", k->fps);
 
     int total = k->voices.size();
     for(int i=0; i<total; i++) {

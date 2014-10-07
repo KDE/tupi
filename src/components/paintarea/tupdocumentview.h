@@ -190,6 +190,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void closePolyLine();
         void closeLine();
         void projectSizeHasChanged(const QSize dimension);
+        void updateFPS(int fps);
 
     // protected:
     // void closeEvent(QCloseEvent *e);

@@ -704,12 +704,14 @@ void TupDocumentView::loadPlugins()
     }
 
     k->toolbar->addAction(k->brushesMenu->menuAction());
-    // k->toolbar->addAction(k->selectionMenu->menuAction());
+    k->toolbar->addSeparator();
     k->toolbar->addAction(k->selectionAction);
     k->toolbar->addAction(k->nodesAction);
+    k->toolbar->addSeparator();
     k->toolbar->addAction(k->fillMenu->menuAction());
-    // k->toolbar->addAction(k->viewToolMenu->menuAction());
+    k->toolbar->addSeparator();
     k->toolbar->addAction(k->handAction);
+    k->toolbar->addSeparator();
     k->toolbar->addAction(k->motionMenu->menuAction());
 
     brushTools.clear();
@@ -1931,6 +1933,8 @@ void TupDocumentView::importPapagayoLipSync()
 
                         if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) != 0)
                             k->papagayoAction->trigger();
+
+                        emit updateFPS(parser->fps()); 
 
                         TOsd::self()->display(tr("Information"), tr("Papagayo file has been imported successfully"));
                     } else {

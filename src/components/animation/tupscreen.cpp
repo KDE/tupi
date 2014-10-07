@@ -459,6 +459,8 @@ void TupScreen::render()
         #endif
     #endif
 
+    emit isRendering(0);
+
     TupScene *scene = k->project->scene(k->currentSceneIndex);
 
     if (!scene) {
@@ -475,9 +477,6 @@ void TupScreen::render()
 
     k->sounds.clear();
 
-    // foreach (TupSoundLayer *layer, scene->soundLayers().values())
-    //          k->sounds << layer;
-
     int soundLayersTotal = scene->soundLayers().size();
     for (int i = 0; i < soundLayersTotal; i++) {
          TupSoundLayer *layer = scene->soundLayers().at(i);
@@ -489,17 +488,6 @@ void TupScreen::render()
 
     QFont font = this->font();
     font.setPointSize(8);
-
-    QProgressDialog progressDialog(this, Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::Dialog);
-    progressDialog.setFont(font);
-    progressDialog.setLabelText(tr("Rendering...")); 
-    progressDialog.setCancelButton(0);
-    progressDialog.setRange(1, renderer.totalPhotograms());
-
-    QDesktopWidget desktop;
-    progressDialog.move((int) (desktop.screenGeometry().width() - progressDialog.width())/2, 
-                        (int) (desktop.screenGeometry().height() - progressDialog.height())/2);
-    progressDialog.show();
 
     QList<QImage> photogramList;
     int i = 1;
@@ -518,13 +506,15 @@ void TupScreen::render()
                photogramList << renderized;
            }
 
-           progressDialog.setValue(i);
+           emit isRendering(i); 
            i++;
     }
 
     k->photograms = photogramList;
     k->animationList.replace(k->currentSceneIndex, photogramList);
     k->renderControl.replace(k->currentSceneIndex, true);
+
+    emit isRendering(0); 
 }
 
 QSize TupScreen::sizeHint() const
