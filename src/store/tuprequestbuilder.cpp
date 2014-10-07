@@ -68,8 +68,10 @@ TupProjectRequest TupRequestBuilder::createItemRequest(int sceneIndex, int layer
     objectType.setAttribute("id", type);
 
     QDomElement position = doc.createElement("position");
-    position.setAttribute("x", point.x());
-    position.setAttribute("y", point.y());
+    double px = point.x(); 
+    double py = point.y();
+    position.setAttribute("x", QString::number(px));
+    position.setAttribute("y", QString::number(py));
 
     QDomElement space = doc.createElement("spaceMode");
     space.setAttribute("current", spaceMode);

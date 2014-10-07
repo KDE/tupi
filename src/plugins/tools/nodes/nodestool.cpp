@@ -348,10 +348,11 @@ void NodesTool::keyPressEvent(QKeyEvent *event)
 void NodesTool::setupActions()
 {
     k->activeSelection = false;
-    TAction *select = new TAction(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "nodes.png"), tr("Nodes Selection"), this);
-    select->setShortcut(QKeySequence(tr("N")));
+    TAction *nodes = new TAction(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "nodes.png"), tr("Nodes Selection"), this);
+    nodes->setShortcut(QKeySequence(tr("N")));
+    nodes->setToolTip(tr("Nodes Selection") + " - " + "N");
 
-    k->actions.insert(tr("Nodes Selection"), select);
+    k->actions.insert(tr("Nodes Selection"), nodes);
 }
 
 QMap<QString, TAction *> NodesTool::actions() const

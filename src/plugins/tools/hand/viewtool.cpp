@@ -95,6 +95,7 @@ void ViewTool::setupActions()
 {
     TAction *handAction = new TAction(QIcon(kAppProp->themeDir() + "icons/hand.png"), tr("Hand"), this);
     handAction->setShortcut(QKeySequence(tr("H")));
+    handAction->setToolTip(tr("Hand") + " - " + "H");
     k->handCursor = QCursor(kAppProp->themeDir() + "cursors/hand.png");
     handAction->setCursor(k->handCursor);
 

@@ -79,12 +79,14 @@ void FillTool::setupActions()
 {
     TAction *action1 = new TAction(QIcon(kAppProp->themeDir() + "icons/inside.png"), tr("Internal fill"), this);
     action1->setShortcut(QKeySequence(tr("I")));
+    action1->setToolTip(tr("Internal fill") + " - " + "I");
     k->insideCursor = QCursor(kAppProp->themeDir() + "cursors/paint.png");
     action1->setCursor(k->insideCursor);
     k->actions.insert(tr("Internal fill"), action1);
     
     TAction *action2 = new TAction(QIcon(kAppProp->themeDir() + "icons/contour.png"), tr("Line fill"), this);
     action2->setShortcut(QKeySequence(tr("B")));
+    action2->setToolTip(tr("Line fill") + " - " + "B");
     k->contourCursor = QCursor(kAppProp->themeDir() + "cursors/contour_fill.png");
     action2->setCursor(k->contourCursor);
     k->actions.insert(tr("Line fill"), action2);
@@ -93,7 +95,6 @@ void FillTool::setupActions()
 void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     if (input->buttons() == Qt::LeftButton) {
-        // QGraphicsItem *item = scene->itemAt(input->pos());
         QGraphicsItem *item = scene->itemAt(input->pos(), QTransform());
 
         if (!item) {

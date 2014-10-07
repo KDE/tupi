@@ -193,6 +193,7 @@ void GeometricTool::press(const TupInputDeviceInformation *input, TupBrushManage
 
 void GeometricTool::move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
+    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[GeometricTool::move()]";
@@ -200,6 +201,7 @@ void GeometricTool::move(const TupInputDeviceInformation *input, TupBrushManager
             T_FUNCINFO;
         #endif
     #endif
+    */
 
     Q_UNUSED(brushManager);
     Q_UNUSED(scene);

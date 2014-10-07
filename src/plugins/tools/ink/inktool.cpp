@@ -604,6 +604,7 @@ void InkTool::setupActions()
 {
     TAction *inkPen = new TAction(QPixmap(kAppProp->themeDir() + "icons/ink.png"), tr("Ink"), this);
     inkPen->setShortcut(QKeySequence(tr("K")));
+    inkPen->setToolTip(tr("Ink") + " - " + "K");
     inkPen->setCursor(k->cursor);
 
     k->actions.insert(tr("Ink"), inkPen);

@@ -72,10 +72,7 @@ struct TupDocumentView::Private
 {
     QSize wsDimension;
 
-    QMenu *brushesMenu;
-    // QMenu *selectionMenu;
-    QMenu *fillMenu;
-    // QMenu *viewToolMenu;
+    QMenu *shapesMenu;
     QMenu *motionMenu;
 
     QMenu *filterMenu;
@@ -128,8 +125,13 @@ struct TupDocumentView::Private
     qreal nodesScaleFactor;
     qreal cacheScaleFactor;
 
+    TAction *pencilAction;
+    TAction *inkAction;
+    TAction *polyLineAction;
     TAction *selectionAction;
     TAction *nodesAction;
+    TAction *borderFillAction;
+    TAction *fillAction;
     TAction *handAction;
     TAction *papagayoAction;
 };
@@ -219,7 +221,7 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
 
     setupDrawActions();
 
-    createTools(); 
+    createLateralToolBar(); 
     createToolBar();
     
     k->status = new TupPaintAreaStatus(this);
@@ -235,7 +237,7 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
 
     connect(k->paintArea->brushManager(), SIGNAL(penChanged(const QPen&)), k->status, SLOT(setPen(const QPen &)));
 
-    QTimer::singleShot(1000, this, SLOT(loadPlugins()));
+    loadPlugins();
 
     // SQA: Temporarily disabled  
     // if (!k->isNetworked)
@@ -416,7 +418,7 @@ void TupDocumentView::setupDrawActions()
                 this, SLOT(papagayoManager()), k->actionManager, "papagayo");
 }
 
-void TupDocumentView::createTools()
+void TupDocumentView::createLateralToolBar()
 {
     k->toolbar = new QToolBar(tr("Draw tools"), this);
     k->toolbar->setIconSize(QSize(16, 16));
@@ -425,42 +427,14 @@ void TupDocumentView::createTools()
     connect(k->toolbar, SIGNAL(actionTriggered(QAction *)), this, SLOT(selectToolFromMenu(QAction *)));
 
     // Brushes menu
-    k->brushesMenu = new QMenu(tr("Brushes"), k->toolbar);
-    k->brushesMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "brush.png"));
-    connect(k->brushesMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
-
-    // k->toolbar->addAction(k->brushesMenu->menuAction());
-
-    // Selection menu
-    /*
-    k->selectionMenu = new QMenu(tr("Selection"), k->toolbar);
-    k->selectionMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "selection.png"));
-    connect(k->selectionMenu, SIGNAL(triggered(QAction*)), this, SLOT(selectToolFromMenu(QAction*)));
-    */
-
-    // k->toolbar->addAction(k->selectionMenu->menuAction());
-
-    // Fill menu
-    k->fillMenu = new QMenu(tr("Fill"), k->toolbar);
-    k->fillMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "fillcolor.png"));
-    connect(k->fillMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
-
-    // k->toolbar->addAction(k->fillMenu->menuAction());
-
-    // Hand menu
-    /*
-    k->viewToolMenu = new QMenu(tr("Hand"), k->toolbar);
-    k->viewToolMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "hand.png"));
-    connect(k->fillMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
-    */
-    // k->toolbar->addAction(k->viewToolMenu->menuAction());
+    k->shapesMenu = new QMenu(tr("Brushes"), k->toolbar);
+    k->shapesMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "square.png"));
+    connect(k->shapesMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 
     // Motion Tween menu
     k->motionMenu = new QMenu(tr("Tweening"), k->toolbar);
     k->motionMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "tweening.png"));
     connect(k->motionMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
-
-    // k->toolbar->addAction(k->motionMenu->menuAction());
 }
 
 void TupDocumentView::loadPlugins()
@@ -499,10 +473,8 @@ void TupDocumentView::loadPlugins()
         #endif
     }
 
-    QVector<TAction*> brushTools(8);
+    QVector<TAction*> brushTools(3);
     QVector<TAction*> tweenTools(7);
-
-    TAction *pencil = 0;
 
     foreach (QObject *plugin, TupPluginManager::instance()->tools()) {
              TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(plugin);
@@ -536,7 +508,7 @@ void TupDocumentView::loadPlugins()
                       switch (tool->toolType()) {
                               case TupToolInterface::Brush:
                                  {
-                                   // SQA: Experimental plugin (disabled)
+                                   // SQA: Experimental plugin (enable it only for testing)
                                    /*
                                    if (toolName.compare(tr("Scheme")) == 0) {
                                        action->setDisabled(true);
@@ -544,45 +516,49 @@ void TupDocumentView::loadPlugins()
                                    }
                                    */
 
-                                   if (toolName.compare(tr("Pencil")) == 0) {
-                                       brushTools[0] = action;
-                                       pencil = action;
-                                       k->brushesMenu->setDefaultAction(action);
-                                   }
+                                   if (toolName.compare(tr("Pencil")) == 0)
+                                       k->pencilAction = action;
 
-                                   if (toolName.compare(tr("Ink")) == 0) {
-                                       brushTools[1] = action;
-                                   }
+                                   if (toolName.compare(tr("Ink")) == 0)
+                                       k->inkAction = action;
 
+                                   // SQA: This code has been disabled temporarily
+                                   /*
                                    if (toolName.compare(tr("Eraser")) == 0) {
                                        action->setDisabled(true);
                                        brushTools[2] = action;
                                    }
+                                   */
 
                                    if (toolName.compare(tr("PolyLine")) == 0) {
-                                       brushTools[3] = action;
+                                       k->polyLineAction = action;
                                        TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(action->parent());
                                        connect(k->paintArea, SIGNAL(closePolyLine()), tool, SLOT(initEnv()));
                                        connect(this, SIGNAL(closePolyLine()), tool, SLOT(initEnv()));
                                    }
 
                                    if (toolName.compare(tr("Line")) == 0) {
-                                       brushTools[4] = action;
+                                       brushTools[2] = action;
                                        TupToolPlugin *tool = qobject_cast<TupToolPlugin *>(action->parent());
                                        connect(k->paintArea, SIGNAL(closeLine()), tool, SLOT(endItem()));
                                        connect(this, SIGNAL(closeLine()), tool, SLOT(endItem()));
                                    }
 
-                                   if (toolName.compare(tr("Rectangle")) == 0)
-                                       brushTools[5] = action;
+                                   if (toolName.compare(tr("Rectangle")) == 0) {
+                                       brushTools[0] = action;
+                                       k->shapesMenu->setDefaultAction(action);
+                                   }
 
                                    if (toolName.compare(tr("Ellipse")) == 0)
-                                       brushTools[6] = action;
+                                       brushTools[1] = action;
 
+                                   // SQA: This code has been disabled temporarily
+                                   /*
                                    if (toolName.compare(tr("Text")) == 0) {
                                        action->setDisabled(true);
                                        brushTools[7] = action;
                                    }
+                                   */
                                  }
                                  break;
                               case TupToolInterface::Tweener:
@@ -593,63 +569,47 @@ void TupDocumentView::loadPlugins()
                                    }
 
                                    if (toolName.compare(tr("Rotation Tween")) == 0)
-                                       // action->setDisabled(true);
                                        tweenTools[1] = action;
 
-                                   if (toolName.compare(tr("Scale Tween")) == 0) {
-                                       // action->setDisabled(true);
+                                   if (toolName.compare(tr("Scale Tween")) == 0)
                                        tweenTools[2] = action;
-                                   }
 
-                                   if (toolName.compare(tr("Shear Tween")) == 0) {
-                                       // action->setDisabled(true);
+                                   if (toolName.compare(tr("Shear Tween")) == 0)
                                        tweenTools[3] = action;
-                                   }
 
-                                   if (toolName.compare(tr("Opacity Tween")) == 0) {
-                                       // action->setDisabled(true);
+                                   if (toolName.compare(tr("Opacity Tween")) == 0)
                                        tweenTools[4] = action;
-                                   }
 
-                                   if (toolName.compare(tr("Coloring Tween")) == 0) {
-                                       // action->setDisabled(true);
+                                   if (toolName.compare(tr("Coloring Tween")) == 0)
                                        tweenTools[5] = action;
-                                   }
 
-                                   if (toolName.compare(tr("Compound Tween")) == 0) {
+                                   if (toolName.compare(tr("Compound Tween")) == 0)
                                        action->setDisabled(true);
                                        tweenTools[6] = action;
-                                   }
                                  }
                                  break;
                               case TupToolInterface::Selection:
                                  {
-                                   // k->selectionMenu->addAction(action);
-
                                    if (toolName.compare(tr("Object Selection")) == 0)
                                        k->selectionAction = action;
 
                                    if (toolName.compare(tr("Nodes Selection")) == 0)
                                        k->nodesAction = action;
-
-                                       // k->selectionMenu->setDefaultAction(action);
                                  }
                                  break;
                               case TupToolInterface::Fill:
                                  {
-                                   k->fillMenu->addAction(action);
                                    if (toolName.compare(tr("Internal fill")) == 0)
-                                       k->fillMenu->setDefaultAction(action);
+                                       k->fillAction = action;
+
+                                   if (toolName.compare(tr("Line fill")) == 0)
+                                       k->borderFillAction = action;
                                  }
                                  break;
                                case TupToolInterface::View:
                                  {
-                                   // k->viewToolMenu->addAction(action);
-                                   if (toolName.compare(tr("Hand")) == 0) {
-                                       // k->viewToolMenu->addAction(action);
-                                       // k->viewToolMenu->setDefaultAction(action);
+                                   if (toolName.compare(tr("Hand")) == 0)
                                        k->handAction = action;
-                                   }
                                  }
                                  break;
                                case TupToolInterface::LipSync:
@@ -675,15 +635,15 @@ void TupDocumentView::loadPlugins()
     } // end foreach
 
     for (int i = 0; i < brushTools.size(); ++i) 
-         k->brushesMenu->addAction(brushTools.at(i));
+         k->shapesMenu->addAction(brushTools.at(i));
 
     for (int i = 0; i < tweenTools.size(); ++i)
          k->motionMenu->addAction(tweenTools.at(i));
 
     foreach (QObject *plugin, TupPluginManager::instance()->filters()) {
-             AFilterInterface *filter = qobject_cast<AFilterInterface *>(plugin);
+             AFilterInterface *filterInterface = qobject_cast<AFilterInterface *>(plugin);
              QStringList::iterator it;
-             QStringList keys = filter->keys();
+             QStringList keys = filterInterface->keys();
 
              for (it = keys.begin(); it != keys.end(); ++it) {
                   #ifdef K_DEBUG
@@ -695,20 +655,25 @@ void TupDocumentView::loadPlugins()
                       #endif
                   #endif
 
-                  TAction *act = filter->actions()[*it];
-                  if (act) {
-                      connect(act, SIGNAL(triggered()), this, SLOT(applyFilter()));
-                      k->filterMenu->addAction(act);
+                  TAction *filter = filterInterface->actions()[*it];
+                  if (filter) {
+                      connect(filter, SIGNAL(triggered()), this, SLOT(applyFilter()));
+                      k->filterMenu->addAction(filter);
                   }
              }
     }
 
-    k->toolbar->addAction(k->brushesMenu->menuAction());
+    k->toolbar->addAction(k->pencilAction);
+    k->toolbar->addAction(k->inkAction);
+    k->toolbar->addAction(k->polyLineAction);
+    k->toolbar->addSeparator();
+    k->toolbar->addAction(k->shapesMenu->menuAction());
     k->toolbar->addSeparator();
     k->toolbar->addAction(k->selectionAction);
     k->toolbar->addAction(k->nodesAction);
     k->toolbar->addSeparator();
-    k->toolbar->addAction(k->fillMenu->menuAction());
+    k->toolbar->addAction(k->fillAction);
+    k->toolbar->addAction(k->borderFillAction);
     k->toolbar->addSeparator();
     k->toolbar->addAction(k->handAction);
     k->toolbar->addSeparator();
@@ -717,7 +682,7 @@ void TupDocumentView::loadPlugins()
     brushTools.clear();
     tweenTools.clear();
 
-    pencil->trigger();
+    k->pencilAction->trigger();
 }
 
 void TupDocumentView::loadPlugin(int menu, int index)
@@ -758,50 +723,70 @@ void TupDocumentView::loadPlugin(int menu, int index)
             break;
             case TupToolPlugin::BrushesMenu:
                  {
-                     QList<QAction*> brushActions = k->brushesMenu->actions();
-                     if (index < brushActions.size()) {
-                         action = (TAction *) brushActions[index];
-                     } else {
-                         #ifdef K_DEBUG
-                             QString msg = "TupDocumentView::loadPlugin() - Error: Invalid Brush Index / No plugin loaded";
-                             #ifdef Q_OS_WIN32
-                                 qDebug() << msg;
-                             #else
-                                 tError() << msg;
-                             #endif
-                         #endif
-                         return;
+                     QList<QAction*> brushActions = k->shapesMenu->actions();
+
+                     switch (index) {
+                             case TupToolPlugin::PencilTool:
+                             {
+                                 action = k->pencilAction;
+                             }
+                             break;
+                             case TupToolPlugin::InkTool:
+                             {
+                                 action = k->inkAction;
+                             }
+                             break;
+                             case TupToolPlugin::PolyLineTool:
+                             {
+                                 action = k->polyLineAction;
+                             }
+                             break;
+                             case TupToolPlugin::RectangleTool:
+                             {
+                                 action = (TAction *) brushActions[0];
+                             }
+                             break;
+                             case TupToolPlugin::EllipseTool:
+                             {
+                                 action = (TAction *) brushActions[1];
+                             }
+                             break;
+                             case TupToolPlugin::LineTool:
+                             {
+                                 action = (TAction *) brushActions[2];
+                             }
+                             break;
                      }
                  }
             break;
             case TupToolPlugin::SelectionMenu:
                  {
-                     if (index == TupToolPlugin::Delete) {
-                         k->paintArea->deleteItems();
-                     } else {
-                         if (index == TupToolPlugin::NodesTool)
+                     switch (index) {
+                         case TupToolPlugin::Delete:
+                         {
+                             k->paintArea->deleteItems();
+                         }
+                         break;
+                         case TupToolPlugin::NodesTool:
+                         {
                              action = k->nodesAction;
-                         if (index == TupToolPlugin::ObjectsTool)
+                         }
+                         break;
+                         case TupToolPlugin::ObjectsTool:
+                         {
                              action = k->selectionAction;
+                         }
+                         break;
                      }
                  }
             break;
             case TupToolPlugin::FillMenu:
                  {
-                     QList<QAction*> fillActions = k->fillMenu->actions();
-                     if (index < fillActions.size()) {
-                         action = (TAction *) fillActions[index];
-                     } else {
-                         #ifdef K_DEBUG
-                             QString msg = "TupDocumentView::loadPlugin() - Error: Invalid Fill Index / No plugin loaded";
-                             #ifdef Q_OS_WIN32
-                                 qDebug() << msg;
-                             #else
-                                 tError() << msg;
-                             #endif
-                         #endif
-                         return;
-                     }
+                     if (index == TupToolPlugin::InsideTool)
+                         action = k->fillAction;
+
+                     if (index == TupToolPlugin::ContourTool)
+                         action = k->borderFillAction;
                  }
             break;
             case TupToolPlugin::ZoomMenu:
@@ -884,41 +869,33 @@ void TupDocumentView::selectTool()
         switch (tool->toolType()) {
                 case TupToolInterface::Brush: 
                      k->status->enableFullScreenFeature(true);
-                     if (toolName.compare(tr("Pencil"))==0) {
+                     if (toolName.compare(tr("Pencil"))==0 || toolName.compare(tr("PolyLine"))==0) {
                          minWidth = 130;
                      } else if (toolName.compare(tr("Text"))==0) {
                                 minWidth = 350;
-                     } else if (toolName.compare(tr("PolyLine"))==0 || toolName.compare(tr("Rectangle"))==0 
-                                || toolName.compare(tr("Ellipse"))==0 || toolName.compare(tr("Line"))==0) {
-                                minWidth = 130;
-                     }
+                     } 
 
-                     k->brushesMenu->setDefaultAction(action);
-                     k->brushesMenu->setActiveAction(action);
-                     if (!action->icon().isNull())
-                         k->brushesMenu->menuAction()->setIcon(action->icon());
+                     if (toolName.compare(tr("Rectangle"))==0 || toolName.compare(tr("Ellipse"))==0 || toolName.compare(tr("Line"))==0) { 
+                         minWidth = 130;
+                         k->shapesMenu->setDefaultAction(action);
+                         k->shapesMenu->setActiveAction(action);
+                         if (!action->icon().isNull())
+                             k->shapesMenu->menuAction()->setIcon(action->icon());
+                     }
                      break;
+                     
                 case TupToolInterface::Tweener:
                      k->status->enableFullScreenFeature(false);
                      minWidth = 220;
-                     k->motionMenu->setDefaultAction(action);
                      k->motionMenu->setActiveAction(action);
                      if (!action->icon().isNull())
                          k->motionMenu->menuAction()->setIcon(action->icon());
                      break;
                 case TupToolInterface::Fill:
                      k->status->enableFullScreenFeature(true);
-                     k->fillMenu->setDefaultAction(action);
-                     k->fillMenu->setActiveAction(action);
-                     if (!action->icon().isNull())
-                         k->fillMenu->menuAction()->setIcon(action->icon());
                      break;
                 case TupToolInterface::Selection:
                      k->status->enableFullScreenFeature(true);
-                     // k->selectionMenu->setDefaultAction(action);
-                     // k->selectionMenu->setActiveAction(action);
-                     // if (!action->icon().isNull())
-                     //     k->selectionMenu->menuAction()->setIcon(action->icon());
                      if (toolName.compare(tr("Object Selection"))==0) {
                          minWidth = 130;
                          connect(k->paintArea, SIGNAL(itemAddedOnSelection(TupGraphicsScene *)), 
@@ -927,10 +904,6 @@ void TupDocumentView::selectTool()
                      break;
                 case TupToolInterface::View:
                      k->status->enableFullScreenFeature(true);
-                     // k->viewToolMenu->setDefaultAction(action);
-                     // k->viewToolMenu->setActiveAction(action);
-                     // if (!action->icon().isNull())
-                     //     k->viewToolMenu->menuAction()->setIcon(action->icon());
                      if (toolName.compare(tr("Zoom In"))==0 || toolName.compare(tr("Zoom Out"))==0)
                          minWidth = 130;
 
@@ -1078,9 +1051,6 @@ void TupDocumentView::createToolBar()
     k->barGrid->addAction(k->actionManager->find("paste"));
     k->barGrid->addAction(k->actionManager->find("cut"));
     k->barGrid->addAction(k->actionManager->find("delete"));
-
-    // k->barGrid->addAction(k->actionManager->find("show_grid"));
-    // k->barGrid->addAction(k->actionManager->find("full_screen"));
 
     k->barGrid->addAction(k->actionManager->find("group"));
     k->barGrid->addAction(k->actionManager->find("ungroup"));
@@ -1319,8 +1289,7 @@ void TupDocumentView::setSpaceContext()
        k->currentTool->init(k->paintArea->graphicsScene()); 
        if (((k->currentTool->toolType() == TupToolInterface::Tweener) || (k->currentTool->toolType() == TupToolInterface::LipSync))
            && (mode != TupProject::FRAMES_EDITION)) {
-           QAction *pencil = k->brushesMenu->actions().at(0);
-           pencil->trigger();
+           k->pencilAction->trigger();
        }
    }
 
@@ -1676,7 +1645,7 @@ void TupDocumentView::cameraInterface()
                 }
         }
 
-        /*
+        /* SQA: This lines should be enabled in some point at the future
         QByteArray cameraDevice = cameraDevices[0];
         QCamera *camera = new QCamera(cameraDevice);
         camera->load();

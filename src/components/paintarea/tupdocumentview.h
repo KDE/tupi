@@ -139,7 +139,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void setupDrawActions();
         void createToolBar();
         void createMenu();
-        void createTools();
+        void createLateralToolBar();
         void updateRotationAngleFromRulers(int angle);
 
     private slots: 

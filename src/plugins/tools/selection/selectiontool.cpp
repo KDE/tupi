@@ -365,6 +365,7 @@ void SelectionTool::setupActions()
 
     TAction *select = new TAction(QPixmap(kAppProp->themeDir() + "icons/selection.png"), tr("Object Selection"), this);
     select->setShortcut(QKeySequence(tr("O")));
+    select->setToolTip(tr("Object Selection") + " - " + "O");
 
     k->actions.insert(tr("Selection"), select);
 }
