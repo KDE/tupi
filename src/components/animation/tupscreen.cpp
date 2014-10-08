@@ -41,6 +41,7 @@ struct TupScreen::Private
 {
     QWidget *container;
     QImage renderCamera;
+    QPoint imagePos;
     bool firstShoot;
     bool isScaled;
     const TupProject *project;
@@ -202,9 +203,7 @@ void TupScreen::paintEvent(QPaintEvent *)
     QPainter painter;
     painter.begin(this);
 
-    int x = (frameSize().width() - k->renderCamera.size().width()) / 2;
-    int y = (frameSize().height() - k->renderCamera.size().height()) / 2;
-    painter.drawImage(QPoint(x, y), k->renderCamera);
+    painter.drawImage(k->imagePos, k->renderCamera);
 
     // SQA: Border for the player. Useful for some tests
     // painter.setPen(QPen(Qt::gray, 0.5, Qt::SolidLine));
@@ -690,6 +689,10 @@ void TupScreen::updateFirstFrame()
             } else {
                 k->renderCamera = firstFrame;
             }
+
+            int x = (frameSize().width() - k->renderCamera.size().width()) / 2;
+            int y = (frameSize().height() - k->renderCamera.size().height()) / 2;
+            k->imagePos = QPoint(x, y);
 
             k->firstShoot = true;
         } else {

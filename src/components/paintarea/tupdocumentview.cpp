@@ -237,7 +237,8 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
 
     connect(k->paintArea->brushManager(), SIGNAL(penChanged(const QPen&)), k->status, SLOT(setPen(const QPen &)));
 
-    loadPlugins();
+    // SQA: Find out why this timer instruction is required?
+    QTimer::singleShot(500, this, SLOT(loadPlugins()));
 
     // SQA: Temporarily disabled  
     // if (!k->isNetworked)
