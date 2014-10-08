@@ -44,6 +44,7 @@
 #include "tupgraphicsscene.h"
 #include "tupanimationrenderer.h"
 #include "tupsoundlayer.h"
+#include "tuplibrary.h"
 
 #include <QImage>
 #include <QPainter>
@@ -52,9 +53,10 @@
 #include <QGraphicsItem>
 #include <QApplication>
 #include <QMessageBox>
-// #include <QProgressDialog>
 #include <QDesktopWidget>
 #include <QTimer>
+#include <QMediaPlayer>
+#include <QUrl>
 
 /**
  * @author David Cuadrado
@@ -113,6 +115,9 @@ class TUPI_EXPORT TupScreen : public QFrame, public TupAbstractProjectResponseHa
         void initPhotogramsArray();
         void addPhotogramsArray(int index);
         void updateFirstFrame();
+        void setLipSyncSettings();
+        void playLipSyncAt(int frame);
+
         struct Private;
         Private *const k;
 };

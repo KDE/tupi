@@ -131,7 +131,6 @@ void TupSoundPlayer::playFile()
 
 void TupSoundPlayer::positionChanged(qint64 value)
 {
-    qDebug() << "TupSoundPlayer::positionChanged() - value: " << value;
     qint64 currentInfo = value / 1000;
     k->slider->setValue(currentInfo);
     QString time;

@@ -73,12 +73,14 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file, const QSize &proje
                        }
                    } 
                    break;
+                   /*
                    case 1:
                    {
                        // Load audio file
                        k->lipsync->setSoundFile(line.trimmed());
                    }
                    break;
+                   */
                    case 2:
                    {
                        // FPS 
@@ -181,6 +183,11 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file, const QSize &proje
 
 TupPapagayoImporter::~TupPapagayoImporter()
 {
+}
+
+void TupPapagayoImporter::setSoundFile(const QString &soundFile)
+{
+    k->lipsync->setSoundFile(soundFile);
 }
 
 bool TupPapagayoImporter::fileIsValid()

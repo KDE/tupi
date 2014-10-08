@@ -60,6 +60,10 @@ struct TupScreen::Private
     QSize screenDimension;
 
     TupLibrary *library;
+    QList<QPair<int, QString> > lipSyncRecords;
+    QMediaPlayer *soundPlayer;
+
+    bool isPlaying;
 };
 
 TupScreen::TupScreen(TupProject *project, const QSize viewSize, bool isScaled, QWidget *parent) : QFrame(parent), k(new Private)
@@ -76,13 +80,13 @@ TupScreen::TupScreen(TupProject *project, const QSize viewSize, bool isScaled, Q
     k->project = project;
     k->library = project->library();
     k->isScaled = isScaled;
-
     k->screenDimension = viewSize;
-
     k->cyclicAnimation = false;
     k->fps = 24;
     k->currentSceneIndex = 0;
     k->currentFramePosition = 0;
+    k->soundPlayer = new QMediaPlayer;
+    k->isPlaying = false;
 
     k->timer = new QTimer(this);
     k->playBackTimer = new QTimer(this);
@@ -193,6 +197,9 @@ void TupScreen::paintEvent(QPaintEvent *)
     #endif
     */
 
+    if (k->isPlaying)
+        playLipSyncAt(k->currentFramePosition);
+
     if (!k->firstShoot) {
         if (k->currentFramePosition > -1 && k->currentFramePosition < k->photograms.count())
             k->renderCamera = k->photograms[k->currentFramePosition];
@@ -220,6 +227,8 @@ void TupScreen::play()
             tWarning("camera") << msg;
         #endif
     #endif
+
+    k->isPlaying = true;
 
     if (k->playBackTimer->isActive()) 
         stop();
@@ -271,6 +280,9 @@ void TupScreen::stop()
             tWarning("camera") << msg;
         #endif
     #endif
+
+    k->isPlaying = false;
+    k->soundPlayer->stop();
    
     if (k->timer->isActive())
         k->timer->stop();
@@ -673,6 +685,8 @@ void TupScreen::updateFirstFrame()
     if (k->currentSceneIndex > -1 && k->currentSceneIndex < k->animationList.count()) {
         TupScene *scene = k->project->scene(k->currentSceneIndex);
         if (scene) { 
+            setLipSyncSettings();
+
             TupAnimationRenderer renderer(k->project->bgColor(), k->library);
             renderer.setScene(scene, k->project->dimension());
             renderer.renderPhotogram(0);
@@ -733,3 +747,41 @@ void TupScreen::addPhotogramsArray(int sceneIndex)
         k->animationList.insert(sceneIndex, photograms);
     }
 }
+
+void TupScreen::setLipSyncSettings()
+{
+    TupScene *scene = k->project->scene(k->currentSceneIndex);
+    if (scene) {
+        if (scene->lipSyncTotal() > 0) {
+            k->lipSyncRecords.clear();
+            Mouths mouths = scene->getLipSyncList();
+            foreach(TupLipSync *lipsync, mouths) {
+                    TupLibraryFolder *folder = k->library->getFolder(lipsync->name());
+                    if (folder) {
+                        TupLibraryObject *sound = folder->getObject(lipsync->soundFile());
+                        if (sound) {
+                            QPair<int, QString> soundRecord;
+                            soundRecord.first = lipsync->initFrame();
+                            soundRecord.second = sound->dataPath();
+                            k->lipSyncRecords << soundRecord;
+                        }
+                    }
+            }
+        }
+    }
+}
+
+void TupScreen::playLipSyncAt(int frame)
+{
+    int size = k->lipSyncRecords.count();
+    for(int i=0; i<size; i++) {
+             QPair<int, QString> soundRecord = k->lipSyncRecords.at(i);
+             int test = soundRecord.first;
+             if (frame == soundRecord.first) {
+                 QString path = soundRecord.second;
+                 k->soundPlayer->setMedia(QUrl::fromLocalFile(soundRecord.second));
+                 k->soundPlayer->play();
+             }
+    }
+}
+

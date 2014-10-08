@@ -778,3 +778,27 @@ bool TupScene::removeLipSync(const QString &name)
 
     return false;
 }
+
+int TupScene::lipSyncTotal()
+{
+    int total = 0;
+    foreach (TupLayer *layer, k->layers)
+             total += layer->lipSyncCount();
+       
+    return total;
+}
+
+Mouths TupScene::getLipSyncList()
+{
+    Mouths list;
+
+    foreach (TupLayer *layer, k->layers) {
+             if (layer->lipSyncCount() > 0) {
+                 Mouths mouths = layer->lipSyncList();
+                 list.append(mouths);
+             }
+    }
+
+    return list;
+}
+

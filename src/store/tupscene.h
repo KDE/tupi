@@ -65,6 +65,7 @@ class TupItemTweener;
 typedef QList<TupFrame *> Frames;
 typedef QList<TupLayer *> Layers;
 typedef QList<TupSoundLayer *> SoundLayers;
+typedef QList<TupLipSync *> Mouths;
 
 /**
  * @brief This class represents the scene data structure
@@ -193,6 +194,8 @@ class TUPI_EXPORT TupScene : public QObject, public TupAbstractSerializable
         TupLipSync * getLipSync(const QString &name);
         bool updateLipSync(TupLipSync *lipsync);
         bool removeLipSync(const QString &name);
+        int lipSyncTotal();
+        Mouths getLipSyncList();
 
     private:
         void removeTweensFromLayer(int layer);
