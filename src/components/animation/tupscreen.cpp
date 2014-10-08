@@ -776,7 +776,6 @@ void TupScreen::playLipSyncAt(int frame)
     int size = k->lipSyncRecords.count();
     for(int i=0; i<size; i++) {
              QPair<int, QString> soundRecord = k->lipSyncRecords.at(i);
-             int test = soundRecord.first;
              if (frame == soundRecord.first) {
                  QString path = soundRecord.second;
                  k->soundPlayer->setMedia(QUrl::fromLocalFile(soundRecord.second));
