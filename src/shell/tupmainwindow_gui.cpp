@@ -256,7 +256,6 @@ void TupMainWindow::setupMenu()
     m_windowMenu->addAction(m_actionManager->find("show_pen"));
     m_windowMenu->addAction(m_actionManager->find("show_library"));
     m_windowMenu->addAction(m_actionManager->find("show_timeline"));
-    m_actionManager->enable("show_timeline", false);
     m_windowMenu->addAction(m_actionManager->find("show_scenes"));
     m_windowMenu->addAction(m_actionManager->find("show_exposure"));
     m_windowMenu->addAction(m_actionManager->find("show_help"));
@@ -265,7 +264,6 @@ void TupMainWindow::setupMenu()
     m_windowMenu->addAction(m_actionManager->find("show_debug"));
 #endif
 
-    // m_actionManager->enable("show_help", false);
     m_windowMenu->addSeparator();
 
     // Setup perspective menu

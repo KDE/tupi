@@ -62,8 +62,8 @@ TupTimeLine::TupTimeLine(QWidget *parent) : TupModuleWidgetBase(parent, "TupTime
     
     k->actionBar = new TupProjectActionBar(QString("TimeLine"), TupProjectActionBar::InsertLayer |
                         TupProjectActionBar::RemoveLayer |
-                        // TupProjectActionBar::MoveLayerUp |
-                        // TupProjectActionBar::MoveLayerDown |
+                        TupProjectActionBar::MoveLayerUp |
+                        TupProjectActionBar::MoveLayerDown |
                         TupProjectActionBar::Separator |
                         TupProjectActionBar::InsertFrame |
                         TupProjectActionBar::RemoveFrame |
@@ -187,7 +187,6 @@ void TupTimeLine::sceneResponse(TupSceneResponse *response)
 {
     Q_UNUSED(response);
 
-    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupTimeLine::sceneResponse()]";
@@ -231,14 +230,12 @@ void TupTimeLine::sceneResponse(TupSceneResponse *response)
                  tFatal() << "TupTimeLine::sceneResponse : Unknown action :/";
             break;
     }
-    */
 }
 
 void TupTimeLine::layerResponse(TupLayerResponse *response)
 {
     Q_UNUSED(response);
 
-    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupTimeLine::layerResponse()]";
@@ -307,15 +304,12 @@ void TupTimeLine::layerResponse(TupLayerResponse *response)
             }
             break;
     }
-
-    */
 }
 
 void TupTimeLine::frameResponse(TupFrameResponse *response)
 {
     Q_UNUSED(response);
 
-    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupTimeLine::frameResponse()]";
@@ -377,14 +371,12 @@ void TupTimeLine::frameResponse(TupFrameResponse *response)
             break;
 
     }
-    */
 }
 
 void TupTimeLine::libraryResponse(TupLibraryResponse *response)
 {
     Q_UNUSED(response);
 
-    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupTimeLine::libraryResponse()]";
@@ -413,8 +405,6 @@ void TupTimeLine::libraryResponse(TupLibraryResponse *response)
                 break;
         };
     }
-
-    */
 }
 
 void TupTimeLine::requestCommand(int action)
