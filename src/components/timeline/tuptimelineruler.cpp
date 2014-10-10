@@ -33,13 +33,13 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "tuptlruler.h"
+#include "tuptimelineruler.h"
 
-TupTLRuler::TupTLRuler(QWidget *parent) : QHeaderView(Qt::Horizontal, parent)
+TupTimeLineRuler::TupTimeLineRuler(QWidget *parent) : QHeaderView(Qt::Horizontal, parent)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
-            qDebug() << "[TupTLRuler()]";
+            qDebug() << "[TupTimeLineRuler()]";
         #else
             TINIT;
         #endif
@@ -51,18 +51,18 @@ TupTLRuler::TupTLRuler(QWidget *parent) : QHeaderView(Qt::Horizontal, parent)
     connect(this, SIGNAL(sectionClicked(int)), this, SLOT(updateSelected(int)));
 }
 
-TupTLRuler::~TupTLRuler()
+TupTimeLineRuler::~TupTimeLineRuler()
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
-            qDebug() << "[~TupTLRuler()]";
+            qDebug() << "[~TupTimeLineRuler()]";
         #else
             TEND;
         #endif
     #endif
 }
 
-void TupTLRuler::paintSection(QPainter * painter, const QRect & rect, int logicalIndex) const
+void TupTimeLineRuler::paintSection(QPainter * painter, const QRect & rect, int logicalIndex) const
 {
     if (!model() || !rect.isValid())
         return;
@@ -73,8 +73,8 @@ void TupTLRuler::paintSection(QPainter * painter, const QRect & rect, int logica
     int column = currentSelection.row(); 
 
     if (selectionModel()->isSelected(model()->index(column, logicalIndex))) {
-        QBrush brush(QColor(255, 100, 100, 150));
-        brush.setStyle(Qt::Dense5Pattern);
+        QBrush brush(QColor(0, 135, 0, 80));
+        // brush.setStyle(Qt::Dense5Pattern);
         painter->fillRect(rect, brush);
     }
 
@@ -105,20 +105,20 @@ void TupTLRuler::paintSection(QPainter * painter, const QRect & rect, int logica
 
 }
 
-void TupTLRuler::updateSelected(int logical)
+void TupTimeLineRuler::updateSelected(int logical)
 {
     select(logical);
 
     emit logicalSectionSelected(logical);
 }
 
-void TupTLRuler::select(int logical)
+void TupTimeLineRuler::select(int logical)
 {
     selectionModel()->select(model()->index(0, logical), QItemSelectionModel::ClearAndSelect);
     viewport()->update(QRect(sectionViewportPosition(logical), 0, sectionSize(logical),viewport()->height()));
 }
 
-void TupTLRuler::mouseMoveEvent(QMouseEvent *e)
+void TupTimeLineRuler::mouseMoveEvent(QMouseEvent *e)
 {
     if (e->buttons() & Qt::LeftButton)
         updateSelected(logicalIndexAt(e->pos()));

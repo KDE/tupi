@@ -37,7 +37,7 @@
 #define TUPFRAMESTABLE_H
 
 #include "tglobal.h"
-#include "tuptlruler.h"
+#include "tuptimelineruler.h"
 #include "tupprojectactionbar.h"
 
 #include <QTableWidget>
@@ -71,7 +71,7 @@ class TUPI_EXPORT TupFramesTableItem : public QTableWidgetItem
         bool isSound();
 };
 
-class TupTLRuler;
+class TupTimeLineRuler;
 
 /**
  * @author David Cuadrado

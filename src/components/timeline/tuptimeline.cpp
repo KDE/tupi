@@ -78,7 +78,6 @@ TupTimeLine::TupTimeLine(QWidget *parent) : TupModuleWidgetBase(parent, "TupTime
     
     connect(k->actionBar, SIGNAL(actionSelected(int)), this, SLOT(requestCommand(int)));
     connect(k->container, SIGNAL(currentChanged(int)), this, SLOT(emitRequestChangeScene(int)));
-
 }
 
 TupTimeLine::~TupTimeLine()

@@ -68,18 +68,14 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
     value = index.data(Qt::BackgroundColorRole);
     
     if (value.isValid()) {
-
         painter->save();
         
         bool sound = table->isSoundLayer(index.row());
-        
         if (!sound)
             painter->fillRect(option.rect, value.value<QColor>());
         
         painter->restore();
-
     } else {
-
         painter->save();
         
         bool sound = table->isSoundLayer(index.row());
@@ -99,13 +95,11 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
     
     // Selection!
     if (option.showDecorationSelected && (option.state & QStyle::State_Selected)) {
-
         QPalette::ColorGroup cg = option.state & QStyle::State_Enabled ? QPalette::Normal : QPalette::Disabled;
         painter->save();
-        painter->setPen(QPen(option.palette.brush(cg, QPalette::Highlight), 3));
-        painter->fillRect(option.rect, QColor(250, 209, 132, 255));
+        // painter->setPen(QPen(option.palette.brush(cg, QPalette::Highlight), 3));
+        painter->fillRect(option.rect, QColor(0, 135, 0, 180));
         painter->restore();
-
     }
     
     // Draw attributes
@@ -204,15 +198,15 @@ struct TupFramesTable::Private
     int layerIndex;
     int frameIndex;
     QList<LayerItem> layers;
-    TupTLRuler *ruler;
+    TupTimeLineRuler *ruler;
 };
 
-TupFramesTable::TupFramesTable(int sceneIndex, QWidget *parent) : QTableWidget(0, 100, parent), k(new Private)
+TupFramesTable::TupFramesTable(int sceneIndex, QWidget *parent) : QTableWidget(0, 200, parent), k(new Private)
 {
     k->sceneIndex = sceneIndex;
     k->frameIndex = 0;
     k->layerIndex = 0;
-    k->ruler = new TupTLRuler;
+    k->ruler = new TupTimeLineRuler;
     setup();
 }
 
@@ -242,9 +236,6 @@ void TupFramesTable::setup()
     
     setItemSize(10, 25);
     
-    // horizontalHeader()->setResizeMode(QHeaderView::Custom);
-    // verticalHeader()->setResizeMode(QHeaderView::Custom);
-
     horizontalHeader()->setSectionResizeMode(QHeaderView::Custom);
     verticalHeader()->setSectionResizeMode(QHeaderView::Custom);
 }

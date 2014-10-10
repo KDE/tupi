@@ -33,8 +33,8 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPTLRULER_H
-#define TUPTLRULER_H
+#ifndef TUPTIMELINERULER_H
+#define TUPTIMELINERULER_H
 
 #include "tglobal.h"
 
@@ -46,13 +46,13 @@
  * @author David Cuadrado
 **/
 
-class TUPI_EXPORT TupTLRuler : public QHeaderView
+class TUPI_EXPORT TupTimeLineRuler : public QHeaderView
 {
     Q_OBJECT
 
     public:
-        TupTLRuler(QWidget *parent = 0);
-        ~TupTLRuler();
+        TupTimeLineRuler(QWidget *parent = 0);
+        ~TupTimeLineRuler();
         void select(int logical);
 
     protected:

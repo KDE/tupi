@@ -94,7 +94,7 @@ void TupProjectActionBar::setup(Actions actions)
 
    if (actions & InsertLayer) {
         TImageButton *button = new TImageButton(QIcon(THEME_DIR + "icons/add_layer.png"), size);
-        button->setToolTip(tr("Insert a layer"));
+        button->setToolTip(tr("Insert layer"));
         button->setShortcut(QKeySequence(tr("F5")));
         //button->setEnabled(false);
 
@@ -106,7 +106,7 @@ void TupProjectActionBar::setup(Actions actions)
 
     if (actions & RemoveLayer) {
         TImageButton *button = new TImageButton(QIcon(THEME_DIR + "icons/remove_layer.png"), size);
-        button->setToolTip(tr("Remove the layer"));
+        button->setToolTip(tr("Remove layer"));
         button->setShortcut(QKeySequence(tr("F6")));
         //button->setEnabled(false);
 
@@ -156,7 +156,7 @@ void TupProjectActionBar::setup(Actions actions)
     
     if (actions & RemoveFrame) {
         TImageButton *button = new TImageButton(QIcon(THEME_DIR + "icons/remove_frame.png"), size);
-        button->setToolTip(tr("Remove the frame"));
+        button->setToolTip(tr("Remove frame"));
         button->setShortcut(QKeySequence(Qt::Key_Minus));
         
         k->actions.addButton(button, RemoveFrame);
@@ -225,7 +225,7 @@ void TupProjectActionBar::setup(Actions actions)
 
     if (actions & InsertScene) {
         TImageButton *button = new TImageButton(QIcon(THEME_DIR + "icons/add_scene.png"), size);  // TODO
-        button->setToolTip(tr("Insert a scene"));
+        button->setToolTip(tr("Insert scene"));
         
         k->actions.addButton(button, InsertScene);
         
@@ -235,7 +235,7 @@ void TupProjectActionBar::setup(Actions actions)
      
     if (actions & RemoveScene) {
         TImageButton *button = new TImageButton(QIcon(THEME_DIR + "icons/remove_scene.png"), size);  // TODO
-        button->setToolTip(tr("Remove the scene"));
+        button->setToolTip(tr("Remove scene"));
 
         k->actions.addButton(button, RemoveScene);
         

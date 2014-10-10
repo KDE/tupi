@@ -9,14 +9,14 @@ macx {
 
 HEADERS += tuptimeline.h \
            tuplayermanager.h \
-           tuptlruler.h \
+           tuptimelineruler.h \
            tupframestable.h \ 
            tuplayerindex.h \
            tuplayercontrols.h
 
 SOURCES += tuptimeline.cpp \
            tuplayermanager.cpp \
-           tuptlruler.cpp \
+           tuptimelineruler.cpp \
            tupframestable.cpp \
            tuplayerindex.cpp \
            tuplayercontrols.cpp
