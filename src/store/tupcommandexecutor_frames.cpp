@@ -192,7 +192,7 @@ bool TupCommandExecutor::moveFrame(TupFrameResponse *response)
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
                 #else
-                    tError("library") << msg;
+                    tError() << msg;
                 #endif
             #endif  
             return false;
@@ -226,7 +226,7 @@ bool TupCommandExecutor::exchangeFrame(TupFrameResponse *response)
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
                 #else
-                    tError("library") << msg;
+                    tError() << msg;
                 #endif
             #endif  
             return false;
@@ -333,16 +333,24 @@ bool TupCommandExecutor::selectFrame(TupFrameResponse *response)
     TupLayer *layer = scene->layer(layerPos);
     
     if (layer) {
-
         if (position < layer->framesTotal()) {
             TupFrame *frame = layer->frame(position);
-        
             if (! frame) 
                 return false;
         
             emit responsed(response);
             return true;
-        } 
+        } else {
+            #ifdef K_DEBUG
+                QString msg = "TupCommandExecutor::selectFrame() - Invalid frame index -> " + QString::number(position);
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
+            #endif
+            return false;
+        }
     } 
     
     return false;

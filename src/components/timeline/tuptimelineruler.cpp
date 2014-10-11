@@ -46,9 +46,7 @@ TupTimeLineRuler::TupTimeLineRuler(QWidget *parent) : QHeaderView(Qt::Horizontal
     #endif
 
     setHighlightSections(true);
-
-    // setClickable(true);	
-    connect(this, SIGNAL(sectionClicked(int)), this, SLOT(updateSelected(int)));
+    setStyleSheet("QHeaderView { background-color: #CCCCCC; }");
 }
 
 TupTimeLineRuler::~TupTimeLineRuler()
@@ -62,7 +60,7 @@ TupTimeLineRuler::~TupTimeLineRuler()
     #endif
 }
 
-void TupTimeLineRuler::paintSection(QPainter * painter, const QRect & rect, int logicalIndex) const
+void TupTimeLineRuler::paintSection(QPainter *painter, const QRect & rect, int logicalIndex) const
 {
     if (!model() || !rect.isValid())
         return;
@@ -74,9 +72,15 @@ void TupTimeLineRuler::paintSection(QPainter * painter, const QRect & rect, int 
 
     if (selectionModel()->isSelected(model()->index(column, logicalIndex))) {
         QBrush brush(QColor(0, 135, 0, 80));
-        // brush.setStyle(Qt::Dense5Pattern);
+        QRect green = QRect();
         painter->fillRect(rect, brush);
     }
+
+    int x = rect.bottomRight().x() - 1;
+    int topY = rect.topRight().y();
+    int bottomY = rect.bottomRight().y();
+    painter->drawLine(x, bottomY, x, bottomY - 6);
+    painter->drawLine(x, topY, x, topY + 4);
 
     logicalIndex++;
 
@@ -90,12 +94,6 @@ void TupTimeLineRuler::paintSection(QPainter * painter, const QRect & rect, int 
         painter->drawText((int)(rect.center().x() - (fm.width(number)/2)), 
                           (int)(rect.center().y() + (fm.height()/2)) - 2, number);
     }
-
-    int x = rect.bottomLeft().x() - 1;
-    int topY = rect.topLeft().y(); 
-    int bottomY = rect.bottomLeft().y();
-    painter->drawLine(x, bottomY, x, bottomY - 6);
-    painter->drawLine(x, topY, x, topY + 4);
 
     QPen pen = painter->pen();
     pen.setWidth(4);
@@ -118,6 +116,7 @@ void TupTimeLineRuler::select(int logical)
     viewport()->update(QRect(sectionViewportPosition(logical), 0, sectionSize(logical),viewport()->height()));
 }
 
+/*
 void TupTimeLineRuler::mouseMoveEvent(QMouseEvent *e)
 {
     if (e->buttons() & Qt::LeftButton)
@@ -125,3 +124,10 @@ void TupTimeLineRuler::mouseMoveEvent(QMouseEvent *e)
 
     QHeaderView::mouseMoveEvent(e);
 }
+*/
+
+void TupTimeLineRuler::mousePressEvent(QMouseEvent *event)
+{
+    emit logicalSectionSelected(logicalIndexAt(event->pos()));
+}
+

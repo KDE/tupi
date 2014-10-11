@@ -57,7 +57,8 @@ class TUPI_EXPORT TupTimeLineRuler : public QHeaderView
 
     protected:
         void paintSection(QPainter *painter, const QRect & rect, int logicalIndex) const;
-        void mouseMoveEvent(QMouseEvent *e);
+        // void mouseMoveEvent(QMouseEvent *e);
+        virtual void mousePressEvent(QMouseEvent *event);
 
     private slots:
         void updateSelected(int logical);

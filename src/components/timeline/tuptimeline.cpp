@@ -44,10 +44,11 @@ struct TupTimeLine::Private
     TTabWidget *container;
     TupProjectActionBar *actionBar;
     int selectedLayer; 
-    const TupLibrary *library;
+    TupProject *project;
+    TupLibrary *library;
 };
 
-TupTimeLine::TupTimeLine(QWidget *parent) : TupModuleWidgetBase(parent, "TupTimeLine"), k(new Private)
+TupTimeLine::TupTimeLine(TupProject *project, QWidget *parent) : TupModuleWidgetBase(parent, "TupTimeLine"), k(new Private)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
@@ -59,6 +60,9 @@ TupTimeLine::TupTimeLine(QWidget *parent) : TupModuleWidgetBase(parent, "TupTime
     
     setWindowTitle(tr("Time Line"));
     setWindowIcon(QPixmap(THEME_DIR + "icons/time_line.png"));
+
+    k->project = project;
+    k->library = k->project->library();
     
     k->actionBar = new TupProjectActionBar(QString("TimeLine"), TupProjectActionBar::InsertLayer |
                         TupProjectActionBar::RemoveLayer |
@@ -155,7 +159,7 @@ void TupTimeLine::insertScene(int position, const QString &name)
     connect(framesTable->verticalScrollBar(), SIGNAL(valueChanged(int)), layerManager->getLayerControls()->verticalScrollBar(),
             SLOT(setValue(int)));
 
-    //connect(framesTable, SIGNAL(emitSelection(int, int)), this, SLOT(selectFrame(int, int)));
+    connect(framesTable, SIGNAL(emitSelection(int, int)), this, SLOT(selectFrame(int, int)));
 
     k->container->insertTab(position, splitter, name);
 }
@@ -177,10 +181,12 @@ void TupTimeLine::closeAllScenes()
            delete k->container->currentWidget();
 }
 
+/*
 void TupTimeLine::setLibrary(const TupLibrary *library)
 {
     k->library = library;
 }
+*/
 
 void TupTimeLine::sceneResponse(TupSceneResponse *response)
 {
@@ -680,12 +686,29 @@ void TupTimeLine::emitLayerVisibility(int sceneIndex, int layerIndex, bool check
 void TupTimeLine::selectFrame(int indexLayer, int indexFrame)
 {
     int scenePos = k->container->currentIndex();
+    TupScene *scene = k->project->scene(scenePos);
+    if (scene) {
+        int totalFrames = scene->framesTotal();
+        tError() << "TupTimeLine::selectFrame() - Total frames: " << totalFrames;
+        if (indexFrame < totalFrames) {
+            TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, indexLayer,
+                                                           indexFrame, TupProjectRequest::Select, "1");
+            emit requestTriggered(&request);
+        } else {
+            int layersTotal = scene->layersTotal();
+            for (int layer=0; layer < layersTotal; layer++) {
+                 for (int frame = totalFrames; frame <= indexFrame; frame++) {
+                      TupProjectRequest event = TupRequestBuilder::createFrameRequest(scenePos, layer, frame,
+                                                TupProjectRequest::Add, tr("Frame %1").arg(frame + 1));
+                      emit requestTriggered(&event);
+                 }
+            }
 
-    // tFatal() << "TupTimeLine::selectFrame() - Just tracing!";
-    TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, indexLayer,
-                                                 indexFrame, TupProjectRequest::Select, "1");
-    emit requestTriggered(&request);
-
+            TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, indexLayer,
+                                                           indexFrame, TupProjectRequest::Select, "1");
+            emit requestTriggered(&request);
+        }
+    }
 }
 
 void TupTimeLine::emitRequestChangeScene(int sceneIndex)

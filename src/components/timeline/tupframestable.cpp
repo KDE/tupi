@@ -37,16 +37,15 @@
 
 ////////// TupFramesTableItemDelegate ///////////
 
-class TupFramesTableItemDelegate : public QAbstractItemDelegate
+class TupFramesTableItemDelegate : public QItemDelegate
 {
     public:
         TupFramesTableItemDelegate(QObject * parent = 0);
         ~TupFramesTableItemDelegate();
         virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const;
-        virtual QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
 };
 
-TupFramesTableItemDelegate::TupFramesTableItemDelegate(QObject * parent) : QAbstractItemDelegate(parent)
+TupFramesTableItemDelegate::TupFramesTableItemDelegate(QObject * parent) : QItemDelegate(parent) // QAbstractItemDelegate(parent)
 {
 }
 
@@ -57,12 +56,12 @@ TupFramesTableItemDelegate::~TupFramesTableItemDelegate()
 void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
     Q_ASSERT(index.isValid());
-    
+
+    QItemDelegate::paint(painter, option, index);
     TupFramesTable *table = qobject_cast<TupFramesTable *>(index.model()->parent());
     TupFramesTableItem *item = dynamic_cast<TupFramesTableItem *>(table->itemFromIndex(index));
     
     QVariant value;
-    QStyleOptionViewItem opt = option;
     
     // draw the background color
     value = index.data(Qt::BackgroundColorRole);
@@ -95,19 +94,15 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
     
     // Selection!
     if (option.showDecorationSelected && (option.state & QStyle::State_Selected)) {
-        QPalette::ColorGroup cg = option.state & QStyle::State_Enabled ? QPalette::Normal : QPalette::Disabled;
         painter->save();
-        // painter->setPen(QPen(option.palette.brush(cg, QPalette::Highlight), 3));
         painter->fillRect(option.rect, QColor(0, 135, 0, 180));
         painter->restore();
     }
     
     // Draw attributes
-    
     int offset = option.rect.width() - 5;
-    
-    if (item && index.isValid()) {
 
+    if (item && index.isValid()) {
         if (item->isUsed()) {
             painter->save();
             painter->setBrush(Qt::black);
@@ -132,24 +127,6 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
             painter->restore();
         }
     }
-}
-
-QSize TupFramesTableItemDelegate::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
-{
-    Q_ASSERT(index.isValid());
-    const QAbstractItemModel *model = index.model();
-    Q_ASSERT(model);
-
-    QVariant value = model->data(index, Qt::FontRole);
-    QFont fnt = value.isValid() ? qvariant_cast<QFont>(value) : option.font;
-    QString text = model->data(index, Qt::DisplayRole).toString();
-    QRect pixmapRect;
-    if (model->data(index, Qt::DecorationRole).isValid())
-        pixmapRect = QRect(0, 0, option.decorationSize.width(), option.decorationSize.height());
-
-    QFontMetrics fontMetrics(fnt);
-    
-    return (pixmapRect).size();
 }
 
 ////////// TupFramesTableItem ////////
@@ -225,9 +202,7 @@ void TupFramesTable::setup()
 
     connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(emitRequestSelectFrame(int, int, int, int)));
 
-    connect(k->ruler, SIGNAL(logicalSectionSelected(int)), this, SLOT(emitFrameSelected(int)));
-
-    // connect(this, SIGNAL(itemSelectionChanged()), this, SLOT(emitFrameSelectionChanged()));
+    connect(k->ruler, SIGNAL(logicalSectionSelected(int)), this, SLOT(emitFrameSelectionFromHeader(int)));
 
     connect(this, SIGNAL(currentItemChanged(QTableWidgetItem *, QTableWidgetItem *)), this, 
             SLOT(emitFrameSelected(QTableWidgetItem *, QTableWidgetItem *)));
@@ -240,28 +215,10 @@ void TupFramesTable::setup()
     verticalHeader()->setSectionResizeMode(QHeaderView::Custom);
 }
 
-void TupFramesTable::emitFrameSelected(int col)
+void TupFramesTable::emitFrameSelectionFromHeader(int frameIndex)
 {
-    selectColumn(col);
-    
-    TupFramesTableItem *item = dynamic_cast<TupFramesTableItem *>(this->item(currentRow(), col));
-    
-    if (item) {
-        if (item->isUsed())
-            emit emitRequestChangeFrame(k->sceneIndex, verticalHeader()->visualIndex(this->row(item)), this->column(item));
-            //emit frameRequest(TupProjectActionBar::SelectFrame, this->column(item), verticalHeader()->visualIndex(this->row(item)), -1);
-    } 
+    emit emitSelection(0, frameIndex);
 }
-
-/*
-void TupFramesTable::emitFrameSelectionChanged()
-{
-    TupFramesTableItem *item = dynamic_cast<TupFramesTableItem *>(this->item(currentRow(), currentColumn()));
-
-    if (!item)
-        emit frameRequest(TupProjectActionBar::InsertFrame, currentColumn(), currentRow(), k->sceneIndex);
-}
-*/
 
 void TupFramesTable::emitFrameSelected(QTableWidgetItem *current, QTableWidgetItem *prev)
 {
@@ -272,16 +229,15 @@ void TupFramesTable::emitFrameSelected(QTableWidgetItem *current, QTableWidgetIt
     if (item) {
         if (item->isUsed()) {
             emit emitRequestChangeFrame(k->sceneIndex, verticalHeader()->visualIndex(this->row(item)), this->column(item));
-            // emit frameRequest(TupProjectActionBar::SelectFrame, this->column(item), verticalHeader()->visualIndex(this->row(item)), -1);
         } else {
-        #ifdef K_DEBUG
-            QString msg = "TupFramesTable::emitFrameSelected <- item exists but isn't used right now";
-            #ifdef Q_OS_WIN32
-                qDebug() << msg;
-            #else
-                tFatal() << msg;
-            #endif
-        #endif  
+            #ifdef K_DEBUG
+                QString msg = "TupFramesTable::emitFrameSelected <- item exists but is unset right now";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tFatal() << msg;
+                #endif
+            #endif  
 	    }
     } else { 
         emit frameRequest(TupProjectActionBar::InsertFrame, currentColumn(), currentRow(), k->sceneIndex);
@@ -349,48 +305,21 @@ void TupFramesTable::moveLayer(int position, int newPosition)
         return;
     
     blockSignals(true);
-    
     verticalHeader()->moveSection(position, newPosition);
-    
     blockSignals(false);
-
-    /*
-     TupFramesTableItem *item1 = takeItem(position, 0);
-     
-     bool up = true;
-     if (position > newPosition) {
-         up = false; // down
-     }
-     
-     if (up) {
-         for (int i = position+1; i <= newPosition; i++) {
-              setItem(i-1, 0, takeItem(i, 0));
-         }
-     } else {
-         for (int i = position-1;i >= newPosition;i--) {
-              setItem(i+1, 0, takeItem(i, 0));
-         }
-     }
-     
-     setItem(newPosition, 0, item1);
-     
-     setCurrentItem(item1);
-    */
 }
 
 int TupFramesTable::lastFrameByLayer(int layerPos)
 {
     int pos = verticalHeader()->logicalIndex(layerPos);
 
-    if (pos < 0 || pos > k->layers.count()) {
+    if (pos < 0 || pos > k->layers.count())
         return -1;
-    }
 
     return k->layers[pos].lastItem;
 }
 
 // FRAMES
-
 
 void TupFramesTable::insertFrame(int layerPos, const QString &name)
 {
@@ -431,11 +360,6 @@ void TupFramesTable::removeFrame(int layerPos, int position)
 {
     Q_UNUSED(position);
 
-    /*
-    for (int frameIndex = position; frameIndex < columnCount(); frameIndex++)
-         setAttribute( layerPos, position, TupFramesTableItem::IsUsed, false);
-    */
-    
     if (layerPos < 0 || layerPos >= k->layers.count())
         return;
     
@@ -469,21 +393,12 @@ void TupFramesTable::setAttribute(int row, int col, TupFramesTableItem::Attribut
 
 void TupFramesTable::fixSize()
 {
-    for (int column = 0; column < columnCount(); column++) {
+    for (int column = 0; column < columnCount(); column++)
         horizontalHeader()->resizeSection(column, k->rectWidth);
-    }
 
-    for (int row = 0; row < rowCount(); row++) {
+    for (int row = 0; row < rowCount(); row++)
          verticalHeader()->resizeSection(row, k->rectHeight);
-    }
 }
-
-/*
-void TupFramesTable::fixSectionMoved(int logical, int visual, int newVisual)
-{
-     verticalHeader()->moveSection(newVisual, visual);
-}
-*/
 
 void TupFramesTable::emitRequestSelectFrame(int currentRow, int currentColumn, int previousRow, int previousColumn)
 {
@@ -495,4 +410,20 @@ void TupFramesTable::emitRequestSelectFrame(int currentRow, int currentColumn, i
          k->layerIndex = currentRow;
          emit emitSelection(currentRow, currentColumn);
      }
+}
+
+void TupFramesTable::mousePressEvent(QMouseEvent *event)
+{
+    int frameIndex = columnAt(event->x());
+
+    int total = columnCount();
+    if ((frameIndex >= total - 11) && (frameIndex <= total - 1)) {
+        int newTotal = total + 100;
+        for (int i=total; i < newTotal; i++) {
+             insertColumn(i);
+        }
+        fixSize();
+    }
+
+    QTableWidget::mousePressEvent(event);
 }

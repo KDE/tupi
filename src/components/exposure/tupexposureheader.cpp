@@ -49,8 +49,7 @@ struct LayerItem
  * @author Jorge Cuadrado
  */
 
-TupExposureHeader::TupExposureHeader(QWidget * parent) : QHeaderView(Qt::Horizontal, parent), m_sectionEdited(-1),
-                                                       m_blockSectionMoved(false)
+TupExposureHeader::TupExposureHeader(QWidget * parent) : QHeaderView(Qt::Horizontal, parent), m_sectionEdited(-1), m_blockSectionMoved(false)
 {
     setSectionsClickable(true);
     setSectionsMovable(true);
@@ -169,6 +168,7 @@ void TupExposureHeader::mousePressEvent(QMouseEvent * event)
     } else {
         if (currentCol != section)
             emit selectionHasChanged(section);
+
         QHeaderView::mousePressEvent(event);
     }
 }

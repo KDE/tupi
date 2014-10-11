@@ -46,6 +46,7 @@
 #include "tuplayermanager.h"
 #include "tupprojectactionbar.h"
 #include "tuprequestbuilder.h"
+#include "tupproject.h"
 #include "tuplibrary.h"
 
 #include <QSplitter>
@@ -69,11 +70,11 @@ class TUPI_EXPORT TupTimeLine : public TupModuleWidgetBase
     Q_OBJECT
 
     public:
-        TupTimeLine(QWidget *parent = 0);
+        TupTimeLine(TupProject *project, QWidget *parent = 0);
         ~TupTimeLine();
         void closeAllScenes();
         
-        void setLibrary(const TupLibrary *library);
+        // void setLibrary(const TupLibrary *library);
         
     private:
         TupLayerManager *layerManager(int sceneIndex);

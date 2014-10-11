@@ -42,6 +42,7 @@
 
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QItemDelegate>
 #include <QHash>
 #include <QPainter>
 #include <QPaintEvent>
@@ -119,9 +120,10 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
         
     protected:
         void fixSize();
+        void mousePressEvent(QMouseEvent * event);
         
     private slots:
-        void emitFrameSelected(int col);
+        void emitFrameSelectionFromHeader(int frameIndex);
         // void emitFrameSelectionChanged();
         void emitFrameSelected(QTableWidgetItem *curr, QTableWidgetItem *prev);
         void emitRequestSelectFrame(int currentRow, int currentColumn, int previousRow, int previousColumn);
@@ -129,7 +131,8 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
     signals:
         void frameRequest(int action, int frame, int layer, int scene, const QVariant &argument = QVariant());
         void emitRequestChangeFrame(int sceneIndex, int layerIndex, int frameIndex);
-        void emitSelection(int currentRow, int currentColumn);
+        // void emitSelection(int currentRow, int currentColumn);
+        void emitSelection(int layer, int frame);
         
     private:
         struct Private;

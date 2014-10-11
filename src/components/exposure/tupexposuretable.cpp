@@ -121,7 +121,7 @@ void TupExposureItemDelegate::paint(QPainter *painter, const QStyleOptionViewIte
     QTableWidgetItem *item = table->itemFromIndex(index);
 
     if (item) {
-        /* Useful code
+        /* SQA: Useful code
         if (item->data(TupExposureTable::IsLocked).toBool()) {
              QPixmap pixmap(THEME_DIR + "icons/padlock.png");
              painter->drawPixmap(1, 5, pixmap);
@@ -192,8 +192,7 @@ TupExposureTable::TupExposureTable(QWidget * parent) : QTableWidget(parent), k(n
     k->header = new TupExposureHeader(this);
 
     connect(k->header, SIGNAL(visibilityChanged(int, bool)), this, SIGNAL(requestChangeVisibilityLayer(int, bool)));
-    connect(k->header, SIGNAL(changedName(int, const QString &)), this, SIGNAL(requestRenameLayer(int, 
-                              const QString & )));
+    connect(k->header, SIGNAL(changedName(int, const QString &)), this, SIGNAL(requestRenameLayer(int, const QString & )));
     connect(k->header, SIGNAL(sectionMoved(int, int, int)), this, SLOT(emitRequestMoveLayer(int, int, int)));
     // connect(k->header, SIGNAL(selectionChanged(int)), this, SLOT(updateLayerSelection(int)));
     connect(k->header, SIGNAL(selectionHasChanged(int)), this, SLOT(updateLayerSelection(int)));
