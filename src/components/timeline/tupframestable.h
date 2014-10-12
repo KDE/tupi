@@ -38,17 +38,13 @@
 
 #include "tglobal.h"
 #include "tuptimelineruler.h"
+#include "tuplayerheader.h"
 #include "tupprojectactionbar.h"
 
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QItemDelegate>
-#include <QHash>
 #include <QPainter>
-#include <QPaintEvent>
-#include <QItemSelectionModel>
-#include <QPainterPath>
-#include <QScrollBar>
 #include <QHeaderView>
 
 class TupFramesTable;
@@ -59,7 +55,7 @@ class TUPI_EXPORT TupFramesTableItem : public QTableWidgetItem
     public:
         enum Attributes
         {
-            IsUsed = 0x01,
+            IsUsed = 0x0100,
             IsLocked,
             IsSound
         };
@@ -104,7 +100,11 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
         void insertFrame(int layerPos, const QString &name);
         
         void setCurrentFrame(TupFramesTableItem *);
+
         void setCurrentLayer(int layerPos);
+        int currentLayer();
+        int layersTotal();
+
         void selectFrame(int index);
         
         void setAttribute(int row, int col, TupFramesTableItem::Attributes att, bool value);
@@ -123,15 +123,15 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
         void mousePressEvent(QMouseEvent * event);
         
     private slots:
-        void emitFrameSelectionFromHeader(int frameIndex);
-        // void emitFrameSelectionChanged();
+        void emitFrameSelectionFromRuler(int frameIndex);
+        void emitFrameSelectionFromLayerHeader(int layerIndex);
+
         void emitFrameSelected(QTableWidgetItem *curr, QTableWidgetItem *prev);
         void emitRequestSelectFrame(int currentRow, int currentColumn, int previousRow, int previousColumn);
         
     signals:
         void frameRequest(int action, int frame, int layer, int scene, const QVariant &argument = QVariant());
         void emitRequestChangeFrame(int sceneIndex, int layerIndex, int frameIndex);
-        // void emitSelection(int currentRow, int currentColumn);
         void emitSelection(int layer, int frame);
         
     private:

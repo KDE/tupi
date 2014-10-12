@@ -12,14 +12,17 @@ HEADERS += tuptimeline.h \
            tuptimelineruler.h \
            tupframestable.h \ 
            tuplayerindex.h \
-           tuplayercontrols.h
+           tuplayercontrols.h \
+           tuplayerheader.h
 
 SOURCES += tuptimeline.cpp \
            tuplayermanager.cpp \
            tuptimelineruler.cpp \
            tupframestable.cpp \
            tuplayerindex.cpp \
-           tuplayercontrols.cpp
+           tuplayercontrols.cpp \
+           tuplayerheader.cpp
+
 *:!macx{
     CONFIG += dll warn_on
 }

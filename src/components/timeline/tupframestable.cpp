@@ -61,10 +61,8 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
     TupFramesTable *table = qobject_cast<TupFramesTable *>(index.model()->parent());
     TupFramesTableItem *item = dynamic_cast<TupFramesTableItem *>(table->itemFromIndex(index));
     
-    QVariant value;
-    
     // draw the background color
-    value = index.data(Qt::BackgroundColorRole);
+    QVariant value = index.data(Qt::BackgroundColorRole);
     
     if (value.isValid()) {
         painter->save();
@@ -113,8 +111,10 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
                                      option.rect.y() + ((option.rect.height() + offset)/2), 
                                      offset, offset);
             } else {
-                painter->setBrush(Qt::blue);
-                painter->drawRect(option.rect.left(), option.rect.bottom() - offset, offset - 2, offset - 2);
+                painter->setBrush(QColor(0, 136, 0));
+                painter->drawRect(option.rect.x() + ((option.rect.width() - offset)/2), 
+                                  option.rect.y() + ((option.rect.height() + offset)/2), 
+                                  offset, offset);
             }
             
             painter->restore();
@@ -171,11 +171,14 @@ struct TupFramesTable::Private
     
     int rectWidth;
     int rectHeight;
+
     int sceneIndex;
     int layerIndex;
     int frameIndex;
+
     QList<LayerItem> layers;
     TupTimeLineRuler *ruler;
+    TupLayerHeader *layerColumn;
 };
 
 TupFramesTable::TupFramesTable(int sceneIndex, QWidget *parent) : QTableWidget(0, 200, parent), k(new Private)
@@ -184,6 +187,8 @@ TupFramesTable::TupFramesTable(int sceneIndex, QWidget *parent) : QTableWidget(0
     k->frameIndex = 0;
     k->layerIndex = 0;
     k->ruler = new TupTimeLineRuler;
+    k->layerColumn = new TupLayerHeader;
+
     setup();
 }
 
@@ -201,23 +206,28 @@ void TupFramesTable::setup()
     setHorizontalHeader(k->ruler);
 
     connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(emitRequestSelectFrame(int, int, int, int)));
-
-    connect(k->ruler, SIGNAL(logicalSectionSelected(int)), this, SLOT(emitFrameSelectionFromHeader(int)));
-
+    connect(k->ruler, SIGNAL(logicalSectionSelected(int)), this, SLOT(emitFrameSelectionFromRuler(int)));
     connect(this, SIGNAL(currentItemChanged(QTableWidgetItem *, QTableWidgetItem *)), this, 
             SLOT(emitFrameSelected(QTableWidgetItem *, QTableWidgetItem *)));
 
-    verticalHeader()->hide();
-    
+    setVerticalHeader(k->layerColumn);
+
+    connect(k->layerColumn, SIGNAL(logicalSectionSelected(int)), this, SLOT(emitFrameSelectionFromLayerHeader(int)));
+
     setItemSize(10, 25);
     
     horizontalHeader()->setSectionResizeMode(QHeaderView::Custom);
     verticalHeader()->setSectionResizeMode(QHeaderView::Custom);
 }
 
-void TupFramesTable::emitFrameSelectionFromHeader(int frameIndex)
+void TupFramesTable::emitFrameSelectionFromRuler(int frameIndex)
 {
     emit emitSelection(0, frameIndex);
+}
+
+void TupFramesTable::emitFrameSelectionFromLayerHeader(int layerIndex)
+{
+    emit emitSelection(layerIndex, currentColumn());
 }
 
 void TupFramesTable::emitFrameSelected(QTableWidgetItem *current, QTableWidgetItem *prev)
@@ -307,6 +317,16 @@ void TupFramesTable::moveLayer(int position, int newPosition)
     blockSignals(true);
     verticalHeader()->moveSection(position, newPosition);
     blockSignals(false);
+}
+
+int TupFramesTable::currentLayer()
+{
+    return currentRow();
+}
+
+int TupFramesTable::layersTotal()
+{
+    return rowCount();
 }
 
 int TupFramesTable::lastFrameByLayer(int layerPos)

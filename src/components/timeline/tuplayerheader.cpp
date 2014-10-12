@@ -8,7 +8,7 @@
  *   2010:                                                                 *
  *    Gustavo Gonzalez / xtingray                                          *
  *                                                                         *
- *   KTooN's versions:                                                     * 
+ *   KTooN's versions:                                                     *
  *                                                                         *
  *   2006:                                                                 *
  *    David Cuadrado                                                       *
@@ -33,80 +33,65 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "tuptimelineruler.h"
+#include "tuplayerheader.h"
 
-TupTimeLineRuler::TupTimeLineRuler(QWidget *parent) : QHeaderView(Qt::Horizontal, parent)
+struct TupLayerHeader::Private
 {
-    #ifdef K_DEBUG
-        #ifdef Q_OS_WIN32
-            qDebug() << "[TupTimeLineRuler()]";
-        #else
-            TINIT;
-        #endif
-    #endif
+    QPixmap lockIcon;
+    QPixmap viewIcon;
+};
 
-    setHighlightSections(true);
-    setStyleSheet("QHeaderView { background-color: #CCCCCC; }");
+TupLayerHeader::TupLayerHeader(QWidget * parent) : QHeaderView(Qt::Vertical, parent), k(new Private)
+{
+    setFixedWidth(200);
+    k->lockIcon = QPixmap(THEME_DIR + "icons/padlock.png");
+    k->viewIcon = QPixmap(THEME_DIR + "icons/show_hide_all_layers.png");
 }
 
-TupTimeLineRuler::~TupTimeLineRuler()
+TupLayerHeader::~TupLayerHeader()
 {
-    #ifdef K_DEBUG
-        #ifdef Q_OS_WIN32
-            qDebug() << "[~TupTimeLineRuler()]";
-        #else
-            TEND;
-        #endif
-    #endif
 }
 
-void TupTimeLineRuler::paintSection(QPainter *painter, const QRect & rect, int logicalIndex) const
+void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int logicalIndex) const
 {
-    if (!model() || !rect.isValid())
+    Q_UNUSED(logicalIndex);
+
+    if (!rect.isValid())
         return;
 
-    painter->save();
+    QStyleOptionHeader headerOption;
+    headerOption.rect = rect;
+    headerOption.orientation = Qt::Vertical;
+    headerOption.position = QStyleOptionHeader::Middle;
+    headerOption.text = "";
 
-    QModelIndex currentSelection = currentIndex(); 
-    int column = currentSelection.row(); 
+    QStyle::State state = QStyle::State_None;
 
-    if (selectionModel()->isSelected(model()->index(column, logicalIndex))) {
-        QBrush brush(QColor(0, 135, 0, 80));
-        painter->fillRect(rect, brush);
-    } else {
-        if ((logicalIndex + 1) == 1 || (logicalIndex+1) % 5 == 0) {
-            QBrush brush(QColor(150, 150, 150, 255));
-            painter->fillRect(rect, brush);
-        }
-    }
+    if (isEnabled())
+        state |= QStyle::State_Enabled;
 
-    logicalIndex++;
+    if (window()->isActiveWindow())
+        state |= QStyle::State_Active;
 
-    int x = rect.bottomRight().x() - 1;
-    int topY = rect.topRight().y();
-    int bottomY = rect.bottomRight().y();
-    painter->drawLine(x, bottomY, x, bottomY - 6);
-    painter->drawLine(x, topY, x, topY + 4);
+    style()->drawControl(QStyle::CE_HeaderSection, &headerOption, painter);
 
-    if (logicalIndex == 1 || logicalIndex % 5 == 0) {
-        QFont label("Arial", 7, QFont::Normal, false);
-        QFontMetrics fm(label);
+    QString text;
+    text = text.setNum(logicalIndex + 1);
+    QFont font("Arial", 7, QFont::Normal, false);
+    QFontMetrics fm(font);
 
-        QString number = QString::number(logicalIndex);
-	
-        painter->setFont(label);	
-        painter->drawText((int)(rect.center().x() - (fm.width(number)/2)), 
-                          (int)(rect.center().y() + (fm.height()/2)) - 2, number);
-    }
+    int x = rect.normalized().x() + ((rect.normalized().width() - fm.width(text))/2);
+    int y = rect.normalized().bottomLeft().y() - (1 + (rect.normalized().height() - fm.height())/2);
 
-    QPen pen = painter->pen();
-    pen.setWidth(4);
-    painter->setPen(pen); 
-    painter->drawLine(rect.bottomLeft(), rect.bottomRight());
-    painter->restore();
+    painter->setFont(font);
+    painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
+    painter->drawText(5, y, text);
+
+    painter->drawPixmap(QPointF(rect.x() + (rect.width()-10)/2, rect.y() + 6), k->lockIcon, QRectF(0, 0, 10, 13));
+    painter->drawPixmap(QPointF(rect.x() + (rect.width()-10)/2 + 30, rect.y() + 5), k->viewIcon, QRectF(0, 0, 16, 16));
 }
 
-void TupTimeLineRuler::mousePressEvent(QMouseEvent *event)
+void TupLayerHeader::mousePressEvent(QMouseEvent *event)
 {
     emit logicalSectionSelected(logicalIndexAt(event->pos()));
 }

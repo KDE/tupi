@@ -8,7 +8,7 @@
  *   2010:                                                                 *
  *    Gustavo Gonzalez / xtingray                                          *
  *                                                                         *
- *   KTooN's versions:                                                     * 
+ *   KTooN's versions:                                                     *
  *                                                                         *
  *   2006:                                                                 *
  *    David Cuadrado                                                       *
@@ -33,80 +33,35 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "tuptimelineruler.h"
+#ifndef TUPLAYERHEADER_H
+#define TUPLAYERHEADER_H
 
-TupTimeLineRuler::TupTimeLineRuler(QWidget *parent) : QHeaderView(Qt::Horizontal, parent)
+#include "tglobal.h"
+#include "tapplicationproperties.h"
+
+#include <QHeaderView>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QPixmap>
+
+class TUPI_EXPORT TupLayerHeader : public QHeaderView
 {
-    #ifdef K_DEBUG
-        #ifdef Q_OS_WIN32
-            qDebug() << "[TupTimeLineRuler()]";
-        #else
-            TINIT;
-        #endif
-    #endif
+    Q_OBJECT
 
-    setHighlightSections(true);
-    setStyleSheet("QHeaderView { background-color: #CCCCCC; }");
-}
+    public:
+        TupLayerHeader(QWidget * parent = 0);
+        ~TupLayerHeader();
 
-TupTimeLineRuler::~TupTimeLineRuler()
-{
-    #ifdef K_DEBUG
-        #ifdef Q_OS_WIN32
-            qDebug() << "[~TupTimeLineRuler()]";
-        #else
-            TEND;
-        #endif
-    #endif
-}
+    protected:
+        void paintSection(QPainter *painter, const QRect & rect, int logicalIndex) const;
+        virtual void mousePressEvent(QMouseEvent *event);
 
-void TupTimeLineRuler::paintSection(QPainter *painter, const QRect & rect, int logicalIndex) const
-{
-    if (!model() || !rect.isValid())
-        return;
+    signals:
+        void logicalSectionSelected(int logical);
 
-    painter->save();
+    private:
+        struct Private;
+        Private *const k;
+};
 
-    QModelIndex currentSelection = currentIndex(); 
-    int column = currentSelection.row(); 
-
-    if (selectionModel()->isSelected(model()->index(column, logicalIndex))) {
-        QBrush brush(QColor(0, 135, 0, 80));
-        painter->fillRect(rect, brush);
-    } else {
-        if ((logicalIndex + 1) == 1 || (logicalIndex+1) % 5 == 0) {
-            QBrush brush(QColor(150, 150, 150, 255));
-            painter->fillRect(rect, brush);
-        }
-    }
-
-    logicalIndex++;
-
-    int x = rect.bottomRight().x() - 1;
-    int topY = rect.topRight().y();
-    int bottomY = rect.bottomRight().y();
-    painter->drawLine(x, bottomY, x, bottomY - 6);
-    painter->drawLine(x, topY, x, topY + 4);
-
-    if (logicalIndex == 1 || logicalIndex % 5 == 0) {
-        QFont label("Arial", 7, QFont::Normal, false);
-        QFontMetrics fm(label);
-
-        QString number = QString::number(logicalIndex);
-	
-        painter->setFont(label);	
-        painter->drawText((int)(rect.center().x() - (fm.width(number)/2)), 
-                          (int)(rect.center().y() + (fm.height()/2)) - 2, number);
-    }
-
-    QPen pen = painter->pen();
-    pen.setWidth(4);
-    painter->setPen(pen); 
-    painter->drawLine(rect.bottomLeft(), rect.bottomRight());
-    painter->restore();
-}
-
-void TupTimeLineRuler::mousePressEvent(QMouseEvent *event)
-{
-    emit logicalSectionSelected(logicalIndexAt(event->pos()));
-}
+#endif

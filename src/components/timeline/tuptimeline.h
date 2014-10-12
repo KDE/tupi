@@ -39,7 +39,7 @@
 #include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "ttabwidget.h"
-#include "tapplication.h"
+// #include "tapplication.h"
 #include "tupprojectrequest.h"
 #include "tuplibraryobject.h"
 #include "tupframestable.h"
@@ -77,7 +77,7 @@ class TUPI_EXPORT TupTimeLine : public TupModuleWidgetBase
         // void setLibrary(const TupLibrary *library);
         
     private:
-        TupLayerManager *layerManager(int sceneIndex);
+        // TupLayerManager *layerManager(int sceneIndex);
         TupFramesTable *framesTable(int sceneIndex);
         
     protected:
