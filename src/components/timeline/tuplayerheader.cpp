@@ -39,11 +39,13 @@ struct TupLayerHeader::Private
 {
     QPixmap lockIcon;
     QPixmap viewIcon;
+    int currentLayer;
+    QList<TimeLineLayerItem> layers;
 };
 
 TupLayerHeader::TupLayerHeader(QWidget * parent) : QHeaderView(Qt::Vertical, parent), k(new Private)
 {
-    setFixedWidth(200);
+    setFixedWidth(140);
     k->lockIcon = QPixmap(THEME_DIR + "icons/padlock.png");
     k->viewIcon = QPixmap(THEME_DIR + "icons/show_hide_all_layers.png");
 }
@@ -65,33 +67,51 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int lo
     headerOption.position = QStyleOptionHeader::Middle;
     headerOption.text = "";
 
-    QStyle::State state = QStyle::State_None;
-
-    if (isEnabled())
-        state |= QStyle::State_Enabled;
-
-    if (window()->isActiveWindow())
-        state |= QStyle::State_Active;
-
     style()->drawControl(QStyle::CE_HeaderSection, &headerOption, painter);
 
-    QString text;
-    text = text.setNum(logicalIndex + 1);
+    if (k->currentLayer == logicalIndex) {
+        QColor color(0, 136, 0, 40);
+        painter->fillRect(rect, color);
+    }
+
     QFont font("Arial", 7, QFont::Normal, false);
     QFontMetrics fm(font);
 
-    int x = rect.normalized().x() + ((rect.normalized().width() - fm.width(text))/2);
     int y = rect.normalized().bottomLeft().y() - (1 + (rect.normalized().height() - fm.height())/2);
-
     painter->setFont(font);
     painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
-    painter->drawText(5, y, text);
+    painter->drawText(10, y, k->layers[logicalIndex].title);
 
-    painter->drawPixmap(QPointF(rect.x() + (rect.width()-10)/2, rect.y() + 6), k->lockIcon, QRectF(0, 0, 10, 13));
-    painter->drawPixmap(QPointF(rect.x() + (rect.width()-10)/2 + 30, rect.y() + 5), k->viewIcon, QRectF(0, 0, 16, 16));
+    y = logicalIndex * rect.normalized().height(); 
+
+    QRectF lockRect = QRectF(0, 0, 11, 12);
+    int lockY = (rect.height() - lockRect.height())/2;
+    painter->drawPixmap(QPointF(rect.x() + 90, lockY + y), k->lockIcon, lockRect);
+
+    QRectF viewRect = QRectF(0, 0, 13, 7); 
+    int viewY = (rect.height() - viewRect.height())/2;
+    painter->drawPixmap(QPointF(rect.x() + 115, viewY + y), k->viewIcon, viewRect);
 }
 
 void TupLayerHeader::mousePressEvent(QMouseEvent *event)
 {
     emit logicalSectionSelected(logicalIndexAt(event->pos()));
 }
+
+void TupLayerHeader::updateSelection(int layerIndex)
+{
+    k->currentLayer = layerIndex;
+    updateSection(layerIndex);
+}
+
+void TupLayerHeader::insertLayer(int index, const QString &name)
+{
+    TimeLineLayerItem layer;
+    layer.title = name;
+    layer.lastFrame = 0;
+    layer.isVisible = true;
+    layer.isLocked = false;
+
+    k->layers.insert(index, layer);
+}
+

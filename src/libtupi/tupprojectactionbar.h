@@ -89,7 +89,7 @@ class TUPI_EXPORT TupProjectActionBar : public QWidget
                                      | MoveLayerUp | MoveLayerDown | InsertScene | RemoveScene | MoveSceneUp | MoveSceneDown,
 
             FrameActions = InsertFrame | RemoveFrame | MoveFrameUp | MoveFrameDown,
-            LayerActions = InsertLayer | RemoveLayer | MoveLayerUp | MoveLayerDown,
+            LayerActions = InsertLayer | RemoveLayer | MoveLayerUp | MoveLayerDown | LockLayer,
             SceneActions = InsertScene | RemoveScene | MoveSceneUp | MoveSceneDown
         };
         

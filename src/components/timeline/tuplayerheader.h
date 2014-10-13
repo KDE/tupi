@@ -44,6 +44,14 @@
 #include <QMouseEvent>
 #include <QPixmap>
 
+struct TimeLineLayerItem
+{
+    QString title;
+    int lastFrame;
+    bool isVisible;
+    bool isLocked;
+};
+
 class TUPI_EXPORT TupLayerHeader : public QHeaderView
 {
     Q_OBJECT
@@ -51,10 +59,14 @@ class TUPI_EXPORT TupLayerHeader : public QHeaderView
     public:
         TupLayerHeader(QWidget * parent = 0);
         ~TupLayerHeader();
+        void insertLayer(int index, const QString &name);
 
     protected:
         void paintSection(QPainter *painter, const QRect & rect, int logicalIndex) const;
         virtual void mousePressEvent(QMouseEvent *event);
+
+    public slots:
+        void updateSelection(int layerIndex);
 
     signals:
         void logicalSectionSelected(int logical);

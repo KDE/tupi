@@ -270,15 +270,17 @@ bool TupFramesTable::isSoundLayer(int row)
     return k->layers[row].sound;
 }
 
-void TupFramesTable::insertLayer(int pos, const QString &name)
+void TupFramesTable::insertLayer(int index, const QString &name)
 {
-    Q_UNUSED(name);
+    tError() << "TupFramesTable::insertLayer() - Inserting layer at index: " << index;
 
-    insertRow(pos);
+    insertRow(index);
     
     Private::LayerItem layer;
     layer.sound = false;
-    k->layers.insert(pos, layer);
+    k->layers.insert(index, layer);
+
+    k->layerColumn->insertLayer(index, name);
     
     fixSize();
 }
@@ -361,14 +363,16 @@ void TupFramesTable::insertFrame(int layerPos, const QString &name)
     viewport()->update();
 }
 
+/*
 void TupFramesTable::setCurrentFrame(TupFramesTableItem *item)
 {
     setCurrentItem(item);
 }
+*/
 
-void TupFramesTable::setCurrentLayer(int layerPos)
+void TupFramesTable::updateLayerHeader(int layerIndex)
 {
-    setCurrentItem(item(verticalHeader()->logicalIndex(layerPos), 0));
+    k->layerColumn->updateSelection(layerIndex); 
 }
 
 void TupFramesTable::selectFrame(int index)

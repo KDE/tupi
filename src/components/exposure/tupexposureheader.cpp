@@ -35,16 +35,6 @@
 
 #include "tupexposureheader.h"
 
-/*
-struct LayerItem
-{
-    QString title;
-    int lastFrame;
-    bool isVisible;
-    bool isLocked;
-};
-*/
-
 /**
  * @author Jorge Cuadrado
  */
@@ -109,7 +99,7 @@ void TupExposureHeader::hideEditorName()
 
 void TupExposureHeader::insertLayer(int layerIndex, const QString &text)
 {
-    LayerItem layer;
+    ExposureLayerItem layer;
     layer.title = text;
     layer.lastFrame = 0;
     layer.isVisible = true;

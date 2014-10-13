@@ -96,7 +96,6 @@ void TupProjectActionBar::setup(Actions actions)
         TImageButton *button = new TImageButton(QIcon(THEME_DIR + "icons/add_layer.png"), size);
         button->setToolTip(tr("Insert layer"));
         button->setShortcut(QKeySequence(tr("F5")));
-        //button->setEnabled(false);
 
         k->actions.addButton(button, InsertLayer);
 
@@ -108,7 +107,6 @@ void TupProjectActionBar::setup(Actions actions)
         TImageButton *button = new TImageButton(QIcon(THEME_DIR + "icons/remove_layer.png"), size);
         button->setToolTip(tr("Remove layer"));
         button->setShortcut(QKeySequence(tr("F6")));
-        //button->setEnabled(false);
 
         k->actions.addButton(button, RemoveLayer);
 

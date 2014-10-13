@@ -48,7 +48,7 @@
 #include <QMouseEvent>
 #include <QMenu>
 
-struct LayerItem
+struct ExposureLayerItem
 {
     QString title;
     int lastFrame;
@@ -80,6 +80,9 @@ class TUPI_EXPORT TupExposureHeader: public QHeaderView
         int layersTotal();
         int currentLayerIndex();
 
+    protected:
+        virtual void mousePressEvent(QMouseEvent * event);
+
     public slots:
         void updateSelection(int col);
 
@@ -88,20 +91,17 @@ class TUPI_EXPORT TupExposureHeader: public QHeaderView
         void showEditorName(int section);
         void hideEditorName();
 
-    protected:
-        virtual void mousePressEvent(QMouseEvent * event);
-
-    private:
-        QList<LayerItem> m_layers;
-        QLineEdit *m_editor;
-        int m_sectionEdited;
-        int m_blockSectionMoved;
-        int currentCol;
-
     signals:
         void changedName(int indexLayer, const QString & name);
         void visibilityChanged(int indexLayer, bool visibility);
         void selectionHasChanged(int indexLayer);
+
+    private:
+        QList<ExposureLayerItem> m_layers;
+        QLineEdit *m_editor;
+        int m_sectionEdited;
+        int m_blockSectionMoved;
+        int currentCol;
 };
 
 #endif

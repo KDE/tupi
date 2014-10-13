@@ -87,7 +87,7 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
         
     public slots:
         // Layers
-        void insertLayer(int layerPos, const QString &name);
+        void insertLayer(int index, const QString &name);
         void insertSoundLayer(int layerPos, const QString &name);
         
         void removeCurrentLayer();
@@ -99,9 +99,11 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
         // Frames
         void insertFrame(int layerPos, const QString &name);
         
-        void setCurrentFrame(TupFramesTableItem *);
+        // void setCurrentFrame(TupFramesTableItem *);
 
-        void setCurrentLayer(int layerPos);
+        // void setCurrentLayer(int layerPos);
+        void updateLayerHeader(int layerIndex);
+
         int currentLayer();
         int layersTotal();
 

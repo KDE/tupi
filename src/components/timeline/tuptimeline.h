@@ -39,27 +39,17 @@
 #include "tglobal.h"
 #include "tupmodulewidgetbase.h"
 #include "ttabwidget.h"
-// #include "tapplication.h"
 #include "tupprojectrequest.h"
 #include "tuplibraryobject.h"
 #include "tupframestable.h"
-#include "tuplayermanager.h"
 #include "tupprojectactionbar.h"
 #include "tuprequestbuilder.h"
 #include "tupproject.h"
 #include "tuplibrary.h"
 
-#include <QSplitter>
 #include <QStackedWidget>
 #include <QList>
 #include <QHeaderView>
-#include <QStackedWidget>
-
-// class TupLayerManager;
-// class TupFramesTable;
-// class TupProjectActionBar;
-// class TupFramesTableItem;
-// class TupLibrary;
 
 /**
  * @author David Cuadrado
@@ -74,10 +64,7 @@ class TUPI_EXPORT TupTimeLine : public TupModuleWidgetBase
         ~TupTimeLine();
         void closeAllScenes();
         
-        // void setLibrary(const TupLibrary *library);
-        
     private:
-        // TupLayerManager *layerManager(int sceneIndex);
         TupFramesTable *framesTable(int sceneIndex);
         
     protected:
@@ -87,8 +74,8 @@ class TUPI_EXPORT TupTimeLine : public TupModuleWidgetBase
         void libraryResponse(TupLibraryResponse *response);
         
     public slots:
-        void insertScene(int position, const QString &name);
-        void removeScene(int position);
+        void insertScene(int sceneIndex, const QString &name);
+        void removeScene(int sceneIndex);
         void emitRequestChangeFrame(int sceneIndex, int layerIndex, int frameIndex);
 
     private slots:
@@ -99,8 +86,8 @@ class TUPI_EXPORT TupTimeLine : public TupModuleWidgetBase
         void selectFrame(int indexLayer, int indexFrame);
         
         void emitRequestRenameLayer(int layer, const QString &name);
-        void emitSelectionSignal();
-        void emitLayerVisibility(int sceneIndex, int layerIndex, bool checked);
+        // void emitSelectionSignal();
+        // void emitLayerVisibility(int sceneIndex, int layerIndex, bool checked);
         void emitRequestChangeScene(int sceneIndex);
         
     private:
