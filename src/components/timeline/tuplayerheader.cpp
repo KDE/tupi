@@ -106,7 +106,12 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int lo
 
 void TupLayerHeader::mousePressEvent(QMouseEvent *event)
 {
-    emit logicalSectionSelected(logicalIndexAt(event->pos()));
+    QPoint point = event->pos();
+    emit logicalSectionSelected(logicalIndexAt(point));
+
+    tError() << "TupLayerHeader::mousePressEvent() - point: [ " << point.x() << ", " << point.y() << " ]";
+    int minX = 90;
+    int maxX = minX + 13;
 }
 
 void TupLayerHeader::updateSelection(int layerIndex)
