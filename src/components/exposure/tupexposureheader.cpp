@@ -188,27 +188,20 @@ void TupExposureHeader::paintSection(QPainter *painter, const QRect & rect, int 
     QFont font("Arial", 8, QFont::Normal, false);
     QFontMetrics fm(font);
 
+    if (((layerIndex == currentCol) || (m_layers.size() == 1)) && m_layers[layerIndex].isVisible) { // Header selected
+        QColor color(0, 136, 0, 40);
+        painter->fillRect(rect.normalized().adjusted(0, 0, 0, -1), color);
+    }
+
     QStyleOptionButton buttonOption;
 
     if (m_layers[layerIndex].isVisible) {
-        buttonOption.palette.setBrush(QPalette::Button, Qt::green);
+        buttonOption.palette.setBrush(QPalette::Button, QColor(0, 136, 0, 255));
     } else {
         buttonOption.palette.setBrush(QPalette::Button, Qt::red);
         buttonOption.state |= QStyle::State_Sunken;
         QColor color(255, 0, 0, 40);
-        painter->fillRect(rect.normalized().adjusted(0, 1, 0, -1), color);
-    }
-
-    if ((layerIndex == currentCol) || (m_layers.size() == 1)) { // Header selected
-        QColor color(250, 209, 132, 80);
-        painter->fillRect(rect.normalized().adjusted(0, 1, 0, -1), color);
-        if (m_layers[layerIndex].isVisible) {
-            painter->setPen(QPen(QColor(250, 209, 132, 255), 2, Qt::SolidLine)); 
-            painter->drawRect(rect.normalized().adjusted(0, 1, 0, -1));
-        } else { 
-            painter->setPen(QPen(QColor(255, 0, 0, 70), 2, Qt::SolidLine)); // Header is locked
-            painter->drawRect(rect.normalized().adjusted(0, 1, 0, -1));
-        }
+        painter->fillRect(rect.normalized().adjusted(0, 0, 0, -1), color);
     }
 
     int buttonWidth = 12;

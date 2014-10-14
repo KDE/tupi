@@ -109,7 +109,7 @@ void TupViewColorCells::setupForm()
     // Default Palette
     k->defaultPalette = new TupCellsColor(k->containerPalette);
     k->defaultPalette->setName(tr("Default Palette"));
-    k->defaultPalette->setReadOnly( true);
+    k->defaultPalette->setReadOnly(true);
 
     fillDefaultColors();
     addPalette(k->defaultPalette);

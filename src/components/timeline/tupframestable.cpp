@@ -93,7 +93,7 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
     // Selection!
     if (option.showDecorationSelected && (option.state & QStyle::State_Selected)) {
         painter->save();
-        painter->fillRect(option.rect, QColor(0, 135, 0, 180));
+        painter->fillRect(option.rect, QColor(0, 136, 0, 180));
         painter->restore();
     }
     
@@ -107,6 +107,11 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
             painter->setRenderHint(QPainter::Antialiasing, true);
             
             if (!item->isSound()) {
+                if (item->isLocked()) {
+                    painter->setPen(QPen(Qt::red, 1, Qt::SolidLine));
+                    painter->setBrush(Qt::red);
+                    // painter->drawEllipse(option.rect.left(), option.rect.bottom() - offset, offset, offset);
+                } 
                 painter->drawEllipse(option.rect.x() + ((option.rect.width() - offset)/2), 
                                      option.rect.y() + ((option.rect.height() + offset)/2), 
                                      offset, offset);
@@ -119,13 +124,15 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
             
             painter->restore();
         }
-        
+
+/*
         if (item->isLocked()) {
             painter->save();
             painter->setBrush(Qt::red);
-            painter->drawEllipse(option.rect.left(), option.rect.bottom() - offset, offset, offset);
+            // painter->drawEllipse(option.rect.left(), option.rect.bottom() - offset, offset, offset);
             painter->restore();
         }
+*/
     }
 }
 

@@ -133,10 +133,12 @@ void TupExposureItemDelegate::paint(QPainter *painter, const QStyleOptionViewIte
         int w = option.rect.bottomRight().x() - x - 2;
         int h = option.rect.bottomRight().y() - y - 2;
 
+        /*
         if (item->data(TupExposureTable::IsLocked).toBool()) {
-            painter->setPen(QColor(255, 255, 255, 200));
+            painter->setPen(QColor(255, 255, 255, 150));
             painter->drawRect(x, y, w, h);
         }
+        */
 
         if ((item->data(TupExposureTable::IsEmpty).toInt() == TupExposureTable::Empty) && !item->data(TupExposureTable::IsLocked).toBool()) {
             QPen pen(QColor(100, 100, 100, 30));
@@ -433,9 +435,9 @@ void TupExposureTable::setLockFrame(int layerIndex, int frameIndex, bool locked)
     if (frame) {
         if (frame->data(TupExposureTable::IsEmpty).toInt() != Unset) {
             if (locked)
-                frame->setBackgroundColor(QColor(250, 71, 53));
+                frame->setBackgroundColor(QColor(255, 0, 0, 90));
             else
-                frame->setBackgroundColor(QColor(0xe6e6e6));
+                frame->setBackgroundColor(QColor(255, 255, 255));
 
             frame->setData(IsLocked, locked);
         }

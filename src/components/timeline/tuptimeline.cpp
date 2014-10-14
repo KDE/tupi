@@ -72,9 +72,8 @@ TupTimeLine::TupTimeLine(TupProject *project, QWidget *parent) : TupModuleWidget
                         TupProjectActionBar::InsertFrame |
                         TupProjectActionBar::RemoveFrame |
                         TupProjectActionBar::MoveFrameUp |
-                        TupProjectActionBar::MoveFrameDown);
-                        // TupProjectActionBar::MoveFrameDown |
-                        // TupProjectActionBar::LockFrame);
+                        TupProjectActionBar::MoveFrameDown |
+                        TupProjectActionBar::LockFrame);
    
     addChild(k->actionBar, Qt::AlignCenter);
     

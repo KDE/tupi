@@ -45,8 +45,12 @@ struct TupLayerHeader::Private
 
 TupLayerHeader::TupLayerHeader(QWidget * parent) : QHeaderView(Qt::Vertical, parent), k(new Private)
 {
-    setFixedWidth(140);
-    k->lockIcon = QPixmap(THEME_DIR + "icons/padlock.png");
+    setFixedWidth(115);
+
+    // SQA: This code will be disabled until the "Lock layer" feature is implemented
+    // setFixedWidth(140);
+    // k->lockIcon = QPixmap(THEME_DIR + "icons/padlock.png");
+
     k->viewIcon = QPixmap(THEME_DIR + "icons/show_hide_all_layers.png");
 }
 
@@ -58,8 +62,10 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int lo
 {
     Q_UNUSED(logicalIndex);
 
-    if (!rect.isValid())
+    if (!model() || !rect.isValid())
         return;
+
+    painter->save();
 
     QStyleOptionHeader headerOption;
     headerOption.rect = rect;
@@ -82,15 +88,20 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int lo
     painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
     painter->drawText(10, y, k->layers[logicalIndex].title);
 
-    y = logicalIndex * rect.normalized().height(); 
+    y = rect.y();
 
+    // SQA: This code will be disabled until the "Lock layer" feature is implemented
+    /* 
     QRectF lockRect = QRectF(0, 0, 11, 12);
     int lockY = (rect.height() - lockRect.height())/2;
     painter->drawPixmap(QPointF(rect.x() + 90, lockY + y), k->lockIcon, lockRect);
+    */
 
     QRectF viewRect = QRectF(0, 0, 13, 7); 
     int viewY = (rect.height() - viewRect.height())/2;
-    painter->drawPixmap(QPointF(rect.x() + 115, viewY + y), k->viewIcon, viewRect);
+    painter->drawPixmap(QPointF(rect.x() + 90, viewY + y), k->viewIcon, viewRect);
+
+    painter->restore();
 }
 
 void TupLayerHeader::mousePressEvent(QMouseEvent *event)

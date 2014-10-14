@@ -82,7 +82,7 @@ void TupTimeLineRuler::paintSection(QPainter *painter, const QRect & rect, int l
 
     logicalIndex++;
 
-    int x = rect.bottomRight().x() - 1;
+    int x = rect.bottomRight().x();
     int topY = rect.topRight().y();
     int bottomY = rect.bottomRight().y();
     painter->drawLine(x, bottomY, x, bottomY - 6);
@@ -103,6 +103,7 @@ void TupTimeLineRuler::paintSection(QPainter *painter, const QRect & rect, int l
     pen.setWidth(4);
     painter->setPen(pen); 
     painter->drawLine(rect.bottomLeft(), rect.bottomRight());
+
     painter->restore();
 }
 
