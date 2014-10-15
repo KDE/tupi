@@ -252,6 +252,7 @@ void TupTimeLine::frameResponse(TupFrameResponse *response)
         switch (response->action()) {
                 case TupProjectRequest::Add:
                 {
+                     tError() << "TupTimeLine::frameResponse() - Adding frame at -> " << response->frameIndex();
                      framesTable->insertFrame(response->layerIndex(), response->arg().toString());
                 }
                 break;
@@ -275,6 +276,7 @@ void TupTimeLine::frameResponse(TupFrameResponse *response)
                 break;
                 case TupProjectRequest::Select:
                 {
+                     tError() << "TupTimeLine::frameResponse() - Selecting frame at -> " << response->frameIndex();
                      int layerIndex = response->layerIndex();
                      k->selectedLayer = layerIndex;
 
@@ -625,11 +627,13 @@ void TupTimeLine::requestLayerRenameAction(int layer, const QString &name)
 
 void TupTimeLine::selectFrame(int indexLayer, int indexFrame)
 {
+    tError() << "TupTimeLine::selectFrame() - selecting frame -> " << indexFrame;
+    tError() << "TupTimeLine::selectFrame() - selecting layer -> " << indexLayer;
+
     int scenePos = k->container->currentIndex();
     TupScene *scene = k->project->scene(scenePos);
     if (scene) {
         int totalFrames = scene->framesTotal();
-        tError() << "TupTimeLine::selectFrame() - Total frames: " << totalFrames;
         if (indexFrame < totalFrames) {
             TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, indexLayer,
                                                            indexFrame, TupProjectRequest::Select, "1");
@@ -664,6 +668,6 @@ void TupTimeLine::emitRequestChangeFrame(int sceneIndex, int layerIndex, int fra
 {
     // tFatal() << "TupTimeLine::emitRequestChangeFrame - Just tracing!";
     TupProjectRequest event = TupRequestBuilder::createFrameRequest(sceneIndex, layerIndex, frameIndex,
-                             TupProjectRequest::Select, "1");
+                              TupProjectRequest::Select, "1");
     emit requestTriggered(&event);
 }

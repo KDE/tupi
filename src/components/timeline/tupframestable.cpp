@@ -201,12 +201,13 @@ void TupFramesTable::setup()
     setItemDelegate(new TupFramesTableItemDelegate(this));
     setSelectionBehavior(QAbstractItemView::SelectItems);
     setSelectionMode(QAbstractItemView::SingleSelection);
-    
-    setHorizontalHeader(k->ruler);
 
     connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(requestFrameSelection(int, int, int, int)));
-    connect(k->ruler, SIGNAL(selectionHasChanged(int)), this, SLOT(frameSelectionFromRuler(int)));
     connect(this, SIGNAL(currentItemChanged(QTableWidgetItem *, QTableWidgetItem *)), this, SLOT(requestFrameSelection(QTableWidgetItem *, QTableWidgetItem *)));
+
+    setHorizontalHeader(k->ruler);
+
+    connect(k->ruler, SIGNAL(selectionHasChanged(int)), this, SLOT(frameSelectionFromRuler(int)));
 
     setVerticalHeader(k->layerColumn);
 
@@ -226,6 +227,8 @@ void TupFramesTable::frameSelectionFromRuler(int frameIndex)
 
 void TupFramesTable::frameSelectionFromLayerHeader(int layerIndex)
 {
+    tError() << "TupFramesTable::frameSelectionFromLayerHeader() - layerIndex -> " << layerIndex;
+
     emit frameSelectionIsRequired(layerIndex, currentColumn());
 }
 
@@ -237,6 +240,7 @@ void TupFramesTable::requestFrameSelection(QTableWidgetItem *current, QTableWidg
     
     if (item) {
         if (item->isUsed()) {
+            tError() << "TupFramesTable::requestFrameSelection() - Just tracing 1";
             emit frameHasChanged(k->sceneIndex, verticalHeader()->visualIndex(this->row(item)), this->column(item));
         } else {
             #ifdef K_DEBUG
@@ -249,6 +253,8 @@ void TupFramesTable::requestFrameSelection(QTableWidgetItem *current, QTableWidg
             #endif  
 	    }
     } else { 
+        tError() << "TupFramesTable::requestFrameSelection() - Called from -> currentItemChanged()";
+        tError() << "";
         emit frameRequest(TupProjectActionBar::InsertFrame, currentColumn(), currentRow(), k->sceneIndex);
     }
 }
@@ -438,9 +444,14 @@ void TupFramesTable::requestFrameSelection(int currentRow, int currentColumn, in
      Q_UNUSED(previousRow);
      Q_UNUSED(previousColumn);
 
+     tError() << "";
+     tError() << "TupFramesTable::requestFrameSelection() - Called from currentCellChanged()";
+
      if (k->frameIndex != currentColumn || k->layerIndex != currentRow) {
          k->frameIndex = currentColumn;
          k->layerIndex = currentRow;
+         tError() << "TupFramesTable::requestFrameSelection() - currentColumn: " << currentColumn;
+         tError() << "";
          emit frameSelectionIsRequired(currentRow, currentColumn);
      }
 }
