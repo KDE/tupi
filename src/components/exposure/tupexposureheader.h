@@ -92,8 +92,8 @@ class TUPI_EXPORT TupExposureHeader: public QHeaderView
         void hideEditorName();
 
     signals:
-        void changedName(int indexLayer, const QString & name);
-        void visibilityChanged(int indexLayer, bool visibility);
+        void nameHasChanged(int indexLayer, const QString & name);
+        void visibilityHasChanged(int indexLayer, bool visibility);
         void selectionHasChanged(int indexLayer);
 
     private:

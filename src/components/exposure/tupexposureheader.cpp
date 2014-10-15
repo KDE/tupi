@@ -59,7 +59,7 @@ TupExposureHeader::~TupExposureHeader()
 
 void TupExposureHeader::emitVisibilityChanged(int section)
 {
-   emit visibilityChanged(visualIndex(section), !m_layers[section].isVisible);
+   emit visibilityHasChanged(visualIndex(section), !m_layers[section].isVisible);
 }
 
 void TupExposureHeader::setVisibilityChanged(int layerIndex, bool visibility)
@@ -92,7 +92,7 @@ void TupExposureHeader::hideEditorName()
     m_editor->hide();
 
     if (m_sectionEdited != -1 && m_editor->isModified())
-        emit changedName(m_sectionEdited, m_editor->text());
+        emit nameHasChanged(m_sectionEdited, m_editor->text());
 
     m_sectionEdited = -1;
 }

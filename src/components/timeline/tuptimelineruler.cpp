@@ -109,5 +109,5 @@ void TupTimeLineRuler::paintSection(QPainter *painter, const QRect & rect, int l
 
 void TupTimeLineRuler::mousePressEvent(QMouseEvent *event)
 {
-    emit logicalSectionSelected(logicalIndexAt(event->pos()));
+    emit selectionHasChanged(logicalIndexAt(event->pos()));
 }

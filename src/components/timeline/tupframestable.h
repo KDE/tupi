@@ -84,37 +84,27 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
         ~TupFramesTable();
         
         bool isSoundLayer(int row);
+        void setLayerVisibility(int layerIndex, bool isVisible);
+        void setLayerName(int layerIndex, const QString &name);
         
     public slots:
         // Layers
         void insertLayer(int index, const QString &name);
         void insertSoundLayer(int layerPos, const QString &name);
-        
         void removeCurrentLayer();
         void removeLayer(int pos);
         void moveLayer(int pos, int newPos);
-        
         int lastFrameByLayer(int layerPos);
-        
-        // Frames
-        void insertFrame(int layerPos, const QString &name);
-        
-        // void setCurrentFrame(TupFramesTableItem *);
-
-        // void setCurrentLayer(int layerPos);
         void updateLayerHeader(int layerIndex);
-
         int currentLayer();
         int layersTotal();
 
+        // Frames
+        void insertFrame(int layerPos, const QString &name);
         void selectFrame(int index);
-        
         void setAttribute(int row, int col, TupFramesTableItem::Attributes att, bool value);
-        
         void removeFrame(int layerPos, int position);
-        
         void lockFrame(int layerPosition, int position, bool lock);
-        
         void setItemSize(int w, int h);
         
     private:
@@ -125,16 +115,18 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
         void mousePressEvent(QMouseEvent * event);
         
     private slots:
-        void emitFrameSelectionFromRuler(int frameIndex);
-        void emitFrameSelectionFromLayerHeader(int layerIndex);
+        void frameSelectionFromRuler(int frameIndex);
+        void frameSelectionFromLayerHeader(int layerIndex);
 
-        void emitFrameSelected(QTableWidgetItem *curr, QTableWidgetItem *prev);
-        void emitRequestSelectFrame(int currentRow, int currentColumn, int previousRow, int previousColumn);
+        void requestFrameSelection(QTableWidgetItem *current, QTableWidgetItem *previous);
+        void requestFrameSelection(int currentRow, int currentColumn, int previousRow, int previousColumn);
         
     signals:
         void frameRequest(int action, int frame, int layer, int scene, const QVariant &argument = QVariant());
-        void emitRequestChangeFrame(int sceneIndex, int layerIndex, int frameIndex);
-        void emitSelection(int layer, int frame);
+        void frameHasChanged(int sceneIndex, int layerIndex, int frameIndex);
+        void frameSelectionIsRequired(int layer, int frame);
+        void visibilityHasChanged(int layer, bool isVisible);
+        void layerNameHasChanged(int layer, const QString &name);
         
     private:
         struct Private;

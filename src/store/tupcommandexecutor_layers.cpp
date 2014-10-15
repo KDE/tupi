@@ -213,7 +213,6 @@ bool TupCommandExecutor::selectLayer(TupLayerResponse *response)
     return true;
 }
 
-
 bool TupCommandExecutor::setLayerVisibility(TupLayerResponse *response)
 {
     int scenePos = response->sceneIndex();

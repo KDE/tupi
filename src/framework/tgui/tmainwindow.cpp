@@ -292,9 +292,11 @@ void TMainWindow::enableToolViews(bool flag)
                     ToolView *v = *it;
 
                     // SQA: Temporary code while Time Line components are fixed
+/*
                     if (v->getObjectID().compare("ToolView-Time Line")==0)
                         v->enableButton(false);
                     else
+*/
                         v->enableButton(flag);
 
                     ++it;

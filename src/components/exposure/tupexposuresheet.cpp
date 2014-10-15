@@ -197,8 +197,8 @@ void TupExposureSheet::addScene(int index, const QString &name)
 
     connect(newScene, SIGNAL(requestSelectFrame(int, int)), SLOT(selectFrame(int, int)));
 
-    connect(newScene, SIGNAL(requestRenameLayer(int, const QString &)), 
-                             this, SLOT(renameLayer(int, const QString &)));
+    connect(newScene, SIGNAL(layerNameHasChanged(int, const QString &)), 
+                             this, SLOT(requestRenameLayer(int, const QString &)));
 
     connect(newScene, SIGNAL(requestMoveLayer(int,int)), this, SLOT(moveLayer(int, int)));
 
@@ -528,22 +528,22 @@ void TupExposureSheet::selectFrame(int indexLayer, int indexFrame)
 void TupExposureSheet::changeVisibilityLayer(int visualIndexLayer, bool visibility)
 {
     TupProjectRequest request = TupRequestBuilder::createLayerRequest(k->scenesContainer->currentIndex(), visualIndexLayer,
-                                                  TupProjectRequest::View, visibility);
+                                                   TupProjectRequest::View, visibility);
     emit localRequestTriggered(&request);
     // emit requestTriggered(&event);
 }
 
-void TupExposureSheet::renameLayer(int indexLayer, const QString & name)
+void TupExposureSheet::requestRenameLayer(int indexLayer, const QString & name)
 {
     TupProjectRequest request = TupRequestBuilder::createLayerRequest(k->scenesContainer->currentIndex(), indexLayer,
-                                                 TupProjectRequest::Rename, name);
+                                                   TupProjectRequest::Rename, name);
     emit requestTriggered(&request);
 }
 
 void TupExposureSheet::moveLayer(int oldIndex, int newIndex)
 {
     TupProjectRequest request = TupRequestBuilder::createLayerRequest(k->scenesContainer->currentIndex(), oldIndex,
-                                                 TupProjectRequest::Move, newIndex);
+                                                   TupProjectRequest::Move, newIndex);
     emit requestTriggered(&request);
 }
 

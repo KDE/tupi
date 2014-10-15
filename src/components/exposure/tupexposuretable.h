@@ -138,7 +138,7 @@ class TUPI_EXPORT TupExposureTable : public QTableWidget
         void requestRenameFrame(int layerIndex, int frameIndex,const QString & name);
         void requestSelectFrame(int layerIndex, int frameIndex);
 
-        void requestRenameLayer(int layerIndex, const QString & name);
+        void layerNameHasChanged(int layerIndex, const QString & name);
         void requestMoveLayer(int oldIndex, int newIndex);
         void requestChangeVisibilityLayer(int visualIndexLayer, bool visibility);
 };

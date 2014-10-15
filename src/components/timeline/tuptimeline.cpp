@@ -114,9 +114,10 @@ void TupTimeLine::insertScene(int sceneIndex, const QString &name)
     TupFramesTable *framesTable = new TupFramesTable(sceneIndex, k->container);
     framesTable->setItemSize(10, 20);
 
-    connect(framesTable, SIGNAL(frameRequest(int, int, int, int, const QVariant&)), this, 
-            SLOT(requestFrameAction(int, int, int, int, const QVariant&)));
-    connect(framesTable, SIGNAL(emitSelection(int, int)), this, SLOT(selectFrame(int, int)));
+    connect(framesTable, SIGNAL(frameRequest(int, int, int, int, const QVariant&)), this, SLOT(requestFrameAction(int, int, int, int, const QVariant&)));
+    connect(framesTable, SIGNAL(frameSelectionIsRequired(int, int)), this, SLOT(selectFrame(int, int)));
+    connect(framesTable, SIGNAL(visibilityHasChanged(int, bool)), this, SLOT(requestLayerVisibilityAction(int, bool)));
+    connect(framesTable, SIGNAL(layerNameHasChanged(int, const QString &)), this, SLOT(requestLayerRenameAction(int, const QString &))); 
 
     k->container->insertTab(sceneIndex, framesTable, name);
 }
@@ -217,17 +218,17 @@ void TupTimeLine::layerResponse(TupLayerResponse *response)
                 break;
                 case TupProjectRequest::Lock:
                 {
-
+                     // SQA: Pending for implementation
                 }
                 break;
                 case TupProjectRequest::Rename:
                 {
-
+                     framesTable->setLayerName(response->layerIndex(), response->arg().toString());
                 }
                 break;
                 case TupProjectRequest::View:
                 {
-
+                     framesTable->setLayerVisibility(response->layerIndex(), response->arg().toBool());
                 }
                 break;
         }
@@ -585,12 +586,30 @@ bool TupTimeLine::requestSceneAction(int action, int scenePos, const QVariant &a
     return false;
 }
 
-void TupTimeLine::emitRequestRenameLayer(int layer, const QString &name)
+void TupTimeLine::requestLayerVisibilityAction(int layer, bool isVisible)
 {
     /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
-            qDebug() << "[TupTimeLine::emitRequestRenameLayer()]";
+            qDebug() << "[TupTimeLine::requestLayerVisibilityAction()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+    */
+
+    int scenePos = k->container->currentIndex();
+
+    TupProjectRequest event = TupRequestBuilder::createLayerRequest(scenePos, layer, TupProjectRequest::View, isVisible);
+    emit requestTriggered(&event);
+}
+
+void TupTimeLine::requestLayerRenameAction(int layer, const QString &name)
+{
+    /*
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupTimeLine::requestLayerRenameAction()]";
             qDebug() << "name: " << name;
         #else
             T_FUNCINFO << name;
@@ -601,7 +620,6 @@ void TupTimeLine::emitRequestRenameLayer(int layer, const QString &name)
     int scenePos = k->container->currentIndex();
     
     TupProjectRequest event = TupRequestBuilder::createLayerRequest(scenePos, layer, TupProjectRequest::Rename, name);
-    
     emit requestTriggered(&event);
 }
 

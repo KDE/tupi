@@ -110,7 +110,6 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
                 if (item->isLocked()) {
                     painter->setPen(QPen(Qt::red, 1, Qt::SolidLine));
                     painter->setBrush(Qt::red);
-                    // painter->drawEllipse(option.rect.left(), option.rect.bottom() - offset, offset, offset);
                 } 
                 painter->drawEllipse(option.rect.x() + ((option.rect.width() - offset)/2), 
                                      option.rect.y() + ((option.rect.height() + offset)/2), 
@@ -124,15 +123,6 @@ void TupFramesTableItemDelegate::paint(QPainter * painter, const QStyleOptionVie
             
             painter->restore();
         }
-
-/*
-        if (item->isLocked()) {
-            painter->save();
-            painter->setBrush(Qt::red);
-            // painter->drawEllipse(option.rect.left(), option.rect.bottom() - offset, offset, offset);
-            painter->restore();
-        }
-*/
     }
 }
 
@@ -194,7 +184,9 @@ TupFramesTable::TupFramesTable(int sceneIndex, QWidget *parent) : QTableWidget(0
     k->frameIndex = 0;
     k->layerIndex = 0;
     k->ruler = new TupTimeLineRuler;
+
     k->layerColumn = new TupLayerHeader;
+    connect(k->layerColumn, SIGNAL(nameHasChanged(int, const QString &)), this, SIGNAL(layerNameHasChanged(int, const QString &)));
 
     setup();
 }
@@ -212,14 +204,14 @@ void TupFramesTable::setup()
     
     setHorizontalHeader(k->ruler);
 
-    connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(emitRequestSelectFrame(int, int, int, int)));
-    connect(k->ruler, SIGNAL(logicalSectionSelected(int)), this, SLOT(emitFrameSelectionFromRuler(int)));
-    connect(this, SIGNAL(currentItemChanged(QTableWidgetItem *, QTableWidgetItem *)), this, 
-            SLOT(emitFrameSelected(QTableWidgetItem *, QTableWidgetItem *)));
+    connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(requestFrameSelection(int, int, int, int)));
+    connect(k->ruler, SIGNAL(selectionHasChanged(int)), this, SLOT(frameSelectionFromRuler(int)));
+    connect(this, SIGNAL(currentItemChanged(QTableWidgetItem *, QTableWidgetItem *)), this, SLOT(requestFrameSelection(QTableWidgetItem *, QTableWidgetItem *)));
 
     setVerticalHeader(k->layerColumn);
 
-    connect(k->layerColumn, SIGNAL(logicalSectionSelected(int)), this, SLOT(emitFrameSelectionFromLayerHeader(int)));
+    connect(k->layerColumn, SIGNAL(selectionHasChanged(int)), this, SLOT(frameSelectionFromLayerHeader(int)));
+    connect(k->layerColumn, SIGNAL(visibilityHasChanged(int, bool)), this, SIGNAL(visibilityHasChanged(int, bool)));
 
     setItemSize(10, 25);
     
@@ -227,28 +219,28 @@ void TupFramesTable::setup()
     verticalHeader()->setSectionResizeMode(QHeaderView::Custom);
 }
 
-void TupFramesTable::emitFrameSelectionFromRuler(int frameIndex)
+void TupFramesTable::frameSelectionFromRuler(int frameIndex)
 {
-    emit emitSelection(0, frameIndex);
+    emit frameSelectionIsRequired(0, frameIndex);
 }
 
-void TupFramesTable::emitFrameSelectionFromLayerHeader(int layerIndex)
+void TupFramesTable::frameSelectionFromLayerHeader(int layerIndex)
 {
-    emit emitSelection(layerIndex, currentColumn());
+    emit frameSelectionIsRequired(layerIndex, currentColumn());
 }
 
-void TupFramesTable::emitFrameSelected(QTableWidgetItem *current, QTableWidgetItem *prev)
+void TupFramesTable::requestFrameSelection(QTableWidgetItem *current, QTableWidgetItem *previous)
 {
-    Q_UNUSED(prev);
+    Q_UNUSED(previous);
 
     TupFramesTableItem *item = dynamic_cast<TupFramesTableItem *>(current);
     
     if (item) {
         if (item->isUsed()) {
-            emit emitRequestChangeFrame(k->sceneIndex, verticalHeader()->visualIndex(this->row(item)), this->column(item));
+            emit frameHasChanged(k->sceneIndex, verticalHeader()->visualIndex(this->row(item)), this->column(item));
         } else {
             #ifdef K_DEBUG
-                QString msg = "TupFramesTable::emitFrameSelected <- item exists but is unset right now";
+                QString msg = "TupFramesTable::requestFrameSelection <- item exists but is unset right now";
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
                 #else
@@ -326,6 +318,16 @@ void TupFramesTable::moveLayer(int position, int newPosition)
     blockSignals(true);
     verticalHeader()->moveSection(position, newPosition);
     blockSignals(false);
+}
+
+void TupFramesTable::setLayerVisibility(int layerIndex, bool isVisible)
+{
+    k->layerColumn->setLayerVisibility(layerIndex, isVisible);
+}
+
+void TupFramesTable::setLayerName(int layerIndex, const QString &name)
+{
+    k->layerColumn->setLayerName(layerIndex, name);
 }
 
 int TupFramesTable::currentLayer()
@@ -431,7 +433,7 @@ void TupFramesTable::fixSize()
          verticalHeader()->resizeSection(row, k->rectHeight);
 }
 
-void TupFramesTable::emitRequestSelectFrame(int currentRow, int currentColumn, int previousRow, int previousColumn)
+void TupFramesTable::requestFrameSelection(int currentRow, int currentColumn, int previousRow, int previousColumn)
 {
      Q_UNUSED(previousRow);
      Q_UNUSED(previousColumn);
@@ -439,7 +441,7 @@ void TupFramesTable::emitRequestSelectFrame(int currentRow, int currentColumn, i
      if (k->frameIndex != currentColumn || k->layerIndex != currentRow) {
          k->frameIndex = currentColumn;
          k->layerIndex = currentRow;
-         emit emitSelection(currentRow, currentColumn);
+         emit frameSelectionIsRequired(currentRow, currentColumn);
      }
 }
 

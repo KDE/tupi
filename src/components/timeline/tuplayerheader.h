@@ -43,6 +43,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QPixmap>
+#include <QLineEdit>
 
 struct TimeLineLayerItem
 {
@@ -60,6 +61,8 @@ class TUPI_EXPORT TupLayerHeader : public QHeaderView
         TupLayerHeader(QWidget * parent = 0);
         ~TupLayerHeader();
         void insertLayer(int index, const QString &name);
+        void setLayerVisibility(int layerIndex, bool visibility);
+        void setLayerName(int layerIndex, const QString &name);
 
     protected:
         void paintSection(QPainter *painter, const QRect & rect, int logicalIndex) const;
@@ -68,8 +71,14 @@ class TUPI_EXPORT TupLayerHeader : public QHeaderView
     public slots:
         void updateSelection(int layerIndex);
 
+    private slots:
+        void showTitleEditor(int section);
+        void hideTitleEditor();
+
     signals:
-        void logicalSectionSelected(int logical);
+        void selectionHasChanged(int section);
+        void visibilityHasChanged(int section, bool isVisible);
+        void nameHasChanged(int section, const QString &name);
 
     private:
         struct Private;

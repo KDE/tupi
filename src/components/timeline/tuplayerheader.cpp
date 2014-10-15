@@ -38,20 +38,33 @@
 struct TupLayerHeader::Private
 {
     QPixmap lockIcon;
-    QPixmap viewIcon;
+    QPixmap viewIconOn;
+    QPixmap viewIconOff;
     int currentLayer;
     QList<TimeLineLayerItem> layers;
+    QLineEdit *editor;
+    int editorSection;
 };
 
 TupLayerHeader::TupLayerHeader(QWidget * parent) : QHeaderView(Qt::Vertical, parent), k(new Private)
 {
-    setFixedWidth(115);
+    setSectionsClickable(true);
+    // setSectionsMovable(true);
 
+    setFixedWidth(115);
     // SQA: This code will be disabled until the "Lock layer" feature is implemented
     // setFixedWidth(140);
     // k->lockIcon = QPixmap(THEME_DIR + "icons/padlock.png");
+    k->viewIconOn = QPixmap(THEME_DIR + "icons/show_layer.png");
+    k->viewIconOff = QPixmap(THEME_DIR + "icons/hide_layer.png");
 
-    k->viewIcon = QPixmap(THEME_DIR + "icons/show_hide_all_layers.png");
+    k->editor = new QLineEdit(this);
+    k->editor->setFocusPolicy(Qt::ClickFocus);
+    k->editor->setInputMask("");
+    connect(k->editor, SIGNAL(editingFinished()), this, SLOT(hideTitleEditor()));
+    k->editor->hide();
+
+    connect(this, SIGNAL(sectionDoubleClicked(int)), this, SLOT(showTitleEditor(int)));
 }
 
 TupLayerHeader::~TupLayerHeader()
@@ -99,7 +112,10 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int lo
 
     QRectF viewRect = QRectF(0, 0, 13, 7); 
     int viewY = (rect.height() - viewRect.height())/2;
-    painter->drawPixmap(QPointF(rect.x() + 90, viewY + y), k->viewIcon, viewRect);
+    if (k->layers[logicalIndex].isVisible)
+        painter->drawPixmap(QPointF(rect.x() + 90, viewY + y), k->viewIconOn, viewRect);
+    else
+        painter->drawPixmap(QPointF(rect.x() + 90, viewY + y), k->viewIconOff, viewRect);
 
     painter->restore();
 }
@@ -107,11 +123,14 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int lo
 void TupLayerHeader::mousePressEvent(QMouseEvent *event)
 {
     QPoint point = event->pos();
-    emit logicalSectionSelected(logicalIndexAt(point));
+    emit selectionHasChanged(logicalIndexAt(point));
 
-    tError() << "TupLayerHeader::mousePressEvent() - point: [ " << point.x() << ", " << point.y() << " ]";
-    int minX = 90;
-    int maxX = minX + 13;
+    int section = logicalIndexAt(point);
+    int y = sectionViewportPosition(section);
+    QRect rect(90, y, 20, sectionSize(section));
+
+    if (rect.contains(point))
+        emit visibilityHasChanged(section, !k->layers[section].isVisible);
 }
 
 void TupLayerHeader::updateSelection(int layerIndex)
@@ -131,3 +150,38 @@ void TupLayerHeader::insertLayer(int index, const QString &name)
     k->layers.insert(index, layer);
 }
 
+void TupLayerHeader::setLayerVisibility(int layerIndex, bool visibility)
+{
+    k->layers[layerIndex].isVisible = visibility;
+    updateSection(layerIndex);
+}
+
+void TupLayerHeader::setLayerName(int layerIndex, const QString &name)
+{
+    k->layers[layerIndex].title = name;
+    updateSection(layerIndex);
+}
+
+void TupLayerHeader::showTitleEditor(int index)
+{
+    if (index >= 0) {
+        QFont font("Arial", 8, QFont::Normal, false);
+        k->editor->setFont(font);
+        int x = sectionViewportPosition(index);
+        k->editor->setGeometry(x, 0, width(), sectionSize(index));
+        k->editorSection = index;
+        k->editor->setText(k->layers[index].title);
+        k->editor->show();
+        k->editor->setFocus();
+    }
+}
+
+void TupLayerHeader::hideTitleEditor()
+{
+    k->editor->hide();
+
+    if (k->editorSection != -1 && k->editor->isModified())
+        emit nameHasChanged(k->editorSection, k->editor->text());
+
+    k->editorSection = -1;
+}
