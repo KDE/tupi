@@ -113,6 +113,9 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
     protected:
         void fixSize();
         void mousePressEvent(QMouseEvent * event);
+        void keyPressEvent(QKeyEvent * event);
+        void enterEvent(QEvent *event);
+        void leaveEvent(QEvent *event);
         
     private slots:
         void frameSelectionFromRuler(int frameIndex);
@@ -123,12 +126,13 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
         
     signals:
         void frameRequest(int action, int frame, int layer, int scene, const QVariant &argument = QVariant());
-        void frameHasChanged(int sceneIndex, int layerIndex, int frameIndex);
+        void frameChanged(int sceneIndex, int layerIndex, int frameIndex);
         void frameSelectionIsRequired(int layer, int frame);
-        void visibilityHasChanged(int layer, bool isVisible);
-        void layerNameHasChanged(int layer, const QString &name);
+        void visibilityChanged(int layer, bool isVisible);
+        void layerNameChanged(int layer, const QString &name);
         
     private:
+        void exchangeFrame(int frameIndex, int currentLayer, int newLayer);
         struct Private;
         Private *const k;
 };

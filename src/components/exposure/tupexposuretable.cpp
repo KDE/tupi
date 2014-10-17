@@ -193,15 +193,15 @@ TupExposureTable::TupExposureTable(QWidget * parent) : QTableWidget(parent), k(n
 
     k->header = new TupExposureHeader(this);
 
-    connect(k->header, SIGNAL(visibilityHasChanged(int, bool)), this, SIGNAL(requestChangeVisibilityLayer(int, bool)));
-    connect(k->header, SIGNAL(nameHasChanged(int, const QString &)), this, SIGNAL(layerNameHasChanged(int, const QString & )));
-    connect(k->header, SIGNAL(sectionMoved(int, int, int)), this, SLOT(emitRequestMoveLayer(int, int, int)));
-    connect(k->header, SIGNAL(selectionHasChanged(int)), this, SLOT(updateLayerSelection(int)));
+    connect(k->header, SIGNAL(visibilityChanged(int, bool)), this, SIGNAL(requestChangeVisibilityLayer(int, bool)));
+    connect(k->header, SIGNAL(nameChanged(int, const QString &)), this, SIGNAL(layerNameChanged(int, const QString & )));
+    connect(k->header, SIGNAL(sectionMoved(int, int, int)), this, SLOT(requestLayerMove(int, int, int)));
+    connect(k->header, SIGNAL(selectionChanged(int)), this, SLOT(updateLayerSelection(int)));
 
     setHorizontalHeader(k->header);
 
-    connect(this, SIGNAL(cellClicked(int, int)), this, SLOT(emitRequestSetUsedFrame(int, int)));
-    connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(emitRequestSelectFrame(int, int, int, int)));
+    connect(this, SIGNAL(cellClicked(int, int)), this, SLOT(markUsedFrames(int, int)));
+    connect(this, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(requestFrameSelection(int, int, int, int)));
 
     setSelectionBehavior(QAbstractItemView::SelectItems);
     setSelectionMode(QAbstractItemView::SingleSelection);
@@ -209,24 +209,24 @@ TupExposureTable::TupExposureTable(QWidget * parent) : QTableWidget(parent), k(n
     k->menu = 0;
 }
 
-void TupExposureTable::emitRequestRenameFrame(QTableWidgetItem * item)
+void TupExposureTable::requestFrameRenaming(QTableWidgetItem * item)
 {
     QModelIndex  index = indexFromItem(item);
-    emit requestRenameFrame(index.column(), index.row(), item->text());
+    emit frameRenamed(index.column(), index.row(), item->text());
 }
 
-void TupExposureTable::emitRequestSelectFrame(int currentSelectedRow, int currentColumn, int previousRow, int previousColumn)
+void TupExposureTable::requestFrameSelection(int currentSelectedRow, int currentColumn, int previousRow, int previousColumn)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
-            qDebug() << "[TupExposureTable::emitRequestSelectFrame()]";
+            qDebug() << "[TupExposureTable::requestFrameSelection()]";
         #else
             T_FUNCINFO;
         #endif
     #endif
 
-    // tError() << "TupExposureTable::emitRequestSelectFrame() - Current frame: " << currentSelectedRow;
-    // tError() << "TupExposureTable::emitRequestSelectFrame() - Previous frame: " << previousRow;
+    // tError() << "TupExposureTable::requestFrameSelection() - Current frame: " << currentSelectedRow;
+    // tError() << "TupExposureTable::requestFrameSelection() - Previous frame: " << previousRow;
 
     if (!k->removingLayer) { 
         if (k->removingFrame) {
@@ -236,13 +236,13 @@ void TupExposureTable::emitRequestSelectFrame(int currentSelectedRow, int curren
                  k->header->updateSelection(currentColumn);
 
             if (previousRow != currentSelectedRow) 
-                emit requestSelectFrame(currentLayer(), currentRow());
+                emit frameSelected(currentLayer(), currentRow());
 
             return;
         }
 
         if (previousColumn != currentColumn || previousRow != currentSelectedRow)
-            emit requestSelectFrame(currentLayer(), currentRow());
+            emit frameSelected(currentLayer(), currentRow());
 
         if ((previousColumn != currentColumn) || (columnCount() == 1))
              k->header->updateSelection(currentColumn);
@@ -258,13 +258,13 @@ void TupExposureTable::emitRequestSelectFrame(int currentSelectedRow, int curren
     }
 }
 
-void TupExposureTable::emitRequestMoveLayer(int logicalIndex, int oldVisualIndex, int newVisualIndex)
+void TupExposureTable::requestLayerMove(int logicalIndex, int oldVisualIndex, int newVisualIndex)
 {
     Q_UNUSED(logicalIndex);
 
-    if (!k->header->signalMovedBlocked()) {
-        emit requestMoveLayer(oldVisualIndex, newVisualIndex);
-        emit requestSelectFrame(newVisualIndex, currentRow());
+    if (!k->header->sectionIsMoving()) {
+        emit layerMoved(oldVisualIndex, newVisualIndex);
+        emit frameSelected(newVisualIndex, currentRow());
     }
 }
 
@@ -300,7 +300,7 @@ void TupExposureTable::setFrameName(int layerIndex, int frameIndex, const QStrin
 
 void TupExposureTable::setLayerName(int layerIndex, const QString & name)
 {
-    k->header->setLayerName(k->header->logicalIndex(layerIndex), name);
+    k->header->setSectionTitle(k->header->logicalIndex(layerIndex), name);
 }
 
 bool TupExposureTable::frameIsLocked(int layerIndex, int frameIndex)
@@ -358,7 +358,7 @@ void TupExposureTable::selectFrame(int layerIndex, int frameIndex)
         #endif
     #endif
 
-    if (k->header->currentLayerIndex() != layerIndex)
+    if (k->header->currentSectionIndex() != layerIndex)
         k->header->updateSelection(layerIndex);
     setCurrentCell(frameIndex, k->header->logicalIndex(layerIndex));
 }
@@ -397,7 +397,7 @@ void TupExposureTable::insertLayer(int index, const QString & name)
 {
     insertColumn(index);
     setColumnWidth(index, 70);
-    k->header->insertLayer(index, name);
+    k->header->insertSection(index, name);
 }
 
 void TupExposureTable::insertFrame(int layerIndex, int frameIndex, const QString & name, bool external)
@@ -445,12 +445,12 @@ void TupExposureTable::setLockFrame(int layerIndex, int frameIndex, bool locked)
 
 void TupExposureTable::setLockLayer(int layerIndex, bool locked)
 {
-    k->header->setLockLayer(layerIndex, locked);
+    k->header->setLockFlag(layerIndex, locked);
 }
 
-void TupExposureTable::setVisibilityChanged(int visualIndex, bool visibility)
+void TupExposureTable::setLayerVisibility(int visualIndex, bool visibility)
 {
-    k->header->setVisibilityChanged(k->header->logicalIndex(visualIndex), visibility);
+    k->header->setSectionVisibility(k->header->logicalIndex(visualIndex), visibility);
 }
 
 void TupExposureTable::removeLayer(int layerIndex)
@@ -458,7 +458,7 @@ void TupExposureTable::removeLayer(int layerIndex)
     setUpdatesEnabled(false);
     k->removingLayer = true;
 
-    k->header->removeLayer(layerIndex);
+    k->header->removeSection(layerIndex);
     removeColumn(layerIndex);
 
     setUpdatesEnabled(true);
@@ -509,16 +509,16 @@ void TupExposureTable::exchangeFrame(int oldPosLayer, int oldPosFrame, int newPo
 
 void TupExposureTable::moveLayer(int oldPosLayer, int newPosLayer)
 {
-    k->header->moveLayer(oldPosLayer, newPosLayer);
+    k->header->moveSection(oldPosLayer, newPosLayer);
     for (int frameIndex = 0; frameIndex < k->header->lastFrame(oldPosLayer); frameIndex++)
          exchangeFrame(oldPosLayer, frameIndex, newPosLayer, frameIndex, true);
 }
 
-void TupExposureTable::emitRequestSetUsedFrame(int frameIndex, int layerIndex)
+void TupExposureTable::markUsedFrames(int frameIndex, int layerIndex)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
-            qDebug() << "[TupExposureTable::emitRequestSetUsedFrame()]";
+            qDebug() << "[TupExposureTable::markUsedFrames()]";
         #else
             T_FUNCINFO;
         #endif
@@ -532,11 +532,11 @@ void TupExposureTable::emitRequestSetUsedFrame(int frameIndex, int layerIndex)
              int used = usedFrames(column); 
              if (lastFrame >= used) {
                  for (int frame=used; frame <= frameIndex; frame++)
-                      emit requestSetUsedFrame(column, frame);
+                      emit frameUsed(column, frame);
              }
         }
 
-        emit requestSelectFrame(layer, frameIndex);
+        emit frameSelected(layer, frameIndex);
     } 
 }
 
@@ -582,12 +582,12 @@ void TupExposureTable::commitData(QWidget *editor)
     QTableWidget::commitData(0); // Don't rename
 
     if (lineEdit)
-        emit requestRenameFrame(currentLayer(), currentFrame(), lineEdit->text());
+        emit frameRenamed(currentLayer(), currentFrame(), lineEdit->text());
 }
 
 int TupExposureTable::layersTotal()
 {
-    return k->header->layersTotal();
+    return k->header->sectionsTotal();
 }
 
 int TupExposureTable::framesTotal()
@@ -655,12 +655,13 @@ void TupExposureTable::keyPressEvent(QKeyEvent *event)
     }   
 
     if (event->key() == Qt::Key_Return) {
-        emitRequestSetUsedFrame(currentRow(), currentColumn());
+        markUsedFrames(currentRow(), currentColumn());
         return;
     }
 }
 
-void TupExposureTable::emitCellClicked(int frame, int layer) 
+// SQA : Verify if this method is required
+void TupExposureTable::notifyCellClicked(int frame, int layer) 
 {
     emit cellClicked(frame, layer);
 }

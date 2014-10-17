@@ -116,8 +116,8 @@ void TupTimeLine::insertScene(int sceneIndex, const QString &name)
 
     connect(framesTable, SIGNAL(frameRequest(int, int, int, int, const QVariant&)), this, SLOT(requestFrameAction(int, int, int, int, const QVariant&)));
     connect(framesTable, SIGNAL(frameSelectionIsRequired(int, int)), this, SLOT(selectFrame(int, int)));
-    connect(framesTable, SIGNAL(visibilityHasChanged(int, bool)), this, SLOT(requestLayerVisibilityAction(int, bool)));
-    connect(framesTable, SIGNAL(layerNameHasChanged(int, const QString &)), this, SLOT(requestLayerRenameAction(int, const QString &))); 
+    connect(framesTable, SIGNAL(visibilityChanged(int, bool)), this, SLOT(requestLayerVisibilityAction(int, bool)));
+    connect(framesTable, SIGNAL(layerNameChanged(int, const QString &)), this, SLOT(requestLayerRenameAction(int, const QString &))); 
 
     k->container->insertTab(sceneIndex, framesTable, name);
 }
@@ -208,6 +208,7 @@ void TupTimeLine::layerResponse(TupLayerResponse *response)
                 break;
                 case TupProjectRequest::Remove:
                 {
+                     tError() << "TupTimeLine::layerResponse() - Removing layer at -> " << response->layerIndex();
                      framesTable->removeLayer(response->layerIndex());
                 }
                 break;
@@ -276,9 +277,11 @@ void TupTimeLine::frameResponse(TupFrameResponse *response)
                 break;
                 case TupProjectRequest::Select:
                 {
-                     tError() << "TupTimeLine::frameResponse() - Selecting frame at -> " << response->frameIndex();
                      int layerIndex = response->layerIndex();
                      k->selectedLayer = layerIndex;
+
+                     tError() << "TupTimeLine::frameResponse() - Selecting frame index -> " << response->frameIndex();
+                     tError() << "TupTimeLine::frameResponse() - Selecting layer index -> " << k->selectedLayer;
 
                      framesTable->blockSignals(true);
                      framesTable->setCurrentCell(layerIndex, response->frameIndex());

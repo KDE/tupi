@@ -122,9 +122,9 @@ class TUPI_EXPORT TupExposureSheet : public TupModuleWidgetBase
         void copyTimeLineFiveTimes();
 		
         void insertFrame(int indexLayer, int indexFrame);
-        void renameFrame(int indexLayer, int indexFrame, const QString & name);
+        void renameFrame(int indexLayer, int indexFrame, const QString &name);
         void selectFrame(int indexLayer, int indexFrame);
-        void requestRenameLayer(int indexLayer, const QString & name);
+        void requestRenameLayer(int indexLayer, const QString &name);
         void moveLayer(int oldIndex, int newIndex);
         void actionTriggered(QAction *action);
 };

@@ -59,7 +59,7 @@ class TUPI_EXPORT TupTimeLineRuler : public QHeaderView
         virtual void mousePressEvent(QMouseEvent *event);
 
     signals:
-        void selectionHasChanged(int section);
+        void selectionChanged(int section);
 };
 
 #endif

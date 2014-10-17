@@ -72,10 +72,8 @@ TupLayerHeader::~TupLayerHeader()
 {
 }
 
-void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int logicalIndex) const
+void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int index) const
 {
-    Q_UNUSED(logicalIndex);
-
     if (!model() || !rect.isValid())
         return;
 
@@ -89,7 +87,7 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int lo
 
     style()->drawControl(QStyle::CE_HeaderSection, &headerOption, painter);
 
-    if (k->currentLayer == logicalIndex) {
+    if (k->currentLayer == index) {
         QColor color(0, 136, 0, 40);
         painter->fillRect(rect, color);
     }
@@ -100,7 +98,7 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int lo
     int y = rect.normalized().bottomLeft().y() - (1 + (rect.normalized().height() - fm.height())/2);
     painter->setFont(font);
     painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
-    painter->drawText(10, y, k->layers[logicalIndex].title);
+    painter->drawText(10, y, k->layers[index].title);
 
     y = rect.y();
 
@@ -113,7 +111,7 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int lo
 
     QRectF viewRect = QRectF(0, 0, 13, 7); 
     int viewY = (rect.height() - viewRect.height())/2;
-    if (k->layers[logicalIndex].isVisible)
+    if (k->layers[index].isVisible)
         painter->drawPixmap(QPointF(rect.x() + 90, viewY + y), k->viewIconOn, viewRect);
     else
         painter->drawPixmap(QPointF(rect.x() + 90, viewY + y), k->viewIconOff, viewRect);
@@ -127,18 +125,18 @@ void TupLayerHeader::mousePressEvent(QMouseEvent *event)
     int section = logicalIndexAt(point);
 
     if (section != k->currentLayer)
-        emit selectionHasChanged(logicalIndexAt(point));
+        emit selectionChanged(section);
 
     int y = sectionViewportPosition(section);
     QRect rect(90, y, 20, sectionSize(section));
     if (rect.contains(point))
-        emit visibilityHasChanged(section, !k->layers[section].isVisible);
+        emit visibilityChanged(section, !k->layers[section].isVisible);
 }
 
-void TupLayerHeader::updateSelection(int layerIndex)
+void TupLayerHeader::updateSelection(int index)
 {
-    k->currentLayer = layerIndex;
-    updateSection(layerIndex);
+    k->currentLayer = index;
+    updateSection(index);
 }
 
 void TupLayerHeader::insertLayer(int index, const QString &name)
@@ -148,20 +146,21 @@ void TupLayerHeader::insertLayer(int index, const QString &name)
     layer.lastFrame = 0;
     layer.isVisible = true;
     layer.isLocked = false;
+    layer.isSound = false;
 
     k->layers.insert(index, layer);
 }
 
-void TupLayerHeader::setLayerVisibility(int layerIndex, bool visibility)
+void TupLayerHeader::setLayerVisibility(int index, bool visibility)
 {
-    k->layers[layerIndex].isVisible = visibility;
-    updateSection(layerIndex);
+    k->layers[index].isVisible = visibility;
+    updateSection(index);
 }
 
-void TupLayerHeader::setLayerName(int layerIndex, const QString &name)
+void TupLayerHeader::setLayerName(int index, const QString &name)
 {
-    k->layers[layerIndex].title = name;
-    updateSection(layerIndex);
+    k->layers[index].title = name;
+    updateSection(index);
 }
 
 void TupLayerHeader::showTitleEditor(int index)
@@ -185,8 +184,36 @@ void TupLayerHeader::hideTitleEditor()
 
     if (k->editorSection != -1 && k->editor->isModified()) {
         tError() << "TupLayerHeader::hideTitleEditor() - ENTER pressed!";
-        emit nameHasChanged(k->editorSection, k->editor->text());
+        emit nameChanged(k->editorSection, k->editor->text());
     }
 
     k->editorSection = -1;
+}
+
+void TupLayerHeader::removeLayer(int index)
+{
+    k->layers.removeAt(index);
+}
+
+int TupLayerHeader::lastFrame(int index)
+{
+    return k->layers[index].lastFrame;
+}
+
+void TupLayerHeader::updateLastFrame(int index, bool addition)
+{
+    if (addition)
+        k->layers[index].lastFrame++;
+    else
+        k->layers[index].lastFrame--;
+}
+
+bool TupLayerHeader::isSound(int index)
+{
+    return k->layers[index].isSound;
+}
+
+void TupLayerHeader::setSoundFlag(int index, bool flag)
+{
+    k->layers[index].isSound = flag;
 }

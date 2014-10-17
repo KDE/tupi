@@ -186,26 +186,26 @@ void TupExposureSheet::addScene(int index, const QString &name)
         #endif
     #endif
 
-    TupExposureTable *newScene = new TupExposureTable;
-    newScene->setMenu(k->menu);
+    TupExposureTable *scene = new TupExposureTable;
+    scene->setMenu(k->menu);
 
-    connect(newScene, SIGNAL(requestSetUsedFrame(int, int)), 
+    connect(scene, SIGNAL(frameUsed(int, int)), 
                              this, SLOT(insertFrame(int, int)));
 
-    connect(newScene, SIGNAL(requestRenameFrame(int, int,const QString &)), 
+    connect(scene, SIGNAL(frameRenamed(int, int,const QString &)), 
                              this, SLOT(renameFrame(int, int, const QString &)));
 
-    connect(newScene, SIGNAL(requestSelectFrame(int, int)), SLOT(selectFrame(int, int)));
+    connect(scene, SIGNAL(frameSelected(int, int)), SLOT(selectFrame(int, int)));
 
-    connect(newScene, SIGNAL(layerNameHasChanged(int, const QString &)), 
+    connect(scene, SIGNAL(layerNameChanged(int, const QString &)), 
                              this, SLOT(requestRenameLayer(int, const QString &)));
 
-    connect(newScene, SIGNAL(requestMoveLayer(int,int)), this, SLOT(moveLayer(int, int)));
+    connect(scene, SIGNAL(layerMoved(int,int)), this, SLOT(moveLayer(int, int)));
 
-    connect(newScene, SIGNAL(requestChangeVisibilityLayer(int , bool)),
+    connect(scene, SIGNAL(layerVisibilityChanged(int , bool)),
                              this, SLOT(changeVisibilityLayer(int, bool)));
 
-    k->scenesContainer->addScene(index, name, newScene);
+    k->scenesContainer->addScene(index, name, scene);
 }
 
 void TupExposureSheet::renameScene(int index, const QString &name)
@@ -700,7 +700,7 @@ void TupExposureSheet::layerResponse(TupLayerResponse *e)
                  }
                 case TupProjectRequest::View:
                  {
-                     table->setVisibilityChanged(e->layerIndex(), e->arg().toBool());
+                     table->setLayerVisibility(e->layerIndex(), e->arg().toBool());
                  }
                 break;
                 default:

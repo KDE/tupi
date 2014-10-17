@@ -51,6 +51,7 @@ struct TimeLineLayerItem
     int lastFrame;
     bool isVisible;
     bool isLocked;
+    bool isSound;
 };
 
 class TUPI_EXPORT TupLayerHeader : public QHeaderView
@@ -61,24 +62,29 @@ class TUPI_EXPORT TupLayerHeader : public QHeaderView
         TupLayerHeader(QWidget * parent = 0);
         ~TupLayerHeader();
         void insertLayer(int index, const QString &name);
-        void setLayerVisibility(int layerIndex, bool visibility);
-        void setLayerName(int layerIndex, const QString &name);
+        void setLayerVisibility(int index, bool visibility);
+        void setLayerName(int index, const QString &name);
+        void removeLayer(int index);
+        int  lastFrame(int index);
+        void updateLastFrame(int index, bool addition);
+        bool isSound(int index);
+        void setSoundFlag(int index, bool flag);
 
     protected:
-        void paintSection(QPainter *painter, const QRect & rect, int logicalIndex) const;
+        void paintSection(QPainter *painter, const QRect & rect, int index) const;
         virtual void mousePressEvent(QMouseEvent *event);
 
     public slots:
-        void updateSelection(int layerIndex);
+        void updateSelection(int index);
 
     private slots:
         void showTitleEditor(int section);
         void hideTitleEditor();
 
     signals:
-        void selectionHasChanged(int section);
-        void visibilityHasChanged(int section, bool isVisible);
-        void nameHasChanged(int section, const QString &name);
+        void selectionChanged(int section);
+        void visibilityChanged(int section, bool isVisible);
+        void nameChanged(int section, const QString &name);
 
     private:
         struct Private;

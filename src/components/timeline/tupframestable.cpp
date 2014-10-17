@@ -160,11 +160,13 @@ bool TupFramesTableItem::isSound()
 
 struct TupFramesTable::Private
 {
+    /*
     struct LayerItem {
         LayerItem() : lastItem(-1), sound(false) {};
         int lastItem;
         bool sound;
     };
+    */
     
     int rectWidth;
     int rectHeight;
@@ -173,7 +175,7 @@ struct TupFramesTable::Private
     int layerIndex;
     int frameIndex;
 
-    QList<LayerItem> layers;
+    // QList<LayerItem> layers;
     TupTimeLineRuler *ruler;
     TupLayerHeader *layerColumn;
 };
@@ -186,7 +188,7 @@ TupFramesTable::TupFramesTable(int sceneIndex, QWidget *parent) : QTableWidget(0
     k->ruler = new TupTimeLineRuler;
 
     k->layerColumn = new TupLayerHeader;
-    connect(k->layerColumn, SIGNAL(nameHasChanged(int, const QString &)), this, SIGNAL(layerNameHasChanged(int, const QString &)));
+    connect(k->layerColumn, SIGNAL(nameChanged(int, const QString &)), this, SIGNAL(layerNameChanged(int, const QString &)));
 
     setup();
 }
@@ -207,12 +209,12 @@ void TupFramesTable::setup()
 
     setHorizontalHeader(k->ruler);
 
-    connect(k->ruler, SIGNAL(selectionHasChanged(int)), this, SLOT(frameSelectionFromRuler(int)));
+    connect(k->ruler, SIGNAL(selectionChanged(int)), this, SLOT(frameSelectionFromRuler(int)));
 
     setVerticalHeader(k->layerColumn);
 
-    connect(k->layerColumn, SIGNAL(selectionHasChanged(int)), this, SLOT(frameSelectionFromLayerHeader(int)));
-    connect(k->layerColumn, SIGNAL(visibilityHasChanged(int, bool)), this, SIGNAL(visibilityHasChanged(int, bool)));
+    connect(k->layerColumn, SIGNAL(selectionChanged(int)), this, SLOT(frameSelectionFromLayerHeader(int)));
+    connect(k->layerColumn, SIGNAL(visibilityChanged(int, bool)), this, SIGNAL(visibilityChanged(int, bool)));
 
     setItemSize(10, 25);
     
@@ -241,7 +243,7 @@ void TupFramesTable::requestFrameSelection(QTableWidgetItem *current, QTableWidg
     if (item) {
         if (item->isUsed()) {
             tError() << "TupFramesTable::requestFrameSelection() - Just tracing 1";
-            emit frameHasChanged(k->sceneIndex, verticalHeader()->visualIndex(this->row(item)), this->column(item));
+            emit frameChanged(k->sceneIndex, verticalHeader()->visualIndex(this->row(item)), this->column(item));
         } else {
             #ifdef K_DEBUG
                 QString msg = "TupFramesTable::requestFrameSelection <- item exists but is unset right now";
@@ -267,12 +269,15 @@ void TupFramesTable::setItemSize(int w, int h)
     fixSize();
 }
 
-bool TupFramesTable::isSoundLayer(int row)
+bool TupFramesTable::isSoundLayer(int index)
 {
-    if (row < 0 && row >= k->layers.count())
+    // if (index < 0 && index >= k->layers.count())
+    if (index < 0 && index >= rowCount())
         return false;
     
-    return k->layers[row].sound;
+    // return k->layers[index].sound;
+
+    return k->layerColumn->isSound(index);
 }
 
 void TupFramesTable::insertLayer(int index, const QString &name)
@@ -280,50 +285,79 @@ void TupFramesTable::insertLayer(int index, const QString &name)
     tError() << "TupFramesTable::insertLayer() - Inserting layer at index: " << index;
 
     insertRow(index);
-    
+
+    /*    
     Private::LayerItem layer;
     layer.sound = false;
     k->layers.insert(index, layer);
+    */
 
     k->layerColumn->insertLayer(index, name);
     
     fixSize();
 }
 
-void TupFramesTable::insertSoundLayer(int layerPos, const QString &name)
+void TupFramesTable::insertSoundLayer(int index, const QString &name)
 {
-    Q_UNUSED(name);
+    insertRow(index);
 
-    insertRow(layerPos);
-    
+    /*
     Private::LayerItem layer;
     layer.sound = true;
-    k->layers.insert(layerPos, layer);
+    k->layers.insert(index, layer);
+    */
+
+    k->layerColumn->insertLayer(index, name);
     
     fixSize();
 }
 
 void TupFramesTable::removeCurrentLayer()
 {
-    int pos = verticalHeader()->logicalIndex(currentRow());
-    removeLayer(pos);
+    // int pos = verticalHeader()->logicalIndex(currentRow());
+    // removeLayer(pos);
+
+    removeLayer(currentRow());
 }
 
-void TupFramesTable::removeLayer(int pos)
+void TupFramesTable::removeLayer(int index)
 {
-    pos = verticalHeader()->logicalIndex(pos);
-    removeRow( pos );
-    k->layers.removeAt(pos);
+    removeRow(index);
+    // k->layers.removeAt(index);
+    k->layerColumn->removeLayer(index);
 }
 
-void TupFramesTable::moveLayer(int position, int newPosition)
+void TupFramesTable::moveLayer(int index, int newIndex)
 {
-    if (position < 0 || position >= rowCount() || newPosition < 0 || newPosition >= rowCount()) 
+    if (index < 0 || index >= rowCount() || newIndex < 0 || newIndex >= rowCount()) 
         return;
-    
+
+    tError() << "TupFramesTable::moveLayer() - Moving Layer from -> " << index << " to -> " << newIndex;
+
     blockSignals(true);
-    verticalHeader()->moveSection(position, newPosition);
+    k->layerColumn->swapSections(index, newIndex);
+    // verticalHeader()->moveSection(index, newIndex);
+    // setCurrentItem(item(newIndex, currentColumn()));
     blockSignals(false);
+
+    tError() << "TupFramesTable::moveLayer() - Current layer last frame: " << k->layerColumn->lastFrame(index);
+
+    for (int frameIndex = 0; frameIndex < k->layerColumn->lastFrame(index); frameIndex++)
+         exchangeFrame(frameIndex, index, newIndex);
+
+    // k->layerColumn->moveLayer(index, newIndex);
+}
+
+void TupFramesTable::exchangeFrame(int frameIndex, int currentLayer, int newLayer)
+{
+    QTableWidgetItem * oldItem  = takeItem(frameIndex, currentLayer);
+    QTableWidgetItem * newItem  = takeItem(frameIndex, newLayer);
+
+    setItem(frameIndex, newLayer, oldItem);
+    setItem(frameIndex, currentLayer, newItem);
+
+    // if (!external)
+    //     setCurrentItem(oldItem);
 }
 
 void TupFramesTable::setLayerVisibility(int layerIndex, bool isVisible)
@@ -346,35 +380,50 @@ int TupFramesTable::layersTotal()
     return rowCount();
 }
 
-int TupFramesTable::lastFrameByLayer(int layerPos)
+int TupFramesTable::lastFrameByLayer(int index)
 {
-    int pos = verticalHeader()->logicalIndex(layerPos);
+    // index = verticalHeader()->logicalIndex(index);
+    // if (pos < 0 || pos > k->layers.count())
 
-    if (pos < 0 || pos > k->layers.count())
+    if (index < 0 || index >= rowCount())
         return -1;
 
-    return k->layers[pos].lastItem;
+    // return k->layers[pos].lastItem;
+
+    tError() << "TupFramesTable::lastFrameByLayer() - layer: " << index;
+    tError() << "TupFramesTable::lastFrameByLayer() - lastFrame: " << k->layerColumn->lastFrame(index);
+    tError() << "TupFramesTable::lastFrameByLayer() - logicalIndex: " << verticalHeader()->logicalIndex(index);
+
+    return k->layerColumn->lastFrame(index) - 1;
 }
 
 // FRAMES
 
-void TupFramesTable::insertFrame(int layerPos, const QString &name)
+void TupFramesTable::insertFrame(int index, const QString &name)
 {
     Q_UNUSED(name);
 
-    if (layerPos < 0 || layerPos >= k->layers.count()) 
+    tError() << "TupFramesTable::insertFrame() - Inserting frame at index -> " << index;
+
+    // if (index < 0 || index >= k->layers.count()) 
+    if (index < 0 || index >= rowCount())
         return;
     
-    layerPos = verticalHeader()->logicalIndex(layerPos);
+    // index = verticalHeader()->logicalIndex(index);
+    // k->layers[index].lastItem++;
+
+    // k->layerColumn->updateLastFrame(index, true);
+
+    // if (k->layers[index].lastItem >= columnCount())
+    int lastFrame = k->layerColumn->lastFrame(index);
+    if (lastFrame >= columnCount())
+        insertColumn(lastFrame);
     
-    k->layers[layerPos].lastItem++;
-    
-    if (k->layers[layerPos].lastItem >= columnCount())
-        insertColumn(k->layers[layerPos].lastItem);
-    
-    setAttribute(layerPos, k->layers[layerPos].lastItem, TupFramesTableItem::IsUsed, true);
-    setAttribute(layerPos, k->layers[layerPos].lastItem, TupFramesTableItem::IsSound, k->layers[layerPos].sound);
-    
+    setAttribute(index, lastFrame, TupFramesTableItem::IsUsed, true);
+    setAttribute(index, lastFrame, TupFramesTableItem::IsSound, k->layerColumn->isSound(index));
+
+    k->layerColumn->updateLastFrame(index, true);
+
     viewport()->update();
 }
 
@@ -395,26 +444,35 @@ void TupFramesTable::selectFrame(int index)
     setCurrentItem(item(currentRow(), index));
 }
 
-void TupFramesTable::removeFrame(int layerPos, int position)
+void TupFramesTable::removeFrame(int index, int position)
 {
     Q_UNUSED(position);
 
-    if (layerPos < 0 || layerPos >= k->layers.count())
+    // if (index < 0 || index >= k->layers.count())
+    if (index < 0 || index >= rowCount())
         return;
     
-    layerPos = verticalHeader()->logicalIndex(layerPos);
-    setAttribute(layerPos, k->layers[layerPos].lastItem, TupFramesTableItem::IsUsed, false);
-    k->layers[layerPos].lastItem--;
+    // index = verticalHeader()->logicalIndex(index);
+    // setAttribute(index, k->layers[index].lastItem, TupFramesTableItem::IsUsed, false);
+
+    setAttribute(index, k->layerColumn->lastFrame(index), TupFramesTableItem::IsUsed, false);
+
+    // k->layers[index].lastItem--;
+
+    k->layerColumn->updateLastFrame(index, false);
     viewport()->update();
 }
 
-void TupFramesTable::lockFrame(int layerPos, int position, bool lock)
+void TupFramesTable::lockFrame(int index, int position, bool lock)
 {
-    if (layerPos < 0 || layerPos >= k->layers.count())
+    // if (index < 0 || index >= k->layers.count())
+
+    if (index < 0 || index >= rowCount())
         return;
     
-    layerPos = verticalHeader()->logicalIndex(layerPos);
-    setAttribute(layerPos, position, TupFramesTableItem::IsLocked, lock);
+    // index = verticalHeader()->logicalIndex(index);
+
+    setAttribute(index, position, TupFramesTableItem::IsLocked, lock);
     viewport()->update();
 }
 
@@ -471,3 +529,49 @@ void TupFramesTable::mousePressEvent(QMouseEvent *event)
 
     QTableWidget::mousePressEvent(event);
 }
+
+void TupFramesTable::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Right) {
+        int limit = columnCount()-1;
+        int next = currentColumn()+1;
+        if (next <= limit) 
+            setCurrentCell(currentRow(), next);
+    }    
+
+    if (event->key() == Qt::Key_Left) {
+        int next = currentColumn()-1;
+        if (next >= 0) 
+            setCurrentCell(currentRow(), next);
+    }
+
+    if (event->key() == Qt::Key_Up) {
+        int next = currentRow()-1;
+        if (next >= 0) 
+            setCurrentCell(next, currentColumn());
+    }
+
+    if (event->key() == Qt::Key_Down) {
+        int limit = rowCount()-1;
+        int next = currentRow()+1;
+        if (next <= limit)
+            setCurrentCell(next, currentColumn());
+    }
+}
+
+void TupFramesTable::enterEvent(QEvent *event)
+{
+    if (!hasFocus())
+        setFocus();
+
+    QTableWidget::enterEvent(event);
+}
+
+void TupFramesTable::leaveEvent(QEvent *event)
+{
+    if (hasFocus())
+        clearFocus();
+
+    QTableWidget::leaveEvent(event);
+}
+

@@ -67,41 +67,42 @@ class TUPI_EXPORT TupExposureHeader: public QHeaderView
     public:
         TupExposureHeader(QWidget * parent = 0);
         ~TupExposureHeader();
-        void paintSection(QPainter *painter, const QRect & rect, int layerIndex) const;
-        void insertLayer(int layerIndex, const QString &text);
-        void setLayerName(int layerIndex, const QString &text);
-        void setLastFrame(int layerIndex, int num);
-        int lastFrame(int layerIndex);
-        void removeLayer(int layerIndex);
-        void moveLayer(int index, int newIndex);
-        void setLockLayer(int logicalndex, bool lock);
-        bool signalMovedBlocked();
-        void setVisibilityChanged(int logicalndex, bool visibility);
-        int layersTotal();
-        int currentLayerIndex();
+        void paintSection(QPainter *painter, const QRect & rect, int section) const;
+        void insertSection(int section, const QString &text);
+        void setSectionTitle(int section, const QString &text);
+        void removeSection(int section);
+        void moveSection(int index, int newIndex);
+        void setLockFlag(int section, bool lock);
+        bool sectionIsMoving();
+        void setSectionVisibility(int section, bool visibility);
+        int sectionsTotal();
+        int currentSectionIndex();
+
+        void setLastFrame(int section, int num);
+        int lastFrame(int section);
 
     protected:
         virtual void mousePressEvent(QMouseEvent * event);
 
     public slots:
-        void updateSelection(int col);
+        void updateSelection(int section);
 
     private slots:
-        void emitVisibilityChanged(int section);
-        void showEditorName(int section);
-        void hideEditorName();
+        void notifyVisibilityChange(int section);
+        void showTitleEditor(int section);
+        void hideTitleEditor();
 
     signals:
-        void nameHasChanged(int indexLayer, const QString & name);
-        void visibilityHasChanged(int indexLayer, bool visibility);
-        void selectionHasChanged(int indexLayer);
+        void nameChanged(int section, const QString & name);
+        void visibilityChanged(int section, bool visibility);
+        void selectionChanged(int section);
 
     private:
-        QList<ExposureLayerItem> m_layers;
+        QList<ExposureLayerItem> m_sections;
         QLineEdit *m_editor;
-        int m_sectionEdited;
-        int m_blockSectionMoved;
-        int currentCol;
+        int m_editedSection;
+        bool m_sectionOnMotion;
+        int m_currentSection;
 };
 
 #endif
