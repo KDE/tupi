@@ -71,7 +71,7 @@ class TUPI_EXPORT TupExposureHeader: public QHeaderView
         void insertSection(int section, const QString &text);
         void setSectionTitle(int section, const QString &text);
         void removeSection(int section);
-        void moveSection(int index, int newIndex);
+        void moveHeaderSection(int index, int newIndex);
         void setLockFlag(int section, bool lock);
         bool sectionIsMoving();
         void setSectionVisibility(int section, bool visibility);

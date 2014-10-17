@@ -193,7 +193,7 @@ TupExposureTable::TupExposureTable(QWidget * parent) : QTableWidget(parent), k(n
 
     k->header = new TupExposureHeader(this);
 
-    connect(k->header, SIGNAL(visibilityChanged(int, bool)), this, SIGNAL(requestChangeVisibilityLayer(int, bool)));
+    connect(k->header, SIGNAL(visibilityChanged(int, bool)), this, SIGNAL(layerVisibilityChanged(int, bool)));
     connect(k->header, SIGNAL(nameChanged(int, const QString &)), this, SIGNAL(layerNameChanged(int, const QString & )));
     connect(k->header, SIGNAL(sectionMoved(int, int, int)), this, SLOT(requestLayerMove(int, int, int)));
     connect(k->header, SIGNAL(selectionChanged(int)), this, SLOT(updateLayerSelection(int)));
@@ -509,7 +509,7 @@ void TupExposureTable::exchangeFrame(int oldPosLayer, int oldPosFrame, int newPo
 
 void TupExposureTable::moveLayer(int oldPosLayer, int newPosLayer)
 {
-    k->header->moveSection(oldPosLayer, newPosLayer);
+    k->header->moveHeaderSection(oldPosLayer, newPosLayer);
     for (int frameIndex = 0; frameIndex < k->header->lastFrame(oldPosLayer); frameIndex++)
          exchangeFrame(oldPosLayer, frameIndex, newPosLayer, frameIndex, true);
 }
