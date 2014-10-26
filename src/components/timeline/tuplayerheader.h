@@ -61,14 +61,18 @@ class TUPI_EXPORT TupLayerHeader : public QHeaderView
     public:
         TupLayerHeader(QWidget * parent = 0);
         ~TupLayerHeader();
-        void insertLayer(int index, const QString &name);
-        void setLayerVisibility(int index, bool visibility);
-        void setLayerName(int index, const QString &name);
-        void removeLayer(int index);
+        void insertSection(int index, const QString &name);
+        void setSectionVisibility(int index, bool visibility);
+        void setSectionTitle(int index, const QString &name);
+        void removeSection(int index);
         int  lastFrame(int index);
         void updateLastFrame(int index, bool addition);
+        void resetLastFrame(int index);
         bool isSound(int index);
         void setSoundFlag(int index, bool flag);
+        int currentSectionIndex();
+        void moveHeaderSection(int position, int newPosition);
+        bool sectionIsMoving();
 
     protected:
         void paintSection(QPainter *painter, const QRect & rect, int index) const;

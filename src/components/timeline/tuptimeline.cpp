@@ -81,7 +81,7 @@ TupTimeLine::TupTimeLine(TupProject *project, QWidget *parent) : TupModuleWidget
     addChild(k->container);
     
     connect(k->actionBar, SIGNAL(actionSelected(int)), this, SLOT(requestCommand(int)));
-    connect(k->container, SIGNAL(currentChanged(int)), this, SLOT(emitRequestChangeScene(int)));
+    connect(k->container, SIGNAL(currentChanged(int)), this, SLOT(requestSceneSelection(int)));
 }
 
 TupTimeLine::~TupTimeLine()
@@ -114,8 +114,8 @@ void TupTimeLine::insertScene(int sceneIndex, const QString &name)
     TupFramesTable *framesTable = new TupFramesTable(sceneIndex, k->container);
     framesTable->setItemSize(10, 20);
 
-    connect(framesTable, SIGNAL(frameRequest(int, int, int, int, const QVariant&)), this, SLOT(requestFrameAction(int, int, int, int, const QVariant&)));
-    connect(framesTable, SIGNAL(frameSelectionIsRequired(int, int)), this, SLOT(selectFrame(int, int)));
+    // connect(framesTable, SIGNAL(frameRequest(int, int, int, int, const QVariant&)), this, SLOT(requestFrameAction(int, int, int, int, const QVariant&)));
+    connect(framesTable, SIGNAL(frameSelected(int, int)), this, SLOT(selectFrame(int, int)));
     connect(framesTable, SIGNAL(visibilityChanged(int, bool)), this, SLOT(requestLayerVisibilityAction(int, bool)));
     connect(framesTable, SIGNAL(layerNameChanged(int, const QString &)), this, SLOT(requestLayerRenameAction(int, const QString &))); 
 
@@ -203,13 +203,21 @@ void TupTimeLine::layerResponse(TupLayerResponse *response)
         switch (response->action()) {
                 case TupProjectRequest::Add:
                 {
+                     tError() << "TupTimeLine::layerResponse() - Adding layer at -> " << response->layerIndex();
                      framesTable->insertLayer(response->layerIndex(), response->arg().toString());
                 }
                 break;
                 case TupProjectRequest::Remove:
                 {
-                     tError() << "TupTimeLine::layerResponse() - Removing layer at -> " << response->layerIndex();
+                     tError() << "TupTimeLine::layerResponse() - TIMELINE - Removing layer at -> " << response->layerIndex();
                      framesTable->removeLayer(response->layerIndex());
+                     if (framesTable->layersTotal() == 0) {
+                         TupProjectRequest request = TupRequestBuilder::createLayerRequest(0, 0, TupProjectRequest::Add, tr("Layer %1").arg(1));
+                         emit requestTriggered(&request);
+
+                         request = TupRequestBuilder::createFrameRequest(0, 0, 0, TupProjectRequest::Add, tr("Frame %1").arg(1));
+                         emit requestTriggered(&request);
+                     }
                 }
                 break;
                 case TupProjectRequest::Move:
@@ -253,7 +261,8 @@ void TupTimeLine::frameResponse(TupFrameResponse *response)
         switch (response->action()) {
                 case TupProjectRequest::Add:
                 {
-                     tError() << "TupTimeLine::frameResponse() - Adding frame at -> " << response->frameIndex();
+                     tError() << "TupTimeLine::frameResponse() - Adding frame at index -> " << response->frameIndex();
+                     tError() << "TupTimeLine::frameResponse() - at layer -> " << response->layerIndex();
                      framesTable->insertFrame(response->layerIndex(), response->arg().toString());
                 }
                 break;
@@ -282,11 +291,14 @@ void TupTimeLine::frameResponse(TupFrameResponse *response)
 
                      tError() << "TupTimeLine::frameResponse() - Selecting frame index -> " << response->frameIndex();
                      tError() << "TupTimeLine::frameResponse() - Selecting layer index -> " << k->selectedLayer;
-
+                     /*
                      framesTable->blockSignals(true);
                      framesTable->setCurrentCell(layerIndex, response->frameIndex());
                      framesTable->updateLayerHeader(layerIndex);
                      framesTable->blockSignals(false);
+                     */
+
+                     framesTable->selectFrame(layerIndex, response->frameIndex());
                 }
                 break;
         }
@@ -355,7 +367,7 @@ void TupTimeLine::requestCommand(int action)
         return;
     }
 
-    int framePos = framesTable(scenePos)->lastFrameByLayer(layerPos) + 1;
+    int framePos = framesTable(scenePos)->lastFrameByLayer(layerPos);
 
     if (framePos < 0) {
         #ifdef K_DEBUG
@@ -430,6 +442,8 @@ bool TupTimeLine::requestFrameAction(int action, int framePos, int layerPos, int
     switch (action) {
             case TupProjectActionBar::InsertFrame:
             {
+                 tError() << "TupTimeLine::requestFrameAction() - Adding frames...";
+
                  int layersTotal = framesTable(scenePos)->layersTotal();
                  int usedFrames = framesTable(scenePos)->lastFrameByLayer(layerPos);
 
@@ -658,10 +672,10 @@ void TupTimeLine::selectFrame(int indexLayer, int indexFrame)
     }
 }
 
-void TupTimeLine::emitRequestChangeScene(int sceneIndex)
+void TupTimeLine::requestSceneSelection(int sceneIndex)
 {
     if (k->container->count() > 1) {
-        // tFatal() << "TupTimeLine::emitRequestChangeScene - Just tracing!";
+        // tFatal() << "TupTimeLine::requestSceneSelection - Just tracing!";
         TupProjectRequest request = TupRequestBuilder::createSceneRequest(sceneIndex, TupProjectRequest::Select);
         emit localRequestTriggered(&request);
     }

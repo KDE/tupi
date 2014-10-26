@@ -44,12 +44,14 @@ struct TupLayerHeader::Private
     QList<TimeLineLayerItem> layers;
     QLineEdit *editor;
     int editorSection;
+    bool sectionOnMotion;
 };
 
 TupLayerHeader::TupLayerHeader(QWidget * parent) : QHeaderView(Qt::Vertical, parent), k(new Private)
 {
     setSectionsClickable(true);
-    // setSectionsMovable(true);
+    setSectionsMovable(true);
+
     setFixedWidth(115);
     // SQA: This code will be disabled until the "Lock layer" feature is implemented
     // setFixedWidth(140);
@@ -124,6 +126,8 @@ void TupLayerHeader::mousePressEvent(QMouseEvent *event)
     QPoint point = event->pos();
     int section = logicalIndexAt(point);
 
+    tError() << "TupLayerHeader::mousePressEvent() - logicalIndexAt(point) : " << section;
+
     if (section != k->currentLayer)
         emit selectionChanged(section);
 
@@ -131,6 +135,8 @@ void TupLayerHeader::mousePressEvent(QMouseEvent *event)
     QRect rect(90, y, 20, sectionSize(section));
     if (rect.contains(point))
         emit visibilityChanged(section, !k->layers[section].isVisible);
+
+    QHeaderView::mousePressEvent(event);
 }
 
 void TupLayerHeader::updateSelection(int index)
@@ -139,11 +145,11 @@ void TupLayerHeader::updateSelection(int index)
     updateSection(index);
 }
 
-void TupLayerHeader::insertLayer(int index, const QString &name)
+void TupLayerHeader::insertSection(int index, const QString &name)
 {
     TimeLineLayerItem layer;
     layer.title = name;
-    layer.lastFrame = 0;
+    layer.lastFrame = -1;
     layer.isVisible = true;
     layer.isLocked = false;
     layer.isSound = false;
@@ -151,13 +157,13 @@ void TupLayerHeader::insertLayer(int index, const QString &name)
     k->layers.insert(index, layer);
 }
 
-void TupLayerHeader::setLayerVisibility(int index, bool visibility)
+void TupLayerHeader::setSectionVisibility(int index, bool visibility)
 {
     k->layers[index].isVisible = visibility;
     updateSection(index);
 }
 
-void TupLayerHeader::setLayerName(int index, const QString &name)
+void TupLayerHeader::setSectionTitle(int index, const QString &name)
 {
     k->layers[index].title = name;
     updateSection(index);
@@ -190,7 +196,7 @@ void TupLayerHeader::hideTitleEditor()
     k->editorSection = -1;
 }
 
-void TupLayerHeader::removeLayer(int index)
+void TupLayerHeader::removeSection(int index)
 {
     k->layers.removeAt(index);
 }
@@ -208,6 +214,11 @@ void TupLayerHeader::updateLastFrame(int index, bool addition)
         k->layers[index].lastFrame--;
 }
 
+void TupLayerHeader::resetLastFrame(int index)
+{
+    k->layers[index].lastFrame = -1;
+}
+
 bool TupLayerHeader::isSound(int index)
 {
     return k->layers[index].isSound;
@@ -217,3 +228,25 @@ void TupLayerHeader::setSoundFlag(int index, bool flag)
 {
     k->layers[index].isSound = flag;
 }
+
+int TupLayerHeader::currentSectionIndex()
+{
+    return k->currentLayer;
+}
+
+void TupLayerHeader::moveHeaderSection(int position, int newPosition)
+{
+    tError() << "TupLayerHeader::moveHeaderSection() - Moving layer from " << position << " to " << newPosition;
+
+    k->sectionOnMotion = true;
+    moveSection(position, newPosition);
+    // k->layers.swap(position, newPosition);
+    k->sectionOnMotion = false;
+}
+
+bool TupLayerHeader::sectionIsMoving()
+{
+    return k->sectionOnMotion;
+}
+
+

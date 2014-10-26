@@ -225,8 +225,8 @@ void TupExposureTable::requestFrameSelection(int currentSelectedRow, int current
         #endif
     #endif
 
-    // tError() << "TupExposureTable::requestFrameSelection() - Current frame: " << currentSelectedRow;
-    // tError() << "TupExposureTable::requestFrameSelection() - Previous frame: " << previousRow;
+    tError() << "TupExposureTable::requestFrameSelection() - Current frame: " << currentSelectedRow;
+    tError() << "TupExposureTable::requestFrameSelection() - Previous frame: " << previousRow;
 
     if (!k->removingLayer) { 
         if (k->removingFrame) {
@@ -264,7 +264,7 @@ void TupExposureTable::requestLayerMove(int logicalIndex, int oldVisualIndex, in
 
     if (!k->header->sectionIsMoving()) {
         emit layerMoved(oldVisualIndex, newVisualIndex);
-        emit frameSelected(newVisualIndex, currentRow());
+        // emit frameSelected(newVisualIndex, currentRow());
     }
 }
 
@@ -360,7 +360,12 @@ void TupExposureTable::selectFrame(int layerIndex, int frameIndex)
 
     if (k->header->currentSectionIndex() != layerIndex)
         k->header->updateSelection(layerIndex);
-    setCurrentCell(frameIndex, k->header->logicalIndex(layerIndex));
+
+    tError() << "TupExposureTable::selectFrame() - layerIndex: " << layerIndex;
+    tError() << "TupExposureTable::selectFrame() - logicalIndex(layerIndex): " << k->header->logicalIndex(layerIndex);
+
+    // setCurrentCell(frameIndex, k->header->logicalIndex(layerIndex));
+    setCurrentCell(frameIndex, layerIndex);
 }
 
 void TupExposureTable::setMenu(QMenu *menu)
@@ -497,8 +502,8 @@ void TupExposureTable::removeFrame(int layerIndex, int frameIndex, bool fromMenu
 
 void TupExposureTable::exchangeFrame(int oldPosLayer, int oldPosFrame, int newPosLayer, int newPosFrame, bool external)
 {
-    QTableWidgetItem * oldItem  = takeItem(oldPosFrame, oldPosLayer);
-    QTableWidgetItem * newItem  = takeItem(newPosFrame, newPosLayer);
+    QTableWidgetItem *oldItem = takeItem(oldPosFrame, oldPosLayer);
+    QTableWidgetItem *newItem = takeItem(newPosFrame, newPosLayer);
 
     setItem(newPosFrame, newPosLayer, oldItem);
     setItem(oldPosFrame, oldPosLayer, newItem);
@@ -509,9 +514,15 @@ void TupExposureTable::exchangeFrame(int oldPosLayer, int oldPosFrame, int newPo
 
 void TupExposureTable::moveLayer(int oldPosLayer, int newPosLayer)
 {
+    tError() << "TupExposureTable::moveLayer() - Moving from " << oldPosLayer << " to " << newPosLayer;
+
     k->header->moveHeaderSection(oldPosLayer, newPosLayer);
     for (int frameIndex = 0; frameIndex < k->header->lastFrame(oldPosLayer); frameIndex++)
          exchangeFrame(oldPosLayer, frameIndex, newPosLayer, frameIndex, true);
+
+    blockSignals(true);
+    selectFrame(newPosLayer, currentRow());
+    blockSignals(false);
 }
 
 void TupExposureTable::markUsedFrames(int frameIndex, int layerIndex)

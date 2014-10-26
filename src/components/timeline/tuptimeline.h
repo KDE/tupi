@@ -68,9 +68,9 @@ class TUPI_EXPORT TupTimeLine : public TupModuleWidgetBase
         TupFramesTable *framesTable(int sceneIndex);
         
     protected:
-        void sceneResponse(TupSceneResponse *e);
-        void layerResponse(TupLayerResponse *e);
-        void frameResponse(TupFrameResponse *e);
+        void sceneResponse(TupSceneResponse *response);
+        void layerResponse(TupLayerResponse *response);
+        void frameResponse(TupFrameResponse *response);
         void libraryResponse(TupLibraryResponse *response);
         
     public slots:
@@ -87,9 +87,7 @@ class TUPI_EXPORT TupTimeLine : public TupModuleWidgetBase
 
         void requestLayerVisibilityAction(int layer, bool isVisible);
         void requestLayerRenameAction(int layer, const QString &name);
-        // void emitSelectionSignal();
-        // void emitLayerVisibility(int sceneIndex, int layerIndex, bool checked);
-        void emitRequestChangeScene(int sceneIndex);
+        void requestSceneSelection(int sceneIndex);
         
     private:
         struct Private;

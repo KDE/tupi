@@ -86,6 +86,7 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
         bool isSoundLayer(int row);
         void setLayerVisibility(int layerIndex, bool isVisible);
         void setLayerName(int layerIndex, const QString &name);
+        void selectFrame(int layerIndex, int frameIndex);
         
     public slots:
         // Layers
@@ -120,14 +121,13 @@ class TUPI_EXPORT TupFramesTable : public QTableWidget
     private slots:
         void frameSelectionFromRuler(int frameIndex);
         void frameSelectionFromLayerHeader(int layerIndex);
-
-        void requestFrameSelection(QTableWidgetItem *current, QTableWidgetItem *previous);
-        void requestFrameSelection(int currentRow, int currentColumn, int previousRow, int previousColumn);
+        // void requestFrameSelection(QTableWidgetItem *current, QTableWidgetItem *previous);
+        void requestFrameSelection(int currentSelectedRow, int currentSelectedColumn, int previousRow, int previousColumn);
         
     signals:
-        void frameRequest(int action, int frame, int layer, int scene, const QVariant &argument = QVariant());
+        // void frameRequest(int action, int frame, int layer, int scene, const QVariant &argument = QVariant());
         void frameChanged(int sceneIndex, int layerIndex, int frameIndex);
-        void frameSelectionIsRequired(int layer, int frame);
+        void frameSelected(int layer, int frame);
         void visibilityChanged(int layer, bool isVisible);
         void layerNameChanged(int layer, const QString &name);
         

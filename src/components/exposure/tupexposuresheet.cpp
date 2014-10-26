@@ -519,8 +519,10 @@ void TupExposureSheet::selectFrame(int indexLayer, int indexFrame)
         #endif
     #endif
 
+    tError() << "TupExposureSheet::selectFrame() - Selecting frame: " << indexLayer << ", " << indexFrame;
+
     TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->scenesContainer->currentIndex(), indexLayer, 
-                                                 indexFrame, TupProjectRequest::Select, "1");
+                                                   indexFrame, TupProjectRequest::Select, "1");
     emit localRequestTriggered(&request);
     // emit requestTriggered(&request);
 }
@@ -665,8 +667,11 @@ void TupExposureSheet::layerResponse(TupLayerResponse *e)
                 break;
                 case TupProjectRequest::Remove:
                  {
+                     tError() << "TupExposureSheet::layerResponse() - EXPOSURE - Removing layer at: " << e->layerIndex();
+
                      table->removeLayer(e->layerIndex());
 
+                     /*
                      if (table->layersTotal() == 0) {
                          TupProjectRequest request = TupRequestBuilder::createLayerRequest(0, 0, TupProjectRequest::Add, tr("Layer %1").arg(1));
                          emit requestTriggered(&request);
@@ -674,6 +679,7 @@ void TupExposureSheet::layerResponse(TupLayerResponse *e)
                          request = TupRequestBuilder::createFrameRequest(0, 0, 0, TupProjectRequest::Add, tr("Frame %1").arg(1));
                          emit requestTriggered(&request);
                      }
+                     */ 
                  }
                 break;
                 case TupProjectRequest::Move:

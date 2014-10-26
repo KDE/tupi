@@ -8,19 +8,15 @@ macx {
 }
 
 HEADERS += tuptimeline.h \
-           # tuplayermanager.h \
            tuptimelineruler.h \
            tupframestable.h \ 
            tuplayerindex.h \
-           # tuplayercontrols.h \
            tuplayerheader.h
 
 SOURCES += tuptimeline.cpp \
-           # tuplayermanager.cpp \
            tuptimelineruler.cpp \
            tupframestable.cpp \
            tuplayerindex.cpp \
-           # tuplayercontrols.cpp \
            tuplayerheader.cpp
 
 *:!macx{
