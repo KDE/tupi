@@ -263,6 +263,16 @@ void TupExposureTable::requestLayerMove(int logicalIndex, int oldVisualIndex, in
     Q_UNUSED(logicalIndex);
 
     if (!k->header->sectionIsMoving()) {
+        int distance = newVisualIndex - oldVisualIndex;
+        if (distance > 0) {
+            if (distance > 1)
+                newVisualIndex = oldVisualIndex + 1;
+        } else {
+            distance = abs(distance);
+            if (distance > 1)
+                newVisualIndex = oldVisualIndex - 1;
+        }
+
         emit layerMoved(oldVisualIndex, newVisualIndex);
         // emit frameSelected(newVisualIndex, currentRow());
     }

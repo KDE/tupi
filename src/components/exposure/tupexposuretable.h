@@ -49,6 +49,8 @@
 #include <QItemDelegate>
 #include <QLineEdit>
 
+#include <cmath>
+
 class TupExposureVerticalHeader;
 // class QMenu;
 

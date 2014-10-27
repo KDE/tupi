@@ -127,7 +127,7 @@ void TupExposureHeader::setLockFlag(int logicalndex, bool lock)
 void TupExposureHeader::moveHeaderSection(int position, int newPosition)
 {
     m_sectionOnMotion = true;
-    moveSection(position, newPosition);
+    moveSection(visualIndex(position), visualIndex(newPosition));
     m_sections.swap(position, newPosition);
     m_sectionOnMotion = false;
 }

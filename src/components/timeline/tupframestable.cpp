@@ -362,20 +362,13 @@ void TupFramesTable::moveLayer(int index, int newIndex)
         return;
 
     tError() << "TupFramesTable::moveLayer() - Moving Layer from -> " << index << " to -> " << newIndex;
-
+    /*
     k->layerColumn->moveHeaderSection(index, newIndex);
     for (int frameIndex = 0; frameIndex < k->layerColumn->lastFrame(index); frameIndex++)
          exchangeFrame(frameIndex, index, newIndex);
-
-    selectFrame(newIndex, currentColumn());
-
-    /*
-    blockSignals(true);
-    k->layerColumn->moveHeaderSection(index, newIndex); 
-    for (int frameIndex = 0; frameIndex < k->layerColumn->lastFrame(index); frameIndex++)
-         exchangeFrame(frameIndex, index, newIndex);
-    blockSignals(false);
     */
+
+    // selectFrame(newIndex, currentColumn());
 
     // tError() << "TupFramesTable::moveLayer() - Requesting new selection...";
     // tError() << "TupFramesTable::moveLayer() - layer index: " << newIndex;
