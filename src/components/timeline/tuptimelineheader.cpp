@@ -33,9 +33,9 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "tuplayerheader.h"
+#include "tuptimelineheader.h"
 
-struct TupLayerHeader::Private
+struct TupTimeLineHeader::Private
 {
     QPixmap lockIcon;
     QPixmap viewIconOn;
@@ -47,7 +47,7 @@ struct TupLayerHeader::Private
     bool sectionOnMotion;
 };
 
-TupLayerHeader::TupLayerHeader(QWidget * parent) : QHeaderView(Qt::Vertical, parent), k(new Private)
+TupTimeLineHeader::TupTimeLineHeader(QWidget * parent) : QHeaderView(Qt::Vertical, parent), k(new Private)
 {
     setSectionsClickable(true);
     setSectionsMovable(true);
@@ -70,11 +70,11 @@ TupLayerHeader::TupLayerHeader(QWidget * parent) : QHeaderView(Qt::Vertical, par
     k->editor->hide();
 }
 
-TupLayerHeader::~TupLayerHeader()
+TupTimeLineHeader::~TupTimeLineHeader()
 {
 }
 
-void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int index) const
+void TupTimeLineHeader::paintSection(QPainter * painter, const QRect & rect, int index) const
 {
     if (!model() || !rect.isValid())
         return;
@@ -121,12 +121,12 @@ void TupLayerHeader::paintSection(QPainter * painter, const QRect & rect, int in
     painter->restore();
 }
 
-void TupLayerHeader::mousePressEvent(QMouseEvent *event)
+void TupTimeLineHeader::mousePressEvent(QMouseEvent *event)
 {
     QPoint point = event->pos();
     int section = logicalIndexAt(point);
 
-    tError() << "TupLayerHeader::mousePressEvent() - logicalIndexAt(point) : " << section;
+    tError() << "TupTimeLineHeader::mousePressEvent() - logicalIndexAt(point) : " << section;
 
     if (section != k->currentLayer)
         emit selectionChanged(section);
@@ -139,13 +139,13 @@ void TupLayerHeader::mousePressEvent(QMouseEvent *event)
     QHeaderView::mousePressEvent(event);
 }
 
-void TupLayerHeader::updateSelection(int index)
+void TupTimeLineHeader::updateSelection(int index)
 {
     k->currentLayer = index;
     updateSection(index);
 }
 
-void TupLayerHeader::insertSection(int index, const QString &name)
+void TupTimeLineHeader::insertSection(int index, const QString &name)
 {
     TimeLineLayerItem layer;
     layer.title = name;
@@ -157,22 +157,22 @@ void TupLayerHeader::insertSection(int index, const QString &name)
     k->layers.insert(index, layer);
 }
 
-void TupLayerHeader::setSectionVisibility(int index, bool visibility)
+void TupTimeLineHeader::setSectionVisibility(int index, bool visibility)
 {
     k->layers[index].isVisible = visibility;
     updateSection(index);
 }
 
-void TupLayerHeader::setSectionTitle(int index, const QString &name)
+void TupTimeLineHeader::setSectionTitle(int index, const QString &name)
 {
     k->layers[index].title = name;
     updateSection(index);
 }
 
-void TupLayerHeader::showTitleEditor(int index)
+void TupTimeLineHeader::showTitleEditor(int index)
 {
     if (index >= 0) {
-        tError() << "TupLayerHeader::showTitleEditor() - index: " << index;
+        tError() << "TupTimeLineHeader::showTitleEditor() - index: " << index;
         QFont font("Arial", 7, QFont::Normal, false);
         k->editor->setFont(font);
         int x = sectionViewportPosition(index);
@@ -184,29 +184,29 @@ void TupLayerHeader::showTitleEditor(int index)
     }
 }
 
-void TupLayerHeader::hideTitleEditor()
+void TupTimeLineHeader::hideTitleEditor()
 {
     k->editor->hide();
 
     if (k->editorSection != -1 && k->editor->isModified()) {
-        tError() << "TupLayerHeader::hideTitleEditor() - ENTER pressed!";
+        tError() << "TupTimeLineHeader::hideTitleEditor() - ENTER pressed!";
         emit nameChanged(k->editorSection, k->editor->text());
     }
 
     k->editorSection = -1;
 }
 
-void TupLayerHeader::removeSection(int index)
+void TupTimeLineHeader::removeSection(int index)
 {
     k->layers.removeAt(index);
 }
 
-int TupLayerHeader::lastFrame(int index)
+int TupTimeLineHeader::lastFrame(int index)
 {
     return k->layers[index].lastFrame;
 }
 
-void TupLayerHeader::updateLastFrame(int index, bool addition)
+void TupTimeLineHeader::updateLastFrame(int index, bool addition)
 {
     if (addition)
         k->layers[index].lastFrame++;
@@ -214,29 +214,29 @@ void TupLayerHeader::updateLastFrame(int index, bool addition)
         k->layers[index].lastFrame--;
 }
 
-void TupLayerHeader::resetLastFrame(int index)
+void TupTimeLineHeader::resetLastFrame(int index)
 {
     k->layers[index].lastFrame = -1;
 }
 
-bool TupLayerHeader::isSound(int index)
+bool TupTimeLineHeader::isSound(int index)
 {
     return k->layers[index].isSound;
 }
 
-void TupLayerHeader::setSoundFlag(int index, bool flag)
+void TupTimeLineHeader::setSoundFlag(int index, bool flag)
 {
     k->layers[index].isSound = flag;
 }
 
-int TupLayerHeader::currentSectionIndex()
+int TupTimeLineHeader::currentSectionIndex()
 {
     return k->currentLayer;
 }
 
-void TupLayerHeader::moveHeaderSection(int position, int newPosition)
+void TupTimeLineHeader::moveHeaderSection(int position, int newPosition)
 {
-    tError() << "TupLayerHeader::moveHeaderSection() - Moving layer from " << position << " to " << newPosition;
+    tError() << "TupTimeLineHeader::moveHeaderSection() - Moving layer from " << position << " to " << newPosition;
 
     k->sectionOnMotion = true;
     k->layers.swap(position, newPosition);
@@ -245,7 +245,7 @@ void TupLayerHeader::moveHeaderSection(int position, int newPosition)
     k->sectionOnMotion = false;
 }
 
-bool TupLayerHeader::sectionIsMoving()
+bool TupTimeLineHeader::sectionIsMoving()
 {
     return k->sectionOnMotion;
 }

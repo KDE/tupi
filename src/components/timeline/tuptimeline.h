@@ -41,7 +41,7 @@
 #include "ttabwidget.h"
 #include "tupprojectrequest.h"
 #include "tuplibraryobject.h"
-#include "tupframestable.h"
+#include "tuptimelinetable.h"
 #include "tupprojectactionbar.h"
 #include "tuprequestbuilder.h"
 #include "tupproject.h"
@@ -65,7 +65,7 @@ class TUPI_EXPORT TupTimeLine : public TupModuleWidgetBase
         void closeAllScenes();
         
     private:
-        TupFramesTable *framesTable(int sceneIndex);
+        TupTimeLineTable *framesTable(int sceneIndex);
         
     protected:
         void sceneResponse(TupSceneResponse *response);

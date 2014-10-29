@@ -33,8 +33,8 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPLAYERHEADER_H
-#define TUPLAYERHEADER_H
+#ifndef TUPTIMELINEHEADER_H
+#define TUPTIMELINEHEADER_H
 
 #include "tglobal.h"
 #include "tapplicationproperties.h"
@@ -54,13 +54,13 @@ struct TimeLineLayerItem
     bool isSound;
 };
 
-class TUPI_EXPORT TupLayerHeader : public QHeaderView
+class TUPI_EXPORT TupTimeLineHeader : public QHeaderView
 {
     Q_OBJECT
 
     public:
-        TupLayerHeader(QWidget * parent = 0);
-        ~TupLayerHeader();
+        TupTimeLineHeader(QWidget * parent = 0);
+        ~TupTimeLineHeader();
         void insertSection(int index, const QString &name);
         void setSectionVisibility(int index, bool visibility);
         void setSectionTitle(int index, const QString &name);

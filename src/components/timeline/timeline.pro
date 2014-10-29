@@ -9,15 +9,15 @@ macx {
 
 HEADERS += tuptimeline.h \
            tuptimelineruler.h \
-           tupframestable.h \ 
-           tuplayerindex.h \
-           tuplayerheader.h
+           tuptimelinetable.h \ 
+           # tuplayerindex.h \
+           tuptimelineheader.h
 
 SOURCES += tuptimeline.cpp \
            tuptimelineruler.cpp \
-           tupframestable.cpp \
-           tuplayerindex.cpp \
-           tuplayerheader.cpp
+           tuptimelinetable.cpp \
+           # tuplayerindex.cpp \
+           tuptimelineheader.cpp
 
 *:!macx{
     CONFIG += dll warn_on

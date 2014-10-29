@@ -97,9 +97,9 @@ TupTimeLine::~TupTimeLine()
     delete k;
 }
 
-TupFramesTable *TupTimeLine::framesTable(int sceneIndex)
+TupTimeLineTable *TupTimeLine::framesTable(int sceneIndex)
 {
-    TupFramesTable *framesTable = qobject_cast<TupFramesTable *>(k->container->widget(sceneIndex));
+    TupTimeLineTable *framesTable = qobject_cast<TupTimeLineTable *>(k->container->widget(sceneIndex));
     if (framesTable)
         return framesTable;
  
@@ -111,7 +111,7 @@ void TupTimeLine::insertScene(int sceneIndex, const QString &name)
     if (sceneIndex < 0 || sceneIndex > k->container->count())
         return;
 
-    TupFramesTable *framesTable = new TupFramesTable(sceneIndex, k->container);
+    TupTimeLineTable *framesTable = new TupTimeLineTable(sceneIndex, k->container);
     framesTable->setItemSize(10, 20);
 
     // connect(framesTable, SIGNAL(frameRequest(int, int, int, int, const QVariant&)), this, SLOT(requestFrameAction(int, int, int, int, const QVariant&)));
@@ -198,7 +198,7 @@ void TupTimeLine::layerResponse(TupLayerResponse *response)
         #endif
     #endif
 
-    TupFramesTable *framesTable = this->framesTable(response->sceneIndex());
+    TupTimeLineTable *framesTable = this->framesTable(response->sceneIndex());
     if (framesTable) {
         switch (response->action()) {
                 case TupProjectRequest::Add:
@@ -256,7 +256,7 @@ void TupTimeLine::frameResponse(TupFrameResponse *response)
         #endif
     #endif
 
-    TupFramesTable *framesTable = this->framesTable(response->sceneIndex());
+    TupTimeLineTable *framesTable = this->framesTable(response->sceneIndex());
     if (framesTable) {
         switch (response->action()) {
                 case TupProjectRequest::Add:
@@ -321,7 +321,7 @@ void TupTimeLine::libraryResponse(TupLibraryResponse *response)
         switch (response->symbolType()) {
                 case TupLibraryObject::Sound:
                 {
-                     TupFramesTable *framesTable = this->framesTable(response->sceneIndex());
+                     TupTimeLineTable *framesTable = this->framesTable(response->sceneIndex());
                      if (framesTable) {
                          framesTable->insertSoundLayer(response->layerIndex() + 1, response->arg().toString());
                          framesTable->insertFrame(response->layerIndex() + 1, "");
