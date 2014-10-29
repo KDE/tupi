@@ -239,10 +239,9 @@ void TupLayerHeader::moveHeaderSection(int position, int newPosition)
     tError() << "TupLayerHeader::moveHeaderSection() - Moving layer from " << position << " to " << newPosition;
 
     k->sectionOnMotion = true;
-    // moveSection(position, newPosition);
     k->layers.swap(position, newPosition);
-    // updateSection(position);
-    // updateSection(newPosition);
+    updateSection(position);
+    updateSection(newPosition);
     k->sectionOnMotion = false;
 }
 

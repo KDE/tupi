@@ -357,6 +357,11 @@ TupProject *TupLayer::project() const
     return scene()->project();
 }
 
+void TupLayer::updateLayerIndex(int index)
+{
+    k->index = index;
+}
+
 int TupLayer::layerIndex()
 {
     return k->index;

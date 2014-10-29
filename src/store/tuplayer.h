@@ -140,6 +140,7 @@ class TUPI_EXPORT TupLayer : public QObject, public TupAbstractSerializable
         TupScene *scene() const;
         TupProject *project() const;
 
+        void updateLayerIndex(int index);
         int layerIndex();
         
         int visualIndexOf(TupFrame *frame) const;

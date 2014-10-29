@@ -208,6 +208,8 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
         return;
 
     cleanWorkSpace();
+    // Painting the background
+    drawSceneBackground(photogram);
 
     bool valid = false;
 
@@ -226,10 +228,6 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
 
                  if (layer) {
                      if (layer->isVisible()) {
-
-                         // Painting the background
-                         drawSceneBackground(photogram);
-
                          // Painting previews frames
                          if (drawContext) {
                              if (k->onionSkin.previous > 0 && photogram > 0) {

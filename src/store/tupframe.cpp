@@ -56,6 +56,7 @@
 
 struct TupFrame::Private
 {
+    TupLayer *layer;
     QString name;
     FrameType type;
     bool isLocked;
@@ -70,7 +71,7 @@ struct TupFrame::Private
     QList<QString> svgIndexes;
     int repeat;
     int zLevelIndex;
-    int layerIndex;
+    // int layerIndex;
 };
 
 TupFrame::TupFrame() : k(new Private)
@@ -79,7 +80,8 @@ TupFrame::TupFrame() : k(new Private)
 
 TupFrame::TupFrame(TupLayer *parent) : QObject(parent), k(new Private)
 {
-    k->layerIndex = parent->layerIndex();
+    k->layer = parent;
+    // k->layerIndex = parent->layerIndex();
     k->name = "Frame";
     k->type = Regular;
 
@@ -90,12 +92,13 @@ TupFrame::TupFrame(TupLayer *parent) : QObject(parent), k(new Private)
     k->shift = "0";
 
     k->repeat = 1;
-    k->zLevelIndex = (k->layerIndex + 1)*10000; // Layers levels starts from 2
+    // k->zLevelIndex = (k->layerIndex + 1)*10000; // Layers levels starts from 2
+    k->zLevelIndex = (k->layer->layerIndex() + 1)*10000; // Layers levels starts from 2
 }
 
 TupFrame::TupFrame(TupBackground *bg, const QString &label) : QObject(bg), k(new Private)
 {
-    k->layerIndex = 0;
+    // k->layerIndex = 0;
     k->name = label;
     k->isLocked = false;
     k->isVisible = true;
@@ -492,11 +495,18 @@ void TupFrame::replaceItem(int position, QGraphicsItem *item)
 
 bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int action)
 {
+    if ((k->svg.size() + k->graphics.size()) == 1)  
+        return true;
+
+    int layerIndex = 0;
+    if (k->type == Regular)
+        layerIndex = k->layer->layerIndex();
+
     MoveItemType move = MoveItemType(action); 
     switch(move) {
            case MoveBack :
              {
-                int zMin = (k->layerIndex + 1)*10000;
+                int zMin = (layerIndex + 1)*10000;
 
                 if (type == TupLibraryObject::Svg) {
                     int zLimit = k->svg.at(currentIndex)->zValue();
@@ -660,7 +670,8 @@ bool TupFrame::moveItem(TupLibraryObject::Type type, int currentIndex, int actio
            break;
            case MoveOneLevelBack :
              {
-                int zMin = (k->layerIndex + 1)*10000;
+                // int zMin = (k->layerIndex + 1)*10000;
+                int zMin = (layerIndex + 1)*10000;
 
                 if (type == TupLibraryObject::Svg) {
                     if (k->svg.at(currentIndex)->zValue() == zMin) {

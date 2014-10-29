@@ -103,6 +103,9 @@ void SelectionTool::reset(TupGraphicsScene *scene)
         #endif
     #endif
 
+    int zBottomLimit = (scene->currentLayerIndex() + 2)*10000;
+    int zTopLimit = zBottomLimit + 10000;
+
     foreach (QGraphicsView *view, scene->views()) {
              view->setDragMode(QGraphicsView::RubberBandDrag);
              foreach (QGraphicsItem *item, scene->items()) {
@@ -115,9 +118,10 @@ void SelectionTool::reset(TupGraphicsScene *scene)
                       tFatal() << dom.toString();
                       */
 
+                      int zValue = item->zValue();
                       if (!qgraphicsitem_cast<Node *>(item)) {
                           if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
-                              if (item->zValue() >= 20000 && item->toolTip().length()==0) {
+                              if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0)) {
                                   item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                               } else {
                                   item->setFlag(QGraphicsItem::ItemIsSelectable, false);
@@ -127,7 +131,7 @@ void SelectionTool::reset(TupGraphicsScene *scene)
                               if (scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                   item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                               } else if (scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
-                                         if (item->zValue() >= 10000) {
+                                         if (zValue >= 10000) {
                                              item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                                          } else {
                                              item->setFlag(QGraphicsItem::ItemIsSelectable, false);

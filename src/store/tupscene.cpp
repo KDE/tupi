@@ -207,8 +207,6 @@ bool TupScene::removeLayer(int position)
         #endif
     #endif
 
-    // Q_CHECK_PTR(layers);
-
     TupLayer *layer = this->layer(position);
     if (layer) {
         removeTweensFromLayer(position + 1);
@@ -375,7 +373,9 @@ bool TupScene::moveLayer(int from, int to)
     }
 
     TupLayer *sourceLayer = k->layers[from];
+    sourceLayer->updateLayerIndex(to + 1);
     TupLayer *destinyLayer = k->layers[to];
+    destinyLayer->updateLayerIndex(from + 1); 
 
     Frames frames = sourceLayer->frames(); 
     int totalFrames = frames.size();

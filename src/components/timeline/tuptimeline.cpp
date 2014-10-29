@@ -222,7 +222,7 @@ void TupTimeLine::layerResponse(TupLayerResponse *response)
                 break;
                 case TupProjectRequest::Move:
                 {
-                     // framesTable->moveLayer(response->layerIndex(), response->arg().toInt());
+                     framesTable->moveLayer(response->layerIndex(), response->arg().toInt());
                 }
                 break;
                 case TupProjectRequest::Lock:
