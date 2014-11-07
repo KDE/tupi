@@ -168,10 +168,13 @@ struct TupExposureTable::Private
     QMenu *menu;
     bool removingLayer;
     bool removingFrame;
+    bool isLocalRequest;
 };
 
 TupExposureTable::TupExposureTable(QWidget * parent) : QTableWidget(parent), k(new Private)
 {
+    k->isLocalRequest = false;
+
     TupExposureVerticalHeader *verticalHeader = new TupExposureVerticalHeader(this);
     setVerticalHeader(verticalHeader);
 
@@ -239,14 +242,20 @@ void TupExposureTable::requestFrameSelection(int currentSelectedRow, int current
                 emit frameSelected(currentLayer(), currentRow());
 
             return;
+        } else {
+            QTableWidgetItem *frame = item(currentSelectedRow, currentColumn);
+            if (frame) {
+                if (previousColumn != currentColumn || previousRow != currentSelectedRow)
+                    emit frameSelected(currentLayer(), currentRow());
+
+                if ((previousColumn != currentColumn) || (columnCount() == 1))
+                    k->header->updateSelection(currentColumn);
+            } else {
+                tError() << "TupExposureTable::requestFrameSelection() - Time to insert a new frame!";
+                emit frameUsed(currentColumn, currentSelectedRow);
+                emit frameSelected(currentColumn, currentSelectedRow);
+            }
         }
-
-        if (previousColumn != currentColumn || previousRow != currentSelectedRow)
-            emit frameSelected(currentLayer(), currentRow());
-
-        if ((previousColumn != currentColumn) || (columnCount() == 1))
-             k->header->updateSelection(currentColumn);
-
     } else { // A layer is being removed
         k->removingLayer = false;
         selectFrame(currentColumn, currentSelectedRow);
@@ -273,6 +282,7 @@ void TupExposureTable::requestLayerMove(int logicalIndex, int oldVisualIndex, in
                 newVisualIndex = oldVisualIndex - 1;
         }
 
+        k->isLocalRequest = true;
         emit layerMoved(oldVisualIndex, newVisualIndex);
         // emit frameSelected(newVisualIndex, currentRow());
     }
@@ -299,7 +309,7 @@ QString TupExposureTable::frameName(int layerIndex, int frameIndex)
 
 void TupExposureTable::setFrameName(int layerIndex, int frameIndex, const QString &name)
 {
-    QTableWidgetItem *frame = item(frameIndex , layerIndex);
+    QTableWidgetItem *frame = item(frameIndex, layerIndex);
     frame->setFont(QFont("Arial", 7, QFont::Normal, false));
 
     if (frame) {
@@ -481,7 +491,7 @@ void TupExposureTable::removeLayer(int layerIndex)
 
 void TupExposureTable::removeFrame(int layerIndex, int frameIndex, bool fromMenu)
 {
-    blockSignals(true);
+    // blockSignals(true);
 
     k->removingFrame = fromMenu;
 
@@ -526,7 +536,10 @@ void TupExposureTable::moveLayer(int oldPosLayer, int newPosLayer)
 {
     tError() << "TupExposureTable::moveLayer() - Moving from " << oldPosLayer << " to " << newPosLayer;
 
-    k->header->moveHeaderSection(oldPosLayer, newPosLayer);
+    k->header->moveHeaderSection(oldPosLayer, newPosLayer, k->isLocalRequest);
+    if (k->isLocalRequest)
+        k->isLocalRequest = false;
+
     for (int frameIndex = 0; frameIndex < k->header->lastFrame(oldPosLayer); frameIndex++)
          exchangeFrame(oldPosLayer, frameIndex, newPosLayer, frameIndex, true);
 
@@ -647,6 +660,10 @@ void TupExposureTable::keyPressEvent(QKeyEvent *event)
         if (next <= limit) {
             setCurrentCell(next, currentColumn());
         } else {
+            // markUsedFrames(next, currentColumn());
+            emit frameUsed(currentColumn(), next);
+
+/*
             #ifdef K_DEBUG
                 QString msg = "TupExposureTable::keyPressEvent() - Warning: wrong frame index [ " + QString::number(next) + " ]";
                 #ifdef Q_OS_WIN32
@@ -655,6 +672,7 @@ void TupExposureTable::keyPressEvent(QKeyEvent *event)
                     tWarning() << msg;
                 #endif
             #endif
+*/
         }
 
         return;
@@ -674,11 +692,12 @@ void TupExposureTable::keyPressEvent(QKeyEvent *event)
             setCurrentCell(currentRow(), column);
         return;
     }   
-
+/*
     if (event->key() == Qt::Key_Return) {
         markUsedFrames(currentRow(), currentColumn());
         return;
     }
+*/
 }
 
 // SQA : Verify if this method is required

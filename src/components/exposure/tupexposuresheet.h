@@ -103,24 +103,14 @@ class TUPI_EXPORT TupExposureSheet : public TupModuleWidgetBase
         void emitRequestChangeScene(int index);
         void emitRequestCopyCurrentFrame();
         void emitRequestPasteInCurrentFrame();
-        void expandCurrentFrameOnce();
-        void expandCurrentFrameFive();
-        void expandCurrentFrameTen();
-        void insertOneFrame();
-        void insertFiveFrames();
-        void insertTenFrames();
-        void insertTwentyFrames();
-        void insertFiftyFrames();
-        void insertHundredFrames();
+
+        void insertFramesFromMenu(QAction *action);
+        void copyTimeLineFromMenu(QAction *action);
+
         void removeOne();
         void clearFrame();
         void lockFrame();
-        void copyTimeLineOnce();
-        void copyTimeLineTwoTimes();
-        void copyTimeLineThreeTimes();
-        void copyTimeLineFourTimes();
-        void copyTimeLineFiveTimes();
-		
+
         void insertFrame(int indexLayer, int indexFrame);
         void renameFrame(int indexLayer, int indexFrame, const QString &name);
         void selectFrame(int indexLayer, int indexFrame);

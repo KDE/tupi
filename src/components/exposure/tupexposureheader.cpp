@@ -124,12 +124,17 @@ void TupExposureHeader::setLockFlag(int logicalndex, bool lock)
     updateSection(logicalndex);
 }
 
-void TupExposureHeader::moveHeaderSection(int position, int newPosition)
+void TupExposureHeader::moveHeaderSection(int position, int newPosition, bool isLocalRequest)
 {
-    m_sectionOnMotion = true;
-    moveSection(visualIndex(position), visualIndex(newPosition));
-    m_sections.swap(position, newPosition);
-    m_sectionOnMotion = false;
+    if (isLocalRequest) {
+        m_sectionOnMotion = true;
+        tError() << "TupExposureHeader::moveHeaderSection() - Moving section from: " << position << " to " << newPosition;
+        moveSection(visualIndex(position), visualIndex(newPosition));
+        m_sections.swap(position, newPosition);
+        m_sectionOnMotion = false;
+    } else {
+        m_sections.swap(position, newPosition);
+    }
 }
 
 int TupExposureHeader::lastFrame(int section)
@@ -152,7 +157,13 @@ void TupExposureHeader::mousePressEvent(QMouseEvent * event)
     int section = logicalIndexAt(event->pos());
     int x = sectionViewportPosition(section) + 3;
 
-    QRect rect(x+3, 3, height()-3, height()-3);
+    QFont font("Arial", 8, QFont::Normal, false);
+    QFontMetrics fm(font);
+    QString text = m_sections[section].title;
+    int w = fm.width(text);
+    int limit = sectionSize(section)/2 - w/2;
+
+    QRect rect(x + limit - 12, 3, 12, height()-3);
     if (rect.contains(event->pos())) {
         notifyVisibilityChange(section);
     } else {
@@ -214,7 +225,7 @@ void TupExposureHeader::paintSection(QPainter *painter, const QRect & rect, int 
     painter->drawText(x, y, text);
 
     buttonOption.rect = QRect(rect.x() + width - 4, rect.y() + ((rect.normalized().height()-buttonWidth)/2) + 1, buttonWidth, buttonWidth);
-  
+
     style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter);
 }
 

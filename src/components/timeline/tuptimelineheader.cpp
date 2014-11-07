@@ -141,8 +141,10 @@ void TupTimeLineHeader::mousePressEvent(QMouseEvent *event)
 
 void TupTimeLineHeader::updateSelection(int index)
 {
-    k->currentLayer = index;
-    updateSection(index);
+    if (k->currentLayer != index) {
+        k->currentLayer = index;
+        updateSection(index);
+    }
 }
 
 void TupTimeLineHeader::insertSection(int index, const QString &name)
@@ -188,10 +190,8 @@ void TupTimeLineHeader::hideTitleEditor()
 {
     k->editor->hide();
 
-    if (k->editorSection != -1 && k->editor->isModified()) {
-        tError() << "TupTimeLineHeader::hideTitleEditor() - ENTER pressed!";
+    if (k->editorSection != -1 && k->editor->isModified())
         emit nameChanged(k->editorSection, k->editor->text());
-    }
 
     k->editorSection = -1;
 }
@@ -234,15 +234,16 @@ int TupTimeLineHeader::currentSectionIndex()
     return k->currentLayer;
 }
 
-void TupTimeLineHeader::moveHeaderSection(int position, int newPosition)
+void TupTimeLineHeader::moveHeaderSection(int position, int newPosition, bool isLocalRequest)
 {
-    tError() << "TupTimeLineHeader::moveHeaderSection() - Moving layer from " << position << " to " << newPosition;
-
-    k->sectionOnMotion = true;
-    k->layers.swap(position, newPosition);
-    updateSection(position);
-    updateSection(newPosition);
-    k->sectionOnMotion = false;
+    if (isLocalRequest) {
+        k->sectionOnMotion = true;
+        moveSection(visualIndex(position), visualIndex(newPosition));
+        k->layers.swap(position, newPosition);
+        k->sectionOnMotion = false;
+    } else {
+        k->layers.swap(position, newPosition);
+    }
 }
 
 bool TupTimeLineHeader::sectionIsMoving()

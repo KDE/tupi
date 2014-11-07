@@ -172,7 +172,7 @@ void TupProjectActionBar::setup(Actions actions)
                 button = new TImageButton(QIcon(THEME_DIR + "icons/move_frame_backward.png"), size);
         }
         
-        button->setToolTip(tr("Move frame up"));
+        button->setToolTip(tr("Move frame backward"));
         button->setShortcut(QKeySequence(tr("F8")));
 
         k->actions.addButton(button, MoveFrameUp);
@@ -191,7 +191,7 @@ void TupProjectActionBar::setup(Actions actions)
                 button = new TImageButton(QIcon(THEME_DIR + "icons/move_frame_forward.png"), size);
         }
  
-        button->setToolTip(tr("Move frame down"));
+        button->setToolTip(tr("Move frame forward"));
         button->setShortcut(QKeySequence(tr("F9")));
         
         k->actions.addButton(button, MoveFrameDown);

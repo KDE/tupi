@@ -92,7 +92,7 @@ class TUPI_EXPORT TupTimeLineTable : public QTableWidget
         // Layers
         void insertLayer(int index, const QString &name);
         void insertSoundLayer(int layerPos, const QString &name);
-        void removeCurrentLayer();
+        // void removeCurrentLayer();
         void removeLayer(int pos);
         void moveLayer(int pos, int newPos);
         int lastFrameByLayer(int layerPos);
@@ -123,6 +123,7 @@ class TUPI_EXPORT TupTimeLineTable : public QTableWidget
         void frameSelectionFromLayerHeader(int layerIndex);
         // void requestFrameSelection(QTableWidgetItem *current, QTableWidgetItem *previous);
         void requestFrameSelection(int currentSelectedRow, int currentSelectedColumn, int previousRow, int previousColumn);
+        void requestLayerMove(int logicalIndex, int oldVisualIndex, int newVisualIndex);
         
     signals:
         // void frameRequest(int action, int frame, int layer, int scene, const QVariant &argument = QVariant());
@@ -130,6 +131,7 @@ class TUPI_EXPORT TupTimeLineTable : public QTableWidget
         void frameSelected(int layer, int frame);
         void visibilityChanged(int layer, bool isVisible);
         void layerNameChanged(int layer, const QString &name);
+        void layerMoved(int oldVisualIndex, int newVisualIndex);
         
     private:
         void exchangeFrame(int frameIndex, int currentLayer, int newLayer);

@@ -71,7 +71,7 @@ class TUPI_EXPORT TupTimeLineHeader : public QHeaderView
         bool isSound(int index);
         void setSoundFlag(int index, bool flag);
         int currentSectionIndex();
-        void moveHeaderSection(int position, int newPosition);
+        void moveHeaderSection(int position, int newPosition, bool isLocalRequest);
         bool sectionIsMoving();
 
     protected:
