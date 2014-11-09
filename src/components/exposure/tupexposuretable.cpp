@@ -42,8 +42,6 @@
 /////////////////
 class TUPI_EXPORT TupExposureVerticalHeader : public QHeaderView
 {
-    //Q_OBJECT
-
     public:
         TupExposureVerticalHeader(QWidget * parent = 0);
         ~TupExposureVerticalHeader();
@@ -52,7 +50,6 @@ class TUPI_EXPORT TupExposureVerticalHeader : public QHeaderView
 
 TupExposureVerticalHeader::TupExposureVerticalHeader(QWidget * parent) : QHeaderView(Qt::Vertical, parent)
 {
-    //setClickable(true);
     setFixedWidth(25);
 }
 
@@ -132,13 +129,6 @@ void TupExposureItemDelegate::paint(QPainter *painter, const QStyleOptionViewIte
         int y = option.rect.topLeft().y() + 2;
         int w = option.rect.bottomRight().x() - x - 2;
         int h = option.rect.bottomRight().y() - y - 2;
-
-        /*
-        if (item->data(TupExposureTable::IsLocked).toBool()) {
-            painter->setPen(QColor(255, 255, 255, 150));
-            painter->drawRect(x, y, w, h);
-        }
-        */
 
         if ((item->data(TupExposureTable::IsEmpty).toInt() == TupExposureTable::Empty) && !item->data(TupExposureTable::IsLocked).toBool()) {
             QPen pen(QColor(100, 100, 100, 30));
@@ -228,9 +218,6 @@ void TupExposureTable::requestFrameSelection(int currentSelectedRow, int current
         #endif
     #endif
 
-    tError() << "TupExposureTable::requestFrameSelection() - Current frame: " << currentSelectedRow;
-    tError() << "TupExposureTable::requestFrameSelection() - Previous frame: " << previousRow;
-
     if (!k->removingLayer) { 
         if (k->removingFrame) {
             k->removingFrame = false;
@@ -250,11 +237,7 @@ void TupExposureTable::requestFrameSelection(int currentSelectedRow, int current
 
                 if ((previousColumn != currentColumn) || (columnCount() == 1))
                     k->header->updateSelection(currentColumn);
-            } else {
-                tError() << "TupExposureTable::requestFrameSelection() - Time to insert a new frame!";
-                emit frameUsed(currentColumn, currentSelectedRow);
-                emit frameSelected(currentColumn, currentSelectedRow);
-            }
+            } 
         }
     } else { // A layer is being removed
         k->removingLayer = false;
@@ -284,7 +267,6 @@ void TupExposureTable::requestLayerMove(int logicalIndex, int oldVisualIndex, in
 
         k->isLocalRequest = true;
         emit layerMoved(oldVisualIndex, newVisualIndex);
-        // emit frameSelected(newVisualIndex, currentRow());
     }
 }
 
@@ -381,10 +363,6 @@ void TupExposureTable::selectFrame(int layerIndex, int frameIndex)
     if (k->header->currentSectionIndex() != layerIndex)
         k->header->updateSelection(layerIndex);
 
-    tError() << "TupExposureTable::selectFrame() - layerIndex: " << layerIndex;
-    tError() << "TupExposureTable::selectFrame() - logicalIndex(layerIndex): " << k->header->logicalIndex(layerIndex);
-
-    // setCurrentCell(frameIndex, k->header->logicalIndex(layerIndex));
     setCurrentCell(frameIndex, layerIndex);
 }
 
@@ -491,20 +469,11 @@ void TupExposureTable::removeLayer(int layerIndex)
 
 void TupExposureTable::removeFrame(int layerIndex, int frameIndex, bool fromMenu)
 {
-    // blockSignals(true);
-
     k->removingFrame = fromMenu;
 
     QTableWidgetItem *item = takeItem(frameIndex, layerIndex);
 
     if (item) {
-        /*
-        for (int index = frameIndex + 1; index < k->header->lastFrame(layerIndex); index++) {
-             QTableWidgetItem *idx = takeItem(index, layerIndex);
-             if (idx)
-                 setItem(index - 1, layerIndex, idx);
-        }
-        */
         k->header->setLastFrame(layerIndex, k->header->lastFrame(layerIndex)-1);
     } else {
         #ifdef K_DEBUG
@@ -516,8 +485,6 @@ void TupExposureTable::removeFrame(int layerIndex, int frameIndex, bool fromMenu
             #endif
         #endif
     }
-
-    //setUpdatesEnabled(true);
 }
 
 void TupExposureTable::exchangeFrame(int oldPosLayer, int oldPosFrame, int newPosLayer, int newPosFrame, bool external)
@@ -534,8 +501,6 @@ void TupExposureTable::exchangeFrame(int oldPosLayer, int oldPosFrame, int newPo
 
 void TupExposureTable::moveLayer(int oldPosLayer, int newPosLayer)
 {
-    tError() << "TupExposureTable::moveLayer() - Moving from " << oldPosLayer << " to " << newPosLayer;
-
     k->header->moveHeaderSection(oldPosLayer, newPosLayer, k->isLocalRequest);
     if (k->isLocalRequest)
         k->isLocalRequest = false;
@@ -655,25 +620,12 @@ void TupExposureTable::keyPressEvent(QKeyEvent *event)
     }
 
     if (event->key() == Qt::Key_Down) {
-        int limit = rowCount()-1;
+        int framesTotal = k->header->lastFrame(currentLayer());
         int next = currentRow()+1;
-        if (next <= limit) {
+        if (next >= framesTotal)
+            markUsedFrames(next, currentColumn());
+        else
             setCurrentCell(next, currentColumn());
-        } else {
-            // markUsedFrames(next, currentColumn());
-            emit frameUsed(currentColumn(), next);
-
-/*
-            #ifdef K_DEBUG
-                QString msg = "TupExposureTable::keyPressEvent() - Warning: wrong frame index [ " + QString::number(next) + " ]";
-                #ifdef Q_OS_WIN32
-                    qWarning() << msg;
-                #else
-                    tWarning() << msg;
-                #endif
-            #endif
-*/
-        }
 
         return;
     }
@@ -692,12 +644,6 @@ void TupExposureTable::keyPressEvent(QKeyEvent *event)
             setCurrentCell(currentRow(), column);
         return;
     }   
-/*
-    if (event->key() == Qt::Key_Return) {
-        markUsedFrames(currentRow(), currentColumn());
-        return;
-    }
-*/
 }
 
 // SQA : Verify if this method is required
@@ -731,10 +677,8 @@ void TupExposureTable::reset()
     }
 
     int rows = rowCount();
-    for (int i=1; i < rows;  i++) {
+    for (int i=1; i < rows;  i++)
          takeItem(i, 0);
-         // QTableWidgetItem *item = takeItem(i, 0);
-    }
 
     k->header->setLastFrame(0, 1);
 }

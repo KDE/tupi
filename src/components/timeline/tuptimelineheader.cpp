@@ -126,8 +126,6 @@ void TupTimeLineHeader::mousePressEvent(QMouseEvent *event)
     QPoint point = event->pos();
     int section = logicalIndexAt(point);
 
-    tError() << "TupTimeLineHeader::mousePressEvent() - logicalIndexAt(point) : " << section;
-
     if (section != k->currentLayer)
         emit selectionChanged(section);
 
@@ -174,7 +172,6 @@ void TupTimeLineHeader::setSectionTitle(int index, const QString &name)
 void TupTimeLineHeader::showTitleEditor(int index)
 {
     if (index >= 0) {
-        tError() << "TupTimeLineHeader::showTitleEditor() - index: " << index;
         QFont font("Arial", 7, QFont::Normal, false);
         k->editor->setFont(font);
         int x = sectionViewportPosition(index);

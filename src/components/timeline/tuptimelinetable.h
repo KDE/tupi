@@ -87,12 +87,12 @@ class TUPI_EXPORT TupTimeLineTable : public QTableWidget
         void setLayerVisibility(int layerIndex, bool isVisible);
         void setLayerName(int layerIndex, const QString &name);
         void selectFrame(int layerIndex, int frameIndex);
+        bool frameIsLocked(int layerIndex, int frameIndex);
         
     public slots:
         // Layers
         void insertLayer(int index, const QString &name);
         void insertSoundLayer(int layerPos, const QString &name);
-        // void removeCurrentLayer();
         void removeLayer(int pos);
         void moveLayer(int pos, int newPos);
         int lastFrameByLayer(int layerPos);
@@ -107,6 +107,7 @@ class TUPI_EXPORT TupTimeLineTable : public QTableWidget
         void removeFrame(int layerPos, int position);
         void lockFrame(int layerPosition, int position, bool lock);
         void setItemSize(int w, int h);
+        void exchangeFrame(int currentFrame, int currentLayer, int newFrame, int newLayer);
         
     private:
         void setup();
@@ -121,12 +122,10 @@ class TUPI_EXPORT TupTimeLineTable : public QTableWidget
     private slots:
         void frameSelectionFromRuler(int frameIndex);
         void frameSelectionFromLayerHeader(int layerIndex);
-        // void requestFrameSelection(QTableWidgetItem *current, QTableWidgetItem *previous);
         void requestFrameSelection(int currentSelectedRow, int currentSelectedColumn, int previousRow, int previousColumn);
         void requestLayerMove(int logicalIndex, int oldVisualIndex, int newVisualIndex);
         
     signals:
-        // void frameRequest(int action, int frame, int layer, int scene, const QVariant &argument = QVariant());
         void frameChanged(int sceneIndex, int layerIndex, int frameIndex);
         void frameSelected(int layer, int frame);
         void visibilityChanged(int layer, bool isVisible);
@@ -134,7 +133,6 @@ class TUPI_EXPORT TupTimeLineTable : public QTableWidget
         void layerMoved(int oldVisualIndex, int newVisualIndex);
         
     private:
-        void exchangeFrame(int frameIndex, int currentLayer, int newLayer);
         struct Private;
         Private *const k;
 };

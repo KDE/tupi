@@ -163,7 +163,7 @@ void TupProjectActionBar::setup(Actions actions)
         button->setAnimated(k->isAnimated);
     }
      
-    if (actions & MoveFrameUp) {
+    if (actions & MoveFrameBackward) {
         TImageButton *button = 0;
         if (k->container.compare("Exposure") == 0) {
             button = new TImageButton(QIcon(THEME_DIR + "icons/move_frame_up.png"), size);
@@ -175,13 +175,13 @@ void TupProjectActionBar::setup(Actions actions)
         button->setToolTip(tr("Move frame backward"));
         button->setShortcut(QKeySequence(tr("F8")));
 
-        k->actions.addButton(button, MoveFrameUp);
+        k->actions.addButton(button, MoveFrameBackward);
         
         k->buttonLayout->addWidget(button);
         button->setAnimated(k->isAnimated);
     }
     
-    if (actions & MoveFrameDown) {
+    if (actions & MoveFrameForward) {
         TImageButton *button = 0;
 
         if (k->container.compare("Exposure") == 0) {
@@ -194,7 +194,7 @@ void TupProjectActionBar::setup(Actions actions)
         button->setToolTip(tr("Move frame forward"));
         button->setShortcut(QKeySequence(tr("F9")));
         
-        k->actions.addButton(button, MoveFrameDown);
+        k->actions.addButton(button, MoveFrameForward);
         
         k->buttonLayout->addWidget(button);
         button->setAnimated(k->isAnimated);

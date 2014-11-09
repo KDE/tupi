@@ -68,8 +68,8 @@ class TUPI_EXPORT TupProjectActionBar : public QWidget
             
             InsertFrame = 1 << 1,
             RemoveFrame = 1 << 2,
-            MoveFrameUp = 1 << 3,
-            MoveFrameDown = 1 << 4,
+            MoveFrameBackward = 1 << 3,
+            MoveFrameForward = 1 << 4,
             LockFrame = 1 << 5,
             
             InsertLayer = 1 << 6,
@@ -85,10 +85,10 @@ class TUPI_EXPORT TupProjectActionBar : public QWidget
             LockScene = 1 << 15,
             Separator = 1 << 16,
 
-            AllActions = InsertFrame | RemoveFrame | MoveFrameUp | MoveFrameDown | LockFrame | InsertLayer | RemoveLayer 
+            AllActions = InsertFrame | RemoveFrame | MoveFrameBackward | MoveFrameForward | LockFrame | InsertLayer | RemoveLayer 
                                      | MoveLayerUp | MoveLayerDown | InsertScene | RemoveScene | MoveSceneUp | MoveSceneDown,
 
-            FrameActions = InsertFrame | RemoveFrame | MoveFrameUp | MoveFrameDown,
+            FrameActions = InsertFrame | RemoveFrame | MoveFrameBackward | MoveFrameForward | LockFrame,
             LayerActions = InsertLayer | RemoveLayer | MoveLayerUp | MoveLayerDown | LockLayer,
             SceneActions = InsertScene | RemoveScene | MoveSceneUp | MoveSceneDown
         };

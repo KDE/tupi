@@ -128,7 +128,6 @@ void TupExposureHeader::moveHeaderSection(int position, int newPosition, bool is
 {
     if (isLocalRequest) {
         m_sectionOnMotion = true;
-        tError() << "TupExposureHeader::moveHeaderSection() - Moving section from: " << position << " to " << newPosition;
         moveSection(visualIndex(position), visualIndex(newPosition));
         m_sections.swap(position, newPosition);
         m_sectionOnMotion = false;
