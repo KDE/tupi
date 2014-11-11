@@ -666,25 +666,37 @@ void TupTimeLine::selectFrame(int indexLayer, int indexFrame)
     int scenePos = k->container->currentIndex();
     TupScene *scene = k->project->scene(scenePos);
     if (scene) {
-        int totalFrames = scene->framesTotal();
-        if (indexFrame < totalFrames) {
-            TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, indexLayer,
-                                                           indexFrame, TupProjectRequest::Select, "1");
-            emit requestTriggered(&request);
-        } else {
-            int layersTotal = scene->layersTotal();
-            for (int layer=0; layer < layersTotal; layer++) {
-                 for (int frame = totalFrames; frame <= indexFrame; frame++) {
-                      TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, layer, frame,
-                                                TupProjectRequest::Add, tr("Frame %1").arg(frame + 1));
-                      emit requestTriggered(&request);
-                 }
+        int lastFrame = framesTable(scenePos)->lastFrameByLayer(indexLayer);
+
+        if (indexFrame > lastFrame) {
+            int totalFrames = scene->framesTotal();
+
+            if (indexFrame > (totalFrames-1)) {
+                int layersTotal = scene->layersTotal();
+                for (int layer=0; layer < layersTotal; layer++) {
+                     int currentLimit = framesTable(scenePos)->lastFrameByLayer(layer); 
+                     for (int frame = currentLimit + 1; frame <= indexFrame; frame++) {
+                          TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, layer, frame,
+                                                      TupProjectRequest::Add, tr("Frame %1").arg(frame + 1));
+                          emit requestTriggered(&request);
+                     }
+                }
+            } else {
+                for (int frame = lastFrame + 1; frame <= indexFrame; frame++) {
+                     TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, indexLayer, frame,
+                                                 TupProjectRequest::Add, tr("Frame %1").arg(frame + 1));
+                     emit requestTriggered(&request);
+                }
             }
 
             TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, indexLayer,
                                                            indexFrame, TupProjectRequest::Select, "1");
             emit requestTriggered(&request);
         }
+
+        TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, indexLayer,
+                                                       indexFrame, TupProjectRequest::Select, "1");
+        emit requestTriggered(&request);
     }
 }
 

@@ -83,9 +83,7 @@ void TupTimeLineTableItemDelegate::paint(QPainter *painter, const QStyleOptionVi
                 painter->fillRect(option.rect, QColor(230, 230, 230));
             else 
                 painter->fillRect(option.rect, Qt::white);
-        } else {
-
-        }
+        } 
         
         painter->restore();
     }
