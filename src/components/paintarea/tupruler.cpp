@@ -219,6 +219,9 @@ void TupRuler::drawMaximizedRuler(QPainter* painter, QRectF rulerRect, qreal sta
 
     int counter = fabs(k->origin)/step;
 
+    if (step < 0)
+        step *= -1;
+
     for (qreal current = startMark + delta; current <= endMark; current += step) {
          startPosition = 16;
          if (counter % 5 == 0)

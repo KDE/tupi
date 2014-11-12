@@ -183,26 +183,14 @@ void ViewTool::release(const TupInputDeviceInformation *input, TupBrushManager *
     Q_UNUSED(brushManager);
 
     if (name() == tr("Hand")) {
-        qreal initX = k->firstPoint.x();
-        qreal initY = k->firstPoint.y();
-        qreal x = input->pos().x();
-        qreal y = input->pos().y();
-
-        qreal deltaX = initX - x;
-        qreal deltaY = initY - y; 
-
-        qreal centerX = k->currentCenter.x() + deltaX;
-        qreal centerY = k->currentCenter.y() + deltaY;
-
-        k->currentCenter = QPointF(centerX, centerY);
-
+        k->currentCenter = input->pos();
         foreach (QGraphicsView *view, scene->views()) {
                  if (k->activeView.compare(view->accessibleName()) == 0) {
                      view->centerOn(k->currentCenter);
-                     view->setSceneRect(centerX - (k->projectSize.width()/2), centerY - (k->projectSize.height()/2), 
+                     view->setSceneRect(input->pos().x() - (k->projectSize.width()/2), input->pos().y() - (k->projectSize.height()/2),
                                         k->projectSize.width(), k->projectSize.height());
                      break;
-                 }
+                 }  
         }
     } else if (name() == tr("Zoom In") || name() == tr("Zoom Out")) { 
                // Zoom Square mode
@@ -322,7 +310,6 @@ void ViewTool::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_F11 || event->key() == Qt::Key_Escape) {
         emit closeHugeCanvas();
-    // } else if (event->modifiers() != Qt::ShiftModifier && event->modifiers() != Qt::ControlModifier) {
     } else {
         QPair<int, int> flags = TupToolPlugin::setKeyAction(event->key(), event->modifiers());
         if (flags.first != -1 && flags.second != -1)

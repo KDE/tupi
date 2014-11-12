@@ -60,6 +60,8 @@ struct SelectionTool::Private
     qreal realFactor;
     int baseZValue;
     TupEllipseItem *center;
+    QGraphicsLineItem *target1;
+    QGraphicsLineItem *target2;
     bool targetIsIncluded;
 };
 
@@ -156,6 +158,8 @@ void SelectionTool::reset(TupGraphicsScene *scene)
     panel->enablePositionControls(false);
     if (k->targetIsIncluded) {
         k->scene->removeItem(k->center);
+        k->scene->removeItem(k->target1);
+        k->scene->removeItem(k->target2);
         k->targetIsIncluded = false;
     }
 }
@@ -356,6 +360,8 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
         panel->enablePositionControls(false);
         if (k->targetIsIncluded) {
             k->scene->removeItem(k->center);
+            k->scene->removeItem(k->target1);
+            k->scene->removeItem(k->target2);
             k->targetIsIncluded = false;
         } 
     }
@@ -922,7 +928,8 @@ void SelectionTool::sceneResponse(const TupSceneResponse *event)
         reset(k->scene);
 }
 
-void SelectionTool::updateItemPosition() {
+void SelectionTool::updateItemPosition() 
+{
     if (k->nodeManagers.count() == 1) {
         NodeManager *manager = k->nodeManagers.first();
         QGraphicsItem *item = manager->parentItem();
@@ -961,25 +968,39 @@ void SelectionTool::updateItemPosition() {
           panel->setPos(x, y);
 
           if (!k->targetIsIncluded) {
-              k->center = new TupEllipseItem(QRectF(QPointF(x, y), QSize(8, 8)));
+              k->center = new TupEllipseItem(QRectF(QPointF(x - 1, y - 1), QSize(2, 2)));
+              k->target1 = new QGraphicsLineItem(x, y - 6, x, y + 6);
+              k->target2 = new QGraphicsLineItem(x - 6, y, x + 6, y);
+              
               QPen pen(QColor(255, 0, 0), 0.5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
               k->center->setPen(pen);
               k->center->setBrush(QColor(255, 0, 0));
               k->center->setZValue(k->baseZValue + 1);
               k->scene->includeObject(k->center);
 
+              k->target1->setPen(pen); 
+              k->target1->setZValue(1000);
+              k->target2->setPen(pen);
+              k->target2->setZValue(1000);
+
+              k->scene->includeObject(k->target1);
+              k->scene->includeObject(k->target2);
+
               k->targetIsIncluded = true;
           } else {
               QPoint current = k->center->mapToScene(k->center->boundingRect().topLeft()).toPoint(); 
-              int deltaX = x - current.x();
-              int deltaY = y - current.y();
+              int deltaX = x - current.x() - 1;
+              int deltaY = y - current.y() - 1;
               k->center->moveBy(deltaX, deltaY);
+              k->target1->moveBy(deltaX, deltaY);
+              k->target2->moveBy(deltaX, deltaY);
           }
       }
     }
 }
 
-void SelectionTool::updateItemPosition(int x, int y) {
+void SelectionTool::updateItemPosition(int x, int y) 
+{
     if (k->nodeManagers.count() == 1) {
         NodeManager *manager = k->nodeManagers.first();
         QGraphicsItem *item = manager->parentItem();
@@ -993,6 +1014,8 @@ void SelectionTool::updateItemPosition(int x, int y) {
                      node->syncNodesFromParent();
             }
             k->center->moveBy(x, y);
+            k->target1->moveBy(x, y);
+            k->target2->moveBy(x, y);
         }
     }
 }
