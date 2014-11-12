@@ -68,6 +68,7 @@ class TUPI_EXPORT TupPaintAreaStatus : public QStatusBar
         ~TupPaintAreaStatus();
         void updateTool(const QString &label, const QPixmap &pixmap);
         void setZoomPercent(const QString &percent);
+        void setRotationAngle(const QString &angle);
         void updateZoomFactor(double factor);
         qreal currentZoomFactor();
         void updateRotationAngle(int angle);
@@ -78,11 +79,11 @@ class TUPI_EXPORT TupPaintAreaStatus : public QStatusBar
     public slots:
         void applyZoom(const QString &text);
         void setPen(const QPen &pen);
+        void applyRotation(const QString &text);
 
     private slots:
         void selectAntialiasingHint();
         void selectRenderer(int id);
-        void applyRotation(const QString &text);
         void updateFrameIndex(int index);
         void updateFramePointer();
 
@@ -93,6 +94,7 @@ class TUPI_EXPORT TupPaintAreaStatus : public QStatusBar
 
     private:
         void updateZoomField(const QString &text);
+        void updateRotationField(const QString &angle);
         struct Private;
         Private *const k;
 };

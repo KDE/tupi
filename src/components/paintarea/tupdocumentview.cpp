@@ -1978,3 +1978,9 @@ void TupDocumentView::updatePerspective()
     }
 }
 
+void TupDocumentView::resetWorkSpaceTransformations()
+{
+    k->paintArea->resetWorkSpaceCenter(k->project->dimension());
+    k->status->setRotationAngle("0");
+    k->status->setZoomPercent("100");
+}

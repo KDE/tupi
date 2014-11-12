@@ -1536,3 +1536,14 @@ int TupPaintArea::currentFrameIndex()
     return graphicsScene()->currentFrameIndex();
 }
 
+void TupPaintArea::resetWorkSpaceCenter(const QSize projectSize)
+{
+    int centerX = projectSize.width()/2;
+    int centerY = projectSize.height()/2;
+
+    foreach (QGraphicsView *view, graphicsScene()->views()) {
+             view->centerOn(QPointF(centerX, centerY));
+             view->setSceneRect(0, 0, projectSize.width(), projectSize.height());
+    }
+}
+

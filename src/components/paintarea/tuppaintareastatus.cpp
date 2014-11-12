@@ -71,6 +71,14 @@ TupPaintAreaStatus::TupPaintAreaStatus(TupDocumentView *parent) : QStatusBar(par
 
     addPermanentWidget(k->positionLabel, 1);
 
+    QPushButton *resetWSButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "reset_workspace.png")), "");
+    resetWSButton->setIconSize(QSize(16, 16));
+    resetWSButton->setToolTip(tr("Reset WorkSpace"));
+    resetWSButton->setShortcut(QKeySequence(tr("+")));
+    connect(resetWSButton, SIGNAL(clicked()), k->documentView, SLOT(resetWorkSpaceTransformations()));
+
+    addPermanentWidget(resetWSButton);
+
     QPushButton *actionSafeAreaButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "safe_area.png")), "");
     actionSafeAreaButton->setIconSize(QSize(16, 16));
     actionSafeAreaButton->setToolTip(tr("Action Safe Area"));
@@ -264,6 +272,12 @@ void TupPaintAreaStatus::setZoomPercent(const QString &percent)
     applyZoom(percent);
 }
 
+void TupPaintAreaStatus::setRotationAngle(const QString &angle)
+{
+    updateRotationField(angle);
+    applyRotation(angle);
+}
+
 void TupPaintAreaStatus::updateZoomField(const QString &text)
 {
     int index = k->zoom->findText(text);
@@ -271,6 +285,15 @@ void TupPaintAreaStatus::updateZoomField(const QString &text)
         k->zoom->setCurrentIndex(index);
     else
         k->zoom->setEditText(text);
+}
+
+void TupPaintAreaStatus::updateRotationField(const QString &text)
+{
+    int index = k->rotation->findText(text);
+    if (index != -1)
+        k->rotation->setCurrentIndex(index);
+    else
+        k->rotation->setEditText(text);
 }
 
 qreal TupPaintAreaStatus::currentZoomFactor()

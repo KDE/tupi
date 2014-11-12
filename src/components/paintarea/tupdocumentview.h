@@ -173,6 +173,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         bool handleProjectResponse(TupProjectResponse *event);
         void updateNodesScale(qreal factor);
         void importPapagayoLipSync();
+        void resetWorkSpaceTransformations();
 
     signals:
         void requestTriggered(const TupProjectRequest *event);
