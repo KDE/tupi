@@ -560,16 +560,7 @@ void TMainWindow::setCurrentPerspective(int workspace)
                       view->setUpdatesEnabled(false);
 
                       if (view->perspective() & workspace) {
-
-                          // SQA: Temporary code while Library and Time Line components are fixed
-                          if (view->getObjectID().compare("ToolView-Time Line")==0) {
-                              bar->enable(view->button());
-                              view->enableButton(false);
-                          } else {
-                              bar->enable(view->button());
-                          } 
-
-                          // bar->enable(view->button());
+                          bar->enable(view->button());
  
                           if (view->button()->isChecked() && (workspace != 4) && view->getObjectID().compare("ToolView-Help")!=0) {
                               view->show();
