@@ -353,6 +353,7 @@ void TupDocumentView::updateNodesScale(qreal factor)
 
 void TupDocumentView::setZoomPercent(const QString &percent)
 {
+    k->nodesScaleFactor = percent.toDouble() / 100;
     k->status->setZoomPercent(percent);
 }
 
@@ -1461,6 +1462,7 @@ void TupDocumentView::closeFullScreen()
         k->fullScreen->close();
         k->fullScreenOn = false;
         k->currentTool->init(k->paintArea->graphicsScene());
+
         k->fullScreen = 0;
 
         QString toolName = k->currentTool->name();

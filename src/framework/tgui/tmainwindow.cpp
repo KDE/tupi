@@ -127,6 +127,7 @@ void DefaultSettings::restore(TMainWindow *w)
                       Qt::DockWidgetArea area = Qt::DockWidgetArea(settings.value("area", 0).toInt());
                       w->moveToolView(view, area);
                       view->setFixedSize(settings.value("size").toInt());
+
                       view->button()->setToolButtonStyle(Qt::ToolButtonStyle(settings.value("style", 
                                                          int(view->button()->toolButtonStyle())).toInt()));
                       view->button()->setSensible(settings.value("sensibility", view->button()->isSensible()).toBool());

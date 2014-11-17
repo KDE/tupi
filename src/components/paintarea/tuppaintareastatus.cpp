@@ -216,6 +216,8 @@ TupPaintAreaStatus::TupPaintAreaStatus(TupDocumentView *parent) : QStatusBar(par
 
     k->toolStatus = new TupToolStatus;
     addPermanentWidget(k->toolStatus);
+
+    setMinimumWidth(700);
 }
 
 TupPaintAreaStatus::~TupPaintAreaStatus()

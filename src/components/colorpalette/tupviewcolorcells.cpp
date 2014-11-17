@@ -63,7 +63,7 @@ TupViewColorCells::TupViewColorCells(QWidget *parent) : QFrame(parent), k(new Pr
 TupViewColorCells::~TupViewColorCells()
 {
     TCONFIG->beginGroup("ColorPalette");
-    TCONFIG->setValue("LastPalette", k->chooserPalette->currentIndex());;
+    TCONFIG->setValue("LastPalette", k->chooserPalette->currentIndex());
 
     QDir brushesDir(CONFIG_DIR + "palettes");
 
@@ -110,38 +110,28 @@ void TupViewColorCells::setupForm()
     k->defaultPalette = new TupCellsColor(k->containerPalette);
     k->defaultPalette->setName(tr("Default Palette"));
     k->defaultPalette->setReadOnly(true);
-
-    fillDefaultColors();
+    // fillDefaultColors();
     addPalette(k->defaultPalette);
 
     //Named Colors
     k->qtColorPalette = new TupCellsColor(k->containerPalette);
     k->qtColorPalette->setReadOnly(true);
     k->qtColorPalette->setName(tr("Named Colors"));
+    fillNamedColor();
     addPalette(k->qtColorPalette);
 
-    fillNamedColor();
-
     //Custom Color Palette
+    // SQA: This palette must be implemented
     k->customColorPalette = new TupCellsColor(k->containerPalette);
     k->customColorPalette->setName(tr("Custom Color Palette"));
     addPalette(k->customColorPalette);
 
     //Custom Gradient Palette
+    // SQA: This palette must be implemented
     k->customGradientPalette = new TupCellsColor(k->containerPalette);
     k->customGradientPalette->setName(tr("Custom Gradient Palette"));
     k->customGradientPalette->setType(TupCellsColor::Gradient);
     addPalette(k->customGradientPalette);
-
-    connect(k->chooserPalette, SIGNAL(activated(int )), k->containerPalette, SLOT(setCurrentIndex(int )));
-
-    TCONFIG->beginGroup("ColorPalette");
-    int lastIndex = TCONFIG->value("LastPalette").toInt();
-
-    if (lastIndex > 0) {
-        k->chooserPalette->setCurrentIndex(lastIndex);
-        k->containerPalette->setCurrentIndex(lastIndex);
-    }
 
 #ifdef Q_OS_WIN32
     QString palettesPath = SHARE_DIR + "palettes";
@@ -150,6 +140,19 @@ void TupViewColorCells::setupForm()
 #endif
     readPalettes(palettesPath); // Pre-installed
     readPalettes(CONFIG_DIR + "palettes"); // Locals
+
+    // fillDefaultColors(palettesPath);
+
+    connect(k->chooserPalette, SIGNAL(activated(int)), k->containerPalette, SLOT(setCurrentIndex(int)));
+
+    TCONFIG->beginGroup("ColorPalette");
+    int lastIndex = TCONFIG->value("LastPalette").toInt();
+
+    if (lastIndex < 0)
+        lastIndex = 0;
+
+    k->chooserPalette->setCurrentIndex(lastIndex);
+    k->containerPalette->setCurrentIndex(lastIndex);
 }
 
 void TupViewColorCells::readPalettes(const QString &paletteDir)
@@ -193,7 +196,7 @@ void TupViewColorCells::readPaletteFile(const QString &file)
         QList<QBrush> brushes = parser.brushes();
         QString name = parser.paletteName();
         bool editable = parser.paletteIsEditable();
-        addPalette(name,brushes,editable );
+        addPalette(name, brushes, editable);
     } else {
         #ifdef K_DEBUG
             QString msg = "TupViewColorCells::readPaletteFile() - Error while parse palette file: " + file;
@@ -206,13 +209,20 @@ void TupViewColorCells::readPaletteFile(const QString &file)
     }
 }
 
-void TupViewColorCells::addPalette(const QString & name, const QList<QBrush> & brushes, bool editable )
+void TupViewColorCells::addPalette(const QString & name, const QList<QBrush> & brushes, bool editable)
 {
-    if (name == k->customColorPalette->name()) {
+    if (name == "Default Palette") {
         QList<QBrush>::ConstIterator it = brushes.begin();
 
         while (it != brushes.end()) {
-               k->customColorPalette->addItem( *it);
+               k->defaultPalette->addItem(*it);
+               ++it;
+        }
+    } else if (name == k->customColorPalette->name()) {
+        QList<QBrush>::ConstIterator it = brushes.begin();
+
+        while (it != brushes.end()) {
+               k->customColorPalette->addItem(*it);
                ++it;
         }
     } else if (name == k->customGradientPalette->name()) {
@@ -260,6 +270,7 @@ void TupViewColorCells::changeColor(QTableWidgetItem* item)
         emit selectColor(item->background());
 }
 
+/*
 void TupViewColorCells::fillDefaultColors()
 {
     int i;
@@ -313,6 +324,7 @@ void TupViewColorCells::fillDefaultColors()
               k->defaultPalette->addItem(QColor(255, (j - 13) * 51, (i - 6) * 51));
     }
 }
+*/
 
 void TupViewColorCells::fillNamedColor()
 {

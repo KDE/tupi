@@ -78,6 +78,7 @@ TupColorPalette::TupColorPalette(QWidget *parent) : TupModuleWidgetBase(parent),
     setWindowIcon(QPixmap(THEME_DIR + "icons/color_palette.png"));
 
     k->splitter = new QSplitter(Qt::Vertical, this);
+
     k->tab = new QTabWidget;
     connect(k->tab, SIGNAL(currentChanged(int)), this, SLOT(updateColorType(int)));
 
@@ -90,7 +91,10 @@ TupColorPalette::TupColorPalette(QWidget *parent) : TupModuleWidgetBase(parent),
     setupGradientManager();
 
     k->tab->setPalette(palette());
+    k->tab->setMinimumHeight(300);
     k->splitter->addWidget(k->tab);
+
+    setMinimumWidth(316);
 
     TCONFIG->beginGroup("ColorPalette");
     // QColor foreground = QColor(TCONFIG->value("LastForegroundColor", Qt::black).toString());
@@ -145,8 +149,11 @@ void TupColorPalette::setupDisplayColor()
 
     QBoxLayout *layoutName = new QBoxLayout(QBoxLayout::TopToBottom);
     layoutName->setMargin(0);
+    layoutName->setSpacing(1);
 
-    layoutName->addWidget(new QLabel("<b>HTML</b>", viewColor));
+    QLabel *html = new QLabel(tr("HTML"), viewColor);
+    html->setAlignment(Qt::AlignHCenter);
+    layoutName->addWidget(html);
     k->htmlNameColor = new QLineEdit(viewColor);
     k->htmlNameColor->setMaximumWidth(70);
     k->htmlNameColor->setMaxLength(7);

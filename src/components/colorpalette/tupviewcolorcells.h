@@ -72,13 +72,14 @@ class TUPI_EXPORT TupViewColorCells : public QFrame
     private:
         void setupForm();
         void setupButtons();
-        void fillDefaultColors();
+        // void fillDefaultColors();
         void addDefaultColor(int i, int j, const QColor &);
         void fillNamedColor();
         void readPalettes(const QString &paletteDir);
         void addPalette(TupCellsColor *palette);
 
-    protected:
+    // protected:
+    //     QSize sizeHint() const;
 
     signals:
         void selectColor(const QBrush &);
