@@ -887,7 +887,6 @@ void TupPaintArea::deleteItems()
 
 void TupPaintArea::groupItems()
 {
-/*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupPaintArea::groupItems()]";
@@ -895,7 +894,7 @@ void TupPaintArea::groupItems()
             T_FUNCINFO;
         #endif
     #endif
-*/
+
     QList<QGraphicsItem *> selected = scene()->selectedItems();
 
     if (!selected.isEmpty()) {
@@ -905,6 +904,7 @@ void TupPaintArea::groupItems()
 
         if (currentScene) {
             foreach (QGraphicsItem *item, selected) {
+                     // tError() << "TupPaintArea::groupItems() - Index of item: " << currentScene->currentFrame()->indexOf(item);
                      if (currentScene->currentFrame()->indexOf(item) != -1) {
                          if (strItems.isEmpty()) {
                              strItems +="("+ QString::number(currentScene->currentFrame()->indexOf(item));

@@ -98,7 +98,7 @@ class Test
                       if conf.hasArgument?("with-quazip")
                          quazipDir = conf.argumentValue("with-quazip")
                          quazipLib = quazipDir + "/lib"
-                         extraLib += "-L#{quazipLib}"
+                         extraLib += "-L#{quazipLib} -lquazip"
                          extraInclude = quazipDir + "/include"
                          qmakeLine = "'LIBS += #{extraLib}'"
                          qmakeLine += " 'INCLUDEPATH += #{extraInclude}'"

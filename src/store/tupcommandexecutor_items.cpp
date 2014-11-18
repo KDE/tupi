@@ -462,6 +462,8 @@ bool TupCommandExecutor::groupItems(TupItemResponse *response)
             T_FUNCINFOX("items");
         #endif
     #endif
+
+    // tError() << "TupCommandExecutor::groupItems() - Just creating a group!";
     
     int scenePosition = response->sceneIndex();
     int layerPosition = response->layerIndex();

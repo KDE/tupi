@@ -445,6 +445,8 @@ QGraphicsItemGroup *TupFrame::createItemGroupAt(int position, QList<qreal> group
         #endif
     #endif
 
+    // tError() << "TupFrame::createItemGroupAt() - Tracing...";
+
     Q_UNUSED(position);
     qSort(group.begin(), group.end());
 

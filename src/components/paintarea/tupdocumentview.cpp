@@ -378,12 +378,14 @@ void TupDocumentView::setupDrawActions()
                 k->paintArea, SLOT(deleteItems()), k->actionManager, "delete");
     
     TAction *group = new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "group.png"), tr("&Group"), QKeySequence(tr("Ctrl+G")), 
-                k->paintArea, SLOT(groupItems()), k->actionManager, "group");
+                                 k->paintArea, SLOT(groupItems()), k->actionManager, "group");
+    // SQA: Enabled just for initial development
     group->setDisabled(true);
 
     TAction *ungroup = new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "ungroup.png"), tr("&Ungroup"), 
                                     QKeySequence(tr("Ctrl+Shift+G")) , k->paintArea, SLOT(ungroupItems()), 
                                     k->actionManager, "ungroup");
+    // SQA: Enabled just for initial development
     ungroup->setDisabled(true);
 
     new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "layer.png"), tr("Onion Skin"), QKeySequence(tr("Ctrl+Shift+O")), 
