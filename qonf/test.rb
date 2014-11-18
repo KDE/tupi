@@ -59,9 +59,9 @@ class Test
 
         parser = Parser.new
         parser.os = DetectOS::OS[DetectOS.whatOS].to_s.downcase
-        
+
         return false if not parser.parse(@rules) or parser.name.empty?
-        
+
         @optional = parser.optional
         
         Info.info << "Checking for " << parser.name << "... "
@@ -100,8 +100,15 @@ class Test
                          quazipLib = quazipDir + "/lib"
                          extraLib += "-L#{quazipLib}"
                          extraInclude = quazipDir + "/include"
-                         qmakeLine = "'LIBS += #{extraLib}'";
-                         qmakeLine += " 'INCLUDEPATH += #{extraInclude}'";
+                         qmakeLine = "'LIBS += #{extraLib}'"
+                         qmakeLine += " 'INCLUDEPATH += #{extraInclude}'"
+                      else
+                         if parser.os.eql? "14.10" 
+                            extraLib = "-lquazip-qt5"
+                         else
+                            extraLib = "-lquazip"
+                         end
+                         qmakeLine = "'LIBS += #{extraLib}'"
                       end
                    else
                       if File.dirname(@rules).end_with?("theora")
@@ -110,13 +117,13 @@ class Test
                             theoraLib = theoraDir + "/lib"
                             extraLib += "-L#{theoraLib}"
                             extraInclude = theoraDir + "/include"
-                            qmakeLine = "'LIBS += #{extraLib}'";
-                            qmakeLine += " 'INCLUDEPATH += #{extraInclude}'";
+                            qmakeLine = "'LIBS += #{extraLib}'"
+                            qmakeLine += " 'INCLUDEPATH += #{extraInclude}'"
                          end
                       else
                          qmakeLine = ""
                          if extraLib.length > 0 
-                            qmakeLine = "'LIBS += #{extraLib} #{parser.libs.join(" ")}'";
+                            qmakeLine = "'LIBS += #{extraLib} #{parser.libs.join(" ")}'"
                          end
                       end
                    end
@@ -169,6 +176,12 @@ class Test
         parser.libs.each { |lib|
             config.addLib(lib)
         }
+
+        if parser.os.eql? "14.10"
+           config.addLib("-lquazip-qt5")
+        else
+           config.addLib("-lquazip")
+        end
         
         parser.defines.each { |define|
             config.addDefine(define)

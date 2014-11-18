@@ -43,6 +43,8 @@ class DetectOS
         3 => "Linux",
         31 => "Debian",
         311 => "Ubuntu",
+        312 => "14.04",
+        313 => "14.10",
         32 => "Gentoo",
         4 => "Mac OS X"
     }
@@ -58,38 +60,43 @@ class DetectOS
             @os = linux if linux > 0
         end
         
-        
         return @os
     end
     
     def self.tryToFindLinuxDistribution
-        cwd = Dir.getwd
-        Dir.chdir("/etc/")
-        
-        Dir["*{-,_}{version,release}"].each { |path|
-            if path.downcase =~ /^(\w*)(-|_)(version|release)/
-                DetectOS::OS.each { |id, os|
-                    if os.downcase == $1
-                        Dir.chdir(cwd)
-                        
-                        if $1 == "debian"
-                            if `apt-cache -v`.include?("ubuntu")
-                                return 311
-                            end
-                        end
-                        
-                        return id
-                    end
-                }
-            end
-        }
-        
-        Dir.chdir(cwd)
+        lsb = "/etc/lsb-release"
+        if File.exist?(lsb) 
+           distro = ""
+           version = ""
+           File.open(lsb, "r") do |f|
+              f.each_line do |line|
+                 line = line.chop 
+                 tag, value = line.split("=")
+
+                 if tag.eql? "DISTRIB_ID"
+                    distro = value 
+                 end
+                 if tag.eql? "DISTRIB_RELEASE"
+                    version = value
+                 end
+              end
+           end
+
+           if distro.eql? "Ubuntu"
+              if version.eql? "14.04"
+                 return 312
+              end
+              if version.eql? "14.10"
+                 return 313
+              end
+              return 311
+           end
+        end
         
         if `uname`.downcase == "linux"
             return 2
         end
-        
+
         return 0
     end
 end

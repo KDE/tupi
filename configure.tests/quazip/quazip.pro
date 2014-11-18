@@ -13,7 +13,7 @@ unix:!macx {
   INCLUDEPATH += /usr/include/quazip
 }
 
-LIBS += -lquazip-qt5 -lz
+LIBS += -lz
 
 # Input
 SOURCES += main.cpp
