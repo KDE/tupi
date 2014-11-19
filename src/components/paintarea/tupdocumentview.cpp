@@ -132,7 +132,7 @@ struct TupDocumentView::Private
     TAction *nodesAction;
     TAction *borderFillAction;
     TAction *fillAction;
-    TAction *handAction;
+    TAction *shiftAction;
     TAction *papagayoAction;
 };
 
@@ -632,8 +632,8 @@ void TupDocumentView::loadPlugins()
                                  break;
                                case TupToolInterface::View:
                                  {
-                                   if (toolName.compare(tr("Hand")) == 0)
-                                       k->handAction = action;
+                                   if (toolName.compare(tr("Shift")) == 0)
+                                       k->shiftAction = action;
                                  }
                                  break;
                                case TupToolInterface::LipSync:
@@ -699,7 +699,7 @@ void TupDocumentView::loadPlugins()
     k->toolbar->addAction(k->fillAction);
     k->toolbar->addAction(k->borderFillAction);
     k->toolbar->addSeparator();
-    k->toolbar->addAction(k->handAction);
+    k->toolbar->addAction(k->shiftAction);
     k->toolbar->addSeparator();
     k->toolbar->addAction(k->motionMenu->menuAction());
 
@@ -815,7 +815,7 @@ void TupDocumentView::loadPlugin(int menu, int index)
             break;
             case TupToolPlugin::ZoomMenu:
                  {
-                     action = k->handAction;
+                     action = k->shiftAction;
                  }
             break;
             default:
@@ -928,10 +928,8 @@ void TupDocumentView::selectTool()
                      break;
                 case TupToolInterface::View:
                      k->status->enableFullScreenFeature(true);
-                     if (toolName.compare(tr("Zoom In"))==0 || toolName.compare(tr("Zoom Out"))==0)
-                         minWidth = 130;
 
-                     if (toolName.compare(tr("Hand"))==0) {
+                     if (toolName.compare(tr("Shift"))==0) {
                          tool->setProjectSize(k->project->dimension());
                          if (k->fullScreenOn)
                              tool->setActiveView("FULL_SCREEN");
@@ -1432,7 +1430,7 @@ void TupDocumentView::showFullScreen()
     k->fullScreen->updateCursor(k->currentTool->cursor());
 
     QString toolName = k->currentTool->name();
-    if (toolName.compare(tr("Hand")) == 0)
+    if (toolName.compare(tr("Shift")) == 0)
         k->currentTool->setActiveView("FULL_SCREEN");
 
     k->fullScreen->showFullScreen();
@@ -1488,7 +1486,7 @@ void TupDocumentView::closeFullScreen()
         k->fullScreen = 0;
 
         QString toolName = k->currentTool->name();
-        if (toolName.compare(tr("Hand")) == 0) 
+        if (toolName.compare(tr("Shift")) == 0) 
             k->currentTool->setActiveView("WORKSPACE");
 
         k->nodesScaleFactor = k->cacheScaleFactor;

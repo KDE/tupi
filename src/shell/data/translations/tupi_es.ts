@@ -1341,8 +1341,8 @@
         <translation>Alejar</translation>
     </message>
     <message>
-        <source>Hand</source>
-        <translation>Mano</translation>
+        <source>Shift</source>
+        <translation>Desplazar</translation>
     </message>
     <message>
         <source>Pen Properties</source>
@@ -1717,8 +1717,8 @@
         <translation>Alejar</translation>
     </message>
     <message>
-        <source>Hand</source>
-        <translation>Mano</translation>
+        <source>Shift</source>
+        <translation>Desplazar</translation>
     </message>
     <message>
         <source>Paint area actions</source>
@@ -4375,8 +4375,8 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>Z</translation>
     </message>
     <message>
-        <source>Hand</source>
-        <translation>Mano</translation>
+        <source>Shift</source>
+        <translation>Desplazar</translation>
     </message>
     <message>
         <source>H</source>

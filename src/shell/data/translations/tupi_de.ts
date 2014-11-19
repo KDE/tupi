@@ -1890,8 +1890,8 @@
         <location filename="../src/components/paintarea/tupcanvas.cpp" line="133"/>
         <location filename="../src/components/paintarea/tupcanvas.pc.cpp" line="141"/>
         <location filename="../src/components/paintarea/tupcanvas.tablet.cpp" line="142"/>
-        <source>Hand</source>
-        <translation type="unfinished">Hand</translation>
+        <source>Shift</source>
+        <translation type="unfinished">Shift</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupcanvas.cpp" line="137"/>
@@ -2424,8 +2424,8 @@
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="946"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1441"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1496"/>
-        <source>Hand</source>
-        <translation type="unfinished">Hand</translation>
+        <source>Shift</source>
+        <translation type="unfinished">Shift</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="609"/>
@@ -5848,8 +5848,8 @@ Please, contact the animation server admin to get access.</source>
         <location filename="../src/plugins/tools/hand/viewtool.cpp" line="288"/>
         <location filename="../src/plugins/tools/hand/viewtool.cpp" line="304"/>
         <location filename="../src/plugins/tools/hand/viewtool.cpp" line="334"/>
-        <source>Hand</source>
-        <translation>Hand</translation>
+        <source>Shift</source>
+        <translation>Shift</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/hand/viewtool.cpp" line="91"/>

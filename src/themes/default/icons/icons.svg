@@ -14,7 +14,7 @@
    height="1250"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.5 r10040"
    sodipodi:docname="icons.svg">
   <defs
      id="defs4">
@@ -2705,9 +2705,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="6.2816056"
-     inkscape:cx="354.14223"
-     inkscape:cy="290.11699"
+     inkscape:zoom="12.563211"
+     inkscape:cx="427.70547"
+     inkscape:cy="297.33975"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -11649,6 +11649,40 @@
          id="path7032-6-3-6-0-9-9-97-7-3-5-0-8-3"
          d="m 397.75289,745.40412 -0.66258,-0.0102 0.0144,21.10217 0.65095,0.006 z"
          style="fill:#008700;fill-opacity:1;stroke:none" />
+    </g>
+    <g
+       id="g5456"
+       inkscape:export-filename="/home/xtingray/tupi/sources/tupi/src/themes/default/icons/shift.png"
+       inkscape:export-xdpi="1578.1899"
+       inkscape:export-ydpi="1578.1899">
+      <g
+         inkscape:export-ydpi="1578.1899"
+         inkscape:export-xdpi="1578.1899"
+         inkscape:export-filename="/home/xtingray/tupi/sources/tupi/src/themes/default/icons/shift.png"
+         transform="matrix(0.89626814,0,0,0.89626814,37.4726,78.467983)"
+         style="fill:none;stroke:#008700;stroke-width:1.11573756;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="g8075">
+        <rect
+           style="fill:none;stroke:#008700;stroke-width:1.11573756;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           id="rect8073"
+           width="6.3037992"
+           height="6.3037992"
+           x="433.72388"
+           y="950.45697"
+           transform="translate(0,-197.63782)" />
+      </g>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="rect5425"
+         d="m 436.37741,756.02075 -14.69394,0"
+         style="fill:none;stroke:#008700;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="rect5425-8"
+         d="m 429.03044,748.67378 0,14.69394"
+         style="fill:none;stroke:#008700;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
     </g>
   </g>
 </svg>

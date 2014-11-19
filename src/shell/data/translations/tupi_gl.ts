@@ -1349,7 +1349,7 @@
         <translation>Afastar</translation>
     </message>
     <message>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>Man</translation>
     </message>
     <message>
@@ -1717,7 +1717,7 @@
         <translation>Afastar</translation>
     </message>
     <message>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>Man</translation>
     </message>
     <message>
@@ -4372,7 +4372,7 @@ Póñase en contacto co administrador do servidor da animación para que lle dea
 <context>
     <name>ViewTool</name>
     <message>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>Man</translation>
     </message>
     <message>

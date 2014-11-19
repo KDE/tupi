@@ -1327,14 +1327,7 @@ void TupGraphicsScene::mouseReleased(QGraphicsSceneMouseEvent *event)
             k->tool->release(k->inputInformation, k->brushManager, this);
             k->tool->end();
         }
-    } else {
-        if (k->tool) { 
-           if (k->tool->name().compare(tr("Zoom In")) == 0 || k->tool->name().compare(tr("Zoom Out")) == 0) {
-               if (event->button() != Qt::RightButton) 
-                   k->tool->release(k->inputInformation, k->brushManager, this);
-           }
-        }
-    }
+    } 
 
     k->isDrawing = false;
 }

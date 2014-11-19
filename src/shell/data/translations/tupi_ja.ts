@@ -1818,7 +1818,7 @@
         <location filename="../src/components/paintarea/tupcanvas.cpp" line="133"/>
         <location filename="../src/components/paintarea/tupcanvas.pc.cpp" line="141"/>
         <location filename="../src/components/paintarea/tupcanvas.tablet.cpp" line="142"/>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>手のひら</translation>
     </message>
     <message>
@@ -2342,7 +2342,7 @@
     </message>
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="890"/>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>手のひら</translation>
     </message>
     <message>
@@ -5712,7 +5712,7 @@ Please, contact the animation server admin to get access.</source>
         <location filename="../src/plugins/tools/view/viewtool.cpp" line="181"/>
         <location filename="../src/plugins/tools/view/viewtool.cpp" line="300"/>
         <location filename="../src/plugins/tools/view/viewtool.cpp" line="330"/>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>手のひら</translation>
     </message>
     <message>

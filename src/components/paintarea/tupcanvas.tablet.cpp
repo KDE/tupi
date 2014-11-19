@@ -138,9 +138,9 @@ TupCanvas::TupCanvas(QWidget *parent, Qt::WindowFlags flags, TupGraphicsScene *s
     zoomOut->setToolTip(tr("Zoom Out"));
     connect(zoomOut, SIGNAL(clicked()), this, SLOT(wakeUpZoomOut()));
 
-    TImageButton *hand = new TImageButton(QPixmap(THEME_DIR + "icons/hand_big.png"), 40, this, true);
-    hand->setToolTip(tr("Hand"));
-    connect(hand, SIGNAL(clicked()), this, SLOT(wakeUpHand()));
+    TImageButton *shift = new TImageButton(QPixmap(THEME_DIR + "icons/hand_big.png"), 40, this, true);
+    shift->setToolTip(tr("Shift"));
+    connect(shift, SIGNAL(clicked()), this, SLOT(wakeUpShift()));
 
     TImageButton *undo = new TImageButton(QPixmap(THEME_DIR + "icons/undo_big.png"), 40, this, true);
     undo->setToolTip(tr("Undo"));
@@ -404,9 +404,9 @@ void TupCanvas::wakeUpZoomOut()
     emit callAction(TupToolPlugin::ZoomMenu, TupToolPlugin::ZoomOutTool);
 }
 
-void TupCanvas::wakeUpHand()
+void TupCanvas::wakeUpShift()
 {
-    emit callAction(TupToolPlugin::ZoomMenu, TupToolPlugin::HandTool);
+    emit callAction(TupToolPlugin::ZoomMenu, TupToolPlugin::ShiftTool);
 }
 
 void TupCanvas::undo()

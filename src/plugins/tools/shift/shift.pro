@@ -13,15 +13,15 @@ win32 {
 INSTALLS += target 
 target.path = /plugins/ 
 
-HEADERS += viewtool.h \
-           zoomconfigurator.h
+HEADERS += shifttool.h
+           # zoomconfigurator.h
 
-SOURCES += viewtool.cpp \ 
-           zoomconfigurator.cpp
+SOURCES += shifttool.cpp 
+           # zoomconfigurator.cpp
 
 CONFIG += plugin warn_on
 TEMPLATE = lib
-TARGET = tupihandtool
+TARGET = tupishifttool
 
 FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)

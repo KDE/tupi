@@ -33,108 +33,81 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPTOOLPLUGIN_H
-#define TUPTOOLPLUGIN_H
+#ifndef VIEWTOOL_H
+#define VIEWTOOL_H
 
 #include "tglobal.h"
-#include "tuptoolinterface.h"
-#include "tupprojectresponse.h"
+#include "tuptoolplugin.h"
+#include "zoomconfigurator.h"
+#include "tupgraphicsscene.h"
 
 #include <QObject>
+#include <QLabel>
+#include <QGraphicsRectItem>
 #include <QSize>
+#include <QKeySequence>
+#include <QImage>
+#include <QPaintDevice>
 #include <QGraphicsView>
-#include <QCursor>
-#include <QMenu>
 
-class TupGraphicsScene;
-class QGraphicsView;
-class TupInputDeviceInformation;
-class TupBrushManager;
+// class TupGraphicsScene;
 
 /**
- * @author David Cuadrado
+ * @author Jorge Cuadrado
 */
 
-class TUPI_EXPORT TupToolPlugin : public QObject, public TupToolInterface
+class TUPI_PLUGIN ViewTool: public TupToolPlugin
 {
     Q_OBJECT
-    Q_INTERFACES(TupToolInterface);
-    
+    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "viewtool.json")
+
     public:
+        ViewTool();
+        ~ViewTool();
 
-        enum MenuIndex { InvalidMenu = -1, BrushesMenu = 0, SelectionMenu, FillMenu, ZoomMenu, TweenerMenu, Arrows, ColorMenu };
-        enum BrushTools { InvalidBrush = -1, PencilTool = 0, InkTool, EraserTool, PolyLineTool, LineTool, RectangleTool, EllipseTool, TextTool, FrameBack, FrameForward, QuickCopy, Delete };
-        enum SelectTools { InvalidSelection = -1, NodesTool = 0, ObjectsTool };
-        enum FillTools { InvalidFill = -1, InsideTool = 0, ContourTool };
-        // enum ViewTools { InvalidView = -1, ZoomInTool = 0, ZoomOutTool, ShiftTool };
-        enum ViewTools { InvalidView = -1, ShiftTool };
-        enum ColorTools { InvalidColor = -1, ColorTool = 0 };
-
-        enum Mode { Add = 1, Edit, View };
-        enum EditMode { Selection = 0, Properties, None };
-
-        explicit TupToolPlugin(QObject *parent = 0);
-        ~TupToolPlugin();
-        
-        void setName(const QString &tool);
-        QString name() const;
-        
         virtual void init(TupGraphicsScene *scene);
-        virtual void updateScene(TupGraphicsScene *scene);
+        virtual QStringList keys() const;
         
-        virtual void press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene) = 0;
-        virtual void doubleClick(const TupInputDeviceInformation *input, TupGraphicsScene *scene);
-        virtual void move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene) = 0;
-        virtual void release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene) = 0;
+        virtual void press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
+        virtual void move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
+        virtual void release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
+
+        virtual QMap<QString, TAction *> actions() const;
+        int toolType() const;
         
-        virtual QMap<QString, TAction *> actions() const = 0;
-        
-        virtual QWidget *configurator()  = 0;
-        virtual void aboutToChangeTool() = 0;
-        virtual void saveConfig() = 0;
+        virtual QWidget *configurator();
         virtual void aboutToChangeScene(TupGraphicsScene *scene);
-
-        virtual void itemResponse(const TupItemResponse *event);
-        virtual void frameResponse(const TupFrameResponse *event);
-        virtual void layerResponse(const TupLayerResponse *event);
-        virtual void sceneResponse(const TupSceneResponse *event);
-
+        virtual void aboutToChangeTool();
+        virtual void saveConfig();
         virtual void keyPressEvent(QKeyEvent *event);
         virtual void keyReleaseEvent(QKeyEvent *event);
-
-        virtual void updatePos(QPointF pos);
-
-        virtual QMenu *menu() const;
         virtual QCursor cursor() const;
-        QPair<int, int> setKeyAction(int key, Qt::KeyboardModifiers modifiers);
 
-        virtual void resizeNodes(qreal factor);
-        virtual void updateZoomFactor(qreal factor);
-
-        // virtual void autoZoom();
+        virtual void autoZoom();
         virtual void setProjectSize(const QSize size);
 
-        virtual TupToolPlugin::Mode currentMode();
-        virtual TupToolPlugin::EditMode currentEditMode();
-
         virtual void setActiveView(const QString &viewID);
-        // virtual void addNewItem(const QString &id);
-        virtual void setCurrentItem(const QString &id);
 
-        virtual void updateWorkSpaceContext();
-        
     signals:
-        void requested(const TupProjectRequest *request);
-        
-    public:
-        // Events
-        void begin();
-        void end();
-        
+        void closeHugeCanvas();
+        void callForPlugin(int menu, int index);
+
+    private:
+        void setupActions();
+
     private:
         struct Private;
         Private *const k;
+
+    /*
+    private:
+        QMap<QString, TAction *> m_actions;
+        QGraphicsRectItem *m_rect;
+        bool added;
+        QPointF firstPoint; 
+        TupGraphicsScene *m_scene;
+        ZoomConfigurator *m_configurator;
+    */
 };
 
 #endif
-

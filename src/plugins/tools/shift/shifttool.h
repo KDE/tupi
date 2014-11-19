@@ -33,12 +33,12 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef VIEWTOOL_H
-#define VIEWTOOL_H
+#ifndef SHIFTTOOL_H
+#define SHIFTTOOL_H
 
 #include "tglobal.h"
 #include "tuptoolplugin.h"
-#include "zoomconfigurator.h"
+// #include "zoomconfigurator.h"
 #include "tupgraphicsscene.h"
 
 #include <QObject>
@@ -56,14 +56,14 @@
  * @author Jorge Cuadrado
 */
 
-class TUPI_PLUGIN ViewTool: public TupToolPlugin
+class TUPI_PLUGIN ShiftTool: public TupToolPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "viewtool.json")
+    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "shifttool.json")
 
     public:
-        ViewTool();
-        ~ViewTool();
+        ShiftTool();
+        ~ShiftTool();
 
         virtual void init(TupGraphicsScene *scene);
         virtual QStringList keys() const;
@@ -82,7 +82,6 @@ class TUPI_PLUGIN ViewTool: public TupToolPlugin
         virtual void keyPressEvent(QKeyEvent *event);
         virtual QCursor cursor() const;
 
-        virtual void autoZoom();
         virtual void setProjectSize(const QSize size);
 
         virtual void setActiveView(const QString &viewID);
@@ -97,16 +96,6 @@ class TUPI_PLUGIN ViewTool: public TupToolPlugin
     private:
         struct Private;
         Private *const k;
-
-    /*
-    private:
-        QMap<QString, TAction *> m_actions;
-        QGraphicsRectItem *m_rect;
-        bool added;
-        QPointF firstPoint; 
-        TupGraphicsScene *m_scene;
-        ZoomConfigurator *m_configurator;
-    */
 };
 
 #endif

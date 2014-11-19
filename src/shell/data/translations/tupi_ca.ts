@@ -1349,7 +1349,7 @@
         <translation>Redueix</translation>
     </message>
     <message>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>Mà</translation>
     </message>
     <message>
@@ -1717,7 +1717,7 @@
         <translation>Redueix</translation>
     </message>
     <message>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>Mà</translation>
     </message>
     <message>
@@ -4371,7 +4371,7 @@ Contacta amb l&apos;administrador del servidor d&apos;animació per obtenir acc�
 <context>
     <name>ViewTool</name>
     <message>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>Mà</translation>
     </message>
     <message>

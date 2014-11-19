@@ -118,7 +118,7 @@ class TUPI_EXPORT TupCanvas : public QFrame
         void wakeUpDeleteSelection();
         void wakeUpZoomIn();
         void wakeUpZoomOut();
-        void wakeUpHand();
+        void wakeUpShift();
 
         void undo();
         void redo();

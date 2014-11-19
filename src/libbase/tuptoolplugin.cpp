@@ -166,9 +166,11 @@ void TupToolPlugin::updateZoomFactor(qreal factor)
     Q_UNUSED(factor);
 }
 
+/*
 void TupToolPlugin::autoZoom()
 {
 }
+*/
 
 void TupToolPlugin::setProjectSize(const QSize size)
 {
@@ -254,7 +256,7 @@ QPair<int, int> TupToolPlugin::setKeyAction(int key, Qt::KeyboardModifiers modif
 
             case Qt::Key_H:
                  menu = TupToolPlugin::ZoomMenu;
-                 tool = TupToolPlugin::HandTool;
+                 tool = TupToolPlugin::ShiftTool;
             break;
 
             case Qt::Key_Right:

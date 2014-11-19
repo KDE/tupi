@@ -1341,7 +1341,7 @@
         <translation>Riduci</translation>
     </message>
     <message>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation type="unfinished">Mano</translation>
     </message>
     <message>
@@ -1717,7 +1717,7 @@
         <translation type="unfinished">Riduci</translation>
     </message>
     <message>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation type="unfinished">Mano</translation>
     </message>
     <message>
@@ -4375,7 +4375,7 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
         <translation>Riduci</translation>
     </message>
     <message>
-        <source>Hand</source>
+        <source>Shift</source>
         <translation>Mano</translation>
     </message>
     <message>
