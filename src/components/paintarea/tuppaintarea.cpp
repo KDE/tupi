@@ -1373,16 +1373,13 @@ void TupPaintArea::keyPressEvent(QKeyEvent *event)
         #endif
     #endif
 
-    tError() << "TupPaintArea::keyPressEvent() - key: " << event->key();
-    tError() << "TupPaintArea::keyPressEvent() - text: " << event->text();
-
-    if (event->key() == Qt::Key_Plus) {
-        tError() << "TupPaintArea::keyPressEvent() - Plus key was pressed!";
+    if (event->key() == Qt::Key_1 || event->key() == Qt::Key_Plus) {
+        emit zoomIn();
         return;
     }
 
-    if (event->key() == Qt::Key_Minus) {
-        tError() << "TupPaintArea::keyPressEvent() - Minus key was pressed!";
+    if (event->key() == Qt::Key_2 || event->key() == Qt::Key_Minus) {
+        emit zoomOut();
         return;
     }
 

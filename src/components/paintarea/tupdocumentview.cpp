@@ -184,6 +184,8 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
     connect(k->paintArea, SIGNAL(scaled(qreal)), this, SLOT(updateZoomVars(qreal)));
     connect(k->paintArea, SIGNAL(rotated(int)), this, SLOT(updateRotationVars(int)));
     connect(k->paintArea, SIGNAL(updateStatusBgColor(QColor)), this, SLOT(updateStatusBgColor(QColor)));
+    connect(k->paintArea, SIGNAL(zoomIn()), this, SLOT(applyZoomIn()));
+    connect(k->paintArea, SIGNAL(zoomOut()), this, SLOT(applyZoomOut()));
 
     Tupi::RenderType renderType = Tupi::RenderType(TCONFIG->value("RenderType").toInt()); 
 
@@ -339,6 +341,24 @@ void TupDocumentView::updateZoomVars(qreal factor)
     k->horizontalRuler->setRulerZoom(factor);
 
     updateNodesScale(factor);
+}
+
+void TupDocumentView::applyZoomIn()
+{
+    qreal zoom = k->status->currentZoomFactor();
+    if (zoom <= 495) {
+        zoom += 5;
+        k->status->setZoomPercent(QString::number(zoom));
+    }
+}
+
+void TupDocumentView::applyZoomOut()
+{
+    qreal zoom = k->status->currentZoomFactor();
+    if (zoom >= 15) {
+        zoom -= 5;
+        k->status->setZoomPercent(QString::number(zoom));
+    }
 }
 
 void TupDocumentView::updateNodesScale(qreal factor)

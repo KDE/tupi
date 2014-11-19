@@ -124,6 +124,8 @@ class TUPI_EXPORT TupPaintArea : public TupPaintAreaBase, public TupAbstractProj
         void closePolyLine();
         void closeLine();
         void updateStatusBgColor(const QColor color);
+        void zoomIn();
+        void zoomOut();
 
     public slots:
         void deleteItems();

@@ -116,6 +116,8 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void setNextOnionSkin(int n);
         void setPreviousOnionSkin(int n);
         void updateZoomVars(qreal factor);
+        void applyZoomIn();
+        void applyZoomOut();
         void updateRotationVars(int angle);
         void changeRulerOrigin(const QPointF &zero);
         void saveTimer();
