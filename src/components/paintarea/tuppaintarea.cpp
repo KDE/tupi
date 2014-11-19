@@ -1373,6 +1373,19 @@ void TupPaintArea::keyPressEvent(QKeyEvent *event)
         #endif
     #endif
 
+    tError() << "TupPaintArea::keyPressEvent() - key: " << event->key();
+    tError() << "TupPaintArea::keyPressEvent() - text: " << event->text();
+
+    if (event->key() == Qt::Key_Plus) {
+        tError() << "TupPaintArea::keyPressEvent() - Plus key was pressed!";
+        return;
+    }
+
+    if (event->key() == Qt::Key_Minus) {
+        tError() << "TupPaintArea::keyPressEvent() - Minus key was pressed!";
+        return;
+    }
+
     if (k->currentTool.compare(tr("PolyLine")) == 0) {
         if (event->key() == Qt::Key_X)
             emit closePolyLine();
