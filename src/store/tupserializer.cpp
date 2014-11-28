@@ -73,11 +73,11 @@ void TupSerializer::loadProperties(QGraphicsItem *item, const QXmlAttributes &at
     TupSvg2Qt::svgmatrix2qtmatrix(atts.value("transform"), matrix);
     QTransform transform(matrix);
     item->setTransform(transform);
-        
+
     QPointF pos;
     TupSvg2Qt::parsePointF(atts.value("pos"), pos);
+
     item->setPos(pos);
-        
     item->setEnabled(atts.value("pos") != "0"); // default true
     item->setFlags(QGraphicsItem::GraphicsItemFlags(atts.value("flags").toInt()));
 }

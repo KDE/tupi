@@ -133,11 +133,13 @@ TupGraphicsScene::~TupGraphicsScene()
     clearFocus();
     clearSelection();
 
-    foreach (QGraphicsView *view, this->views())
-             view->setScene(0);
+    // SQA: Check if these instructions are actually required
+    // foreach (QGraphicsView *view, this->views())
+    //          view->setScene(0);
 
-    foreach (QGraphicsItem *item, items())
-             removeItem(item);
+    // SQA: Check if these instructions are actually required
+    // foreach (QGraphicsItem *item, items())
+    //          removeItem(item);
 
     delete k;
 }
@@ -185,7 +187,6 @@ void TupGraphicsScene::drawCurrentPhotogram()
 
     if (k->spaceMode == TupProject::FRAMES_EDITION) {
         drawPhotogram(k->framePosition.frame, true);
-    // } else if (k->spaceMode == TupProject::STATIC_BACKGROUND_EDITION) {
     } else {
         cleanWorkSpace();
         drawSceneBackground(k->framePosition.frame);
@@ -308,7 +309,6 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
 
 void TupGraphicsScene::drawSceneBackground(int photogram)
 {
-    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupGraphicsScene::drawSceneBackground()]";
@@ -316,12 +316,20 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
             T_FUNCINFO;
         #endif
     #endif
-    */
 
     Q_CHECK_PTR(k->scene);
 
-    if (!k->scene)
+    if (!k->scene) {
+        #ifdef K_DEBUG
+            QString msg = "TupGraphicsScene::drawSceneBackground() - Warning: k->scene is NULL!";
+            #ifdef Q_OS_WIN32
+                qWarning() << msg;
+            #else
+                tWarning() << msg;
+            #endif
+        #endif
         return;
+    }
 
     TupBackground *bg = k->scene->background();
     if (bg) {
@@ -456,7 +464,6 @@ void TupGraphicsScene::addFrame(TupFrame *frame, double opacity, Context mode)
 
 void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity)
 {
-    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupGraphicsScene::addGraphicObject()]";
@@ -464,7 +471,6 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
             T_FUNCINFO;
         #endif
     #endif
-    */
 
     QGraphicsItem *item = object->item();
     k->onionSkin.opacityMap.insert(item, opacity);
@@ -481,7 +487,6 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
 
             if (frame) {
                 item->setOpacity(opacity);
-                // k->objectCounter++;
                 addItem(item);
             }
         }
@@ -1123,7 +1128,6 @@ TupScene *TupGraphicsScene::scene() const
 
 void TupGraphicsScene::setTool(TupToolPlugin *tool)
 {
-    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupGraphicsScene::setTool()]";
@@ -1131,8 +1135,8 @@ void TupGraphicsScene::setTool(TupToolPlugin *tool)
             T_FUNCINFO;
         #endif
     #endif
-    */
 
+    // SQA: Check if this code is really required
     if (k->spaceMode == TupProject::FRAMES_EDITION) {
         drawCurrentPhotogram();
     } else {
@@ -1140,7 +1144,7 @@ void TupGraphicsScene::setTool(TupToolPlugin *tool)
         drawSceneBackground(k->framePosition.frame);
     }
 
-    /* SQA: Code under revision
+    /* SQA: Code under revision (related to Line Guides) 
     if (k->tool) {
         if (k->tool->toolType() == TupToolPlugin::Selection) {
             foreach (TupLineGuide *line, k->lines) {

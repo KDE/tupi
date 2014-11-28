@@ -89,11 +89,10 @@ QDomElement TupItemGroup::toXml(QDomDocument &doc) const
 {
     QDomElement root = doc.createElement("group");
     
-    root.appendChild(TupSerializer::properties(this, doc));
-    
-    // foreach (QGraphicsItem *item, children()) {
     foreach (QGraphicsItem *item, childItems())
              root.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(doc));
+
+    root.appendChild(TupSerializer::properties(this, doc));
     
     return root;
 }

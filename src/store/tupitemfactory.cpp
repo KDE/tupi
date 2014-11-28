@@ -56,7 +56,8 @@ struct TupItemFactory::Private
 
     QStack<TupItemGroup *> groups;
     QStack<QGraphicsItem *> objects;
-    bool addToGroup, isLoading;
+    bool addToGroup;
+    bool isLoading;
     QString textReaded;
     const TupLibrary *library;
     TupItemFactory::Type type;
@@ -160,7 +161,6 @@ bool TupItemFactory::startTag(const QString& qname, const QXmlAttributes& atts)
                        k->item = createItem(qname);
 
                    qgraphicsitem_cast<TupEllipseItem *>(k->item)->setRect(rect);
-                    
                    k->objects.push(k->item);
                }
     } else if (qname == "button") {
@@ -185,34 +185,33 @@ bool TupItemFactory::startTag(const QString& qname, const QXmlAttributes& atts)
                setReadText(true);
                k->textReaded = "";
     } else if (qname == "line") {
-        QLineF line(atts.value("x1").toDouble(), atts.value("y1").toDouble(), atts.value("x2").toDouble(), atts.value("y2").toDouble());
+               QLineF line(atts.value("x1").toDouble(), atts.value("y1").toDouble(), atts.value("x2").toDouble(), atts.value("y2").toDouble());
         
-        if (k->addToGroup) {
-            TupLineItem *item = qgraphicsitem_cast<TupLineItem *>(createItem(qname));
-            item->setLine(line);
+               if (k->addToGroup) {
+                   TupLineItem *item = qgraphicsitem_cast<TupLineItem *>(createItem(qname));
+                   item->setLine(line);
             
-            k->objects.push(item);
-        } else {
-            if (!k->item)
-                k->item = createItem(qname);
+                   k->objects.push(item);
+               } else {
+               if (!k->item)
+                   k->item = createItem(qname);
             
-            qgraphicsitem_cast<TupLineItem *>(k->item)->setLine(line);
-            k->objects.push(k->item);
+               qgraphicsitem_cast<TupLineItem *>(k->item)->setLine(line);
+               k->objects.push(k->item);
         }
     } else if (qname == "group") {
-        if (k->addToGroup) {
-            TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(createItem(qname));
-            
-            k->groups.push(group);
-            k->objects.push(group);
-        } else {
-            if (!k->item)
-                k->item = createItem(qname);
-            k->groups.push(qgraphicsitem_cast<TupItemGroup *>(k->item));
-            k->objects.push(k->item);
-        }
+               if (k->addToGroup) {
+                   TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(createItem(qname));
+                   k->groups.push(group);
+                   k->objects.push(group);
+               } else {
+                   if (!k->item)
+                       k->item = createItem(qname);
+                   k->groups.push(qgraphicsitem_cast<TupItemGroup *>(k->item));
+                   k->objects.push(k->item);
+               }
         
-        k->addToGroup = true;
+               k->addToGroup = true;
     } else if (qname == "symbol") {
                if (k->addToGroup) {
                    TupGraphicLibraryItem *item = qgraphicsitem_cast<TupGraphicLibraryItem *>(createItem(qname));

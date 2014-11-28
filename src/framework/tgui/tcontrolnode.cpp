@@ -85,15 +85,16 @@ void TControlNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     // bool antialiasing = painter->renderHints() & QPainter::Antialiasing;
     // painter->setRenderHint(QPainter::Antialiasing, antialiasing);
 
-    QColor c;
+    QColor color;
 
     if (k->centralNode) {
-        c = QColor("white");
+        color = QColor("white");
     } else {
-        c = QColor(55, 155, 55);
+        color = QColor(55, 155, 55);
+        color.setAlpha(200);
     }
 
-    painter->setBrush(c);
+    painter->setBrush(color);
     paintLinesToChildNodes(painter);
     painter->drawRoundRect(boundingRect());
 }

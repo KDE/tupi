@@ -266,6 +266,7 @@ void TupFrame::fromXml(const QString &xml)
                                      }
                                      n3 = n3.nextSibling();
                               }
+
                               createItem(point, newDoc);
                               last = k->graphics.at(k->graphics.size()-1);
                           }
@@ -421,57 +422,56 @@ void TupFrame::updateSvgIdFromFrame(const QString &oldId, const QString &newId)
     }
 }
 
-// SQA: This method is really required?
-/*
 void TupFrame::insertItem(int position, QGraphicsItem *item)
 {
-    QGraphicsItem *oldItem = k->graphics.at(position)->item();
-    int zLevel = oldItem->zValue();
-
-    item->setZValue(zLevel);
     TupGraphicObject *object = new TupGraphicObject(item, this);
-    k->graphics[position] = object;
-}
-*/
 
-// SQA: This method requires tests + refactoring
-QGraphicsItemGroup *TupFrame::createItemGroupAt(int position, QList<qreal> group)
+    k->graphics.insert(position, object);
+    k->objectIndexes.insert(position, "path");
+
+    for (int i=position+1; i < k->graphics.size(); ++i) {
+         int zLevel = k->graphics.at(i)->itemZValue();
+         k->graphics.at(i)->setItemZValue(zLevel + 1);
+    }
+    for (int i=0; i < k->svg.size(); ++i) {
+         int zLevel = k->svg.at(i)->zValue();
+         if (zLevel < item->zValue())
+             k->svg.at(i)->setZValue(zLevel + 1);
+    }
+
+    k->zLevelIndex++;
+}
+
+int TupFrame::createItemGroup(int position, QList<int> group)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
-            qDebug() << "[TupFrame::createItemGroupAt()]";
+            qDebug() << "[TupFrame::createItemGroup()]";
         #else
             T_FUNCINFO;
         #endif
     #endif
 
-    // tError() << "TupFrame::createItemGroupAt() - Tracing...";
+    int zBase = this->item(position)->zValue();
+    TupItemGroup *itemGroup = new TupItemGroup;
 
-    Q_UNUSED(position);
-    qSort(group.begin(), group.end());
-
-    TupItemGroup *itemGroup = new TupItemGroup(0);
-    int count = 0;
-
-    foreach (qreal p, group) {
-             int pos = (int)p - count;
-             QGraphicsItem *item = this->item(pos);
-             TupGraphicObject *object = this->graphic(pos);
-             object->setItem(0);
-             removeGraphicAt(pos);
+    foreach (int index, group) {
+             QGraphicsItem *item = this->item(index);
              itemGroup->addToGroup(item);
-             delete object;
-             count++;
     }
 
-    // QGraphicsItem *block = qgraphicsitem_cast<QGraphicsItem *>(itemGroup);
-    // insertItem(position, block);
+    for (int index = group.size() - 1; index >= 0; index--)
+         removeGraphicAt(group.at(index));
 
-    return itemGroup;
+    QGraphicsItem *block = qgraphicsitem_cast<QGraphicsItem *>(itemGroup);
+    block->setZValue(zBase);
+
+    insertItem(position, block);
+
+    return position;
 }
 
-// SQA: This method requires tests + refactoing
-QList<QGraphicsItem *> TupFrame::destroyItemGroup(int position)
+QList<QGraphicsItem *> TupFrame::splitItemsGroup(int position)
 {
     QList<QGraphicsItem *> items;
 
@@ -480,7 +480,7 @@ QList<QGraphicsItem *> TupFrame::destroyItemGroup(int position)
         items = group->childs();
         foreach (QGraphicsItem *child, group->childs()) {
                  group->removeFromGroup(child);
-                 // addItem(child);
+                 addItem("path", child);
         }
     }
 
@@ -1051,10 +1051,11 @@ QGraphicsItem *TupFrame::createItem(QPointF coords, const QString &xml, bool loa
 {
     TupItemFactory itemFactory;
     itemFactory.setLibrary(project()->library());
+
     QGraphicsItem *graphicItem = itemFactory.create(xml);
-    graphicItem->setPos(coords);
 
     if (graphicItem) {
+        graphicItem->setPos(coords);
         QString id = "path";
         if (itemFactory.type() == TupItemFactory::Library)
             id = itemFactory.itemID(xml);

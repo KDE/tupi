@@ -56,6 +56,7 @@ class TUPI_PLUGIN Settings : public QWidget
     public:
         enum Flip { Vertical = 1, Horizontal, Crossed };
         enum Order { ToBack = 0, ToFront, ToBackOneLevel, ToFrontOneLevel };
+        enum Group { GroupItems = 0, UngroupItems };
 
         Settings(QWidget *parent = 0);
         ~Settings();
@@ -65,6 +66,7 @@ class TUPI_PLUGIN Settings : public QWidget
      signals:
         void callFlip(Settings::Flip flip);
         void callOrderAction(Settings::Order action);
+        void callGroupAction(Settings::Group action);
         void updateItemPosition(int x, int y);
 
      private slots:
@@ -78,6 +80,8 @@ class TUPI_PLUGIN Settings : public QWidget
         void openTipPanel();
         void notifyXMovement(int x);
         void notifyYMovement(int y);
+        void groupItems();
+        void ungroupItems();
 
     private:
         struct Private;

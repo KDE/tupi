@@ -96,6 +96,8 @@ TupPaintArea::~TupPaintArea()
         #endif
     #endif
 
+    graphicsScene()->clear();
+
     delete k;
 }
 
@@ -885,49 +887,7 @@ void TupPaintArea::deleteItems()
     }
 }
 
-void TupPaintArea::groupItems()
-{
-    #ifdef K_DEBUG
-        #ifdef Q_OS_WIN32
-            qDebug() << "[TupPaintArea::groupItems()]";
-        #else
-            T_FUNCINFO;
-        #endif
-    #endif
-
-    QList<QGraphicsItem *> selected = scene()->selectedItems();
-
-    if (!selected.isEmpty()) {
-        QString strItems= "";
-        TupGraphicsScene *currentScene = graphicsScene();
-        int firstItem = -1;
-
-        if (currentScene) {
-            foreach (QGraphicsItem *item, selected) {
-                     // tError() << "TupPaintArea::groupItems() - Index of item: " << currentScene->currentFrame()->indexOf(item);
-                     if (currentScene->currentFrame()->indexOf(item) != -1) {
-                         if (strItems.isEmpty()) {
-                             strItems +="("+ QString::number(currentScene->currentFrame()->indexOf(item));
-                             firstItem = currentScene->currentFrame()->indexOf(item);
-                         } else {
-                             strItems += " , " + 
-                             QString::number(currentScene->currentFrame()->indexOf(item));
-                         }
-                     }
-            }
-            strItems+= ")";
-        }
-
-        if (strItems != ")") {
-            TupProjectRequest event = TupRequestBuilder::createItemRequest(currentScene->currentSceneIndex(), 
-                                     currentScene->currentLayerIndex(),
-                                     currentScene->currentFrameIndex(), firstItem, QPointF(), k->spaceMode,
-                                     TupLibraryObject::Item, TupProjectRequest::Group, strItems);
-            emit requestTriggered(&event);
-        }
-    }
-}
-
+/*
 void TupPaintArea::ungroupItems()
 {
     QList<QGraphicsItem *> selected = scene()->selectedItems();
@@ -947,6 +907,7 @@ void TupPaintArea::ungroupItems()
         }
     }
 }
+*/
 
 void TupPaintArea::copyItems()
 {

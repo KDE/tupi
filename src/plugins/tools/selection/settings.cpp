@@ -121,6 +121,35 @@ Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
 
     toolsLayout->addWidget(new TSeparator(Qt::Horizontal));
 
+    // Group/Ungroup actions
+
+    QLabel *groupLayer = new QLabel(tr("Group"));
+    groupLayer->setFont(QFont("Arial", 8, QFont::Normal, false));
+    groupLayer->setAlignment(Qt::AlignHCenter);
+    toolsLayout->addWidget(groupLayer);
+
+    QBoxLayout *groupButtonsLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    groupButtonsLayout->setMargin(0);
+    groupButtonsLayout->setSpacing(0);
+
+    TImageButton *groupButton = new TImageButton(QPixmap(kAppProp->themeDir() + QDir::separator() + "icons" + QDir::separator()
+                                                 + "group.png"), 22);
+    groupButton->setToolTip(tr("Group Objects"));
+
+    TImageButton *ungroupButton = new TImageButton(QPixmap(kAppProp->themeDir() + QDir::separator() + "icons" + QDir::separator()
+                                                   + "ungroup.png"), 22);
+    ungroupButton->setToolTip(tr("Ungroup Objects"));
+
+    connect(groupButton, SIGNAL(clicked()), this, SLOT(groupItems()));
+    connect(ungroupButton, SIGNAL(clicked()), this, SLOT(ungroupItems()));
+
+    groupButtonsLayout->addWidget(groupButton);
+    groupButtonsLayout->addWidget(ungroupButton);
+
+    toolsLayout->addLayout(groupButtonsLayout);
+
+    toolsLayout->addWidget(new TSeparator(Qt::Horizontal));
+
     QLabel *position = new QLabel(tr("Position"));
     position->setFont(QFont("Arial", 8, QFont::Normal, false));
     position->setAlignment(Qt::AlignHCenter);
@@ -216,6 +245,16 @@ void Settings::sendToFront()
 void Settings::sendToFrontOneLevel()
 {
     emit callOrderAction(Settings::ToFrontOneLevel);
+}
+
+void Settings::groupItems()
+{
+    emit callGroupAction(Settings::GroupItems);
+}
+
+void Settings::ungroupItems()
+{
+    emit callGroupAction(Settings::UngroupItems);
 }
 
 void Settings::openTipPanel() {

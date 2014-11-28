@@ -396,7 +396,8 @@ void TupDocumentView::setupDrawActions()
 
     new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "delete.png"), tr("Delete"), QKeySequence(Qt::Key_Delete), 
                 k->paintArea, SLOT(deleteItems()), k->actionManager, "delete");
-    
+   
+    /* 
     TAction *group = new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "group.png"), tr("&Group"), QKeySequence(tr("Ctrl+G")), 
                                  k->paintArea, SLOT(groupItems()), k->actionManager, "group");
     // SQA: Enabled just for initial development
@@ -407,6 +408,7 @@ void TupDocumentView::setupDrawActions()
                                     k->actionManager, "ungroup");
     // SQA: Enabled just for initial development
     ungroup->setDisabled(true);
+    */
 
     new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "layer.png"), tr("Onion Skin"), QKeySequence(tr("Ctrl+Shift+O")), 
                 this, SLOT(enableOnionFeature()), k->actionManager, "onion");
@@ -1074,8 +1076,8 @@ void TupDocumentView::createToolBar()
     k->barGrid->addAction(k->actionManager->find("cut"));
     k->barGrid->addAction(k->actionManager->find("delete"));
 
-    k->barGrid->addAction(k->actionManager->find("group"));
-    k->barGrid->addAction(k->actionManager->find("ungroup"));
+    // k->barGrid->addAction(k->actionManager->find("group"));
+    // k->barGrid->addAction(k->actionManager->find("ungroup"));
 
     TCONFIG->beginGroup("OnionParameters");
     int preview = TCONFIG->value("PreviousFrames", -1).toInt();

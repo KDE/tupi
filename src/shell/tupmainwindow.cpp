@@ -198,6 +198,14 @@ TupMainWindow::~TupMainWindow()
 
 void TupMainWindow::createNewLocalProject()
 {
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupMainWindow::createNewLocalProject()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+
     TupMainWindow::requestType = NewLocalProject;
 
     m_projectManager->setupNewProject();
@@ -389,7 +397,8 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
 
         exposureView->expandDock(true);
 
-        // if (!isNetworked)
+        // SQA: Code useful for future features
+        // if (!isNetworked) 
         //     connect(animationTab, SIGNAL(autoSave()), this, SLOT(callSave()));
 
         m_projectManager->undoModified();
@@ -730,6 +739,14 @@ void TupMainWindow::setupNetworkProject(TupProjectManagerParams *params)
 
 void TupMainWindow::setupLocalProject(TupProjectManagerParams *params)
 {
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupMainWindow::setupLocalProject()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+
     if (closeProject()) {
         isNetworked = false;
         m_projectManager->setHandler(new TupLocalProjectManagerHandler, false);
@@ -795,7 +812,6 @@ void TupMainWindow::openProject(const QString &path)
         tabWidget()->setCurrentWidget(animationTab);
 
         if (m_projectManager->loadProject(path)) {
-
             if (QDir::isRelativePath(path))
                 m_fileName = QDir::currentPath() + QDir::separator() + path;
             else
@@ -830,8 +846,8 @@ void TupMainWindow::openProject(const QString &path)
             setWindowTitle(tr("Tupi: Open 2D Magic") + " - " + projectName + " [ " + tr("by") + " " + author + " ]");
             setWorkSpace();
         } else {
-                 setUpdatesEnabled(true);
-                 TOsd::self()->display(tr("Error"), tr("Cannot open project!"), TOsd::Error);
+            setUpdatesEnabled(true);
+            TOsd::self()->display(tr("Error"), tr("Cannot open project!"), TOsd::Error);
         }
     }
 }

@@ -463,26 +463,26 @@ bool TupCommandExecutor::groupItems(TupItemResponse *response)
         #endif
     #endif
 
-    // tError() << "TupCommandExecutor::groupItems() - Just creating a group!";
-    
     int scenePosition = response->sceneIndex();
     int layerPosition = response->layerIndex();
     int framePosition = response->frameIndex();
     int position = response->itemIndex();
     TupProject::Mode mode = response->spaceMode();
     QString strList = response->arg().toString();
+
     TupScene *scene = m_project->scene(scenePosition);
     
     if (scene) {
         if (mode == TupProject::FRAMES_EDITION) {
-
             TupLayer *layer = scene->layer(layerPosition);
             if (layer) {
                 TupFrame *frame = layer->frame(framePosition);
                 if (frame) {
                     QString::const_iterator itr = strList.constBegin();
-                    QList<qreal> positions = TupSvg2Qt::parseNumbersList(++itr);
-                    response->setItemIndex(frame->indexOf(frame->createItemGroupAt(position, positions)));
+                    QList<int> positions = TupSvg2Qt::parseIntList(++itr);
+                    qSort(positions.begin(), positions.end());
+                    int itemIndex = frame->createItemGroup(position, positions);
+                    response->setItemIndex(itemIndex);
                 
                     emit responsed(response);
                     return true;
@@ -510,8 +510,9 @@ bool TupCommandExecutor::groupItems(TupItemResponse *response)
 
                 if (frame) {
                     QString::const_iterator itr = strList.constBegin();
-                    QList<qreal> positions = TupSvg2Qt::parseNumbersList(++itr);
-                    response->setItemIndex(frame->indexOf(frame->createItemGroupAt(position, positions)));
+                    QList<int> positions = TupSvg2Qt::parseIntList(++itr);
+                    int itemIndex = frame->createItemGroup(position, positions);
+                    response->setItemIndex(itemIndex);
 
                     emit responsed(response);
                     return true;
@@ -569,7 +570,7 @@ bool TupCommandExecutor::ungroupItems(TupItemResponse *response)
                 TupFrame *frame = layer->frame(framePosition);
                 if (frame) {
                     QString strItems = "";
-                    QList<QGraphicsItem *> items = frame->destroyItemGroup(position);
+                    QList<QGraphicsItem *> items = frame->splitItemsGroup(position);
                     foreach (QGraphicsItem *item, items) {
                              if (frame->indexOf(item) != -1) {
                                  if (strItems.isEmpty()) {
@@ -609,7 +610,7 @@ bool TupCommandExecutor::ungroupItems(TupItemResponse *response)
 
                 if (frame) {
                     QString strItems = "";
-                    QList<QGraphicsItem *> items = frame->destroyItemGroup(position);
+                    QList<QGraphicsItem *> items = frame->splitItemsGroup(position);
                     foreach (QGraphicsItem *item, items) {
                              if (frame->indexOf(item) != -1) {
                                  if (strItems.isEmpty()) {

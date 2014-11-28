@@ -129,8 +129,7 @@ class TUPI_EXPORT TupPaintArea : public TupPaintAreaBase, public TupAbstractProj
 
     public slots:
         void deleteItems();
-        void groupItems();
-        void ungroupItems();
+        // void ungroupItems();
         void copyItems();
         void pasteItems();
         void pasteNextFive();

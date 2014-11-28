@@ -63,6 +63,7 @@ struct SelectionTool::Private
     QGraphicsLineItem *target1;
     QGraphicsLineItem *target2;
     bool targetIsIncluded;
+    QString key;
 };
 
 SelectionTool::SelectionTool(): k(new Private), panel(0)
@@ -175,7 +176,7 @@ void SelectionTool::press(const TupInputDeviceInformation *input, TupBrushManage
 
     k->selectionFlag = false;
 
-    // If Control key is pressed / allow multiple selection 
+    // If Control key is pressed / allow multiple selection picking items one by one 
     if (input->keyModifiers() != Qt::ControlModifier) {
         foreach (NodeManager *nodeManager, k->nodeManagers) {
                  if (!nodeManager->isPress()) {
@@ -184,15 +185,20 @@ void SelectionTool::press(const TupInputDeviceInformation *input, TupBrushManage
                      scene->drawCurrentPhotogram();
                  } 
         }
-    } 
-    
-    k->selectedObjects = scene->selectedItems();
-    
-    if (scene->currentFrame()->indexOf(scene->mouseGrabberItem()) != -1)
+        k->selectedObjects.clear();
+    }
+
+    if (scene->currentFrame()->indexOf(scene->mouseGrabberItem()) != -1) {
         k->selectedObjects << scene->mouseGrabberItem();
+    } else {
+        if (scene->selectedItems().count() > 0)
+            k->selectedObjects = scene->selectedItems();
+    }
 
     foreach (QGraphicsItem *item, k->selectedObjects) {
-             if (item && dynamic_cast<TupAbstractSerializable* > (item)) {
+             if (item && (dynamic_cast<TupAbstractSerializable* > (item))) {
+                 if (item->group() != 0)
+                     item = qgraphicsitem_cast<QGraphicsItem *>(item->group());
                  bool found = false;
                  foreach (NodeManager *nodeManager, k->nodeManagers) {
                           if (item == nodeManager->parentItem()) {
@@ -207,10 +213,8 @@ void SelectionTool::press(const TupInputDeviceInformation *input, TupBrushManage
                      manager->resizeNodes(k->realFactor);
                      k->nodeManagers << manager;
                  }
-             }
+             } 
     }
-    
-    k->scene = scene;
 }
 
 void SelectionTool::move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
@@ -226,27 +230,39 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
     Q_UNUSED(input);
     Q_UNUSED(brushManager);
 
-    if (k->scene->selectedItems().count() > 0) {
+    k->selectedObjects = scene->selectedItems();
+
+    if (k->selectedObjects.count() > 0) {
         k->selectionFlag = true;
-        k->selectedObjects = k->scene->selectedItems();
-        QList<NodeManager *>::iterator it = k->nodeManagers.begin();
-        QList<NodeManager *>::iterator itEnd = k->nodeManagers.end();
 
-        while (it != itEnd) {
-               int parentIndex = k->scene->selectedItems().indexOf((*it)->parentItem());
-               if (parentIndex != -1)
-                   k->selectedObjects.removeAt(parentIndex);
-               else
-                   delete k->nodeManagers.takeAt(k->nodeManagers.indexOf((*it)));
-
-               ++it;
+        foreach (NodeManager *node, k->nodeManagers) {
+                 QGraphicsItem *item = node->parentItem();
+                 int parentIndex = k->selectedObjects.indexOf(item); 
+                 if (parentIndex != -1) // Object is IN the list
+                     k->selectedObjects.removeAt(parentIndex); // Remove node's item from selected objects list 
+                 else // Object is NOT IN the selected objects list
+                     delete k->nodeManagers.takeAt(k->nodeManagers.indexOf(node)); // Removing node manager from nodes list 
         }
 
+
         foreach (QGraphicsItem *item, k->selectedObjects) {
-                 if (item && dynamic_cast<TupAbstractSerializable* > (item)) {
-                     NodeManager *node = new NodeManager(item, scene, k->baseZValue);
-                     node->resizeNodes(k->realFactor);
-                     k->nodeManagers << node;
+                 if (item && (dynamic_cast<TupAbstractSerializable* > (item))) {
+                     if (item->group() != 0)
+                         item = qgraphicsitem_cast<QGraphicsItem *>(item->group());
+                     bool found = false;
+                     foreach (NodeManager *nodeManager, k->nodeManagers) {
+                              if (item == nodeManager->parentItem()) {
+                                  found = true;
+                                  break;
+                              }
+                     }
+
+                     if (!found) {
+                         NodeManager *manager = new NodeManager(item, scene, k->baseZValue);
+                         manager->show();
+                         manager->resizeNodes(k->realFactor);
+                         k->nodeManagers << manager;
+                     }
                  }
         }
 
@@ -262,13 +278,13 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                      if (svg) {
                          type = TupLibraryObject::Svg;
                          if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
-                             position = k->scene->currentFrame()->indexOf(svg);
+                             position = scene->currentFrame()->indexOf(svg);
                          } else {
                              TupBackground *bg = k->scene->scene()->background();
                              if (bg) {
-                                 if (k->scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                                 if (scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
                                      position = bg->staticFrame()->indexOf(svg);
-                                 } else if (k->scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                                 } else if (scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                      position = bg->dynamicFrame()->indexOf(svg);
                                  } else {
                                      #ifdef K_DEBUG
@@ -296,14 +312,14 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                      } else {
                          type = TupLibraryObject::Item;
 
-                         if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
-                             position = k->scene->currentFrame()->indexOf(node->parentItem());
+                         if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                             position = scene->currentFrame()->indexOf(node->parentItem());
                          } else {
-                             TupBackground *bg = k->scene->scene()->background();
+                             TupBackground *bg = scene->scene()->background();
                              if (bg) {
-                                 if (k->scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                                 if (scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
                                      position = bg->staticFrame()->indexOf(node->parentItem());
-                                 } else if (k->scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                                 } else if (scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                             position = bg->dynamicFrame()->indexOf(node->parentItem());
                                  } else {
                                      #ifdef K_DEBUG
@@ -335,10 +351,10 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                          // node->restoreItem();
 
                          TupProjectRequest event = TupRequestBuilder::createItemRequest( 
-                                    k->scene->currentSceneIndex(), 
-                                    k->scene->currentLayerIndex(), 
-                                    k->scene->currentFrameIndex(), position, QPointF(), 
-                                    k->scene->spaceMode(), type,
+                                    scene->currentSceneIndex(), 
+                                    scene->currentLayerIndex(), 
+                                    scene->currentFrameIndex(), position, QPointF(), 
+                                    scene->spaceMode(), type,
                                     TupProjectRequest::Transform, doc.toString());
 
                          emit requested(&event);
@@ -354,16 +370,18 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                      }
                  }
         }
-
         updateItemPosition();
     } else {
         panel->enablePositionControls(false);
-        if (k->targetIsIncluded) {
-            k->scene->removeItem(k->center);
-            k->scene->removeItem(k->target1);
-            k->scene->removeItem(k->target2);
+        if (k->targetIsIncluded)
             k->targetIsIncluded = false;
-        } 
+
+        foreach (NodeManager *nodeManager, k->nodeManagers) {
+                 nodeManager->parentItem()->setSelected(false);
+                 k->nodeManagers.removeAll(nodeManager);
+        }
+
+        scene->drawCurrentPhotogram();
     }
 }
 
@@ -396,6 +414,7 @@ QWidget *SelectionTool::configurator()
         panel = new Settings;
         connect(panel, SIGNAL(callFlip(Settings::Flip)), this, SLOT(applyFlip(Settings::Flip)));
         connect(panel, SIGNAL(callOrderAction(Settings::Order)), this, SLOT(applyOrderAction(Settings::Order)));
+        connect(panel, SIGNAL(callGroupAction(Settings::Group)), this, SLOT(applyGroupAction(Settings::Group)));
         connect(panel, SIGNAL(updateItemPosition(int, int)), this, SLOT(updateItemPosition(int, int)));
     }
 
@@ -470,7 +489,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                         }
                     } else {
                         #ifdef K_DEBUG
-                            QString msg = "SelectionTool::itemResponse - Fatal Error: frame is NULL";
+                            QString msg = "SelectionTool::itemResponse() - Fatal Error: frame is NULL";
                             #ifdef Q_OS_WIN32
                                 qDebug() << msg;
                             #else
@@ -481,7 +500,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                     }
                 } else {
                     #ifdef K_DEBUG
-                        QString msg = "SelectionTool::itemResponse - Fatal Error: layer is NULL";
+                        QString msg = "SelectionTool::itemResponse() - Fatal Error: layer is NULL";
                         #ifdef Q_OS_WIN32
                             qDebug() << msg;
                         #else
@@ -502,7 +521,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                                }
                            } else {
                                #ifdef K_DEBUG
-                                   QString msg = "SelectionTool::itemResponse - Fatal Error: Static bg frame is NULL";
+                                   QString msg = "SelectionTool::itemResponse() - Fatal Error: Static bg frame is NULL";
                                    #ifdef Q_OS_WIN32
                                        qDebug() << msg;
                                    #else
@@ -513,7 +532,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                            }
                        } else {
                            #ifdef K_DEBUG
-                               QString msg = "SelectionTool::itemResponse - Fatal Error: Scene background is NULL";
+                               QString msg = "SelectionTool::itemResponse() - Fatal Error: Scene background is NULL";
                                #ifdef Q_OS_WIN32
                                    qDebug() << msg;
                                #else
@@ -534,7 +553,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                                }
                            } else {
                                #ifdef K_DEBUG
-                                   QString msg = "SelectionTool::itemResponse - Fatal Error: Dynamic bg frame is NULL";
+                                   QString msg = "SelectionTool::itemResponse() - Fatal Error: Dynamic bg frame is NULL";
                                    #ifdef Q_OS_WIN32
                                        qDebug() << msg;
                                    #else
@@ -545,7 +564,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                            }
                        } else {
                            #ifdef K_DEBUG
-                               QString msg = "SelectionTool::itemResponse - Fatal Error: Scene background is NULL";
+                               QString msg = "SelectionTool::itemResponse() - Fatal Error: Scene background is NULL";
                                #ifdef Q_OS_WIN32
                                    qDebug() << msg;
                                #else
@@ -556,7 +575,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                        }
             } else {
                 #ifdef K_DEBUG
-                    QString msg = "SelectionTool::itemResponse - Fatal Error: Invalid spaceMode!";
+                    QString msg = "SelectionTool::itemResponse() - Fatal Error: Invalid spaceMode!";
                     #ifdef Q_OS_WIN32
                         qDebug() << msg;
                     #else
@@ -567,7 +586,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
             }
         } else {
             #ifdef K_DEBUG
-                QString msg = "SelectionTool::itemResponse - Fatal Error: Current scene is NULL!";
+                QString msg = "SelectionTool::itemResponse() - Fatal Error: Current scene is NULL!";
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
                 #else
@@ -578,7 +597,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
         }
     } else {
         #ifdef K_DEBUG
-            QString msg = "SelectionTool::itemResponse - Project does not exist";
+            QString msg = "SelectionTool::itemResponse() - Project does not exist";
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
             #else
@@ -616,6 +635,17 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                  syncNodes();
             }
             break;
+            case TupProjectRequest::Group:
+            {
+                 k->selectedObjects << item;
+                 item->setSelected(true);
+                 NodeManager *node = new NodeManager(item, k->scene, k->baseZValue);
+                 node->resizeNodes(k->realFactor);
+                 k->nodeManagers << node;
+
+                 syncNodes();
+            }
+            break;
             case TupProjectRequest::Remove:
             {
                  // Do nothing
@@ -648,20 +678,23 @@ void SelectionTool::saveConfig()
 
 void SelectionTool::keyPressEvent(QKeyEvent *event)
 {
+    k->key = "NONE";
+
     if (event->key() == Qt::Key_F11 || event->key() == Qt::Key_Escape) {
         emit closeHugeCanvas();
     } else if (event->modifiers() == Qt::AltModifier) {
                if (event->key() == Qt::Key_R) {
-                   verifyActiveSelection();
-                   foreach (NodeManager *nodeManager, k->nodeManagers) {
-                            nodeManager->toggleAction();
-                            break;
+                   if (selectionIsActive()) {
+                       foreach (NodeManager *nodeManager, k->nodeManagers) {
+                                nodeManager->toggleAction();
+                                break;
+                       }
                    }
                }
     } else if ((event->key() == Qt::Key_Left) || (event->key() == Qt::Key_Up) 
                || (event->key() == Qt::Key_Right) || (event->key() == Qt::Key_Down)) {
 
-               if (!k->selectionFlag) {
+               if (!selectionIsActive()) {
                    QPair<int, int> flags = TupToolPlugin::setKeyAction(event->key(), event->modifiers());
                    if (flags.first != -1 && flags.second != -1)
                        emit callForPlugin(flags.first, flags.second);
@@ -695,9 +728,11 @@ void SelectionTool::keyPressEvent(QKeyEvent *event)
                    updateItemPosition();
                }
     } else if (event->modifiers() == Qt::ShiftModifier) {
-               verifyActiveSelection();
-               foreach (NodeManager *nodeManager, k->nodeManagers)
-                        nodeManager->setProportion(true);
+               k->key = "SHIFT";
+               if (selectionIsActive()) {
+                   foreach (NodeManager *nodeManager, k->nodeManagers)
+                            nodeManager->setProportion(true);
+               }
     } else {
         QPair<int, int> flags = TupToolPlugin::setKeyAction(event->key(), event->modifiers());
         if (flags.first != -1 && flags.second != -1)
@@ -705,14 +740,30 @@ void SelectionTool::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void SelectionTool::verifyActiveSelection()
+void SelectionTool::keyReleaseEvent(QKeyEvent *event)
 {
+    Q_UNUSED(event);
+
+    if (k->key.compare("SHIFT") == 0) {
+        if (selectionIsActive()) {
+            foreach (NodeManager *nodeManager, k->nodeManagers)
+                     nodeManager->setProportion(false);
+        }
+    }
+}
+
+bool SelectionTool::selectionIsActive()
+{
+    return k->selectionFlag;
+
+    /*
     if (k->scene) {
         if (!k->selectionFlag)
             return;
     } else {
         return;
     }
+    */
 }
 
 // SQA: Check if reset() and updateItems can be defined as the same method 
@@ -787,7 +838,7 @@ void SelectionTool::applyFlip(Settings::Flip flip)
 
                           TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(node->parentItem());
                           int position = -1;
-                          TupLibraryObject::Type type = TupLibraryObject::Item;;
+                          TupLibraryObject::Type type = TupLibraryObject::Item;
                           if (svg)
                               type = TupLibraryObject::Svg;
 
@@ -905,6 +956,59 @@ void SelectionTool::applyOrderAction(Settings::Order action)
     }
 }
 
+void SelectionTool::applyGroupAction(Settings::Group action)
+{
+    if (action == Settings::GroupItems) {
+        k->selectedObjects = k->scene->selectedItems();
+        int total = k->selectedObjects.count(); 
+        if (total > 1) {
+            QString items = "(";
+            int i = 1;
+            int position = -1; 
+
+            foreach (QGraphicsItem *item, k->selectedObjects) {
+                     int index = k->scene->currentFrame()->indexOf(item);
+                     if (index > -1) {
+                         if (i == 1) {
+                             position = index;
+                         } else {
+                             if (index < position) 
+                                 position = index;
+                         }
+                         items += QString::number(index); 
+                         if (i < total)
+                             items += ", ";
+                     } else {
+                         #ifdef K_DEBUG
+                             QString msg = "SelectionTool::applyGroupAction() - Fatal Error: Index of item is invalid! -> -1";
+                             #ifdef Q_OS_WIN32
+                                 qDebug() << msg;
+                             #else
+                                 tError() << msg;
+                             #endif
+                         #endif
+                     }
+                     i++;
+            }
+            items += ")";
+
+            foreach (NodeManager *nodeManager, k->nodeManagers)
+                     nodeManager->parentItem()->setSelected(false);
+
+            k->nodeManagers.clear();
+            k->selectedObjects.clear();
+
+            TupProjectRequest event = TupRequestBuilder::createItemRequest(k->scene->currentSceneIndex(),
+                                      k->scene->currentLayerIndex(),
+                                      k->scene->currentFrameIndex(), position, QPointF(), k->scene->spaceMode(),
+                                      TupLibraryObject::Item, TupProjectRequest::Group, items);
+            emit requested(&event);
+        }
+    } else if (action == Settings::UngroupItems) {
+        // SQA: Pending for implementation
+    }
+}
+
 QCursor SelectionTool::cursor() const
 {
     return QCursor(Qt::ArrowCursor);
@@ -936,66 +1040,66 @@ void SelectionTool::updateItemPosition()
         QPoint point = item->mapToScene(item->boundingRect().center()).toPoint();
         panel->setPos(point.x(), point.y());
     } else { 
-      if (k->nodeManagers.count() > 1) {
-          NodeManager *manager = k->nodeManagers.first();
-          QGraphicsItem *item = manager->parentItem();
-          QPoint left = item->mapToScene(item->boundingRect().topLeft()).toPoint();  
-          QPoint right = item->mapToScene(item->boundingRect().bottomRight()).toPoint();
-          int minX = left.x();
-          int maxX = right.x(); 
-          int minY = left.y();
-          int maxY = right.y();
+        if (k->nodeManagers.count() > 1) {
+            NodeManager *manager = k->nodeManagers.first();
+            QGraphicsItem *item = manager->parentItem();
+            QPoint left = item->mapToScene(item->boundingRect().topLeft()).toPoint();  
+            QPoint right = item->mapToScene(item->boundingRect().bottomRight()).toPoint();
+            int minX = left.x();
+            int maxX = right.x(); 
+            int minY = left.y();
+            int maxY = right.y();
 
-          foreach (NodeManager *node, k->nodeManagers) {
-                   QGraphicsItem *item = node->parentItem();
-                   QPoint left = item->mapToScene(item->boundingRect().topLeft()).toPoint(); 
-                   int leftX = left.x();
-                   int leftY = left.y();
-                   if (leftX < minX)
-                       minX = leftX;
-                   if (leftY < minY)
-                       minY = leftY;
-                   QPoint right = item->mapToScene(item->boundingRect().bottomRight()).toPoint();  
-                   int rightX = right.x();
-                   int rightY = right.y();
-                   if (rightX > maxX)
-                       maxX = rightX;
-                   if (rightY > maxY)
-                       maxY = rightY;
-          }
-          int x = minX + ((maxX - minX)/2); 
-          int y = minY + ((maxY - minY)/2);
-          panel->setPos(x, y);
+            foreach (NodeManager *node, k->nodeManagers) {
+                     QGraphicsItem *item = node->parentItem();
+                     QPoint left = item->mapToScene(item->boundingRect().topLeft()).toPoint(); 
+                     int leftX = left.x();
+                     int leftY = left.y();
+                     if (leftX < minX)
+                         minX = leftX;
+                     if (leftY < minY)
+                         minY = leftY;
+                     QPoint right = item->mapToScene(item->boundingRect().bottomRight()).toPoint();  
+                     int rightX = right.x();
+                     int rightY = right.y();
+                     if (rightX > maxX)
+                         maxX = rightX;
+                     if (rightY > maxY)
+                         maxY = rightY;
+            }
+            int x = minX + ((maxX - minX)/2); 
+            int y = minY + ((maxY - minY)/2);
+            panel->setPos(x, y);
 
-          if (!k->targetIsIncluded) {
-              k->center = new TupEllipseItem(QRectF(QPointF(x - 1, y - 1), QSize(2, 2)));
-              k->target1 = new QGraphicsLineItem(x, y - 6, x, y + 6);
-              k->target2 = new QGraphicsLineItem(x - 6, y, x + 6, y);
+            if (!k->targetIsIncluded) {
+                k->center = new TupEllipseItem(QRectF(QPointF(x - 1, y - 1), QSize(2, 2)));
+                k->target1 = new QGraphicsLineItem(x, y - 6, x, y + 6);
+                k->target2 = new QGraphicsLineItem(x - 6, y, x + 6, y);
               
-              QPen pen(QColor(255, 0, 0), 0.5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
-              k->center->setPen(pen);
-              k->center->setBrush(QColor(255, 0, 0));
-              k->center->setZValue(k->baseZValue + 1);
-              k->scene->includeObject(k->center);
+                QPen pen(QColor(255, 0, 0), 0.5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+                k->center->setPen(pen);
+                k->center->setBrush(QColor(255, 0, 0));
+                k->center->setZValue(k->baseZValue + 1);
+                k->scene->includeObject(k->center);
 
-              k->target1->setPen(pen); 
-              k->target1->setZValue(1000);
-              k->target2->setPen(pen);
-              k->target2->setZValue(1000);
+                k->target1->setPen(pen); 
+                k->target1->setZValue(1000);
+                k->target2->setPen(pen);
+                k->target2->setZValue(1000);
 
-              k->scene->includeObject(k->target1);
-              k->scene->includeObject(k->target2);
+                k->scene->includeObject(k->target1);
+                k->scene->includeObject(k->target2);
 
-              k->targetIsIncluded = true;
-          } else {
-              QPoint current = k->center->mapToScene(k->center->boundingRect().topLeft()).toPoint(); 
-              int deltaX = x - current.x() - 1;
-              int deltaY = y - current.y() - 1;
-              k->center->moveBy(deltaX, deltaY);
-              k->target1->moveBy(deltaX, deltaY);
-              k->target2->moveBy(deltaX, deltaY);
-          }
-      }
+                k->targetIsIncluded = true;
+            } else {
+                QPoint current = k->center->mapToScene(k->center->boundingRect().topLeft()).toPoint(); 
+                int deltaX = x - current.x() - 1;
+                int deltaY = y - current.y() - 1;
+                k->center->moveBy(deltaX, deltaY);
+                k->target1->moveBy(deltaX, deltaY);
+                k->target2->moveBy(deltaX, deltaY);
+            }
+        }
     }
 }
 

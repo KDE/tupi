@@ -66,7 +66,16 @@ TupAnimationRenderer::TupAnimationRenderer(const QColor color, TupLibrary *libra
 
 TupAnimationRenderer::~TupAnimationRenderer()
 {
-    delete k;
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[~TupAnimationRenderer()]";
+        #else
+            TEND;
+        #endif
+    #endif
+
+    // SQA: Check why this instruction crashes the application 
+    // delete k;
 }
 
 int TupAnimationRenderer::Private::calculateTotalPhotograms(TupScene *scene)

@@ -74,6 +74,8 @@ class TUPI_PLUGIN SelectionTool : public TupToolPlugin
         virtual void move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
         virtual void release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
         virtual void keyPressEvent(QKeyEvent *event);
+        virtual void keyReleaseEvent(QKeyEvent *event);
+
         virtual void sceneResponse(const TupSceneResponse *event);
 
         virtual QMap<QString, TAction *>actions() const;
@@ -101,11 +103,12 @@ class TUPI_PLUGIN SelectionTool : public TupToolPlugin
         void updateItems(TupGraphicsScene *scene);
         void applyFlip(Settings::Flip flip);
         void applyOrderAction(Settings::Order order);
+        void applyGroupAction(Settings::Group action);
         void updateItemPosition(int x, int y);
 
     private:
         void setupActions();
-        void verifyActiveSelection();
+        bool selectionIsActive();
         void reset(TupGraphicsScene *scene);
         void updateItemPosition();
 

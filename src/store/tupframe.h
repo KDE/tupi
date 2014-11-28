@@ -116,8 +116,8 @@ class TUPI_EXPORT TupFrame : public QObject, public TupAbstractSerializable
        TupSvgItem *svg(int position) const; 
        QGraphicsItem *item(int position) const;
        
-       QGraphicsItemGroup *createItemGroupAt(int position, QList<qreal> group);
-       QList<QGraphicsItem *> destroyItemGroup(int position);
+       int createItemGroup(int position, QList<int> group);
+       QList<QGraphicsItem *> splitItemsGroup(int position);
              
        TupLayer *layer() const;
        TupScene *scene() const;
@@ -150,6 +150,7 @@ class TUPI_EXPORT TupFrame : public QObject, public TupAbstractSerializable
        virtual QDomElement toXml(QDomDocument &doc) const;
        
     private:
+       void insertItem(int position, QGraphicsItem *item);
        struct Private;
        Private *const k;
 };

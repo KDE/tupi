@@ -64,6 +64,7 @@ class TUPI_EXPORT TupSvg2Qt
         static bool parseBrush(QBrush &brush, const QXmlAttributes &attributes);
         
         static QList<qreal> parseNumbersList(QString::const_iterator &itr);
+        static QList<int> parseIntList(QString::const_iterator &itr);
 };
 
 #endif
