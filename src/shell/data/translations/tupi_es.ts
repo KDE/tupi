@@ -886,7 +886,7 @@
     <name>ShiftTool</name>
     <message>
         <source>Shift</source>
-        <translation>Deslizar</translation>
+        <translation>Desplazar</translation>
     </message>
     <message>
         <source>H</source>
