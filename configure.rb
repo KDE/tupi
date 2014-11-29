@@ -162,7 +162,11 @@ _EOH_
        config.addOption("silent")
        print "[ \033[91mOFF\033[0m ]\n"
     end
-    
+
+    if File.exists?('/etc/canaima_version')
+       config.addDefine("CANAIMA")
+    end
+
     unix = config.addScope("unix")
     unix.addVariable("MOC_DIR", ".moc")
     unix.addVariable("UI_DIR", ".ui")

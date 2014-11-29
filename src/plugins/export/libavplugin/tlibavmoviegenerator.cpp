@@ -125,9 +125,17 @@ static AVStream *addVideoStream(AVFormatContext *oc, AVCodec **codec, enum AVCod
     c->gop_size = 12;
 
     if (movieFile.endsWith("gif", Qt::CaseInsensitive)) {
-        c->pix_fmt = AV_PIX_FMT_RGB24;
+        #ifdef CANAIMA 
+            c->pix_fmt = PIX_FMT_RGB24;
+        #else
+            c->pix_fmt = AV_PIX_FMT_RGB24;
+        #endif
     } else {
-        c->pix_fmt = AV_PIX_FMT_YUV420P;
+        #ifdef CANAIMA
+            c->pix_fmt = PIX_FMT_YUV420P;
+        #else
+            c->pix_fmt = AV_PIX_FMT_YUV420P;
+        #endif
     }
 
     // if (c->codec_id == CODEC_ID_MPEG2VIDEO) {

@@ -82,6 +82,10 @@
         <source>Run simulation</source>
         <translation>Ejecutar Simulación</translation>
     </message>
+    <message>
+        <source>Papagayo LipSync Files</source>
+        <translation>Archivos de LipSync</translation>
+    </message>
 </context>
 <context>
     <name>EraserTool</name>
@@ -284,6 +288,28 @@
     </message>
 </context>
 <context>
+    <name>LibavPlugin</name>
+    <message>
+        <source>Video Formats</source>
+        <translation>Formatos de Vídeo</translation>
+    </message>
+</context>
+<context>
+    <name>LipSyncManager</name>
+    <message>
+        <source>Import LipSync</source>
+        <translation>Importar LipSync</translation>
+    </message>
+    <message>
+        <source>Edit LipSync</source>
+        <translation>Editar LipSync</translation>
+    </message>
+    <message>
+        <source>Remove LipSync</source>
+        <translation>Remover LipSync</translation>
+    </message>
+</context>
+<context>
     <name>NodesTool</name>
     <message>
         <source>Nodes Selection</source>
@@ -301,28 +327,16 @@
         <translation>Papagayo Lip-sync</translation>
     </message>
     <message>
-        <source>Shift+R</source>
-        <translation>Shift+R</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Error</translation>
-    </message>
-    <message>
-        <source>Tween name is missing!</source>
-        <translation>El nombre del Tween no ha sido asignado!</translation>
-    </message>
-    <message>
         <source>Frame %1</source>
         <translation>Marco %1</translation>
     </message>
     <message>
-        <source>Info</source>
-        <translation>Información</translation>
+        <source>Ctrl+Shift+P</source>
+        <translation>Ctrl+Shift+P</translation>
     </message>
     <message>
-        <source>Tween %1 applied!</source>
-        <translation>Tween %1 aplicado!</translation>
+        <source>lipsync:</source>
+        <translation>lipsync:</translation>
     </message>
 </context>
 <context>
@@ -545,6 +559,10 @@
     <message>
         <source>Image Array</source>
         <translation>Arreglo de Imágenes</translation>
+    </message>
+    <message>
+        <source>Video Formats</source>
+        <translation>Formatos de Vídeo</translation>
     </message>
 </context>
 <context>
@@ -830,6 +848,49 @@
     <message>
         <source>Options panel for the Selection tool</source>
         <translation>Panel de opciones para la herramienta de Selección</translation>
+    </message>
+    <message>
+        <source>Editing</source>
+        <translation>Editando</translation>
+    </message>
+    <message>
+        <source>Mouths</source>
+        <translation>Bocas</translation>
+    </message>
+    <message>
+        <source>Close properties</source>
+        <translation>Cerrar propiedades</translation>
+    </message>
+    <message>
+        <source>Lip-Sync FPS</source>
+        <translation>FPS</translation>
+    </message>
+    <message>
+        <source>mouth</source>
+        <translation>boca</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation>Agrupar</translation>
+    </message>
+    <message>
+        <source>Group Objects</source>
+        <translation>Agrupar Objetos</translation>
+    </message>
+    <message>
+        <source>Ungroup Objects</source>
+        <translation>Desagrupar Objetos</translation>
+    </message>
+</context>
+<context>
+    <name>ShiftTool</name>
+    <message>
+        <source>Shift</source>
+        <translation>Deslizar</translation>
+    </message>
+    <message>
+        <source>H</source>
+        <translation>H</translation>
     </message>
 </context>
 <context>
@@ -1470,6 +1531,10 @@
         <source>Fill</source>
         <translation>Relleno</translation>
     </message>
+    <message>
+        <source>HTML</source>
+        <translation>HTML</translation>
+    </message>
 </context>
 <context>
     <name>TupColorValue</name>
@@ -1581,22 +1646,6 @@
         <translation>Eliminar</translation>
     </message>
     <message>
-        <source>&amp;Group</source>
-        <translation>&amp;Agrupar</translation>
-    </message>
-    <message>
-        <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
-    </message>
-    <message>
-        <source>&amp;Ungroup</source>
-        <translation>&amp;Desagrupar</translation>
-    </message>
-    <message>
-        <source>Ctrl+Shift+G</source>
-        <translation>Ctrl+Shift+G</translation>
-    </message>
-    <message>
         <source>Onion Skin</source>
         <translation>Papel cebolla</translation>
     </message>
@@ -1625,14 +1674,6 @@
         <translation>Brochas</translation>
     </message>
     <message>
-        <source>Selection</source>
-        <translation>Selección</translation>
-    </message>
-    <message>
-        <source>Fill</source>
-        <translation>Relleno</translation>
-    </message>
-    <message>
         <source>Tweening</source>
         <translation>Tweening</translation>
     </message>
@@ -1647,10 +1688,6 @@
     <message>
         <source>Ink</source>
         <translation>Tinta</translation>
-    </message>
-    <message>
-        <source>Eraser</source>
-        <translation>Borrador</translation>
     </message>
     <message>
         <source>PolyLine</source>
@@ -1705,16 +1742,8 @@
         <translation>Relleno Interno</translation>
     </message>
     <message>
-        <source>Zoom In</source>
-        <translation>Acercar</translation>
-    </message>
-    <message>
         <source>%1</source>
         <translation>%1</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation>Alejar</translation>
     </message>
     <message>
         <source>Shift</source>
@@ -1836,6 +1865,35 @@
         <source>Papagayo file has been imported successfully</source>
         <translation>El archivo PGO ha sido importado satisfactoriamente</translation>
     </message>
+    <message>
+        <source>Papagayo Lip-sync Files</source>
+        <translation>Archivos de Lip-sync</translation>
+    </message>
+    <message>
+        <source>Ctrl+Shift+P</source>
+        <translation>Ctrl+Shift+P</translation>
+    </message>
+    <message>
+        <source>Line fill</source>
+        <translation>Relleno de Contorno</translation>
+    </message>
+    <message>
+        <source>Papagayo project already exists!
+Please, rename the project&apos;s file</source>
+        <translation>El proyecto de Lip-sync ya existe! Por favor, renombre el archivo</translation>
+    </message>
+    <message>
+        <source>Papagayo file is invalid!</source>
+        <translation>Archivo de Lip-sync es invalido!</translation>
+    </message>
+    <message>
+        <source>Images directory is empty!</source>
+        <translation>Directorio de imágenes está vacio!</translation>
+    </message>
+    <message>
+        <source>Papagayo project is invalid!</source>
+        <translation>Proyecto Papagayo es inválido!</translation>
+    </message>
 </context>
 <context>
     <name>TupExportWidget</name>
@@ -1956,10 +2014,6 @@
         <translation>Pegar en marco</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>Expandir</translation>
-    </message>
-    <message>
         <source>1 frame</source>
         <translation>1 marco</translation>
     </message>
@@ -2066,12 +2120,8 @@
         <translation>/Paso: </translation>
     </message>
     <message>
-        <source>Zoom In</source>
-        <translation>Acercar</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation>Alejar</translation>
+        <source>lipsync:</source>
+        <translation>lipsync:</translation>
     </message>
 </context>
 <context>
@@ -2473,6 +2523,34 @@
     <message>
         <source>Import SVG files...</source>
         <translation>Importar archivos SVG...</translation>
+    </message>
+    <message>
+        <source>Sound File</source>
+        <translation>Archivo de Sonido</translation>
+    </message>
+    <message>
+        <source>Library is empty!</source>
+        <translation>Biblioteca está vacía!</translation>
+    </message>
+    <message>
+        <source>There&apos;s no current selection!</source>
+        <translation>No hay selección activa!</translation>
+    </message>
+    <message>
+        <source>It&apos;s a directory! Please, pick a graphic object</source>
+        <translation>Es un directorio! Por favor, escoja un objeto gráfico</translation>
+    </message>
+    <message>
+        <source>It&apos;s a sound file! Please, pick a graphic object</source>
+        <translation>Es un archivo de sonido! Por favor, escoja un objeto gráfico</translation>
+    </message>
+    <message>
+        <source>Sounds</source>
+        <translation>Sonidos</translation>
+    </message>
+    <message>
+        <source>Error while opening file: %1</source>
+        <translation>Error mientras se abría el archivo: %1</translation>
     </message>
 </context>
 <context>
@@ -2923,18 +3001,6 @@
     <message>
         <source>Import Papagayo lip-sync</source>
         <translation>Importar Papagayo lip-sync</translation>
-    </message>
-    <message>
-        <source>Import Papagayo project</source>
-        <translation>Importar proyecto Papagayo</translation>
-    </message>
-    <message>
-        <source>Papagayo Project (*.pgo)</source>
-        <translation>Proyecto Papagayo (*.pgo)</translation>
-    </message>
-    <message>
-        <source>Papagayo project is invalid!</source>
-        <translation>Proyecto Papagayo es inválido!</translation>
     </message>
 </context>
 <context>
@@ -3433,6 +3499,65 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <source>F11</source>
         <translation>F11</translation>
     </message>
+    <message>
+        <source>Reset WorkSpace</source>
+        <translation>Reiniciar Área de Trabajo</translation>
+    </message>
+</context>
+<context>
+    <name>TupPapagayoDialog</name>
+    <message>
+        <source>Import Papagayo project</source>
+        <translation>Importar proyecto Papagayo</translation>
+    </message>
+    <message>
+        <source>&amp;Load PGO File</source>
+        <translation>&amp;Cargar Archivo PGO</translation>
+    </message>
+    <message>
+        <source>Load &amp;Images</source>
+        <translation>Cargar &amp;Imágenes</translation>
+    </message>
+    <message>
+        <source>Load &amp;Sound</source>
+        <translation>Cargar&amp;Sonido</translation>
+    </message>
+    <message>
+        <source>Load Papagayo project</source>
+        <translation>Cargar proyecto de Papagayo</translation>
+    </message>
+    <message>
+        <source>Papagayo Project (*.pgo)</source>
+        <translation>Proyecto Papagayo (*.pgo)</translation>
+    </message>
+    <message>
+        <source>Choose the images directory...</source>
+        <translation>Escoge el directorio de imágenes...</translation>
+    </message>
+    <message>
+        <source>Load sound file</source>
+        <translation>Cargar archivo de sonido</translation>
+    </message>
+    <message>
+        <source>Sound file (*.ogg *.wav *.mp3)</source>
+        <translation>Archivo de Sonido (*.ogg *.wav *.mp3)</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <source>PGO path is unset!</source>
+        <translation>La ruta del archivo PGO no ha sido definido!</translation>
+    </message>
+    <message>
+        <source>Images directory is unset!</source>
+        <translation>El directorio de imágenes no ha sido definido!</translation>
+    </message>
+    <message>
+        <source>Sound path is unset!</source>
+        <translation>La ruta del archivo de sonido no ha sido definido!</translation>
+    </message>
 </context>
 <context>
     <name>TupPenDialog</name>
@@ -3577,20 +3702,8 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>Insertar marco</translation>
     </message>
     <message>
-        <source>Remove the frame</source>
-        <translation>Remueve el marco</translation>
-    </message>
-    <message>
-        <source>Move frame up</source>
-        <translation>Mover marco hacia arriba</translation>
-    </message>
-    <message>
         <source>F9</source>
         <translation>F9</translation>
-    </message>
-    <message>
-        <source>Move frame down</source>
-        <translation>Mover marco hacia abajo</translation>
     </message>
     <message>
         <source>F10</source>
@@ -3601,16 +3714,8 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>Bloquear marco</translation>
     </message>
     <message>
-        <source>Insert a layer</source>
-        <translation>Adiciona una capa</translation>
-    </message>
-    <message>
         <source>F5</source>
         <translation>F5</translation>
-    </message>
-    <message>
-        <source>Remove the layer</source>
-        <translation>Remueve una capa</translation>
     </message>
     <message>
         <source>F6</source>
@@ -3627,14 +3732,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Lock layer</source>
         <translation>Bloquea capa</translation>
-    </message>
-    <message>
-        <source>Insert a scene</source>
-        <translation>Adiciona una escena</translation>
-    </message>
-    <message>
-        <source>Remove the scene</source>
-        <translation>Remueve una escena</translation>
     </message>
     <message>
         <source>Do you want to remove this frame?</source>
@@ -3667,6 +3764,34 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Lock scene</source>
         <translation>Bloquear escena</translation>
+    </message>
+    <message>
+        <source>Insert layer</source>
+        <translation>Insertar capa</translation>
+    </message>
+    <message>
+        <source>Remove layer</source>
+        <translation>Eliminar capa</translation>
+    </message>
+    <message>
+        <source>Remove frame</source>
+        <translation>Remover marco</translation>
+    </message>
+    <message>
+        <source>Move frame backward</source>
+        <translation>Mover marco hacia adelante</translation>
+    </message>
+    <message>
+        <source>Move frame forward</source>
+        <translation>Mover marco hacia atrás</translation>
+    </message>
+    <message>
+        <source>Insert scene</source>
+        <translation>Insertar escena</translation>
+    </message>
+    <message>
+        <source>Remove scene</source>
+        <translation>Remover escena</translation>
     </message>
 </context>
 <context>
@@ -3730,10 +3855,10 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
 </context>
 <context>
-    <name>TupScreen</name>
+    <name>TupSoundPlayer</name>
     <message>
-        <source>Rendering...</source>
-        <translation>Renderizando...</translation>
+        <source>Play</source>
+        <translation>Reproducir</translation>
     </message>
 </context>
 <context>
@@ -4366,33 +4491,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Set Animation Properties</source>
         <translation>Defina Propiedades de la Animación</translation>
-    </message>
-</context>
-<context>
-    <name>ViewTool</name>
-    <message>
-        <source>Z</source>
-        <translation>Z</translation>
-    </message>
-    <message>
-        <source>Shift</source>
-        <translation>Desplazar</translation>
-    </message>
-    <message>
-        <source>H</source>
-        <translation>H</translation>
-    </message>
-    <message>
-        <source>Zoom In</source>
-        <translation>Acercar</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation>Alejar</translation>
-    </message>
-    <message>
-        <source>Shift+Z</source>
-        <translation>Shift+Z</translation>
     </message>
 </context>
 <context>
