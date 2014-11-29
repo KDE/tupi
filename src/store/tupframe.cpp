@@ -475,12 +475,16 @@ QList<QGraphicsItem *> TupFrame::splitItemsGroup(int position)
 {
     QList<QGraphicsItem *> items;
 
-    if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item(position))) {
-        removeGraphicAt(position);
-        items = group->childs();
-        foreach (QGraphicsItem *child, group->childs()) {
-                 group->removeFromGroup(child);
-                 addItem("path", child);
+    QGraphicsItem *object = qgraphicsitem_cast<TupItemGroup *>(item(position));
+
+    if (object) {
+        if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item(position))) {
+            removeGraphicAt(position);
+            items = group->childs();
+            foreach (QGraphicsItem *child, group->childs()) {
+                     group->removeFromGroup(child);
+                     addItem("path", child);
+            }
         }
     }
 

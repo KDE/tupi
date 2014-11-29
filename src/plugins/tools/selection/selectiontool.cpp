@@ -40,6 +40,7 @@
 #include "tupscene.h"
 #include "tuplayer.h"
 #include "tupsvgitem.h"
+#include "tupitemgroup.h"
 #include "tupellipseitem.h"
 #include "tupgraphicobject.h"
 #include "tupinputdeviceinformation.h"
@@ -1005,7 +1006,23 @@ void SelectionTool::applyGroupAction(Settings::Group action)
             emit requested(&event);
         }
     } else if (action == Settings::UngroupItems) {
-        // SQA: Pending for implementation
+               k->selectedObjects = k->scene->selectedItems();
+               int total = k->selectedObjects.count();
+               if (total > 0) {
+                   foreach (QGraphicsItem *item, k->selectedObjects) {
+                            if (qgraphicsitem_cast<TupItemGroup *> (item)) {
+                                int position = k->scene->currentFrame()->indexOf(item);
+                                TupProjectRequest event = TupRequestBuilder::createItemRequest(
+                                                          k->scene->currentSceneIndex(),
+                                                          k->scene->currentLayerIndex(),
+                                                          k->scene->currentFrameIndex(),
+                                                          position, QPointF(),
+                                                          k->scene->spaceMode(), TupLibraryObject::Item,
+                                                          TupProjectRequest::Ungroup);
+                                emit requested(&event);
+                            }
+                   }
+               }
     }
 }
 
