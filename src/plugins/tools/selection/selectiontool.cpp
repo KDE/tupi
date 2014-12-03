@@ -40,6 +40,7 @@
 #include "tupscene.h"
 #include "tuplayer.h"
 #include "tupsvgitem.h"
+#include "tupsvg2qt.h"
 #include "tupitemgroup.h"
 #include "tupellipseitem.h"
 #include "tupgraphicobject.h"
@@ -638,11 +639,41 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
             break;
             case TupProjectRequest::Group:
             {
+                 k->nodeManagers.clear();
+                 k->selectedObjects.clear();
+
                  k->selectedObjects << item;
                  item->setSelected(true);
                  NodeManager *node = new NodeManager(item, k->scene, k->baseZValue);
                  node->resizeNodes(k->realFactor);
                  k->nodeManagers << node;
+
+                 syncNodes();
+            }
+            break;
+            case TupProjectRequest::Ungroup:
+            {
+                 foreach (QGraphicsItem *graphic, k->scene->selectedItems())
+                          graphic->setSelected(false);
+
+                 k->nodeManagers.clear();
+                 k->selectedObjects.clear();
+
+                 QString list = event->arg().toString();
+                 QString::const_iterator itr = list.constBegin();
+                 QList<int> positions = TupSvg2Qt::parseIntList(++itr);
+                 qSort(positions.begin(), positions.end());
+                 int total = positions.size();
+                 for (int i=0; i<total; i++) {
+                      QGraphicsItem *graphic = frame->item(positions.at(i));     
+                      if (graphic) {
+                          k->selectedObjects << graphic;
+                          graphic->setSelected(true);
+                          NodeManager *node = new NodeManager(graphic, k->scene, k->baseZValue);
+                          node->resizeNodes(k->realFactor);
+                          k->nodeManagers << node;
+                      }
+                 }
 
                  syncNodes();
             }
@@ -993,24 +1024,28 @@ void SelectionTool::applyGroupAction(Settings::Group action)
             }
             items += ")";
 
-            foreach (NodeManager *nodeManager, k->nodeManagers)
-                     nodeManager->parentItem()->setSelected(false);
-
-            k->nodeManagers.clear();
-            k->selectedObjects.clear();
+            foreach (QGraphicsItem *item, k->selectedObjects)
+                     item->setSelected(false);
 
             TupProjectRequest event = TupRequestBuilder::createItemRequest(k->scene->currentSceneIndex(),
                                       k->scene->currentLayerIndex(),
                                       k->scene->currentFrameIndex(), position, QPointF(), k->scene->spaceMode(),
                                       TupLibraryObject::Item, TupProjectRequest::Group, items);
             emit requested(&event);
+        } else if (total == 1) {
+                   k->nodeManagers.clear();
+                   k->scene->drawCurrentPhotogram();
         }
     } else if (action == Settings::UngroupItems) {
                k->selectedObjects = k->scene->selectedItems();
                int total = k->selectedObjects.count();
+
                if (total > 0) {
+                   bool noAction = true;
                    foreach (QGraphicsItem *item, k->selectedObjects) {
+                            item->setSelected(false);
                             if (qgraphicsitem_cast<TupItemGroup *> (item)) {
+                                noAction = false;
                                 int position = k->scene->currentFrame()->indexOf(item);
                                 TupProjectRequest event = TupRequestBuilder::createItemRequest(
                                                           k->scene->currentSceneIndex(),
@@ -1021,6 +1056,11 @@ void SelectionTool::applyGroupAction(Settings::Group action)
                                                           TupProjectRequest::Ungroup);
                                 emit requested(&event);
                             }
+                   }
+
+                   if (noAction) {
+                       k->nodeManagers.clear();
+                       k->scene->drawCurrentPhotogram();
                    }
                }
     }
