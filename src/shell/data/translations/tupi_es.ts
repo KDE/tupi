@@ -586,6 +586,14 @@
         <source>O</source>
         <translation>O</translation>
     </message>
+    <message>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <source>SVG objects can&apos;t be grouped/ungrouped yet</source>
+        <translation>Objetos SVG no pueden ser agrupados aún</translation>
+    </message>
 </context>
 <context>
     <name>Settings</name>

@@ -50,6 +50,7 @@
 #include "tupserializer.h"
 #include "tuprequestbuilder.h"
 #include "tupprojectresponse.h"
+#include "tosd.h"
 
 struct SelectionTool::Private
 {
@@ -990,6 +991,14 @@ void SelectionTool::applyOrderAction(Settings::Order action)
 
 void SelectionTool::applyGroupAction(Settings::Group action)
 {
+    foreach (QGraphicsItem *item, k->selectedObjects) {
+             TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
+             if (svg) {
+                 TOsd::self()->display(tr("Error"), tr("SVG objects can't be grouped/ungrouped yet"), TOsd::Error);
+                 return;
+             }
+    }
+
     if (action == Settings::GroupItems) {
         k->selectedObjects = k->scene->selectedItems();
         int total = k->selectedObjects.count(); 

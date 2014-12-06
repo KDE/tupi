@@ -166,7 +166,7 @@ int main(int argc, char ** argv)
     QStyle *style = QStyleFactory::create("fusion");
     QApplication::setStyle(style);
 
-    if ((locale.compare("en") != 0) && ((locale.compare("es") == 0) || (locale.compare("pt") == 0) || (locale.compare("ja") == 0))) {
+    if ((locale.compare("en") != 0) && ((locale.compare("es") == 0) || (locale.compare("pt") == 0))) {
         #ifdef Q_OS_WIN32
             QString langFile = kAppProp->shareDir() + "translations" + slash + "tupi_" + locale + ".qm";
         #else
