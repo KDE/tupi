@@ -49,7 +49,7 @@
  * @author Gustav Gonzalez 
 */
 
-class TUPI_EXPORT ButtonsPanel: public QWidget 
+class TUPI_PLUGIN ButtonsPanel: public QWidget 
 {
     Q_OBJECT
 

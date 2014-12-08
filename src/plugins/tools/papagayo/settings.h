@@ -44,6 +44,7 @@
 #include <QBoxLayout>
 #include <QSpinBox>
 #include <QListWidget>
+#include <QTextEdit>
 
 class TupLipSync;
 

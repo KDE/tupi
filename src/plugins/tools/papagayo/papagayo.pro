@@ -13,14 +13,14 @@ win32 {
 INSTALLS += target 
 target.path = /plugins/
 
-HEADERS += target.h \
+HEADERS += mouthtarget.h \
            settings.h \
            buttonspanel.h \
            configurator.h \
            lipsyncmanager.h \
            papagayotool.h 
 
-SOURCES += target.cpp \
+SOURCES += mouthtarget.cpp \
            settings.cpp \
            buttonspanel.cpp \
            configurator.cpp \

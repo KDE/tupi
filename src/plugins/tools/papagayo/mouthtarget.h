@@ -33,8 +33,8 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TARGET_H
-#define TARGET_H
+#ifndef MOUTHTARGET_H
+#define MOUTHTARGET_H
 
 #include "tglobal.h"
 #include "tupgraphicalgorithm.h"
@@ -55,15 +55,15 @@
  * @author Gustav Gonzalez 
 */
 
-class TUPI_EXPORT Target : public QObject, public QGraphicsItem
+class TUPI_PLUGIN MouthTarget : public QObject, public QGraphicsItem
+// class TUPI_PLUGIN MouthTarget : public QGraphicsItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
     
-    public:
-        
-        Target(const QPointF & pos = QPoint(0,0), int zLevel = 0);
-        ~Target();
+    public: 
+        MouthTarget(const QPointF & pos = QPoint(0,0), int zLevel = 0);
+        ~MouthTarget();
         
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *);
         QRectF boundingRect() const;

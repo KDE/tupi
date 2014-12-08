@@ -46,6 +46,7 @@
 #include <QLabel>
 #include <QMediaPlayer>
 #include <QUrl>
+#include <QTime>
 
 /**
  * @author Gustav Gonzalez

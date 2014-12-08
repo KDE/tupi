@@ -53,7 +53,7 @@
  * @author Gustav Gonzalez 
 */
 
-class TUPI_EXPORT LipSyncManager: public QWidget 
+class TUPI_PLUGIN LipSyncManager: public QWidget 
 {
     Q_OBJECT
 

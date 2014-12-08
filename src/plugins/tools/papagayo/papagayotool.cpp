@@ -35,7 +35,7 @@
 
 #include "papagayotool.h"
 #include "configurator.h"
-#include "target.h"
+#include "mouthtarget.h"
 #include "taction.h"
 #include "tupinputdeviceinformation.h"
 #include "tupbrushmanager.h"
@@ -55,7 +55,7 @@ struct PapagayoTool::Private
     int initScene;
 
     QPointF origin;
-    Target *target;
+    MouthTarget *target;
 
     TupToolPlugin::Mode mode;
 
@@ -277,7 +277,7 @@ void PapagayoTool::setTargetEnvironment()
              }
     }
 
-    k->target = new Target(k->origin, k->baseZValue);
+    k->target = new MouthTarget(k->origin, k->baseZValue);
     connect(k->target, SIGNAL(positionUpdated(const QPointF &)), this, SLOT(updateOriginPoint(const QPointF &)));
     k->scene->addItem(k->target);
 }

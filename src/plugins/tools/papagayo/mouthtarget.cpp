@@ -33,7 +33,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#include "target.h"
+#include "mouthtarget.h"
 
 /**
  * This class defines the data structure for a node, and all the methods required to manipulate it.
@@ -41,7 +41,7 @@
  * @author Gustav Gonzalez 
 */
 
-Target::Target(const QPointF & pos, int zLevel) : QGraphicsItem(0)
+MouthTarget::MouthTarget(const QPointF & pos, int zLevel) : QGraphicsItem(0)
 {
     QGraphicsItem::setCursor(QCursor(Qt::PointingHandCursor));
     setFlag(ItemIsSelectable, false);
@@ -52,18 +52,18 @@ Target::Target(const QPointF & pos, int zLevel) : QGraphicsItem(0)
     setPos(pos);
 }
 
-Target::~Target()
+MouthTarget::~MouthTarget()
 {
 }
 
-void Target::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *w)
+void MouthTarget::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *w)
 {
     Q_UNUSED(w);
     Q_UNUSED(option);
     
     QColor color;
     color = QColor("green");
-    color.setAlpha(180);
+    color.setAlpha(200);
 
     QRectF square = boundingRect();
     painter->setBrush(color);
@@ -83,7 +83,7 @@ void Target::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     painter->restore();
 }
 
-QRectF Target::boundingRect() const
+QRectF MouthTarget::boundingRect() const
 {
     QSizeF size(10, 10);
     QRectF rect(QPointF(-size.width()/2, -size.height()/2), size);
@@ -91,16 +91,16 @@ QRectF Target::boundingRect() const
     return rect;
 }
 
-void Target::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void MouthTarget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
 }
 
-void Target::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void MouthTarget::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
-            qDebug() << "[Target::mouseReleaseEvent()]";
+            qDebug() << "[MouthTarget::mouseReleaseEvent()]";
         #else
             T_FUNCINFO;
         #endif
@@ -111,12 +111,12 @@ void Target::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-void Target::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+void MouthTarget::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseMoveEvent(event);
 }
 
-QPointF Target::currentPos()
+QPointF MouthTarget::currentPos()
 {
     QPointF xy = pos();
     return xy;

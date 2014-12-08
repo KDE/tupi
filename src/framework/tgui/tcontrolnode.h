@@ -60,9 +60,7 @@ class TNodeGroup;
 class T_GUI_EXPORT TControlNode : public QGraphicsItem
 {
     public:
-
         enum State { Pressed = 1, Released };
-        
         TControlNode(int index, TNodeGroup *nodeGroup, const QPointF & pos = QPoint(0,0),  
                      QGraphicsItem * parent = 0, QGraphicsScene * scene = 0, int level = 0);
         

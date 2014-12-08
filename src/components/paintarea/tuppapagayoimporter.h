@@ -42,6 +42,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
+#include <QSize>
 
 class TUPI_EXPORT TupPapagayoImporter : public QObject
 {
