@@ -72,11 +72,11 @@ struct TLibavMovieGenerator::Private
     void closeVideo(AVStream *st);
 };
 
-static AVStream *addVideoStream(AVFormatContext *oc, AVCodec **codec, enum AVCodecID codec_id, const QString &movieFile, int width, int height, int fps) // , const char *errorMsg)
+static AVStream *addVideoStream(AVFormatContext *oc, AVCodec **codec, enum AVCodecID codec_id, const QString &movieFile, int width, int height, int fps)
 {
     AVCodecContext *c;
     AVStream *st;
-	QString errorMsg = "";
+    QString errorMsg = "";
 
     /* find the encoder */
     *codec = avcodec_find_encoder(codec_id);
@@ -439,7 +439,6 @@ bool TLibavMovieGenerator::begin()
     // if (k->fmt->video_codec != CODEC_ID_NONE) 
     if (k->fmt->video_codec != AV_CODEC_ID_NONE)
         k->video_st = addVideoStream(k->oc, &video_codec, k->fmt->video_codec, k->movieFile, width(), height(), k->fps);	
-        // k->video_st = addVideoStream(k->oc, &video_codec, k->fmt->video_codec, k->movieFile, width(), height(), k->fps, k->errorMsg);
 
     av_dump_format(k->oc, 0, k->movieFile.toLocal8Bit().data(), 1); 
 	

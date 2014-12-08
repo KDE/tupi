@@ -107,7 +107,7 @@ unix {
 
 win32 {
     TARGET = tupi
-    DEFINES += VERSION=\\\"0.2\\\" CODE_NAME=\\\"Argentum\\\" REVISION=\\\"git04\\\"
+    DEFINES += VERSION=\\\"0.2\\\" CODE_NAME=\\\"Amandy\\\" REVISION=\\\"git05\\\"
     include(../../win.pri)
     include(../../quazip.win.pri)
 }

@@ -195,6 +195,14 @@
         <source>B</source>
         <translation>B</translation>
     </message>
+    <message>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <source>Sorry, Groups can&apos;t be filled yet</source>
+        <translation>Los grupos de items aún no pueden ser rellenados</translation>
+    </message>
 </context>
 <context>
     <name>GeometricTool</name>

@@ -48,6 +48,8 @@
 #include "tupbrushmanager.h"
 #include "tupgraphiclibraryitem.h"
 #include "tuptoolplugin.h"
+#include "tupitemgroup.h"
+#include "tosd.h"
 
 #include <QObject>
 #include <QLabel>

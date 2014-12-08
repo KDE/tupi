@@ -1008,7 +1008,40 @@ void SelectionTool::applyGroupAction(Settings::Group action)
             int position = -1; 
 
             foreach (QGraphicsItem *item, k->selectedObjects) {
-                     int index = k->scene->currentFrame()->indexOf(item);
+                     int index = -1;
+                     if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                         index = k->scene->currentFrame()->indexOf(item);
+                     } else {
+                         TupBackground *bg = k->scene->scene()->background();
+                         if (bg) {
+                             if (k->scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                                 index = bg->staticFrame()->indexOf(item);
+                             } else if (k->scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                                        index = bg->dynamicFrame()->indexOf(item);
+                             } else {
+                                 #ifdef K_DEBUG
+                                     QString msg = "SelectionTool::applyGroupAction() - Fatal Error: invalid spaceMode!";
+                                     #ifdef Q_OS_WIN32
+                                         qDebug() << msg;
+                                     #else
+                                         tError() << msg;
+                                     #endif
+                                 #endif
+                                 return;
+                             }
+                         } else {
+                             #ifdef K_DEBUG
+                                 QString msg = "SelectionTool::applyGroupAction() - Fatal Error: Scene background object is NULL!";
+                                 #ifdef Q_OS_WIN32
+                                     qDebug() << msg;
+                                 #else
+                                     tError() << msg;
+                                 #endif
+                             #endif
+                             return;
+                         }
+                     }
+
                      if (index > -1) {
                          if (i == 1) {
                              position = index;

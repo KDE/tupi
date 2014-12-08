@@ -54,10 +54,11 @@ FillTool::~FillTool()
 
 void FillTool::init(TupGraphicsScene *scene)
 {
+    /*
     foreach (QGraphicsItem *item, scene->items()) {
              if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
                  if (item->zValue() >= 20000 && item->toolTip().length()==0) {
-                     item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
+                     // item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
                  } else {
                      item->setFlag(QGraphicsItem::ItemIsSelectable, false);
                      item->setFlag(QGraphicsItem::ItemIsFocusable, false);
@@ -66,6 +67,7 @@ void FillTool::init(TupGraphicsScene *scene)
                  item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
              }
     }
+    */
 
     k->scene = scene;
 }
@@ -95,6 +97,9 @@ void FillTool::setupActions()
 void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
     if (input->buttons() == Qt::LeftButton) {
+        // SQA: Enhance this plugin to support several items with one click 
+        // QList<QGraphicsItem *> list = scene->items(input->pos(), Qt::IntersectsItemShape, Qt::DescendingOrder, QTransform());
+
         QGraphicsItem *item = scene->itemAt(input->pos(), QTransform());
 
         if (!item) {
@@ -111,7 +116,7 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
             if (TupGraphicLibraryItem *libraryItem = qgraphicsitem_cast<TupGraphicLibraryItem *>(item)) {
                 if (libraryItem->type() == TupLibraryObject::Image) {
                     #ifdef K_DEBUG
-                        QString msg = "FillTool::press() - Warning: is a RASTER object!";
+                        QString msg = "FillTool::press() - Warning: item is a RASTER object!";
                         #ifdef Q_OS_WIN32
                             qWarning() << msg;
                         #else
@@ -124,7 +129,7 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                 TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
                 if (svg) {
                     #ifdef K_DEBUG
-                        QString msg = "FillTool::press() - Warning: is a SVG object!";
+                        QString msg = "FillTool::press() - Warning: item is a SVG object!";
                         #ifdef Q_OS_WIN32
                             qWarning() << msg;
                         #else
@@ -146,6 +151,11 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                     return;
                 }
             }
+        }
+
+        if (qgraphicsitem_cast<TupItemGroup *>(item)) {
+            TOsd::self()->display(tr("Error"), tr("Sorry, Groups can't be filled yet"), TOsd::Error);
+            return;
         }
         
         if (QAbstractGraphicsShapeItem *shape = qgraphicsitem_cast<QAbstractGraphicsShapeItem *>(item)) {
@@ -203,6 +213,15 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                     #endif
                 #endif
             }
+        } else {
+            #ifdef K_DEBUG
+                QString msg = "FillTool::press() - Fatal Error: QAbstractGraphicsShapeItem cast has failed!";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
+            #endif
         }
     }
 }
