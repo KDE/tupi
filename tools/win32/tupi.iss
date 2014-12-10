@@ -1,6 +1,6 @@
 [Setup]
 AppName=Tupi
-AppVersion=0.2-4
+AppVersion=0.2-5
 DefaultDirName={pf}\Tupi
 DefaultGroupName=Tupi Open 2D Magic
 OutputDir=c:\tupi\installer
