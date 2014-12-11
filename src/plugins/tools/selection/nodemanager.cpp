@@ -70,7 +70,6 @@ NodeManager::~NodeManager()
 
 void NodeManager::clear()
 {
-    tError() << "NodeManager::clear() - Removing nodes...";
     foreach (Node *node, m_nodes) {
              if (node) {
                  if (QGraphicsScene *scene = node->scene())
