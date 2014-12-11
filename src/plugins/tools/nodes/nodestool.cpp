@@ -57,11 +57,17 @@ NodesTool::~NodesTool()
 
 void NodesTool::init(TupGraphicsScene *scene)
 {
+    k->activeSelection = false;
+
     k->scene = scene;
     if (k->scene->selectedItems().count() > 0)
         k->scene->clearSelection();
 
     k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000);
+
+    int zBottomLimit = (scene->currentLayerIndex() + 2)*10000;
+    int zTopLimit = zBottomLimit + 10000;
+
     if (k->activeSelection)
         k->nodeGroup->clear();
 
@@ -69,7 +75,9 @@ void NodesTool::init(TupGraphicsScene *scene)
              foreach (QGraphicsItem *item, view->scene()->items()) {
                       if (!qgraphicsitem_cast<TControlNode *>(item)) {
                           if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
-                              if (item->zValue() >= 20000 && qgraphicsitem_cast<TupPathItem *>(item)) {
+                              int zValue = item->zValue();
+                              // if (zValue >= 20000 && qgraphicsitem_cast<TupPathItem *>(item) && (item->toolTip().length()==0)) {
+                              if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0)) {
                                   item->setFlags(QGraphicsItem::ItemIsSelectable);
                               } else {
                                   item->setFlag(QGraphicsItem::ItemIsSelectable, false);
@@ -114,11 +122,10 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
         if (k->activeSelection) { 
             int index1 = scene->currentFrame()->indexOf(k->nodeGroup->parentItem());
             int index2 = scene->currentFrame()->indexOf(item);
-            if (index1 == index2 || index2 < 0) {
+            if (index1 == index2 || index2 < 0)
                 return;
-            } else {
+            else
                 k->nodeGroup->clear();
-            }
         }
 
         k->nodeGroup = new TNodeGroup(item, scene, TNodeGroup::LineSelection, k->baseZValue);
@@ -377,6 +384,9 @@ void NodesTool::aboutToChangeScene(TupGraphicsScene *scene)
 
 void NodesTool::aboutToChangeTool()
 {
+    if (k->nodeGroup)
+        k->nodeGroup->clear();
+
     foreach (QGraphicsView *view, k->scene->views()) {
              foreach (QGraphicsItem *item, view->scene()->items()) {
                       item->setFlag(QGraphicsItem::ItemIsSelectable, false);

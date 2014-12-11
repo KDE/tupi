@@ -91,6 +91,7 @@ void SelectionTool::init(TupGraphicsScene *scene)
  
     qDeleteAll(k->nodeManagers);
     k->nodeManagers.clear();
+
     k->scene = scene;
     k->scene->clearSelection();
     k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000);
@@ -447,7 +448,7 @@ void SelectionTool::aboutToChangeTool()
         #endif
     #endif
 
-    qDeleteAll(k->nodeManagers);
+    // qDeleteAll(k->nodeManagers);
     k->nodeManagers.clear();
 
     foreach (QGraphicsView *view, k->scene->views()) {
