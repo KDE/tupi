@@ -384,8 +384,10 @@ void NodesTool::aboutToChangeScene(TupGraphicsScene *scene)
 
 void NodesTool::aboutToChangeTool()
 {
-    if (k->nodeGroup)
-        k->nodeGroup->clear();
+    if (k->activeSelection) {
+        if (k->nodeGroup)
+            k->nodeGroup->clear();
+    }
 
     foreach (QGraphicsView *view, k->scene->views()) {
              foreach (QGraphicsItem *item, view->scene()->items()) {
