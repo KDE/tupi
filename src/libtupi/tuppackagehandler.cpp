@@ -253,20 +253,22 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
 
                return false;
            }
-           
+
+/*           
            #ifdef Q_OS_WIN32
                name = CACHE_DIR + file.getActualFileName();
             #else
                name = CACHE_DIR + file.getActualFileName();    
            #endif
+*/
+
+           name = CACHE_DIR + file.getActualFileName();
 
            if (name.endsWith(QDir::separator()))
                name.remove(name.count()-1, 1);
 
            if (name.endsWith(".tpp"))
                k->importedProjectPath = QFileInfo(name).path();
-
-           tError() << "TupPackageHandler::importPackage() - Project path: " << name;
         
            if (file.getZipError() != UNZ_OK) {           
                #ifdef K_DEBUG
