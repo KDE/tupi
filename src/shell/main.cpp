@@ -106,27 +106,36 @@ int main(int argc, char ** argv)
         #else
             TCONFIG->setValue("Home", QString::fromLocal8Bit(::getenv("TUPI_HOME")));
         #endif
-		
-	    #ifdef Q_OS_WIN32
-	        if (QSysInfo::windowsVersion() == QSysInfo::WV_XP) {
-	            QDir dir("C:\temp");
-				if (!dir.exists()) {
-				    if (!dir.mkdir("C:\temp")) {
-					    #ifdef K_DEBUG
-					        qDebug() << "main.cpp - Fatal error: WinXP issue!";
-						#endif
-					    return 0;
-					}
-				}
-				TCONFIG->setValue("Cache", QDir::tempPath());
-			} else {
+        
+        #ifdef Q_OS_WIN32
+            if (QSysInfo::windowsVersion() == QSysInfo::WV_XP) {
+                QDir dir("C:\temp");
+                if (!dir.exists()) {
+                    if (!dir.mkdir("C:\temp")) {
+                        #ifdef K_DEBUG
+                            qDebug() << "main.cpp - Fatal error: WinXP issue!";
+                        #endif
+                        return 0;
+                    }
+                }
                 TCONFIG->setValue("Cache", QDir::tempPath());
-		    }
+            } else {
+                TCONFIG->setValue("Cache", QDir::tempPath());
+            }
         #else
-            	TCONFIG->setValue("Cache", QDir::tempPath());	
+                TCONFIG->setValue("Cache", QDir::tempPath());    
         #endif
     }
-	
+
+#ifdef K_DEBUG
+    QString debug = "main.cpp - CACHE path: " + TCONFIG->value("Cache").toString();
+    #ifdef Q_OS_WIN32
+        qWarning() << debug;
+    #else
+        tWarning() << debug;
+    #endif
+#endif
+    
 #if defined(Q_OS_MAC)
     kAppProp->setHomeDir(TCONFIG->value("Home").toString());
     kAppProp->setBinDir(appDirPath.absolutePath());
