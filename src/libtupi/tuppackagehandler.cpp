@@ -263,6 +263,7 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
 */
 
            name = CACHE_DIR + file.getActualFileName();
+		   // name = file.getActualFileName();
 
            if (name.endsWith(QDir::separator()))
                name.remove(name.count()-1, 1);
