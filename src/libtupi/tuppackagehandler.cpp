@@ -254,16 +254,13 @@ bool TupPackageHandler::importPackage(const QString &packagePath)
                return false;
            }
 
-/*           
            #ifdef Q_OS_WIN32
-               name = CACHE_DIR + file.getActualFileName();
+               name = file.getActualFileName();
             #else
                name = CACHE_DIR + file.getActualFileName();    
            #endif
-*/
 
-           name = CACHE_DIR + file.getActualFileName();
-		   // name = file.getActualFileName();
+           // name = CACHE_DIR + file.getActualFileName();
 
            if (name.endsWith(QDir::separator()))
                name.remove(name.count()-1, 1);
