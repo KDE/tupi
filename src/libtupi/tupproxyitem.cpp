@@ -84,7 +84,7 @@ QRectF TupProxyItem::boundingRect() const
     return QRectF(0, 0, 0, 0);
 }
 
-void TupProxyItem::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
+void TupProxyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
     if (k->realItem)
         k->realItem->paint(painter, option, widget);

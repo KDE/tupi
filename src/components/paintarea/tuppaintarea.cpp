@@ -1148,7 +1148,7 @@ void TupPaintArea::addSelectedItemsToLibrary()
         #ifdef Q_OS_WIN32
             qDebug() << "[TupPaintArea::addSelectedItemsToLibrary()]";
         #else
-            tDebug("paintarea") << "Adding to library";
+            tDebug("paintarea") << "TupPaintArea::addSelectedItemsToLibrary()";
         #endif
     #endif
 
@@ -1174,7 +1174,7 @@ void TupPaintArea::addSelectedItemsToLibrary()
                  doc.appendChild(itemSerializable->toXml(doc));
 
                  TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Add, 
-                                            symName, TupLibraryObject::Item, k->spaceMode, doc.toString().toLocal8Bit(), QString());
+                                             symName, TupLibraryObject::Item, k->spaceMode, doc.toString().toLocal8Bit(), QString());
                  emit requestTriggered(&request);
              }
     }
