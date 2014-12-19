@@ -5,11 +5,13 @@
     <name>ButtonsPanel</name>
     <message>
         <location filename="../src/plugins/tools/common/buttonspanel.cpp" line="41"/>
+        <location filename="../src/plugins/tools/papagayo/buttonspanel.cpp" line="41"/>
         <source>Edit Tween</source>
         <translation>Upravit výsledný sled snímků</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/common/buttonspanel.cpp" line="45"/>
+        <location filename="../src/plugins/tools/papagayo/buttonspanel.cpp" line="45"/>
         <source>Remove Tween</source>
         <translation>Odstranit výsledný sled snímků</translation>
     </message>
@@ -20,11 +22,6 @@
         <location filename="../src/plugins/tools/color/configurator.cpp" line="66"/>
         <source>Coloring Tween</source>
         <translation>Zbarvení výsledného sledu snímků</translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/tools/compound/configurator.cpp" line="71"/>
-        <source>Compound Tween</source>
-        <translation>Složený výsledný sled snímků</translation>
     </message>
     <message>
         <location filename="../src/plugins/tools/ink/configurator.cpp" line="58"/>
@@ -61,7 +58,6 @@
         <translation>Poloha výsledného sledu snímků</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/configurator.cpp" line="70"/>
         <location filename="../src/plugins/tools/rotation/configurator.cpp" line="70"/>
         <source>Rotation Tween</source>
         <translation>Otočení výsledného sledu snímků</translation>
@@ -106,6 +102,16 @@
         <source>Shear Tween</source>
         <translation>Deformace výsledného sledu snímků bočním tlakem</translation>
     </message>
+    <message>
+        <location filename="../src/plugins/tools/composed/configurator.cpp" line="71"/>
+        <source>Composed Tween</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/papagayo/configurator.cpp" line="51"/>
+        <source>Papagayo LipSync Files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EraserTool</name>
@@ -126,102 +132,102 @@
 <context>
     <name>ExportTo</name>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="469"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="484"/>
         <source>Image name prefix: </source>
         <translation>Předpona názvu obrázku: </translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="474"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="489"/>
         <source>Directory: </source>
         <translation>Adresář: </translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="477"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="492"/>
         <source>File: </source>
         <translation>Soubor: </translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="516"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="531"/>
         <source>i.e. &lt;B&gt;%1&lt;/B&gt;01.png / &lt;B&gt;%1&lt;/B&gt;01.jpg</source>
         <translation>např. &lt;B&gt;%1&lt;/B&gt;01.png / &lt;B&gt;%1&lt;/B&gt;01.jpg</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="530"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="545"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="541"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="556"/>
         <source>Configuration</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="555"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="570"/>
         <source>FPS</source>
         <translation>FPS</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="649"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="664"/>
         <source>Choose a file name...</source>
         <translation>Vybrat název souboru...</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="663"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="678"/>
         <source>Choose a directory...</source>
         <translation>Vybrat adresář...</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="741"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="756"/>
         <source>Warning!</source>
         <translation>Varování!</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="742"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="757"/>
         <source>File exists. Overwrite it?</source>
         <translation>Soubor existuje. Přepsat jej?</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="698"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="711"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="752"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="713"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="726"/>
         <location filename="../src/components/export/tupexportwidget.cpp" line="767"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="818"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="782"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="833"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="459"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="474"/>
         <source>Enable background transparency</source>
         <translation>Povolit průhlednost pozadí</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="698"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="713"/>
         <source>Images name prefix can&apos;t be empty! Please, type a prefix.</source>
         <translation>Předpona názvu obrázku nemůže být prázdná! Zadejte, prosím, předponu.</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="711"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="752"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="726"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="767"/>
         <source>Directory doesn&apos;t exist! Please, choose another path.</source>
         <translation>Adresář neexistuje! Vyberte, prosím, jinou cestu.</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="767"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="782"/>
         <source>You have no permission to create this file. Please, choose another path.</source>
         <translation>Nemáte žádné oprávnění pro vytvoření tohoto souboru. Vyberte, prosím, jinou cestu.</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="818"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="833"/>
         <source>Format problem. Tupi Internal error.</source>
         <translation>Potíže s formátem. Vnitřní chyba Tupí.</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="825"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="840"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="829"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="844"/>
         <source>ERROR!</source>
         <translation>Chyba!</translation>
     </message>
@@ -229,32 +235,44 @@
 <context>
     <name>FillTool</name>
     <message>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="75"/>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="80"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="77"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="82"/>
         <location filename="../src/plugins/tools/fill/filltool.cpp" line="84"/>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="177"/>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="278"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="87"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="188"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="298"/>
         <source>Internal fill</source>
         <translation>Vnitřní výplň</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="75"/>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="86"/>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="90"/>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="179"/>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="280"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="77"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="89"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="91"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="94"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="190"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="300"/>
         <source>Line fill</source>
         <translation>Výplň čáry</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="81"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="83"/>
         <source>I</source>
         <translation>I</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/fill/filltool.cpp" line="87"/>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="90"/>
         <source>B</source>
         <translation>B</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="157"/>
+        <source>Error</source>
+        <translation type="unfinished">Chyba</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/fill/filltool.cpp" line="157"/>
+        <source>Sorry, Groups can&apos;t be filled yet</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -264,13 +282,13 @@
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="113"/>
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="118"/>
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="149"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="207"/>
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="209"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="222"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="285"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="308"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="339"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="386"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="211"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="224"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="287"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="310"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="341"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="388"/>
         <source>Rectangle</source>
         <translation>Obdélník</translation>
     </message>
@@ -279,10 +297,10 @@
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="120"/>
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="125"/>
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="156"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="207"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="311"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="341"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="388"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="209"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="313"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="343"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="390"/>
         <source>Ellipse</source>
         <translation>Elipsa</translation>
     </message>
@@ -291,11 +309,11 @@
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="127"/>
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="132"/>
         <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="163"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="315"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="390"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="460"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="467"/>
-        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="474"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="317"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="392"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="462"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="469"/>
+        <location filename="../src/plugins/tools/geometric/geometrictool.cpp" line="476"/>
         <source>Line</source>
         <translation>Čára</translation>
     </message>
@@ -377,7 +395,8 @@
     <message>
         <location filename="../src/plugins/tools/ink/inktool.cpp" line="127"/>
         <location filename="../src/plugins/tools/ink/inktool.cpp" line="605"/>
-        <location filename="../src/plugins/tools/ink/inktool.cpp" line="609"/>
+        <location filename="../src/plugins/tools/ink/inktool.cpp" line="607"/>
+        <location filename="../src/plugins/tools/ink/inktool.cpp" line="610"/>
         <source>Ink</source>
         <translation>Inkoust</translation>
     </message>
@@ -396,16 +415,43 @@
     </message>
 </context>
 <context>
+    <name>LibavPlugin</name>
+    <message>
+        <location filename="../src/plugins/export/libavplugin/libavplugin.cpp" line="48"/>
+        <source>Video Formats</source>
+        <translation type="unfinished">Formáty videa</translation>
+    </message>
+</context>
+<context>
+    <name>LipSyncManager</name>
+    <message>
+        <location filename="../src/plugins/tools/papagayo/lipsyncmanager.cpp" line="70"/>
+        <source>Import LipSync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/papagayo/lipsyncmanager.cpp" line="74"/>
+        <source>Edit LipSync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/papagayo/lipsyncmanager.cpp" line="78"/>
+        <source>Remove LipSync</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NodesTool</name>
     <message>
-        <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="88"/>
-        <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="351"/>
-        <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="354"/>
+        <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="96"/>
+        <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="358"/>
+        <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="360"/>
+        <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="362"/>
         <source>Nodes Selection</source>
         <translation>Výběr čáry</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="352"/>
+        <location filename="../src/plugins/tools/nodes/nodestool.cpp" line="359"/>
         <source>N</source>
         <translation>N</translation>
     </message>
@@ -413,50 +459,35 @@
 <context>
     <name>PapagayoTool</name>
     <message>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="134"/>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="257"/>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="261"/>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="555"/>
+        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="105"/>
+        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="194"/>
+        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="197"/>
         <source>Papagayo Lip-sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="259"/>
-        <source>Shift+R</source>
-        <translation type="unfinished">Shift+R</translation>
+        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="195"/>
+        <source>Ctrl+Shift+P</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="427"/>
-        <source>Error</source>
-        <translation type="unfinished">Chyba</translation>
+        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="227"/>
+        <source>lipsync:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="427"/>
-        <source>Tween name is missing!</source>
-        <translation type="unfinished">Název výsledného sledu snímků chybí!</translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="533"/>
+        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="347"/>
         <source>Frame %1</source>
         <translation type="unfinished">Snímek %1</translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="544"/>
-        <source>Info</source>
-        <translation type="unfinished">Informace</translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/tools/papagayo/papagayotool.cpp" line="544"/>
-        <source>Tween %1 applied!</source>
-        <translation type="unfinished">Výsledný sled snímků %1 použit!</translation>
     </message>
 </context>
 <context>
     <name>PencilTool</name>
     <message>
         <location filename="../src/plugins/tools/pencil/penciltool.cpp" line="78"/>
-        <location filename="../src/plugins/tools/pencil/penciltool.cpp" line="83"/>
-        <location filename="../src/plugins/tools/pencil/penciltool.cpp" line="129"/>
+        <location filename="../src/plugins/tools/pencil/penciltool.cpp" line="80"/>
+        <location filename="../src/plugins/tools/pencil/penciltool.cpp" line="84"/>
+        <location filename="../src/plugins/tools/pencil/penciltool.cpp" line="130"/>
         <source>Pencil</source>
         <translation>Tužka</translation>
     </message>
@@ -470,8 +501,9 @@
     <name>PolyLineTool</name>
     <message>
         <location filename="../src/plugins/tools/polyline/polylinetool.cpp" line="93"/>
-        <location filename="../src/plugins/tools/polyline/polylinetool.cpp" line="97"/>
-        <location filename="../src/plugins/tools/polyline/polylinetool.cpp" line="122"/>
+        <location filename="../src/plugins/tools/polyline/polylinetool.cpp" line="95"/>
+        <location filename="../src/plugins/tools/polyline/polylinetool.cpp" line="98"/>
+        <location filename="../src/plugins/tools/polyline/polylinetool.cpp" line="123"/>
         <source>PolyLine</source>
         <translation>Lomená čára</translation>
     </message>
@@ -484,51 +516,51 @@
 <context>
     <name>PositionSettings</name>
     <message>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="68"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="68"/>
         <source>Component</source>
         <translation>Součást</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="71"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="71"/>
         <source>Position</source>
         <translation>Poloha</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="82"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="82"/>
         <source>Starting at frame</source>
         <translation>Začíná se na snímku</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="109"/>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="150"/>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="170"/>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="202"/>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="233"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="109"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="150"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="170"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="202"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="233"/>
         <source>Frames Total</source>
         <translation>Celkový počet snímků</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="154"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="154"/>
         <source>Cancel Tween</source>
         <translation>Zrušit výsledný sled snímků</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="216"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="216"/>
         <source>Info</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="216"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="216"/>
         <source>You must define a path for this Tween!</source>
         <translation>Musíte stanovit cestu pro tento výsledný sled snímků!</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="225"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="225"/>
         <source>Position Tween is set!</source>
         <translation>Poloha výsledného sledu snímků je nastavena!</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/positionsettings.cpp" line="250"/>
+        <location filename="../src/plugins/tools/composed/positionsettings.cpp" line="250"/>
         <source>Close Tween properties</source>
         <translation>Zavřít vlastnosti výsledného sledu snímků</translation>
     </message>
@@ -659,88 +691,93 @@
         <translation>Vybrat přídavný modul</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="142"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="208"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="120"/>
+        <source>Video Formats</source>
+        <translation type="unfinished">Formáty videa</translation>
+    </message>
+    <message>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="152"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="220"/>
         <source>WEBM Video</source>
         <translation>Video WEBM</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="147"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="211"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="158"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="224"/>
         <source>OGV Video</source>
         <translation>Video OGV</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="152"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="214"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="164"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="228"/>
         <source>MPEG Video</source>
         <translation>Video MPEG</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="157"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="217"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="169"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="231"/>
         <source>Macromedia flash</source>
         <translation>Macromedia flash</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="162"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="220"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="174"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="234"/>
         <source>AVI Video</source>
         <translation>Video AVI</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="195"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="241"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="207"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="255"/>
         <source>Animated PNG (APNG)</source>
         <translation>Animované PNG (APNG)</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="223"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="237"/>
         <source>RealMedia Video</source>
         <translation>Video RealMedia</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="259"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="273"/>
         <source>Animated Image</source>
         <translation>Animovaný obrázek</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="261"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="275"/>
         <source>Image Array</source>
         <translation>Řada obrázků</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="167"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="226"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="179"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="240"/>
         <source>ASF Video</source>
         <translation>Video ASF</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="172"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="229"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="184"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="243"/>
         <source>QuickTime Video</source>
         <translation>Video QuickTime</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="232"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="246"/>
         <source>Gif Image</source>
         <translation>Obrázek GIF</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="185"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="235"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="197"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="249"/>
         <source>PNG Image Array</source>
         <translation>Řada obrázků PNG</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="190"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="238"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="202"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="252"/>
         <source>JPEG Image Array</source>
         <translation>Řada obrázků JPEG</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="201"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="244"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="213"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="258"/>
         <source>SMIL</source>
         <translation>SMIL</translation>
     </message>
@@ -748,7 +785,7 @@
 <context>
     <name>SelectScenes</name>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="304"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="318"/>
         <source>Select Scenes</source>
         <translation>Vybrat výjevy</translation>
     </message>
@@ -756,20 +793,31 @@
 <context>
     <name>SelectionTool</name>
     <message>
-        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="161"/>
-        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="369"/>
+        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="182"/>
+        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="410"/>
         <source>Selection</source>
         <translation>Výběr</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="366"/>
+        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="406"/>
+        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="408"/>
         <source>Object Selection</source>
         <translation>Výběr předmětu</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="367"/>
+        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="407"/>
         <source>O</source>
         <translation>O</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="1006"/>
+        <source>Error</source>
+        <translation type="unfinished">Chyba</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/selection/selectiontool.cpp" line="1006"/>
+        <source>SVG objects can&apos;t be grouped/ungrouped yet</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -777,7 +825,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="81"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="85"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="92"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="72"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="92"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="87"/>
@@ -788,7 +835,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="91"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="95"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="102"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="82"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="102"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="97"/>
@@ -799,7 +845,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="92"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="96"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="103"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="83"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="103"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="98"/>
@@ -810,7 +855,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="93"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="97"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="104"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="84"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="104"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="99"/>
@@ -821,7 +865,7 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="133"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="137"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="144"/>
+        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="106"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="124"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="144"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="139"/>
@@ -832,7 +876,8 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="141"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="145"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="152"/>
+        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="197"/>
+        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="247"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="152"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="147"/>
         <location filename="../src/plugins/tools/shear/settings.cpp" line="148"/>
@@ -844,8 +889,7 @@
         <location filename="../src/plugins/tools/color/settings.cpp" line="565"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="168"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="516"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="176"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="687"/>
+        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="198"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="139"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="175"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="200"/>
@@ -886,7 +930,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="217"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="221"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="329"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="329"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="220"/>
         <location filename="../src/plugins/tools/shear/settings.cpp" line="221"/>
@@ -896,7 +939,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="226"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="230"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="338"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="338"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="229"/>
         <location filename="../src/plugins/tools/shear/settings.cpp" line="230"/>
@@ -906,7 +948,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="273"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="277"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="375"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="178"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="375"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="279"/>
@@ -917,7 +958,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="275"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="279"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="377"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="180"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="377"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="281"/>
@@ -928,7 +968,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="345"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="343"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="451"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="333"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="451"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="351"/>
@@ -939,7 +978,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="347"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="345"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="453"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="335"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="453"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="353"/>
@@ -954,9 +992,6 @@
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="351"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="356"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="399"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="459"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="473"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="524"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="248"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="312"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="317"/>
@@ -975,7 +1010,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="353"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="351"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="459"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="312"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="459"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="359"/>
@@ -986,7 +1020,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="358"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="356"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="473"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="473"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="364"/>
         <location filename="../src/plugins/tools/shear/settings.cpp" line="360"/>
@@ -996,7 +1029,6 @@
     <message>
         <location filename="../src/plugins/tools/color/settings.cpp" line="414"/>
         <location filename="../src/plugins/tools/opacity/settings.cpp" line="399"/>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="524"/>
         <location filename="../src/plugins/tools/position/settings.cpp" line="248"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="524"/>
         <location filename="../src/plugins/tools/scale/settings.cpp" line="407"/>
@@ -1020,61 +1052,51 @@
         <translation>Musíte stanovit cestu pro tento výsledný sled snímků!</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="185"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="185"/>
         <source>Continuous</source>
         <translation>Nepřetržitý</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="186"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="186"/>
         <source>Partial</source>
         <translation>Částečný</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="190"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="190"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="199"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="199"/>
         <source>Speed (Degrees/Frame)</source>
         <translation>Rychlost (stupně/snimky)</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="265"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="265"/>
         <source>Direction</source>
         <translation>Směr</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="269"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="269"/>
         <source>Clockwise</source>
         <translation>Po směru hodinových ručiček</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="270"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="270"/>
         <source>Counterclockwise</source>
         <translation>Proti směru hodinových ručiček</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="294"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="294"/>
         <source>Degrees Range</source>
         <translation>Rozsah stupňů</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="297"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="297"/>
         <source>Start at</source>
         <translation>Začátek na</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="313"/>
         <location filename="../src/plugins/tools/rotation/settings.cpp" line="313"/>
         <source>Finish at</source>
         <translation>Skončit na</translation>
@@ -1164,81 +1186,141 @@
         <translation>Poslat předmět o jednu úroveň do popředí</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="124"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="126"/>
+        <source>Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="137"/>
+        <source>Group Objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="141"/>
+        <source>Ungroup Objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="153"/>
         <source>Position</source>
         <translation>Poloha</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="150"/>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="229"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="179"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="268"/>
         <source>Show Tips</source>
         <translation>Ukázat rady</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="151"/>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="230"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="180"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="269"/>
         <source>A little help for the Selection tool</source>
         <translation>Malá nápověda k nástroji pro výběr</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="166"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="195"/>
         <source>Rotation mode</source>
         <translation>Režim otáčení</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="166"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="195"/>
         <source>Double click on any node or shortcut Alt + R</source>
         <translation>Dvojité klepnutí na jakýkoli uzel nebo klávesová zkratka Alt + R</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="167"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="196"/>
         <source>Arrows</source>
         <translation>Šipky</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="167"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="196"/>
         <source>Movement on selection</source>
         <translation>Přesunutí se na výběr</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="168"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="197"/>
         <source>Shift + Arrows</source>
         <translation>Shift + šipky</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="168"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="197"/>
         <source>Slow movement on selection</source>
         <translation>Pomalé přesunutí se na výběr</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="169"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="198"/>
         <source>Ctrl + Arrows</source>
         <translation>Ctrl + šipky</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="169"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="198"/>
         <source>Fast movement on selection</source>
         <translation>Rychlé přesunutí se na výběr</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="170"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="199"/>
         <source>Shift + Left Mouse Button</source>
         <translation>Shift + levé tlačítko myši</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="170"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="199"/>
         <source>Proportional scaling on selection</source>
         <translation>Poměrná změna velikosti na výběr</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="224"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="263"/>
         <source>Show Tools</source>
         <translation>Ukázat nástroje</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/selection/settings.cpp" line="225"/>
+        <location filename="../src/plugins/tools/selection/settings.cpp" line="264"/>
         <source>Options panel for the Selection tool</source>
         <translation>Panel s volbami pro nástroj pro výběr</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="86"/>
+        <source>Editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="142"/>
+        <source>Mouths</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="159"/>
+        <source>Close properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="191"/>
+        <source>Lip-Sync FPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/papagayo/settings.cpp" line="211"/>
+        <source>mouth</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShiftTool</name>
+    <message>
+        <location filename="../src/plugins/tools/shift/shifttool.cpp" line="89"/>
+        <location filename="../src/plugins/tools/shift/shifttool.cpp" line="94"/>
+        <location filename="../src/plugins/tools/shift/shifttool.cpp" line="96"/>
+        <location filename="../src/plugins/tools/shift/shifttool.cpp" line="100"/>
+        <location filename="../src/plugins/tools/shift/shifttool.cpp" line="121"/>
+        <location filename="../src/plugins/tools/shift/shifttool.cpp" line="129"/>
+        <location filename="../src/plugins/tools/shift/shifttool.cpp" line="177"/>
+        <location filename="../src/plugins/tools/shift/shifttool.cpp" line="208"/>
+        <source>Shift</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/tools/shift/shifttool.cpp" line="95"/>
+        <source>H</source>
+        <translation type="unfinished">H</translation>
     </message>
 </context>
 <context>
@@ -1749,37 +1831,37 @@
 <context>
     <name>TupCameraStatus</name>
     <message>
-        <location filename="../src/components/animation/tupcamerastatus.cpp" line="71"/>
+        <location filename="../src/components/animation/tupcamerastatus.cpp" line="70"/>
         <source>Scene name</source>
         <translation>Název výjevu</translation>
     </message>
     <message>
-        <location filename="../src/components/animation/tupcamerastatus.cpp" line="84"/>
+        <location filename="../src/components/animation/tupcamerastatus.cpp" line="83"/>
         <source>Frames total</source>
         <translation>Celkový počet snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/animation/tupcamerastatus.cpp" line="95"/>
+        <location filename="../src/components/animation/tupcamerastatus.cpp" line="94"/>
         <source>FPS</source>
         <translation>FPS</translation>
     </message>
     <message>
-        <location filename="../src/components/animation/tupcamerastatus.cpp" line="112"/>
+        <location filename="../src/components/animation/tupcamerastatus.cpp" line="111"/>
         <source>Loop</source>
         <translation>Smyčka</translation>
     </message>
     <message>
-        <location filename="../src/components/animation/tupcamerastatus.cpp" line="116"/>
+        <location filename="../src/components/animation/tupcamerastatus.cpp" line="115"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="../src/components/animation/tupcamerastatus.cpp" line="129"/>
+        <location filename="../src/components/animation/tupcamerastatus.cpp" line="128"/>
         <source>Export</source>
         <translation>Vyvést do souboru</translation>
     </message>
     <message>
-        <location filename="../src/components/animation/tupcamerastatus.cpp" line="139"/>
+        <location filename="../src/components/animation/tupcamerastatus.cpp" line="138"/>
         <source>Post</source>
         <translation>Poslat</translation>
     </message>
@@ -1787,17 +1869,17 @@
 <context>
     <name>TupCameraWidget</name>
     <message>
-        <location filename="../src/components/animation/tupcamerawidget.cpp" line="91"/>
+        <location filename="../src/components/animation/tupcamerawidget.cpp" line="93"/>
         <source>Scene Preview</source>
         <translation>Náhled výjevu</translation>
     </message>
     <message>
-        <location filename="../src/components/animation/tupcamerawidget.cpp" line="159"/>
+        <location filename="../src/components/animation/tupcamerawidget.cpp" line="170"/>
         <source>Scale</source>
         <translation>Měřítko</translation>
     </message>
     <message>
-        <location filename="../src/components/animation/tupcamerawidget.cpp" line="182"/>
+        <location filename="../src/components/animation/tupcamerawidget.cpp" line="193"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
@@ -2041,22 +2123,27 @@
         <translation>Paleta barev</translation>
     </message>
     <message>
-        <location filename="../src/components/colorpalette/tupcolorpalette.cpp" line="127"/>
+        <location filename="../src/components/colorpalette/tupcolorpalette.cpp" line="131"/>
         <source>Contour</source>
         <translation>Obrys</translation>
     </message>
     <message>
-        <location filename="../src/components/colorpalette/tupcolorpalette.cpp" line="128"/>
+        <location filename="../src/components/colorpalette/tupcolorpalette.cpp" line="132"/>
         <source>Fill</source>
         <translation>Vyplnit</translation>
     </message>
     <message>
-        <location filename="../src/components/colorpalette/tupcolorpalette.cpp" line="207"/>
+        <location filename="../src/components/colorpalette/tupcolorpalette.cpp" line="154"/>
+        <source>HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/colorpalette/tupcolorpalette.cpp" line="214"/>
         <source>Color Mixer</source>
         <translation>Mísič barev</translation>
     </message>
     <message>
-        <location filename="../src/components/colorpalette/tupcolorpalette.cpp" line="215"/>
+        <location filename="../src/components/colorpalette/tupcolorpalette.cpp" line="222"/>
         <source>Gradients</source>
         <translation>Přechody</translation>
     </message>
@@ -2155,436 +2242,437 @@
 <context>
     <name>TupDocumentView</name>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="344"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="617"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="931"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="973"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="369"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="619"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="925"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="968"/>
         <source>Object Selection</source>
         <translation>Výběr předmětu</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="344"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="973"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="369"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="622"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="968"/>
         <source>Nodes Selection</source>
         <translation type="unfinished">Výběr čáry</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="362"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="388"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="362"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="388"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="365"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="391"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="365"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="391"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="368"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="394"/>
         <source>Cut</source>
         <translation>Vyjmout</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="368"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="394"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="371"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="397"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="374"/>
-        <source>&amp;Group</source>
-        <translation>&amp;Skupina</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="374"/>
-        <source>Ctrl+G</source>
-        <translation>Ctrl+G</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="378"/>
-        <source>&amp;Ungroup</source>
-        <translation>&amp;Zrušit seskupení</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="379"/>
-        <source>Ctrl+Shift+G</source>
-        <translation>Ctrl+Shift+G</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="383"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="413"/>
         <source>Onion Skin</source>
         <translation>Cibulový vzhled</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="383"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="413"/>
         <source>Ctrl+Shift+O</source>
         <translation>Ctrl+Shift+O</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="386"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1123"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="416"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1115"/>
         <source>Onion Skin Factor</source>
         <translation>Násobek cibulového vzhledu</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="386"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="400"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="416"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="430"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="389"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="396"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="419"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="426"/>
         <source>@</source>
         <translation>@</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="389"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="419"/>
         <source>Export Current Frame As Image</source>
         <translation>Vyvést nynější snímek jako obrázek</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="396"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="426"/>
         <source>Export Current Frame To Gallery</source>
         <translation>Vyvést nynější snímek do galerie</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="400"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="430"/>
         <source>Storyboard Settings</source>
         <translation>Nastavení obrázkového scénáře</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="403"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="435"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="439"/>
         <source>Camera</source>
         <translation>Kamera</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="403"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="435"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="439"/>
         <source>Ctrl+Shift+C</source>
         <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="409"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="443"/>
+        <source>Papagayo Lip-sync Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="443"/>
+        <source>Ctrl+Shift+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="449"/>
         <source>Draw tools</source>
         <translation>Nástroje na kreslení</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="416"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="456"/>
         <source>Brushes</source>
         <translation>Štětce</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="423"/>
-        <source>Selection</source>
-        <translation>Výběr</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="430"/>
-        <source>Fill</source>
-        <translation>Výplň</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1879"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1939"/>
         <source>Papagayo file has been imported successfully</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="444"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="461"/>
         <source>Tweening</source>
         <translation>Tvorba výsledného sledu snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="467"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="478"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="482"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="493"/>
         <source>Image Array</source>
         <translation>Řada obrázků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="532"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="896"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="545"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="898"/>
         <source>Pencil</source>
         <translation>Tužka</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="538"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="548"/>
         <source>Ink</source>
         <translation>Inkoust</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="542"/>
-        <source>Eraser</source>
-        <translation>Guma</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="344"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="547"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="900"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="973"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1648"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="369"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="559"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="898"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="968"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1643"/>
         <source>PolyLine</source>
         <translation>Lomená čára</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="554"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="901"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1651"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="566"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="904"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1646"/>
         <source>Line</source>
         <translation>Čára</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="561"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="900"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="573"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="904"/>
         <source>Rectangle</source>
         <translation>Obdélník</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="564"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="901"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="578"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="904"/>
         <source>Ellipse</source>
         <translation>Elipsa</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="567"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="898"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="612"/>
+        <source>Composed Tween</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="631"/>
+        <source>Line fill</source>
+        <translation type="unfinished">Výplň čáry</translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="900"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="575"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="592"/>
         <source>Position Tween</source>
         <translation>Poloha výsledného sledu snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="580"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="597"/>
         <source>Rotation Tween</source>
         <translation>Otočení výsledného sledu snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="584"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="600"/>
         <source>Scale Tween</source>
         <translation>Měřítko výsledného sledu snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="589"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="603"/>
         <source>Shear Tween</source>
         <translation>Deformace výsledného sledu snímků bočním tlakem</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="594"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="606"/>
         <source>Opacity Tween</source>
         <translation>Neprůhlednost výsledného sledu snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="599"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="609"/>
         <source>Coloring Tween</source>
         <translation>Zbarvení výsledného sledu snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="604"/>
-        <source>Compound Tween</source>
-        <translation>Složený výsledný sled snímků</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="624"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="628"/>
         <source>Internal fill</source>
         <translation>Vnitřní výplň</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="943"/>
-        <source>Zoom In</source>
-        <translation>Přiblížit</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="816"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="871"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="839"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="873"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="943"/>
-        <source>Zoom Out</source>
-        <translation>Oddálit</translation>
-    </message>
-    <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="437"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="631"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="946"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1441"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1496"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="637"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="934"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1435"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1491"/>
         <source>Shift</source>
         <translation>Ruční</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="609"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="643"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1934"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1989"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="2000"/>
         <source>Papagayo Lip-sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1060"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1055"/>
         <source>Paint area actions</source>
         <translation>Činnosti pro oblast malování</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1063"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1058"/>
         <source>Dynamic Background Properties</source>
         <translation>Dynamické vlastnosti pozadí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1068"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1063"/>
         <source>Frames Mode</source>
         <translation>Režim snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1069"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1064"/>
         <source>Static BG Mode</source>
         <translation>Statický režim pozadí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1070"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1065"/>
         <source>Dynamic BG Mode</source>
         <translation>Dynamický režim pozadí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1095"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1087"/>
         <source>Previous Frames</source>
         <translation>Předchozí snímky</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1107"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1099"/>
         <source>Next Frames</source>
         <translation>Další snímky</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1142"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1136"/>
         <source>Direction</source>
         <translation>Směr</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1145"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1139"/>
         <source>Left to Right</source>
         <translation>Zleva doprava</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1146"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1140"/>
         <source>Right to Left</source>
         <translation>Zprava do leva</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1147"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1141"/>
         <source>Top to Bottom</source>
         <translation>Shora dolů</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1148"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1142"/>
         <source>Bottom to Top</source>
         <translation>Zdola nahoru</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1151"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1145"/>
         <source>Shift Length</source>
         <translation>Délka posunu</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1519"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1514"/>
         <source>Export Frame As</source>
         <translation>Vyvést snímek jako</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1520"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1515"/>
         <source>Images</source>
         <translation>Obrázky</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1525"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1879"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1520"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1939"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1525"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1520"/>
         <source>Frame has been exported successfully</source>
         <translation>Snímek byl uložen úspěšně</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1527"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1734"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1522"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1729"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1837"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1941"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1952"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1963"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1974"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1527"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1522"/>
         <source>Can&apos;t export frame as image</source>
         <translation>Nelze vyvést snímek jako obrázek</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1734"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1729"/>
         <source>No cameras detected</source>
         <translation>Nezjištěna žádná kamera</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1797"/>
-        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1870"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1792"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1925"/>
         <source>Frame %1</source>
         <translation>Snímek %1</translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1837"/>
+        <source>Papagayo project already exists!
+Please, rename the project&apos;s file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1941"/>
+        <source>Papagayo file is invalid!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1952"/>
+        <source>Images directory is empty!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1963"/>
+        <location filename="../src/components/paintarea/tupdocumentview.cpp" line="1974"/>
+        <source>Papagayo project is invalid!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>TupExportWidget</name>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="1030"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1045"/>
         <source>Export to Video</source>
         <translation>Vyvést jako video</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="1041"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1056"/>
         <source>Export to Video File</source>
         <translation>Vyvést jako videosoubor</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="1044"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1059"/>
         <source>Export to Images Array</source>
         <translation>Vyvést jako řadu obrázků</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="1047"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1062"/>
         <source>Export to Animated Image</source>
         <translation>Vyvést do animovaného souboru</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="1063"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1078"/>
         <source>Post Animation in Tupitube</source>
         <translation>Poslat kreslený film do Tupí bedny</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="1097"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1112"/>
         <source>Video Formats</source>
         <translation>Formáty videa</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="1099"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1114"/>
         <source>Open Video Format</source>
         <translation>Otevřený formát videa</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="1101"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1116"/>
         <source>Image Array</source>
         <translation>Řada obrázků</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="1103"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1118"/>
         <source>Animated Image</source>
         <translation>Animovaný obrázek</translation>
     </message>
@@ -2660,12 +2748,12 @@
 <context>
     <name>TupExposureSheet</name>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="60"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="62"/>
         <source>Exposure Sheet</source>
         <translation>List vystavení</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="96"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="98"/>
         <source>actions</source>
         <translation>Činnosti</translation>
     </message>
@@ -2676,107 +2764,109 @@
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="102"/>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="160"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="985"/>
         <source>1 frame</source>
         <translation>1 snímek</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="107"/>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="161"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="106"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="990"/>
         <source>5 frames</source>
         <translation>5 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="112"/>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="162"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="110"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="995"/>
         <source>10 frames</source>
         <translation>10 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="117"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="114"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="1000"/>
         <source>20 frames</source>
         <translation>20 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="122"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="118"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="1005"/>
         <source>50 frames</source>
         <translation>50 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="127"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="122"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="1010"/>
         <source>100 frames</source>
         <translation>100 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="134"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="130"/>
         <source>Remove frame</source>
         <translation>Odstranit snímek</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="139"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="135"/>
         <source>Clear frame</source>
         <translation>Smazat snímek</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="144"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="140"/>
         <source>Lock/Unlock frame</source>
         <translation>Zamknout/Odemknout snímek</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="149"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="145"/>
         <source>Copy frame</source>
         <translation>Kopírovat snímek</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="154"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="150"/>
         <source>Paste in frame</source>
         <translation>Vložit do snímku</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="159"/>
-        <source>Expand</source>
-        <translation>Rozšířit</translation>
-    </message>
-    <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="168"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="155"/>
         <source>Copy TL forward</source>
         <translation>Kopírovat časovou přímku dopředu</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="169"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="157"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="1018"/>
         <source>1 time</source>
         <translation>1 krát</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="170"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="161"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="1023"/>
         <source>2 times</source>
         <translation>2 krát</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="171"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="165"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="1028"/>
         <source>3 times</source>
         <translation>3 krát</translation>
     </message>
     <message>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="172"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="169"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="1033"/>
         <source>4 times</source>
         <translation>4 krát</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="173"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="1038"/>
         <source>5 times</source>
         <translation>5 krát</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="247"/>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="671"/>
         <source>Layer %1</source>
         <translation>Vrstva %1</translation>
     </message>
     <message>
         <location filename="../src/components/exposure/tupexposuresheet.cpp" line="254"/>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="501"/>
-        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="674"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="478"/>
+        <location filename="../src/components/exposure/tupexposuresheet.cpp" line="893"/>
         <source>Frame %1</source>
         <translation>Snímek %1</translation>
     </message>
@@ -2817,36 +2907,31 @@
 <context>
     <name>TupGraphicsScene</name>
     <message>
-        <location filename="../src/libbase/tupgraphicsscene.cpp" line="155"/>
+        <location filename="../src/libbase/tupgraphicsscene.cpp" line="159"/>
         <source>PolyLine</source>
         <translation>Lomená čára</translation>
     </message>
     <message>
-        <location filename="../src/libbase/tupgraphicsscene.cpp" line="583"/>
-        <location filename="../src/libbase/tupgraphicsscene.cpp" line="771"/>
+        <location filename="../src/libbase/tupgraphicsscene.cpp" line="555"/>
+        <location filename="../src/libbase/tupgraphicsscene.cpp" line="745"/>
         <source>/Step: 0</source>
         <translation>/Krok: 0</translation>
     </message>
     <message>
-        <location filename="../src/libbase/tupgraphicsscene.cpp" line="653"/>
-        <location filename="../src/libbase/tupgraphicsscene.cpp" line="803"/>
+        <location filename="../src/libbase/tupgraphicsscene.cpp" line="625"/>
+        <location filename="../src/libbase/tupgraphicsscene.cpp" line="777"/>
         <source>/Step: </source>
         <translation>/Krok: </translation>
     </message>
     <message>
-        <location filename="../src/libbase/tupgraphicsscene.cpp" line="1212"/>
+        <location filename="../src/libbase/tupgraphicsscene.cpp" line="862"/>
+        <source>lipsync:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/libbase/tupgraphicsscene.cpp" line="1223"/>
         <source>Line</source>
         <translation>Čára</translation>
-    </message>
-    <message>
-        <location filename="../src/libbase/tupgraphicsscene.cpp" line="1297"/>
-        <source>Zoom In</source>
-        <translation>Přiblížit</translation>
-    </message>
-    <message>
-        <location filename="../src/libbase/tupgraphicsscene.cpp" line="1297"/>
-        <source>Zoom Out</source>
-        <translation>Oddálit</translation>
     </message>
 </context>
 <context>
@@ -2984,67 +3069,67 @@
 <context>
     <name>TupItemManager</name>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="70"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="69"/>
         <source>New folder %1</source>
         <translation>Nová složka %1</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="229"/>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="350"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="228"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="359"/>
         <source>Options</source>
         <translation>Volby</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="242"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="246"/>
         <source>Edit with Inkscape</source>
         <translation>Upravit s Inkscape</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="252"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="256"/>
         <source>Edit with Gimp</source>
         <translation>Upravit s Gimp</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="262"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="266"/>
         <source>Edit with Krita</source>
         <translation>Upravit s Krita</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="272"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="276"/>
         <source>Edit with MyPaint</source>
         <translation>Upravit s MyPaint</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="283"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="288"/>
         <source>Clone</source>
         <translation>Klonovat</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="286"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="293"/>
         <source>Export</source>
         <translation>Vyvést</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="232"/>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="289"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="231"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="296"/>
         <source>Rename</source>
         <translation>Přejmenovat</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="235"/>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="292"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="234"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="299"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="303"/>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="354"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="310"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="363"/>
         <source>Create new raster item</source>
         <translation>Vytvořit novou rastrovou položku</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="309"/>
-        <location filename="../src/components/library/tupitemmanager.cpp" line="359"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="316"/>
+        <location filename="../src/components/library/tupitemmanager.cpp" line="368"/>
         <source>Create new svg item</source>
         <translation>Vytvořit novou vektorovou položku</translation>
     </message>
@@ -3091,8 +3176,8 @@
     </message>
     <message>
         <location filename="../src/store/tupitemtweener.cpp" line="628"/>
-        <source>Compound Tween</source>
-        <translation>Složený výsledný sled snímků</translation>
+        <source>Composed Tween</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/store/tupitemtweener.cpp" line="631"/>
@@ -3103,7 +3188,7 @@
 <context>
     <name>TupLayer</name>
     <message>
-        <location filename="../src/store/tuplayer.cpp" line="56"/>
+        <location filename="../src/store/tuplayer.cpp" line="55"/>
         <source>Layer</source>
         <translation>Vrstva</translation>
     </message>
@@ -3143,234 +3228,273 @@
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="162"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1445"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1525"/>
         <source>Image</source>
         <translation>Obrázek</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="164"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1450"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1530"/>
         <source>Image Array</source>
         <translation>Řada obrázků</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="163"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1455"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1535"/>
         <source>Svg File</source>
         <translation>Soubor SVG</translation>
     </message>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="165"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1460"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1540"/>
         <source>Svg Array</source>
         <translation>Řada SVG</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="171"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="173"/>
         <source>Add an object to library</source>
         <translation>Přidat předmět do knihovny</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="179"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="181"/>
         <source>Adds a folder to the object&apos;s list</source>
         <translation>Přidá složku do seznamu předmětů</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="186"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="188"/>
         <source>Inserts the selected object into the drawing area</source>
         <translation>Vloží vybraný předmět do kreslící oblasti</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="269"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1493"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="272"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1578"/>
         <source>Directory</source>
         <translation>Adresář</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="286"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="290"/>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="339"/>
         <source>No preview available</source>
         <translation>Není dostupný žádný náhled</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="550"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="601"/>
         <source>Export object...</source>
         <translation>Vyvést předmět...</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="579"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="630"/>
         <source>Info</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="579"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="630"/>
         <source>Item exported successfully!</source>
         <translation>Položka vyvedena úspěšně!</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="653"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="704"/>
         <source>Couldn&apos;t create images directory!</source>
         <translation>Nelze vytvořit adresář pro obrázky!</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="762"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="813"/>
         <source>Couldn&apos;t create vector directory!</source>
         <translation>Nelze vytvořit adresář pro vektory!</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="781"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="832"/>
         <source>Tupi library item</source>
         <translation>Položka knihovny Tupí</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="537"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="836"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="580"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="887"/>
         <source>Images</source>
         <translation>Obrázky</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="835"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="886"/>
         <source>Import images...</source>
         <translation>Zavést obrázky...</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="876"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1026"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1159"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="927"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1077"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1210"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="878"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="929"/>
         <source>Image is bigger than workspace.</source>
         <translation>Obrázek je větší než pracovní prostor.</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="879"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="930"/>
         <source>Do you want to resize it?</source>
         <translation>Chcete změnit jeho velikost?</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="653"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="762"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="923"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="979"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1123"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1238"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1262"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="355"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="368"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="382"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="395"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="704"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="813"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="974"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1030"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1174"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1289"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1313"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="923"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="979"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1262"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="166"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1545"/>
+        <source>Sound File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="355"/>
+        <source>Library is empty!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="368"/>
+        <source>There&apos;s no current selection!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="382"/>
+        <source>It&apos;s a directory! Please, pick a graphic object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="395"/>
+        <source>It&apos;s a sound file! Please, pick a graphic object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="592"/>
+        <source>Sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="974"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1030"/>
         <source>Cannot open file: %1</source>
         <translation>Nelze otevřít soubor: %1</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="929"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="980"/>
         <source>Import SVG files...</source>
         <translation>Zavést soubory SVG...</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="930"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="981"/>
         <source>Vector</source>
         <translation>Vektor</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="986"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1037"/>
         <source>Choose the images directory...</source>
         <translation>Vybrat adresář s obrázky...</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1009"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1060"/>
         <source>Image files found: %1.</source>
         <translation>Nalezené soubory s obrázky: %1.</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1019"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1070"/>
         <source>Files are too big, so they will be resized.</source>
         <translation>Soubory jsou moc veliké, proto bude změněna jejich velikost.</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1020"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1071"/>
         <source>Note: This task can take a while.</source>
         <translation>Poznámka: Tato úloha může chvíli trvat.</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1029"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1162"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1080"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1213"/>
         <source>Do you want to continue?</source>
         <translation>Chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1051"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1102"/>
         <source>Loading images...</source>
         <translation>Nahrávají se obrázky...</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1099"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1213"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1150"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1264"/>
         <source>Frame %1</source>
         <translation>Snímek %1</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1107"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1158"/>
         <source>Loading image #%1</source>
         <translation>Nahrává se obrázkek #%1</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1111"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1226"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1162"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1277"/>
         <source>ERROR!</source>
         <translation>Chyba!</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1111"/>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1226"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1162"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1277"/>
         <source>ERROR: Can&apos;t open file %1. Please, check file permissions and try again.</source>
         <translation>Chyba: Nelze otevřít soubor %1. Prověřte, prosím, oprávnění k souboru a zkuste to znovu.</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1123"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1174"/>
         <source>No image files were found.&lt;br/&gt;Please, try another directory</source>
         <translation>Nebyly nalezeny žádné obrázkové soubory.&lt;br/&gt;Vyzkoušejte, prosím, jiný adresář</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1131"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1182"/>
         <source>Choose the SVG files directory...</source>
         <translation>Vybrat adresář se soubory SVG...</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1156"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1207"/>
         <source>%1 SVG files will be loaded.</source>
         <translation>Bude nahráno %1 souborů SVG.</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1182"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1233"/>
         <source>Loading SVG files...</source>
         <translation>Nahrávají se soubory SVG...</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1221"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1272"/>
         <source>Loading SVG file #%1</source>
         <translation>Nahrává se soubor SVG #%1</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1238"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1289"/>
         <source>No SVG files were found.&lt;br/&gt;Please, try another directory</source>
         <translation>Nebyly nalezeny žádné soubory SVG.&lt;br/&gt;Vyzkoušejte, prosím, jiný adresář</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1244"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1295"/>
         <source>Import audio file...</source>
         <translation>Zavést zvukový soubor...</translation>
     </message>
     <message>
-        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1245"/>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1296"/>
         <source>Sound file</source>
         <translation>Soubor se zvukem</translation>
+    </message>
+    <message>
+        <location filename="../src/components/library/tuplibrarywidget.cpp" line="1313"/>
+        <source>Error while opening file: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3423,224 +3547,221 @@
     <name>TupMainWindow</name>
     <message>
         <location filename="../src/shell/tupmainwindow.cpp" line="111"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="216"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="635"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="729"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="820"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1138"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1173"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="224"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="654"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="756"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="846"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1141"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1185"/>
         <source>Tupi: Open 2D Magic</source>
         <translation>Tupí: Otevřené dvojrozměrné kouzlo</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="216"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="224"/>
         <source>[ by %1 | net mode ]</source>
         <translation>[ od %1 | síťový režim ]</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="255"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="404"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="994"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1165"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="263"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="415"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="997"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1177"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="255"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="263"/>
         <source>Opening a new document...</source>
         <translation>Otevírá se nový dokument...</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="273"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1218"/>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="277"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="281"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1230"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="274"/>
         <source>Animation</source>
         <translation>Kreslený film</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="327"/>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="285"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="335"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="282"/>
         <source>Player</source>
         <translation>Přehrávač</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="404"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="415"/>
         <source>Project &lt;b&gt;%1&lt;/b&gt; opened!</source>
         <translation>Projekt &lt;b&gt;%1&lt;/b&gt; otevřen!</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="484"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="503"/>
         <source>Question</source>
         <translation>Otázka</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="486"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="505"/>
         <source>The document has been modified.</source>
         <translation>Dokument byl změněn.</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="487"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="506"/>
         <source>Do you want to save the project?</source>
         <translation>Chcete projekt uložit?</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="489"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="508"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="490"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="509"/>
         <source>Discard</source>
         <translation>Vyhodit</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="491"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="510"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="729"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="820"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1138"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1173"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="756"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="846"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1141"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1185"/>
         <source>by</source>
         <translation>Od</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="746"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="773"/>
         <source>Open Tupi project</source>
         <translation>Otevřít projekt Tupí</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="747"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1093"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1429"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="774"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1096"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1441"/>
         <source>Tupi Project Package (*.tup)</source>
         <translation>Balíček s projektem Tupí (*.tup)</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="824"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="996"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1109"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1124"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1175"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1437"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1441"/>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="691"/>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="702"/>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="713"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="850"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="999"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1112"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1127"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1187"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1449"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1453"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="824"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="850"/>
         <source>Cannot open project!</source>
         <translation>Projekt nelze otevřít!</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="954"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="957"/>
         <source>Import Gimp palettes</source>
         <translation>Zavést palety z Gimpu</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="954"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="957"/>
         <source>Gimp Palette (*.gpl *.txt *.css)</source>
         <translation>Paleta z Gimpu (*.gpl *.txt *.css)</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="994"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="997"/>
         <source>Gimp palette import was successful</source>
         <translation>Zavedení palety z Gimpu proběhlo úspěšně</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="996"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="999"/>
         <source>Gimp palette import was unsuccessful</source>
         <translation>Zavedení palety z Gimpu neproběhlo úspěšně</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="933"/>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="470"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="936"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="467"/>
         <source>Tip of the day</source>
         <translation>Rada na tento den</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="933"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="936"/>
         <source>Show on start</source>
         <translation>Ukázat při spuštění</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="933"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="936"/>
         <source>Previous tip</source>
         <translation>Předchozí rada</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="933"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="936"/>
         <source>Next tip</source>
         <translation>Další rada</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="933"/>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1462"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="936"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1474"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1092"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1095"/>
         <source>Save Project As</source>
         <translation>Uložit projekt jako</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1109"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1112"/>
         <source>Directory does not exist! Please, choose another path.</source>
         <translation>Adresář neexistuje! Vyberte, prosím, jinou cestu.</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1124"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1127"/>
         <source>You have no permission to create this file. Please, choose another path.</source>
         <translation>Nemáte žádné oprávnění pro vytvoření tohoto souboru. Vyberte, prosím, jinou cestu.</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1165"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1177"/>
         <source>Project &lt;b&gt;%1&lt;/b&gt; saved</source>
         <translation>Projekt &lt;b&gt;%1&lt;/b&gt; uložen</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1175"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1187"/>
         <source>Cannot save the project!</source>
         <translation>Projekt nelze uložit!</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1219"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1231"/>
         <source>New camera</source>
         <translation>Nová kamera</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1428"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1440"/>
         <source>Import project package</source>
         <translation>Zavést balíček s projektem</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1437"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1449"/>
         <source>Can&apos;t import project. File is empty!</source>
         <translation>Nelze zavést projekt. Soubor je prázdný!</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1441"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1453"/>
         <source>Can&apos;t save the project. File doesn&apos;t exist!</source>
         <translation>Nelze uložit projekt. Soubor neexistuje!</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1457"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1469"/>
         <source>Fatal Error</source>
         <translation>Vážná chyba</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1459"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1471"/>
         <source>The connection to the server has been lost.</source>
         <translation>Spojení se serverem bylo ztraceno.</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow.cpp" line="1460"/>
+        <location filename="../src/shell/tupmainwindow.cpp" line="1472"/>
         <source>Please, try to connect again in a while</source>
         <translation>Pokuste se, prosím, připojit za chvíli</translation>
     </message>
@@ -3715,266 +3836,249 @@
         <translation>Shift+H</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="154"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="153"/>
         <source>Shift+T</source>
         <translation>Shift+T</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="164"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="163"/>
         <source>Shift+D</source>
         <translation>Shift+D</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="195"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="194"/>
         <source>&amp;File</source>
         <translation>&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="204"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="203"/>
         <source>Recents</source>
         <translation>Naposledy otevřené projekty</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="225"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="224"/>
         <source>&amp;Edit</source>
         <translation>Ú&amp;pravy</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="235"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="234"/>
         <source>&amp;Import</source>
         <translation>&amp;Zavést</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="252"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="251"/>
         <source>&amp;Window</source>
         <translation>&amp;Okno</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="272"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="269"/>
         <source>Modules</source>
         <translation>Moduly</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="293"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="290"/>
         <source>Help</source>
         <translation>Nápověda</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="301"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="298"/>
         <source>News</source>
         <translation>Zprávy</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="314"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="311"/>
         <source>&amp;Help</source>
         <translation>Nápo&amp;věda</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="361"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="358"/>
         <source>New project</source>
         <translation>Nový projekt</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="361"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="358"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="363"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="360"/>
         <source>Open new project</source>
         <translation>Otevřít nový projekt</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="366"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="363"/>
         <source>Open project</source>
         <translation>Otevřít projekt</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="366"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="363"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="369"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="366"/>
         <source>Load existent project</source>
         <translation>Nahrát stávající projekt</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="382"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="379"/>
         <source>Save project</source>
         <translation>Uložit projekt</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="383"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="380"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="385"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="382"/>
         <source>Save current project in current location</source>
         <translation>Uložit nynější projekt v současném umístění</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="390"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="387"/>
         <source>Save project &amp;As...</source>
         <translation>Uložit projekt &amp;jako...</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="391"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="388"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="394"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="391"/>
         <source>Open dialog box to save current project in any location</source>
         <translation>Otevřít dialogové okno pro uložení nynějšího projektu do jakéhokoli umístění</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="400"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="397"/>
         <source>Cl&amp;ose project</source>
         <translation>Za&amp;vřít projekt</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="400"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="397"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="403"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="400"/>
         <source>Close active project</source>
         <translation>Zavřít činný projekt</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="408"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="405"/>
         <source>&amp;Import GIMP palettes</source>
         <translation>&amp;Zavést palety z Gimpu</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="409"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="406"/>
         <source>Shift+G</source>
         <translation>Shift+G</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="410"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="407"/>
         <source>Import palettes</source>
         <translation>Zavést barevné palety</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="413"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="410"/>
         <source>&amp;Import Papagayo Lip-sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="414"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="411"/>
         <source>Alt+P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="415"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="412"/>
         <source>Import Papagayo lip-sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="419"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="416"/>
         <source>&amp;Export Project</source>
         <translation>&amp;Vyvést projekt</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="419"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="416"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="421"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="418"/>
         <source>Export project to several video formats</source>
         <translation>Vyvést projekt do několika formátů videa</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="425"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="422"/>
         <source>E&amp;xit</source>
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="425"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="422"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="427"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="424"/>
         <source>Close application</source>
         <translation>Zavřít program</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="451"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="448"/>
         <source>Pr&amp;eferences...</source>
         <translation>Nastav&amp;ení...</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="452"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="449"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="454"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="451"/>
         <source>Opens the preferences dialog box</source>
         <translation>Otevře dialogové okno s nastavením</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="468"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="465"/>
         <source>About Tupi</source>
         <translation>O programu Tupí</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="468"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="465"/>
         <source>Ctrl+K</source>
         <translation>Ctrl+K</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="470"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="467"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="526"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="523"/>
         <source>Actions Bar</source>
         <translation>Pruh s činnostmi</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="666"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="663"/>
         <source>Undo</source>
         <translation>Zpět</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="669"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="666"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="672"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="669"/>
         <source>Redo</source>
         <translation>Znovu</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="675"/>
+        <location filename="../src/shell/tupmainwindow_gui.cpp" line="672"/>
         <source>Ctrl+Y</source>
         <translation>Ctrl+Y</translation>
-    </message>
-    <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="684"/>
-        <source>Import Papagayo project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="684"/>
-        <source>Papagayo Project (*.pgo)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="691"/>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="702"/>
-        <location filename="../src/shell/tupmainwindow_gui.cpp" line="713"/>
-        <source>Papagayo project is invalid!</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4214,65 +4318,65 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
         <translation>Informace k projektu</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="226"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="228"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="228"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="230"/>
         <source>Username</source>
         <translation>Uživatelské jméno</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="228"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="230"/>
         <source>Password</source>
         <translation>Heslo</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="228"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="230"/>
         <source>Server</source>
         <translation>Server</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="228"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="230"/>
         <source>Port</source>
         <translation>Přípojka</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="233"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="235"/>
         <source>Store password</source>
         <translation>Uložit heslo</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="279"/>
-        <location filename="../src/shell/tupnewproject.cpp" line="285"/>
-        <location filename="../src/shell/tupnewproject.cpp" line="290"/>
-        <location filename="../src/shell/tupnewproject.cpp" line="295"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="281"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="287"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="292"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="297"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="279"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="281"/>
         <source>Please, set a name for the project</source>
         <translation>Nastavte, prosím, název projektu</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="285"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="287"/>
         <source>Please, fill in your username</source>
         <translation>Vyplňte, prosím, své uživatelské jméno</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="290"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="292"/>
         <source>Please, fill in your password</source>
         <translation>Vyplňte, prosím, své heslo</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="295"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="297"/>
         <source>Please, fill in the server name or IP</source>
         <translation>Nastavte, prosím, název serveru nebo IP</translation>
     </message>
     <message>
-        <location filename="../src/shell/tupnewproject.cpp" line="325"/>
+        <location filename="../src/shell/tupnewproject.cpp" line="327"/>
         <source>White</source>
         <translation>Bílá</translation>
     </message>
@@ -4316,163 +4420,163 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
 <context>
     <name>TupPaintArea</name>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="80"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1378"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="79"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1361"/>
         <source>Pencil</source>
         <translation>Tužka</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="161"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="696"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="166"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="710"/>
         <source>Nodes Selection</source>
         <translation>Výběr čáry</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="182"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="644"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="696"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1379"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="187"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="658"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="710"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1362"/>
         <source>Object Selection</source>
         <translation>Výběr předmětu</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="199"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="204"/>
         <source>Drawing area</source>
         <translation>Oblast kreslení</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="204"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="209"/>
         <source>Cut</source>
         <translation>Vyjmout</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="204"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="209"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="205"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="210"/>
         <source>Copy</source>
         <translation>Kopírovat</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="205"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="210"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="206"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="211"/>
         <source>Paste</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="206"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="211"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="208"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="213"/>
         <source>Paste in...</source>
         <translation>Vložit...</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="209"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="214"/>
         <source>next 5 frames</source>
         <translation>dalších 5 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="210"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="215"/>
         <source>next 10 frames</source>
         <translation>dalších 10 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="211"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="216"/>
         <source>next 20 frames</source>
         <translation>dalších 20 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="212"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="217"/>
         <source>next 50 frames</source>
         <translation>dalších 50 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="213"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="218"/>
         <source>next 100 frames</source>
         <translation>dalších 100 snímků</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="223"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="228"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="238"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="243"/>
         <source>Add to library...</source>
         <translation>Přidat do knihovny...</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="171"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="591"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1364"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="176"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="604"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1347"/>
         <source>PolyLine</source>
         <translation>Lomená čára</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="226"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="231"/>
         <source>Send</source>
         <translation>Poslat</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="229"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="234"/>
         <source>To back</source>
         <translation>Do pozadí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="230"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="235"/>
         <source>To front</source>
         <translation>Do popředí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="231"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="236"/>
         <source>One level to back</source>
         <translation>O jednu úroveň do pozadí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="232"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="237"/>
         <source>One level to front</source>
         <translation>O jednu úroveň do popředí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1185"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1223"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1158"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1196"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1185"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1223"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1158"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1196"/>
         <source>No items selected</source>
         <translation>Nevybrány žádné položky</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1370"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1353"/>
         <source>Rectangle</source>
         <translation>Obdélník</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1371"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1354"/>
         <source>Ellipse</source>
         <translation>Elipsa</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="176"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1372"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="181"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1355"/>
         <source>Line</source>
         <translation>Čára</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1085"/>
-        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1430"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1058"/>
+        <location filename="../src/components/paintarea/tuppaintarea.cpp" line="1413"/>
         <source>Frame %1</source>
         <translation>Snímek %1</translation>
     </message>
@@ -4480,22 +4584,22 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
 <context>
     <name>TupPaintAreaBase</name>
     <message>
-        <location filename="../src/libbase/tuppaintareabase.cpp" line="393"/>
+        <location filename="../src/libbase/tuppaintareabase.cpp" line="394"/>
         <source>No Scene!</source>
         <translation>Žádný výjev!</translation>
     </message>
     <message>
-        <location filename="../src/libbase/tuppaintareabase.cpp" line="400"/>
+        <location filename="../src/libbase/tuppaintareabase.cpp" line="401"/>
         <source>Locked!</source>
         <translation>Uzamčeno!</translation>
     </message>
     <message>
-        <location filename="../src/libbase/tuppaintareabase.cpp" line="469"/>
+        <location filename="../src/libbase/tuppaintareabase.cpp" line="470"/>
         <source>No Frames!</source>
         <translation>Žádné snímky!</translation>
     </message>
     <message>
-        <location filename="../src/libbase/tuppaintareabase.cpp" line="472"/>
+        <location filename="../src/libbase/tuppaintareabase.cpp" line="473"/>
         <source>No Layers!</source>
         <translation>Žádné vrstvy!</translation>
     </message>
@@ -4531,84 +4635,160 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
 <context>
     <name>TupPaintAreaStatus</name>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="76"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="84"/>
         <source>Action Safe Area</source>
         <translation>Bezpečná oblast pro činnost</translation>
     </message>
     <message>
         <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="77"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="85"/>
         <source>+</source>
         <translation>+</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="85"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="76"/>
+        <source>Reset WorkSpace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="93"/>
         <source>Show grid</source>
         <translation>Ukázat mřížku</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="86"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="94"/>
         <source>#</source>
         <translation>#</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="94"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="102"/>
         <source>Full screen</source>
         <translation>Celá obrazovka</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="95"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="103"/>
         <source>F11</source>
         <translation>F11</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="106"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="114"/>
         <source>Current Frame</source>
         <translation>Nynější snímek</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="113"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="121"/>
         <source>1</source>
         <translation>1</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="127"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="135"/>
         <source>Zoom</source>
         <translation>Zvětšení</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="147"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="155"/>
         <source>%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="159"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="167"/>
         <source>Rotate Workspace</source>
         <translation>Otočit pracovní prostor</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="182"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="190"/>
         <source>Antialiasing</source>
         <translation>Vyhlazování</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="191"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="199"/>
         <source>Background Color</source>
         <translation>Barva pozadí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="192"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="200"/>
         <source>Click here to change background color</source>
         <translation>Klepněte sem pro změnu barvy pozadí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="198"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="206"/>
         <source>Brush Color</source>
         <translation>Barva štětce</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="199"/>
+        <location filename="../src/components/paintarea/tuppaintareastatus.cpp" line="207"/>
         <source>Click here to change brush color</source>
         <translation>Klepněte sem pro změnu barvy štětce</translation>
+    </message>
+</context>
+<context>
+    <name>TupPapagayoDialog</name>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="47"/>
+        <source>Import Papagayo project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="56"/>
+        <source>&amp;Load PGO File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="59"/>
+        <source>Load &amp;Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="62"/>
+        <source>Load &amp;Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="100"/>
+        <source>Load Papagayo project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="100"/>
+        <source>Papagayo Project (*.pgo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="106"/>
+        <source>Choose the images directory...</source>
+        <translation type="unfinished">Vybrat adresář s obrázky...</translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="113"/>
+        <source>Load sound file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="113"/>
+        <source>Sound file (*.ogg *.wav *.mp3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="120"/>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="125"/>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="130"/>
+        <source>Error</source>
+        <translation type="unfinished">Chyba</translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="120"/>
+        <source>PGO path is unset!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="125"/>
+        <source>Images directory is unset!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/paintarea/tuppapagayodialog.cpp" line="130"/>
+        <source>Sound path is unset!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4782,71 +4962,46 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
 <context>
     <name>TupProjectActionBar</name>
     <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="97"/>
-        <source>Insert a layer</source>
-        <translation>Vložit vrstvu</translation>
-    </message>
-    <message>
         <location filename="../src/libtupi/tupprojectactionbar.cpp" line="98"/>
         <source>F5</source>
         <translation>F5</translation>
     </message>
     <message>
         <location filename="../src/libtupi/tupprojectactionbar.cpp" line="109"/>
-        <source>Remove the layer</source>
-        <translation>Odstranit vrstvu</translation>
-    </message>
-    <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="110"/>
         <source>F6</source>
         <translation>F6</translation>
     </message>
     <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="121"/>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="119"/>
         <source>Move layer up</source>
         <translation>Přesunout vrstvu nahoru</translation>
     </message>
     <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="122"/>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="120"/>
         <location filename="../src/libtupi/tupprojectactionbar.cpp" line="197"/>
         <source>F9</source>
         <translation>F9</translation>
     </message>
     <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="132"/>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="130"/>
         <source>Move layer down</source>
         <translation>Přesunout vrstvu dolů</translation>
     </message>
     <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="133"/>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="131"/>
         <location filename="../src/libtupi/tupprojectactionbar.cpp" line="208"/>
         <source>F10</source>
         <translation>F10</translation>
     </message>
     <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="148"/>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="146"/>
         <source>Insert frame</source>
         <translation>Vložit snímek</translation>
-    </message>
-    <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="159"/>
-        <source>Remove the frame</source>
-        <translation>Odstranit snímek</translation>
-    </message>
-    <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="177"/>
-        <source>Move frame up</source>
-        <translation>Přesunout snímek nahoru</translation>
     </message>
     <message>
         <location filename="../src/libtupi/tupprojectactionbar.cpp" line="178"/>
         <source>F8</source>
         <translation>F8</translation>
-    </message>
-    <message>
-        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="196"/>
-        <source>Move frame down</source>
-        <translation>Přesunout snímek dolů</translation>
     </message>
     <message>
         <location filename="../src/libtupi/tupprojectactionbar.cpp" line="207"/>
@@ -4859,14 +5014,39 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
         <translation>Zamknout vrstvu</translation>
     </message>
     <message>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="97"/>
+        <source>Insert layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="108"/>
+        <source>Remove layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="158"/>
+        <source>Remove frame</source>
+        <translation type="unfinished">Odstranit snímek</translation>
+    </message>
+    <message>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="177"/>
+        <source>Move frame backward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/libtupi/tupprojectactionbar.cpp" line="196"/>
+        <source>Move frame forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/libtupi/tupprojectactionbar.cpp" line="228"/>
-        <source>Insert a scene</source>
-        <translation>Vložit výjev</translation>
+        <source>Insert scene</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/libtupi/tupprojectactionbar.cpp" line="238"/>
-        <source>Remove the scene</source>
-        <translation>Odstranit výjev</translation>
+        <source>Remove scene</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/libtupi/tupprojectactionbar.cpp" line="248"/>
@@ -4932,12 +5112,12 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
         <translation>Zvuková vrstva %1</translation>
     </message>
     <message>
-        <location filename="../src/store/tupscene.cpp" line="648"/>
+        <location filename="../src/store/tupscene.cpp" line="646"/>
         <source>Layer %1</source>
         <translation>Vrstva %1</translation>
     </message>
     <message>
-        <location filename="../src/store/tupscene.cpp" line="649"/>
+        <location filename="../src/store/tupscene.cpp" line="647"/>
         <source>Frame %1</source>
         <translation>Snímek %1</translation>
     </message>
@@ -4981,11 +5161,11 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
     </message>
 </context>
 <context>
-    <name>TupScreen</name>
+    <name>TupSoundPlayer</name>
     <message>
-        <location filename="../src/components/animation/tupscreen.cpp" line="482"/>
-        <source>Rendering...</source>
-        <translation>Dělá se...</translation>
+        <location filename="../src/components/library/tupsoundplayer.cpp" line="78"/>
+        <source>Play</source>
+        <translation type="unfinished">Přehrát</translation>
     </message>
 </context>
 <context>
@@ -4999,137 +5179,137 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
 <context>
     <name>TupStoryBoardDialog</name>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="117"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="119"/>
         <source>Storyboard Settings</source>
         <translation>Nastavení obrázkového scénáře</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="128"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="130"/>
         <source>&amp;PDF</source>
         <translation>&amp;PDF</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="129"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="131"/>
         <source>Export as PDF</source>
         <translation>Vyvést jako PDF</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="132"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="134"/>
         <source>&amp;HTML</source>
         <translation>&amp;HTML</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="133"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="135"/>
         <source>Export as HTML</source>
         <translation>Vyvést jako HTML</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="137"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="139"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="146"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="148"/>
         <source>&amp;Post</source>
         <translation>&amp;Poslat</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="202"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="204"/>
         <source>Storyboard General Information</source>
         <translation>Obecné informace o obrázkovém scénáři</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="206"/>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="269"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="208"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="271"/>
         <source>Title</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="212"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="214"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="217"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="219"/>
         <source>Summary</source>
         <translation>Shrnutí</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="236"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="238"/>
         <source>Topics</source>
         <translation>Náměty</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="265"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="267"/>
         <source>Scene Information</source>
         <translation>Informace o výjevu</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="274"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="276"/>
         <source>Duration</source>
         <translation>Doba trvání</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="279"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="281"/>
         <source>Description</source>
         <translation>Popis</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="314"/>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="334"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="316"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="336"/>
         <source>Cover</source>
         <translation>Obal</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="328"/>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="411"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="330"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="413"/>
         <source>Storyboard</source>
         <translation>Obrázkový scénář</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="360"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="362"/>
         <source>Scene</source>
         <translation>Výjev</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="374"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="376"/>
         <source>Scene No %1 - Information</source>
         <translation>Výjev číslo %1 - Informace</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="570"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="572"/>
         <source>Choose a directory...</source>
         <translation>Vybrat adresář...</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="574"/>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="612"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="576"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="614"/>
         <source>Info</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="574"/>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="612"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="576"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="614"/>
         <source>Storyboard exported successfully!</source>
         <translation>Obrázkový scénář uložen úspěšně!</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="587"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="589"/>
         <source>Save PDF file</source>
         <translation>Uložit soubor PDF</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="587"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="589"/>
         <source>PDF file (*.pdf)</source>
         <translation>Soubor PDF (*.pdf)</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="700"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="702"/>
         <source>PDF</source>
         <translation>PDF</translation>
     </message>
     <message>
-        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="702"/>
+        <location filename="../src/components/paintarea/tupstoryboarddialog.cpp" line="704"/>
         <source>Html</source>
         <translation>HTML</translation>
     </message>
@@ -5304,25 +5484,31 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
 <context>
     <name>TupTimeLine</name>
     <message>
-        <location filename="../src/components/timeline/tuptimeline.cpp" line="60"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="61"/>
         <source>Time Line</source>
         <translation>Časová přímka</translation>
     </message>
     <message>
-        <location filename="../src/components/timeline/tuptimeline.cpp" line="476"/>
-        <location filename="../src/components/timeline/tuptimeline.cpp" line="486"/>
-        <location filename="../src/components/timeline/tuptimeline.cpp" line="558"/>
-        <location filename="../src/components/timeline/tuptimeline.cpp" line="564"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="221"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="450"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="454"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="459"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="515"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="556"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="561"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="680"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="687"/>
         <source>Frame %1</source>
         <translation>Snímek %1</translation>
     </message>
     <message>
-        <location filename="../src/components/timeline/tuptimeline.cpp" line="553"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="218"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="552"/>
         <source>Layer %1</source>
         <translation>Vrstva %1</translation>
     </message>
     <message>
-        <location filename="../src/components/timeline/tuptimeline.cpp" line="613"/>
+        <location filename="../src/components/timeline/tuptimeline.cpp" line="589"/>
         <source>Scene %1</source>
         <translation>Výjev %1</translation>
     </message>
@@ -5433,12 +5619,12 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
         <translation>Výchozí paleta</translation>
     </message>
     <message>
-        <location filename="../src/components/colorpalette/tupviewcolorcells.cpp" line="120"/>
+        <location filename="../src/components/colorpalette/tupviewcolorcells.cpp" line="119"/>
         <source>Named Colors</source>
         <translation>Pojmenované barvy</translation>
     </message>
     <message>
-        <location filename="../src/components/colorpalette/tupviewcolorcells.cpp" line="127"/>
+        <location filename="../src/components/colorpalette/tupviewcolorcells.cpp" line="126"/>
         <source>Custom Color Palette</source>
         <translation>Vlastní barevná paleta</translation>
     </message>
@@ -5448,12 +5634,12 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
         <translation>Vlastní paleta přechodů</translation>
     </message>
     <message>
-        <location filename="../src/components/colorpalette/tupviewcolorcells.cpp" line="373"/>
+        <location filename="../src/components/colorpalette/tupviewcolorcells.cpp" line="385"/>
         <source>Add Color</source>
         <translation>Přidat barvu</translation>
     </message>
     <message>
-        <location filename="../src/components/colorpalette/tupviewcolorcells.cpp" line="380"/>
+        <location filename="../src/components/colorpalette/tupviewcolorcells.cpp" line="392"/>
         <source>Remove Color</source>
         <translation>Odstranit barvu</translation>
     </message>
@@ -5513,7 +5699,7 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
         <location filename="../src/plugins/tools/color/tweener.cpp" line="157"/>
         <location filename="../src/plugins/tools/color/tweener.cpp" line="164"/>
         <location filename="../src/plugins/tools/color/tweener.cpp" line="403"/>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="472"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="472"/>
         <location filename="../src/plugins/tools/opacity/tweener.cpp" line="377"/>
         <location filename="../src/plugins/tools/position/tweener.cpp" line="537"/>
         <location filename="../src/plugins/tools/rotation/tweener.cpp" line="427"/>
@@ -5539,7 +5725,7 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
     </message>
     <message>
         <location filename="../src/plugins/tools/color/tweener.cpp" line="403"/>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="472"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="472"/>
         <location filename="../src/plugins/tools/opacity/tweener.cpp" line="377"/>
         <location filename="../src/plugins/tools/position/tweener.cpp" line="537"/>
         <location filename="../src/plugins/tools/rotation/tweener.cpp" line="427"/>
@@ -5550,8 +5736,8 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
     </message>
     <message>
         <location filename="../src/plugins/tools/color/tweener.cpp" line="505"/>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="533"/>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="619"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="533"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="619"/>
         <location filename="../src/plugins/tools/opacity/tweener.cpp" line="480"/>
         <location filename="../src/plugins/tools/position/tweener.cpp" line="654"/>
         <location filename="../src/plugins/tools/rotation/tweener.cpp" line="533"/>
@@ -5562,7 +5748,7 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
     </message>
     <message>
         <location filename="../src/plugins/tools/color/tweener.cpp" line="516"/>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="635"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="635"/>
         <location filename="../src/plugins/tools/opacity/tweener.cpp" line="491"/>
         <location filename="../src/plugins/tools/position/tweener.cpp" line="665"/>
         <location filename="../src/plugins/tools/rotation/tweener.cpp" line="544"/>
@@ -5573,7 +5759,7 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
     </message>
     <message>
         <location filename="../src/plugins/tools/color/tweener.cpp" line="516"/>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="635"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="635"/>
         <location filename="../src/plugins/tools/opacity/tweener.cpp" line="491"/>
         <location filename="../src/plugins/tools/position/tweener.cpp" line="665"/>
         <location filename="../src/plugins/tools/rotation/tweener.cpp" line="544"/>
@@ -5583,15 +5769,15 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
         <translation>Výsledný sled snímků %1 použit!</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="144"/>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="379"/>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="383"/>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="758"/>
-        <source>Compound Tween</source>
-        <translation>Složený výsledný sled snímků</translation>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="144"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="379"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="383"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="758"/>
+        <source>Composed Tween</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweener.cpp" line="381"/>
+        <location filename="../src/plugins/tools/composed/tweener.cpp" line="381"/>
         <source>Shift+X</source>
         <translation>Shift+X</translation>
     </message>
@@ -5664,88 +5850,88 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
 <context>
     <name>TweenerPanel</name>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="84"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="84"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="119"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="119"/>
         <source>Options</source>
         <translation>Volby</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="120"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="120"/>
         <source>Select object</source>
         <translation>Vybrat předmět</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="121"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="121"/>
         <source>Set Tweeners</source>
         <translation>Nastavit tvůrce výsledného sledu snímků</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="145"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="145"/>
         <source>Tweeners</source>
         <translation>Tvůrci výsledného sledu snímků</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="210"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="210"/>
         <source>Position</source>
         <translation>Poloha</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="210"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="210"/>
         <source>Rotation</source>
         <translation>Otočení</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="210"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="210"/>
         <source>Scale</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="210"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="210"/>
         <source>Shear</source>
         <translation>Deformace bočním tlakem</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="210"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="210"/>
         <source>Opacity</source>
         <translation>Neprůhlednost</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="210"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="210"/>
         <source>Coloring</source>
         <translation>Zbarvení</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="275"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="275"/>
         <source>Save Tween</source>
         <translation>Uložit výsledný sled snímků</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="277"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="277"/>
         <source>Cancel Tween</source>
         <translation>Zrušit výsledný sled snímků</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="327"/>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="369"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="327"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="369"/>
         <source>Info</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="327"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="327"/>
         <source>Select objects for Tweening first!</source>
         <translation>Nejprve vybrat předmět pro tvorbu výsledného sledu snímků!</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="421"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="421"/>
         <source>Update Tween</source>
         <translation>Obnovit výsledný sled snímků</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenerpanel.cpp" line="423"/>
+        <location filename="../src/plugins/tools/composed/tweenerpanel.cpp" line="423"/>
         <source>Close Tween properties</source>
         <translation>Zavřít vlastnosti výsledného sledu snímků</translation>
     </message>
@@ -5753,32 +5939,32 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
 <context>
     <name>TweenerTable</name>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenertable.cpp" line="52"/>
+        <location filename="../src/plugins/tools/composed/tweenertable.cpp" line="52"/>
         <source>Position</source>
         <translation>Poloha</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenertable.cpp" line="52"/>
+        <location filename="../src/plugins/tools/composed/tweenertable.cpp" line="52"/>
         <source>Rotation</source>
         <translation>Otočení</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenertable.cpp" line="52"/>
+        <location filename="../src/plugins/tools/composed/tweenertable.cpp" line="52"/>
         <source>Scale</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenertable.cpp" line="52"/>
+        <location filename="../src/plugins/tools/composed/tweenertable.cpp" line="52"/>
         <source>Shear</source>
         <translation>Deformace bočním tlakem</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenertable.cpp" line="52"/>
+        <location filename="../src/plugins/tools/composed/tweenertable.cpp" line="52"/>
         <source>Opacity</source>
         <translation>Neprůhlednost</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/compound/tweenertable.cpp" line="52"/>
+        <location filename="../src/plugins/tools/composed/tweenertable.cpp" line="52"/>
         <source>Coloring</source>
         <translation>Zbarvení</translation>
     </message>
@@ -5786,125 +5972,72 @@ Spojte se, prosím, se správcem serveru s kreslenými filmy pro získání př�
 <context>
     <name>VideoProperties</name>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="877"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="892"/>
         <source>Set Animation Properties</source>
         <translation>Nastavit vlastnosti kresleného filmu</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="889"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="904"/>
         <source>Title</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="890"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="905"/>
         <source>My Video</source>
         <translation>Moje video</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="895"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="910"/>
         <source>Topics</source>
         <translation>Náměty</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="896"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="911"/>
         <source>#topic1 #topic2 #topic3</source>
         <translation>#námět1 #námět2 #námět3</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="901"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="916"/>
         <source>Description</source>
         <translation>Popis</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="907"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="922"/>
         <source>Just a little taste of my style :)</source>
         <translation>Jen malá ochutnávka mého stylu :-)</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="968"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="988"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="983"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1003"/>
         <source>Set a title for the picture here!</source>
         <translation>Zde nastavte název obrázku!</translation>
     </message>
     <message>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="975"/>
-        <location filename="../src/components/export/tupexportwidget.cpp" line="999"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="990"/>
+        <location filename="../src/components/export/tupexportwidget.cpp" line="1014"/>
         <source>Set some topic tags for the picture here!</source>
         <translation>Zde nastavte nějaké značky týkající se námětu obrázku!</translation>
     </message>
 </context>
 <context>
-    <name>ViewTool</name>
-    <message>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="91"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="103"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="108"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="145"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="206"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="241"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="263"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="336"/>
-        <source>Zoom In</source>
-        <translation>Přiblížit</translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="91"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="110"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="115"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="206"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="245"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="265"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="338"/>
-        <source>Zoom Out</source>
-        <translation>Oddálit</translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="91"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="96"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="101"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="143"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="184"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="288"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="304"/>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="334"/>
-        <source>Shift</source>
-        <translation>Ruční</translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="104"/>
-        <source>Z</source>
-        <translation>Z</translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="111"/>
-        <source>Shift+Z</source>
-        <translation>Shift+Z</translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/tools/hand/viewtool.cpp" line="97"/>
-        <source>H</source>
-        <translation>H</translation>
-    </message>
-</context>
-<context>
     <name>ZoomConfigurator</name>
     <message>
-        <location filename="../src/plugins/tools/hand/zoomconfigurator.cpp" line="54"/>
+        <location filename="../src/plugins/tools/shift/zoomconfigurator.cpp" line="54"/>
         <source>Scale Factor</source>
         <translation>Násobek změny velikosti</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/hand/zoomconfigurator.cpp" line="67"/>
+        <location filename="../src/plugins/tools/shift/zoomconfigurator.cpp" line="67"/>
         <source>Tips</source>
         <translation>Rady</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/hand/zoomconfigurator.cpp" line="74"/>
+        <location filename="../src/plugins/tools/shift/zoomconfigurator.cpp" line="74"/>
         <source>Zoom Square mode</source>
         <translation>Režim čtvercového zvětšení</translation>
     </message>
     <message>
-        <location filename="../src/plugins/tools/hand/zoomconfigurator.cpp" line="74"/>
+        <location filename="../src/plugins/tools/shift/zoomconfigurator.cpp" line="74"/>
         <source>Press Ctrl key + Mouse left button</source>
         <translation>Stisknout klávesu Ctrl - levé tlačítko myši</translation>
     </message>

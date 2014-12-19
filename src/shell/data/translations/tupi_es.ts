@@ -39,10 +39,6 @@
         <translation>Tween de Color</translation>
     </message>
     <message>
-        <source>Compound Tween</source>
-        <translation>Tween Compuesto</translation>
-    </message>
-    <message>
         <source>Parameters</source>
         <translation>Parámetros</translation>
     </message>
@@ -85,6 +81,10 @@
     <message>
         <source>Papagayo LipSync Files</source>
         <translation>Archivos de LipSync</translation>
+    </message>
+    <message>
+        <source>Composed Tween</source>
+        <translation>Tween Compuesto</translation>
     </message>
 </context>
 <context>
@@ -1750,10 +1750,6 @@
         <translation>Tween de Color</translation>
     </message>
     <message>
-        <source>Compound Tween</source>
-        <translation>Tween Compuesto</translation>
-    </message>
-    <message>
         <source>Internal fill</source>
         <translation>Relleno Interno</translation>
     </message>
@@ -1909,6 +1905,10 @@ Please, rename the project&apos;s file</source>
     <message>
         <source>Papagayo project is invalid!</source>
         <translation>Proyecto Papagayo es inválido!</translation>
+    </message>
+    <message>
+        <source>Composed Tween</source>
+        <translation>Tween Compuesto</translation>
     </message>
 </context>
 <context>
@@ -2329,12 +2329,12 @@ Please, rename the project&apos;s file</source>
         <translation>Tween de Color</translation>
     </message>
     <message>
-        <source>Compound Tween</source>
-        <translation>Tween Compuesto</translation>
-    </message>
-    <message>
         <source>Papagayo Lip-sync</source>
         <translation>Papagayo Lip-sync</translation>
+    </message>
+    <message>
+        <source>Composed Tween</source>
+        <translation>Tween Compuesto</translation>
     </message>
 </context>
 <context>
@@ -4312,10 +4312,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>Tween de Color</translation>
     </message>
     <message>
-        <source>Compound Tween</source>
-        <translation>Tween Compuesto</translation>
-    </message>
-    <message>
         <source>Shift+W</source>
         <translation>Shift+W</translation>
     </message>
@@ -4370,6 +4366,10 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Coloring Tween can&apos;t be applied to SVG files</source>
         <translation>El Tween de Color no puede ser aplicado a objetos SVG</translation>
+    </message>
+    <message>
+        <source>Composed Tween</source>
+        <translation>Tween Compuesto</translation>
     </message>
 </context>
 <context>

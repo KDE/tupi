@@ -55,10 +55,6 @@
         <translation>Intercalazione di colore</translation>
     </message>
     <message>
-        <source>Compound Tween</source>
-        <translation>Intercalazione composta</translation>
-    </message>
-    <message>
         <source>This tool is just a &lt;b&gt;proof-of-concept&lt;/b&gt; of the basic algorithm for the Tupi&apos;s free-tracing vectorial brushes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -80,6 +76,14 @@
     </message>
     <message>
         <source>Run simulation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo LipSync Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Composed Tween</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -191,6 +195,14 @@
         <source>B</source>
         <translation>B</translation>
     </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Errore</translation>
+    </message>
+    <message>
+        <source>Sorry, Groups can&apos;t be filled yet</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GeometricTool</name>
@@ -242,7 +254,7 @@
     </message>
     <message>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mano</translation>
     </message>
     <message>
         <source>Align line to horizontal/vertical axis</source>
@@ -284,6 +296,28 @@
     </message>
 </context>
 <context>
+    <name>LibavPlugin</name>
+    <message>
+        <source>Video Formats</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LipSyncManager</name>
+    <message>
+        <source>Import LipSync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit LipSync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove LipSync</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NodesTool</name>
     <message>
         <source>Nodes Selection</source>
@@ -301,28 +335,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shift+R</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="unfinished">Errore</translation>
-    </message>
-    <message>
-        <source>Tween name is missing!</source>
-        <translation type="unfinished">Manca il nome dell&apos;intercalazione!</translation>
-    </message>
-    <message>
         <source>Frame %1</source>
         <translation type="unfinished">Fotogramma %1</translation>
     </message>
     <message>
-        <source>Info</source>
+        <source>Ctrl+Shift+P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tween %1 applied!</source>
-        <translation type="unfinished">Intercalazione %1 applicata!</translation>
+        <source>lipsync:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -546,6 +568,10 @@
         <source>Image Array</source>
         <translation type="unfinished">Serie di immagini</translation>
     </message>
+    <message>
+        <source>Video Formats</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SelectScenes</name>
@@ -567,6 +593,14 @@
     <message>
         <source>O</source>
         <translation type="unfinished">O</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Errore</translation>
+    </message>
+    <message>
+        <source>SVG objects can&apos;t be grouped/ungrouped yet</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -830,6 +864,49 @@
     <message>
         <source>Options panel for the Selection tool</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mouths</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lip-Sync FPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mouth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group Objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ungroup Objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShiftTool</name>
+    <message>
+        <source>Shift</source>
+        <translation type="unfinished">Mano</translation>
+    </message>
+    <message>
+        <source>H</source>
+        <translation type="unfinished">H</translation>
     </message>
 </context>
 <context>
@@ -1470,6 +1547,10 @@
         <source>Gradients</source>
         <translation>Gradienti</translation>
     </message>
+    <message>
+        <source>HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TupColorValue</name>
@@ -1581,22 +1662,6 @@
         <translation type="unfinished">Elimina</translation>
     </message>
     <message>
-        <source>&amp;Group</source>
-        <translation type="unfinished">Ra&amp;ggruppa</translation>
-    </message>
-    <message>
-        <source>Ctrl+G</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Ungroup</source>
-        <translation type="unfinished">Sciogli il gr&amp;uppo</translation>
-    </message>
-    <message>
-        <source>Ctrl+Shift+G</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Onion Skin</source>
         <translation type="unfinished">Effetto carta da lucido</translation>
     </message>
@@ -1625,14 +1690,6 @@
         <translation type="unfinished">Pennini</translation>
     </message>
     <message>
-        <source>Selection</source>
-        <translation type="unfinished">Selezione</translation>
-    </message>
-    <message>
-        <source>Fill</source>
-        <translation type="unfinished">Riempimento</translation>
-    </message>
-    <message>
         <source>Tweening</source>
         <translation type="unfinished">Intercalazione</translation>
     </message>
@@ -1647,10 +1704,6 @@
     <message>
         <source>Ink</source>
         <translation type="unfinished">Inchiostra</translation>
-    </message>
-    <message>
-        <source>Eraser</source>
-        <translation type="unfinished">Gomma</translation>
     </message>
     <message>
         <source>PolyLine</source>
@@ -1697,24 +1750,12 @@
         <translation type="unfinished">Intercalazione di colore</translation>
     </message>
     <message>
-        <source>Compound Tween</source>
-        <translation type="unfinished">Intercalazione composta</translation>
-    </message>
-    <message>
         <source>Internal fill</source>
         <translation type="unfinished">Applica riempimento</translation>
     </message>
     <message>
-        <source>Zoom In</source>
-        <translation type="unfinished">Ingrandisci</translation>
-    </message>
-    <message>
         <source>%1</source>
         <translation type="unfinished">%1</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation type="unfinished">Riduci</translation>
     </message>
     <message>
         <source>Shift</source>
@@ -1834,6 +1875,39 @@
     </message>
     <message>
         <source>Papagayo file has been imported successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo Lip-sync Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+Shift+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line fill</source>
+        <translation type="unfinished">Applica contorno</translation>
+    </message>
+    <message>
+        <source>Papagayo project already exists!
+Please, rename the project&apos;s file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo file is invalid!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images directory is empty!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo project is invalid!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Composed Tween</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1972,10 +2046,6 @@
         <translation>Incolla nel fotogramma</translation>
     </message>
     <message>
-        <source>Expand</source>
-        <translation>Espandi</translation>
-    </message>
-    <message>
         <source>Layer %1</source>
         <translation>Livello %1</translation>
     </message>
@@ -2066,12 +2136,8 @@
         <translation>Linea</translation>
     </message>
     <message>
-        <source>Zoom In</source>
-        <translation>Ingrandisci</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation>Riduci</translation>
+        <source>lipsync:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2263,11 +2329,11 @@
         <translation>Intercalazione di colore</translation>
     </message>
     <message>
-        <source>Compound Tween</source>
-        <translation>Intercalazione composta</translation>
+        <source>Papagayo Lip-sync</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Papagayo Lip-sync</source>
+        <source>Composed Tween</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2472,6 +2538,34 @@
     </message>
     <message>
         <source>Import SVG files...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Library is empty!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There&apos;s no current selection!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It&apos;s a directory! Please, pick a graphic object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It&apos;s a sound file! Please, pick a graphic object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while opening file: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2918,18 +3012,6 @@
     </message>
     <message>
         <source>Import Papagayo lip-sync</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import Papagayo project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Papagayo Project (*.pgo)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Papagayo project is invalid!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3429,6 +3511,65 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
         <source>F11</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Reset WorkSpace</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TupPapagayoDialog</name>
+    <message>
+        <source>Import Papagayo project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load PGO File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load &amp;Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load &amp;Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Papagayo project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Papagayo Project (*.pgo)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the images directory...</source>
+        <translation type="unfinished">Scegli la cartella per le immagini...</translation>
+    </message>
+    <message>
+        <source>Load sound file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound file (*.ogg *.wav *.mp3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Errore</translation>
+    </message>
+    <message>
+        <source>PGO path is unset!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images directory is unset!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound path is unset!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TupPenDialog</name>
@@ -3569,16 +3710,8 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
 <context>
     <name>TupProjectActionBar</name>
     <message>
-        <source>Insert a layer</source>
-        <translation>Inserisci un livello</translation>
-    </message>
-    <message>
         <source>F5</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove the layer</source>
-        <translation>Rimuovi il livello</translation>
     </message>
     <message>
         <source>F6</source>
@@ -3605,20 +3738,8 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
         <translation>Inserisci un fotogramma</translation>
     </message>
     <message>
-        <source>Remove the frame</source>
-        <translation>Rimuovi il fotogramma</translation>
-    </message>
-    <message>
-        <source>Move frame up</source>
-        <translation type="unfinished">Sposta il fotogramma su</translation>
-    </message>
-    <message>
         <source>F8</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Move frame down</source>
-        <translation type="unfinished">Sposta il fotogramma giù</translation>
     </message>
     <message>
         <source>Lock frame</source>
@@ -3627,14 +3748,6 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
     <message>
         <source>Lock layer</source>
         <translation type="unfinished">Blocca il livello</translation>
-    </message>
-    <message>
-        <source>Insert a scene</source>
-        <translation>Inserisci una scena</translation>
-    </message>
-    <message>
-        <source>Remove the scene</source>
-        <translation>Rimuovi la scena</translation>
     </message>
     <message>
         <source>Move scene up</source>
@@ -3663,6 +3776,34 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
     <message>
         <source>Do you want to remove this scene?</source>
         <translation>Vuoi eliminare questa scena?</translation>
+    </message>
+    <message>
+        <source>Insert layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove frame</source>
+        <translation type="unfinished">Rimuovi fotogramma</translation>
+    </message>
+    <message>
+        <source>Move frame backward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move frame forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert scene</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove scene</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3726,10 +3867,10 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
     </message>
 </context>
 <context>
-    <name>TupScreen</name>
+    <name>TupSoundPlayer</name>
     <message>
-        <source>Rendering...</source>
-        <translation type="unfinished">Rendering...</translation>
+        <source>Play</source>
+        <translation type="unfinished">Riproduci</translation>
     </message>
 </context>
 <context>
@@ -4215,15 +4356,15 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Compound Tween</source>
-        <translation>Intercalazione composta</translation>
-    </message>
-    <message>
         <source>Shift+X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Coloring Tween can&apos;t be applied to SVG files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Composed Tween</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4362,33 +4503,6 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
     <message>
         <source>Set Animation Properties</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ViewTool</name>
-    <message>
-        <source>Zoom In</source>
-        <translation>Ingrandisci</translation>
-    </message>
-    <message>
-        <source>Zoom Out</source>
-        <translation>Riduci</translation>
-    </message>
-    <message>
-        <source>Shift</source>
-        <translation>Mano</translation>
-    </message>
-    <message>
-        <source>Z</source>
-        <translation>Z</translation>
-    </message>
-    <message>
-        <source>Shift+Z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>H</source>
-        <translation>H</translation>
     </message>
 </context>
 <context>
