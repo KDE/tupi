@@ -44,6 +44,7 @@
 #include <QColor>
 #include <QImage>
 #include <QPainter>
+#include <QSvgGenerator>
 
 /**
     @author David Cuadrado

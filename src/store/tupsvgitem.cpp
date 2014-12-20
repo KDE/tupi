@@ -35,6 +35,7 @@
 
 #include "tupsvgitem.h"
 #include "tupserializer.h"
+#include "tuplayer.h"
 
 struct TupSvgItem::Private
 {
@@ -83,6 +84,20 @@ QString TupSvgItem::itemPath() const
 TupFrame *TupSvgItem::frame() const
 {
     return k->frame;
+}
+
+int TupSvgItem::frameIndex()
+{
+    return k->frame->index();
+}
+
+bool TupSvgItem::layerIsVisible()
+{
+    TupLayer *layer = k->frame->layer();
+    if (layer->isVisible())
+        return true;
+
+    return false;
 }
 
 TupItemTweener *TupSvgItem::tween() const

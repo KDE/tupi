@@ -33,85 +33,95 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef COMPOUNDTWEENER_H
-#define COMPOUNDTWEENER_H
+#ifndef TWEENERPANEL_H
+#define TWEENERPANEL_H
 
 #include "tglobal.h"
-#include "tuptoolplugin.h"
-#include "configurator.h"
-#include "tweenerpanel.h"
-#include "tupprojectresponse.h"
+#include "tupitemtweener.h"
 
-#include <QPointF>
-#include <QKeySequence>
+#include <QWidget>
 #include <QGraphicsPathItem>
-#include <QPainterPath>
-#include <QMatrix>
-#include <QGraphicsLineItem>
-#include <QGraphicsView>
-#include <QDomDocument>
+#include <QLabel>
+#include <QLineEdit>
+#include <QBoxLayout>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QHeaderView>
 
 /**
  * @author Gustav Gonzalez 
- *
 */
 
-class TUPI_PLUGIN Tweener : public TupToolPlugin
+class Configurator;
+
+class TUPI_PLUGIN TweenerPanel : public QWidget 
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "com.maefloresta.tupi.TupToolInterface" FILE "compoundtool.json")
 
     public:
-        Tweener();
-        virtual ~Tweener();
-        virtual void init(TupGraphicsScene *scene);
 
-        virtual QStringList keys() const;
-        virtual void press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
-        virtual void move(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
-        virtual void release(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene);
-        virtual void updateScene(TupGraphicsScene *scene);
-        virtual QMap<QString, TAction *>actions() const;
-        virtual QWidget *configurator();
-        virtual void aboutToChangeTool();
-        virtual void saveConfig();
+        enum TweenerType { 
+             Position = 0,
+             Rotation = 1,
+             Scale = 2,
+             Shear = 3,
+             Opacity = 4,
+             Coloring = 5,
+             Composed = 6,
+             Undefined = 7
+        };
 
-        int toolType() const;
-        void aboutToChangeScene(TupGraphicsScene *scene);
-        // bool isComplete() const;
+        enum Mode { Add = 1, Edit, View };
+        enum EditMode { Selection = 0, TweenList, TweenProperties, None };
 
-        virtual void sceneResponse(const TupSceneResponse *event);
-        virtual void layerResponse(const TupLayerResponse *event);
-        virtual void frameResponse(const TupFrameResponse *event);
+        TweenerPanel(QWidget *parent = 0);
+        ~TweenerPanel();
 
-    private:
-        int framesTotal();
-        void setupActions();
-        int maxZValue();
-        void clearSelection();
-        void removeTweenFromProject(const QString &name);
-        void disableSelection();
-
-    private:
-        struct Private;
-        Private *const k;
+        void setParameters(const QString &name, int framesTotal, int startFrame);
+        void setParameters(TupItemTweener *currentTween);
+        void activateMode(TweenerPanel::EditMode mode);
+        void notifySelection(bool flag);
+        void updateSteps(const QGraphicsPathItem *path, QPointF offset);
+        void initStartCombo(int framesTotal, int currentFrame);
+        int startComboSize();
+        QString tweenToXml(int currentFrame, QPointF point);
+        int totalSteps();
+        QString currentTweenName() const;
+        void cleanTweensForms();
+        void setStartFrame(int currentIndex);
+        void resetTweener();
 
     private slots:
-        void updateCurrentTweenerType(TweenerPanel::TweenerType type);
-        void applyReset();
+        void emitOptionChanged(int option);
+        void showTweenSettings(int tweenType);
+        void activateTweenersTable(TweenerPanel::TweenerType type, const QString &message);
+        void updateTweenersTable(TweenerPanel::Mode mode);
         void applyTween();
-        void removeTween(const QString &name);
-        void setCreatePath();
-        void setSelect();
-        void setEditEnv();
-        void updateMode(TweenerPanel::Mode mode);
-        void updateStartPoint(int index);
-        void setCurrentTween(const QString &name);
-        void setPath(bool isEnabled, bool reset);
-        void tweenListMode();
+        void closePanel();
+        void enableApplyButton(bool flag);
+        
+    signals:
+        void clickedSelect();
+        void clickedTweenProperties();
+        void clickedApplyTween();
+        void clickedResetTween();
+        void tweenPropertiesActivated(TweenerPanel::TweenerType flag);
+        void startingPointChanged(int index);
+        void loadPath(bool enable, bool reset);
+        
+    private:
+        void setOptionsPanel();
+        void activeOptionsPanel(bool enable);
+        void setTweenerTableForm();
+        void activeTweenerTableForm(bool enable);
+        void setButtonsPanel();
+        void activeButtonsPanel(bool enable);
+        void loadTweenComponents();
+        void activeTweenComponent(int index, bool enable);
+        void setEditMode();
 
-    public slots:
-        void updatePath();
+        struct Private;
+        Private *const k;
 };
 
 #endif

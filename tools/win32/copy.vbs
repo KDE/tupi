@@ -44,7 +44,7 @@ fileSystem.CopyFile sourceDir & "\components\timeline\release\tupitimeline.dll",
 fileSystem.CopyFile sourceDir & "\components\twitter\release\tupitwitter.dll", tupiDir & "\lib\tupitwitter.dll"
 fileSystem.CopyFile sourceDir & "\plugins\tools\common\release\tupiplugincommon.dll", tupiDir & "\lib\tupiplugincommon.dll"
 fileSystem.CopyFile sourceDir & "\plugins\tools\color\release\tupicoloringtool.dll", tupiDir & "\plugins\tupicoloringtool.dll"
-fileSystem.CopyFile sourceDir & "\plugins\tools\compound\release\tupicompoundtool.dll", tupiDir & "\plugins\tupicompoundtool.dll"
+fileSystem.CopyFile sourceDir & "\plugins\tools\composed\release\tupicomposedtool.dll", tupiDir & "\plugins\tupicomposedtool.dll"
 fileSystem.CopyFile sourceDir & "\plugins\tools\eraser\release\tupierasertool.dll", tupiDir & "\plugins\tupierasertool.dll"
 fileSystem.CopyFile sourceDir & "\plugins\tools\fill\release\tupifilltool.dll", tupiDir & "\plugins\tupifilltool.dll"
 fileSystem.CopyFile sourceDir & "\plugins\tools\geometric\release\tupigeometrictool.dll", tupiDir & "\plugins\tupigeometrictool.dll"

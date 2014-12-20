@@ -72,6 +72,9 @@ class TUPI_EXPORT TupGraphicObject : public QObject, public TupAbstractSerializa
         TupFrame *frame() const;
         int objectIndex() const;
         void setFrame(TupFrame *frame);
+        int frameIndex();
+
+        bool layerIsVisible();
 
         void setLastTweenPos(QPointF point);
         QPointF lastTweenPos();

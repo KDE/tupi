@@ -125,36 +125,58 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
 
 bool ImagePlugin::exportFrame(int frameIndex, const QColor color, const QString &filePath, TupScene *scene, const QSize &size, TupLibrary *library)
 {
+    bool result = false;
     QString path = filePath;
     const char *extension;
     QImage::Format imageFormat;
     QColor bgColor = color;
     bgColor.setAlpha(255);
 
-    if (filePath.endsWith(".PNG", Qt::CaseInsensitive)) {
-        extension = "PNG";
-        imageFormat = QImage::Format_ARGB32;
-    } else if (filePath.endsWith(".JPG", Qt::CaseInsensitive) || filePath.endsWith("JPEG", Qt::CaseInsensitive)) {
-               extension = "JPG";
-               imageFormat = QImage::Format_RGB32;
-    } else {
-        extension = "PNG"; 
-        path += ".png";
-        imageFormat = QImage::Format_ARGB32;
-    }
+    if (filePath.endsWith(".SVG", Qt::CaseInsensitive)) {
+        QSvgGenerator generator;
+        generator.setFileName(path);
+        generator.setSize(size);
+        generator.setViewBox(QRect(0, 0, size.width(), size.height()));
+        generator.setTitle("");
+        generator.setDescription("");
 
-    TupAnimationRenderer renderer(bgColor, library);
-    renderer.setScene(scene, size);
+        TupAnimationRenderer renderer(bgColor, library);
+        renderer.setScene(scene, size);
+        renderer.renderPhotogram(frameIndex);
 
-    renderer.renderPhotogram(frameIndex);
-    QImage image(size, imageFormat);
-    {
-        QPainter painter(&image);
+        QPainter painter;
+        painter.begin(&generator);
         painter.setRenderHint(QPainter::Antialiasing, true);
         renderer.render(&painter);
+        result = painter.end();
+    } else {
+        if (filePath.endsWith(".PNG", Qt::CaseInsensitive)) {
+            extension = "PNG";
+            imageFormat = QImage::Format_ARGB32;
+        } else if (filePath.endsWith(".JPG", Qt::CaseInsensitive) || filePath.endsWith("JPEG", Qt::CaseInsensitive)) {
+                   extension = "JPG";
+                   imageFormat = QImage::Format_RGB32;
+        } else {
+            extension = "PNG"; 
+            path += ".png";
+            imageFormat = QImage::Format_ARGB32;
+        }
+
+        TupAnimationRenderer renderer(bgColor, library);
+        renderer.setScene(scene, size);
+        renderer.renderPhotogram(frameIndex);
+
+        QImage image(size, imageFormat);
+        {
+            QPainter painter(&image);
+            painter.setRenderHint(QPainter::Antialiasing, true);
+            renderer.render(&painter);
+        }
+
+        result = image.save(path, extension, 100);
     }
 
-    return image.save(path, extension, 100);
+    return result;
 }
 
 const char* ImagePlugin::getExceptionMsg() {

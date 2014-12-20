@@ -195,7 +195,6 @@ void TupGraphicsScene::drawCurrentPhotogram()
 
 void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
 { 
-    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupGraphicsScene::drawPhotogram()]";
@@ -203,7 +202,6 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
             T_FUNCINFO;
         #endif
     #endif
-    */
 
     if (photogram < 0 || !k->scene) 
         return;
@@ -245,16 +243,16 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                                       QString previousFrame = frame->frameName();
                                       if (frame && previousFrame.compare(currentFrame) != 0 
                                                 && frameBehind.compare(previousFrame) != 0) {
-                                          addFrame(frame, opacity, Preview);
+                                          addFrame(frame, opacity, Previous);
                                       } 
 
                                       frameBehind = previousFrame;
                                       opacity -= opacityFactor;
                                  }
-
                              }
                          }
 
+                         // Painting current frame
                          addFrame(mainFrame);
 
                          // Painting next frames
@@ -285,10 +283,8 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                          addLipSyncObjects(layer, photogram, mainFrame->getTopZLevel());
 
                          // SQA: Crashpoint when layers are deleted 
-
                          valid = true;
                          k->layerCounter = i;
-                         // addFrame(mainFrame, TupGraphicsScene::Current);
                      }
                   }
               }
@@ -410,21 +406,7 @@ void TupGraphicsScene::addFrame(TupFrame *frame, double opacity, Context mode)
     #endif
     */
 
-    if (frame) {
-        // k->objectCounter = 0;
-        /*
-        QList<int> indexes = frame->itemIndexes();
-        for (int i = 0; i < indexes.size(); ++i) {
-             TupGraphicObject *object = frame->graphic(indexes.at(i));
-             if (mode != TupGraphicsScene::Current) {
-                 if (!object->hasTween())
-                     addGraphicObject(object, opacity);
-             } else {
-                 addGraphicObject(object, opacity);
-             }
-        }
-        */
-
+    // if (frame) {
         for (int i=0; i < frame->graphicItemsCount(); ++i) {
              TupGraphicObject *object = frame->graphic(i);
              if (mode != TupGraphicsScene::Current) {
@@ -434,20 +416,6 @@ void TupGraphicsScene::addFrame(TupFrame *frame, double opacity, Context mode)
                  addGraphicObject(object, opacity);
              }
         }
-
-        /*
-        indexes = frame->svgIndexes();
-        for (int i = 0; i < indexes.size(); ++i) {
-             TupSvgItem *object = frame->svg(indexes.at(i));
-             if (!object->hasTween()) {
-                 addSvgObject(object, opacity);
-             } else {
-                 TupItemTweener *tween = object->tween(); 
-                 if (k->framePosition.frame == tween->startFrame())
-                     addSvgObject(object, opacity);
-             }
-        }
-        */
 
         for (int i = 0; i < frame->svgItemsCount(); i++) {
              TupSvgItem *object = frame->svg(i);
@@ -459,7 +427,7 @@ void TupGraphicsScene::addFrame(TupFrame *frame, double opacity, Context mode)
                      addSvgObject(object, opacity);
              }
         }
-    }
+    // }
 }
 
 void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity)
@@ -573,8 +541,10 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
     for (int i=0; i < tweenList.count(); i++) {
          TupGraphicObject *object = tweenList.at(i);
 
-         if (object->frame()->layer()->isVisible()) {
-             int origin = object->frame()->index();
+         // if (object->frame()->layer()->isVisible()) {
+         if (object->layerIsVisible()) {
+             // int origin = object->frame()->index();
+             int origin = object->frameIndex();
 
              if (TupItemTweener *tween = object->tween()) {
                  int adjustX = object->item()->boundingRect().width()/2;
@@ -584,7 +554,7 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
                      TupTweenerStep *stepItem = tween->stepAt(0);
                      object->item()->setToolTip(tween->tweenType() + ": " + tween->name() + tr("/Step: 0"));
 
-                     if (tween->type() == TupItemTweener::Compound) {
+                     if (tween->type() == TupItemTweener::Composed) {
                          object->item()->setTransformOriginPoint(tween->transformOriginPoint());
 
                          if (stepItem->has(TupTweenerStep::Position)) {
@@ -653,7 +623,7 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
                             int step = photogram - origin;
                             TupTweenerStep *stepItem = tween->stepAt(step);
                             object->item()->setToolTip(tween->tweenType() + ": " + tween->name() + tr("/Step: ") + QString::number(step));
-                            if (tween->type() == TupItemTweener::Compound) {
+                            if (tween->type() == TupItemTweener::Composed) {
 
                                 if (stepItem->has(TupTweenerStep::Position)) {
                                     qreal dx = stepItem->position().x() - (object->lastTweenPos().x() + adjustX);
@@ -761,8 +731,10 @@ void TupGraphicsScene::addSvgTweeningObjects(int photogram)
     for (int i=0; i < svgList.count(); i++) {
          TupSvgItem *object = svgList.at(i);
 
-         if (object->frame()->layer()->isVisible()) {
-             int origin = object->frame()->index();
+         // if (object->frame()->layer()->isVisible()) {
+         if (object->layerIsVisible()) {
+             // int origin = object->frame()->index();
+             int origin = object->frameIndex();
 
              if (TupItemTweener *tween = object->tween()) {
                  int adjustX = object->boundingRect().width()/2;
@@ -1485,8 +1457,14 @@ void TupGraphicsScene::frameResponse(TupFrameResponse *event)
     #endif
     */
 
-    if (k->tool)
+    tError() << "TupGraphicsScene::frameResponse() - Tracing...";
+
+    if (k->tool) {
+        tError() << "TupGraphicsScene::frameResponse() - Calling tool->frameResponse() -> " << k->tool->name();
         k->tool->frameResponse(event);
+    } else {
+        tError() << "TupGraphicsScene::frameResponse() - NO TOOL";
+    }
 }
 
 void TupGraphicsScene::itemResponse(TupItemResponse *event)

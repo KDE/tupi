@@ -436,7 +436,7 @@ QString TweenerPanel::tweenToXml(int currentFrame, QPointF point)
 
    QDomElement tweening = doc.createElement("tweening");
    tweening.setAttribute("name", name);
-   tweening.setAttribute("type", TweenerPanel::Compound);
+   tweening.setAttribute("type", TweenerPanel::Composed);
    tweening.setAttribute("init", currentFrame);
    tweening.setAttribute("frames", k->positionPanel->totalSteps());
    tweening.setAttribute("origin", QString::number(point.x()) + "," + QString::number(point.y()));

@@ -100,7 +100,7 @@ struct TupItemTweener::Private
     int colorLoop;
     int colorReverseLoop;
 
-    // Compound Tween
+    // Composed Tween
     int compPositionInitFrame;
     int compPositionFrames;
     int compRotationInitFrame;
@@ -329,7 +329,7 @@ void TupItemTweener::fromXml(const QString &xml)
 
         k->originPoint = QPointF(x, y); 
 
-        if (k->type == TupItemTweener::Compound) {
+        if (k->type == TupItemTweener::Composed) {
             QDomElement settings = root.firstChildElement("settings");
             QDomNode node = settings.firstChild();
 
@@ -514,7 +514,7 @@ QDomElement TupItemTweener::toXml(QDomDocument &doc) const
 
     root.setAttribute("origin", QString::number(k->originPoint.x()) + "," + QString::number(k->originPoint.y()));
 
-    if (k->type == TupItemTweener::Compound) {
+    if (k->type == TupItemTweener::Composed) {
         QDomElement settings = doc.createElement("settings");
 
         for (int i=0; i < k->tweenList.size(); i++) {
@@ -624,8 +624,8 @@ QString TupItemTweener::tweenType()
             case TupItemTweener::Coloring :
                  type = QString(tr("Coloring Tween"));
                  break;
-            case TupItemTweener::Compound :
-                 type = QString(tr("Compound Tween"));
+            case TupItemTweener::Composed :
+                 type = QString(tr("Composed Tween"));
                  break;
             case TupItemTweener::Papagayo :
                  type = QString(tr("Papagayo Lip-sync"));

@@ -28,7 +28,7 @@ SOURCES += tweener.cpp \
 
 CONFIG += plugin warn_on
 TEMPLATE = lib
-TARGET = tupicompoundtool
+TARGET = tupicomposedtool
 
 FRAMEWORK_DIR = "../../../framework"
 include($$FRAMEWORK_DIR/framework.pri)

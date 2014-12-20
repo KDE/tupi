@@ -245,7 +245,7 @@ void TNodeGroup::createNodes(QGraphicsPathItem *pathItem)
 
         /*
         int level = k->scene->items().count();
-        if (k->type != PositionTween && k->type != CompoundTween)
+        if (k->type != PositionTween && k->type != ComposedTween)
             level += pathItem->zValue();
         */
 

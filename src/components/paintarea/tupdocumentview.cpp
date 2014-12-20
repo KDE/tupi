@@ -609,7 +609,7 @@ void TupDocumentView::loadPlugins()
                                    if (toolName.compare(tr("Coloring Tween")) == 0)
                                        tweenTools[5] = action;
 
-                                   if (toolName.compare(tr("Compound Tween")) == 0)
+                                   if (toolName.compare(tr("Composed Tween")) == 0)
                                        action->setDisabled(true);
                                        tweenTools[6] = action;
                                  }
@@ -1512,7 +1512,7 @@ void TupDocumentView::exportImage()
     int frameIndex = k->paintArea->graphicsScene()->currentFrameIndex();
 
     QString fileName = QFileDialog::getSaveFileName(this, tr("Export Frame As"), QDir::homePath(),
-                                                        tr("Images") + " (*.png *.jpg)");
+                                                        tr("Images") + " (*.png *.jpg *.svg)");
     if (!fileName.isNull()) {
         bool isOk = k->imagePlugin->exportFrame(frameIndex, k->project->bgColor(), fileName, k->project->scene(sceneIndex), k->project->dimension(), k->project->library()); 
         updatePaintArea();

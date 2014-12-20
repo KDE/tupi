@@ -77,6 +77,7 @@ class TUPI_PLUGIN SelectionTool : public TupToolPlugin
         virtual void keyReleaseEvent(QKeyEvent *event);
 
         virtual void sceneResponse(const TupSceneResponse *event);
+        virtual void frameResponse(const TupFrameResponse *event);
 
         virtual QMap<QString, TAction *>actions() const;
         

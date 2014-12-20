@@ -119,7 +119,7 @@ void Tweener::init(TupGraphicsScene *scene)
 
     k->configurator->resetUI();
 
-    QList<QString> tweenList = k->scene->scene()->getTweenNames(TupItemTweener::Compound);
+    QList<QString> tweenList = k->scene->scene()->getTweenNames(TupItemTweener::Composed);
     if (tweenList.size() > 0) {
         k->configurator->loadTweenList(tweenList);
         setCurrentTween(tweenList.at(0));
@@ -141,7 +141,7 @@ void Tweener::updateStartPoint(int index)
 
 QStringList Tweener::keys() const
 {
-    return QStringList() << tr("Compound Tween");
+    return QStringList() << tr("Composed Tween");
 }
 
 /* This method makes an action when the mouse is pressed on the workspace 
@@ -375,12 +375,12 @@ bool Tweener::isComplete() const
 
 void Tweener::setupActions()
 {
-    TAction *translater = new TAction(QPixmap(kAppProp->themeDir() + "icons/compound_tween.png"), 
-                                      tr("Compound Tween"), this);
+    TAction *translater = new TAction(QPixmap(kAppProp->themeDir() + "icons/composed_tween.png"), 
+                                      tr("Composed Tween"), this);
     translater->setCursor(QCursor(kAppProp->themeDir() + "cursors/tweener.png"));
     translater->setShortcut(QKeySequence(tr("Shift+X")));
 
-    k->actions.insert(tr("Compound Tween"), translater);
+    k->actions.insert(tr("Composed Tween"), translater);
 }
 
 /* This method initializes the "Create path" mode */
@@ -398,7 +398,7 @@ void Tweener::setCreatePath()
         if (k->group) {
             k->group->createNodes(k->path);
         } else {
-            k->group = new TNodeGroup(k->path, k->scene, TNodeGroup::CompoundTween, k->baseZValue);
+            k->group = new TNodeGroup(k->path, k->scene, TNodeGroup::ComposedTween, k->baseZValue);
             connect(k->group, SIGNAL(nodeReleased()), SLOT(updatePath()));
             k->group->createNodes(k->path);
         }
@@ -484,13 +484,13 @@ void Tweener::applyTween()
     */
 
     /*
-    if (!k->scene->scene()->tweenExists(name, TupItemTweener::Compound))
+    if (!k->scene->scene()->tweenExists(name, TupItemTweener::Composed))
         tFatal() << "Tweener::applyTween() - Tween " << name << " is NEW!!!"; 
     else
         tFatal() << "Tweener::applyTween() - Tween " << name << " is NOT NEW!!!";
     */
   
-    if (!k->scene->scene()->tweenExists(name, TupItemTweener::Compound)) {
+    if (!k->scene->scene()->tweenExists(name, TupItemTweener::Composed)) {
         foreach (QGraphicsItem *item, k->objects) {   
                  TupLibraryObject::Type type = TupLibraryObject::Item;
                  int objectIndex = k->scene->currentFrame()->indexOf(item); 
@@ -750,12 +750,12 @@ int Tweener::maxZValue()
 void Tweener::removeTweenFromProject(const QString &name)
 {
     TupScene *scene = k->scene->scene();
-    scene->removeTween(name, TupItemTweener::Compound);
+    scene->removeTween(name, TupItemTweener::Composed);
 
     foreach (QGraphicsView * view, k->scene->views()) {
              foreach (QGraphicsItem *item, view->scene()->items()) {
                       QString tip = item->toolTip();
-                      if (tip.startsWith(tr("Compound Tween") + ": " + name))
+                      if (tip.startsWith(tr("Composed Tween") + ": " + name))
                           item->setToolTip("");
              }
     }
@@ -772,7 +772,7 @@ void Tweener::setCurrentTween(const QString &name)
     // tFatal() << "Tweener::setCurrentTween(Tweener::setCurrentTween() - Updating tweener: " << name;
 
     TupScene *scene = k->scene->scene();
-    k->currentTween = scene->tween(name, TupItemTweener::Compound);
+    k->currentTween = scene->tween(name, TupItemTweener::Composed);
     if (k->currentTween) {
         k->configurator->setCurrentTween(k->currentTween);
     } 
@@ -793,7 +793,7 @@ void Tweener::setEditEnv()
     k->mode = TweenerPanel::Edit;
 
     TupScene *scene = k->scene->scene();
-    k->objects = scene->getItemsFromTween(k->currentTween->name(), TupItemTweener::Compound);
+    k->objects = scene->getItemsFromTween(k->currentTween->name(), TupItemTweener::Composed);
     QGraphicsItem *item = k->objects.at(0);
     QRectF rect = item->sceneBoundingRect();
     k->itemObjectReference = rect.center();

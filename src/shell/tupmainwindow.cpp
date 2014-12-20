@@ -884,29 +884,6 @@ void TupMainWindow::importProjectToServer()
 
 /**
  * @if english
- * This method calls the methods required to save the current project.
- * @endif
- * @if spanish
- * Este metodo llama a los metodos requeridos para salvar el proyecto actual.
- * @endif
-*/
-
-void TupMainWindow::save()
-{
-    #ifdef K_DEBUG
-        QString msg = "TupMainWindow::save() - Saving...";
-        #ifdef Q_OS_WIN32
-           qWarning() << msg;
-        #else
-           tWarning("project") << msg;
-        #endif
-    #endif
-
-    QTimer::singleShot(0, this, SLOT(saveProject()));
-}
-
-/**
- * @if english
  * This method opens the Tupi preferences dialog.
  * @endif
  * @if spanish
@@ -1164,7 +1141,8 @@ void TupMainWindow::saveAs()
         setWindowTitle(tr("Tupi: Open 2D Magic") + " - " + projectName + " [ " + tr("by") + " " + author + " ]");
     }
 
-    save();
+    // save();
+    saveProject();
 }
 
 /**
@@ -1178,6 +1156,14 @@ void TupMainWindow::saveAs()
 
 void TupMainWindow::saveProject()
 {
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupMainWindow::saveProject()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+
     if (!isNetworked) {
         if (isSaveDialogOpen)
             return;

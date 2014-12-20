@@ -97,6 +97,9 @@ void SelectionTool::init(TupGraphicsScene *scene)
     k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000);
     k->targetIsIncluded = false;
 
+    tError() << "SelectionTool::init() - Processing item..."; 
+    tError() << "SelectionTool::init() - k->baseZValue -> " << k->baseZValue;
+
     reset(scene);
 }
 
@@ -121,16 +124,21 @@ void SelectionTool::reset(TupGraphicsScene *scene)
                       QDomDocument dom;
                       dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
                       QDomElement root = dom.documentElement();
-                      tFatal() << "SelectionTool::init() - XML: ";
+                      tFatal() << "SelectionTool::reset() - XML: ";
                       tFatal() << dom.toString();
                       */
+
+                      tError() << "SelectionTool::reset() - Processing item...";
 
                       int zValue = item->zValue();
                       if (!qgraphicsitem_cast<Node *>(item)) {
                           if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
                               if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0)) {
+                                  tError() << "SelectionTool::reset() - zValue -> " << zValue;
+                                  tError() << "SelectionTool::reset() - Adding movable/selectable flags from item...";
                                   item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                               } else {
+                                  tError() << "SelectionTool::reset() - Removing movable/selectable flags from item...";
                                   item->setFlag(QGraphicsItem::ItemIsSelectable, false);
                                   item->setFlag(QGraphicsItem::ItemIsMovable, false);
                               }
@@ -1130,6 +1138,20 @@ void SelectionTool::sceneResponse(const TupSceneResponse *event)
 {
     if (event->action() == TupProjectRequest::Select)
         reset(k->scene);
+}
+
+void SelectionTool::frameResponse(const TupFrameResponse *event)
+{
+    Q_UNUSED(event);
+
+    tError() << "SelectionTool::frameResponse() - Tracing...";
+
+    /*
+    if (event->action() == TupProjectRequest::Select) {
+        tError() << "SelectionTool::frameResponse() - Resetting interface...";
+        reset(k->scene);
+    }
+    */
 }
 
 void SelectionTool::updateItemPosition() 

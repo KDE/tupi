@@ -68,7 +68,7 @@ class TUPI_EXPORT TupGraphicsScene : public QGraphicsScene
     Q_OBJECT
 
     public:
-        enum Context { Current = 1, Preview, Next };
+        enum Context { Current = 1, Previous, Next };
 
         TupGraphicsScene();
         ~TupGraphicsScene();

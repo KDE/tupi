@@ -190,7 +190,6 @@ class TupMainWindow : public TabbedMainWindow
           void importProjectToServer();
           void exportProject();
 
-          void save();
           void saveAs();
 
           void showHelpPage(const QString &document);

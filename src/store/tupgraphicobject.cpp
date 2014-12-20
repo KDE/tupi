@@ -34,7 +34,8 @@
  ***************************************************************************/
 
 #include "tupgraphicobject.h"
-#include "tupframe.h"
+// #include "tupframe.h"
+#include "tuplayer.h"
 #include "tupscene.h"
 #include "tupitemtweener.h"
 
@@ -190,6 +191,20 @@ TupFrame *TupGraphicObject::frame() const
 void TupGraphicObject::setFrame(TupFrame *frame) 
 {
     k->frame = frame;
+}
+
+int TupGraphicObject::frameIndex()
+{
+    return k->frame->index();
+}
+
+bool TupGraphicObject::layerIsVisible()
+{
+    TupLayer *layer = k->frame->layer();
+    if (layer->isVisible())
+        return true;
+
+    return false;
 }
 
 int TupGraphicObject::objectIndex() const

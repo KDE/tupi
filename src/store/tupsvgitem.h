@@ -63,6 +63,9 @@ class TUPI_EXPORT TupSvgItem : public QGraphicsSvgItem, public TupAbstractSerial
         QString symbolName() const;
         QString itemPath() const;
         TupFrame *frame() const;
+        int frameIndex();
+        bool layerIsVisible();
+
         TupItemTweener *tween() const;
         void removeTween();
         void rendering();
