@@ -33,42 +33,47 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPEXPORTWIDGET_H
-#define TUPEXPORTWIDGET_H
+#ifndef TUPVIDEOPROPERTIES_H
+#define TUPVIDEOPROPERTIES_H
 
 #include "tglobal.h"
-#include "tupproject.h"
 #include "tupexportwizard.h"
-#include "tuppluginmanager.h"
-#include "tosd.h"
+#include "tupexportwidget.h"
 
-/**
- * @author David Cuadrado
-*/
+#include <QLineEdit>
+#include <QTextEdit>
 
-class TUPI_EXPORT TupExportWidget : public TupExportWizard
+class TUPI_EXPORT TupVideoProperties : public TupExportWizardPage
 {
     Q_OBJECT
 
     public:
-        enum OutputFormat { Animation = 0, ImagesArray, AnimatedImage };
-        TupExportWidget(TupProject *project, QWidget *parent = 0, bool isLocal = true);
-        ~TupExportWidget();
-        QString videoTitle() const;
-        QString videoTopics() const;
-        QString videoDescription() const;
-        QList<int> videoScenes() const;
-        bool isComplete();
+        TupVideoProperties(const TupExportWidget *widget);
+        ~TupVideoProperties();
+
+        bool isComplete() const;
+        void reset();
+        QString title() const;
+        QString topics() const;
+        QString description() const;
+        QList<int> scenesList() const;
+        bool successful();
+
+    signals:
+        void isDone();
 
     private slots:
-        void setExporter(const QString &plugin);
-	
+        void resetTitleColor(const QString &text);
+        void resetTopicsColor(const QString &text);
+        void postIt();
+        void setScenesIndexes(const QList<int> &indexes);
+
     private:
-        void loadPlugins();
-		
-    private:
-        struct Private;
-        Private *const k;
+        QLineEdit *titleEdit;
+        QLineEdit *topicsEdit;
+        QTextEdit *descText;
+        QList<int> scenes;
+        bool isOk;
 };
 
 #endif

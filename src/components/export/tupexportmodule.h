@@ -33,42 +33,71 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPEXPORTWIDGET_H
-#define TUPEXPORTWIDGET_H
+#ifndef TUPEXPORTMODULE_H
+#define TUPEXPORTMODULE_H
 
 #include "tglobal.h"
-#include "tupproject.h"
+#include "tupexportwidget.h"
+#include "tupexportinterface.h"
 #include "tupexportwizard.h"
-#include "tuppluginmanager.h"
-#include "tosd.h"
+#include "tupproject.h"
+#include "txyspinbox.h"
 
-/**
- * @author David Cuadrado
-*/
+#include <QLineEdit>
+#include <QSpinBox>
+#include <QCheckBox>
 
-class TUPI_EXPORT TupExportWidget : public TupExportWizard
+class TUPI_EXPORT TupExportModule : public TupExportWizardPage
 {
     Q_OBJECT
 
     public:
-        enum OutputFormat { Animation = 0, ImagesArray, AnimatedImage };
-        TupExportWidget(TupProject *project, QWidget *parent = 0, bool isLocal = true);
-        ~TupExportWidget();
-        QString videoTitle() const;
-        QString videoTopics() const;
-        QString videoDescription() const;
-        QList<int> videoScenes() const;
-        bool isComplete();
+        TupExportModule(TupProject *project, TupExportWidget::OutputFormat output, QString title, const TupExportWidget *widget);
+        ~TupExportModule();
+
+        bool isComplete() const;
+        void reset();
+        void aboutToFinish();
+
+    public slots:
+        void exportIt();
 
     private slots:
-        void setExporter(const QString &plugin);
-	
+        void updateState(const QString &text);
+        void chooseFile();
+        void chooseDirectory();
+        void updateNameField();
+        void enableTransparency(bool flag);
+
     private:
-        void loadPlugins();
-		
+        QList<TupScene *> scenesToExport() const;
+
+    public slots:
+        void setScenesIndexes(const QList<int> &indexes);
+        void setCurrentExporter(TupExportInterface *currentExporter);
+        void setCurrentFormat(int currentFormat, const QString &extension);
+
+    signals:
+        void saveFile();
+        void exportArray();
+        void isDone();
+
     private:
-        struct Private;
-        Private *const k;
+        QList<int> m_indexes;
+        TupExportInterface *m_currentExporter;
+        TupExportInterface::Format m_currentFormat;
+        TupExportWidget::OutputFormat output;
+
+        TupProject *m_project;
+        QLineEdit *m_filePath;
+        QLineEdit *m_prefix;
+        QSpinBox *m_fps;
+        TXYSpinBox *m_size;
+        QString filename;
+        QString path;
+        QString extension;
+        QCheckBox *bgTransparency;
+        bool transparency;
 };
 
 #endif

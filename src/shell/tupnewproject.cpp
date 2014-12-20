@@ -145,8 +145,8 @@ TupNewProject::TupNewProject(QWidget *parent) : TabDialog(parent), k(new Private
     k->size = new TXYSpinBox(tr("Dimension"), infoContainer);
     k->size->setMinimum(50);
     k->size->setMaximum(15000);
-    k->size->setX(520);
-    k->size->setY(380);
+    // k->size->setX(520);
+    // k->size->setY(380);
 
     connect(k->size, SIGNAL(valuesHaveChanged()), this, SLOT(updateFormatCombo()));
 
@@ -175,6 +175,8 @@ TupNewProject::TupNewProject(QWidget *parent) : TabDialog(parent), k(new Private
     // SQA: Code temporarily disabled
     // addTab(netContainer, tr("Network"));
     enableNetOptions(false);
+
+    k->presets->setCurrentIndex(3);
 }
 
 TupNewProject::~TupNewProject()
@@ -373,7 +375,7 @@ void TupNewProject::setPresets(int index)
            case FORMAT_1280P:
            {
                k->size->setX(1920);
-               k->size->setY(1280);
+               k->size->setY(1080);
                k->fps->setValue(25);
            }
            break;

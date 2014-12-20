@@ -8,9 +8,17 @@ macx {
 }
 
 HEADERS += tupexportwizard.h \
+           tuppluginselector.h \
+           tupsceneselector.h \
+           tupexportmodule.h \
+           tupvideoproperties.h \
            tupexportwidget.h 
 
 SOURCES += tupexportwizard.cpp \
+           tuppluginselector.cpp \
+           tupsceneselector.cpp \
+           tupexportmodule.cpp \
+           tupvideoproperties.cpp \
            tupexportwidget.cpp
 
 *:!macx{

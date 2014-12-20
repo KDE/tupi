@@ -182,7 +182,7 @@ void TupExportWizard::next()
         if (k->formatCode == 4096) { // ANIMATED PNG
             emit setAnimatedImageFileName();
             k->history->setCurrentIndex(k->history->currentIndex()+3);
-        } else if (k->format.compare(".jpg") == 0 || k->format.compare(".png") == 0) { // IMAGES ARRAY
+        } else if (k->format.compare(".jpg") == 0 || k->format.compare(".png") == 0 || k->format.compare(".svg") == 0) { // IMAGES ARRAY
                    emit setImagesArrayFileName();
                    k->history->setCurrentIndex(k->history->currentIndex()+2);
         } else {

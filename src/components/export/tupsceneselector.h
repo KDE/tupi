@@ -33,42 +33,41 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPEXPORTWIDGET_H
-#define TUPEXPORTWIDGET_H
+#ifndef TUPSCENESELECTOR_H
+#define TUPSCENESELECTOR_H
 
 #include "tglobal.h"
-#include "tupproject.h"
+#include "tupexportinterface.h"
 #include "tupexportwizard.h"
-#include "tuppluginmanager.h"
-#include "tosd.h"
+#include "tupexportwidget.h"
+#include "titemselector.h"
 
-/**
- * @author David Cuadrado
-*/
+#include <QListWidget>
+#include <QListWidgetItem>
 
-class TUPI_EXPORT TupExportWidget : public TupExportWizard
+class TUPI_EXPORT TupSceneSelector : public TupExportWizardPage
 {
     Q_OBJECT
 
     public:
-        enum OutputFormat { Animation = 0, ImagesArray, AnimatedImage };
-        TupExportWidget(TupProject *project, QWidget *parent = 0, bool isLocal = true);
-        ~TupExportWidget();
-        QString videoTitle() const;
-        QString videoTopics() const;
-        QString videoDescription() const;
-        QList<int> videoScenes() const;
-        bool isComplete();
+        TupSceneSelector(const TupExportWidget *widget);
+        ~TupSceneSelector();
+
+        bool isComplete() const;
+        void reset();
+
+        void setScenes(const QList<TupScene *> &scenes);
+        void aboutToNextPage();
 
     private slots:
-        void setExporter(const QString &plugin);
-	
+        void updateState();
+        void updateScenesList();
+
+    signals:
+        void selectedScenes(const QList<int> &scenes);
+
     private:
-        void loadPlugins();
-		
-    private:
-        struct Private;
-        Private *const k;
+        TItemSelector *m_selector;
 };
 
 #endif

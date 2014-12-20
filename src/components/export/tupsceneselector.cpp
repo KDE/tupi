@@ -33,42 +33,83 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPEXPORTWIDGET_H
-#define TUPEXPORTWIDGET_H
+#include "tupsceneselector.h"
 
-#include "tglobal.h"
-#include "tupproject.h"
-#include "tupexportwizard.h"
-#include "tuppluginmanager.h"
-#include "tosd.h"
-
-/**
- * @author David Cuadrado
-*/
-
-class TUPI_EXPORT TupExportWidget : public TupExportWizard
+TupSceneSelector::TupSceneSelector(const TupExportWidget *widget) : TupExportWizardPage(tr("Select Scenes"))
 {
-    Q_OBJECT
+    setTag("SCENE");
+    m_selector = new TItemSelector;
 
-    public:
-        enum OutputFormat { Animation = 0, ImagesArray, AnimatedImage };
-        TupExportWidget(TupProject *project, QWidget *parent = 0, bool isLocal = true);
-        ~TupExportWidget();
-        QString videoTitle() const;
-        QString videoTopics() const;
-        QString videoDescription() const;
-        QList<int> videoScenes() const;
-        bool isComplete();
+    connect(m_selector, SIGNAL(changed()), this, SLOT(updateState()));
+    connect(widget, SIGNAL(updateScenes()), this, SLOT(updateScenesList()));
 
-    private slots:
-        void setExporter(const QString &plugin);
-	
-    private:
-        void loadPlugins();
-		
-    private:
-        struct Private;
-        Private *const k;
-};
+    setWidget(m_selector);
+}
 
-#endif
+TupSceneSelector::~TupSceneSelector()
+{
+}
+
+bool TupSceneSelector::isComplete() const
+{
+    return m_selector->selectedItems().count() > 0;
+}
+
+void TupSceneSelector::reset()
+{
+}
+
+void TupSceneSelector::setScenes(const QList<TupScene *> &scenes)
+{
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TupSceneSelector::setScenes()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+
+    m_selector->clear();
+    int pos = 1;
+
+    foreach (TupScene *scene, scenes) {
+             #ifdef K_DEBUG
+                 QString msg = "TupSceneSelector::setScenes() - Adding " + scene->sceneName();
+                 #ifdef Q_OS_WIN32
+                     qWarning() << msg;
+                 #else
+                     tWarning("export") << msg;
+                 #endif
+             #endif
+
+             m_selector->addItem(QString("%1: ").arg(pos) + scene->sceneName());
+             pos++;
+    }
+
+    #ifdef K_DEBUG
+        QString msg = "TupSceneSelector::setScenes() - Available Scenes: " + QString::number(pos - 1);
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
+    #endif
+
+    m_selector->selectFirstItem();
+}
+
+void TupSceneSelector::aboutToNextPage()
+{
+    emit selectedScenes(m_selector->selectedIndexes());
+}
+
+void TupSceneSelector::updateState()
+{
+    emit completed();
+}
+
+void TupSceneSelector::updateScenesList()
+{
+    // SQA: Pending code right over here
+}
+

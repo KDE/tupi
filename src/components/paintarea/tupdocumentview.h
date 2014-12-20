@@ -135,15 +135,6 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void insertPictureInFrame(int id, const QString path);
         void papagayoManager();
 
-    private:
-        struct Private;
-        Private *const k;
-        void setupDrawActions();
-        void createToolBar();
-        void createMenu();
-        void createLateralToolBar();
-        void updateRotationAngleFromRulers(int angle);
-
     private slots: 
         // Plugins
         void loadPlugins();
@@ -195,8 +186,15 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void projectSizeHasChanged(const QSize dimension);
         void updateFPS(int fps);
 
-    // protected:
-    // void closeEvent(QCloseEvent *e);
+    private:
+        void setupDrawActions();
+        void createToolBar();
+        void createMenu();
+        void createLateralToolBar();
+        void updateRotationAngleFromRulers(int angle);
+        struct Private;
+        Private *const k;
+
 };
 
 #endif

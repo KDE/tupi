@@ -33,42 +33,47 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPEXPORTWIDGET_H
-#define TUPEXPORTWIDGET_H
+#ifndef TUPPLUGINSELECTOR_H
+#define TUPPLUGINSELECTOR_H
 
 #include "tglobal.h"
-#include "tupproject.h"
+#include "tupexportinterface.h"
 #include "tupexportwizard.h"
-#include "tuppluginmanager.h"
-#include "tosd.h"
 
-/**
- * @author David Cuadrado
-*/
+#include <QListWidget>
+#include <QListWidgetItem>
 
-class TUPI_EXPORT TupExportWidget : public TupExportWizard
+class TUPI_EXPORT TupPluginSelector : public TupExportWizardPage
 {
     Q_OBJECT
 
     public:
-        enum OutputFormat { Animation = 0, ImagesArray, AnimatedImage };
-        TupExportWidget(TupProject *project, QWidget *parent = 0, bool isLocal = true);
-        ~TupExportWidget();
-        QString videoTitle() const;
-        QString videoTopics() const;
-        QString videoDescription() const;
-        QList<int> videoScenes() const;
-        bool isComplete();
+        TupPluginSelector();
+        ~TupPluginSelector();
 
-    private slots:
-        void setExporter(const QString &plugin);
-	
+        bool isComplete() const;
+        const char *extension;
+
+        void reset();
+        void addPlugin(const QString &plugin);
+        void setFormats(TupExportInterface::Formats formats);
+
+    public slots:
+        void selectedPluginItem(QListWidgetItem *);
+        void selectFirstItem();
+        void selectedFormatItem(QListWidgetItem *);
+        const char* getFileExtension();
+
+    signals:
+        void selectedPlugin(const QString &plugin);
+        void animationFormatSelected(int format, const QString &extension);
+        void animatedImageFormatSelected(int format, const QString &extension);
+        void imagesArrayFormatSelected(int format, const QString &extension);
+
     private:
-        void loadPlugins();
-		
-    private:
-        struct Private;
-        Private *const k;
+        QListWidget *m_exporterList;
+        QListWidget *m_formatList;
+        const char* getFormatExtension(const QString format);
 };
 
 #endif

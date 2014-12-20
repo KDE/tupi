@@ -50,7 +50,7 @@ QString ImagePlugin::key() const
 
 TupExportInterface::Formats ImagePlugin::availableFormats()
 {
-    return TupExportInterface::PNG | TupExportInterface::JPEG | TupExportInterface::XPM;
+    return TupExportInterface::PNG | TupExportInterface::JPEG | TupExportInterface::SVG | TupExportInterface::XPM;
 }
 
 bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, const QList<TupScene *> &scenes, 
@@ -66,7 +66,7 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
 
     m_baseName = fileInfo.baseName();
     const char *extension = "";
-    QImage::Format imageFormat;
+    QImage::Format imageFormat = QImage::Format_RGB32;
     switch (format) {
             case TupExportInterface::JPEG:
                  extension = "JPEG";
@@ -80,6 +80,9 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
                  extension = "XPM";
                  imageFormat = QImage::Format_RGB32;
                  break;
+            case TupExportInterface::SVG:
+                 extension = "SVG";
+                 break;
             default:
                  imageFormat = QImage::Format_RGB32;
                  break;
@@ -92,18 +95,6 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
 
              int photogram = 0;
              while (renderer.nextPhotogram()) {
-                    QImage image(size, imageFormat);
-                    if (bgColor.alpha() == 0)
-                        image.fill(Qt::transparent);
-                    else
-                        image.fill(bgColor);
-
-                    {
-                     QPainter painter(&image);
-                     painter.setRenderHint(QPainter::Antialiasing, true);
-                     renderer.render(&painter);
-                    }
-
                     QString index = "";
                     if (photogram < 10) {
                         index = "000";
@@ -114,7 +105,38 @@ bool ImagePlugin::exportToFormat(const QColor bgColor, const QString &filePath, 
                     }
 
                     index += QString("%1").arg(photogram);
-                    image.save(fileInfo.absolutePath() + QDir::separator() + QString(m_baseName + "%1.%2").arg(index).arg(QString(extension).toLower()), extension, 100);
+
+                    if (QString(extension).compare("SVG") == 0) {
+                        QString path = fileInfo.absolutePath() + QDir::separator() + QString(m_baseName + "%1.%2").arg(index).arg(QString(extension).toLower());
+
+                        QSvgGenerator generator;
+                        generator.setFileName(path);
+                        generator.setSize(size);
+                        generator.setViewBox(QRect(0, 0, size.width(), size.height()));
+                        QFileInfo info(path);
+                        generator.setTitle(info.fileName());
+                        generator.setDescription(scene->sceneName());
+
+                        QPainter painter;
+                        painter.begin(&generator);
+                        painter.setRenderHint(QPainter::Antialiasing, true);
+                        renderer.render(&painter);
+                        painter.end();
+                    } else {
+                       QImage image(size, imageFormat);
+                       if (bgColor.alpha() == 0)
+                           image.fill(Qt::transparent);
+                       else
+                           image.fill(bgColor);
+
+                       {
+                           QPainter painter(&image);
+                           painter.setRenderHint(QPainter::Antialiasing, true);
+                           renderer.render(&painter);
+                       }
+
+                       image.save(fileInfo.absolutePath() + QDir::separator() + QString(m_baseName + "%1.%2").arg(index).arg(QString(extension).toLower()), extension, 100);
+                    }          
 
                     photogram++;
              }
@@ -132,17 +154,18 @@ bool ImagePlugin::exportFrame(int frameIndex, const QColor color, const QString 
     QColor bgColor = color;
     bgColor.setAlpha(255);
 
+    TupAnimationRenderer renderer(bgColor, library);
+    renderer.setScene(scene, size);
+    renderer.renderPhotogram(frameIndex);
+
     if (filePath.endsWith(".SVG", Qt::CaseInsensitive)) {
         QSvgGenerator generator;
         generator.setFileName(path);
         generator.setSize(size);
         generator.setViewBox(QRect(0, 0, size.width(), size.height()));
-        generator.setTitle("");
-        generator.setDescription("");
-
-        TupAnimationRenderer renderer(bgColor, library);
-        renderer.setScene(scene, size);
-        renderer.renderPhotogram(frameIndex);
+        QFileInfo info(path);
+        generator.setTitle(info.fileName());
+        generator.setDescription(scene->sceneName());
 
         QPainter painter;
         painter.begin(&generator);
@@ -161,10 +184,6 @@ bool ImagePlugin::exportFrame(int frameIndex, const QColor color, const QString 
             path += ".png";
             imageFormat = QImage::Format_ARGB32;
         }
-
-        TupAnimationRenderer renderer(bgColor, library);
-        renderer.setScene(scene, size);
-        renderer.renderPhotogram(frameIndex);
 
         QImage image(size, imageFormat);
         {
