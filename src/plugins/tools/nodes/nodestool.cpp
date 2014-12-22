@@ -176,16 +176,15 @@ void NodesTool::itemResponse(const TupItemResponse *response)
         #endif
     #endif
 
-    TupProject *project = k->scene->scene()->project();
     QGraphicsItem *item = 0;
     TupScene *scene = 0;
     TupLayer *layer = 0;
     TupFrame *frame = 0;
 
-    if (project) {
-        scene = project->scene(response->sceneIndex());
+    if (response->action() != TupProjectRequest::Remove) {
+        scene = k->scene->scene();
         if (scene) {
-            if (project->spaceContext() == TupProject::FRAMES_EDITION) {
+            if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
                 layer = scene->layer(response->layerIndex());
                 if (layer) {
                     frame = layer->frame(response->frameIndex());
@@ -214,7 +213,7 @@ void NodesTool::itemResponse(const TupItemResponse *response)
             } else {
                 TupBackground *bg = scene->background();
                 if (bg) {
-                    if (project->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
+                    if (k->scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
                         TupFrame *frame = bg->staticFrame();
                         if (frame) {
                             item = frame->item(response->itemIndex());
@@ -228,7 +227,7 @@ void NodesTool::itemResponse(const TupItemResponse *response)
                                 #endif
                             #endif
                         }
-                    } else if (project->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) { 
+                    } else if (k->scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) { 
                                TupFrame *frame = bg->dynamicFrame();
                                if (frame) {
                                    item = frame->item(response->itemIndex());
@@ -273,15 +272,6 @@ void NodesTool::itemResponse(const TupItemResponse *response)
                 #endif
             #endif
         }
-    } else {
-        #ifdef K_DEBUG
-            QString msg = "NodesTool::itemResponse() - Fatal Error: Project variable is NULL";
-            #ifdef Q_OS_WIN32
-                qDebug() << msg;
-            #else
-                tError() << msg;
-            #endif
-        #endif
     }
     
     switch (response->action()) {

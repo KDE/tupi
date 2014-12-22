@@ -61,7 +61,7 @@ struct SelectionTool::Private
     bool selectionFlag;
     qreal scaleFactor;
     qreal realFactor;
-    int baseZValue;
+    int nodeZValue;
     TupEllipseItem *center;
     QGraphicsLineItem *target1;
     QGraphicsLineItem *target2;
@@ -94,11 +94,11 @@ void SelectionTool::init(TupGraphicsScene *scene)
 
     k->scene = scene;
     k->scene->clearSelection();
-    k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000);
+    k->nodeZValue = 20000 + (scene->scene()->layersTotal() * 10000);
     k->targetIsIncluded = false;
 
     tError() << "SelectionTool::init() - Processing item..."; 
-    tError() << "SelectionTool::init() - k->baseZValue -> " << k->baseZValue;
+    tError() << "SelectionTool::init() - k->nodeZValue -> " << k->nodeZValue;
 
     reset(scene);
 }
@@ -116,8 +116,13 @@ void SelectionTool::reset(TupGraphicsScene *scene)
     int zBottomLimit = (scene->currentLayerIndex() + 2)*10000;
     int zTopLimit = zBottomLimit + 10000;
 
+    tError() << "SelectionTool::reset() - bottom limit -> " << zBottomLimit;
+    tError() << "SelectionTool::reset() - top limit -> " << zTopLimit;
+    tError() << "";
+
     foreach (QGraphicsView *view, scene->views()) {
              view->setDragMode(QGraphicsView::RubberBandDrag);
+             tError() << "SelectionTool::reset() - items: " << scene->items().count();
              foreach (QGraphicsItem *item, scene->items()) {
                       // SQA: Temporary code for debugging issues
                       /*
@@ -220,7 +225,7 @@ void SelectionTool::press(const TupInputDeviceInformation *input, TupBrushManage
                  }
             
                  if (!found) {
-                     NodeManager *manager = new NodeManager(item, scene, k->baseZValue);
+                     NodeManager *manager = new NodeManager(item, scene, k->nodeZValue);
                      manager->show();
                      manager->resizeNodes(k->realFactor);
                      k->nodeManagers << manager;
@@ -270,7 +275,7 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                      }
 
                      if (!found) {
-                         NodeManager *manager = new NodeManager(item, scene, k->baseZValue);
+                         NodeManager *manager = new NodeManager(item, scene, k->nodeZValue);
                          manager->show();
                          manager->resizeNodes(k->realFactor);
                          k->nodeManagers << manager;
@@ -654,7 +659,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
 
                  k->selectedObjects << item;
                  item->setSelected(true);
-                 NodeManager *node = new NodeManager(item, k->scene, k->baseZValue);
+                 NodeManager *node = new NodeManager(item, k->scene, k->nodeZValue);
                  node->resizeNodes(k->realFactor);
                  k->nodeManagers << node;
 
@@ -679,7 +684,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                       if (graphic) {
                           k->selectedObjects << graphic;
                           graphic->setSelected(true);
-                          NodeManager *node = new NodeManager(graphic, k->scene, k->baseZValue);
+                          NodeManager *node = new NodeManager(graphic, k->scene, k->nodeZValue);
                           node->resizeNodes(k->realFactor);
                           k->nodeManagers << node;
                       }
@@ -1201,7 +1206,7 @@ void SelectionTool::updateItemPosition()
                 QPen pen(QColor(255, 0, 0), 0.5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
                 k->center->setPen(pen);
                 k->center->setBrush(QColor(255, 0, 0));
-                k->center->setZValue(k->baseZValue + 1);
+                k->center->setZValue(k->nodeZValue + 1);
                 k->scene->includeObject(k->center);
 
                 k->target1->setPen(pen); 

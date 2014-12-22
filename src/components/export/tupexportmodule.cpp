@@ -303,6 +303,15 @@ void TupExportModule::exportIt()
             // path = getenv("HOME");
 
         filename = path + QDir::separator() + name;
+
+        if (QFile::exists(QString(filename + "0000" + extension))) {
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, tr("Warning!"), tr("Image array already exists. Overwrite it?"),
+                                              QMessageBox::Yes | QMessageBox::No);
+
+            if (reply == QMessageBox::No)
+                return;
+        }
     } else { // Animation or Animated Image
         filename = m_filePath->text();
 

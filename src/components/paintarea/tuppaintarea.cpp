@@ -1359,7 +1359,7 @@ void TupPaintArea::keyPressEvent(QKeyEvent *event)
 
     QList<QGraphicsItem *> selected = scene()->selectedItems();
     if (k->currentTool.compare(tr("Pencil")) != 0) {
-        if (k->currentTool.compare(tr("Object Selection")) == 0) {
+        if (k->currentTool.compare(tr("Object Selection")) == 0 || k->currentTool.compare(tr("Nodes Selection")) == 0) {
             if (!selected.isEmpty()) {
                 TupPaintAreaBase::keyPressEvent(event);
                 return;

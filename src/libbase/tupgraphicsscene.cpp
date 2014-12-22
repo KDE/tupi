@@ -243,6 +243,8 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                                       QString previousFrame = frame->frameName();
                                       if (frame && previousFrame.compare(currentFrame) != 0 
                                                 && frameBehind.compare(previousFrame) != 0) {
+                                          tError() << "";
+                                          tError() << "TupGraphicsScene::drawCurrentPhotogram() - Drawing previous frame at index -> " << frameIndex;
                                           addFrame(frame, opacity, Previous);
                                       } 
 
@@ -253,7 +255,10 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                          }
 
                          // Painting current frame
+                         tError() << "";
+                         tError() << "TupGraphicsScene::drawCurrentPhotogram() - Drawing current frame -> " << photogram;
                          addFrame(mainFrame);
+                         tError() << "";
 
                          // Painting next frames
                          if (drawContext) {
@@ -271,6 +276,8 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                                       QString nextFrame = frame->frameName();
                                       if (frame && nextFrame.compare(currentFrame) != 0 
                                                 && frameLater.compare(nextFrame) != 0) {
+                                          tError() << "";
+                                          tError() << "TupGraphicsScene::drawCurrentPhotogram() - Drawing next frame at index -> " << frameIndex;
                                           addFrame(frame, opacity, Next);
                                       }
                       
@@ -443,8 +450,9 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
     QGraphicsItem *item = object->item();
     k->onionSkin.opacityMap.insert(item, opacity);
 
-    if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item))
-        group->recoverChilds();
+    // SQA: Check if this instruction is actually required
+    // if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item))
+    //     group->recoverChilds();
 
     if (! qgraphicsitem_cast<TupItemGroup *>(item->parentItem())) {
         item->setSelected(false);
@@ -455,6 +463,7 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
 
             if (frame) {
                 item->setOpacity(opacity);
+                tError() << "TupGraphicsScene::addGraphicObject() - zValue: " << item->zValue();
                 addItem(item);
             }
         }
