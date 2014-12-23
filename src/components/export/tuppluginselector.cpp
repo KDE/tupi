@@ -215,7 +215,7 @@ char const* TupPluginSelector::getFormatExtension(const QString format)
         return ".png";
 
     if (format.compare(tr("JPEG Image Array")) == 0)
-        return ".jpg";
+        return ".jpeg";
 
     if (format.compare(tr("Animated PNG (APNG)")) == 0)
         return ".png";

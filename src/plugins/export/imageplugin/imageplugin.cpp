@@ -177,7 +177,7 @@ bool ImagePlugin::exportFrame(int frameIndex, const QColor color, const QString 
             extension = "PNG";
             imageFormat = QImage::Format_ARGB32;
         } else if (filePath.endsWith(".JPG", Qt::CaseInsensitive) || filePath.endsWith("JPEG", Qt::CaseInsensitive)) {
-                   extension = "JPG";
+                   extension = "JPEG";
                    imageFormat = QImage::Format_RGB32;
         } else {
             extension = "PNG"; 

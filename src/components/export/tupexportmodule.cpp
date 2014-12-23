@@ -115,7 +115,7 @@ TupExportModule::TupExportModule(TupProject *project, TupExportWidget::OutputFor
 
     if (output == TupExportWidget::ImagesArray) {
         prefixLayout->addWidget(m_prefix);
-        prefixLayout->addWidget(new QLabel(tr("i.e. <B>%1</B>01.png / jpg / svg").arg(prefix)));
+        prefixLayout->addWidget(new QLabel(tr("i.e. <B>%1</B>01.png / jpeg / svg").arg(prefix)));
         layout->addLayout(prefixLayout);
     }
 
@@ -300,9 +300,10 @@ void TupExportModule::exportIt()
 
         if (path.length() == 0)
             path = QDir::homePath();
-            // path = getenv("HOME");
 
         filename = path + QDir::separator() + name;
+
+        tError() << "TupExportModule::exportIt() - Path -> " << QString(filename + "0000" + extension);
 
         if (QFile::exists(QString(filename + "0000" + extension))) {
             QMessageBox::StandardButton reply;
