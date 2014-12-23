@@ -928,12 +928,16 @@ void TupPaintArea::copyItems()
     QList<QGraphicsItem *> selected = scene()->selectedItems();
 
     if (!selected.isEmpty()) {
+        foreach (QGraphicsItem *item, selected) {
+                 if (qgraphicsitem_cast<TControlNode *> (item))
+                     selected.removeOne(item);
+        }
+
         TupGraphicsScene* currentScene = graphicsScene();
 
         if (currentScene) {
             k->oldPosition = selected.at(0)->boundingRect().topLeft();
             foreach (QGraphicsItem *item, selected) {
-
                      QDomDocument dom;
                      dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
                      k->copiesXml << dom.toString();
