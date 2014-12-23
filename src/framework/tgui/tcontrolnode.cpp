@@ -332,4 +332,3 @@ void TControlNode::resize(qreal factor)
 {
     setScale(factor);
 }
-

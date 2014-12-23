@@ -85,7 +85,7 @@ class T_GUI_EXPORT TControlNode : public QGraphicsItem
         
         void hasChanged(bool notChange);
         void resize(qreal factor);
-        
+
     protected:
         QVariant itemChange(GraphicsItemChange change, const QVariant &value);
         void mousePressEvent(QGraphicsSceneMouseEvent *event);

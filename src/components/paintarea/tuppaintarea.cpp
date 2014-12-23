@@ -1,4 +1,4 @@
-/*y**************************************************************************
+/***************************************************************************
  *   Project TUPI: Magia 2D                                                *
  *   Project Contact: info@maefloresta.com                                 *
  *   Project Website: http://www.maefloresta.com                           *
@@ -713,6 +713,11 @@ void TupPaintArea::deleteItems()
     QList<QGraphicsItem *> selected = scene()->selectedItems();
 
     if (!selected.empty()) {
+        foreach (QGraphicsItem *item, selected) {
+                 if (qgraphicsitem_cast<TControlNode *> (item))
+                     selected.removeOne(item);
+        }
+
         TupGraphicsScene* currentScene = graphicsScene();
 
         if (currentScene) {
@@ -871,7 +876,7 @@ void TupPaintArea::deleteItems()
                          emit requestTriggered(&event);
                      } else {
                          #ifdef K_DEBUG
-                             QString msg = "TupPaintArea::deleteItems() - Fatal Error: Invalid item index";
+                             QString msg = "TupPaintArea::deleteItems() - Fatal Error: Invalid item index -> " + QString::number(itemIndex);
                              #ifdef Q_OS_WIN32
                                  qDebug() << msg;
                              #else
