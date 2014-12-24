@@ -48,6 +48,7 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QListWidget>
+#include <QPushButton>
 
 class TupPaintAreaEvent;
 
@@ -67,7 +68,6 @@ class TUPI_EXPORT TupPenWidget : public TupModuleWidgetBase
     private:
         void emitPenChanged();
         void emitBrushChanged();
-        // void updatePenParams();
         void addBrushesList();
         
     public slots:
@@ -78,9 +78,15 @@ class TUPI_EXPORT TupPenWidget : public TupModuleWidgetBase
         
     private slots:
         void setStyle(int s);
-        void setJoinStyle(int s);
-        void setCapStyle(int s);
         void setBrushStyle(QListWidgetItem *item);
+
+        void enableRoundCapStyle();
+        void enableSquareCapStyle();
+        void enableFlatCapStyle();
+
+        void enableRoundJoinStyle();
+        void enableMiterJoinStyle();
+        void enableBevelJoinStyle();
         
     signals:
         void penChanged(const QPen &pen);

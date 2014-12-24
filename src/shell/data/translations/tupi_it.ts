@@ -99,85 +99,6 @@
     </message>
 </context>
 <context>
-    <name>ExportTo</name>
-    <message>
-        <source>Image name prefix: </source>
-        <translation>Prefisso dei nomi immagine:</translation>
-    </message>
-    <message>
-        <source>Directory: </source>
-        <translation>Cartella: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation>File: </translation>
-    </message>
-    <message>
-        <source>i.e. &lt;B&gt;%1&lt;/B&gt;01.png / &lt;B&gt;%1&lt;/B&gt;01.jpg</source>
-        <translation>es. &lt;B&gt;%1&lt;/B&gt;01.png / &lt;B&gt;%1&lt;/B&gt;01.jpg</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>Dimensione</translation>
-    </message>
-    <message>
-        <source>Configuration</source>
-        <translation>Configurazione</translation>
-    </message>
-    <message>
-        <source>FPS</source>
-        <translation>FPS</translation>
-    </message>
-    <message>
-        <source>Choose a file name...</source>
-        <translation>Scegli un nome...</translation>
-    </message>
-    <message>
-        <source>Choose a directory...</source>
-        <translation>Scegli una cartella...</translation>
-    </message>
-    <message>
-        <source>Warning!</source>
-        <translation>Attenzione!</translation>
-    </message>
-    <message>
-        <source>File exists. Overwrite it?</source>
-        <translation>Il file esiste già. Sovrascriverlo?</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Errore</translation>
-    </message>
-    <message>
-        <source>Images name prefix can&apos;t be empty! Please, type a prefix.</source>
-        <translation>Il prefisso dei nomi delle immagini non può essere omesso! Inserisci un prefisso.</translation>
-    </message>
-    <message>
-        <source>Directory doesn&apos;t exist! Please, choose another path.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You have no permission to create this file. Please, choose another path.</source>
-        <translation>Non hai i permessi necessari per creare il file. Scegli un altro percorso.</translation>
-    </message>
-    <message>
-        <source>Format problem. Tupi Internal error.</source>
-        <translation>Problema di formato. Errore interno di Tupi.</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="unfinished">Informazione</translation>
-    </message>
-    <message>
-        <source>ERROR!</source>
-        <translation>ERRORE!</translation>
-    </message>
-    <message>
-        <source>Enable background transparency</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>FillTool</name>
     <message>
         <source>Internal fill</source>
@@ -500,84 +421,6 @@
     <message>
         <source>M</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SelectPlugin</name>
-    <message>
-        <source>Select plugin</source>
-        <translation>Seleziona estensione</translation>
-    </message>
-    <message>
-        <source>WEBM Video</source>
-        <translation>Video WEBM</translation>
-    </message>
-    <message>
-        <source>OGV Video</source>
-        <translation>Video OGV</translation>
-    </message>
-    <message>
-        <source>MPEG Video</source>
-        <translation>Video MPEG</translation>
-    </message>
-    <message>
-        <source>Macromedia flash</source>
-        <translation>Macromedia flash</translation>
-    </message>
-    <message>
-        <source>AVI Video</source>
-        <translation>Video AVI</translation>
-    </message>
-    <message>
-        <source>RealMedia Video</source>
-        <translation>Video RealMedia</translation>
-    </message>
-    <message>
-        <source>ASF Video</source>
-        <translation>Video ASF</translation>
-    </message>
-    <message>
-        <source>QuickTime Video</source>
-        <translation>Video QuickTime</translation>
-    </message>
-    <message>
-        <source>Gif Image</source>
-        <translation>Immagine Gif</translation>
-    </message>
-    <message>
-        <source>PNG Image Array</source>
-        <translation>Serie di immagini PNG</translation>
-    </message>
-    <message>
-        <source>JPEG Image Array</source>
-        <translation>Serie di immagini JPEG</translation>
-    </message>
-    <message>
-        <source>SMIL</source>
-        <translation>SMIL</translation>
-    </message>
-    <message>
-        <source>Animated PNG (APNG)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Animated Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image Array</source>
-        <translation type="unfinished">Serie di immagini</translation>
-    </message>
-    <message>
-        <source>Video Formats</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SelectScenes</name>
-    <message>
-        <source>Select Scenes</source>
-        <translation>Seleziona le scene</translation>
     </message>
 </context>
 <context>
@@ -1909,6 +1752,101 @@ Please, rename the project&apos;s file</source>
     <message>
         <source>Composed Tween</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TupExportModule</name>
+    <message>
+        <source>Enable background transparency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image name prefix: </source>
+        <translation type="unfinished">Prefisso dei nomi immagine:</translation>
+    </message>
+    <message>
+        <source>Directory: </source>
+        <translation type="unfinished">Cartella: </translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation type="unfinished">File: </translation>
+    </message>
+    <message>
+        <source>i.e. &lt;B&gt;%1&lt;/B&gt;01.png / jpeg / svg</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished">Dimensione</translation>
+    </message>
+    <message>
+        <source>Configuration</source>
+        <translation type="unfinished">Configurazione</translation>
+    </message>
+    <message>
+        <source>FPS</source>
+        <translation type="unfinished">FPS</translation>
+    </message>
+    <message>
+        <source>Choose a file name...</source>
+        <translation type="unfinished">Scegli un nome...</translation>
+    </message>
+    <message>
+        <source>Choose a directory...</source>
+        <translation type="unfinished">Scegli una cartella...</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Errore</translation>
+    </message>
+    <message>
+        <source>Images name prefix can&apos;t be empty! Please, type a prefix.</source>
+        <translation type="unfinished">Il prefisso dei nomi delle immagini non può essere omesso! Inserisci un prefisso.</translation>
+    </message>
+    <message>
+        <source>Warning!</source>
+        <translation type="unfinished">Attenzione!</translation>
+    </message>
+    <message>
+        <source>Image array already exists. Overwrite it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directory doesn&apos;t exist! Please, choose another path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File exists. Overwrite it?</source>
+        <translation type="unfinished">Il file esiste già. Sovrascriverlo?</translation>
+    </message>
+    <message>
+        <source>You have no permission to create this file. Please, choose another path.</source>
+        <translation type="unfinished">Non hai i permessi per creare il file . Per favore, scegli un altro percorso.</translation>
+    </message>
+    <message>
+        <source>Format problem. Tupi Internal error.</source>
+        <translation type="unfinished">Problema di formato. Errore interno di Tupi.</translation>
+    </message>
+    <message>
+        <source>Video file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>was saved successful</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images array was saved successful</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ERROR!</source>
+        <translation type="unfinished">ERRORE!</translation>
     </message>
 </context>
 <context>
@@ -3662,6 +3600,81 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
     </message>
 </context>
 <context>
+    <name>TupPluginSelector</name>
+    <message>
+        <source>Select plugin</source>
+        <translation type="unfinished">Seleziona estensione</translation>
+    </message>
+    <message>
+        <source>Video Formats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WEBM Video</source>
+        <translation type="unfinished">Video WEBM</translation>
+    </message>
+    <message>
+        <source>OGV Video</source>
+        <translation type="unfinished">Video OGV</translation>
+    </message>
+    <message>
+        <source>MPEG Video</source>
+        <translation type="unfinished">Video MPEG</translation>
+    </message>
+    <message>
+        <source>Macromedia flash</source>
+        <translation type="unfinished">Macromedia flash</translation>
+    </message>
+    <message>
+        <source>AVI Video</source>
+        <translation type="unfinished">Video AVI</translation>
+    </message>
+    <message>
+        <source>ASF Video</source>
+        <translation type="unfinished">Video ASF</translation>
+    </message>
+    <message>
+        <source>QuickTime Video</source>
+        <translation type="unfinished">Video QuickTime</translation>
+    </message>
+    <message>
+        <source>PNG Image Array</source>
+        <translation type="unfinished">Serie di immagini PNG</translation>
+    </message>
+    <message>
+        <source>JPEG Image Array</source>
+        <translation type="unfinished">Serie di immagini JPEG</translation>
+    </message>
+    <message>
+        <source>SVG Image Array</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated PNG (APNG)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SMIL</source>
+        <translation type="unfinished">SMIL</translation>
+    </message>
+    <message>
+        <source>RealMedia Video</source>
+        <translation type="unfinished">Video RealMedia</translation>
+    </message>
+    <message>
+        <source>Gif Image</source>
+        <translation type="unfinished">Immagine Gif</translation>
+    </message>
+    <message>
+        <source>Animated Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Array</source>
+        <translation type="unfinished">Serie di immagini</translation>
+    </message>
+</context>
+<context>
     <name>TupPreferences</name>
     <message>
         <source>Application TupPreferences</source>
@@ -3834,6 +3847,13 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
     <message>
         <source>Frame %1</source>
         <translation>Fotogramma %1</translation>
+    </message>
+</context>
+<context>
+    <name>TupSceneSelector</name>
+    <message>
+        <source>Select Scenes</source>
+        <translation type="unfinished">Seleziona le scene</translation>
     </message>
 </context>
 <context>
@@ -4221,6 +4241,45 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
     </message>
 </context>
 <context>
+    <name>TupVideoProperties</name>
+    <message>
+        <source>Set Animation Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished">Titolo</translation>
+    </message>
+    <message>
+        <source>My Video</source>
+        <translation type="unfinished">Il mio film</translation>
+    </message>
+    <message>
+        <source>Topics</source>
+        <translation type="unfinished">Argomenti</translation>
+    </message>
+    <message>
+        <source>#topic1 #topic2 #topic3</source>
+        <translation type="unfinished">#argomento1 #argomento2 #argomento3</translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Descrizione</translation>
+    </message>
+    <message>
+        <source>Just a little taste of my style :)</source>
+        <translation type="unfinished">Una piccola esibizione del mio stile :)</translation>
+    </message>
+    <message>
+        <source>Set a title for the picture here!</source>
+        <translation type="unfinished">Metti qui il titolo dell&apos;immagine!</translation>
+    </message>
+    <message>
+        <source>Set some topic tags for the picture here!</source>
+        <translation type="unfinished">Aggiungi etichette all&apos;immagine!</translation>
+    </message>
+</context>
+<context>
     <name>TupViewColorCells</name>
     <message>
         <source>Default Palette</source>
@@ -4464,45 +4523,6 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
     <message>
         <source>Coloring</source>
         <translation>Colorazione</translation>
-    </message>
-</context>
-<context>
-    <name>VideoProperties</name>
-    <message>
-        <source>Title</source>
-        <translation>Titolo</translation>
-    </message>
-    <message>
-        <source>My Video</source>
-        <translation>Il mio film</translation>
-    </message>
-    <message>
-        <source>Topics</source>
-        <translation>Argomenti</translation>
-    </message>
-    <message>
-        <source>#topic1 #topic2 #topic3</source>
-        <translation>#argomento1 #argomento2 #argomento3</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation>Descrizione</translation>
-    </message>
-    <message>
-        <source>Just a little taste of my style :)</source>
-        <translation>Una piccola esibizione del mio stile :)</translation>
-    </message>
-    <message>
-        <source>Set a title for the picture here!</source>
-        <translation>Metti qui il titolo dell&apos;immagine!</translation>
-    </message>
-    <message>
-        <source>Set some topic tags for the picture here!</source>
-        <translation>Aggiungi etichette all&apos;immagine!</translation>
-    </message>
-    <message>
-        <source>Set Animation Properties</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

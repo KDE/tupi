@@ -38,8 +38,15 @@
 struct TupPenWidget::Private
 {
     TEditSpinBox *thickness;
-    QComboBox *capStyle;
-    QComboBox *joinStyle;
+
+    QPushButton *roundCapButton;
+    QPushButton *flatCapButton;
+    QPushButton *squareCapButton;
+
+    QPushButton *miterJoinButton;
+    QPushButton *bevelJoinButton;
+    QPushButton *roundJoinButton;
+
     QComboBox *style;
     QListWidget *brushesList;
     QPen pen;
@@ -75,31 +82,29 @@ TupPenWidget::TupPenWidget(QWidget *parent) : TupModuleWidgetBase(parent), k(new
 
     QLabel *label = new QLabel(tr("Dashes") + ":", this);
     addChild(label);
-    
+
+    QWidget *styleWidget = new QWidget(this);
+    QBoxLayout *styleLayout = new QHBoxLayout(styleWidget);
+
     k->style = new QComboBox();
-    k->style->setIconSize(QSize(140, 13));
+    k->style->setIconSize(QSize(145, 13));
+    k->style->setFixedWidth(180);
 
     int flag = Qt::SolidLine;
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style01.png"), tr("Solid"), QVariant(flag));
+    k->style->addItem(QIcon(THEME_DIR + "icons/line_style01.png"), "", QVariant(flag));
     flag = Qt::DashLine;
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style02.png"), tr("Dash"), QVariant(flag));
+    k->style->addItem(QIcon(THEME_DIR + "icons/line_style02.png"), "", QVariant(flag));
     flag = Qt::DotLine;
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style03.png"), tr("Dot"), QVariant(flag));
+    k->style->addItem(QIcon(THEME_DIR + "icons/line_style03.png"), "", QVariant(flag));
     flag = Qt::DashDotLine;
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style04.png"), tr("Dash dot"), QVariant(flag));
+    k->style->addItem(QIcon(THEME_DIR + "icons/line_style04.png"), "", QVariant(flag));
     flag = Qt::DashDotDotLine;
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style05.png"), tr("Dash dot dot"), QVariant(flag));
+    k->style->addItem(QIcon(THEME_DIR + "icons/line_style05.png"), "", QVariant(flag));
 
-/*    
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style01.png"), tr("Solid"), Qt::SolidLine);
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style02.png"), tr("Dash"), Qt::DashLine);
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style03.png"), tr("Dot"), Qt::DotLine);
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style04.png"), tr("Dash dot"), Qt::DashDotLine);
-    k->style->addItem(QIcon(THEME_DIR + "icons/line_style05.png"), tr("Dash dot dot"), Qt::DashDotDotLine);
-*/
-    
-    addChild(k->style);
+    styleLayout->addWidget(k->style);
     connect(k->style, SIGNAL(currentIndexChanged(int)), this, SLOT(setStyle(int)));
+
+    addChild(styleWidget);
 
     space = new QWidget(this);
     space->setFixedHeight(5);
@@ -107,16 +112,35 @@ TupPenWidget::TupPenWidget(QWidget *parent) : TupModuleWidgetBase(parent), k(new
 
     label = new QLabel(tr("Cap") + ":", this);
     addChild(label);
-    
-    k->capStyle = new QComboBox();
-    k->capStyle->setIconSize(QSize(140, 13));
-    
-    k->capStyle->addItem(QIcon(THEME_DIR + "icons/border01.png"), tr("Flat"), Qt::FlatCap);
-    k->capStyle->addItem(QIcon(THEME_DIR + "icons/border02.png"), tr("Square"), Qt::SquareCap);
-    k->capStyle->addItem(QIcon(THEME_DIR + "icons/border03.png"), tr("Round"), Qt::RoundCap);
-    
-    addChild(k->capStyle);
-    connect(k->capStyle, SIGNAL(currentIndexChanged(int)), this, SLOT(setCapStyle(int)));
+
+    QWidget *capWidget = new QWidget(this);
+    QBoxLayout *capLayout = new QHBoxLayout(capWidget);
+
+    k->roundCapButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "round_cap.png")), "");
+    k->roundCapButton->setToolTip(tr("Round"));
+    k->roundCapButton->setIconSize(QSize(30, 15));
+    k->roundCapButton->setCheckable(true);
+
+    connect(k->roundCapButton, SIGNAL(clicked()), this, SLOT(enableRoundCapStyle()));
+
+    k->squareCapButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "square_cap.png")), "");
+    k->squareCapButton->setToolTip(tr("Square"));
+    k->squareCapButton->setIconSize(QSize(33, 15));
+    k->squareCapButton->setCheckable(true);
+
+    connect(k->squareCapButton, SIGNAL(clicked()), this, SLOT(enableSquareCapStyle()));
+
+    k->flatCapButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "flat_cap.png")), "");
+    k->flatCapButton->setToolTip(tr("Flat"));
+    k->flatCapButton->setIconSize(QSize(27, 15));
+    k->flatCapButton->setCheckable(true);
+
+    connect(k->flatCapButton, SIGNAL(clicked()), this, SLOT(enableFlatCapStyle()));
+
+    capLayout->addWidget(k->roundCapButton);
+    capLayout->addWidget(k->squareCapButton);
+    capLayout->addWidget(k->flatCapButton);
+    addChild(capWidget);
 
     space = new QWidget(this);
     space->setFixedHeight(5);
@@ -124,15 +148,35 @@ TupPenWidget::TupPenWidget(QWidget *parent) : TupModuleWidgetBase(parent), k(new
 
     label = new QLabel(tr("Join") + ":", this);
     addChild(label);
-    
-    k->joinStyle = new QComboBox();
-    
-    k->joinStyle->addItem(tr("Miter"), Qt::MiterJoin);
-    k->joinStyle->addItem(tr("Bevel"), Qt::BevelJoin);
-    k->joinStyle->addItem(tr("Round"), Qt::RoundJoin);
-    
-    addChild(k->joinStyle);
-    connect(k->joinStyle, SIGNAL(currentIndexChanged(int)), this, SLOT(setJoinStyle(int)));
+
+    QWidget *joinWidget = new QWidget(this);
+    QBoxLayout *joinLayout = new QHBoxLayout(joinWidget);
+
+    k->roundJoinButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "round_join.png")), "");
+    k->roundJoinButton->setToolTip(tr("Round"));
+    k->roundJoinButton->setIconSize(QSize(30, 15));
+    k->roundJoinButton->setCheckable(true);
+
+    connect(k->roundJoinButton, SIGNAL(clicked()), this, SLOT(enableRoundJoinStyle()));
+
+    k->bevelJoinButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "bevel_join.png")), "");
+    k->bevelJoinButton->setToolTip(tr("Bevel"));
+    k->bevelJoinButton->setIconSize(QSize(33, 15));
+    k->bevelJoinButton->setCheckable(true);
+
+    connect(k->bevelJoinButton, SIGNAL(clicked()), this, SLOT(enableBevelJoinStyle()));
+
+    k->miterJoinButton = new QPushButton(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "miter_join.png")), "");
+    k->miterJoinButton->setToolTip(tr("Miter"));
+    k->miterJoinButton->setIconSize(QSize(27, 15));
+    k->miterJoinButton->setCheckable(true);
+
+    connect(k->miterJoinButton, SIGNAL(clicked()), this, SLOT(enableMiterJoinStyle()));
+
+    joinLayout->addWidget(k->roundJoinButton);
+    joinLayout->addWidget(k->bevelJoinButton);
+    joinLayout->addWidget(k->miterJoinButton);
+    addChild(joinWidget);
 
     space = new QWidget(this);
     space->setFixedHeight(5);
@@ -165,7 +209,6 @@ void TupPenWidget::setThickness(int value)
 {
     if (value > 0) {
         k->pen.setWidth(value);
-        // updatePenParams();
 
         TCONFIG->beginGroup("PenParameters");
         TCONFIG->setValue("Thickness", value);
@@ -177,23 +220,6 @@ void TupPenWidget::setThickness(int value)
 void TupPenWidget::setStyle(int s)
 {
     k->pen.setStyle(Qt::PenStyle(k->style->itemData(s).toInt()));
-    // updatePenParams();
-
-    emitPenChanged();
-}
-
-void TupPenWidget::setJoinStyle(int s)
-{
-    k->pen.setJoinStyle(Qt::PenJoinStyle(k->joinStyle->itemData(s).toInt()));
-    // updatePenParams();
-
-    emitPenChanged();
-}
-
-void TupPenWidget::setCapStyle(int s)
-{
-    k->pen.setCapStyle(Qt::PenCapStyle(k->capStyle->itemData(s).toInt()));
-    // updatePenParams();
 
     emitPenChanged();
 }
@@ -210,8 +236,6 @@ void TupPenWidget::setBrushStyle(QListWidgetItem *item)
         k->brush.setStyle(Qt::BrushStyle(index+1));
     }
 
-    // updatePenParams(); 
-
     emitPenChanged();
 }
 
@@ -227,15 +251,14 @@ void TupPenWidget::setBrush(const QBrush brush)
     k->thickPreview->setBrush(brush);
 
     emitPenChanged();
-    // emitBrushChanged();
 }
 
 void TupPenWidget::init()
 {
     setPenColor(QColor(0, 0, 0));
 
-    k->capStyle->setCurrentIndex(2);
-    k->joinStyle->setCurrentIndex(2);
+    enableRoundCapStyle();
+    enableRoundJoinStyle();
     k->style->setCurrentIndex(0);
 
     QListWidgetItem *first = k->brushesList->item(0);
@@ -259,19 +282,11 @@ void TupPenWidget::emitPenChanged()
 
 void TupPenWidget::emitBrushChanged()
 {
-    //emit brushChanged(k->pen.brush());
     emit brushChanged(k->brush);
 
     TupPaintAreaEvent event(TupPaintAreaEvent::ChangeBrush, k->brush);
     emit paintAreaEventTriggered(&event);
 }
-
-/*
-void TupPenWidget::updatePenParams()
-{
-    k->pen.setBrush(k->brush);
-}
-*/
 
 void TupPenWidget::addBrushesList()
 {
@@ -395,4 +410,94 @@ void TupPenWidget::addBrushesList()
 
     addChild(k->brushesList);
     connect(k->brushesList, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(setBrushStyle(QListWidgetItem *)));
+}
+
+void TupPenWidget::enableRoundCapStyle()
+{
+    if (!k->roundCapButton->isDown())
+        k->roundCapButton->setChecked(true);
+
+    if (k->squareCapButton->isChecked())
+        k->squareCapButton->setChecked(false);
+
+    if (k->flatCapButton->isChecked())
+        k->flatCapButton->setChecked(false);
+
+    k->pen.setCapStyle(Qt::RoundCap);
+    emitPenChanged();
+}
+
+void TupPenWidget::enableSquareCapStyle()
+{
+    if (!k->squareCapButton->isDown())
+        k->squareCapButton->setChecked(true);
+
+    if (k->roundCapButton->isChecked())
+        k->roundCapButton->setChecked(false);
+
+    if (k->flatCapButton->isChecked())
+        k->flatCapButton->setChecked(false);
+
+    k->pen.setCapStyle(Qt::SquareCap);
+    emitPenChanged();
+}
+
+void TupPenWidget::enableFlatCapStyle()
+{
+    if (!k->flatCapButton->isDown())
+        k->flatCapButton->setChecked(true);
+
+    if (k->roundCapButton->isChecked())
+        k->roundCapButton->setChecked(false);
+
+    if (k->squareCapButton->isChecked())
+        k->squareCapButton->setChecked(false);
+
+    k->pen.setCapStyle(Qt::FlatCap);
+    emitPenChanged();
+}
+
+void TupPenWidget::enableRoundJoinStyle()
+{
+    if (!k->roundJoinButton->isDown())
+        k->roundJoinButton->setChecked(true);
+
+    if (k->miterJoinButton->isChecked())
+        k->miterJoinButton->setChecked(false);
+
+    if (k->bevelJoinButton->isChecked())
+        k->bevelJoinButton->setChecked(false);
+
+    k->pen.setJoinStyle(Qt::RoundJoin);
+    emitPenChanged();
+}
+
+void TupPenWidget::enableMiterJoinStyle()
+{
+    if (!k->miterJoinButton->isDown())
+        k->miterJoinButton->setChecked(true);
+
+    if (k->bevelJoinButton->isChecked())
+        k->bevelJoinButton->setChecked(false);
+
+    if (k->roundJoinButton->isChecked())
+        k->roundJoinButton->setChecked(false);
+
+    k->pen.setJoinStyle(Qt::MiterJoin);
+    emitPenChanged();
+}
+
+void TupPenWidget::enableBevelJoinStyle()
+{
+    if (!k->bevelJoinButton->isDown())
+        k->bevelJoinButton->setChecked(true);
+
+    if (k->miterJoinButton->isChecked())
+        k->miterJoinButton->setChecked(false);
+    
+    if (k->roundJoinButton->isChecked())
+        k->roundJoinButton->setChecked(false);
+
+    k->pen.setJoinStyle(Qt::BevelJoin);
+    emitPenChanged();
 }

@@ -379,7 +379,8 @@ void TupDocumentView::setZoomPercent(const QString &percent)
 
 void TupDocumentView::showPos(const QPointF &point)
 {
-    QString message =  "X: " +  QString::number(point.x()) + " Y: " + QString::number(point.y());
+    QPoint dot = point.toPoint();
+    QString message =  "X: " +  QString::number(dot.x()) + " Y: " + QString::number(dot.y());
     k->status->updatePosition(message);
 }
 
