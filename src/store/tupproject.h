@@ -111,9 +111,12 @@ class TUPI_EXPORT TupProject : public QObject, public TupAbstractSerializable
         bool moveScene(int position, int newPosition);
 
         bool createSymbol(int type, const QString &name, const QByteArray &data, const QString &folder = QString());
-        bool removeSymbol(const QString &name, TupLibraryObject::Type symbolType, TupProject::Mode spaceMode, 
+/*
+        bool removeSymbol(const QString &name, TupLibraryObject::Type type, TupProject::Mode spaceMode, 
                           int sceneIndex, int layerIndex, int frameIndex);
-        bool removeSymbol(const QString &name);
+*/
+
+        bool removeSymbol(const QString &name, TupLibraryObject::Type type);
         bool addFolder(const QString &name);
         bool removeFolder(const QString &name);
 

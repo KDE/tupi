@@ -413,28 +413,26 @@ void TupGraphicsScene::addFrame(TupFrame *frame, double opacity, Context mode)
     #endif
     */
 
-    // if (frame) {
-        for (int i=0; i < frame->graphicItemsCount(); ++i) {
-             TupGraphicObject *object = frame->graphic(i);
-             if (mode != TupGraphicsScene::Current) {
-                 if (!object->hasTween())
-                     addGraphicObject(object, opacity);
-             } else {
+    for (int i=0; i < frame->graphicItemsCount(); ++i) {
+         TupGraphicObject *object = frame->graphic(i);
+         if (mode != TupGraphicsScene::Current) {
+             if (!object->hasTween())
                  addGraphicObject(object, opacity);
-             }
-        }
+         } else {
+             addGraphicObject(object, opacity);
+         }
+    }
 
-        for (int i = 0; i < frame->svgItemsCount(); i++) {
-             TupSvgItem *object = frame->svg(i);
-             if (!object->hasTween()) {
+    for (int i = 0; i < frame->svgItemsCount(); i++) {
+         TupSvgItem *object = frame->svg(i);
+         if (!object->hasTween()) {
+             addSvgObject(object, opacity);
+         } else {
+             TupItemTweener *tween = object->tween();
+             if (k->framePosition.frame == tween->initFrame())
                  addSvgObject(object, opacity);
-             } else {
-                 TupItemTweener *tween = object->tween();
-                 if (k->framePosition.frame == tween->initFrame())
-                     addSvgObject(object, opacity);
-             }
-        }
-    // }
+         }
+    }
 }
 
 void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity)
@@ -448,26 +446,21 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
     #endif
 
     QGraphicsItem *item = object->item();
-    k->onionSkin.opacityMap.insert(item, opacity);
+    if (item) {
+        k->onionSkin.opacityMap.insert(item, opacity);
 
-    // SQA: Check if this instruction is actually required
-    // if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item))
-    //     group->recoverChilds();
+        // SQA: Check if this instruction is actually required
+        // if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item))
+        //     group->recoverChilds();
 
-    if (! qgraphicsitem_cast<TupItemGroup *>(item->parentItem())) {
+        tError() << "";
+        tError() << "TupGraphicsScene::addGraphicObject() - zValue: " << item->zValue();
+
         item->setSelected(false);
-        TupLayer *layer = k->scene->layer(k->framePosition.layer);
+        item->setOpacity(opacity);
 
-        if (layer) {
-            TupFrame *frame = layer->frame(k->framePosition.frame);
-
-            if (frame) {
-                item->setOpacity(opacity);
-                tError() << "TupGraphicsScene::addGraphicObject() - zValue: " << item->zValue();
-                addItem(item);
-            }
-        }
-    } 
+        addItem(item);
+    }
 }
 
 void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)

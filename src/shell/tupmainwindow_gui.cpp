@@ -120,7 +120,7 @@ void TupMainWindow::createGUI()
     connectWidgetToLocalManager(m_scenes);
 
     // Adding the exposure sheet to the right side of the interface
-    m_exposureSheet = new TupExposureSheet;
+    m_exposureSheet = new TupExposureSheet(this, m_projectManager->project());
     exposureView = addToolView(m_exposureSheet, Qt::RightDockWidgetArea, Animation, "Exposure Sheet", QKeySequence(tr("Shift+E")));
     m_actionManager->insert(exposureView->toggleViewAction(), "show_exposure");
     addToPerspective(exposureView->toggleViewAction(), Animation);

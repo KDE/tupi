@@ -339,10 +339,10 @@ void TupProjectActionBar::emitActionSelected(int action)
         case RemoveFrame:
         {
             TCONFIG->beginGroup("ExposureSheet");
-            bool noAsk = qvariant_cast<bool>(TCONFIG->value("RemoveWithoutAskFrame", false));
+            bool noAsk = qvariant_cast<bool>(TCONFIG->value("RemoveFrameWithoutAsk", false));
 
             if (! noAsk) {
-                TOptionalDialog dialog(tr("Do you want to remove this frame?"), tr("Remove?"), this);
+                TOptionalDialog dialog(tr("Do you want to remove this frame?"), tr("Confirmation"), this);
                 dialog.setModal(true);
                 QDesktopWidget desktop;
                 dialog.move((int) (desktop.screenGeometry().width() - dialog.sizeHint().width())/2,
@@ -352,7 +352,7 @@ void TupProjectActionBar::emitActionSelected(int action)
                     return;
 
                 TCONFIG->beginGroup("ExposureSheet");
-                TCONFIG->setValue("RemoveWithoutAskFrame", dialog.shownAgain());
+                TCONFIG->setValue("RemoveFrameWithoutAsk", dialog.shownAgain());
                 TCONFIG->sync();
             }
         }
@@ -360,10 +360,10 @@ void TupProjectActionBar::emitActionSelected(int action)
         case RemoveLayer:
         {
             TCONFIG->beginGroup("ExposureSheet");
-            bool noAsk = qvariant_cast<bool>(TCONFIG->value("RemoveWithoutAskLayer", false));
+            bool noAsk = qvariant_cast<bool>(TCONFIG->value("RemoveLayerWithoutAsk", false));
 
             if (! noAsk) {
-                TOptionalDialog dialog(tr("Do you want to remove this layer?"), tr("Remove?"), this);
+                TOptionalDialog dialog(tr("Do you want to remove this layer?"), tr("Confirmation"), this);
                 QDesktopWidget desktop;
                 dialog.move((int) (desktop.screenGeometry().width() - dialog.sizeHint().width())/2,
                             (int) (desktop.screenGeometry().height() - dialog.sizeHint().height())/2);
@@ -372,7 +372,7 @@ void TupProjectActionBar::emitActionSelected(int action)
                     return;
 
                 TCONFIG->beginGroup("ExposureSheet");
-                TCONFIG->setValue("RemoveWithoutAskLayer", dialog.shownAgain());
+                TCONFIG->setValue("RemoveLayerWithoutAsk", dialog.shownAgain());
                 TCONFIG->sync();
             }
         }
@@ -380,10 +380,10 @@ void TupProjectActionBar::emitActionSelected(int action)
         case RemoveScene:
         {
             TCONFIG->beginGroup("ExposureSheet");
-            bool noAsk = qvariant_cast<bool>(TCONFIG->value("RemoveWithoutAskScene", false));
+            bool noAsk = qvariant_cast<bool>(TCONFIG->value("RemoveSceneWithoutAsk", false));
 
             if (! noAsk) {
-                TOptionalDialog dialog(tr("Do you want to remove this scene?"), tr("Remove?"), this);
+                TOptionalDialog dialog(tr("Do you want to remove this scene?"), tr("Confirmation"), this);
                 QDesktopWidget desktop;
                 dialog.move((int) (desktop.screenGeometry().width() - dialog.sizeHint().width())/2,
                             (int) (desktop.screenGeometry().height() - dialog.sizeHint().height())/2);
@@ -392,7 +392,7 @@ void TupProjectActionBar::emitActionSelected(int action)
                     return;
 
                 TCONFIG->beginGroup("ExposureSheet");
-                TCONFIG->setValue("RemoveWithoutAskScene", dialog.shownAgain());
+                TCONFIG->setValue("RemoveSceneWithoutAsk", dialog.shownAgain());
                 TCONFIG->sync();
             }
         }

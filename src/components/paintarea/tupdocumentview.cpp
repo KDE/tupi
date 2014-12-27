@@ -1110,7 +1110,7 @@ void TupDocumentView::createToolBar()
     k->barGrid->addAction(k->actionManager->find("onionfactor"));
 
     k->onionFactorSpin = new QDoubleSpinBox(this);
-    k->onionFactorSpin->setRange(0, 1);
+    k->onionFactorSpin->setRange(0.01, 0.99);
     k->onionFactorSpin->setSingleStep(0.01);
     k->onionFactorSpin->setValue(k->opacityFactor);
     k->onionFactorSpin->setToolTip(tr("Onion Skin Factor"));

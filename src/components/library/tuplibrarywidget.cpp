@@ -418,8 +418,26 @@ void TupLibraryWidget::removeCurrentItem()
     if (!k->libraryTree->currentItem()) 
         return;
 
+    TCONFIG->beginGroup("Library");
+    bool noAsk = qvariant_cast<bool>(TCONFIG->value("RemoveObjectWithoutAsk", false));
+
+    if (!noAsk) {
+        TOptionalDialog dialog(tr("Do you want to remove this object from Library?"), tr("Confirmation"), this);
+        dialog.setModal(true);
+        QDesktopWidget desktop;
+        dialog.move((int) (desktop.screenGeometry().width() - dialog.sizeHint().width())/2,
+                    (int) (desktop.screenGeometry().height() - dialog.sizeHint().height())/2);
+
+        if (dialog.exec() == QDialog::Rejected)
+            return;
+
+        TCONFIG->beginGroup("Library");
+        TCONFIG->setValue("RemoveObjectWithoutAsk", dialog.shownAgain());
+        TCONFIG->sync();
+    }
+
     QString extension = k->libraryTree->currentItem()->text(2);
-    QString objectKey = k->libraryTree->currentItem()->text(1);
+    QString objectKey = "";
     TupLibraryObject::Type type = TupLibraryObject::Folder;
 
     // If it's NOT a directory
@@ -435,16 +453,7 @@ void TupLibraryWidget::removeCurrentItem()
             type = TupLibraryObject::Sound;
     } 
 
-    /*
-    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::RemoveSymbolFromFrame, 
-                                                   objectKey, type, k->project->spaceContext(), 0, QString(),
-                                                   k->currentFrame.scene, k->currentFrame.layer, k->currentFrame.frame);
-    */
-
-    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Remove,
-                                                   objectKey, type, k->project->spaceContext(), 0, QString(),
-                                                   k->currentFrame.scene, k->currentFrame.layer, k->currentFrame.frame);
-
+    TupProjectRequest request = TupRequestBuilder::createLibraryRequest(TupProjectRequest::Remove, objectKey, type);
     emit requestTriggered(&request);
 }
 
@@ -1469,7 +1478,7 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
 
                  QTreeWidgetItemIterator it(k->libraryTree);
                  while ((*it)) {
-                        // If target is not a folder
+                        // If target is NOT a folder
                         if ((*it)->text(2).length() > 0) {
                             if (id == (*it)->text(3)) {
                                 delete (*it);

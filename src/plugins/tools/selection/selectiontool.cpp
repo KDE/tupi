@@ -136,11 +136,14 @@ void SelectionTool::reset(TupGraphicsScene *scene)
                       tError() << "SelectionTool::reset() - Processing item...";
 
                       int zValue = item->zValue();
+                      qreal opacity = item->opacity();
                       if (!qgraphicsitem_cast<Node *>(item)) {
                           if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
-                              if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0)) {
+                              if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0) && (opacity == 1)) {
                                   tError() << "SelectionTool::reset() - zValue -> " << zValue;
                                   tError() << "SelectionTool::reset() - Adding movable/selectable flags from item...";
+                                  tError() << "SelectionTool::reset() - opacity: " << opacity;
+                                  tError() << "";
                                   item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                               } else {
                                   tError() << "SelectionTool::reset() - Removing movable/selectable flags from item...";

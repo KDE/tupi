@@ -519,9 +519,7 @@ bool TupProject::createSymbol(int type, const QString &name, const QByteArray &d
     return true;
 }
 
-// SQA: Parameter name is really used here?
-bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbolType, TupProject::Mode spaceMode, 
-                              int sceneIndex, int layerIndex, int frameIndex)
+bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type type)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
@@ -531,174 +529,43 @@ bool TupProject::removeSymbol(const QString &name, TupLibraryObject::Type symbol
         #endif
     #endif    
     
-    Q_UNUSED(name);
+    int totalScenes = k->scenes.size();
+    for (int i = 0; i < totalScenes; i++) {
+         TupScene *scene = k->scenes.at(i);
 
-    TupFrame *frame = 0;
-    TupScene *scene = this->scene(sceneIndex);
+         TupBackground *bg = scene->background();
+         if (bg) {
+             TupFrame *frame = bg->staticFrame();
+             if (frame) {
+                 if (type != TupLibraryObject::Svg)
+                     frame->removeImageItemFromFrame(name);
+                 else
+                     frame->removeSvgItemFromFrame(name);
+             } 
 
-    if (scene) {
-        if (spaceMode == TupProject::FRAMES_EDITION) {
-            TupLayer *layer = scene->layer(layerIndex);
-            if (layer) {
-                frame = layer->frame(frameIndex);
-                if (frame) {
-                    if (symbolType == TupLibraryObject::Svg) {
-                        int lastIndex = frame->svgItemsCount()-1;
-                        if (frame->removeSvgAt(lastIndex)) {
-                            return true;
-                        } else {
-                            #ifdef K_DEBUG
-                                QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove SVG object at index [ " + QString::number(lastIndex) + " ]";
-                                QString msg2 = "TupProject::removeSymbol() - Context Mode: Frames Edition";
-                                #ifdef Q_OS_WIN32
-                                    qDebug() << msg1;
-                                    qDebug() << msg2;
-                                #else
-                                    tError() << msg1;
-                                    tError() << msg2;
-                                #endif
-                            #endif
-                            return false;
-                        }
-                    } else {
-                        int lastIndex = frame->graphicItemsCount()-1;
-                        if (frame->removeGraphicAt(lastIndex)) {
-                            return true;
-                        } else {
-                            #ifdef K_DEBUG
-                                QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove SVG object at index [ " + QString::number(lastIndex) + " ]";
-                                QString msg2 = "TupProject::removeSymbol() - Context Mode: Frames Edition";
-                                #ifdef Q_OS_WIN32
-                                    qDebug() << msg1;
-                                    qDebug() << msg2;
-                                #else
-                                    tError() << msg1;
-                                    tError() << msg2;
-                                #endif
-                            #endif
-                            return false;
-                        }
-                    }
-                }
-            }
-        } else if (spaceMode == TupProject::STATIC_BACKGROUND_EDITION) {
-                   TupBackground *bg = scene->background();
+             frame = bg->dynamicFrame();
+             if (frame) {
+                 if (type != TupLibraryObject::Svg)
+                     frame->removeImageItemFromFrame(name);
+                 else
+                     frame->removeSvgItemFromFrame(name);
+             }
+         }
 
-                   if (bg) {
-                       TupFrame *frame = bg->staticFrame();
-                       if (frame) {
-                           if (symbolType == TupLibraryObject::Svg) {
-                               int lastIndex = frame->svgItemsCount()-1;
-                               if (frame->removeSvgAt(lastIndex)) {
-                                   return true;
-                               } else {                                   
-                                   #ifdef K_DEBUG
-                                       QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove SVG object at index [ " + QString::number(lastIndex) + " ]";
-                                       QString msg2 = "TupProject::removeSymbol() - Context Mode: Static Bg Edition";
-                                       #ifdef Q_OS_WIN32
-                                           qDebug() << msg1;
-                                           qDebug() << msg2;
-                                       #else
-                                           tError() << msg1;
-                                           tError() << msg2;
-                                       #endif
-                                   #endif
-                                   return false;
-                               }
-                           } else {
-                               int lastIndex = frame->graphicItemsCount()-1;
-                               if (frame->removeGraphicAt(lastIndex)) {
-                                   return true;
-                               } else {                                   
-                                   #ifdef K_DEBUG
-                                       QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove ITEM at index [ " + QString::number(lastIndex) + " ]";
-                                       QString msg2 = "TupProject::removeSymbol() - Context Mode: Static Bg Edition";
-                                       #ifdef Q_OS_WIN32
-                                           qDebug() << msg1;
-                                           qDebug() << msg2;
-                                       #else
-                                           tError() << msg1;
-                                           tError() << msg2;
-                                       #endif
-                                   #endif
-                                   
-                                   return false;
-                               }
-                           }
-                       }
-                   }
-        } else if (spaceMode == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                   TupBackground *bg = scene->background();
-
-                   if (bg) {
-                       TupFrame *frame = bg->dynamicFrame();
-                       if (frame) {
-                           if (symbolType == TupLibraryObject::Svg) {
-                               int lastIndex = frame->svgItemsCount()-1;
-                               if (frame->removeSvgAt(lastIndex)) {
-                                   return true;
-                               } else {                                   
-                                   #ifdef K_DEBUG
-                                       QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove SVG at index [ " + QString::number(lastIndex) + " ]";
-                                       QString msg2 = "TupProject::removeSymbol() - Context Mode: Dynamic Bg Edition";
-                                       #ifdef Q_OS_WIN32
-                                           qDebug() << msg1;
-                                           qDebug() << msg2;
-                                       #else
-                                           tError() << msg1;
-                                           tError() << msg2;
-                                       #endif
-                                   #endif
-                                   
-                                   return false;
-                               }
-                           } else {
-                               int lastIndex = frame->graphicItemsCount()-1;
-                               if (frame->removeGraphicAt(lastIndex)) {
-                                   return true;
-                               } else {
-                                   #ifdef K_DEBUG
-                                       QString msg1 = "TupProject::removeSymbol() - Fatal Error: can't remove ITEM at index [ " + QString::number(lastIndex) + " ]";
-                                       QString msg2 = "TupProject::removeSymbol() - Context Mode: Dynamic Bg Edition";
-                                       #ifdef Q_OS_WIN32
-                                           qDebug() << msg1;
-                                           qDebug() << msg2;
-                                       #else
-                                           tError() << msg1;
-                                           tError() << msg2;
-                                       #endif
-                                   #endif
-                                   
-                                   return false;
-                               }
-                           }
-                       }
-                   }
-        } else {
-            #ifdef K_DEBUG
-                QString msg = "TupProject::removeSymbol() - Fatal Error: invalid spaceMode!";
-                #ifdef Q_OS_WIN32
-                    qDebug() << msg;
-                #else
-                    tError() << msg;
-                #endif
-            #endif
-        }
+         int totalLayers = scene->layers().size();
+         for (int j = 0; j < totalLayers; j++) {
+              TupLayer *layer = scene->layers().at(j);
+              int totalFrames = layer->frames().size();
+              for (int t = 0; t < totalFrames; t++) {
+                   TupFrame *frame = layer->frames().at(t);
+                   if (type != TupLibraryObject::Svg)
+                       frame->removeImageItemFromFrame(name);
+                   else
+                       frame->removeSvgItemFromFrame(name);
+              }
+         }
     }
 
-    return false;
-}
-
-bool TupProject::removeSymbol(const QString &name)
-{
-    #ifdef K_DEBUG
-        #ifdef Q_OS_WIN32
-            qDebug() << "[TupProject::removeSymbol()]";
-        #else
-            T_FUNCINFO;
-        #endif
-    #endif    
-    
     return k->library->removeObject(name, true);
 }
 

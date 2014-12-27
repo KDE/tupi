@@ -233,7 +233,7 @@ void TupMainWindow::createNewNetProject(const QString &title, const QStringList 
 
     enableToolViews(true);
     setMenuItemsContext(true);
-    m_exposureSheet->updateFramesState(m_projectManager->project());
+    m_exposureSheet->updateFramesState();
     m_projectManager->setOpen(true);
 
     setWorkSpace(users);
@@ -837,7 +837,7 @@ void TupMainWindow::openProject(const QString &path)
             setMenuItemsContext(true);
             setUpdatesEnabled(true);
 
-            m_exposureSheet->updateFramesState(m_projectManager->project());
+            m_exposureSheet->updateFramesState();
 
             author = m_projectManager->project()->author();
             if (author.length() <= 0)

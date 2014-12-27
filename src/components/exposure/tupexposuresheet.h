@@ -44,7 +44,7 @@
 #include "tupprojectactionbar.h"
 #include "tupproject.h"
 #include "tapplication.h"
-#include "toptionaldialog.h"
+// #include "toptionaldialog.h"
 #include "tupprojectrequest.h"
 #include "tuprequestbuilder.h"
 #include "tupscene.h"
@@ -72,9 +72,10 @@ class TUPI_EXPORT TupExposureSheet : public TupModuleWidgetBase
     Q_OBJECT
 
     public:
-        TupExposureSheet(QWidget *parent = 0);
+        TupExposureSheet(QWidget *parent = 0, TupProject *project = 0);
         ~TupExposureSheet();
-        void updateFramesState(TupProject *project);
+        // void updateFramesState(TupProject *project);
+        void updateFramesState();
 
     private:
         struct Private;

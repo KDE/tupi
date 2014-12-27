@@ -81,7 +81,6 @@ TupFrame::TupFrame() : k(new Private)
 TupFrame::TupFrame(TupLayer *parent) : QObject(parent), k(new Private)
 {
     k->layer = parent;
-    // k->layerIndex = parent->layerIndex();
     k->name = "Frame";
     k->type = Regular;
 
@@ -92,13 +91,11 @@ TupFrame::TupFrame(TupLayer *parent) : QObject(parent), k(new Private)
     k->shift = "0";
 
     k->repeat = 1;
-    // k->zLevelIndex = (k->layerIndex + 1)*10000; // Layers levels starts from 2
     k->zLevelIndex = (k->layer->layerIndex() + 1)*10000; // Layers levels starts from 2
 }
 
 TupFrame::TupFrame(TupBackground *bg, const QString &label) : QObject(bg), k(new Private)
 {
-    // k->layerIndex = 0;
     k->name = label;
     k->isLocked = false;
     k->isVisible = true;

@@ -52,6 +52,7 @@
 #include "tuprequestbuilder.h"
 #include "tosd.h"
 #include "talgorithm.h"
+#include "toptionaldialog.h"
 
 #include <QTreeWidget>
 #include <QTreeWidgetItem>

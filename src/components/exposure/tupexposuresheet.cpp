@@ -37,6 +37,7 @@
 
 struct TupExposureSheet::Private
 {
+    TupProject *project;
     TupSceneTabWidget *scenesContainer;
     TupExposureTable *currentTable;
     TupProjectActionBar *actionBar;
@@ -46,7 +47,7 @@ struct TupExposureSheet::Private
     bool localRequest;
 };
 
-TupExposureSheet::TupExposureSheet(QWidget *parent) : TupModuleWidgetBase(parent, "Exposure Sheet"), k(new Private)
+TupExposureSheet::TupExposureSheet(QWidget *parent, TupProject *project) : TupModuleWidgetBase(parent, "Exposure Sheet"), k(new Private)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
@@ -56,6 +57,7 @@ TupExposureSheet::TupExposureSheet(QWidget *parent) : TupModuleWidgetBase(parent
         #endif
     #endif
 
+    k->project = project;
     k->currentTable = 0;
     k->fromMenu = false;
     k->localRequest = false;
@@ -826,7 +828,7 @@ void TupExposureSheet::itemResponse(TupItemResponse *e)
                  break;
             case TupProjectRequest::SetTween:
                  {
-                     // SQA: Check if this case has relevance for this context
+                     // SQA: Implement the code required to update frames state if they contain a tween 
                  }
                  break;
             default:
@@ -847,8 +849,7 @@ void TupExposureSheet::libraryResponse(TupLibraryResponse *e)
                  break;
             case TupProjectRequest::Remove:
                  {
-                     if (e->spaceMode() == TupProject::FRAMES_EDITION && e->frameIsEmpty())
-                         k->currentTable->updateFrameState(e->layerIndex(), e->frameIndex(), TupExposureTable::Used);
+                     updateFramesState();
                  }
                  break;
             default:
@@ -929,10 +930,11 @@ void TupExposureSheet::lockFrame()
     k->actionBar->emitActionSelected(TupProjectActionBar::LockFrame);
 }
 
-void TupExposureSheet::updateFramesState(TupProject *project)
+// void TupExposureSheet::updateFramesState(TupProject *project)
+void TupExposureSheet::updateFramesState()
 {
-    for (int i=0; i < project->scenesTotal(); i++) {
-         TupScene *scene = project->scene(i);
+    for (int i=0; i < k->project->scenesTotal(); i++) {
+         TupScene *scene = k->project->scene(i);
          TupExposureTable *tab = k->scenesContainer->getTable(i);
          for (int j=0; j < scene->layersTotal(); j++) {
               TupLayer *layer = scene->layer(j);
