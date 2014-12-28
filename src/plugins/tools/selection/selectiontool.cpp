@@ -97,9 +97,6 @@ void SelectionTool::init(TupGraphicsScene *scene)
     k->nodeZValue = 20000 + (scene->scene()->layersTotal() * 10000);
     k->targetIsIncluded = false;
 
-    tError() << "SelectionTool::init() - Processing item..."; 
-    tError() << "SelectionTool::init() - k->nodeZValue -> " << k->nodeZValue;
-
     reset(scene);
 }
 
@@ -116,13 +113,8 @@ void SelectionTool::reset(TupGraphicsScene *scene)
     int zBottomLimit = (scene->currentLayerIndex() + 2)*10000;
     int zTopLimit = zBottomLimit + 10000;
 
-    tError() << "SelectionTool::reset() - bottom limit -> " << zBottomLimit;
-    tError() << "SelectionTool::reset() - top limit -> " << zTopLimit;
-    tError() << "";
-
     foreach (QGraphicsView *view, scene->views()) {
              view->setDragMode(QGraphicsView::RubberBandDrag);
-             tError() << "SelectionTool::reset() - items: " << scene->items().count();
              foreach (QGraphicsItem *item, scene->items()) {
                       // SQA: Temporary code for debugging issues
                       /*
@@ -133,20 +125,13 @@ void SelectionTool::reset(TupGraphicsScene *scene)
                       tFatal() << dom.toString();
                       */
 
-                      tError() << "SelectionTool::reset() - Processing item...";
-
                       int zValue = item->zValue();
                       qreal opacity = item->opacity();
                       if (!qgraphicsitem_cast<Node *>(item)) {
                           if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
                               if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0) && (opacity == 1)) {
-                                  tError() << "SelectionTool::reset() - zValue -> " << zValue;
-                                  tError() << "SelectionTool::reset() - Adding movable/selectable flags from item...";
-                                  tError() << "SelectionTool::reset() - opacity: " << opacity;
-                                  tError() << "";
                                   item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                               } else {
-                                  tError() << "SelectionTool::reset() - Removing movable/selectable flags from item...";
                                   item->setFlag(QGraphicsItem::ItemIsSelectable, false);
                                   item->setFlag(QGraphicsItem::ItemIsMovable, false);
                               }
@@ -1146,20 +1131,6 @@ void SelectionTool::sceneResponse(const TupSceneResponse *event)
 {
     if (event->action() == TupProjectRequest::Select)
         reset(k->scene);
-}
-
-void SelectionTool::frameResponse(const TupFrameResponse *event)
-{
-    Q_UNUSED(event);
-
-    tError() << "SelectionTool::frameResponse() - Tracing...";
-
-    /*
-    if (event->action() == TupProjectRequest::Select) {
-        tError() << "SelectionTool::frameResponse() - Resetting interface...";
-        reset(k->scene);
-    }
-    */
 }
 
 void SelectionTool::updateItemPosition() 

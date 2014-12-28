@@ -241,12 +241,8 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                                  for (int frameIndex = photogram-1; frameIndex >= limit; frameIndex--) {
                                       TupFrame *frame = layer->frame(frameIndex);
                                       QString previousFrame = frame->frameName();
-                                      if (frame && previousFrame.compare(currentFrame) != 0 
-                                                && frameBehind.compare(previousFrame) != 0) {
-                                          tError() << "";
-                                          tError() << "TupGraphicsScene::drawCurrentPhotogram() - Drawing previous frame at index -> " << frameIndex;
+                                      if (frame && previousFrame.compare(currentFrame) != 0 && frameBehind.compare(previousFrame) != 0)
                                           addFrame(frame, opacity, Previous);
-                                      } 
 
                                       frameBehind = previousFrame;
                                       opacity -= opacityFactor;
@@ -255,10 +251,7 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                          }
 
                          // Painting current frame
-                         tError() << "";
-                         tError() << "TupGraphicsScene::drawCurrentPhotogram() - Drawing current frame -> " << photogram;
                          addFrame(mainFrame);
-                         tError() << "";
 
                          // Painting next frames
                          if (drawContext) {
@@ -274,12 +267,8 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                                  for (int frameIndex = photogram+1; frameIndex <= limit; frameIndex++) {
                                       TupFrame * frame = layer->frame(frameIndex);
                                       QString nextFrame = frame->frameName();
-                                      if (frame && nextFrame.compare(currentFrame) != 0 
-                                                && frameLater.compare(nextFrame) != 0) {
-                                          tError() << "";
-                                          tError() << "TupGraphicsScene::drawCurrentPhotogram() - Drawing next frame at index -> " << frameIndex;
+                                      if (frame && nextFrame.compare(currentFrame) != 0 && frameLater.compare(nextFrame) != 0)
                                           addFrame(frame, opacity, Next);
-                                      }
                       
                                       frameLater = nextFrame;
                                       opacity -= opacityFactor;
@@ -452,9 +441,6 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
         // SQA: Check if this instruction is actually required
         // if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item))
         //     group->recoverChilds();
-
-        tError() << "";
-        tError() << "TupGraphicsScene::addGraphicObject() - zValue: " << item->zValue();
 
         item->setSelected(false);
         item->setOpacity(opacity);
@@ -1459,14 +1445,8 @@ void TupGraphicsScene::frameResponse(TupFrameResponse *event)
     #endif
     */
 
-    tError() << "TupGraphicsScene::frameResponse() - Tracing...";
-
-    if (k->tool) {
-        tError() << "TupGraphicsScene::frameResponse() - Calling tool->frameResponse() -> " << k->tool->name();
+    if (k->tool)
         k->tool->frameResponse(event);
-    } else {
-        tError() << "TupGraphicsScene::frameResponse() - NO TOOL";
-    }
 }
 
 void TupGraphicsScene::itemResponse(TupItemResponse *event)

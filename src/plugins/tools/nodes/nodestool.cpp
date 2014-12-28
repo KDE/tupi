@@ -76,7 +76,6 @@ void NodesTool::init(TupGraphicsScene *scene)
                       if (!qgraphicsitem_cast<TControlNode *>(item)) {
                           if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
                               int zValue = item->zValue();
-                              // if (zValue >= 20000 && qgraphicsitem_cast<TupPathItem *>(item) && (item->toolTip().length()==0)) {
                               if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0)) {
                                   item->setFlags(QGraphicsItem::ItemIsSelectable);
                               } else {
