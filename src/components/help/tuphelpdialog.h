@@ -6,7 +6,7 @@
  *                                                                         *
  *   Developers:                                                           *
  *   2010:                                                                 *
- *    Gustavo Gonzalez / xtingray                                          *
+ *    Gustavo Gonzalez                                                     *
  *                                                                         *
  *   KTooN's versions:                                                     * 
  *                                                                         *
@@ -33,48 +33,23 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPHELPBROWSER_H
-#define TUPHELPBROWSER_H
+#ifndef TUPHELPDIALOG_H
+#define TUPHELPDIALOG_H
 
-#include "tglobal.h"
-#include "tapplicationproperties.h"
+#include "tuphelpbrowser.h"
+#include "tuphelpwidget.h"
 
-#include <QWidget>
-#include <QSplitter>
-#include <QTextBrowser>
-#include <QTextDocument>
-#include <QKeyEvent> 
-#include <QBoxLayout>
-#include <QIcon>
-#include <QMouseEvent>
-#include <QDir>
+#include <QDialog>
+#include <QHBoxLayout>
 
-/**
- * @author David Cuadrado
-*/
-
-class TUPI_EXPORT TupHelpBrowser : public QWidget
+class TupHelpDialog : public QDialog
 {
     Q_OBJECT
 
     public:
-        TupHelpBrowser(const QString &path, QWidget *parent = 0);
-        ~TupHelpBrowser();
-
-    public slots:
-        void setSource(const QString &filePath);
-
-    protected:
-        void keyPressEvent(QKeyEvent *event);
-
-    signals:
-        void closeDialog();
-
-    private:
-        void reload();
-
-        struct Private;
-        Private *const k;
+        TupHelpDialog(const QString &path, QWidget *parent=0);
+        ~TupHelpDialog();
 };
 
 #endif
+

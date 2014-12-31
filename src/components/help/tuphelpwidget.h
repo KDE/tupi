@@ -37,7 +37,6 @@
 #define TUPHELPWIDGET_H
 
 #include "tglobal.h"
-#include "tupmodulewidgetbase.h"
 
 #include <QWidget>
 #include <QMap>
@@ -46,14 +45,13 @@
 #include <QLocale>
 #include <QBoxLayout>
 #include <QHeaderView>
-
-// class KHelpWidgetManager;
+#include <QDomDocument>
 
 /**
  * @author David Alejandro Cuadrado Cabrera
 */
 
-class TUPI_EXPORT TupHelpWidget : public TupModuleWidgetBase
+class TUPI_EXPORT TupHelpWidget : public QWidget
 {
     Q_OBJECT
 
@@ -68,10 +66,14 @@ class TUPI_EXPORT TupHelpWidget : public TupModuleWidgetBase
 
     signals:
         void pageLoaded(const QString &content);
+        void closeDialog();
+
+    protected:
+        void keyPressEvent(QKeyEvent *event);
 
     private:
-        QDir *m_helpPath;
-        QMap<QTreeWidgetItem *, QString> m_files;
+        struct Private;
+        Private *const k;
 };
 
 #endif

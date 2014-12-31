@@ -35,23 +35,26 @@
 
 #include "tuphelpwidget.h"
 
-TupHelpWidget::TupHelpWidget(const QString &path, QWidget *parent) : TupModuleWidgetBase(parent)
+struct TupHelpWidget::Private
 {
-    setWindowTitle(tr("Help"));
-    setWindowIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "help.png"));
+    QDir *helpPath;
+    QMap<QTreeWidgetItem *, QString> files;
+};
 
+TupHelpWidget::TupHelpWidget(const QString &path, QWidget *parent) : QWidget(parent), k(new Private)
+{
     QString lang = QString(QLocale::system().name()).left(2);
 
     if (lang.length() > 0) {
-        m_helpPath = new QDir(path + lang);
-        if (!m_helpPath->exists())
-            m_helpPath = new QDir(path + "en");
+        k->helpPath = new QDir(path + lang);
+        if (!k->helpPath->exists())
+            k->helpPath = new QDir(path + "en");
     } else {
-        m_helpPath = new QDir(path + "en");
+        k->helpPath = new QDir(path + "en");
     }
 
     #ifdef K_DEBUG
-        QString msg = "TupHelpWidget() - Loading help files from -> " + m_helpPath->path();
+        QString msg = "TupHelpWidget() - Loading help files from -> " + k->helpPath->path();
         #ifdef Q_OS_WIN32
             qWarning() << msg;
         #else
@@ -63,13 +66,11 @@ TupHelpWidget::TupHelpWidget(const QString &path, QWidget *parent) : TupModuleWi
     contentsListView->setHeaderLabels(QStringList() << tr(""));
     contentsListView->header()->hide();
 
-    //connect(contentsListView, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, 
-    //                          SLOT(tryToLoadPage(QTreeWidgetItem *, int)));
-
-    addChild(contentsListView);
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->addWidget(contentsListView);
 
     QDomDocument document;
-    QFile file(m_helpPath->path() + QDir::separator() + "help.xml");
+    QFile file(k->helpPath->path() + QDir::separator() + "help.xml");
 
     QTreeWidgetItem *first = new QTreeWidgetItem;
 
@@ -85,7 +86,7 @@ TupHelpWidget::TupHelpWidget(const QString &path, QWidget *parent) : TupModuleWi
                        if (element.tagName() == "Section") {
                            QTreeWidgetItem *item = new QTreeWidgetItem(contentsListView);
                            item->setText(0, element.attribute("title"));
-                           m_files.insert(item, element.attribute("file"));
+                           k->files.insert(item, element.attribute("file"));
 
                            if (element.attribute("file").compare("cover.html") == 0)
                                first = item;
@@ -97,7 +98,7 @@ TupHelpWidget::TupHelpWidget(const QString &path, QWidget *parent) : TupModuleWi
                                       if (element2.tagName() == "SubSection") {
                                           QTreeWidgetItem *subitem = new QTreeWidgetItem(item);
                                           subitem->setText(0, element2.attribute("title"));
-                                          m_files.insert(subitem, element2.attribute("file"));
+                                          k->files.insert(subitem, element2.attribute("file"));
                                       }
                                   }
                                   subSection = subSection.nextSibling();
@@ -135,6 +136,8 @@ TupHelpWidget::TupHelpWidget(const QString &path, QWidget *parent) : TupModuleWi
 
     connect(contentsListView, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)), this,
                               SLOT(tryToLoadPage(QTreeWidgetItem *, QTreeWidgetItem *)));
+
+    setMaximumWidth(300);
 }
 
 TupHelpWidget::~TupHelpWidget()
@@ -146,9 +149,9 @@ void TupHelpWidget::tryToLoadPage(QTreeWidgetItem *item, QTreeWidgetItem *previe
     Q_UNUSED(preview);
 
     if (item) {
-        QString fileName = m_files[item];
+        QString fileName = k->files[item];
         if (! fileName.isNull())
-            loadPage(m_helpPath->path() + QDir::separator() + fileName);
+            loadPage(k->helpPath->path() + QDir::separator() + fileName);
     }
 }
 
@@ -157,7 +160,15 @@ void TupHelpWidget::loadPage(const QString &filePath)
     emit pageLoaded(filePath);
 }
 
-QString TupHelpWidget::helpPath () const
+QString TupHelpWidget::helpPath() const
 {
-    return m_helpPath->path();
+    return k->helpPath->path();
+}
+
+void TupHelpWidget::keyPressEvent(QKeyEvent *event) {
+    switch (event->key()) {
+            case (Qt::Key_Escape):
+                  emit closeDialog();
+            break;
+    }
 }

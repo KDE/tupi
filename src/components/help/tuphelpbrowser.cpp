@@ -37,18 +37,20 @@
 
 // Help Browser
 
-TupHelpBrowser::TupHelpBrowser(QWidget *parent) : QWidget(parent)
+struct TupHelpBrowser::Private
 {
-    setWindowTitle(tr("Help"));
-    setWindowIcon(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "help_mode.png")));
+    QTextBrowser *browser;
+};
+
+TupHelpBrowser::TupHelpBrowser(const QString &path, QWidget *parent) : QWidget(parent), k(new Private)
+{
+    k->browser = new QTextBrowser(this);
+    k->browser->setOpenExternalLinks(true);
 
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setMargin(15);
-    m_separator = new QSplitter(this);
-    layout->addWidget(m_separator);
+    layout->addWidget(k->browser);
 
-    m_pageArea = new QTextBrowser(m_separator);
-    m_pageArea->setOpenExternalLinks(true);
+    setSource(path);
 }
 
 TupHelpBrowser::~TupHelpBrowser()
@@ -62,18 +64,18 @@ void TupHelpBrowser::setSource(const QString &filePath)
         locale = "en";
 
     QStringList path;
-	
+    
 #ifdef Q_OS_WIN32
     QString resources = SHARE_DIR + "help" + QDir::separator();
 #else
-	QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
-#endif	
-    // QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+    QString resources = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+#endif    
+
     path << resources + "css";
     path << resources + "images";
-    m_pageArea->setSearchPaths(path);
+    k->browser->setSearchPaths(path);
 
-    m_pageArea->setSource(QUrl::fromLocalFile(filePath));
+    k->browser->setSource(QUrl::fromLocalFile(filePath));
 }
 
 // SQA: These methods are just temporary for developing reasons
@@ -84,10 +86,13 @@ void TupHelpBrowser::keyPressEvent(QKeyEvent *event) {
                   if (event->modifiers() == Qt::ControlModifier)
                       reload();
             break;
+            case (Qt::Key_Escape):
+                  emit closeDialog();
+            break;
     }
 }
 
 void TupHelpBrowser::reload()
 {
-    m_pageArea->reload();
+    k->browser->reload();
 }

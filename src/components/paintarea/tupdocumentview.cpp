@@ -74,6 +74,7 @@ struct TupDocumentView::Private
 
     QMenu *shapesMenu;
     QMenu *motionMenu;
+    QMenu *miscMenu;
 
     QMenu *filterMenu;
     QMenu *toolsMenu;
@@ -417,14 +418,14 @@ void TupDocumentView::setupDrawActions()
     new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "onion.png"), tr("Onion Skin Factor"), QKeySequence(tr("Ctrl+Shift+S")), 
                 this, SLOT(setDefaultOnionFactor()), k->actionManager, "onionfactor");
 
-    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "export_frame.png"), tr("Export Current Frame As Image"), QKeySequence(tr("@")),
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "export_frame.png"), tr("Export Frame As Image"), QKeySequence(tr("@")),
                 this, SLOT(exportImage()), k->actionManager, "export_image");
 
     TCONFIG->beginGroup("Network");
     QString server = TCONFIG->value("Server").toString();
 
     if (k->isNetworked && server.compare("tupitu.be") == 0) {
-        new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "import_project.png"), tr("Export Current Frame To Gallery"), QKeySequence(tr("@")),
+        new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "import_project.png"), tr("Export Frame To Gallery"), QKeySequence(tr("@")),
                     this, SLOT(postImage()), k->actionManager, "post_image");
     }
 
@@ -460,8 +461,12 @@ void TupDocumentView::createLateralToolBar()
 
     // Motion Tween menu
     k->motionMenu = new QMenu(tr("Tweening"), k->toolbar);
-    k->motionMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "tweening.png"));
+    k->motionMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "position_tween.png"));
     connect(k->motionMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
+
+    // Misc Tools menu
+    k->miscMenu = new QMenu(tr("Misc Tools"), k->toolbar);
+    k->miscMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "export_frame.png"));
 }
 
 void TupDocumentView::loadPlugins()
@@ -667,6 +672,25 @@ void TupDocumentView::loadPlugins()
     for (int i = 0; i < tweenTools.size(); ++i)
          k->motionMenu->addAction(tweenTools.at(i));
 
+    k->miscMenu->addAction(k->actionManager->find("export_image"));
+
+    TCONFIG->beginGroup("Network");
+    QString server = TCONFIG->value("Server").toString();
+
+    if (k->isNetworked && server.compare("tupitu.be") == 0)
+        k->miscMenu->addAction(k->actionManager->find("post_image"));
+
+    k->miscMenu->addAction(k->actionManager->find("storyboard"));
+
+    #ifdef Q_OS_WIN32
+        if (QSysInfo::windowsVersion() != QSysInfo::WV_XP)
+            k->miscMenu->addAction(k->actionManager->find("camera"));
+    #else
+        k->miscMenu->addAction(k->actionManager->find("camera"));
+    #endif
+
+    k->miscMenu->addAction(k->actionManager->find("papagayo"));
+
     foreach (QObject *plugin, TupPluginManager::instance()->filters()) {
              AFilterInterface *filterInterface = qobject_cast<AFilterInterface *>(plugin);
              QStringList::iterator it;
@@ -705,6 +729,8 @@ void TupDocumentView::loadPlugins()
     k->toolbar->addAction(k->shiftAction);
     k->toolbar->addSeparator();
     k->toolbar->addAction(k->motionMenu->menuAction());
+    k->toolbar->addSeparator();
+    k->toolbar->addAction(k->miscMenu->menuAction());
 
     brushTools.clear();
     tweenTools.clear();
@@ -1117,20 +1143,6 @@ void TupDocumentView::createToolBar()
     connect(k->onionFactorSpin, SIGNAL(valueChanged(double)), this, SLOT(setOnionFactor(double)));
 
     k->barGrid->addWidget(k->onionFactorSpin);
-
-    k->barGrid->addAction(k->actionManager->find("export_image"));
-
-    TCONFIG->beginGroup("Network");
-    QString server = TCONFIG->value("Server").toString();
-
-    if (k->isNetworked && server.compare("tupitu.be") == 0)
-        k->barGrid->addAction(k->actionManager->find("post_image"));
-
-    k->barGrid->addAction(k->actionManager->find("storyboard"));
-
-    k->barGrid->addAction(k->actionManager->find("camera"));
-
-    k->barGrid->addAction(k->actionManager->find("papagayo"));
 
     addToolBarBreak();
 

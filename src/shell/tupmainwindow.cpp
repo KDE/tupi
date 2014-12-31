@@ -120,7 +120,7 @@ TupMainWindow::TupMainWindow(int parameters) : TabbedMainWindow(), m_projectMana
     // Calling out the events/actions manager
     m_actionManager = new TActionManager(this);
 
-    setupActions();
+    // setupActions();
 
     // Setting up all the GUI...
     createGUI(); // This method is called from the tupmainwindow_gui class
@@ -337,31 +337,6 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
 
         connect(animationTab, SIGNAL(updateFPS(int)), cameraWidget, SLOT(setStatusFPS(int)));
 
-        helpTab = new TupHelpBrowser(this);
-
-        QString lang = (QLocale::system().name()).left(2);
-        if (lang.length() < 2)  
-            lang = "en";
-         
-        QString cover = QString() + "help" + QDir::separator() + lang + QDir::separator() + "cover.html";         
- #ifdef Q_OS_WIN32
-        QString helpPath = SHARE_DIR + cover;
- #else
-        QString helpPath = SHARE_DIR + "data" + QDir::separator() + cover;
- #endif
-        QFile file(helpPath);
-        if (!file.exists()) {
-            #ifdef Q_OS_WIN32
-                helpPath = SHARE_DIR + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
-				helpPath.replace("/","\\");
-            #else
-                helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
-            #endif
-        }
-
-        helpTab->setSource(helpPath);
-        addWidget(helpTab);
-
         QString twitterPath = QDir::homePath() + QDir::separator() + "." + QCoreApplication::applicationName() 
                               + QDir::separator() + "twitter.html";
         #ifdef Q_OS_WIN32
@@ -415,9 +390,6 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
             TOsd::self()->display(tr("Information"), tr("Project <b>%1</b> opened!").arg(m_projectManager->project()->projectName()));
 
         m_exposureSheet->setScene(0);
-
-        // connect(m_projectManager, SIGNAL(projectHasChanged(bool)), this, SLOT(updatePlayer(bool)));
-        // connect(animationTab, SIGNAL(projectHasChanged()), this, SLOT(updatePlayer()));
     }
 
     connect(this, SIGNAL(tabHasChanged(int)), this, SLOT(updateTabContext(int)));
@@ -544,32 +516,16 @@ void TupMainWindow::resetUI()
         #endif
     #endif
 
-    // disconnect(animationTab, SIGNAL(projectHasChanged()), this, SLOT(updatePlayer()));
-    // disconnect(m_projectManager, SIGNAL(projectHasChanged(bool)), this, SLOT(updatePlayer(bool)));
-
     setCurrentTab(0);
 
-    // if (colorView->isExpanded())
-        colorView->expandDock(false);
-
-    // if (penView->isExpanded())
-        penView->expandDock(false);
-
-    // if (libraryView->isExpanded())
-        libraryView->expandDock(false);
-
-    //if (helpView->isExpanded())
-        helpView->expandDock(false);
-
-    //if (scenesView->isExpanded())
-        scenesView->expandDock(false);
-    
-    //if (timeView->isExpanded())
-        timeView->expandDock(false);
+    colorView->expandDock(false);
+    penView->expandDock(false);
+    libraryView->expandDock(false);
+    scenesView->expandDock(false);
+    timeView->expandDock(false);
 
 #if defined(QT_GUI_LIB) && defined(K_DEBUG) && !defined(Q_OS_WIN32)
-    //if (debugView->isExpanded())
-        debugView->expandDock(false);
+    debugView->expandDock(false);
 #endif
 
     setUpdatesEnabled(false);
@@ -579,53 +535,37 @@ void TupMainWindow::resetUI()
         animationTab->closeArea();
 
     if (lastTab == 0) {
-
         if (internetOn)
             removeWidget(newsTab, true);
 
-        removeWidget(helpTab, true);
         removeWidget(playerTab, true);
         removeWidget(animationTab, true);
-
     } else {
-      if (lastTab == 1) {
+        if (lastTab == 1) {
+            if (internetOn)
+                removeWidget(newsTab, true);
 
-          if (internetOn)
-              removeWidget(newsTab, true);
+            removeWidget(animationTab, true);
+            removeWidget(playerTab, true);
+        } else if (lastTab == 2) {
+                   removeWidget(animationTab, true);
+                   removeWidget(playerTab, true);   
 
-          removeWidget(helpTab, true);
-          removeWidget(animationTab, true);
-          removeWidget(playerTab, true);
+                   if (internetOn)
+                       removeWidget(newsTab, true);
+        } else if (lastTab == 3) {
+                   removeWidget(animationTab, true);
+                   removeWidget(playerTab, true);
 
-      } else if (lastTab == 2) {
-
-                 removeWidget(animationTab, true);
-                 removeWidget(playerTab, true);   
-
-                 if (internetOn)
-                     removeWidget(newsTab, true);
-
-                 removeWidget(helpTab, true);
-
-      } else if (lastTab == 3) {
-
-                 removeWidget(animationTab, true);
-                 removeWidget(playerTab, true);
-                 removeWidget(helpTab, true);
-
-                 if (internetOn)
-                     removeWidget(newsTab, true);
-
-      }
+                   if (internetOn)
+                       removeWidget(newsTab, true);
+        }
     }
 
     if (internetOn) { 
         delete newsTab;
         newsTab = 0;
     }
-
-    delete helpTab;
-    helpTab = 0;
 
     delete playerTab;
     playerTab = 0;
@@ -907,6 +847,43 @@ void TupMainWindow::preferences()
 
 /**
  * @if english
+ * This method opens the help dialog.
+ * @endif
+ * @if spanish
+ * Este metodo abre el dialogo de ayuda.
+ * @endif
+*/
+
+void TupMainWindow::showHelp()
+{
+    QString lang = (QLocale::system().name()).left(2);
+    if (lang.length() < 2)
+        lang = "en";
+
+    QString cover = QString() + "help" + QDir::separator() + lang + QDir::separator() + "cover.html";
+
+#ifdef Q_OS_WIN32
+    QString helpPath = SHARE_DIR + cover;
+#else
+    QString helpPath = SHARE_DIR + "data" + QDir::separator() + cover;
+#endif
+
+    QFile file(helpPath);
+    if (!file.exists()) {
+        #ifdef Q_OS_WIN32
+            helpPath = SHARE_DIR + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
+            helpPath.replace("/","\\");
+        #else
+            helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator() + "en" + QDir::separator() + "cover.html";
+        #endif
+    }
+
+    TupHelpDialog *dialog = new TupHelpDialog(helpPath, this);
+    dialog->showMaximized();
+}
+
+/**
+ * @if english
  * This method opens the "About Tupi" dialog.
  * @endif
  * @if spanish
@@ -1017,7 +994,7 @@ void TupMainWindow::connectWidgetToManager(QWidget *widget)
     connect(m_projectManager, SIGNAL(responsed(TupProjectResponse*)), widget, 
             SLOT(handleProjectResponse(TupProjectResponse *)));
 
-    // PENDING TO CHECK
+    // SQA: Pending for revision
     //connect(widget, SIGNAL(postPage(QWidget *)), this, SLOT(addPage(QWidget *)));
 }
 
@@ -1058,22 +1035,6 @@ void TupMainWindow::connectWidgetToLocalManager(QWidget *widget)
 {
     connect(widget, SIGNAL(localRequestTriggered(const TupProjectRequest *)), 
             m_projectManager, SLOT(handleLocalRequest(const TupProjectRequest *)));
-}
-
-/**
- * @if english
- * This method display a help page.
- * @endif
- * @if spanish
- * Este metodo despliega una pagina de ayuda.
- * @endif
-*/
-
-//void TupMainWindow::showHelpPage(const QString &title, const QString &filePath)
-
-void TupMainWindow::showHelpPage(const QString &filePath)
-{
-    helpTab->setSource(filePath);
 }
 
 /**
@@ -1141,7 +1102,6 @@ void TupMainWindow::saveAs()
         setWindowTitle(tr("Tupi: Open 2D Magic") + " - " + projectName + " [ " + tr("by") + " " + author + " ]");
     }
 
-    // save();
     saveProject();
 }
 
@@ -1290,21 +1250,16 @@ void TupMainWindow::createCommand(const TupPaintAreaEvent *event)
     TupPaintAreaCommand *command = animationTab->createCommand(event);
 
     if (command) { 
-        // tFatal() << "TupMainWindow::createCommand() - Paint command is valid!";
         m_projectManager->undoHistory()->push(command);
 
-        // if (event->action() == 2) {
         if (event->action() == TupPaintAreaEvent::ChangeColorPen) {
-            // tFatal() << "TupMainWindow::createCommand() - event action == ChangeColorPen";
             m_penWidget->setPenColor(qvariant_cast<QColor>(event->data()));
         } else if (event->action() == TupPaintAreaEvent::ChangeBrush) {
                    // tFatal() << "TupMainWindow::createCommand() - event action == ChangeBrush";
                    // tFatal() << "TupMainWindow::createCommand() - action: " << event->action();
                    // m_penWidget->setBrush(qvariant_cast<QBrush>(event->data()));
         }
-    } else {
-        // tFatal() << "TupMainWindow::createCommand() - Paint command is NULL!";
-    }
+    } 
 }
 
 void TupMainWindow::updatePenColor(const QColor &color)
@@ -1338,8 +1293,6 @@ void TupMainWindow::updateCurrentTab(int index)
     // SQA: Check/Test the content of this method
 
     if (index == 1) {  // Player mode 
-        if (lastTab == 2)
-            helpView->expandDock(false);
         lastTab = 1;
         updatePlayer();
         cameraWidget->updateFirstFrame();
@@ -1349,35 +1302,23 @@ void TupMainWindow::updateCurrentTab(int index)
             if (lastTab == 1)
                 cameraWidget->doStop();
 
-            if (scenesView->isExpanded()) {
-                helpView->expandDock(false);
+            if (scenesView->isExpanded())
                 scenesView->expandDock(true);
-            }     
 
             if (contextMode == TupProject::FRAMES_EDITION) {
-                if (exposureView->isExpanded()) {
-                    helpView->expandDock(false);
+                if (exposureView->isExpanded())
                     exposureView->expandDock(true);
-                } 
             } else {
                 exposureView->expandDock(false);
                 exposureView->enableButton(false);
             }
 
-            if (lastTab == 2)
-                helpView->expandDock(false);
-
             animationTab->updatePaintArea();
 
             lastTab = 0;
         } else {
-            if (index == 2) { // Help mode
-                helpView->expandDock(true);
-                lastTab = 2;
-            } else if (index == 3) { // News mode
-                helpView->expandDock(false);
-                lastTab = 3;   
-            }
+            if (index == 3)
+                lastTab = 3;
         }
     }
 }
@@ -1485,13 +1426,6 @@ void TupMainWindow::netProjectSaved()
     m_projectManager->undoModified();
     QApplication::restoreOverrideCursor();
 }
-
-/*
-void TupMainWindow::postVideo(const QString &title, const QString &topics, const QString &description, int fps, const QList<int> sceneIndexes)
-{
-    netProjectManager->sendVideoRequest(title, topics, description, fps, sceneIndexes);
-}
-*/
 
 void TupMainWindow::updatePlayer(bool removeAction)
 {

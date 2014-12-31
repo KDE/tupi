@@ -6,7 +6,7 @@
  *                                                                         *
  *   Developers:                                                           *
  *   2010:                                                                 *
- *    Gustavo Gonzalez / xtingray                                          *
+ *    Gustavo Gonzalez                                                     *
  *                                                                         *
  *   KTooN's versions:                                                     * 
  *                                                                         *
@@ -33,48 +33,36 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
-#ifndef TUPHELPBROWSER_H
-#define TUPHELPBROWSER_H
+#include "tuphelpdialog.h"
 
-#include "tglobal.h"
-#include "tapplicationproperties.h"
-
-#include <QWidget>
-#include <QSplitter>
-#include <QTextBrowser>
-#include <QTextDocument>
-#include <QKeyEvent> 
-#include <QBoxLayout>
-#include <QIcon>
-#include <QMouseEvent>
-#include <QDir>
-
-/**
- * @author David Cuadrado
-*/
-
-class TUPI_EXPORT TupHelpBrowser : public QWidget
+TupHelpDialog::TupHelpDialog(const QString &path, QWidget *parent) : QDialog(parent)
 {
-    Q_OBJECT
+    setModal(true);
+    setWindowTitle(tr("Help Content"));
+    setWindowIcon(QIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "help_mode.png")));
 
-    public:
-        TupHelpBrowser(const QString &path, QWidget *parent = 0);
-        ~TupHelpBrowser();
+    #ifdef Q_OS_WIN32
+        QString helpPath = SHARE_DIR + "help" + QDir::separator();
+    #else
+        QString helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
+    #endif
 
-    public slots:
-        void setSource(const QString &filePath);
+    TupHelpBrowser *helpBrowser = new TupHelpBrowser(path, this);
+    TupHelpWidget *helpMenu = new TupHelpWidget(helpPath);
 
-    protected:
-        void keyPressEvent(QKeyEvent *event);
+    QSplitter *splitter = new QSplitter(this);
+    splitter->addWidget(helpBrowser);
+    splitter->addWidget(helpMenu);
 
-    signals:
-        void closeDialog();
+    QHBoxLayout *layout = new QHBoxLayout(this);
+    layout->addWidget(splitter);
 
-    private:
-        void reload();
+    connect(helpMenu, SIGNAL(pageLoaded(const QString &)), helpBrowser, SLOT(setSource(const QString &)));
+    connect(helpMenu, SIGNAL(closeDialog()), this, SLOT(close()));
 
-        struct Private;
-        Private *const k;
-};
+    connect(helpBrowser, SIGNAL(closeDialog()), this, SLOT(close()));
+}
 
-#endif
+TupHelpDialog::~TupHelpDialog()
+{
+}

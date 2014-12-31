@@ -128,26 +128,6 @@ void TupMainWindow::createGUI()
     connectWidgetToManager(m_exposureSheet);
     connectWidgetToLocalManager(m_exposureSheet);
 
-    // Adding the help widget to the right side of the interface
-
-#ifdef Q_OS_WIN32
-    QString helpPath = SHARE_DIR + "help" + QDir::separator();
-#else
-	QString helpPath = SHARE_DIR + "data" + QDir::separator() + "help" + QDir::separator();
-#endif	
-    m_helper = new TupHelpWidget(helpPath);
-    helpView = addToolView(m_helper, Qt::RightDockWidgetArea, All, "Help", QKeySequence(tr("Shift+H")));
-    m_actionManager->insert(helpView->toggleViewAction(), "show_help");
-    addToPerspective(helpView->toggleViewAction(), All);
-
-    TViewButton *helpButton = helpView->button();
-
-    connect(helpButton, SIGNAL(helpIsOpen()), this,
-	    SLOT(setHelpPerspective()));
-
-    connect(m_helper, SIGNAL(pageLoaded(const QString &)), this, 
-	    SLOT(showHelpPage(const QString &)));
-
     // Adding the time line widget to the bottom side of the interface
     m_timeLine = new TupTimeLine(m_projectManager->project());
     timeView = addToolView(m_timeLine, Qt::BottomDockWidgetArea, Animation, "Time Line", QKeySequence(tr("Shift+T")));
@@ -238,7 +218,7 @@ void TupMainWindow::setupMenu()
     m_insertMenu->addAction(m_actionManager->find("importBitmapArray"));
     m_insertMenu->addAction(m_actionManager->find("importSvg"));
     m_insertMenu->addAction(m_actionManager->find("importSvgArray"));
-    //m_insertMenu->addAction(m_actionManager->find("importAudioFile"));
+    // m_insertMenu->addAction(m_actionManager->find("importAudioFile"));
 
     m_insertMenu->addSeparator();
     m_insertMenu->addAction(m_actionManager->find("importGimpPalettes"));
@@ -247,7 +227,6 @@ void TupMainWindow::setupMenu()
     m_insertMenu->addAction(m_actionManager->find("importPapagayoLipSync"));
 
     // Setting up the window menu
-    // setupWindowActions();
     m_windowMenu = menuBar()->addMenu(tr("&Window"));
 
     // Adding Options show debug, palette, pen, library, timeline, scenes, exposure, help
@@ -257,7 +236,6 @@ void TupMainWindow::setupMenu()
     m_windowMenu->addAction(m_actionManager->find("show_timeline"));
     m_windowMenu->addAction(m_actionManager->find("show_scenes"));
     m_windowMenu->addAction(m_actionManager->find("show_exposure"));
-    m_windowMenu->addAction(m_actionManager->find("show_help"));
 
 #if defined(QT_GUI_LIB) && defined(K_DEBUG) && defined(Q_OS_UNIX)
     m_windowMenu->addAction(m_actionManager->find("show_debug"));
@@ -286,19 +264,11 @@ void TupMainWindow::setupMenu()
     animationPerspective->setData(Player);
     group->addAction(animationPerspective);
 
-    // Adding Option Help 
-    QAction *helpPerspective = new QAction(tr("Help"), this);
-    helpPerspective->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "help_mode.png"));
-    helpPerspective->setIconVisibleInMenu(true);
-    helpPerspective->setShortcut(QKeySequence("Ctrl+3"));
-    helpPerspective->setData(Help);
-    group->addAction(helpPerspective);
-
     // Adding Option News 
     QAction *newsPerspective = new QAction(tr("News"), this);
     newsPerspective->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "news_mode.png"));
     newsPerspective->setIconVisibleInMenu(true);
-    newsPerspective->setShortcut(QKeySequence("Ctrl+4"));
+    newsPerspective->setShortcut(QKeySequence("Ctrl+3"));
     newsPerspective->setData(News);
     group->addAction(newsPerspective);
 
@@ -310,6 +280,7 @@ void TupMainWindow::setupMenu()
     setupHelpActions();
     m_helpMenu = new QMenu(tr("&Help"), this);
     menuBar()->addMenu(m_helpMenu);
+    m_helpMenu->addAction(m_actionManager->find("help"));
     m_helpMenu->addAction(m_actionManager->find("tip_of_day"));
     m_helpMenu->addSeparator();
     m_helpMenu->addAction(m_actionManager->find("about_tupi"));
@@ -328,20 +299,6 @@ void TupMainWindow::setMenuItemsContext(bool flag)
     m_insertMenu->setEnabled(flag);
     m_windowMenu->setEnabled(flag);
     m_viewMenu->setEnabled(flag);
-}
-
-void TupMainWindow::setupActions()
-{
-/*
-    TAction *next = new TAction(QPixmap(), tr( "Back Frame" ), QKeySequence(Qt::Key_PageUp), this, 
-		    SLOT(selectBackFrame()), m_actionManager, "BackFrame");
-    next->setShortcutContext ( Qt::ApplicationShortcut );
-    TAction *back = new TAction( QPixmap(), tr( "Next Frame" ), QKeySequence(Qt::Key_PageDown), this, 
-		    SLOT(selectNextFrame()), m_actionManager, "Next Frame");
-    back->setShortcutContext ( Qt::ApplicationShortcut );
-    addAction(back);
-    addAction(next);
-*/
 }
 
 /**
@@ -381,22 +338,13 @@ void TupMainWindow::setupFileActions()
     m_actionManager->insert(save, "saveproject", "file");
     save->setStatusTip(tr("Save current project in current location"));
 
-    // TAction *saveAs = new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "save_as.png"), tr("Save project &As..."),
-    //                               QKeySequence(tr("Ctrl+Shift+S")), m_actionManager);
-
     TAction *saveAs = new TAction(QPixmap(THEME_DIR + "icons/save_as.png"), tr("Save project &As..."),
 				  QKeySequence(tr("Ctrl+Shift+S")), this, SLOT(saveAs()), m_actionManager);
-
-    // connect(saveAs, SIGNAL(triggered()), this, SLOT(saveAs()));
     saveAs->setStatusTip(tr("Open dialog box to save current project in any location"));
     m_actionManager->insert(saveAs, "saveprojectas", "file");
 
-    // TAction *close = new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "close.png"), tr("Cl&ose project"), 
-    //                              QKeySequence(tr("Ctrl+W")), m_actionManager);
-
     TAction *close = new TAction(QPixmap(THEME_DIR + "icons/close.png"), tr("Cl&ose project"), QKeySequence(tr("Ctrl+W")),
 				 this, SLOT(closeProject()), m_actionManager);
-    // connect(close, SIGNAL(triggered()), this, SLOT(closeProject()));
     close->setStatusTip(tr("Close active project"));
     m_actionManager->insert(close, "closeproject", "file");
 
@@ -439,12 +387,6 @@ void TupMainWindow::setupFileActions()
 
 void TupMainWindow::setupSettingsActions()
 {
-    /*
-    TAction *wizard = new TAction(tr("Launch configuration wizard..."), QKeySequence(), 
-                                  qobject_cast<TupApplication*>(qApp), SLOT(firstRun()), m_actionManager, "wizard");
-    wizard->setStatusTip(tr("Launch first configuration wizard"));
-    */
-
     TAction *preferences = new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "properties.png"), tr("Pr&eferences..."), 
                                         QKeySequence(tr("Ctrl+P")), this, SLOT( preferences()),
                                         m_actionManager, "preferences");
@@ -462,51 +404,12 @@ void TupMainWindow::setupSettingsActions()
 
 void TupMainWindow::setupHelpActions()
 {
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "help_mode.png"), tr("Help Content"), QKeySequence(tr("F1")),
+                this, SLOT(showHelp()), m_actionManager, "help");
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "today_tip.png"), tr("Tip of the day"), QKeySequence(tr("Ctrl+T")),
+                this, SLOT(showTipDialog()), m_actionManager, "tip_of_day");
     new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "about.png"), tr("About Tupi"), QKeySequence(tr("Ctrl+K")), 
                 this, SLOT(aboutTupi()), m_actionManager, "about_tupi");
-    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "today_tip.png"), tr("Tip of the day"), QKeySequence(tr("Ctrl+T")), 
-                this, SLOT(showTipDialog()), m_actionManager, "tip_of_day");
-}
-
-/**
- * @if english
- * This method defines the actions for the options in the menu Window
- * @endif
- * @if spanish
- * Este metodo define las acciones para las opciones del menu Ventana
- * @endif
-
-void TupMainWindow::setupWindowActions()
-{
-    // Temporary commented code - SQA required 
-    #if defined(QT_GUI_LIB) && defined(K_DEBUG) && defined(Q_OS_UNIX)
-        new TAction(QPixmap(), tr("Show Debug Dialog"), QKeySequence(), TDebug::browser(), SLOT(show()), m_actionManager,
-                    "show debug");
-    #endif
-}
-*/
-
-/**
- * @if english
- * This method defines the actions for the options in the menu Insert
- * @endif
- * @if spanish
- * Este metodo define las acciones para las opciones del menu Insertar
- * @endif
-*/
-
-void TupMainWindow::setupInsertActions()
-{
-/*
-    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "scene.png"), tr("Insert scene"), QKeySequence(), m_scenes, 
-                SLOT(emitRequestInsertScene()), m_actionManager, "InsertScene");
-
-    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "layer.png"), tr("Insert layer"), QKeySequence(), m_exposureSheet, 
-                SLOT(createLayer()), m_actionManager, "InsertLayer");
-
-    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "frame.png"), tr("Insert frame"), QKeySequence(), m_projectManager, 
-                SLOT(createFrame()), m_actionManager, "InsertFrame");
-*/
 }
 
 /**
@@ -576,55 +479,6 @@ void TupMainWindow::updateOpenRecentMenu(QMenu *menu, QStringList recents)
         m_recentProjectsMenu->setEnabled(true);
 }
 
-void TupMainWindow::showWidgetPage()
-{
-/*
-    TAction *action = qobject_cast<TAction *>(sender());
-
-    if (action) {
-        QWidget *widget = 0;
-        DiDockWidget::Position position;
-        QString actionText = "";
-
-        if (action == m_actionManager->find("show_timeline") ) {
-            widget = m_timeLine;
-            position = DiDockWidget::Bottom;
-            actionText = "time line widget";
-        } else if ( action == m_actionManager->find("show_exposure") ) {
-            widget = m_exposureSheet;
-            position = DiDockWidget::Right;
-            actionText = "exposure widget";
-        } else if ( action == m_actionManager->find("show_library") ) {
-            widget = m_libraryWidget;
-            position = DiDockWidget::Left;
-            actionText = "library widget";
-        } else if ( action == m_actionManager->find("show_scenes") ) {
-            widget = m_scenes;
-            position = DiDockWidget::Right;
-            actionText = "scenes widget";
-        } else if ( action == m_actionManager->find("show_help") ) {
-            widget = m_helper;
-            position = DiDockWidget::Right;
-            actionText = "help widget";
-        } else if ( action == m_actionManager->find("show_palette") ) {
-            widget = m_colorPalette;
-            position = DiDockWidget::Left;
-            actionText = "color palette widget";
-        }
-
-        if (widget) {
-            if (widget->isVisible()) {
-                toolWindow( position)->centralWidget()->setExpanded(false);
-                action->setText("Show "+actionText);
-            } else {
-                toolWindow( position)->centralWidget()->raiseWidget(widget);
-                action->setText("Hide "+actionText);
-            }
-        }
-    }
-*/
-}
-
 /**
  * @if english
  * This method changes the perspective view according the events
@@ -641,20 +495,12 @@ void TupMainWindow::changePerspective(QAction *action)
     // Animation or Player perspective
     if (perspective == Animation || perspective == Player) {
         setCurrentTab(perspective - 1);
-    } else { 
-        if (perspective == Help) { // Help perspective 
+    } else {
+        if (perspective == News) // News perspective
             setCurrentTab(2);
-        } else if (perspective == News) { // News perspective
-                   setCurrentTab(3);
-        }
     }
 
     action->setChecked(true);
-}
-
-void TupMainWindow::setHelpPerspective()
-{
-    setCurrentTab(2);
 }
 
 void TupMainWindow::setUndoRedoActions()
@@ -664,13 +510,11 @@ void TupMainWindow::setUndoRedoActions()
     undo->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "undo.png"));
     undo->setIconVisibleInMenu(true);
     undo->setShortcut(QKeySequence(tr("Ctrl+Z")));
-    //undo->setShortcut(QKeySequence(QKeySequence::Undo));
 
     QAction *redo =  m_projectManager->undoHistory()->createRedoAction(this, tr("Redo"));
     redo->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "redo.png"));
     redo->setIconVisibleInMenu(true);
     redo->setShortcut(QKeySequence(tr("Ctrl+Y")));
-    //redo->setShortcut(QKeySequence(QKeySequence::Redo));
 
     kApp->insertGlobalAction(undo, "undo");
     kApp->insertGlobalAction(redo, "redo");

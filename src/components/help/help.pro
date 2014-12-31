@@ -12,9 +12,12 @@ macx {
 }
 
 HEADERS += tuphelpwidget.h \
-           tuphelpbrowser.h 
+           tuphelpbrowser.h \
+           tuphelpdialog.h
+
 SOURCES += tuphelpwidget.cpp \
-           tuphelpbrowser.cpp
+           tuphelpbrowser.cpp \
+           tuphelpdialog.cpp
 		   
 *:!macx{
     CONFIG += dll warn_on
