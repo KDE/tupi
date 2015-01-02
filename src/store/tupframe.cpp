@@ -1399,7 +1399,11 @@ void TupFrame::updateZLevel(int zLevelIndex)
                  max = zLevel;
          }
     }
- 
-    k->zLevelIndex = max;
-    k->zLevelIndex++;
+
+    if (max > 0) {
+        k->zLevelIndex = max;
+        k->zLevelIndex++;
+    } else {
+        k->zLevelIndex = (k->layer->layerIndex() + 1)*10000;
+    }
 }

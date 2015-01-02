@@ -173,11 +173,7 @@ class Test
             config.addLib(lib)
         }
 
-        if parser.os.eql? "14.10"
-           config.addLib("-lquazip-qt5")
-        else
-           config.addLib("-lquazip")
-        end
+        config.addLib("-lquazip-qt5")
         
         parser.defines.each { |define|
             config.addDefine(define)
