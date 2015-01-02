@@ -542,7 +542,7 @@ void TLibavMovieGenerator::end()
     avformat_free_context(k->oc);
 }
 
-void TLibavMovieGenerator::__saveMovie(const QString &fileName)
+void TLibavMovieGenerator::createMovieFile(const QString &fileName)
 {
     if (QFile::exists(fileName)) 
         QFile::remove(fileName);

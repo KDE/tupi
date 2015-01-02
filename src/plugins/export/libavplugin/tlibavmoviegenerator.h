@@ -53,7 +53,7 @@ class TUPI_PLUGIN TLibavMovieGenerator : public TMovieGenerator
         virtual const char* getErrorMsg();
 
     protected:
-        void __saveMovie(const QString &fileName);
+        void createMovieFile(const QString &fileName);
         virtual void handle(const QImage &image);
         virtual bool begin();
         virtual void end();

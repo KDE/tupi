@@ -103,11 +103,7 @@ class Test
                          qmakeLine = "'LIBS += #{extraLib}'"
                          qmakeLine += " 'INCLUDEPATH += #{extraInclude}'"
                       else
-                         if parser.os.eql? "14.10" 
-                            extraLib = "-lquazip-qt5"
-                         else
-                            extraLib = "-lquazip"
-                         end
+                         extraLib = "-lquazip-qt5"
                          qmakeLine = "'LIBS += #{extraLib}'"
                       end
                    else

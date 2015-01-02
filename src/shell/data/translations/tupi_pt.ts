@@ -234,7 +234,7 @@
     <name>ImagePlugin</name>
     <message>
         <location filename="../src/plugins/export/imageplugin/imageplugin.cpp" line="48"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Sequência de Imagens</translation>
     </message>
 </context>
@@ -2169,7 +2169,7 @@
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="483"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="494"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Sequência de Imagens</translation>
     </message>
     <message>
@@ -2583,7 +2583,7 @@ Por favor, renomeie o ficheiro do projeto</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="143"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Sequência de Imagens</translation>
     </message>
     <message>
@@ -3150,7 +3150,7 @@ Por favor, renomeie o ficheiro do projeto</translation>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="164"/>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="1539"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Sequência de Imagens</translation>
     </message>
     <message>
@@ -4861,19 +4861,19 @@ Por favor, contacte o administrador do servidor de animação para obter acesso.
     <message>
         <location filename="../src/components/export/tuppluginselector.cpp" line="157"/>
         <location filename="../src/components/export/tuppluginselector.cpp" line="214"/>
-        <source>PNG Image Array</source>
+        <source>PNG Image Sequence</source>
         <translation type="unfinished">Sequência de Imagens PNG</translation>
     </message>
     <message>
         <location filename="../src/components/export/tuppluginselector.cpp" line="162"/>
         <location filename="../src/components/export/tuppluginselector.cpp" line="217"/>
-        <source>JPEG Image Array</source>
+        <source>JPEG Image Sequence</source>
         <translation type="unfinished">Sequência de Imagens JPEG</translation>
     </message>
     <message>
         <location filename="../src/components/export/tuppluginselector.cpp" line="167"/>
         <location filename="../src/components/export/tuppluginselector.cpp" line="223"/>
-        <source>SVG Image Array</source>
+        <source>SVG Image Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4905,7 +4905,7 @@ Por favor, contacte o administrador do servidor de animação para obter acesso.
     </message>
     <message>
         <location filename="../src/components/export/tuppluginselector.cpp" line="243"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation type="unfinished">Sequência de Imagens</translation>
     </message>
 </context>

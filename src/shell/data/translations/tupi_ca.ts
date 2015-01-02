@@ -234,7 +234,7 @@
 <context>
     <name>ImagePlugin</name>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation type="unfinished">Contenidor d&apos;imatges</translation>
     </message>
 </context>
@@ -541,11 +541,11 @@
         <translation>Imatge Gif</translation>
     </message>
     <message>
-        <source>PNG Image Array</source>
+        <source>PNG Image Sequence</source>
         <translation>Contenidor d&apos;imatges PNG</translation>
     </message>
     <message>
-        <source>JPEG Image Array</source>
+        <source>JPEG Image Sequence</source>
         <translation>Contenidor d&apos;imatges JPEG</translation>
     </message>
     <message>
@@ -565,7 +565,7 @@
         <translation>Imatge animada</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Contenidor d&apos;imatges</translation>
     </message>
     <message>
@@ -1694,7 +1694,7 @@
         <translation>Interpola</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Contenidor d&apos;imatges</translation>
     </message>
     <message>
@@ -1942,7 +1942,7 @@ Please, rename the project&apos;s file</source>
         <translation>Format de vídeo lliure</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Contenidor d&apos;imatges</translation>
     </message>
     <message>
@@ -2433,7 +2433,7 @@ Please, rename the project&apos;s file</source>
         <translation>Arxiu svg</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Contenidor d&apos;imatges</translation>
     </message>
     <message>

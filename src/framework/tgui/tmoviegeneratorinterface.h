@@ -68,11 +68,11 @@ class T_GUI_EXPORT TMovieGeneratorInterface
 
         void saveMovie(const QString &filename) {
                        end();
-                       __saveMovie(filename);
+                       createMovieFile(filename);
         };
 
     protected:
-        virtual void __saveMovie(const QString &filename) = 0;
+        virtual void createMovieFile(const QString &filename) = 0;
         virtual bool begin() = 0;
         virtual void end() = 0;
 };

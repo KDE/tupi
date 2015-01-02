@@ -443,7 +443,7 @@ void TheoraMovieGenerator::end()
     ogg_stream_clear(&k->ogg_os);
 }
 
-void TheoraMovieGenerator::__saveMovie(const QString &fileName)
+void TheoraMovieGenerator::createMovieFile(const QString &fileName)
 {
     if (QFile::exists(fileName)) 
         QFile::remove(fileName);

@@ -155,7 +155,7 @@
 <context>
     <name>ImagePlugin</name>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation type="unfinished">Serie di immagini</translation>
     </message>
 </context>
@@ -1537,7 +1537,7 @@
         <translation type="unfinished">Intercalazione</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation type="unfinished">Serie di immagini</translation>
     </message>
     <message>
@@ -1880,7 +1880,7 @@ Please, rename the project&apos;s file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation type="unfinished">Serie di immagini</translation>
     </message>
     <message>
@@ -2315,7 +2315,7 @@ Please, rename the project&apos;s file</source>
         <translation>Immagine</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Serie di immagini</translation>
     </message>
     <message>
@@ -3638,15 +3638,15 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
         <translation type="unfinished">Video QuickTime</translation>
     </message>
     <message>
-        <source>PNG Image Array</source>
+        <source>PNG Image Sequence</source>
         <translation type="unfinished">Serie di immagini PNG</translation>
     </message>
     <message>
-        <source>JPEG Image Array</source>
+        <source>JPEG Image Sequence</source>
         <translation type="unfinished">Serie di immagini JPEG</translation>
     </message>
     <message>
-        <source>SVG Image Array</source>
+        <source>SVG Image Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3670,7 +3670,7 @@ Contatta l&apos;amministratore del server per ottenere l&apos;accesso.</translat
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation type="unfinished">Serie di immagini</translation>
     </message>
 </context>

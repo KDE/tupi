@@ -337,7 +337,7 @@
     <name>ImagePlugin</name>
     <message>
         <location filename="../src/plugins/export/imageplugin/imageplugin.cpp" line="48"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -743,7 +743,7 @@
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="275"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Массив изображений</translation>
     </message>
     <message>
@@ -766,14 +766,14 @@
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="197"/>
         <location filename="../src/components/export/tupexportwidget.cpp" line="249"/>
-        <source>PNG Image Array</source>
-        <translation>PNG Image Array</translation>
+        <source>PNG Image Sequence</source>
+        <translation>PNG Image Sequence</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="202"/>
         <location filename="../src/components/export/tupexportwidget.cpp" line="252"/>
-        <source>JPEG Image Array</source>
-        <translation>JPEG Image Array</translation>
+        <source>JPEG Image Sequence</source>
+        <translation>JPEG Image Sequence</translation>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="213"/>
@@ -2379,7 +2379,7 @@
     <message>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="482"/>
         <location filename="../src/components/paintarea/tupdocumentview.cpp" line="493"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Массив изображений</translation>
     </message>
     <message>
@@ -2668,7 +2668,7 @@ Please, rename the project&apos;s file</source>
     </message>
     <message>
         <location filename="../src/components/export/tupexportwidget.cpp" line="1116"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Массив изображений</translation>
     </message>
     <message>
@@ -3235,7 +3235,7 @@ Please, rename the project&apos;s file</source>
     <message>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="164"/>
         <location filename="../src/components/library/tuplibrarywidget.cpp" line="1530"/>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Массив Изображений</translation>
     </message>
     <message>

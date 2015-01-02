@@ -234,7 +234,7 @@
 <context>
     <name>ImagePlugin</name>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation type="unfinished">Contedor de imaxes</translation>
     </message>
 </context>
@@ -541,11 +541,11 @@
         <translation>Imaxe Gif</translation>
     </message>
     <message>
-        <source>PNG Image Array</source>
+        <source>PNG Image Sequence</source>
         <translation>Contedor de imaxes PNG</translation>
     </message>
     <message>
-        <source>JPEG Image Array</source>
+        <source>JPEG Image Sequence</source>
         <translation>Contedor de imaxes JPEG</translation>
     </message>
     <message>
@@ -565,7 +565,7 @@
         <translation>Imaxe animada</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Contedor de imaxes</translation>
     </message>
     <message>
@@ -1694,7 +1694,7 @@
         <translation>Interpolación</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Contedor de imaxes</translation>
     </message>
     <message>
@@ -1942,7 +1942,7 @@ Please, rename the project&apos;s file</source>
         <translation>Formato aberto de vídeo</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Contedor de imaxes</translation>
     </message>
     <message>
@@ -2429,7 +2429,7 @@ Please, rename the project&apos;s file</source>
         <translation>Imaxe</translation>
     </message>
     <message>
-        <source>Image Array</source>
+        <source>Image Sequence</source>
         <translation>Contedor de imaxes</translation>
     </message>
     <message>

@@ -65,7 +65,7 @@ void TupTwitter::start()
     QString url = NEWS_HOST + IS_HOST_UP_URL;
 
     #ifdef K_DEBUG
-        QString msg = "TupTwitter::start() - Requesting url -> " + url;
+        QString msg = "TupTwitter::start() - Getting news updates...";
         #ifdef Q_OS_WIN32
             qWarning() << msg;
         #else
@@ -80,8 +80,7 @@ void TupTwitter::start()
     k->request.setRawHeader("User-Agent", BROWSER_FINGERPRINT.toLatin1());
 
     k->reply = k->manager->get(k->request);
-    connect(k->reply, SIGNAL(error(QNetworkReply::NetworkError)),
-            this, SLOT(slotError(QNetworkReply::NetworkError)));
+    connect(k->reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotError(QNetworkReply::NetworkError)));
 }
 
 TupTwitter::~TupTwitter()
@@ -115,6 +114,15 @@ void TupTwitter::requestFile(QString target)
 
 void TupTwitter::closeRequest(QNetworkReply *reply)
 {
+    #ifdef K_DEBUG
+        QString msg = "TupTwitter::closeRequest() - Closing request...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
+    #endif
+
     QByteArray array = reply->readAll();
     QString answer(array);
     answer.chop(1);
@@ -123,7 +131,7 @@ void TupTwitter::closeRequest(QNetworkReply *reply)
         if (answer.compare("<ok>true</ok>") == 0) {
             requestFile(NEWS_HOST + TUPI_VERSION_URL);
         } else {
-            if (answer.contains("branch", Qt::CaseSensitive)) {
+            if (answer.startsWith("<version>")) {
                 checkSoftwareUpdates(array);
                 requestFile(NEWS_HOST +  USER_TIMELINE_URL);
             } else {
@@ -222,6 +230,15 @@ void TupTwitter::slotError(QNetworkReply::NetworkError error)
 
 void TupTwitter::checkSoftwareUpdates(QByteArray array)
 {
+    #ifdef K_DEBUG
+        QString msg = "TupTwitter::checkSoftwareUpdates() - Processing updates file...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
+    #endif
+
     QDomDocument doc;
 
     if (doc.setContent(array)) {
@@ -236,11 +253,11 @@ void TupTwitter::checkSoftwareUpdates(QByteArray array)
                        if (k->version.compare(kAppProp->version())!=0)
                            k->update = true;
                    } else if (e.tagName() == "rev") {
-                       k->revision = e.text();
-                       if (k->revision.compare(kAppProp->revision())!=0)
-                           k->update = true;
+                              k->revision = e.text();
+                              if (k->revision.compare(kAppProp->revision())!=0)
+                                  k->update = true;
                    } else if (e.tagName() == "codeName") {
-                       k->codeName = e.text();
+                              k->codeName = e.text();
                    }
                }
                n = n.nextSibling();
@@ -250,6 +267,15 @@ void TupTwitter::checkSoftwareUpdates(QByteArray array)
 
 void TupTwitter::formatStatus(QByteArray array)
 {
+    #ifdef K_DEBUG
+        QString msg = "TupTwitter::formatStatus() - Formatting news file...";
+        #ifdef Q_OS_WIN32
+            qWarning() << msg;
+        #else
+            tWarning() << msg;
+        #endif
+    #endif
+
     QString tweets = QString(array);
     QString html = "";
 
@@ -294,7 +320,7 @@ void TupTwitter::formatStatus(QByteArray array)
     k->manager->deleteLater();
 
     #ifdef K_DEBUG
-        QString msg = "TupTwitter::formatStatus() - Saving file -> " + twitterPath;
+        msg = "TupTwitter::formatStatus() - Saving file -> " + twitterPath;
         #ifdef Q_OS_WIN32
             qWarning() << msg;
         #else
