@@ -303,8 +303,6 @@ void TupExportModule::exportIt()
 
         filename = path + QDir::separator() + name;
 
-        tError() << "TupExportModule::exportIt() - Path -> " << QString(filename + "0000" + extension);
-
         if (QFile::exists(QString(filename + "0000" + extension))) {
             QMessageBox::StandardButton reply;
             reply = QMessageBox::question(this, tr("Warning!"), tr("Image array already exists. Overwrite it?"),

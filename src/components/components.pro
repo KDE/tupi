@@ -1,4 +1,5 @@
-# QT += xml opengl network
+CONFIG += ordered warn_on
+TEMPLATE = subdirs
 
 SUBDIRS += scenes \
            colorpalette \
@@ -12,11 +13,4 @@ SUBDIRS += scenes \
            pen \
            paintarea \
            twitter \
-           animation
-
-unix {
-    SUBDIRS += debug
-}
-
-CONFIG += ordered warn_on
-TEMPLATE = subdirs
+           animation 

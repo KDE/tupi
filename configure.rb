@@ -144,24 +144,38 @@ _EOH_
     config.addLib("-ltupifwcore")
     # config.addLib("-ltupifwsound")
     
-    config.addDefine('VERSION=\\\\\"0.2\\\\\"')
-    config.addDefine('CODE_NAME=\\\\\"Amandy\\\\\"')
-    config.addDefine('REVISION=\\\\\"git05\\\\\"')
-
     if conf.hasArgument?("install-headers")
        config.addDefine("ADD_HEADERS");
     end
 
     Info.info << "Debug support... "
 
+    file_name = 'src/components/components.pro'
     if debug == 1 
+       var = open(file_name).grep(/debug/)
+       if var.count == 0
+          open(file_name, 'a') { |f|
+               f.puts "SUBDIRS += debug"
+          }
+       end
        config.addDefine("K_DEBUG")
        print "[ \033[92mON\033[0m ]\n"
     else
+       var = open(file_name).grep(/debug/)
+       if var.count > 0
+          text = File.read(file_name)
+          new_contents = text.gsub(/\nSUBDIRS \+\= debug/, "")
+          File.open(file_name, "w") {|file| file.puts new_contents }
+       end
+
        config.addDefine("K_NODEBUG")
-       config.addOption("silent")
+       # config.addOption("silent")
        print "[ \033[91mOFF\033[0m ]\n"
     end
+
+    config.addDefine('VERSION=\\\\\"0.2\\\\\"')
+    config.addDefine('CODE_NAME=\\\\\"Amandy\\\\\"')
+    config.addDefine('REVISION=\\\\\"git05\\\\\"')
 
     if File.exists?('/etc/canaima_version')
        config.addDefine("CANAIMA")

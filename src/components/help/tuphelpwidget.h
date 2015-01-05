@@ -46,6 +46,7 @@
 #include <QBoxLayout>
 #include <QHeaderView>
 #include <QDomDocument>
+#include <QKeyEvent>
 
 /**
  * @author David Alejandro Cuadrado Cabrera
