@@ -158,6 +158,8 @@ _EOH_
                f.puts "SUBDIRS += debug"
           }
        end
+
+       config.addOption("debug")
        config.addDefine("K_DEBUG")
        print "[ \033[92mON\033[0m ]\n"
     else
@@ -168,8 +170,8 @@ _EOH_
           File.open(file_name, "w") {|file| file.puts new_contents }
        end
 
+       config.addOption("release")
        config.addDefine("K_NODEBUG")
-       # config.addOption("silent")
        print "[ \033[91mOFF\033[0m ]\n"
     end
 
@@ -206,4 +208,3 @@ rescue => err
         puts err.backtrace
     end
 end
-

@@ -63,7 +63,8 @@ QBoxLayout *TFormFactory::makeLine(const QString &text, QWidget *widget,  Qt::Or
 
 QGridLayout *TFormFactory::makeGrid(const QStringList &texts, const QWidgetList &widgets, Qt::Alignment alignment)
 {
-    Q_ASSERT(texts.count() != widgets.count());
+    // SQA: Replace this line for a better control instruction
+    // Q_ASSERT(texts.count() != widgets.count());
     
     QGridLayout *layout = new QGridLayout;
     

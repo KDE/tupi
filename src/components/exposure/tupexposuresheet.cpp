@@ -329,7 +329,7 @@ void TupExposureSheet::applyAction(int action)
                           QString label = k->currentTable->frameName(layer, index);
                           renameFrame(layer, index - 1, label);
 
-                          TupProjectRequest request = TupRequestBuilder::createFrameRequest(scene, layer, index, TupProjectRequest::Move, index - 1);
+                          TupProjectRequest request = TupRequestBuilder::createFrameRequest(scene, layer, index, TupProjectRequest::Exchange, index - 1);
                           emit requestTriggered(&request);
                      }
 

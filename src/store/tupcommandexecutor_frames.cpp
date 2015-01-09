@@ -174,8 +174,8 @@ bool TupCommandExecutor::moveFrame(TupFrameResponse *response)
     int layerPos = response->layerIndex();
     int position = response->frameIndex();
     int newPosition = response->arg().toInt();
-    TupScene *scene = m_project->scene(scenePos);
 
+    TupScene *scene = m_project->scene(scenePos);
     if (!scene)
         return false;
    

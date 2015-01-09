@@ -109,8 +109,11 @@ TupGradientCreator::~TupGradientCreator()
 
 void TupGradientCreator::setCurrentColor(const QColor &color)
 {
+    // SQA: This code has been disabled temporarily 
+    /*
     k->selector->setCurrentColor(color);
     k->viewer->createGradient();
+    */
 
     // emit gradientChanged(QBrush(k->viewer->gradient()));
 }
