@@ -173,7 +173,13 @@ class Test
             config.addLib(lib)
         }
 
-        config.addLib("-lquazip-qt5")
+        if conf.hasArgument?("with-quazip")
+           config.addLib("-lquazip")
+        else
+           config.addLib("-lquazip-qt5")
+        end
+
+        # config.addLib("-lquazip-qt5")
         
         parser.defines.each { |define|
             config.addDefine(define)
