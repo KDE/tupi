@@ -161,8 +161,8 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
     
     k->itemType->addItem(QIcon(THEME_DIR + "icons/bitmap.png"), tr("Image"));
     k->itemType->addItem(QIcon(THEME_DIR + "icons/svg.png"), tr("Svg File"));
-    k->itemType->addItem(QIcon(THEME_DIR + "icons/bitmap_array.png"), tr("Image Array"));
-    k->itemType->addItem(QIcon(THEME_DIR + "icons/svg_array.png"), tr("Svg Array"));
+    k->itemType->addItem(QIcon(THEME_DIR + "icons/bitmap_array.png"), tr("Image Sequence"));
+    k->itemType->addItem(QIcon(THEME_DIR + "icons/svg_array.png"), tr("Svg Sequence"));
     k->itemType->addItem(QIcon(THEME_DIR + "icons/sound_object.png"), tr("Sound File"));
 
     comboLayout->addWidget(k->itemType);
@@ -1536,7 +1536,7 @@ void TupLibraryWidget::importLibraryObject()
         return;
     }
 
-    if (option.compare(tr("Image Array")) == 0) {
+    if (option.compare(tr("Image Sequence")) == 0) {
         importBitmapArray();
         return;
     }
@@ -1546,7 +1546,7 @@ void TupLibraryWidget::importLibraryObject()
         return;
     }
 
-    if (option.compare(tr("Svg Array")) == 0) {
+    if (option.compare(tr("Svg Sequence")) == 0) {
         importSvgArray();
         return;
     }

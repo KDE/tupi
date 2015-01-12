@@ -90,13 +90,13 @@ void TupMainWindow::createGUI()
     new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "bitmap.png"), tr("Bitmap"), QKeySequence(tr("Alt+B")), m_libraryWidget, SLOT(importBitmapGroup()),
 		m_actionManager, "importBitmap");
 
-    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "bitmap_array.png"), tr("Bitmap Array"), QKeySequence(tr("Alt+Shift+B")), 
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "bitmap_array.png"), tr("Bitmap Sequence"), QKeySequence(tr("Alt+Shift+B")), 
 		m_libraryWidget, SLOT(importBitmapArray()), m_actionManager, "importBitmapArray");
 
     new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "svg.png"), tr("SVG File"), QKeySequence(tr("Alt+S")), m_libraryWidget, SLOT(importSvgGroup()),
 		m_actionManager, "importSvg");
 
-    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "svg_array.png"), tr("SVG Array"), QKeySequence(tr("Alt+Shift+S")), m_libraryWidget, 
+    new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "svg_array.png"), tr("SVG Sequence"), QKeySequence(tr("Alt+Shift+S")), m_libraryWidget, 
 		SLOT(importSvgArray()), m_actionManager, "importSvgArray");
 
     //new TAction(QPixmap(), tr("Audio File..."), QKeySequence(), m_libraryWidget, SLOT(importSound()),
@@ -286,6 +286,9 @@ void TupMainWindow::setupMenu()
     m_helpMenu->addAction(m_actionManager->find("about_tupi"));
 
     setMenuItemsContext(false);
+
+    // SQA: Temporary code
+    // menuBar()->setVisible(false);
 }
 
 void TupMainWindow::setMenuItemsContext(bool flag)
@@ -423,8 +426,8 @@ void TupMainWindow::setupHelpActions()
 
 void TupMainWindow::setupToolBar()
 {
-    QToolBar * toolbar = new QToolBar(tr("Actions Bar"), this);
-    toolbar->setIconSize(QSize(22,22));
+    QToolBar *toolbar = new QToolBar(tr("Actions Bar"), this);
+    toolbar->setIconSize(QSize(22, 22));
     addToolBar(Qt::TopToolBarArea, toolbar);
 
     toolbar->addAction(m_actionManager->find("newproject"));
@@ -436,6 +439,9 @@ void TupMainWindow::setupToolBar()
     toolbar->addAction(m_actionManager->find("saveproject"));
     toolbar->addAction(m_actionManager->find("saveprojectas"));
     toolbar->addAction(m_actionManager->find("closeproject"));
+
+    // SQA: Temporary code
+    // toolbar->setVisible(false);
 }
 
 /**
@@ -523,4 +529,10 @@ void TupMainWindow::setUndoRedoActions()
 void TupMainWindow::importPapagayoLipSync()
 {
     animationTab->importPapagayoLipSync();
+}
+
+void TupMainWindow::keyPressEvent(QKeyEvent *event)
+{
+    Q_UNUSED(event);
+    // tError() << "TupMainWindow::keyPressEvent() - key: " << event->text();
 }

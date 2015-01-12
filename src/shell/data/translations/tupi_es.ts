@@ -99,85 +99,6 @@
     </message>
 </context>
 <context>
-    <name>ExportTo</name>
-    <message>
-        <source>Image name prefix: </source>
-        <translation>Prefijo de imágenes: </translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation>Archivo: </translation>
-    </message>
-    <message>
-        <source>Directory: </source>
-        <translation>Directorio: </translation>
-    </message>
-    <message>
-        <source>i.e. &lt;B&gt;%1&lt;/B&gt;01.png / &lt;B&gt;%1&lt;/B&gt;01.jpg</source>
-        <translation>ej. &lt;B&gt;%1&lt;/B&gt;01.png / &lt;B&gt;%1&lt;/B&gt;01.jpg</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>Dimensión</translation>
-    </message>
-    <message>
-        <source>Configuration</source>
-        <translation>Configuración</translation>
-    </message>
-    <message>
-        <source>FPS</source>
-        <translation>FPS</translation>
-    </message>
-    <message>
-        <source>Choose a file name...</source>
-        <translation>Seleccione un nombre de archivo...</translation>
-    </message>
-    <message>
-        <source>Choose a directory...</source>
-        <translation>Escoja un directorio...</translation>
-    </message>
-    <message>
-        <source>Warning!</source>
-        <translation>Advertencia!</translation>
-    </message>
-    <message>
-        <source>File exists. Overwrite it?</source>
-        <translation>El archivo existe. Deseas reemplazarlo?</translation>
-    </message>
-    <message>
-        <source>Images name prefix can&apos;t be empty! Please, type a prefix.</source>
-        <translation>El prefijo para las imagenes no puede ser vacio! Por favor, ingresa un prefijo.</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Error</translation>
-    </message>
-    <message>
-        <source>Directory doesn&apos;t exist! Please, choose another path.</source>
-        <translation>El directorio no existe! Por favor, escoja otra ruta.</translation>
-    </message>
-    <message>
-        <source>You have no permission to create this file. Please, choose another path.</source>
-        <translation>No tienes permisos para crear este archivo. Por favor, escoge una ruta diferente.</translation>
-    </message>
-    <message>
-        <source>Format problem. Tupi Internal error.</source>
-        <translation>Problema de formato. Error Interno de Tupi.</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Información</translation>
-    </message>
-    <message>
-        <source>ERROR!</source>
-        <translation>ERROR!</translation>
-    </message>
-    <message>
-        <source>Enable background transparency</source>
-        <translation>Habilitar transparencia del fondo</translation>
-    </message>
-</context>
-<context>
     <name>FillTool</name>
     <message>
         <source>Internal fill</source>
@@ -235,7 +156,7 @@
     <name>ImagePlugin</name>
     <message>
         <source>Image Sequence</source>
-        <translation>Arreglo de Imágenes</translation>
+        <translation>Sequencia de Imágenes</translation>
     </message>
 </context>
 <context>
@@ -503,84 +424,6 @@
     </message>
 </context>
 <context>
-    <name>SelectPlugin</name>
-    <message>
-        <source>Select plugin</source>
-        <translation>Seleccionar plugin</translation>
-    </message>
-    <message>
-        <source>OGV Video</source>
-        <translation>Vídeo OGV</translation>
-    </message>
-    <message>
-        <source>MPEG Video</source>
-        <translation>Vídeo MPEG</translation>
-    </message>
-    <message>
-        <source>Macromedia flash</source>
-        <translation>Macromedia flash</translation>
-    </message>
-    <message>
-        <source>AVI Video</source>
-        <translation>Vídeo AVI</translation>
-    </message>
-    <message>
-        <source>RealMedia Video</source>
-        <translation>Vídeo RealMedia</translation>
-    </message>
-    <message>
-        <source>ASF Video</source>
-        <translation>Video ASF</translation>
-    </message>
-    <message>
-        <source>QuickTime Video</source>
-        <translation>Vídeo QuickTime</translation>
-    </message>
-    <message>
-        <source>Gif Image</source>
-        <translation>Imagen Gif</translation>
-    </message>
-    <message>
-        <source>PNG Image Sequence</source>
-        <translation>Arreglo de Imágenes PNG</translation>
-    </message>
-    <message>
-        <source>JPEG Image Sequence</source>
-        <translation>Arreglo de imagenes JPEG</translation>
-    </message>
-    <message>
-        <source>SMIL</source>
-        <translation>SMIL</translation>
-    </message>
-    <message>
-        <source>WEBM Video</source>
-        <translation>Vídeo WEBM</translation>
-    </message>
-    <message>
-        <source>Animated PNG (APNG)</source>
-        <translation>PNG Animado (APNG)</translation>
-    </message>
-    <message>
-        <source>Animated Image</source>
-        <translation>Imagen Animada</translation>
-    </message>
-    <message>
-        <source>Image Sequence</source>
-        <translation>Arreglo de Imágenes</translation>
-    </message>
-    <message>
-        <source>Video Formats</source>
-        <translation>Formatos de Vídeo</translation>
-    </message>
-</context>
-<context>
-    <name>SelectScenes</name>
-    <message>
-        <source>Select Scenes</source>
-        <translation>Selecciona las escenas</translation>
-    </message>
-</context>
-<context>
     <name>SelectionTool</name>
     <message>
         <source>Selection</source>
@@ -763,7 +606,7 @@
     </message>
     <message>
         <source>Select objects for Tweening first!</source>
-        <translation>Seleccione los objetos para el Tween primero!</translation>
+        <translation>Selecciona los objetos para el Tween primero!</translation>
     </message>
     <message>
         <source>Smoothness</source>
@@ -1291,7 +1134,7 @@
     </message>
     <message>
         <source>Grid color</source>
-        <translation>Color de Malla</translation>
+        <translation>Color de malla</translation>
     </message>
     <message>
         <source>Show previous images</source>
@@ -1522,7 +1365,7 @@
     </message>
     <message>
         <source>Invalid Message. It won&apos;t be sent. Please, don&apos;t use HTML tags</source>
-        <translation>Mensaje Inválido. No será enviado. Por favor, no use etiquetas HTML</translation>
+        <translation>Mensaje Inválido. No será enviado. Por favor, no uses etiquetas HTML</translation>
     </message>
 </context>
 <context>
@@ -1602,7 +1445,7 @@
     </message>
     <message>
         <source>Please, fill in your password</source>
-        <translation>Por favor, ingrese su clave</translation>
+        <translation>Por favor, ingrese tu clave</translation>
     </message>
 </context>
 <context>
@@ -1692,10 +1535,6 @@
     <message>
         <source>Tweening</source>
         <translation>Tweening</translation>
-    </message>
-    <message>
-        <source>Image Sequence</source>
-        <translation>Arreglo de Imágenes</translation>
     </message>
     <message>
         <source>Pencil</source>
@@ -1838,14 +1677,6 @@
         <translation>No se puede exportar el marco como imagen</translation>
     </message>
     <message>
-        <source>Export Current Frame As Image</source>
-        <translation>Exportar marco actual como Imagen</translation>
-    </message>
-    <message>
-        <source>Export Current Frame To Gallery</source>
-        <translation>Exportar marco actual a galería</translation>
-    </message>
-    <message>
         <source>Storyboard Settings</source>
         <translation>Propiedades de Storyboard</translation>
     </message>
@@ -1890,11 +1721,6 @@
         <translation>Relleno de Contorno</translation>
     </message>
     <message>
-        <source>Papagayo project already exists!
-Please, rename the project&apos;s file</source>
-        <translation>El proyecto de Lip-sync ya existe! Por favor, renombre el archivo</translation>
-    </message>
-    <message>
         <source>Papagayo file is invalid!</source>
         <translation>Archivo de Lip-sync es invalido!</translation>
     </message>
@@ -1910,16 +1736,128 @@ Please, rename the project&apos;s file</source>
         <source>Composed Tween</source>
         <translation>Tween Compuesto</translation>
     </message>
+    <message>
+        <source>Export Frame As Image</source>
+        <translation>Exportar Marco como Imagen</translation>
+    </message>
+    <message>
+        <source>Export Frame To Gallery</source>
+        <translation>Exportar Marco a Galería</translation>
+    </message>
+    <message>
+        <source>Misc Tools</source>
+        <translation>Herramientas Adicionales</translation>
+    </message>
+    <message>
+        <source>Image Sequence</source>
+        <translation>Secuencia de Imágenes</translation>
+    </message>
+    <message>
+        <source>Papagayo project already exists!
+Please, rename the project&apos;s file</source>
+        <translation>El proyecto de lip-sync ya existe! Por favor, renombra el archivo del proyecto</translation>
+    </message>
+</context>
+<context>
+    <name>TupExportModule</name>
+    <message>
+        <source>Enable background transparency</source>
+        <translation>Habilitar transparencia del fondo</translation>
+    </message>
+    <message>
+        <source>Image name prefix: </source>
+        <translation>Prefijo de imágenes: </translation>
+    </message>
+    <message>
+        <source>Directory: </source>
+        <translation>Directorio: </translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>Archivo: </translation>
+    </message>
+    <message>
+        <source>i.e. &lt;B&gt;%1&lt;/B&gt;01.png / jpeg / svg</source>
+        <translation>ej. &lt;B&gt;%1&lt;/B&gt;01.png / jpeg / svg</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Dimensión</translation>
+    </message>
+    <message>
+        <source>Configuration</source>
+        <translation>Configuración</translation>
+    </message>
+    <message>
+        <source>FPS</source>
+        <translation>FPS</translation>
+    </message>
+    <message>
+        <source>Choose a file name...</source>
+        <translation>Selecciona un nombre de archivo...</translation>
+    </message>
+    <message>
+        <source>Choose a directory...</source>
+        <translation>Escoje un directorio...</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <source>Images name prefix can&apos;t be empty! Please, type a prefix.</source>
+        <translation>El prefijo para las imágenes no puede ser vacio! Por favor, ingresa un prefijo.</translation>
+    </message>
+    <message>
+        <source>Warning!</source>
+        <translation>Advertencia!</translation>
+    </message>
+    <message>
+        <source>Directory doesn&apos;t exist! Please, choose another path.</source>
+        <translation>El directorio no existe! Por favor, escoge otra ruta.</translation>
+    </message>
+    <message>
+        <source>File exists. Overwrite it?</source>
+        <translation>El archivo existe. Deseas reemplazarlo?</translation>
+    </message>
+    <message>
+        <source>You have no permission to create this file. Please, choose another path.</source>
+        <translation>No tienes permisos para crear este archivo. Por favor, escoge otra ruta.</translation>
+    </message>
+    <message>
+        <source>Format problem. Tupi Internal error.</source>
+        <translation>Problema de formato. Error Interno de Tupí.</translation>
+    </message>
+    <message>
+        <source>Video file</source>
+        <translation>Archivo de Vídeo</translation>
+    </message>
+    <message>
+        <source>was saved successful</source>
+        <translation>fue guardado satisfactoriamente</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>Información</translation>
+    </message>
+    <message>
+        <source>ERROR!</source>
+        <translation>ERROR!</translation>
+    </message>
+    <message>
+        <source>Image sequence already exists. Overwrite it?</source>
+        <translation>La secuencia de imágenes ya existe. Deseas sobreescribirla?</translation>
+    </message>
+    <message>
+        <source>Image sequence was saved successful</source>
+        <translation>La secuencia de imágenes ha sido guardada</translation>
+    </message>
 </context>
 <context>
     <name>TupExportWidget</name>
     <message>
         <source>Export to Video File</source>
         <translation>Exportar como archivo de vídeo</translation>
-    </message>
-    <message>
-        <source>Export to Images Array</source>
-        <translation>Exportar como arreglo de imagenes</translation>
     </message>
     <message>
         <source>Export to Video</source>
@@ -1942,12 +1880,16 @@ Please, rename the project&apos;s file</source>
         <translation>Formato de Vídeo Abierto</translation>
     </message>
     <message>
-        <source>Image Sequence</source>
-        <translation>Arreglo de Imágenes</translation>
-    </message>
-    <message>
         <source>Animated Image</source>
         <translation>Imagen Animada</translation>
+    </message>
+    <message>
+        <source>Export to Image Sequence</source>
+        <translation>Exportar como Secuencia de Imágenes</translation>
+    </message>
+    <message>
+        <source>Image Sequence</source>
+        <translation>Secuencia de Imágenes</translation>
     </message>
 </context>
 <context>
@@ -2141,17 +2083,10 @@ Please, rename the project&apos;s file</source>
     </message>
 </context>
 <context>
-    <name>TupHelpBrowser</name>
+    <name>TupHelpDialog</name>
     <message>
-        <source>Help</source>
-        <translation>Ayuda</translation>
-    </message>
-</context>
-<context>
-    <name>TupHelpWidget</name>
-    <message>
-        <source>Help</source>
-        <translation>Ayuda</translation>
+        <source>Help Content</source>
+        <translation>Contenido de Ayuda</translation>
     </message>
 </context>
 <context>
@@ -2194,11 +2129,11 @@ Please, rename the project&apos;s file</source>
     </message>
     <message>
         <source>Set a title for the picture here!</source>
-        <translation>Ingrese un título para la imagen aquí!</translation>
+        <translation>Ingresa un título para la imagen aquí!</translation>
     </message>
     <message>
         <source>Set some topic tags for the picture here!</source>
-        <translation>Ingrese algunas etiquetas para la imagen aquí!</translation>
+        <translation>Ingresa algunas etiquetas para la imagen aquí!</translation>
     </message>
 </context>
 <context>
@@ -2377,16 +2312,8 @@ Please, rename the project&apos;s file</source>
         <translation>Imagen</translation>
     </message>
     <message>
-        <source>Image Sequence</source>
-        <translation>Imágenes</translation>
-    </message>
-    <message>
         <source>Svg File</source>
         <translation>Archivo Svg</translation>
-    </message>
-    <message>
-        <source>Svg Array</source>
-        <translation>Arreglo Svg</translation>
     </message>
     <message>
         <source>Add an object to library</source>
@@ -2406,11 +2333,11 @@ Please, rename the project&apos;s file</source>
     </message>
     <message>
         <source>Do you want to resize it?</source>
-        <translation>Desea redimensionarla?</translation>
+        <translation>Deseas redimensionarla?</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation>Imagenes</translation>
+        <translation>Imágenes</translation>
     </message>
     <message>
         <source>Cannot open file: %1</source>
@@ -2518,11 +2445,11 @@ Please, rename the project&apos;s file</source>
     </message>
     <message>
         <source>Couldn&apos;t create images directory!</source>
-        <translation>No pudo crear el directorio de imágenes!</translation>
+        <translation>No se pudo crear el directorio de imágenes!</translation>
     </message>
     <message>
         <source>Couldn&apos;t create vector directory!</source>
-        <translation>No pudo crear el directorio de vectores!</translation>
+        <translation>No se pudo crear el directorio de imágenes!</translation>
     </message>
     <message>
         <source>Tupi library item</source>
@@ -2554,11 +2481,11 @@ Please, rename the project&apos;s file</source>
     </message>
     <message>
         <source>It&apos;s a directory! Please, pick a graphic object</source>
-        <translation>Es un directorio! Por favor, escoja un objeto gráfico</translation>
+        <translation>Es un directorio! Por favor, escoge un objeto gráfico</translation>
     </message>
     <message>
         <source>It&apos;s a sound file! Please, pick a graphic object</source>
-        <translation>Es un archivo de sonido! Por favor, escoja un objeto gráfico</translation>
+        <translation>Es un archivo de sonido! Por favor, escoge un objeto gráfico</translation>
     </message>
     <message>
         <source>Sounds</source>
@@ -2567,6 +2494,22 @@ Please, rename the project&apos;s file</source>
     <message>
         <source>Error while opening file: %1</source>
         <translation>Error mientras se abría el archivo: %1</translation>
+    </message>
+    <message>
+        <source>Do you want to remove this object from Library?</source>
+        <translation>Deseas remover este objeto de la biblioteca?</translation>
+    </message>
+    <message>
+        <source>Confirmation</source>
+        <translation>Confirmación</translation>
+    </message>
+    <message>
+        <source>Image Sequence</source>
+        <translation>Secuencia de Imágenes</translation>
+    </message>
+    <message>
+        <source>Svg Sequence</source>
+        <translation>Secuencia SVG</translation>
     </message>
 </context>
 <context>
@@ -2715,10 +2658,6 @@ Please, rename the project&apos;s file</source>
         <translation>Alt+B</translation>
     </message>
     <message>
-        <source>Bitmap Array</source>
-        <translation>Arreglo de Imágenes</translation>
-    </message>
-    <message>
         <source>Alt+Shift+B</source>
         <translation>Alt+Shift+B</translation>
     </message>
@@ -2729,10 +2668,6 @@ Please, rename the project&apos;s file</source>
     <message>
         <source>Alt+S</source>
         <translation>Alt+S</translation>
-    </message>
-    <message>
-        <source>SVG Array</source>
-        <translation>Arreglo de Archivos SVG</translation>
     </message>
     <message>
         <source>Alt+Shift+S</source>
@@ -2765,10 +2700,6 @@ Please, rename the project&apos;s file</source>
     <message>
         <source>News</source>
         <translation>Noticias</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation>Ayuda</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -2936,7 +2867,7 @@ Please, rename the project&apos;s file</source>
     </message>
     <message>
         <source>Please, try to connect again in a while</source>
-        <translation>Por favor, intente conectarse en un rato</translation>
+        <translation>Por favor, intenta conectarte en un rato</translation>
     </message>
     <message>
         <source>Shift+B</source>
@@ -2953,10 +2884,6 @@ Please, rename the project&apos;s file</source>
     <message>
         <source>Shift+E</source>
         <translation>Shift+E</translation>
-    </message>
-    <message>
-        <source>Shift+H</source>
-        <translation>Shift+H</translation>
     </message>
     <message>
         <source>Shift+T</source>
@@ -2984,7 +2911,7 @@ Please, rename the project&apos;s file</source>
     </message>
     <message>
         <source>Directory does not exist! Please, choose another path.</source>
-        <translation>El directorio no existe! Por favor, escoja otra ruta.</translation>
+        <translation>El directorio no existe! Por favor, escoge otra ruta.</translation>
     </message>
     <message>
         <source>Gimp palette import was successful</source>
@@ -3018,6 +2945,22 @@ Please, rename the project&apos;s file</source>
         <source>Import Papagayo lip-sync</source>
         <translation>Importar Papagayo lip-sync</translation>
     </message>
+    <message>
+        <source>Bitmap Sequence</source>
+        <translation>Secuencia de Mapa de Bits</translation>
+    </message>
+    <message>
+        <source>SVG Sequence</source>
+        <translation>Secuencia SVG</translation>
+    </message>
+    <message>
+        <source>Help Content</source>
+        <translation>Contenido de Ayuda</translation>
+    </message>
+    <message>
+        <source>F1</source>
+        <translation>F1</translation>
+    </message>
 </context>
 <context>
     <name>TupNetProjectManagerHandler</name>
@@ -3050,12 +2993,6 @@ Please, rename the project&apos;s file</source>
         <translation>Error Fatal</translation>
     </message>
     <message>
-        <source>User &quot;%1&quot; is disabled.
-Please, contact the animation server admin to get access.</source>
-        <translation>El usuario &quot;%1&quot; está deshabilitado.
-Por favor, contacte al administrador del sistema para tener acceso.</translation>
-    </message>
-    <message>
         <source>User has no available projects in the server</source>
         <translation>El usuario no tiene proyectos disponibles en este servidor</translation>
     </message>
@@ -3066,6 +3003,11 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>Notice</source>
         <translation>Notificación</translation>
+    </message>
+    <message>
+        <source>User &quot;%1&quot; is disabled.
+Please, contact the animation server admin to get access.</source>
+        <translation>El usuario &quot;%1&quot; se encuentra deshabilitado. Por favor, contacta al admistrador del servidor para obtener acceso.</translation>
     </message>
 </context>
 <context>
@@ -3175,15 +3117,15 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>Please, set a name for the project</source>
-        <translation>Por favor, asigne un nombre al proyecto</translation>
+        <translation>Por favor, asigna un nombre al proyecto</translation>
     </message>
     <message>
         <source>Please, fill in your username</source>
-        <translation>Por favor, ingrese su nombre de usuario</translation>
+        <translation>Por favor, ingresa tu nombre de usuario</translation>
     </message>
     <message>
         <source>Please, fill in your password</source>
-        <translation>Por favor, ingrese su clave</translation>
+        <translation>Por favor, ingresa tu clave</translation>
     </message>
     <message>
         <source>Your name</source>
@@ -3243,7 +3185,7 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>Please, fill in the server name or IP</source>
-        <translation>Por favor, ingrese el nombre o el IP del servidor</translation>
+        <translation>Por favor, ingresa el nombre o el IP del servidor</translation>
     </message>
     <message>
         <source>520x380 - 24</source>
@@ -3613,26 +3555,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <translation>Patrón</translation>
     </message>
     <message>
-        <source>Solid</source>
-        <translation>Sólido</translation>
-    </message>
-    <message>
-        <source>Dash</source>
-        <translation>Guión</translation>
-    </message>
-    <message>
-        <source>Dot</source>
-        <translation>Puntos</translation>
-    </message>
-    <message>
-        <source>Dash dot</source>
-        <translation>Guiones y puntos</translation>
-    </message>
-    <message>
-        <source>Dash dot dot</source>
-        <translation>Guión punto punto</translation>
-    </message>
-    <message>
         <source>Cap</source>
         <translation>Borde</translation>
     </message>
@@ -3666,10 +3588,85 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
 </context>
 <context>
+    <name>TupPluginSelector</name>
+    <message>
+        <source>Select plugin</source>
+        <translation>Seleccionar plugin</translation>
+    </message>
+    <message>
+        <source>Video Formats</source>
+        <translation>Formatos de Vídeo</translation>
+    </message>
+    <message>
+        <source>WEBM Video</source>
+        <translation>Vídeo WEBM</translation>
+    </message>
+    <message>
+        <source>OGV Video</source>
+        <translation>Vídeo OGV</translation>
+    </message>
+    <message>
+        <source>MPEG Video</source>
+        <translation>Vídeo MPEG</translation>
+    </message>
+    <message>
+        <source>Macromedia flash</source>
+        <translation>Macromedia flash</translation>
+    </message>
+    <message>
+        <source>AVI Video</source>
+        <translation>Vídeo AVI</translation>
+    </message>
+    <message>
+        <source>ASF Video</source>
+        <translation>Video ASF</translation>
+    </message>
+    <message>
+        <source>QuickTime Video</source>
+        <translation>Vídeo QuickTime</translation>
+    </message>
+    <message>
+        <source>Animated PNG (APNG)</source>
+        <translation>PNG Animado (APNG)</translation>
+    </message>
+    <message>
+        <source>SMIL</source>
+        <translation>SMIL</translation>
+    </message>
+    <message>
+        <source>RealMedia Video</source>
+        <translation>Vídeo RealMedia</translation>
+    </message>
+    <message>
+        <source>Gif Image</source>
+        <translation>Imagen Gif</translation>
+    </message>
+    <message>
+        <source>Animated Image</source>
+        <translation>Imagen Animada</translation>
+    </message>
+    <message>
+        <source>PNG Image Sequence</source>
+        <translation>Secuencia de Imágenes PNG</translation>
+    </message>
+    <message>
+        <source>JPEG Image Sequence</source>
+        <translation>Secuencia de Imágenes JPEG</translation>
+    </message>
+    <message>
+        <source>SVG Image Sequence</source>
+        <translation>Secuencia de Imágenes SVG</translation>
+    </message>
+    <message>
+        <source>Image Sequence</source>
+        <translation>Secuencia de Imágenes</translation>
+    </message>
+</context>
+<context>
     <name>TupPreferences</name>
     <message>
         <source>Application TupPreferences</source>
-        <translation>Preferencias de Tupi</translation>
+        <translation>Preferencias de Tupí</translation>
     </message>
     <message>
         <source>General</source>
@@ -3685,7 +3682,7 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>Workspace</source>
-        <translation>Area de Trabajo</translation>
+        <translation>Área de Trabajo</translation>
     </message>
 </context>
 <context>
@@ -3751,19 +3748,15 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>Do you want to remove this frame?</source>
-        <translation>Desea eliminar este marco?</translation>
-    </message>
-    <message>
-        <source>Remove?</source>
-        <translation>Remover?</translation>
+        <translation>Deseas eliminar este marco?</translation>
     </message>
     <message>
         <source>Do you want to remove this layer?</source>
-        <translation>Desea eliminar esta capa?</translation>
+        <translation>Deseas eliminar esta capa?</translation>
     </message>
     <message>
         <source>Do you want to remove this scene?</source>
-        <translation>Desea remover esta escena?</translation>
+        <translation>Deseas remover esta escena?</translation>
     </message>
     <message>
         <source>F8</source>
@@ -3809,6 +3802,10 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
         <source>Remove scene</source>
         <translation>Remover escena</translation>
     </message>
+    <message>
+        <source>Confirmation</source>
+        <translation>Confirmación</translation>
+    </message>
 </context>
 <context>
     <name>TupProjectManager</name>
@@ -3841,6 +3838,13 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
 </context>
 <context>
+    <name>TupSceneSelector</name>
+    <message>
+        <source>Select Scenes</source>
+        <translation>Selecciona las escenas</translation>
+    </message>
+</context>
+<context>
     <name>TupSceneTabWidget</name>
     <message>
         <source>Layers</source>
@@ -3855,7 +3859,7 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>Filter here...</source>
-        <translation>Filtre aquí...</translation>
+        <translation>Filtra aquí...</translation>
     </message>
     <message>
         <source>Scene %1</source>
@@ -3948,7 +3952,7 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>Choose a directory...</source>
-        <translation>Escoja un directorio...</translation>
+        <translation>Escoge un directorio...</translation>
     </message>
     <message>
         <source>Scene</source>
@@ -4122,7 +4126,7 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>Please choose a theme name</source>
-        <translation>Por favor escoja un nombre para el tema</translation>
+        <translation>Por favor escoge un nombre para el tema</translation>
     </message>
 </context>
 <context>
@@ -4210,11 +4214,11 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>It&apos;s time to upgrade! Click here!</source>
-        <translation>Es momento de actulizar! Haga clic aquí!</translation>
+        <translation>Es momento de actualizar! Haz clic aquí!</translation>
     </message>
     <message>
         <source>Want to help us to make a better project? Click here!</source>
-        <translation>Quiere ayudarnos a mejorar? Haga clic aquí!</translation>
+        <translation>Quieres ayudarnos a mejorar? Haz clic aquí!</translation>
     </message>
 </context>
 <context>
@@ -4222,6 +4226,45 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     <message>
         <source>News!</source>
         <translation>Noticias!</translation>
+    </message>
+</context>
+<context>
+    <name>TupVideoProperties</name>
+    <message>
+        <source>Set Animation Properties</source>
+        <translation>Define las Propiedades de la Animación</translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <translation>Título</translation>
+    </message>
+    <message>
+        <source>My Video</source>
+        <translation>Mi Vídeo</translation>
+    </message>
+    <message>
+        <source>Topics</source>
+        <translation>Temas</translation>
+    </message>
+    <message>
+        <source>#topic1 #topic2 #topic3</source>
+        <translation>#etiqueta1 #etiqueta2 #etiqueta3</translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation>Descripción</translation>
+    </message>
+    <message>
+        <source>Just a little taste of my style :)</source>
+        <translation>Una pequeña prueba de mi estilo :)</translation>
+    </message>
+    <message>
+        <source>Set a title for the picture here!</source>
+        <translation>Ingresa un título para la imagen aquí!</translation>
+    </message>
+    <message>
+        <source>Set some topic tags for the picture here!</source>
+        <translation>Ingresa algunas etiquetas para la imagen aquí!</translation>
     </message>
 </context>
 <context>
@@ -4440,7 +4483,7 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>Select objects for Tweening first!</source>
-        <translation>Seleccione los objetos para el Tween primero!</translation>
+        <translation>Selecciona los objetos para el Tween primero!</translation>
     </message>
 </context>
 <context>
@@ -4471,45 +4514,6 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
 </context>
 <context>
-    <name>VideoProperties</name>
-    <message>
-        <source>Title</source>
-        <translation>Título</translation>
-    </message>
-    <message>
-        <source>My Video</source>
-        <translation>Mi Vídeo</translation>
-    </message>
-    <message>
-        <source>Topics</source>
-        <translation>Temas</translation>
-    </message>
-    <message>
-        <source>#topic1 #topic2 #topic3</source>
-        <translation>#etiqueta1 #etiqueta2 #etiqueta3</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation>Descripción</translation>
-    </message>
-    <message>
-        <source>Just a little taste of my style :)</source>
-        <translation>Una pequeña prueba de mi estilo :)</translation>
-    </message>
-    <message>
-        <source>Set a title for the picture here!</source>
-        <translation>Ingrese un título para la imagen aquí!</translation>
-    </message>
-    <message>
-        <source>Set some topic tags for the picture here!</source>
-        <translation>Ingrese algunas etiquetas para la imagen aquí!</translation>
-    </message>
-    <message>
-        <source>Set Animation Properties</source>
-        <translation>Defina Propiedades de la Animación</translation>
-    </message>
-</context>
-<context>
     <name>ZoomConfigurator</name>
     <message>
         <source>Scale Factor</source>
@@ -4525,7 +4529,7 @@ Por favor, contacte al administrador del sistema para tener acceso.</translation
     </message>
     <message>
         <source>Press Ctrl key + Mouse left button</source>
-        <translation>Presione la tecla Ctrl+ botón izquierdo del ratón </translation>
+        <translation>Presiona la tecla Ctrl + botón izquierdo del ratón</translation>
     </message>
 </context>
 </TS>

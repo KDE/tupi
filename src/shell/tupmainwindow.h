@@ -182,6 +182,7 @@ class TupMainWindow : public TabbedMainWindow
           *  Updates the open recent menu item names according to the @a recent_names list of file names
           */
           void updateOpenRecentMenu(QMenu *menu, QStringList recents);
+          void keyPressEvent(QKeyEvent *event);
 
     public slots:
           void openProject(const QString &path);

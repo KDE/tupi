@@ -189,34 +189,34 @@ bool TButtonBar::shouldBeVisible() const
 
 void TButtonBar::setShowOnlyIcons()
 {
-    foreach (QAbstractButton *b, m_buttons.buttons()) {
-             TViewButton *viewButton = static_cast<TViewButton *>(b);
+    foreach (QAbstractButton *button, m_buttons.buttons()) {
+             TViewButton *viewButton = static_cast<TViewButton *>(button);
              viewButton->setOnlyIcon();
     }
 }
 
 void TButtonBar::setShowOnlyTexts()
 {
-    foreach (QAbstractButton *b, m_buttons.buttons()) {
-             TViewButton *viewButton = static_cast<TViewButton *>(b);
+    foreach (QAbstractButton *button, m_buttons.buttons()) {
+             TViewButton *viewButton = static_cast<TViewButton *>(button);
              viewButton->setOnlyText();
     }
 }
 
-void TButtonBar::disable(TViewButton *v)
+void TButtonBar::disable(TViewButton *view)
 {
-    QAction *a = m_actionForWidget[v];
+    QAction *action = m_actionForWidget[view];
 
-    if (a)
-        a->setVisible(false);
+    if (action)
+        action->setVisible(false);
 }
 
-void TButtonBar::enable(TViewButton *v)
+void TButtonBar::enable(TViewButton *view)
 {
-    QAction *a = m_actionForWidget[v];
+    QAction *action = m_actionForWidget[view];
 
-    if (a)
-        a->setVisible(true);
+    if (action)
+        action->setVisible(true);
 }
 
 bool TButtonBar::isExclusive() const

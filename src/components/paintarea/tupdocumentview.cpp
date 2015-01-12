@@ -485,7 +485,7 @@ void TupDocumentView::loadPlugins()
                          #endif
                      #endif
 
-                     if (exporter->key().compare(tr("Image Array")) == 0) {
+                     if (exporter->key().compare(tr("Image Sequence")) == 0) {
                          k->imagePlugin = exporter;
                          imagePluginLoaded = true;
                          break;
@@ -496,7 +496,7 @@ void TupDocumentView::loadPlugins()
 
     if (!imagePluginLoaded) {
         #ifdef K_DEBUG
-            QString msg = "TupDocumentView::loadPlugins() - Warning: Couldn't found plugin -> " + tr("Image Array");
+            QString msg = "TupDocumentView::loadPlugins() - Warning: Couldn't found plugin -> " + tr("Image Sequence");
             #ifdef Q_OS_WIN32
                 qWarning() << msg;
             #else

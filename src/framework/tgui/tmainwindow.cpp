@@ -40,8 +40,8 @@ class T_GUI_EXPORT DefaultSettings : public TMainWindowAbstractSettings
     public:
         DefaultSettings(QObject *parent);
         ~DefaultSettings();
-        void save(TMainWindow *w);
-        void restore(TMainWindow *w);
+        void save(TMainWindow *window);
+        void restore(TMainWindow *window);
 };
 
 DefaultSettings::DefaultSettings(QObject *parent) : TMainWindowAbstractSettings(parent)
@@ -52,7 +52,7 @@ DefaultSettings::~DefaultSettings()
 {
 }
 
-void DefaultSettings::save(TMainWindow *w)
+void DefaultSettings::save(TMainWindow *window)
 {
     #ifdef K_DEBUG
             QString msg = "DefaultSettings::save() - Saving UI settings...";
@@ -65,8 +65,8 @@ void DefaultSettings::save(TMainWindow *w)
 
     QSettings settings(qApp->applicationName(), "ideality", this);
 
-    QHash<Qt::ToolBarArea, TButtonBar *> buttonBars = w->buttonBars();
-    QHash<TButtonBar *, QList<ToolView*> > toolViews = w->toolViews();
+    QHash<Qt::ToolBarArea, TButtonBar *> buttonBars = window->buttonBars();
+    QHash<TButtonBar *, QList<ToolView*> > toolViews = window->toolViews();
 
     foreach (TButtonBar *bar, buttonBars.values()) {
              settings.beginGroup(bar->windowTitle());
@@ -93,13 +93,13 @@ void DefaultSettings::save(TMainWindow *w)
     }
 
     settings.beginGroup("MainWindow");
-    settings.setValue("size", w->size());
-    settings.setValue("maximized", w->isMaximized());
-    settings.setValue("position", w->pos());
+    settings.setValue("size", window->size());
+    settings.setValue("maximized", window->isMaximized());
+    settings.setValue("position", window->pos());
     settings.endGroup();
 }
 
-void DefaultSettings::restore(TMainWindow *w)
+void DefaultSettings::restore(TMainWindow *window)
 {
     #ifdef K_DEBUG
 	    QString msg = "DefaultSettings::restore() - Restoring UI settings...";
@@ -112,8 +112,8 @@ void DefaultSettings::restore(TMainWindow *w)
 
     QSettings settings(qApp->applicationName(), "ideality", this);
 
-    QHash<Qt::ToolBarArea, TButtonBar *> buttonBars = w->buttonBars();
-    QHash<TButtonBar *, QList<ToolView*> > toolViews = w->toolViews();
+    QHash<Qt::ToolBarArea, TButtonBar *> buttonBars = window->buttonBars();
+    QHash<TButtonBar *, QList<ToolView*> > toolViews = window->toolViews();
 
     QList<ToolView *> toHide;
 
@@ -125,7 +125,7 @@ void DefaultSettings::restore(TMainWindow *w)
 
                       // Restore position
                       Qt::DockWidgetArea area = Qt::DockWidgetArea(settings.value("area", 0).toInt());
-                      w->moveToolView(view, area);
+                      window->moveToolView(view, area);
                       view->setFixedSize(settings.value("size").toInt());
 
                       view->button()->setToolButtonStyle(Qt::ToolButtonStyle(settings.value("style", 
@@ -162,20 +162,20 @@ void DefaultSettings::restore(TMainWindow *w)
              settings.endGroup();
     }
 	
-    foreach (ToolView *v, toHide) {
-             v->button()->setChecked(false);
-             v->setVisible(false);
-             v->close();
+    foreach (ToolView *view, toHide) {
+             view->button()->setChecked(false);
+             view->setVisible(false);
+             view->close();
     }
 
     settings.beginGroup("MainWindow");
-    w->resize(settings.value("size").toSize());
+    window->resize(settings.value("size").toSize());
     bool maximized = settings.value("maximized", false).toBool();
 
     if (maximized)
-        w->showMaximized();
+        window->showMaximized();
 
-    w->move(settings.value("position").toPoint());
+    window->move(settings.value("position").toPoint());
 
     settings.endGroup();
 }
@@ -696,26 +696,16 @@ bool TMainWindow::event(QEvent *e)
         TButtonBar *bar = 0;
 
         if (pos.x() <= m_buttonBars[Qt::LeftToolBarArea]->pos().x() + 3 ) { // Left
-
             bar = m_buttonBars[Qt::LeftToolBarArea];
-
-        } else if (pos.y() <= m_buttonBars[Qt::TopToolBarArea]->pos().y() + 3 
-                   && m_buttonBars[Qt::TopToolBarArea]->pos().y() <= pos.y()) {
-
-            bar = m_buttonBars[Qt::TopToolBarArea];
-
-        } else if (pos.x() >= m_buttonBars[Qt::RightToolBarArea]->pos().x() + 
-                   m_buttonBars[Qt::RightToolBarArea]->width() - 3 ) {
-
-            bar = m_buttonBars[Qt::RightToolBarArea];
-
+        } else if (pos.y() <= m_buttonBars[Qt::TopToolBarArea]->pos().y() + 3 && m_buttonBars[Qt::TopToolBarArea]->pos().y() <= pos.y()) {
+                   bar = m_buttonBars[Qt::TopToolBarArea];
+        } else if (pos.x() >= m_buttonBars[Qt::RightToolBarArea]->pos().x() + m_buttonBars[Qt::RightToolBarArea]->width() - 3 ) {
+                   bar = m_buttonBars[Qt::RightToolBarArea];
         } else if (pos.y() >= m_buttonBars[Qt::BottomToolBarArea]->pos().y() +  
                    m_buttonBars[Qt::BottomToolBarArea]->height() - 3 
                    && m_buttonBars[Qt::BottomToolBarArea]->pos().y() + 
                    m_buttonBars[Qt::BottomToolBarArea]->height() > pos.y()) {
-
-            bar = m_buttonBars[Qt::BottomToolBarArea];
-
+                   bar = m_buttonBars[Qt::BottomToolBarArea];
         }
 
         if (bar) {

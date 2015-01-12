@@ -305,7 +305,7 @@ void TupExportModule::exportIt()
 
         if (QFile::exists(QString(filename + "0000" + extension))) {
             QMessageBox::StandardButton reply;
-            reply = QMessageBox::question(this, tr("Warning!"), tr("Image array already exists. Overwrite it?"),
+            reply = QMessageBox::question(this, tr("Warning!"), tr("Image sequence already exists. Overwrite it?"),
                                               QMessageBox::Yes | QMessageBox::No);
 
             if (reply == QMessageBox::No)
@@ -430,7 +430,7 @@ void TupExportModule::exportIt()
     if (done) {
         QString message = tr("Video file") + " " + name + " " + tr("was saved successful");
         if (isArray)
-            message = tr("Images array was saved successful");
+            message = tr("Image sequence was saved successful");
         TOsd::self()->display(tr("Information"), tr(message.toLocal8Bit()));
         emit isDone();
     } else {

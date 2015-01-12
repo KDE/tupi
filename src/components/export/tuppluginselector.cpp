@@ -154,17 +154,17 @@ void TupPluginSelector::setFormats(TupExportInterface::Formats formats)
     */
 
     if (formats & TupExportInterface::PNG) {
-        QListWidgetItem *format = new QListWidgetItem(tr("PNG Image Array"), m_formatList);
+        QListWidgetItem *format = new QListWidgetItem(tr("PNG Image Sequence"), m_formatList);
         format->setData(3124, TupExportInterface::PNG);
     }
 
     if (formats & TupExportInterface::JPEG) {
-        QListWidgetItem *format = new QListWidgetItem(tr("JPEG Image Array"), m_formatList);
+        QListWidgetItem *format = new QListWidgetItem(tr("JPEG Image Sequence"), m_formatList);
         format->setData(3124, TupExportInterface::JPEG);
     }
 
     if (formats & TupExportInterface::SVG) {
-        QListWidgetItem *format = new QListWidgetItem(tr("SVG Image Array"), m_formatList);
+        QListWidgetItem *format = new QListWidgetItem(tr("SVG Image Sequence"), m_formatList);
         format->setData(3124, TupExportInterface::SVG);
     }
 
@@ -211,16 +211,16 @@ char const* TupPluginSelector::getFormatExtension(const QString format)
     if (format.compare(tr("Gif Image")) == 0)
         return ".gif";
 
-    if (format.compare(tr("PNG Image Array")) == 0)
+    if (format.compare(tr("PNG Image Sequence")) == 0)
         return ".png";
 
-    if (format.compare(tr("JPEG Image Array")) == 0)
+    if (format.compare(tr("JPEG Image Sequence")) == 0)
         return ".jpeg";
 
     if (format.compare(tr("Animated PNG (APNG)")) == 0)
         return ".png";
 
-    if (format.compare(tr("SVG Image Array")) == 0)
+    if (format.compare(tr("SVG Image Sequence")) == 0)
         return ".svg";
 
     if (format.compare(tr("SMIL")) == 0)
@@ -240,7 +240,7 @@ void TupPluginSelector::selectedFormatItem(QListWidgetItem *item)
 
         if (familyLabel.compare(tr("Animated Image")) == 0) {
             emit animatedImageFormatSelected(item->data(3124).toInt(), extension);
-        } else if (familyLabel.compare(tr("Image Array")) == 0) {
+        } else if (familyLabel.compare(tr("Image Sequence")) == 0) {
                    emit imagesArrayFormatSelected(item->data(3124).toInt(), extension);
         } else { 
             emit animationFormatSelected(item->data(3124).toInt(), extension);

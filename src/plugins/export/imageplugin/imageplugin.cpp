@@ -45,7 +45,7 @@ ImagePlugin::~ImagePlugin()
 
 QString ImagePlugin::key() const
 {
-    return tr("Image Array");
+    return tr("Image Sequence");
 }
 
 TupExportInterface::Formats ImagePlugin::availableFormats()

@@ -84,7 +84,7 @@ TupExportWidget::TupExportWidget(TupProject *project, QWidget *parent, bool isLo
         k->animationExport = new TupExportModule(project, TupExportWidget::Animation, tr("Export to Video File"), this);
         addPage(k->animationExport);
 
-        k->imagesArrayExport = new TupExportModule(project, TupExportWidget::ImagesArray, tr("Export to Images Array"), this);
+        k->imagesArrayExport = new TupExportModule(project, TupExportWidget::ImagesArray, tr("Export to Image Sequence"), this);
         addPage(k->imagesArrayExport);
 
         k->animatedImageExport = new TupExportModule(project, TupExportWidget::AnimatedImage, tr("Export to Animated Image"), this);
@@ -140,7 +140,7 @@ void TupExportWidget::loadPlugins()
                          index = 0;
                      if (exporter->key().compare(tr("Open Video Format")) == 0)
                          index = 1;
-                     if (exporter->key().compare(tr("Image Array")) == 0)
+                     if (exporter->key().compare(tr("Image Sequence")) == 0)
                          index = 2;
                      if (exporter->key().compare(tr("Animated Image")) == 0)
                          index = 3;
