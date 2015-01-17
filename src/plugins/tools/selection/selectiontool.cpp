@@ -240,23 +240,22 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
     if (k->selectedObjects.count() > 0) {
         k->selectionFlag = true;
 
-        foreach (NodeManager *node, k->nodeManagers) {
-                 QGraphicsItem *item = node->parentItem();
+        foreach (NodeManager *manager, k->nodeManagers) {
+                 QGraphicsItem *item = manager->parentItem();
                  int parentIndex = k->selectedObjects.indexOf(item); 
                  if (parentIndex != -1) // Object is IN the list
                      k->selectedObjects.removeAt(parentIndex); // Remove node's item from selected objects list 
                  else // Object is NOT IN the selected objects list
-                     delete k->nodeManagers.takeAt(k->nodeManagers.indexOf(node)); // Removing node manager from nodes list 
+                     delete k->nodeManagers.takeAt(k->nodeManagers.indexOf(manager)); // Removing node manager from nodes list 
         }
-
 
         foreach (QGraphicsItem *item, k->selectedObjects) {
                  if (item && (dynamic_cast<TupAbstractSerializable* > (item))) {
                      if (item->group() != 0)
                          item = qgraphicsitem_cast<QGraphicsItem *>(item->group());
                      bool found = false;
-                     foreach (NodeManager *nodeManager, k->nodeManagers) {
-                              if (item == nodeManager->parentItem()) {
+                     foreach (NodeManager *manager, k->nodeManagers) {
+                              if (item == manager->parentItem()) {
                                   found = true;
                                   break;
                               }
@@ -351,10 +350,10 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                          }
                      }
 
+                     /* SQA: What is the goal of this piece of code?
                      if (position >= 0) {
                          // Restore matrix
                          // node->restoreItem();
-
                          TupProjectRequest event = TupRequestBuilder::createItemRequest( 
                                     scene->currentSceneIndex(), 
                                     scene->currentLayerIndex(), 
@@ -373,6 +372,7 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                              #endif
                          #endif
                      }
+                     */
                  }
         }
         updateItemPosition();

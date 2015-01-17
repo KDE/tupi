@@ -219,7 +219,6 @@ void PolyLineTool::release(const TupInputDeviceInformation *input, TupBrushManag
                                                        0, QPointF(), scene->spaceMode(), TupLibraryObject::Item, 
                                                        TupProjectRequest::Add, doc.toString());
         emit requested(&request);
-
         k->begin = false;
     } 
 }

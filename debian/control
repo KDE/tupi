@@ -3,19 +3,37 @@ Section: graphics
 Priority: extra
 Maintainer: Gustav Gonzalez [xtingray] <info@maefloresta.com>
 Standards-Version: 3.9.3
-Build-Depends: debhelper (>= 7), autotools-dev, ruby, libavformat-dev,
- libavcodec-dev, qt5-default, libqt5multimediawidgets5, libqt5multimedia5-plugins,
- qtmultimedia5-dev, libqt5svg5-dev, imagemagick, zlib1g-dev, libogg-dev,
- libtheora-dev, libquazip-qt5-dev
+Build-Depends: debhelper (>= 7), autotools-dev, ruby, 
+ libavformat-dev,
+ libavcodec-dev, 
+ qt5-qmake, 
+ qttools5-dev-tools,
+ qtmultimedia5-dev, 
+ libqt5opengl5-dev,
+ libqt5svg5-dev, 
+ imagemagick, 
+ zlib1g-dev, 
+ libogg-dev, 
+ libtheora-dev, 
+ libquazip-qt5-dev
 Homepage: http://www.maefloresta.com
 
 Package: tupi
 Architecture: any
 Depends: ${misc:Depends}, 
- libavcodec | libavcodec-extra-56, libavformat56 | libavformat-extra-56, 
- libavutil54 | libavutil-extra-54, libc6, libgcc1, qt5-default, 
- libqt5multimediawidgets5, libqt5multimedia5-plugins, libqt5svg5, 
- libstdc++6, zlib1g, libogg0, libtheora0, libquazip-qt5-1,
+ libavcodec | libavcodec-extra-56, 
+ libavformat56 | libavformat-extra-56, 
+ libavutil54 | libavutil-extra-54, 
+ libc6, 
+ libgcc1,
+ libqt5multimediawidgets5, 
+ libqt5multimedia5-plugins, 
+ libqt5svg5, 
+ libstdc++6, 
+ zlib1g, 
+ libogg0, 
+ libtheora0, 
+ libquazip-qt5-1
 Description: 2D vectorial/animation tool
  Tupi: Open 2D Magic  is a design  and  authoring tool for digital 
  artists  interested  in  2D  Animation,  offering  an   interface 
