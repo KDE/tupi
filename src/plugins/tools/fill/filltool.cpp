@@ -56,7 +56,7 @@ void FillTool::init(TupGraphicsScene *scene)
 {
     /*
     foreach (QGraphicsItem *item, scene->items()) {
-             if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
+             if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
                  if (item->zValue() >= 20000 && item->toolTip().length()==0) {
                      // item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
                  } else {
@@ -114,7 +114,9 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
             return;
         } else {
             if (TupGraphicLibraryItem *libraryItem = qgraphicsitem_cast<TupGraphicLibraryItem *>(item)) {
-                if (libraryItem->type() == TupLibraryObject::Image) {
+                // This condition only applies for images
+                if (libraryItem->type() != TupLibraryObject::Item) {
+                    TOsd::self()->display(tr("Error"), tr("Sorry, only native objects can be filled"), TOsd::Error);
                     #ifdef K_DEBUG
                         QString msg = "FillTool::press() - Warning: item is a RASTER object!";
                         #ifdef Q_OS_WIN32
@@ -126,8 +128,10 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                     return;
                 }
             } else {
+                // Testing if object is a SVG file
                 TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
                 if (svg) {
+                    TOsd::self()->display(tr("Error"), tr("Sorry, only native objects can be filled"), TOsd::Error);
                     #ifdef K_DEBUG
                         QString msg = "FillTool::press() - Warning: item is a SVG object!";
                         #ifdef Q_OS_WIN32
@@ -139,7 +143,7 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                     return;
                 }
 
-                if (item->zValue() < 20000 && scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                if (item->zValue() < 20000 && scene->spaceContext() == TupProject::FRAMES_EDITION) {
                     #ifdef K_DEBUG
                         QString msg = "FillTool::press() - Warning: Object belongs to the background frames";
                         #ifdef Q_OS_WIN32
@@ -161,19 +165,19 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
         if (QAbstractGraphicsShapeItem *shape = qgraphicsitem_cast<QAbstractGraphicsShapeItem *>(item)) {
             int position = -1;
 
-            if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
+            if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
                 position = scene->currentFrame()->indexOf(shape);
             } else {
                 TupBackground *bg = scene->scene()->background();
-                if (scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                     TupFrame *frame = bg->staticFrame();
                     position = frame->indexOf(shape);
-                } else if (scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                } else if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                            TupFrame *frame = bg->dynamicFrame();
                            position = frame->indexOf(shape);
                 } else {
                     #ifdef K_DEBUG
-                        QString msg = "FillTool::press() - Fatal Error: Invalid spaceMode!"; 
+                        QString msg = "FillTool::press() - Fatal Error: Invalid spaceContext!"; 
                         #ifdef Q_OS_WIN32
                             qDebug() << msg;
                         #else
@@ -195,11 +199,11 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                     
                 QDomDocument doc;
                 doc.appendChild(TupSerializer::properties(shape, doc));
-                    
+
                 TupProjectRequest event = TupRequestBuilder::createItemRequest( 
                           scene->currentSceneIndex(), scene->currentLayerIndex(),
                           scene->currentFrameIndex(), position, QPointF(), 
-                          scene->spaceMode(), TupLibraryObject::Item, 
+                          scene->spaceContext(), TupLibraryObject::Item, 
                           TupProjectRequest::Transform, doc.toString());
 
                 emit requested(&event);

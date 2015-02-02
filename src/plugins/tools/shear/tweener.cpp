@@ -451,7 +451,7 @@ void Tweener::applyTween()
                                                k->initLayer,
                                                k->initFrame,
                                                objectIndex,
-                                               QPointF(), k->scene->spaceMode(), type,
+                                               QPointF(), k->scene->spaceContext(), type,
                                                TupProjectRequest::SetTween,
                                                k->configurator->tweenToXml(k->initScene, k->initLayer, k->initFrame, origin));
                  emit requested(&request);
@@ -489,7 +489,7 @@ void Tweener::applyTween()
                          dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
 
                      TupProjectRequest request = TupRequestBuilder::createItemRequest(k->initScene, k->initLayer, k->initFrame, 
-                                                                                      0, QPointF(), k->scene->spaceMode(), 
+                                                                                      0, QPointF(), k->scene->spaceContext(), 
                                                                                       type, TupProjectRequest::Add, dom.toString());
                      emit requested(&request);
 
@@ -497,7 +497,7 @@ void Tweener::applyTween()
                                                                    k->initLayer,
                                                                    k->currentTween->initFrame(),
                                                                    objectIndex, QPointF(), 
-                                                                   k->scene->spaceMode(), type,
+                                                                   k->scene->spaceContext(), type,
                                                                    TupProjectRequest::Remove);
                      emit requested(&request);
 
@@ -518,7 +518,7 @@ void Tweener::applyTween()
                                             k->initLayer,
                                             k->initFrame,
                                             objectIndex,
-                                            QPointF(), k->scene->spaceMode(), 
+                                            QPointF(), k->scene->spaceContext(), 
                                             type, TupProjectRequest::SetTween,
                                             k->configurator->tweenToXml(k->initScene, k->initLayer, k->initFrame, origin));
                  emit requested(&request);

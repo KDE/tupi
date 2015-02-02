@@ -128,7 +128,7 @@ void SelectionTool::reset(TupGraphicsScene *scene)
                       int zValue = item->zValue();
                       qreal opacity = item->opacity();
                       if (!qgraphicsitem_cast<Node *>(item)) {
-                          if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                          if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
                               if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0) && (opacity == 1)) {
                                   item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                               } else {
@@ -136,9 +136,9 @@ void SelectionTool::reset(TupGraphicsScene *scene)
                                   item->setFlag(QGraphicsItem::ItemIsMovable, false);
                               }
                           } else {
-                              if (scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                              if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                   item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
-                              } else if (scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                              } else if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                                          if (zValue >= 10000) {
                                              item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                                          } else {
@@ -147,7 +147,7 @@ void SelectionTool::reset(TupGraphicsScene *scene)
                                          }
                               } else {
                                   #ifdef K_DEBUG
-                                      QString msg = "SelectionTool::reset() - Fatal Error: Invalid spaceMode!";
+                                      QString msg = "SelectionTool::reset() - Fatal Error: Invalid spaceContext!";
                                       #ifdef Q_OS_WIN32
                                           qDebug() << msg;
                                       #else
@@ -235,6 +235,9 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
     Q_UNUSED(input);
     Q_UNUSED(brushManager);
 
+    int position = -1;
+    TupLibraryObject::Type type;
+
     k->selectedObjects = scene->selectedItems();
 
     if (k->selectedObjects.count() > 0) {
@@ -275,24 +278,22 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                      QGraphicsItem *item = node->parentItem();
                      QDomDocument doc;
                      doc.appendChild(TupSerializer::properties(item, doc));
-                     int position = -1;
-                     TupLibraryObject::Type type;
                      TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
 
                      if (svg) {
                          type = TupLibraryObject::Svg;
-                         if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                         if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
                              position = scene->currentFrame()->indexOf(svg);
                          } else {
                              TupBackground *bg = k->scene->scene()->background();
                              if (bg) {
-                                 if (scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                                 if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                                      position = bg->staticFrame()->indexOf(svg);
-                                 } else if (scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                                 } else if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                      position = bg->dynamicFrame()->indexOf(svg);
                                  } else {
                                      #ifdef K_DEBUG
-                                         QString msg = "SelectionTool::release() - Fatal Error: Invalid spaceMode!";
+                                         QString msg = "SelectionTool::release() - Fatal Error: Invalid spaceContext!";
                                          #ifdef Q_OS_WIN32
                                              qDebug() << msg;
                                          #else
@@ -316,18 +317,18 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                      } else {
                          type = TupLibraryObject::Item;
 
-                         if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                         if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
                              position = scene->currentFrame()->indexOf(node->parentItem());
                          } else {
                              TupBackground *bg = scene->scene()->background();
                              if (bg) {
-                                 if (scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                                 if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                                      position = bg->staticFrame()->indexOf(node->parentItem());
-                                 } else if (scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                                 } else if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                             position = bg->dynamicFrame()->indexOf(node->parentItem());
                                  } else {
                                      #ifdef K_DEBUG
-                                         QString msg = "SelectionTool::release() - Fatal Error: Invalid spaceMode!";
+                                         QString msg = "SelectionTool::release() - Fatal Error: Invalid spaceContext!";
                                          #ifdef Q_OS_WIN32
                                              qDebug() << msg;
                                          #else
@@ -350,15 +351,16 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                          }
                      }
 
-                     /* SQA: What is the goal of this piece of code?
+                     // * SQA: What is the goal of this piece of code? It must be recovered because it is required by net architecture!
                      if (position >= 0) {
                          // Restore matrix
                          // node->restoreItem();
+
                          TupProjectRequest event = TupRequestBuilder::createItemRequest( 
                                     scene->currentSceneIndex(), 
                                     scene->currentLayerIndex(), 
                                     scene->currentFrameIndex(), position, QPointF(), 
-                                    scene->spaceMode(), type,
+                                    scene->spaceContext(), type,
                                     TupProjectRequest::Transform, doc.toString());
 
                          emit requested(&event);
@@ -372,7 +374,6 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                              #endif
                          #endif
                      }
-                     */
                  }
         }
         updateItemPosition();
@@ -450,6 +451,7 @@ void SelectionTool::aboutToChangeTool()
     #endif
 
     // qDeleteAll(k->nodeManagers);
+    /*
     k->nodeManagers.clear();
 
     foreach (QGraphicsView *view, k->scene->views()) {
@@ -459,6 +461,7 @@ void SelectionTool::aboutToChangeTool()
                       item->setFlag(QGraphicsItem::ItemIsMovable, false);
              }
     }
+    */
 }
 
 void SelectionTool::itemResponse(const TupItemResponse *event)
@@ -580,7 +583,7 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                        }
             } else {
                 #ifdef K_DEBUG
-                    QString msg = "SelectionTool::itemResponse() - Fatal Error: Invalid spaceMode!";
+                    QString msg = "SelectionTool::itemResponse() - Fatal Error: Invalid spaceContext!";
                     #ifdef Q_OS_WIN32
                         qDebug() << msg;
                     #else
@@ -808,7 +811,7 @@ void SelectionTool::updateItems(TupGraphicsScene *scene)
              view->setDragMode(QGraphicsView::RubberBandDrag);
              foreach (QGraphicsItem *item, scene->items()) {
                       if (!qgraphicsitem_cast<Node *>(item)) {
-                          if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                          if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
                               if (item->zValue() >= 20000) {
                                   item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                               } else {
@@ -816,9 +819,9 @@ void SelectionTool::updateItems(TupGraphicsScene *scene)
                                   item->setFlag(QGraphicsItem::ItemIsMovable, false);
                               }
                           } else {
-                              if (scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                              if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                   item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
-                              } else if (scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                              } else if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                                          if (item->zValue() >= 10000) {
                                              item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
                                          } else {
@@ -827,7 +830,7 @@ void SelectionTool::updateItems(TupGraphicsScene *scene)
                                          }
                               } else {
                                   #ifdef K_DEBUG
-                                      QString msg = "SelectionTool::updateItems() - Fatal Error: Invalid spaceMode!";
+                                      QString msg = "SelectionTool::updateItems() - Fatal Error: Invalid spaceContext!";
                                       #ifdef Q_OS_WIN32
                                           qDebug() << msg;
                                       #else
@@ -877,7 +880,7 @@ void SelectionTool::applyFlip(Settings::Flip flip)
                           if (svg)
                               type = TupLibraryObject::Svg;
 
-                          if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                          if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
                               if (svg) 
                                   position = k->scene->currentFrame()->indexOf(svg);
                               else 
@@ -885,19 +888,19 @@ void SelectionTool::applyFlip(Settings::Flip flip)
                           } else {
                               TupBackground *bg = k->scene->scene()->background();
                               if (bg) {
-                                  if (k->scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                                  if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                                       if (svg)
                                           position = bg->staticFrame()->indexOf(svg);
                                       else
                                           position = bg->staticFrame()->indexOf(node->parentItem());
-                                  } else if (k->scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                                  } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                              if (svg)
                                                  position = bg->dynamicFrame()->indexOf(svg);
                                              else
                                                  position = bg->dynamicFrame()->indexOf(node->parentItem());
                                   } else {
                                       #ifdef K_DEBUG
-                                          QString msg = "SelectionTool::applyFlip() - Fatal Error: invalid spaceMode!";
+                                          QString msg = "SelectionTool::applyFlip() - Fatal Error: invalid spaceContext!";
                                           #ifdef Q_OS_WIN32
                                               qDebug() << msg;
                                           #else
@@ -923,7 +926,7 @@ void SelectionTool::applyFlip(Settings::Flip flip)
                                                    k->scene->currentSceneIndex(),
                                                    k->scene->currentLayerIndex(),
                                                    k->scene->currentFrameIndex(), position, QPointF(), 
-                                                   k->scene->spaceMode(), type,
+                                                   k->scene->spaceContext(), type,
                                                    TupProjectRequest::Transform, doc.toString());
                           emit requested(&event);
                       }
@@ -942,7 +945,7 @@ void SelectionTool::applyOrderAction(Settings::Order action)
              if (svg)
                  type = TupLibraryObject::Svg;
 
-             if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
+             if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
                  if (svg)
                      position = k->scene->currentFrame()->indexOf(svg);
                  else
@@ -950,19 +953,19 @@ void SelectionTool::applyOrderAction(Settings::Order action)
              } else {
                  TupBackground *bg = k->scene->scene()->background();
                  if (bg) {
-                     if (k->scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                     if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                          if (svg)
                              position = bg->staticFrame()->indexOf(svg);
                          else
                              position = bg->staticFrame()->indexOf(item);
-                     } else if (k->scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                     } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                 if (svg)
                                     position = bg->dynamicFrame()->indexOf(svg);
                                 else
                                     position = bg->dynamicFrame()->indexOf(item);
                      } else {
                          #ifdef K_DEBUG
-                             QString msg = "SelectionTool::applyOrderAction() - Fatal Error: invalid spaceMode!";
+                             QString msg = "SelectionTool::applyOrderAction() - Fatal Error: invalid spaceContext!";
                              #ifdef Q_OS_WIN32
                                  qDebug() << msg;
                              #else
@@ -986,7 +989,7 @@ void SelectionTool::applyOrderAction(Settings::Order action)
 
              TupProjectRequest event = TupRequestBuilder::createItemRequest(k->scene->currentSceneIndex(),
                                        k->scene->currentLayerIndex(), k->scene->currentFrameIndex(), position, QPointF(),
-                                       k->scene->spaceMode(), type, TupProjectRequest::Move, action);
+                                       k->scene->spaceContext(), type, TupProjectRequest::Move, action);
              emit requested(&event);
     }
 }
@@ -1011,18 +1014,18 @@ void SelectionTool::applyGroupAction(Settings::Group action)
 
             foreach (QGraphicsItem *item, k->selectedObjects) {
                      int index = -1;
-                     if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                     if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
                          index = k->scene->currentFrame()->indexOf(item);
                      } else {
                          TupBackground *bg = k->scene->scene()->background();
                          if (bg) {
-                             if (k->scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                             if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                                  index = bg->staticFrame()->indexOf(item);
-                             } else if (k->scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                             } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                                         index = bg->dynamicFrame()->indexOf(item);
                              } else {
                                  #ifdef K_DEBUG
-                                     QString msg = "SelectionTool::applyGroupAction() - Fatal Error: invalid spaceMode!";
+                                     QString msg = "SelectionTool::applyGroupAction() - Fatal Error: invalid spaceContext!";
                                      #ifdef Q_OS_WIN32
                                          qDebug() << msg;
                                      #else
@@ -1073,7 +1076,7 @@ void SelectionTool::applyGroupAction(Settings::Group action)
 
             TupProjectRequest event = TupRequestBuilder::createItemRequest(k->scene->currentSceneIndex(),
                                       k->scene->currentLayerIndex(),
-                                      k->scene->currentFrameIndex(), position, QPointF(), k->scene->spaceMode(),
+                                      k->scene->currentFrameIndex(), position, QPointF(), k->scene->spaceContext(),
                                       TupLibraryObject::Item, TupProjectRequest::Group, items);
             emit requested(&event);
         } else if (total == 1) {
@@ -1096,7 +1099,7 @@ void SelectionTool::applyGroupAction(Settings::Group action)
                                                           k->scene->currentLayerIndex(),
                                                           k->scene->currentFrameIndex(),
                                                           position, QPointF(),
-                                                          k->scene->spaceMode(), TupLibraryObject::Item,
+                                                          k->scene->spaceContext(), TupLibraryObject::Item,
                                                           TupProjectRequest::Ungroup);
                                 emit requested(&event);
                             }

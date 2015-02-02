@@ -853,7 +853,7 @@ bool TupCommandExecutor::transformItem(TupItemResponse *response)
     TupProject::Mode mode = response->spaceMode();
     TupLibraryObject::Type type = response->itemType();
     QString xml = response->arg().toString();
-    
+
     TupScene *scene = m_project->scene(scenePosition);
     
     if (scene) {
@@ -876,7 +876,7 @@ bool TupCommandExecutor::transformItem(TupItemResponse *response)
                         QDomDocument doc;
                         doc.setContent(xml);
                         TupSerializer::loadProperties(item, doc.documentElement());
-                   
+
                         response->setArg(current); 
                         emit responsed(response);
                     

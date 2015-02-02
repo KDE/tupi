@@ -349,6 +349,7 @@ void TupFrame::addItem(const QString &id, QGraphicsItem *item)
 {
     item->setZValue(k->zLevelIndex);
     k->zLevelIndex++;
+
     TupGraphicObject *object = new TupGraphicObject(item, this);
     object->setObjectName(id);
 
@@ -1245,6 +1246,8 @@ QGraphicsItem *TupFrame::item(int position) const
 
     return 0;
 }
+
+// SQA: Verify if this method is used by something... anything! 
 
 int TupFrame::indexOf(TupGraphicObject *object) const
 {

@@ -122,7 +122,7 @@ void TextTool::release(const TupInputDeviceInformation *input, TupBrushManager *
     doc.appendChild(m_item->toXml(doc));
 
     TupProjectRequest event = TupRequestBuilder::createItemRequest(scene->currentSceneIndex(), scene->currentLayerIndex(), 
-                                                                   scene->currentFrameIndex(), 0, QPointF(), scene->spaceMode(), 
+                                                                   scene->currentFrameIndex(), 0, QPointF(), scene->spaceContext(), 
                                                                    TupLibraryObject::Item, TupProjectRequest::Add, doc.toString());
     emit requested(&event);
 }

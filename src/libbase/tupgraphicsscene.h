@@ -113,9 +113,9 @@ class TUPI_EXPORT TupGraphicsScene : public QGraphicsScene
 
         virtual void aboutToMousePress();
 
-        void includeObject(QGraphicsItem *object);
+        void includeObject(QGraphicsItem *object, bool isPolyLine = false);
 
-        TupProject::Mode spaceMode();
+        TupProject::Mode spaceContext();
         void setSpaceMode(TupProject::Mode mode);
 
         void setOnionFactor(double opacity);

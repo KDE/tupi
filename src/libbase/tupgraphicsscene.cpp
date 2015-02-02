@@ -87,7 +87,7 @@ struct TupGraphicsScene::Private
     // int objectCounter;
 
     QList<TupLineGuide *> lines;
-    TupProject::Mode spaceMode;   
+    TupProject::Mode spaceContext;   
     TupLibrary *library;
 };
 
@@ -105,7 +105,7 @@ TupGraphicsScene::TupGraphicsScene() : QGraphicsScene(), k(new Private)
 
     k->framePosition.layer = -1;
     k->framePosition.frame = -1;
-    k->spaceMode = TupProject::FRAMES_EDITION;
+    k->spaceContext = TupProject::FRAMES_EDITION;
 
     setCurrentFrame(0, 0);
 
@@ -185,7 +185,7 @@ void TupGraphicsScene::drawCurrentPhotogram()
     if (k->framePosition.frame >= frames)
         k->framePosition.frame = frames - 1;
 
-    if (k->spaceMode == TupProject::FRAMES_EDITION) {
+    if (k->spaceContext == TupProject::FRAMES_EDITION) {
         drawPhotogram(k->framePosition.frame, true);
     } else {
         cleanWorkSpace();
@@ -325,7 +325,7 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
 
     TupBackground *bg = k->scene->background();
     if (bg) {
-        if (k->spaceMode == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+        if (k->spaceContext == TupProject::DYNAMIC_BACKGROUND_EDITION) {
             if (!bg->dynamicBgIsEmpty()) {
                 TupFrame *frame = bg->dynamicFrame();
                 if (frame)
@@ -340,7 +340,7 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
                     #endif
                 #endif
             }
-        } else if (k->spaceMode == TupProject::FRAMES_EDITION) {
+        } else if (k->spaceContext == TupProject::FRAMES_EDITION) {
                    if (!bg->dynamicBgIsEmpty()) {
                        if (bg->rasterRenderIsPending()) 
                            bg->renderDynamicView();
@@ -360,9 +360,8 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
                    }
         }
 
-        if (k->spaceMode == TupProject::STATIC_BACKGROUND_EDITION || k->spaceMode == TupProject::FRAMES_EDITION) {
-
-            if (k->spaceMode == TupProject::STATIC_BACKGROUND_EDITION) {
+        if (k->spaceContext == TupProject::STATIC_BACKGROUND_EDITION || k->spaceContext == TupProject::FRAMES_EDITION) {
+            if (k->spaceContext == TupProject::STATIC_BACKGROUND_EDITION) {
                 if (bg->rasterRenderIsPending())
                     bg->renderDynamicView();
 
@@ -426,6 +425,7 @@ void TupGraphicsScene::addFrame(TupFrame *frame, double opacity, Context mode)
 
 void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity)
 {
+    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[TupGraphicsScene::addGraphicObject()]";
@@ -433,6 +433,7 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
             T_FUNCINFO;
         #endif
     #endif
+    */
 
     QGraphicsItem *item = object->item();
     if (item) {
@@ -953,7 +954,7 @@ void TupGraphicsScene::setNextOnionSkinCount(int n)
     */
 
     k->onionSkin.next = n;
-    if (k->spaceMode == TupProject::FRAMES_EDITION)
+    if (k->spaceContext == TupProject::FRAMES_EDITION)
         drawCurrentPhotogram();
 }
 
@@ -970,7 +971,7 @@ void TupGraphicsScene::setPreviousOnionSkinCount(int n)
     */
 
     k->onionSkin.previous = n;
-    if (k->spaceMode == TupProject::FRAMES_EDITION)
+    if (k->spaceContext == TupProject::FRAMES_EDITION)
         drawCurrentPhotogram();
 }
 
@@ -1042,9 +1043,9 @@ void TupGraphicsScene::setCurrentScene(TupScene *scene)
     cleanWorkSpace();
     k->scene = scene;
 
-    if (k->spaceMode == TupProject::FRAMES_EDITION) {
+    if (k->spaceContext == TupProject::FRAMES_EDITION) {
         drawCurrentPhotogram();
-    } else if (k->spaceMode == TupProject::STATIC_BACKGROUND_EDITION) {
+    } else if (k->spaceContext == TupProject::STATIC_BACKGROUND_EDITION) {
                drawSceneBackground(k->framePosition.frame);
     }
 }
@@ -1097,7 +1098,7 @@ void TupGraphicsScene::setTool(TupToolPlugin *tool)
     #endif
 
     // SQA: Check if this code is really required
-    if (k->spaceMode == TupProject::FRAMES_EDITION) {
+    if (k->spaceContext == TupProject::FRAMES_EDITION) {
         drawCurrentPhotogram();
     } else {
         cleanWorkSpace();
@@ -1491,7 +1492,7 @@ void TupGraphicsScene::aboutToMousePress()
     }
 }
 
-void TupGraphicsScene::includeObject(QGraphicsItem *object)
+void TupGraphicsScene::includeObject(QGraphicsItem *object, bool isPolyLine) // SQA: Bool parameter is a hack for the Polyline tool. Must be fixed. 
 {
     /*
     #ifdef K_DEBUG
@@ -1503,27 +1504,40 @@ void TupGraphicsScene::includeObject(QGraphicsItem *object)
     #endif
     */
 
-    if (k->spaceMode == TupProject::FRAMES_EDITION) {
+    if (k->spaceContext == TupProject::FRAMES_EDITION) {
         TupLayer *layer = k->scene->layer(k->framePosition.layer);
         if (layer) {
             TupFrame *frame = layer->frame(k->framePosition.frame);
             if (frame) {
                 int zLevel = frame->getTopZLevel();
-                object->setZValue(zLevel);
-                addItem(object);
+                if (isPolyLine) // SQA: Polyline hack
+                    zLevel--;
+                if (object) {
+                    object->setZValue(zLevel);
+                    addItem(object);
+                } else {
+                    #ifdef K_DEBUG
+                        QString msg = "TupGraphicsScene::includeObject() - Fatal Error: Graphic item is NULL!";
+                        #ifdef Q_OS_WIN32
+                            qDebug() << msg;
+                        #else
+                            tError() << msg;
+                        #endif
+                    #endif
+                }
             }
         }
     } else {
         TupBackground *bg = k->scene->background();
         if (bg) {
-            if (k->spaceMode == TupProject::STATIC_BACKGROUND_EDITION) {
+            if (k->spaceContext == TupProject::STATIC_BACKGROUND_EDITION) {
                 TupFrame *frame = bg->staticFrame();
                 if (frame) {
                     int zLevel = frame->getTopZLevel();
                     object->setZValue(zLevel);
                     addItem(object);
                 }
-            } else if (k->spaceMode == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+            } else if (k->spaceContext == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                        TupFrame *frame = bg->dynamicFrame();
                        if (frame) {
                            int zLevel = frame->getTopZLevel();
@@ -1541,20 +1555,20 @@ void TupGraphicsScene::removeScene()
     k->scene = 0;
 }
 
-TupProject::Mode TupGraphicsScene::spaceMode()
+TupProject::Mode TupGraphicsScene::spaceContext()
 {
-    return k->spaceMode;
+    return k->spaceContext;
 }
 
 void TupGraphicsScene::setSpaceMode(TupProject::Mode mode)
 {
-    k->spaceMode = mode;    
+    k->spaceContext = mode;    
 }
 
 void TupGraphicsScene::setOnionFactor(double opacity)
 {
     k->opacity = opacity;
-    if (k->spaceMode == TupProject::FRAMES_EDITION)
+    if (k->spaceContext == TupProject::FRAMES_EDITION)
         drawCurrentPhotogram();
 }
 

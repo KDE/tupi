@@ -74,7 +74,7 @@ void NodesTool::init(TupGraphicsScene *scene)
     foreach (QGraphicsView * view, scene->views()) {
              foreach (QGraphicsItem *item, view->scene()->items()) {
                       if (!qgraphicsitem_cast<TControlNode *>(item)) {
-                          if (scene->spaceMode() == TupProject::FRAMES_EDITION) {
+                          if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
                               int zValue = item->zValue();
                               if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0)) {
                                   item->setFlags(QGraphicsItem::ItemIsSelectable);
@@ -140,7 +140,7 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
                     
                 TupProjectRequest event = TupRequestBuilder::createItemRequest(scene->currentSceneIndex(), 
                                             scene->currentLayerIndex(), scene->currentFrameIndex(), position, 
-                                            QPointF(), scene->spaceMode(), TupLibraryObject::Item, 
+                                            QPointF(), scene->spaceContext(), TupLibraryObject::Item, 
                                             TupProjectRequest::EditNodes, doc.toString());
                 emit requested(&event);
             } else {
@@ -183,7 +183,7 @@ void NodesTool::itemResponse(const TupItemResponse *response)
     if (response->action() != TupProjectRequest::Remove) {
         scene = k->scene->scene();
         if (scene) {
-            if (k->scene->spaceMode() == TupProject::FRAMES_EDITION) {
+            if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
                 layer = scene->layer(response->layerIndex());
                 if (layer) {
                     frame = layer->frame(response->frameIndex());
@@ -212,7 +212,7 @@ void NodesTool::itemResponse(const TupItemResponse *response)
             } else {
                 TupBackground *bg = scene->background();
                 if (bg) {
-                    if (k->scene->spaceMode() == TupProject::STATIC_BACKGROUND_EDITION) {
+                    if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
                         TupFrame *frame = bg->staticFrame();
                         if (frame) {
                             item = frame->item(response->itemIndex());
@@ -226,7 +226,7 @@ void NodesTool::itemResponse(const TupItemResponse *response)
                                 #endif
                             #endif
                         }
-                    } else if (k->scene->spaceMode() == TupProject::DYNAMIC_BACKGROUND_EDITION) { 
+                    } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) { 
                                TupFrame *frame = bg->dynamicFrame();
                                if (frame) {
                                    item = frame->item(response->itemIndex());
@@ -242,7 +242,7 @@ void NodesTool::itemResponse(const TupItemResponse *response)
                                }
                     } else {
                         #ifdef K_DEBUG
-                            QString msg = "NodesTool::itemResponse() - Fatal Error: Invalid spaceMode!";
+                            QString msg = "NodesTool::itemResponse() - Fatal Error: Invalid spaceContext!";
                             #ifdef Q_OS_WIN32
                                 qDebug() << msg;
                             #else
@@ -368,11 +368,12 @@ QWidget *NodesTool::configurator()
 
 void NodesTool::aboutToChangeScene(TupGraphicsScene *scene)
 {
-    init(scene);
+    // init(scene);
 }
 
 void NodesTool::aboutToChangeTool()
 {
+    /*
     if (k->activeSelection) {
         if (k->nodeGroup)
             k->nodeGroup->clear();
@@ -384,6 +385,7 @@ void NodesTool::aboutToChangeTool()
                       item->setFlag(QGraphicsItem::ItemIsMovable, false);
              }
     }
+    */
 }
 
 void NodesTool::saveConfig()

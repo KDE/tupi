@@ -319,7 +319,7 @@ void GeometricTool::release(const TupInputDeviceInformation *input, TupBrushMana
     }
 
     TupProjectRequest event = TupRequestBuilder::createItemRequest(scene->currentSceneIndex(), scene->currentLayerIndex(), 
-                              scene->currentFrameIndex(), 0, point, scene->spaceMode(), TupLibraryObject::Item, 
+                              scene->currentFrameIndex(), 0, point, scene->spaceContext(), TupLibraryObject::Item, 
                               TupProjectRequest::Add, doc.toString());
     emit requested(&event);
 }
@@ -412,7 +412,7 @@ void GeometricTool::endItem()
         QPointF point = QPointF(0, 0);
 
         TupProjectRequest event = TupRequestBuilder::createItemRequest(k->scene->currentSceneIndex(), k->scene->currentLayerIndex(),
-                                  k->scene->currentFrameIndex(), 0, point, k->scene->spaceMode(), TupLibraryObject::Item, 
+                                  k->scene->currentFrameIndex(), 0, point, k->scene->spaceContext(), TupLibraryObject::Item, 
                                   TupProjectRequest::Add, doc.toString());
 
         emit requested(&event);
