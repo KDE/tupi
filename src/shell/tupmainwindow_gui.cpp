@@ -299,6 +299,7 @@ void TupMainWindow::setMenuItemsContext(bool flag)
     m_actionManager->enable("export", flag);
     m_actionManager->enable("importBitmap", flag);
 
+    m_settingsMenu->setEnabled(flag);
     m_insertMenu->setEnabled(flag);
     m_windowMenu->setEnabled(flag);
     m_viewMenu->setEnabled(flag);
@@ -534,5 +535,8 @@ void TupMainWindow::importPapagayoLipSync()
 void TupMainWindow::keyPressEvent(QKeyEvent *event)
 {
     Q_UNUSED(event);
-    // tError() << "TupMainWindow::keyPressEvent() - key: " << event->text();
+    if (event->modifiers() == Qt::AltModifier) { 
+        tError() << "TupMainWindow::keyPressEvent() - Pressing Alt key";
+        menuBar()->setVisible(false);
+    }
 }

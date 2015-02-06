@@ -55,10 +55,15 @@ FillTool::~FillTool()
 void FillTool::init(TupGraphicsScene *scene)
 {
     /*
+    int zBottomLimit = (scene->currentLayerIndex() + 2)*10000;
+    int zTopLimit = zBottomLimit + 10000;
+
     foreach (QGraphicsItem *item, scene->items()) {
              if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                 if (item->zValue() >= 20000 && item->toolTip().length()==0) {
-                     // item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
+                 int zValue = item->zValue();
+                 qreal opacity = item->opacity();
+                 if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0) && (opacity == 1)) {
+                     item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
                  } else {
                      item->setFlag(QGraphicsItem::ItemIsSelectable, false);
                      item->setFlag(QGraphicsItem::ItemIsFocusable, false);
@@ -96,6 +101,14 @@ void FillTool::setupActions()
 
 void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *brushManager, TupGraphicsScene *scene)
 {
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[FillTool::press()]";
+        #else
+            T_FUNCINFOX("tools");
+        #endif
+    #endif
+
     if (input->buttons() == Qt::LeftButton) {
         // SQA: Enhance this plugin to support several items with one click 
         // QList<QGraphicsItem *> list = scene->items(input->pos(), Qt::IntersectsItemShape, Qt::DescendingOrder, QTransform());
@@ -143,17 +156,41 @@ void FillTool::press(const TupInputDeviceInformation *input, TupBrushManager *br
                     return;
                 }
 
-                if (item->zValue() < 20000 && scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                    #ifdef K_DEBUG
-                        QString msg = "FillTool::press() - Warning: Object belongs to the background frames";
-                        #ifdef Q_OS_WIN32
-                            qWarning() << msg;
-                        #else
-                            tWarning() << msg;
+                int zValue = item->zValue();
+
+                if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
+                    int zBottomLimit = (scene->currentLayerIndex() + 2)*10000;
+                    int zTopLimit = zBottomLimit + 10000;
+                    qreal opacity = item->opacity();
+
+                    if ((zValue < zBottomLimit) || (zValue >= zTopLimit) || (item->toolTip().length()!=0) || (opacity < 1)) {
+                        #ifdef K_DEBUG
+                            QString msg = "FillTool::press() - Warning: Object belongs to other frame/layer or to background frames";
+                            #ifdef Q_OS_WIN32
+                                qWarning() << msg;
+                            #else
+                                tWarning() << msg;
+                            #endif
                         #endif
-                    #endif
-                    return;
+                        return;
+                    }
+                } else {
+                    if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
+                        if ((zValue < 10000) || (zValue >= 20000)) {
+                            #ifdef K_DEBUG
+                                QString msg = "FillTool::press() - Warning: Object belongs to dynamic background frame";
+                                #ifdef Q_OS_WIN32
+                                    qWarning() << msg;
+                                #else
+                                    tWarning() << msg;
+                                #endif
+                            #endif
+                            return;
+                        }
+                    }
                 }
+
+
             }
         }
 
