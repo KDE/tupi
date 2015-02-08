@@ -58,8 +58,17 @@
 
 void TupMainWindow::createGUI()
 {
-    // Adding the color palette to the left side of the interface 
+    // QToolBar *toolBar = new QToolBar(tr("Show Top Panel"), this);
+    // toolBar->setIconSize(QSize(9, 5));
+    TAction *showAction = new TAction(QPixmap(THEME_DIR + "icons/show_top_panel.png"), tr("Show top panels"), QKeySequence(tr("Alt")),
+                                      this, SLOT(hideTopPanels()), m_actionManager);
+    // toolBar->addAction(showAction);
+    // addToolBar(Qt::LeftToolBarArea, toolBar);
+    // toolBar->setVisible(false);
 
+    addSpecialButton(showAction);
+
+    // Adding the color palette to the left side of the interface 
     m_colorPalette = new TupColorPalette;
     colorView = addToolView(m_colorPalette, Qt::LeftDockWidgetArea, Animation, "Color Palette", QKeySequence(tr("Shift+P")));
     //colorView->setShortcut(QKeySequence(tr("Shift+P")));
@@ -296,6 +305,7 @@ void TupMainWindow::setMenuItemsContext(bool flag)
     m_actionManager->enable("saveproject", flag);
     m_actionManager->enable("saveprojectas", flag);
     m_actionManager->enable("closeproject", flag);
+    m_actionManager->enable("hideaction", flag);
     m_actionManager->enable("export", flag);
     m_actionManager->enable("importBitmap", flag);
 
@@ -342,7 +352,7 @@ void TupMainWindow::setupFileActions()
     m_actionManager->insert(save, "saveproject", "file");
     save->setStatusTip(tr("Save current project in current location"));
 
-    TAction *saveAs = new TAction(QPixmap(THEME_DIR + "icons/save_as.png"), tr("Save project &As..."),
+    TAction *saveAs = new TAction(QPixmap(THEME_DIR + "icons/save_as.png"), tr("Save project &as..."),
 				  QKeySequence(tr("Ctrl+Shift+S")), this, SLOT(saveAs()), m_actionManager);
     saveAs->setStatusTip(tr("Open dialog box to save current project in any location"));
     m_actionManager->insert(saveAs, "saveprojectas", "file");
@@ -351,6 +361,11 @@ void TupMainWindow::setupFileActions()
 				 this, SLOT(closeProject()), m_actionManager);
     close->setStatusTip(tr("Close active project"));
     m_actionManager->insert(close, "closeproject", "file");
+
+    TAction *hideAction = new TAction(QPixmap(THEME_DIR + "icons/hide_top_panel.png"), tr("Hide top panels"), QKeySequence(tr("Alt")),
+                                      this, SLOT(hideTopPanels()), m_actionManager);
+    hideAction->setStatusTip(tr("Hide top panels"));
+    m_actionManager->insert(hideAction, "hideaction", "file");
 
     // Import Palette action
 
@@ -427,22 +442,27 @@ void TupMainWindow::setupHelpActions()
 
 void TupMainWindow::setupToolBar()
 {
-    QToolBar *toolbar = new QToolBar(tr("Actions Bar"), this);
-    toolbar->setIconSize(QSize(22, 22));
-    addToolBar(Qt::TopToolBarArea, toolbar);
+    mainToolBar = new QToolBar(tr("Actions Bar"), this);
+    mainToolBar->setIconSize(QSize(22, 22));
+    addToolBar(Qt::TopToolBarArea, mainToolBar);
 
-    toolbar->addAction(m_actionManager->find("newproject"));
-    toolbar->addAction(m_actionManager->find("openproject"));
+    mainToolBar->addAction(m_actionManager->find("newproject"));
+    mainToolBar->addAction(m_actionManager->find("openproject"));
 
     // SQA: This code has been disabled temporary
-    // toolbar->addAction(m_actionManager->find("opennetproject"));
+    // mainToolBar->addAction(m_actionManager->find("opennetproject"));
 
-    toolbar->addAction(m_actionManager->find("saveproject"));
-    toolbar->addAction(m_actionManager->find("saveprojectas"));
-    toolbar->addAction(m_actionManager->find("closeproject"));
+    mainToolBar->addAction(m_actionManager->find("saveproject"));
+    mainToolBar->addAction(m_actionManager->find("saveprojectas"));
+    mainToolBar->addAction(m_actionManager->find("closeproject"));
+    mainToolBar->addAction(m_actionManager->find("hideaction"));
 
-    // SQA: Temporary code
-    // toolbar->setVisible(false);
+    /*
+    TAction *hideAction = new TAction(QPixmap(THEME_DIR + "icons/hide_top_panel.png"), tr("Hide top panels"), QKeySequence(tr("Alt")),
+                                      this, SLOT(hideTopPanels()), m_actionManager);
+    m_actionManager->insert(hideAction, "hideaction", "file");
+    mainToolBar->addAction(hideAction);
+    */
 }
 
 /**
@@ -532,11 +552,17 @@ void TupMainWindow::importPapagayoLipSync()
     animationTab->importPapagayoLipSync();
 }
 
-void TupMainWindow::keyPressEvent(QKeyEvent *event)
+void TupMainWindow::hideTopPanels()
 {
-    Q_UNUSED(event);
-    if (event->modifiers() == Qt::AltModifier) { 
-        tError() << "TupMainWindow::keyPressEvent() - Pressing Alt key";
-        menuBar()->setVisible(false);
+    if (m_projectManager->isOpen()) {
+        if (menuBar()->isVisible()) {
+            menuBar()->setVisible(false);
+            mainToolBar->setVisible(false);
+            enableSpecialBar(true);
+        } else {
+            menuBar()->setVisible(true);
+            mainToolBar->setVisible(true);
+            enableSpecialBar(false);
+        }
     }
 }

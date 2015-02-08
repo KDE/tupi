@@ -41,6 +41,7 @@
 #include "toolview.h"
 #include "tviewbutton.h"
 #include "tmainwindowabstractsettings.h"
+#include "taction.h"
 
 #include <QMainWindow>
 #include <QHash>
@@ -106,6 +107,9 @@ class T_GUI_EXPORT TMainWindow : public QMainWindow
         QHash<Qt::ToolBarArea, TButtonBar *> buttonBars() const;
         QHash<TButtonBar *, QList<ToolView*> > toolViews() const;
 
+        void enableSpecialBar(bool flag);
+        void addSpecialButton(TAction *action);
+
     private:
         Qt::DockWidgetArea toDockWidgetArea(Qt::ToolBarArea area);
         Qt::ToolBarArea toToolBarArea(Qt::DockWidgetArea area);
@@ -136,6 +140,7 @@ class T_GUI_EXPORT TMainWindow : public QMainWindow
         QHash<TButtonBar *, QList<ToolView*> > m_toolViews;
         QHash<QWidget *, int> m_managedWidgets;
         QHash<QAction *, int> m_managedActions;
+        QToolBar *specialToolBar;
 
         int m_currentPerspective;
 

@@ -2705,9 +2705,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568543"
-     inkscape:cx="626.16929"
-     inkscape:cy="286.77623"
+     inkscape:zoom="8.0000001"
+     inkscape:cx="679.56462"
+     inkscape:cy="302.09842"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -3847,7 +3847,7 @@
     </g>
     <g
        id="g8804"
-       transform="translate(2.0329671,-119.81952)">
+       transform="translate(-1.9670329,-121.81952)">
       <g
          transform="matrix(-7.3396059,0,0,8.4891828,88.351378,267.65074)"
          inkscape:export-ydpi="1008"
@@ -11760,6 +11760,79 @@
            inkscape:connector-curvature="0"
            sodipodi:nodetypes="cc" />
       </g>
+    </g>
+    <g
+       id="g8165"
+       inkscape:export-filename="/home/xtingray/tupi/sources/tupi/src/themes/default/icons/hide_top_panel.png"
+       inkscape:export-xdpi="102.4"
+       inkscape:export-ydpi="102.4">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/xtingray/tupi/sources/tupi/src/themes/default/icons/hide_top_panel.png"
+         y="743.36218"
+         x="661"
+         height="22"
+         width="22"
+         id="rect8163"
+         style="fill:#ffffff;fill-opacity:0;stroke:none" />
+      <g
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/xtingray/tupi/sources/tupi/src/themes/default/icons/hide_top_panel.png"
+         transform="matrix(0.49347314,0,0,-0.49347314,338.41216,1123.9753)"
+         id="g8127-7">
+        <g
+           id="g4401-5-65-5"
+           inkscape:export-filename="/media/windows/linux/xtingray/tupi/sources/tupi/src/themes/default/icons/play_back.png"
+           inkscape:export-xdpi="1008"
+           inkscape:export-ydpi="1008"
+           transform="matrix(0,7.3396059,8.4891828,0,589.35996,735.55169)">
+          <path
+             sodipodi:nodetypes="ccccccccccc"
+             inkscape:connector-curvature="0"
+             id="path4387-9-94-2"
+             d="M 1.1330425,9.0504687 1.03125,8.9559335 l 0,2.5000005 L 2.634302,10.372682 1.2630789,9.1215664 1.1221286,9.2807269 1.1805153,9.5658113 2.0248498,10.331868 1.4528209,10.823092 1.4415215,9.4407013 z"
+             style="fill:#008700;fill-opacity:1;stroke:none" />
+          <path
+             sodipodi:nodetypes="cccc"
+             inkscape:connector-curvature="0"
+             id="path4389-7-3-9"
+             d="M 1.281631,9.6116999 1.278649,10.899061 2.4384318,10.344087 z"
+             style="fill:#008700;fill-opacity:0.3942308;stroke:none" />
+          <path
+             sodipodi:nodetypes="cc"
+             inkscape:connector-curvature="0"
+             id="path4399-2-78-7"
+             d="M 1.2564806,9.2284974 2.4890602,10.354326"
+             style="fill:none;stroke:#ffffff;stroke-width:0.1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.17788463;stroke-dasharray:none" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g4401-5-65-5-7"
+       inkscape:export-filename="/home/xtingray/tupi/sources/tupi/src/themes/default/icons/show_top_panel.png"
+       inkscape:export-xdpi="77.504807"
+       inkscape:export-ydpi="77.504807"
+       transform="matrix(0,3.6218984,4.1891837,0,653.62047,746.72411)">
+      <path
+         sodipodi:nodetypes="ccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path4387-9-94-2-4"
+         d="M 1.1330425,9.0504687 1.03125,8.9559335 l 0,2.5000005 L 2.634302,10.372682 1.2630789,9.1215664 1.1221286,9.2807269 1.1805153,9.5658113 2.0248498,10.331868 1.4528209,10.823092 1.4415215,9.4407013 z"
+         style="fill:#008700;fill-opacity:1;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4389-7-3-9-8"
+         d="M 1.281631,9.6116999 1.278649,10.899061 2.4384318,10.344087 z"
+         style="fill:#008700;fill-opacity:0.3942308;stroke:none" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4399-2-78-7-8"
+         d="M 1.2564806,9.2284974 2.4890602,10.354326"
+         style="fill:none;stroke:#ffffff;stroke-width:0.1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.17788463;stroke-dasharray:none" />
     </g>
   </g>
 </svg>

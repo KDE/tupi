@@ -195,6 +195,11 @@ TMainWindow::TMainWindow(QWidget *parent)
 
     m_settings = new DefaultSettings(this);
 
+    specialToolBar = new QToolBar(tr("Show Top Panel"), this);
+    specialToolBar->setIconSize(QSize(9, 5));
+    enableSpecialBar(false);
+    addToolBar(Qt::LeftToolBarArea, specialToolBar);
+
     addButtonBar(Qt::LeftToolBarArea);
     addButtonBar(Qt::RightToolBarArea);
     addButtonBar(Qt::TopToolBarArea);
@@ -218,6 +223,16 @@ void TMainWindow::addButtonBar(Qt::ToolBarArea area)
     m_buttonBars.insert(area, bar);
 
     bar->hide();
+}
+
+void TMainWindow::enableSpecialBar(bool flag)
+{
+    specialToolBar->setVisible(flag);
+}
+
+void TMainWindow::addSpecialButton(TAction *action)
+{
+    specialToolBar->addAction(action);
 }
 
 /**
@@ -304,6 +319,16 @@ void TMainWindow::enableToolViews(bool flag)
  */
 void TMainWindow::moveToolView(ToolView *view, Qt::DockWidgetArea newPlace)
 {
+    /*
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TMainWindow::moveToolView()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+    */
+
     if (toDockWidgetArea(view->button()->area()) == newPlace || newPlace == Qt::AllDockWidgetAreas || newPlace == 0)
         return;
 
@@ -469,6 +494,16 @@ void TMainWindow::setEnableButtonBlending(bool enable)
 
 void TMainWindow::relayoutViewButton(bool topLevel)
 {
+    /*
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TMainWindow::relayoutViewButton()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+    */
+
     if (!topLevel) {
         if (ToolView *toolView = dynamic_cast<ToolView *>(sender())) {
             m_forRelayout = toolView;
@@ -495,6 +530,16 @@ void TMainWindow::relayoutViewButton(bool topLevel)
 
 void TMainWindow::relayoutToolView()
 {
+    /*
+    #ifdef K_DEBUG
+        #ifdef Q_OS_WIN32
+            qDebug() << "[TMainWindow::relayoutToolView()]";
+        #else
+            T_FUNCINFO;
+        #endif
+    #endif
+    */
+
     if (!m_forRelayout) 
         return;
 

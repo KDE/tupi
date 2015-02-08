@@ -182,7 +182,6 @@ class TupMainWindow : public TabbedMainWindow
           *  Updates the open recent menu item names according to the @a recent_names list of file names
           */
           void updateOpenRecentMenu(QMenu *menu, QStringList recents);
-          void keyPressEvent(QKeyEvent *event);
 
     public slots:
           void openProject(const QString &path);
@@ -237,6 +236,7 @@ class TupMainWindow : public TabbedMainWindow
           void resetMousePointer();
           void updateUsersOnLine(const QString &login, int state);
           void importPapagayoLipSync();
+          void hideTopPanels();
 
     private:
           TupProjectManager *m_projectManager;
@@ -270,6 +270,8 @@ class TupMainWindow : public TabbedMainWindow
 
     // Components
     private:
+          QToolBar *mainToolBar;
+          QToolBar *alternativeToolBar;
           TupExposureSheet *m_exposureSheet;
           TupScenesWidget *m_scenes;
           TupTimeLine *m_timeLine;
