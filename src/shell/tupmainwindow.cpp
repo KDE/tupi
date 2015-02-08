@@ -465,6 +465,9 @@ bool TupMainWindow::closeProject()
         #endif
     #endif
 
+    if (!mainToolBar->isVisible())
+        hideTopPanels();
+
     if (!m_projectManager->isOpen())
         return true;
 

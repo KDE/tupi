@@ -555,7 +555,7 @@ void TupMainWindow::importPapagayoLipSync()
 void TupMainWindow::hideTopPanels()
 {
     if (m_projectManager->isOpen()) {
-        if (menuBar()->isVisible()) {
+        if (mainToolBar->isVisible()) {
             menuBar()->setVisible(false);
             mainToolBar->setVisible(false);
             enableSpecialBar(true);
