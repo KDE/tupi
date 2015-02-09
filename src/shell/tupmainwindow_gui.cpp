@@ -58,15 +58,10 @@
 
 void TupMainWindow::createGUI()
 {
-    // QToolBar *toolBar = new QToolBar(tr("Show Top Panel"), this);
-    // toolBar->setIconSize(QSize(9, 5));
-    TAction *showAction = new TAction(QPixmap(THEME_DIR + "icons/show_top_panel.png"), tr("Show top panels"), QKeySequence(tr("Alt")),
+    TAction *hideAction = new TAction(QPixmap(THEME_DIR + "icons/hide_top_panel.png"), tr("Hide top panels"), QKeySequence(tr("Alt")),
                                       this, SLOT(hideTopPanels()), m_actionManager);
-    // toolBar->addAction(showAction);
-    // addToolBar(Qt::LeftToolBarArea, toolBar);
-    // toolBar->setVisible(false);
-
-    addSpecialButton(showAction);
+    m_actionManager->insert(hideAction, "hideaction", "file");
+    addSpecialButton(hideAction);
 
     // Adding the color palette to the left side of the interface 
     m_colorPalette = new TupColorPalette;
@@ -362,11 +357,6 @@ void TupMainWindow::setupFileActions()
     close->setStatusTip(tr("Close active project"));
     m_actionManager->insert(close, "closeproject", "file");
 
-    TAction *hideAction = new TAction(QPixmap(THEME_DIR + "icons/hide_top_panel.png"), tr("Hide top panels"), QKeySequence(tr("Alt")),
-                                      this, SLOT(hideTopPanels()), m_actionManager);
-    hideAction->setStatusTip(tr("Hide top panels"));
-    m_actionManager->insert(hideAction, "hideaction", "file");
-
     // Import Palette action
 
     TAction *importPalette = new TAction(QPixmap(THEME_DIR + "icons" + QDir::separator() + "import.png"), tr("&Import GIMP palettes"),
@@ -455,14 +445,6 @@ void TupMainWindow::setupToolBar()
     mainToolBar->addAction(m_actionManager->find("saveproject"));
     mainToolBar->addAction(m_actionManager->find("saveprojectas"));
     mainToolBar->addAction(m_actionManager->find("closeproject"));
-    mainToolBar->addAction(m_actionManager->find("hideaction"));
-
-    /*
-    TAction *hideAction = new TAction(QPixmap(THEME_DIR + "icons/hide_top_panel.png"), tr("Hide top panels"), QKeySequence(tr("Alt")),
-                                      this, SLOT(hideTopPanels()), m_actionManager);
-    m_actionManager->insert(hideAction, "hideaction", "file");
-    mainToolBar->addAction(hideAction);
-    */
 }
 
 /**
@@ -556,13 +538,13 @@ void TupMainWindow::hideTopPanels()
 {
     if (m_projectManager->isOpen()) {
         if (mainToolBar->isVisible()) {
+            m_actionManager->find("hideaction")->setIcon(QIcon(QPixmap(THEME_DIR + "icons/show_top_panel.png")));
             menuBar()->setVisible(false);
             mainToolBar->setVisible(false);
-            enableSpecialBar(true);
         } else {
+            m_actionManager->find("hideaction")->setIcon(QIcon(QPixmap(THEME_DIR + "icons/hide_top_panel.png")));
             menuBar()->setVisible(true);
             mainToolBar->setVisible(true);
-            enableSpecialBar(false);
         }
     }
 }

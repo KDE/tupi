@@ -197,7 +197,6 @@ TMainWindow::TMainWindow(QWidget *parent)
 
     specialToolBar = new QToolBar(tr("Show Top Panel"), this);
     specialToolBar->setIconSize(QSize(9, 5));
-    enableSpecialBar(false);
     addToolBar(Qt::LeftToolBarArea, specialToolBar);
 
     addButtonBar(Qt::LeftToolBarArea);
