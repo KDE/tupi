@@ -261,9 +261,16 @@ void TupPaintAreaStatus::applyRotation(const QString &text)
 
 void TupPaintAreaStatus::applyZoom(const QString &text)
 {
-    int input = text.toInt();
-    qreal factor = (qreal)input / (qreal)k->scaleFactor;
+    bool ok;
+    int input = text.toInt(&ok, 10);
 
+    if (!ok) { // Conversion has failed
+        QStringList list = text.split(".");
+        if (list.size() > 1)
+            input = list.at(0).toInt();
+    }
+
+    qreal factor = (qreal)input / (qreal)k->scaleFactor;
     k->documentView->setZoomFactor(factor);
     k->scaleFactor = input;
 }
@@ -282,6 +289,8 @@ void TupPaintAreaStatus::setRotationAngle(const QString &angle)
 
 void TupPaintAreaStatus::updateZoomField(const QString &text)
 {
+    tError() << "TupPaintAreaStatus::updateZoomField() - Setting zoom: " << text;
+
     int index = k->zoom->findText(text);
     if (index != -1)
         k->zoom->setCurrentIndex(index);
