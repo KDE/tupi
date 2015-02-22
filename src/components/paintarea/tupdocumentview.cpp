@@ -615,9 +615,10 @@ void TupDocumentView::loadPlugins()
                                    if (toolName.compare(tr("Coloring Tween")) == 0)
                                        tweenTools[5] = action;
 
-                                   if (toolName.compare(tr("Composed Tween")) == 0)
+                                   if (toolName.compare(tr("Composed Tween")) == 0) {
                                        action->setDisabled(true);
                                        tweenTools[6] = action;
+                                   }
                                  }
                                  break;
                               case TupToolInterface::Selection:
@@ -669,7 +670,9 @@ void TupDocumentView::loadPlugins()
     for (int i = 0; i < brushTools.size(); ++i) 
          k->shapesMenu->addAction(brushTools.at(i));
 
-    for (int i = 0; i < tweenTools.size(); ++i)
+    // SQA: The Composed Tween is under development. This line is temporaly disabled
+    // for (int i = 0; i < tweenTools.size(); ++i)
+    for (int i = 0; i < 6; ++i)
          k->motionMenu->addAction(tweenTools.at(i));
 
     k->miscMenu->addAction(k->actionManager->find("export_image"));
@@ -940,6 +943,7 @@ void TupDocumentView::selectTool()
                 case TupToolInterface::Tweener:
                      k->status->enableFullScreenFeature(false);
                      minWidth = 220;
+                     k->motionMenu->setDefaultAction(action);
                      k->motionMenu->setActiveAction(action);
                      if (!action->icon().isNull())
                          k->motionMenu->menuAction()->setIcon(action->icon());

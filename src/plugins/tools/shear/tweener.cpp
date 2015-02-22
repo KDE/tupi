@@ -554,14 +554,25 @@ void Tweener::applyTween()
 void Tweener::removeTweenFromProject(const QString &name)
 {
     TupScene *scene = k->scene->scene();
-    scene->removeTween(name, TupItemTweener::Shear);
+    bool removed = scene->removeTween(name, TupItemTweener::Shear);
 
-    foreach (QGraphicsView * view, k->scene->views()) {
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      QString tip = item->toolTip();
-                      if (tip.startsWith(tr("Shear Tween") + ": " + name))
-                          item->setToolTip("");
-             }
+    if (removed) {
+        foreach (QGraphicsView * view, k->scene->views()) {
+                 foreach (QGraphicsItem *item, view->scene()->items()) {
+                          QString tip = item->toolTip();
+                          if (tip.startsWith(tr("Shear Tween") + ": " + name))
+                              item->setToolTip("");
+                 }
+        }
+    } else {
+        #ifdef K_DEBUG
+            QString msg = "Tweener::removeTweenFromProject() - Shear tween couldn't be removed -> " + name;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
+        #endif
     }
 }
 

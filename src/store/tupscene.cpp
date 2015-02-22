@@ -477,13 +477,14 @@ bool TupScene::tweenExists(const QString &name, TupItemTweener::Type type)
     return false;
 }
 
-void TupScene::removeTween(const QString &name, TupItemTweener::Type type)
+bool TupScene::removeTween(const QString &name, TupItemTweener::Type type)
 {
     foreach (TupGraphicObject *object, k->tweeningGraphicObjects) {
              if (TupItemTweener *tween = object->tween()) {
                  if ((tween->name().compare(name) == 0) && (tween->type() == type)) {
                      object->removeTween();
                      removeTweenObject(object);
+                     return true;
                  }
              }
     }
@@ -493,9 +494,12 @@ void TupScene::removeTween(const QString &name, TupItemTweener::Type type)
                  if ((tween->name().compare(name) == 0) && (tween->type() == type)) {
                      object->removeTween();
                      removeTweenObject(object);
+                     return true;
                  }
              }
     }
+
+    return false;
 }
 
 void TupScene::removeTweensFromLayer(int layer)

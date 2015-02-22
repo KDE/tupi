@@ -289,8 +289,6 @@ void TupPaintAreaStatus::setRotationAngle(const QString &angle)
 
 void TupPaintAreaStatus::updateZoomField(const QString &text)
 {
-    tError() << "TupPaintAreaStatus::updateZoomField() - Setting zoom: " << text;
-
     int index = k->zoom->findText(text);
     if (index != -1)
         k->zoom->setCurrentIndex(index);

@@ -1,35 +1,35 @@
 /***************************************************************************
- *   Project TUPI: Magia 2D                                                *
- *   Project Contact: info@maefloresta.com                                 *
- *   Project Website: http://www.maefloresta.com                           *
- *   Project Leader: Gustav Gonzalez <info@maefloresta.com>                *
- *                                                                         *
- *   Developers:                                                           *
- *   2010:                                                                 *
- *    Gustavo Gonzalez / xtingray                                          *
- *                                                                         *
- *   KTooN's versions:                                                     * 
- *                                                                         *
- *   2006:                                                                 *
- *    David Cuadrado                                                       *
- *    Jorge Cuadrado                                                       *
- *   2003:                                                                 *
- *    Fernado Roldan                                                       *
- *    Simena Dinas                                                         *
- *                                                                         *
- *   Copyright (C) 2010 Gustav Gonzalez - http://www.maefloresta.com       *
- *   License:                                                              *
+ *   Project TUPI: Magia 2D                                               *
+ *   Project Contact: info@maefloresta.com                                *
+ *   Project Website: http://www.maefloresta.com                          *
+ *   Project Leader: Gustav Gonzalez <info@maefloresta.com>               *
+ *                                                                        *
+ *   Developers:                                                          *
+ *   2010:                                                                *
+ *    Gustavo Gonzalez / xtingray                                         *
+ *                                                                        *
+ *   KTooN's versions:                                                    * 
+ *                                                                        *
+ *   2006:                                                                *
+ *    David Cuadrado                                                      *
+ *    Jorge Cuadrado                                                      *
+ *   2003:                                                                *
+ *    Fernado Roldan                                                      *
+ *    Simena Dinas                                                        *
+ *                                                                        *
+ *   Copyright (C) 2010 Gustav Gonzalez - http://www.maefloresta.com      *
+ *   License:                                                             *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
+ *   the Free Software Foundation; either version 2 of the License, or    *
+ *   (at your option) any later version.                                  *
+ *                                                                        *
+ *   This program is distributed in the hope that it will be useful,      *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+ *   GNU General Public License for more details.                         *
+ *                                                                        *
+ *   You should have received a copy of the GNU General Public License    *
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>. *
  ***************************************************************************/
 
@@ -48,6 +48,7 @@ struct Settings::Private
 
     TRadioButtonGroup *options;
 
+    QComboBox *fillTypeCombo;
     QPushButton *initColorButton;
     QColor initialColor;
     QPushButton *endColorButton;
@@ -66,6 +67,8 @@ struct Settings::Private
 
     TImageButton *apply;
     TImageButton *remove;
+
+    TupItemTweener::FillType fillType;
 };
 
 Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
@@ -176,6 +179,19 @@ void Settings::setInnerForm()
     k->initColorButton->setAutoFillBackground(true);
     connect(k->initColorButton, SIGNAL(clicked()), this, SLOT(setInitialColor()));
 
+    QLabel *typeLabel = new QLabel(tr("Fill Type") + ": ");
+    typeLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    k->fillTypeCombo = new QComboBox();
+    k->fillTypeCombo->addItem(tr("Line Fill"));
+    k->fillTypeCombo->addItem(tr("Internal Fill"));
+    k->fillTypeCombo->addItem(tr("Line & Internal Fill"));
+    QHBoxLayout *fillLayout = new QHBoxLayout;
+    fillLayout->setAlignment(Qt::AlignHCenter);
+    fillLayout->setMargin(0);
+    fillLayout->setSpacing(0);
+    fillLayout->addWidget(typeLabel);
+    fillLayout->addWidget(k->fillTypeCombo);
+
     QLabel *coloringInitLabel = new QLabel(tr("Initial Color") + ": ");
     coloringInitLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     QHBoxLayout *coloringInitLayout = new QHBoxLayout;
@@ -239,6 +255,9 @@ void Settings::setInnerForm()
     innerLayout->addSpacing(10);
     innerLayout->addWidget(new TSeparator(Qt::Horizontal));
 
+    // innerLayout->addWidget(typeLabel);
+    innerLayout->addLayout(fillLayout);
+
     innerLayout->addLayout(coloringInitLayout);
     innerLayout->addLayout(coloringEndLayout);
 
@@ -256,11 +275,11 @@ void Settings::setInnerForm()
 void Settings::activeInnerForm(bool enable)
 {
     if (enable && !k->innerPanel->isVisible()) {
-        k->propertiesDone = true;
-        k->innerPanel->show();
+       k->propertiesDone = true;
+       k->innerPanel->show();
     } else {
-        k->propertiesDone = false;
-        k->innerPanel->hide();
+       k->propertiesDone = false;
+       k->innerPanel->hide();
     }
 }
 
@@ -321,7 +340,7 @@ void Settings::setStartFrame(int currentIndex)
     k->comboInit->setValue(currentIndex + 1);
     int end = k->comboEnd->value();
     if (end < currentIndex+1)
-        k->comboEnd->setValue(currentIndex + 1);
+       k->comboEnd->setValue(currentIndex + 1);
 }
 
 int Settings::startFrame()
@@ -350,20 +369,20 @@ void Settings::setEditMode()
 void Settings::applyTween()
 {
     if (!k->selectionDone) {
-        TOsd::self()->display(tr("Info"), tr("You must select at least one object!"), TOsd::Info);
-        return;
+       TOsd::self()->display(tr("Info"), tr("You must select at least one object!"), TOsd::Info);
+       return;
     }
 
     if (!k->propertiesDone) {
-        TOsd::self()->display(tr("Info"), tr("You must set Tween properties first!"), TOsd::Info);
-        return;
+       TOsd::self()->display(tr("Info"), tr("You must set Tween properties first!"), TOsd::Info);
+       return;
     }
 
     // SQA: Verify Tween is really well applied before call setEditMode!
     setEditMode();
 
     if (!k->comboInit->isEnabled())
-        k->comboInit->setEnabled(true);
+       k->comboInit->setEnabled(true);
 
     emit clickedApplyTween();
 }
@@ -375,8 +394,8 @@ void Settings::notifySelection(bool flag)
 
 void Settings::setInitialColor()
 {
-     k->initialColor = QColorDialog::getColor(k->initialColor, this);
-     updateColor(k->initialColor, k->initColorButton);
+    k->initialColor = QColorDialog::getColor(k->initialColor, this);
+    updateColor(k->initialColor, k->initColorButton);
 }
 
 void Settings::setInitialColor(QColor color) {
@@ -390,7 +409,7 @@ QString Settings::currentTweenName() const
 {
     QString tweenName = k->input->text();
     if (tweenName.length() > 0)
-        k->input->setFocus();
+       k->input->setFocus();
 
     return tweenName;
 }
@@ -398,22 +417,22 @@ QString Settings::currentTweenName() const
 void Settings::emitOptionChanged(int option)
 {
     switch (option) {
-            case 0:
-             {
-                 activeInnerForm(false);
-                 emit clickedSelect();
-             }
-            break;
-            case 1:
-             {
-                 if (k->selectionDone) {
-                     activeInnerForm(true);
-                     emit clickedDefineProperties();
-                 } else {
-                     k->options->setCurrentIndex(0);
-                     TOsd::self()->display(tr("Info"), tr("Select objects for Tweening first!"), TOsd::Info);
-                 }
-             }
+           case 0:
+            {
+                activeInnerForm(false);
+                emit clickedSelect();
+            }
+           break;
+           case 1:
+            {
+                if (k->selectionDone) {
+                    activeInnerForm(true);
+                    emit clickedDefineProperties();
+                } else {
+                    k->options->setCurrentIndex(0);
+                    TOsd::self()->display(tr("Info"), tr("Select objects for Tweening first!"), TOsd::Info);
+                }
+            }
     }
 }
 
@@ -427,6 +446,8 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
     root.setAttribute("initFrame", currentFrame);
     root.setAttribute("initLayer", currentLayer);
     root.setAttribute("initScene", currentScene);
+
+    root.setAttribute("fillType", k->fillTypeCombo->currentIndex());
   
     checkFramesRange();
     root.setAttribute("frames", k->totalSteps);
@@ -437,7 +458,7 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
     int initialBlue = k->initialColor.blue();
 
     QString colorText = QString::number(initialRed) + "," + QString::number(initialGreen)
-                        + "," + QString::number(initialBlue);
+                       + "," + QString::number(initialBlue);
     root.setAttribute("initialColor", colorText);
 
     int endingRed = k->endingColor.red();
@@ -445,27 +466,27 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
     int endingBlue = k->endingColor.blue();
 
     colorText = QString::number(endingRed) + "," + QString::number(endingGreen)
-                        + "," + QString::number(endingBlue);
+                       + "," + QString::number(endingBlue);
     root.setAttribute("endingColor", colorText);
 
     int iterations = k->comboIterations->value();
     if (iterations == 0) {
-        iterations = 1;
-        k->comboIterations->setValue(1);
+       iterations = 1;
+       k->comboIterations->setValue(1);
     }
     root.setAttribute("colorIterations", iterations);
 
     bool loop = k->loopBox->isChecked();
     if (loop)
-        root.setAttribute("colorLoop", "1");
+       root.setAttribute("colorLoop", "1");
     else
-        root.setAttribute("colorLoop", "0");
+       root.setAttribute("colorLoop", "0");
 
     bool reverse = k->reverseLoopBox->isChecked();
     if (reverse)
-        root.setAttribute("colorReverseLoop", "1");
+       root.setAttribute("colorReverseLoop", "1");
     else
-        root.setAttribute("colorReverseLoop", "0");
+       root.setAttribute("colorReverseLoop", "0");
 
     double redDelta = (double)(initialRed - endingRed)/(double)(iterations - 1);
     double greenDelta = (double)(initialGreen - endingGreen)/(double)(iterations - 1);
@@ -479,49 +500,49 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
     int reverseTop = (iterations*2)-2;
 
     for (int i=0; i < k->totalSteps; i++) {
-         if (cycle <= iterations) {
-             if (cycle == 1) {
-                 redReference = initialRed;
-                 greenReference = initialGreen;
-                 blueReference = initialBlue;
-             } else if (cycle == iterations) {
-                        redReference = endingRed;
-                        greenReference = endingGreen;
-                        blueReference = endingBlue;
-             } else {
-                 redReference -= redDelta;
-                 greenReference -= greenDelta;
-                 blueReference -= blueDelta;
-             }
-             cycle++;
-         } else {
-             // if repeat option is enabled
-             if (loop) { 
-                 cycle = 2;
-                 redReference = initialRed;
-                 greenReference = initialGreen;
-                 blueReference = initialBlue;
-             } else if (reverse) { // if reverse option is enabled
-                        redReference += redDelta;
-                        greenReference += greenDelta;
-                        blueReference += blueDelta;
+        if (cycle <= iterations) {
+            if (cycle == 1) {
+                redReference = initialRed;
+                greenReference = initialGreen;
+                blueReference = initialBlue;
+            } else if (cycle == iterations) {
+                       redReference = endingRed;
+                       greenReference = endingGreen;
+                       blueReference = endingBlue;
+            } else {
+                redReference -= redDelta;
+                greenReference -= greenDelta;
+                blueReference -= blueDelta;
+            }
+            cycle++;
+        } else {
+            // if repeat option is enabled
+            if (loop) { 
+                cycle = 2;
+                redReference = initialRed;
+                greenReference = initialGreen;
+                blueReference = initialBlue;
+            } else if (reverse) { // if reverse option is enabled
+                       redReference += redDelta;
+                       greenReference += greenDelta;
+                       blueReference += blueDelta;
 
-                        if (cycle < reverseTop)
-                            cycle++;
-                        else 
-                            cycle = 1;
+                       if (cycle < reverseTop)
+                           cycle++;
+                       else 
+                           cycle = 1;
 
-             } else { // If cycle is done and no loop and no reverse 
-                 redReference = initialRed;
-                 greenReference = initialGreen;
-                 blueReference = initialBlue;
-             }
-         }
+            } else { // If cycle is done and no loop and no reverse 
+                redReference = initialRed;
+                greenReference = initialGreen;
+                blueReference = initialBlue;
+            }
+        }
 
-         TupTweenerStep *step = new TupTweenerStep(i);
-         QColor color = QColor(redReference, greenReference, blueReference);
-         step->setColor(color);
-         root.appendChild(step->toXml(doc));
+        TupTweenerStep *step = new TupTweenerStep(i);
+        QColor color = QColor(redReference, greenReference, blueReference);
+        step->setColor(color);
+        root.appendChild(step->toXml(doc));
     }
 
     doc.appendChild(root);
@@ -557,8 +578,8 @@ void Settings::checkFramesRange()
     int end = k->comboEnd->value();
 
     if (begin > end) {
-        k->comboEnd->setValue(k->comboEnd->maximum() - 1);
-        end = k->comboEnd->value();
+       k->comboEnd->setValue(k->comboEnd->maximum() - 1);
+       end = k->comboEnd->value();
     }
 
     k->totalSteps = end - begin + 1;
@@ -569,27 +590,28 @@ void Settings::updateLoopCheckbox(int state)
 {
     Q_UNUSED(state);
     if (k->reverseLoopBox->isChecked() && k->loopBox->isChecked())
-        k->loopBox->setChecked(false);
+       k->loopBox->setChecked(false);
 }
 
 void Settings::updateReverseCheckbox(int state)
 {
     Q_UNUSED(state);
     if (k->reverseLoopBox->isChecked() && k->loopBox->isChecked())
-        k->reverseLoopBox->setChecked(false);
+       k->reverseLoopBox->setChecked(false);
 }
 
 void Settings::setEndingColor()
 {
-     k->endingColor = QColorDialog::getColor(k->endingColor, this);
-     updateColor(k->endingColor, k->endColorButton);
+    k->endingColor = QColorDialog::getColor(k->endingColor, this);
+    updateColor(k->endingColor, k->endColorButton);
 }
 
 void Settings::updateColor(QColor color, QPushButton *colorButton)
 {
-     if (color.isValid()) {
-         colorButton->setText(color.name());
-         colorButton->setPalette(QPalette(color));
-         colorButton->setAutoFillBackground(true);
-     }
+    if (color.isValid()) {
+        colorButton->setText(color.name());
+        colorButton->setPalette(QPalette(color));
+        colorButton->setAutoFillBackground(true);
+    }
 }
+

@@ -418,10 +418,10 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
     root.setAttribute("origin", "0,0");
 
     double initFactor = k->comboInitFactor->value();
-    root.setAttribute("initOpacityFactor", initFactor);
+    root.setAttribute("initOpacityFactor", QString::number(initFactor));
 
     double endFactor = k->comboEndFactor->value();
-    root.setAttribute("endOpacityFactor", endFactor);
+    root.setAttribute("endOpacityFactor", QString::number(endFactor));
 
     int iterations = k->comboIterations->value();
     if (iterations == 0) {

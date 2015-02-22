@@ -94,6 +94,7 @@ struct TupItemTweener::Private
     int opacityReverseLoop;
 
     // Color Tween
+    FillType colorFillType;
     QColor initialColor;
     QColor endingColor;
     int colorIterations;
@@ -389,8 +390,8 @@ void TupItemTweener::fromXml(const QString &xml)
                        }
                        if (e.tagName() == "coloring") {
                            // tError() << "TupItemTweener::fromXml() - Processing coloring settings";
-
                            k->tweenList.append(TupItemTweener::Coloring);
+                           k->colorFillType = FillType(e.attribute("fillType").toInt());
                            k->compColoringInitFrame = e.attribute("init").toInt();
                            k->compColoringFrames = e.attribute("frames").toInt();
                        }
@@ -443,6 +444,7 @@ void TupItemTweener::fromXml(const QString &xml)
             }
 
             if (k->type == TupItemTweener::Coloring) {
+                k->colorFillType = FillType(root.attribute("fillType").toInt());
                 QString colorText = root.attribute("initialColor");
                 QStringList list = colorText.split(",");
                 int red = list.at(0).toInt();
@@ -572,6 +574,7 @@ QDomElement TupItemTweener::toXml(QDomDocument &doc) const
         } 
 
         if (k->type == TupItemTweener::Coloring) {
+            root.setAttribute("fillType", k->colorFillType);
             QString colorText = QString::number(k->initialColor.red()) + "," + QString::number(k->initialColor.green()) 
                                 + "," + QString::number(k->initialColor.blue());
             root.setAttribute("initialColor", colorText); 
@@ -743,6 +746,11 @@ int TupItemTweener::tweenOpacityLoop()
 int TupItemTweener::tweenOpacityReverseLoop()
 {
     return k->opacityReverseLoop;
+}
+
+TupItemTweener::FillType TupItemTweener::tweenColorFillType()
+{
+    return k->colorFillType;
 }
 
 QColor TupItemTweener::tweenInitialColor()

@@ -54,6 +54,7 @@
 #include <QCheckBox>
 #include <QColorDialog>
 #include <QDir>
+#include <QComboBox>
 
 // class TupItemTweener;
 

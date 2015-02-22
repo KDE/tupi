@@ -157,7 +157,7 @@ class TUPI_EXPORT TupScene : public QObject, public TupAbstractSerializable
         void removeTweenObject(TupSvgItem *object);
 
         bool tweenExists(const QString &name, TupItemTweener::Type type);
-        void removeTween(const QString &name, TupItemTweener::Type type);
+        bool removeTween(const QString &name, TupItemTweener::Type type);
 
         TupItemTweener * tween(const QString &name, TupItemTweener::Type type);
 

@@ -93,7 +93,7 @@ void ShiftTool::setupActions()
 {
     TAction *shiftAction = new TAction(QIcon(kAppProp->themeDir() + "icons/shift.png"), tr("Shift"), this);
     shiftAction->setShortcut(QKeySequence(tr("H")));
-    shiftAction->setToolTip(tr("Shift") + " - " + "H");
+    shiftAction->setToolTip("H");
     k->shiftCursor = QCursor(kAppProp->themeDir() + "cursors/shift.png");
     shiftAction->setCursor(k->shiftCursor);
 

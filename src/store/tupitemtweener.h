@@ -73,6 +73,7 @@ class TUPI_EXPORT TupItemTweener : public QObject, public TupAbstractSerializabl
         enum RotationType { Continuos = 0, Partial };
         enum RotateDirection { Clockwise = 0, Counterclockwise };
         enum TransformAxes { XY = 0, X, Y };
+        enum FillType { Line = 0, Internal, FillAll};
 
         TupItemTweener();
         ~TupItemTweener();
@@ -132,6 +133,7 @@ class TUPI_EXPORT TupItemTweener : public QObject, public TupAbstractSerializabl
         int tweenOpacityLoop();       
         int tweenOpacityReverseLoop();
 
+        TupItemTweener::FillType tweenColorFillType();
         QColor tweenInitialColor();
         QColor tweenEndingColor();
         int tweenColorIterations();

@@ -221,16 +221,19 @@ void Configurator::addTween(const QString &name)
 
 void Configurator::editTween()
 {
+    k->mode = TupToolPlugin::Edit;
+    emit setMode(k->mode);
+
     activeTweenManagerPanel(false);
 
-    k->mode = TupToolPlugin::Edit;
+    // k->mode = TupToolPlugin::Edit;
     k->state = Configurator::Properties;
 
     k->settingsPanel->notifySelection(true);
     k->settingsPanel->setParameters(k->currentTween);
     activePropertiesPanel(true);
 
-    emit setMode(k->mode);
+    // emit setMode(k->mode);
 }
 
 void Configurator::removeTween()

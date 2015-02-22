@@ -424,7 +424,7 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
     root.setAttribute("shearAxes", k->shearAxes);
 
     double factor = k->comboFactor->value();
-    root.setAttribute("shearFactor", factor);
+    root.setAttribute("shearFactor", QString::number(factor));
 
     int iterations = k->comboIterations->value();
     if (iterations == 0) {

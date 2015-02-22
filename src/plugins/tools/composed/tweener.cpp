@@ -750,14 +750,25 @@ int Tweener::maxZValue()
 void Tweener::removeTweenFromProject(const QString &name)
 {
     TupScene *scene = k->scene->scene();
-    scene->removeTween(name, TupItemTweener::Composed);
+    bool removed = scene->removeTween(name, TupItemTweener::Composed);
 
-    foreach (QGraphicsView * view, k->scene->views()) {
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      QString tip = item->toolTip();
-                      if (tip.startsWith(tr("Composed Tween") + ": " + name))
-                          item->setToolTip("");
-             }
+    if (removed) {
+        foreach (QGraphicsView * view, k->scene->views()) {
+                 foreach (QGraphicsItem *item, view->scene()->items()) {
+                          QString tip = item->toolTip();
+                          if (tip.startsWith(tr("Composed Tween") + ": " + name))
+                              item->setToolTip("");
+                 }
+        }
+    } else {
+        #ifdef K_DEBUG
+            QString msg = "Tweener::removeTweenFromProject() - Position tween couldn't be removed -> " + name;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
+        #endif
     }
 }
 

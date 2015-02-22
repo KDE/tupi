@@ -411,8 +411,11 @@ void Tweener::applyTween()
 
         foreach (QGraphicsItem *item, k->objects) {
                  TupLibraryObject::Type type = TupLibraryObject::Item;
-                 TupProject *project = k->scene->scene()->project();
-                 TupScene *scene = project->scene(k->initScene);
+
+                 // TupProject *project = k->scene->scene()->project();
+                 // TupScene *scene = project->scene(k->initScene);
+
+                 TupScene *scene = k->scene->scene();
                  TupLayer *layer = scene->layer(k->initLayer);
                  TupFrame *frame = layer->frame(k->currentTween->initFrame());
                  int objectIndex = -1;
@@ -494,14 +497,25 @@ void Tweener::applyTween()
 void Tweener::removeTweenFromProject(const QString &name)
 {
     TupScene *scene = k->scene->scene();
-    scene->removeTween(name, TupItemTweener::Opacity);
+    bool removed = scene->removeTween(name, TupItemTweener::Opacity);
 
-    foreach (QGraphicsView * view, k->scene->views()) {
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      QString tip = item->toolTip();
-                      if (tip.startsWith(tr("Opacity Tween") + ": " + name))
-                          item->setToolTip("");
-             }
+    if (removed) {
+        foreach (QGraphicsView * view, k->scene->views()) {
+                 foreach (QGraphicsItem *item, view->scene()->items()) {
+                          QString tip = item->toolTip();
+                          if (tip.startsWith(tr("Opacity Tween") + ": " + name))
+                              item->setToolTip("");
+                 }
+        }
+    } else {
+        #ifdef K_DEBUG
+            QString msg = "Tweener::removeTweenFromProject() - Opacity tween couldn't be removed -> " + name;
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
+        #endif
     }
 }
 
@@ -524,10 +538,10 @@ void Tweener::updateMode(TupToolPlugin::Mode mode)
             TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->initScene, k->initLayer, k->initFrame, 
                                                                               TupProjectRequest::Select, "1");
             emit requested(&request);
-
-            if (k->objects.isEmpty())
-                k->objects = k->scene->scene()->getItemsFromTween(k->currentTween->name(), TupItemTweener::Opacity);
         }
+
+        if (k->objects.isEmpty())
+            k->objects = k->scene->scene()->getItemsFromTween(k->currentTween->name(), TupItemTweener::Opacity);
     }
 }
 

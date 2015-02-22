@@ -428,7 +428,7 @@ QString Settings::tweenToXml(int currentScene, int currentLayer, int currentFram
     root.setAttribute("scaleAxes", k->scaleAxes);
 
     double factor = k->comboFactor->value();
-    root.setAttribute("scaleFactor", factor);
+    root.setAttribute("scaleFactor", QString::number(factor));
 
     int iterations = k->comboIterations->value();
     if (iterations == 0) {

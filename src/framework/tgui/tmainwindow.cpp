@@ -584,6 +584,11 @@ void TMainWindow::relayoutToolView()
  */
 void TMainWindow::setCurrentPerspective(int workspace)
 {
+    if (workspace != 1)
+        specialToolBar->setVisible(false);
+    else
+        specialToolBar->setVisible(true);
+
     if (m_currentPerspective == workspace)
         return;
 
