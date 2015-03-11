@@ -42,6 +42,7 @@
 #include "tupgraphicsscene.h"
 #include "tupgraphicobject.h"
 #include "tupsvgitem.h"
+#include "tupellipseitem.h"
 #include "tuppathitem.h"
 #include "tuppixmapitem.h"
 #include "tupitemtweener.h"
@@ -456,22 +457,18 @@ void Tweener::applyTween()
         foreach (QGraphicsItem *item, k->objects) {
                  TupLibraryObject::Type type = TupLibraryObject::Item;
 
-                 // TupProject *project = k->scene->scene()->project();
-                 // TupScene *scene = project->scene(k->initScene);
-
                  TupScene *scene = k->scene->scene();
                  TupLayer *layer = scene->layer(k->initLayer);
                  TupFrame *frame = layer->frame(k->currentTween->initFrame());
                  int objectIndex = frame->indexOf(item);
-                 QPointF origin = item->mapFromParent(k->origin);
-                 TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
 
+                 QRectF rect = item->sceneBoundingRect();
+                 QPointF origin = item->mapFromParent(rect.center());
+ 
+                 TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
                  if (svg) {
                      type = TupLibraryObject::Svg;
                      objectIndex = frame->indexOf(svg);
-                 } else {
-                     if (qgraphicsitem_cast<TupPathItem *>(item))
-                         origin = k->origin;
                  }
 
                  if (k->initFrame != k->currentTween->initFrame()) {

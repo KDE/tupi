@@ -368,13 +368,21 @@ void TupExportModule::exportIt()
         #endif
         return;
     } else {
-        QFile file(directory.filePath(name));
-        if (!file.open(QIODevice::ReadWrite)) {
+        if (m_currentFormat == TupExportInterface::JPEG || m_currentFormat == TupExportInterface::PNG || m_currentFormat == TupExportInterface::SVG) { // Images Array
+            QFileInfo dir(path);
+            if (!dir.isReadable() || !dir.isWritable()) {
+                TOsd::self()->display(tr("Error"), tr("Insufficient permissions. Please, choose another directory."), TOsd::Error);
+                return;
+            }
+        } else {
+            QFile file(directory.filePath(name));
+            if (!file.open(QIODevice::ReadWrite)) {
+                file.remove();
+                TOsd::self()->display(tr("Error"), tr("You have no permission to create this file. Please, choose another path."), TOsd::Error);
+                return;
+            }
             file.remove();
-            TOsd::self()->display(tr("Error"), tr("You have no permission to create this file. Please, choose another path."), TOsd::Error);
-            return;
         }
-        file.remove();
     }
 
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

@@ -573,8 +573,13 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
 
                          if (stepItem->has(TupTweenerStep::Scale)) {
                              QPointF point = tween->transformOriginPoint();
+                             tError() << "TupGraphicsScene::addTweeningObjects() - Origin point: " << point.x() << ", " << point.y();
                              object->item()->setTransformOriginPoint(point);
-                             object->item()->setScale(1.0);
+                             // object->item()->setScale(1.0);
+
+                             QTransform transform = object->item()->transform();
+                             transform.reset();
+                             object->item()->setTransform(transform); 
                          }
 
                          if (stepItem->has(TupTweenerStep::Shear)) {

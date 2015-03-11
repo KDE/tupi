@@ -154,9 +154,8 @@ void Settings::setInnerForm()
 
     k->comboEnd = new QSpinBox();
     k->comboEnd->setEnabled(true);
-    k->comboEnd->setMinimum(1);
-    k->comboEnd->setMaximum(999);
     k->comboEnd->setValue(1);
+    k->comboEnd->setMaximum(999);
     connect(k->comboEnd, SIGNAL(valueChanged(int)), this, SLOT(checkTopLimit(int)));
 
     QHBoxLayout *startLayout = new QHBoxLayout;
@@ -390,6 +389,8 @@ void Settings::setParameters(TupItemTweener *currentTween)
 
     k->comboInit->setEnabled(true);
     k->comboInit->setValue(currentTween->initFrame());
+
+    // tError() << "Settings::setParameters() - Tracing comboEnd...";
 
     k->comboEnd->setValue(currentTween->initFrame() + currentTween->frames());
 
@@ -677,8 +678,9 @@ void Settings::checkFramesRange()
 {
     int begin = k->comboInit->value();
     int end = k->comboEnd->value();
-        
+       
     if (begin > end) {
+        // tError() << "Settings::checkFramesRange() - Updating comboEnd value...";
         k->comboEnd->setValue(k->comboEnd->maximum() - 1);
         end = k->comboEnd->value();
     }

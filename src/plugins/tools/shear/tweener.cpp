@@ -470,16 +470,21 @@ void Tweener::applyTween()
                  TupLayer *layer = scene->layer(k->currentTween->initLayer());
                  TupFrame *frame = layer->frame(k->currentTween->initFrame());
                  int objectIndex = frame->indexOf(item);
-                 QPointF origin = item->mapFromParent(k->origin);
+
+                 QRectF rect = item->sceneBoundingRect();
+                 QPointF origin = item->mapFromParent(rect.center());
+
+                 // QPointF origin = item->mapFromParent(k->origin);
+
                  TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
 
                  if (svg) {
                      type = TupLibraryObject::Svg;
                      objectIndex = k->scene->currentFrame()->indexOf(svg);
-                 } else {
+                 } /* else {
                      if (qgraphicsitem_cast<TupPathItem *>(item))
                          origin = k->origin;
-                 }
+                 } */
 
                  if (k->initFrame != k->currentTween->initFrame()) {
                      QDomDocument dom;
