@@ -124,6 +124,10 @@
         <source>Sorry, Groups can&apos;t be filled yet</source>
         <translation>Los grupos de items aún no pueden ser rellenados</translation>
     </message>
+    <message>
+        <source>Sorry, only native objects can be filled</source>
+        <translation>Lo sentimos. Solo objetos nativos pueden ser rellenados</translation>
+    </message>
 </context>
 <context>
     <name>GeometricTool</name>
@@ -740,6 +744,22 @@
         <source>Ungroup Objects</source>
         <translation>Desagrupar Objetos</translation>
     </message>
+    <message>
+        <source>Fill Type</source>
+        <translation>Tipo de Relleno</translation>
+    </message>
+    <message>
+        <source>Line Fill</source>
+        <translation>Relleno de Línea</translation>
+    </message>
+    <message>
+        <source>Internal Fill</source>
+        <translation>Relleno Interno</translation>
+    </message>
+    <message>
+        <source>Line &amp; Internal Fill</source>
+        <translation>Relleno Total</translation>
+    </message>
 </context>
 <context>
     <name>ShiftTool</name>
@@ -845,6 +865,13 @@
     <message>
         <source>Oblique</source>
         <translation>Oblicua</translation>
+    </message>
+</context>
+<context>
+    <name>TMainWindow</name>
+    <message>
+        <source>Show Top Panel</source>
+        <translation>Mostrar Panel Superior</translation>
     </message>
 </context>
 <context>
@@ -1852,6 +1879,10 @@ Please, rename the project&apos;s file</source>
         <source>Image sequence was saved successful</source>
         <translation>La secuencia de imágenes ha sido guardada</translation>
     </message>
+    <message>
+        <source>Insufficient permissions. Please, choose another directory.</source>
+        <translation>Permisos insuficientes. Por favor, escoja otro directorio.</translation>
+    </message>
 </context>
 <context>
     <name>TupExportWidget</name>
@@ -2742,10 +2773,6 @@ Please, rename the project&apos;s file</source>
         <translation>Guardar proyecto actual en ruta actual</translation>
     </message>
     <message>
-        <source>Save project &amp;As...</source>
-        <translation>Guardar proyecto &amp;como...</translation>
-    </message>
-    <message>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
@@ -2960,6 +2987,18 @@ Please, rename the project&apos;s file</source>
     <message>
         <source>F1</source>
         <translation>F1</translation>
+    </message>
+    <message>
+        <source>Hide top panels</source>
+        <translation>Ocultar panel superior</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation>Alt</translation>
+    </message>
+    <message>
+        <source>Save project &amp;as...</source>
+        <translation>Guardar projecto como...</translation>
     </message>
 </context>
 <context>
