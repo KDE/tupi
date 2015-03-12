@@ -319,7 +319,7 @@ void TupExportModule::exportIt()
 
             #ifdef K_DEBUG
                 QString file = path.toLocal8Bit();
-                QString msg = "TupExportModule::exportIt() - Fatal Error: Directory doesn't exist! -> " + file;
+                QString msg = "TupExportModule::exportIt() - [Tracer 01] Fatal Error: Directory doesn't exist! -> " + file;
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
                 #else
@@ -359,7 +359,7 @@ void TupExportModule::exportIt()
         TOsd::self()->display(tr("Error"), tr("Directory doesn't exist! Please, choose another path."), TOsd::Error);
         #ifdef K_DEBUG
             QString file = path.toLocal8Bit();
-            QString msg = "TupExportModule::exportIt() - Fatal Error: Directory doesn't exist! -> " + file;
+            QString msg = "TupExportModule::exportIt() - [Tracer 02] Fatal Error: Directory doesn't exist! -> " + file;
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
             #else

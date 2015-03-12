@@ -1046,7 +1046,7 @@ void TupDocumentView::selectToolFromMenu(QAction *action)
         }
     } else {
         #ifdef K_DEBUG
-            QString msg = "TupDocumentView::selectToolFromMenu() - Error: Action with NO parent! Aborting...";
+            QString msg = "TupDocumentView::selectToolFromMenu() - Warning: Action with NO parent! Aborting...";
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
             #else
