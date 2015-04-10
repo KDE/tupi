@@ -72,12 +72,10 @@ TupExportModule::TupExportModule(TupProject *project, TupExportWidget::OutputFor
 
     QHBoxLayout *filePathLayout = new QHBoxLayout;
 
-    if (output == TupExportWidget::ImagesArray) {
+    if (output == TupExportWidget::ImagesArray)
         filePathLayout->addWidget(new QLabel(tr("Directory: ")));
-    // } else if (output == TupExportWidget::Animation || output == TupExportWidget::AnimatedImage) {
-    } else {
+    else // Animation or AnimatedImage
         filePathLayout->addWidget(new QLabel(tr("File: ")));
-    }
 
     QString prefix = m_project->projectName() + "_img";
     m_prefix = new QLineEdit(prefix);
@@ -196,9 +194,14 @@ void TupExportModule::setCurrentExporter(TupExportInterface *currentExporter)
 
 void TupExportModule::setCurrentFormat(int currentFormat, const QString &value)
 {
+    tError() << "TupExportModule::setCurrentFormat() - currentFormat: " << currentFormat;
+
     m_currentFormat = TupExportInterface::Format(currentFormat);
     extension = value;
     filename = path;
+
+    tError() << "TupExportModule::setCurrentFormat() - m_currentFormat: " << m_currentFormat;
+    tError() << "TupExportModule::setCurrentFormat() - extension: " << extension;
 
     if (m_currentFormat == TupExportInterface::APNG || (m_currentFormat != TupExportInterface::PNG 
         && m_currentFormat != TupExportInterface::JPEG && m_currentFormat != TupExportInterface::SVG)) { // Animated Image or Animation
@@ -288,6 +291,9 @@ void TupExportModule::exportIt()
     bool isArray = false;
     QString name = "";
 
+    tError() << "TupExportModule::exportIt() - m_currentFormat: " << m_currentFormat;
+    tError() << "TupExportModule::exportIt() - extension: " << extension;
+
     if (m_currentFormat == TupExportInterface::JPEG || m_currentFormat == TupExportInterface::PNG || m_currentFormat == TupExportInterface::SVG) { // Images Array
         isArray = true;
         name = m_prefix->text();
@@ -368,6 +374,7 @@ void TupExportModule::exportIt()
         #endif
         return;
     } else {
+        tError() << "VALUE -> m_currentFormat : " << m_currentFormat;
         if (m_currentFormat == TupExportInterface::JPEG || m_currentFormat == TupExportInterface::PNG || m_currentFormat == TupExportInterface::SVG) { // Images Array
             QFileInfo dir(path);
             if (!dir.isReadable() || !dir.isWritable()) {
@@ -378,7 +385,7 @@ void TupExportModule::exportIt()
             QFile file(directory.filePath(name));
             if (!file.open(QIODevice::ReadWrite)) {
                 file.remove();
-                TOsd::self()->display(tr("Error"), tr("You have no permission to create this file. Please, choose another path."), TOsd::Error);
+                TOsd::self()->display(tr("Error"), tr("Insufficient permissions. Please, choose another path."), TOsd::Error);
                 return;
             }
             file.remove();

@@ -54,7 +54,7 @@ TheoraPlugin::~TheoraPlugin()
 
 QString TheoraPlugin::key() const
 {
-    return "Open Video Format";
+    return tr("Open Video Format");
 }
 
 TupExportInterface::Formats TheoraPlugin::availableFormats()

@@ -182,6 +182,8 @@ void TupPluginSelector::setFormats(TupExportInterface::Formats formats)
 
 char const* TupPluginSelector::getFormatExtension(const QString format) 
 { 
+    tError() << "TupPluginSelector::getFormatExtension() - format: " << format;
+
     if (format.compare(tr("WEBM Video")) == 0)
         return ".webm";
 
@@ -237,6 +239,9 @@ void TupPluginSelector::selectedFormatItem(QListWidgetItem *item)
         QListWidgetItem *familyItem = (QListWidgetItem *) family.at(0); 
 
         QString familyLabel = familyItem->text(); 
+
+        tError() << "TupPluginSelector::selectedFormatItem() - familyLabel: " << familyLabel;
+        tError() << "TupPluginSelector::selectedFormatItem() - extension: " << extension;
 
         if (familyLabel.compare(tr("Animated Image")) == 0) {
             emit animatedImageFormatSelected(item->data(3124).toInt(), extension);

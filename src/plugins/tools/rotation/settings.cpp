@@ -390,9 +390,9 @@ void Settings::setParameters(TupItemTweener *currentTween)
     k->comboInit->setEnabled(true);
     k->comboInit->setValue(currentTween->initFrame());
 
-    // tError() << "Settings::setParameters() - Tracing comboEnd...";
-
     k->comboEnd->setValue(currentTween->initFrame() + currentTween->frames());
+
+    // tError() << "Settings::setParameters() - Tracing comboEnd - comboEnd: " << currentTween->initFrame() + currentTween->frames();
 
     checkFramesRange();
 
@@ -680,6 +680,8 @@ void Settings::checkFramesRange()
     int end = k->comboEnd->value();
        
     if (begin > end) {
+        // tError() << "Settings::checkFramesRange() - begin: " << begin;
+        // tError() << "Settings::checkFramesRange() - end: " << end;
         // tError() << "Settings::checkFramesRange() - Updating comboEnd value...";
         k->comboEnd->setValue(k->comboEnd->maximum() - 1);
         end = k->comboEnd->value();

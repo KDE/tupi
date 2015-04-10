@@ -976,6 +976,13 @@
     </message>
 </context>
 <context>
+    <name>TheoraPlugin</name>
+    <message>
+        <source>Open Video Format</source>
+        <translation>Formato de Vídeo Abierto</translation>
+    </message>
+</context>
+<context>
     <name>TreeWidgetSearchLine</name>
     <message>
         <source>Search</source>
@@ -1848,10 +1855,6 @@ Please, rename the project&apos;s file</source>
         <translation>El archivo existe. Deseas reemplazarlo?</translation>
     </message>
     <message>
-        <source>You have no permission to create this file. Please, choose another path.</source>
-        <translation>No tienes permisos para crear este archivo. Por favor, escoge otra ruta.</translation>
-    </message>
-    <message>
         <source>Format problem. Tupi Internal error.</source>
         <translation>Problema de formato. Error Interno de Tupí.</translation>
     </message>
@@ -1882,6 +1885,10 @@ Please, rename the project&apos;s file</source>
     <message>
         <source>Insufficient permissions. Please, choose another directory.</source>
         <translation>Permisos insuficientes. Por favor, escoja otro directorio.</translation>
+    </message>
+    <message>
+        <source>Insufficient permissions. Please, choose another path.</source>
+        <translation>Permisos insuficientes. Por favor, seleccione otra ruta.</translation>
     </message>
 </context>
 <context>

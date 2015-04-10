@@ -226,6 +226,8 @@ void TupExportWizard::closeDialog()
 
 void TupExportWizard::setFormat(int code, const QString &extension)
 {
+    tError() << "TupExportWizard::setFormat() - Tracing code: " << code;
+
     k->formatCode = code;
     k->format = extension;
 }
