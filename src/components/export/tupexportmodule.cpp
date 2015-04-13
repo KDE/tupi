@@ -113,7 +113,7 @@ TupExportModule::TupExportModule(TupProject *project, TupExportWidget::OutputFor
 
     if (output == TupExportWidget::ImagesArray) {
         prefixLayout->addWidget(m_prefix);
-        prefixLayout->addWidget(new QLabel(tr("i.e. <B>%1</B>01.png / jpeg / svg").arg(prefix)));
+        prefixLayout->addWidget(new QLabel(tr("i.e. ") + "<B>" + prefix + "</B>01.png / jpeg / svg"));
         layout->addLayout(prefixLayout);
     }
 
@@ -210,6 +210,8 @@ void TupExportModule::setCurrentFormat(int currentFormat, const QString &value)
 
         filename += m_project->projectName();
         filename += extension;
+
+        tError() << "TupExportModule::setCurrentFormat() - Exporting Animation...";
     } else { // Images Array
         // filename = getenv("HOME");
         filename = QDir::homePath();
@@ -221,17 +223,24 @@ void TupExportModule::setCurrentFormat(int currentFormat, const QString &value)
             if (!bgTransparency->isEnabled())
                 bgTransparency->setEnabled(true);
         }
+
+        tError() << "TupExportModule::setCurrentFormat() - Exporting Image Squence...";
     } 
 
 #ifdef Q_OS_WIN32
     filename.replace(QString("/"), QString("\\"));
 #endif
 
+    tError() << "TupExportModule::setCurrentFormat() - m_filePath: " << filename;
+
     m_filePath->setText(filename);
 }
 
 void TupExportModule::updateNameField()
 {
+   tError() << "TupExportModule::updateNameField() - Just tracing...";
+   tError() << "TupExportModule::updateNameField() - filename: " << filename;
+
    if (filename.length() > 0) 
        m_filePath->setText(filename);
 }
@@ -243,6 +252,8 @@ void TupExportModule::enableTransparency(bool flag)
 
 void TupExportModule::chooseFile()
 {
+    tError() << "TupExportModule::chooseFile() - Just tracing...";
+
     QFileDialog dialog(this);
     dialog.setDirectory(filename);
     const char *filter = "Video File (*" + extension.toLocal8Bit() + ")";
@@ -258,6 +269,8 @@ void TupExportModule::chooseFile()
 
 void TupExportModule::chooseDirectory()
 {
+    tError() << "TupExportModule::chooseDirectory() - Just tracing...";
+
     // QString dir = getenv("HOME");
     QString dir = QDir::homePath();
     filename = QFileDialog::getExistingDirectory(this, tr("Choose a directory..."), dir,
@@ -266,7 +279,6 @@ void TupExportModule::chooseDirectory()
 
     if (filename.length() > 0)
         m_filePath->setText(filename);
-    
 }
 
 void TupExportModule::updateState(const QString &name)
@@ -312,7 +324,7 @@ void TupExportModule::exportIt()
         if (QFile::exists(QString(filename + "0000" + extension))) {
             QMessageBox::StandardButton reply;
             reply = QMessageBox::question(this, tr("Warning!"), tr("Image sequence already exists. Overwrite it?"),
-                                              QMessageBox::Yes | QMessageBox::No);
+                                          QMessageBox::Yes | QMessageBox::No);
 
             if (reply == QMessageBox::No)
                 return;

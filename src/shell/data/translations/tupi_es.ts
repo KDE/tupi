@@ -1811,8 +1811,8 @@ Please, rename the project&apos;s file</source>
         <translation>Archivo: </translation>
     </message>
     <message>
-        <source>i.e. &lt;B&gt;%1&lt;/B&gt;01.png / jpeg / svg</source>
-        <translation>ej. &lt;B&gt;%1&lt;/B&gt;01.png / jpeg / svg</translation>
+        <source>i.e. </source>
+        <translation>ej. </translation>
     </message>
     <message>
         <source>Size</source>
@@ -1847,12 +1847,24 @@ Please, rename the project&apos;s file</source>
         <translation>Advertencia!</translation>
     </message>
     <message>
+        <source>Image sequence already exists. Overwrite it?</source>
+        <translation>La secuencia de imágenes ya existe. Deseas sobreescribirla?</translation>
+    </message>
+    <message>
         <source>Directory doesn&apos;t exist! Please, choose another path.</source>
         <translation>El directorio no existe! Por favor, escoge otra ruta.</translation>
     </message>
     <message>
         <source>File exists. Overwrite it?</source>
         <translation>El archivo existe. Deseas reemplazarlo?</translation>
+    </message>
+    <message>
+        <source>Insufficient permissions. Please, choose another directory.</source>
+        <translation>Permisos insuficientes. Por favor, escoja otro directorio.</translation>
+    </message>
+    <message>
+        <source>Insufficient permissions. Please, choose another path.</source>
+        <translation>Permisos insuficientes. Por favor, escoja otra ruta.</translation>
     </message>
     <message>
         <source>Format problem. Tupi Internal error.</source>
@@ -1867,28 +1879,16 @@ Please, rename the project&apos;s file</source>
         <translation>fue guardado satisfactoriamente</translation>
     </message>
     <message>
+        <source>Image sequence was saved successful</source>
+        <translation>La secuencia de imágenes ha sido guardada</translation>
+    </message>
+    <message>
         <source>Information</source>
         <translation>Información</translation>
     </message>
     <message>
         <source>ERROR!</source>
         <translation>ERROR!</translation>
-    </message>
-    <message>
-        <source>Image sequence already exists. Overwrite it?</source>
-        <translation>La secuencia de imágenes ya existe. Deseas sobreescribirla?</translation>
-    </message>
-    <message>
-        <source>Image sequence was saved successful</source>
-        <translation>La secuencia de imágenes ha sido guardada</translation>
-    </message>
-    <message>
-        <source>Insufficient permissions. Please, choose another directory.</source>
-        <translation>Permisos insuficientes. Por favor, escoja otro directorio.</translation>
-    </message>
-    <message>
-        <source>Insufficient permissions. Please, choose another path.</source>
-        <translation>Permisos insuficientes. Por favor, seleccione otra ruta.</translation>
     </message>
 </context>
 <context>

@@ -230,6 +230,9 @@ void TupExportWizard::setFormat(int code, const QString &extension)
 
     k->formatCode = code;
     k->format = extension;
+
+    tError() << "TupExportWizard::setFormat() - code: " << code;
+    tError() << "TupExportWizard::setFormat() - extension: " << extension;
 }
 
 struct TupExportWizardPage::Private
