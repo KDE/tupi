@@ -82,7 +82,7 @@ InkTool::InkTool() : k(new Private)
 {
     k->configurator = 0;
     k->item = 0;
-    k->cursor = QCursor(kAppProp->themeDir() + "cursors/contour.png", 0, 15);
+    k->cursor = QCursor(kAppProp->themeDir() + "cursors/ink.png", 0, 15);
 
     setupActions();
 }

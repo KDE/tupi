@@ -8,7 +8,7 @@ SUBDIRS += common \
            geometric \
            shift \
            fill \
-           eraser \
+           # eraser \
            polyline \
            position \
            rotation \
