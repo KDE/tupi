@@ -74,7 +74,7 @@ PolyLineTool::PolyLineTool(): k(new Private)
     k->nodeGroup = 0;
     k->item = 0;
 
-    k->cursor = QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "polyline.png");
+    k->cursor = QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "polyline.png", 4, 4);
     
     k->line1 = new QGraphicsLineItem(0, 0, 0, 0);
     k->line1->setPen(QPen(QColor(55, 177, 50)));

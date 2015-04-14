@@ -192,7 +192,7 @@ Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
 
     // SQA: Check this code with several screen resolutions. It must looks good with everyone! 
     textArea->setFont(QFont("Arial", 8, QFont::Normal, false));
-    textArea->setHtml("<p><b>" + tr("Rotation mode") + ":</b> " + tr("Double click on any node or shortcut Alt + R") + "</p>"); 
+    textArea->setHtml("<p><b>" + tr("Double Click on any node or Shortcut Alt + R") + ":</b> " + tr("Rotation mode") + "</p>"); 
     textArea->append("<p><b>" + tr("Arrows") + ":</b> " +  tr("Movement on selection") + "</p>");
     textArea->append("<p><b>" + tr("Shift + Arrows") + ":</b> " +  tr("Slow movement on selection") + "</p>");
     textArea->append("<p><b>" + tr("Ctrl + Arrows") + ":</b> " +  tr("Fast movement on selection") + "</p>");

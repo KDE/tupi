@@ -119,14 +119,14 @@ void GeometricTool::setupActions()
     
     TAction *action2 = new TAction(QIcon(kAppProp->themeDir() + "icons/ellipse.png"), tr("Ellipse"), this);
     action2->setShortcut(QKeySequence(tr("C")));
-    k->circleCursor = QCursor(kAppProp->themeDir() + "cursors/circle.png");
+    k->circleCursor = QCursor(kAppProp->themeDir() + "cursors/circle.png", 2, 2);
     action2->setCursor(k->circleCursor);
     
     k->actions.insert(tr("Ellipse"), action2);
     
     TAction *action3 = new TAction(QIcon(kAppProp->themeDir() + "icons/line.png"), tr("Line"), this);
     action3->setShortcut(QKeySequence(tr("L")));
-    k->lineCursor = QCursor(kAppProp->themeDir() + "cursors/line.png", 0, 0);
+    k->lineCursor = QCursor(kAppProp->themeDir() + "cursors/line.png", 0, 15);
     action3->setCursor(k->lineCursor);
 
     k->actions.insert(tr("Line"), action3);
@@ -370,6 +370,9 @@ void GeometricTool::keyPressEvent(QKeyEvent *event)
         return;
     } else if (event->key() == Qt::Key_Shift) {
                k->proportion = true;
+    } else if (event->key() == Qt::Key_X) {
+               if (name() == tr("Line"))
+                   endItem();
     } else {
         QPair<int, int> flags = TupToolPlugin::setKeyAction(event->key(), event->modifiers());
         if (flags.first != -1 && flags.second != -1)

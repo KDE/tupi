@@ -52,7 +52,7 @@ InfoPanel::InfoPanel(InfoPanel::ToolType type, QWidget *parent) : QWidget(parent
     textArea->setFont(QFont("Arial", 8, QFont::Normal, false));
 
     if (type == InfoPanel::Line) {
-        textArea->append("<p><b>" + tr("Mouse Right Click") + ":</b> " +  tr("Close the line path") + "</p>");
+        textArea->append("<p><b>" + tr("Mouse Right Click or X Key") + ":</b> " +  tr("Close the line path") + "</p>");
         textArea->append("<p><b>" + tr("Shift") + ":</b> " +  tr("Align line to horizontal/vertical axis") + "</p>"); 
     } else {
         textArea->append("<p><b>" + tr("Shift + Left Mouse Button") + ":</b> " +  tr("Set width/height proportional dimensions") + "</p>");

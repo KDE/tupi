@@ -75,7 +75,7 @@ PencilTool::~PencilTool()
 
 void PencilTool::setupActions()
 {
-    k->cursor = QCursor(kAppProp->themeDir() + "cursors/pencil.png", 0, 16);
+    k->cursor = QCursor(kAppProp->themeDir() + "cursors/pencil.png", 0, 15);
     TAction *pencil = new TAction(QPixmap(kAppProp->themeDir() + "icons/pencil.png"), tr("Pencil"), this);
     pencil->setShortcut(QKeySequence(tr("P")));
     pencil->setToolTip(tr("Pencil") + " - " + "P");

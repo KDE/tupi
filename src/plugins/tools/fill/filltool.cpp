@@ -87,14 +87,14 @@ void FillTool::setupActions()
     TAction *action1 = new TAction(QIcon(kAppProp->themeDir() + "icons/internal_fill.png"), tr("Internal fill"), this);
     action1->setShortcut(QKeySequence(tr("I")));
     action1->setToolTip(tr("Internal fill") + " - " + "I");
-    k->insideCursor = QCursor(kAppProp->themeDir() + "cursors/internal_fill.png");
+    k->insideCursor = QCursor(kAppProp->themeDir() + "cursors/internal_fill.png", 0, 11);
     action1->setCursor(k->insideCursor);
     k->actions.insert(tr("Internal fill"), action1);
     
     TAction *action2 = new TAction(QIcon(kAppProp->themeDir() + "icons/line_fill.png"), tr("Line fill"), this);
     action2->setShortcut(QKeySequence(tr("B")));
     action2->setToolTip(tr("Line fill") + " - " + "B");
-    k->contourCursor = QCursor(kAppProp->themeDir() + "cursors/line_fill.png");
+    k->contourCursor = QCursor(kAppProp->themeDir() + "cursors/line_fill.png", 0, 13);
     action2->setCursor(k->contourCursor);
     k->actions.insert(tr("Line fill"), action2);
 }
