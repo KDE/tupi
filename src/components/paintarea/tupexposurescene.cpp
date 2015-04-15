@@ -71,7 +71,11 @@ TupExposureScene::TupExposureScene(const QString &title, TupScene *scene, int cu
                   if (t < 9) { // SQA: Temporary condition
                       TPushButton *frameButton = new TPushButton(this, tr("Frame") + " " + QString::number(t+1), t, j);
                       frameButton->setFixedSize(100, 70);
-                      frameButton->setFont(QFont("Arial", 14, QFont::Bold));
+                      QFont font = this->font();
+                      font.setPointSize(14);
+                      font.setBold(true);
+                      frameButton->setFont(font);
+                      // frameButton->setFont(QFont("Arial", 14, QFont::Bold));
                       frameButton->setCheckable(true);
                       connect(frameButton, SIGNAL(clicked(int, int)), this, SLOT(goToFrame(int, int)));
                       layerLayout->addWidget(frameButton);
@@ -117,7 +121,11 @@ void TupExposureScene::addNewLayer()
         // TPushButton *frameButton = new TPushButton(this, tr("Frame") + " " + QString::number(i + 1), i, k->layerCounter - 1);
         TPushButton *frameButton = new TPushButton(this, tr("Frame") + " " + QString::number(i + 1), i, k->currentLayer);
         frameButton->setFixedSize(100, 70);
-        frameButton->setFont(QFont("Arial", 14, QFont::Bold));
+        QFont font = this->font();
+        font.setPointSize(14);
+        font.setBold(true);
+        frameButton->setFont(font);
+        // frameButton->setFont(QFont("Arial", 14, QFont::Bold));
         frameButton->setCheckable(true);
         if (i == 0) {
             frameButton->setChecked(true);
@@ -153,7 +161,11 @@ void TupExposureScene::addNewFrame()
     for(int i=0; i<k->layerList.size(); i++) {
         TPushButton *frameButton = new TPushButton(this, tr("Frame") + " " + QString::number(frameIndex + 1), frameIndex, i);
         frameButton->setFixedSize(100, 70);
-        frameButton->setFont(QFont("Arial", 14, QFont::Bold));
+        QFont font = this->font();
+        font.setPointSize(14);
+        font.setBold(true);
+        frameButton->setFont(font);
+        // frameButton->setFont(QFont("Arial", 14, QFont::Bold));
         frameButton->setCheckable(true);
         if (i == k->currentLayer) {
             frameButton->setChecked(true);

@@ -325,7 +325,11 @@ void TupStoryBoardDialog::thumbnailGenerator()
 
     QPainter painter(&pixmap);
     painter.setPen(Qt::black);
-    painter.setFont(QFont("Arial", 8, QFont::Bold));
+    QFont font = this->font();
+    font.setPointSize(8);
+    font.setBold(true);
+    painter.setFont(font);
+    // painter.setFont(QFont("Arial", 8, QFont::Bold));
     QRectF rect(QPointF(0, 0), QSizeF(96, height));
     painter.drawText(rect, Qt::AlignCenter, tr("Storyboard"));
     painter.setPen(QColor(230, 230, 230));
@@ -408,7 +412,13 @@ void TupStoryBoardDialog::updateForm(QListWidgetItem *current, QListWidgetItem *
 
             QPainter painter(&pixmap);
             painter.setPen(Qt::black);
-            painter.setFont(QFont("Arial", k->scaledSize.width()*30/520, QFont::Bold));
+            QFont font = this->font();
+            int fontSize = k->scaledSize.width()*30/520;
+            font.setPointSize(fontSize);
+            font.setBold(true);
+            painter.setFont(font);
+            // painter.setFont(QFont("Arial", k->scaledSize.width()*30/520, QFont::Bold));
+
             QRectF rect(QPointF(0, (k->scaledSize.height()-150)/2), QSizeF(k->scaledSize.width(), 150));
             painter.drawText(rect, Qt::AlignCenter, tr("Storyboard"));
             painter.setPen(Qt::lightGray);

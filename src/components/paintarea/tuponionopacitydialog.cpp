@@ -112,7 +112,11 @@ void TupOnionOpacityDialog::setButtonsPanel()
         number = number + "0";
 
     k->sizeLabel = new QLabel(number);
-    k->sizeLabel->setFont(QFont("Arial", 24, QFont::Bold));
+    QFont font = this->font();
+    font.setPointSize(24);
+    font.setBold(true);
+    k->sizeLabel->setFont(font);
+    // k->sizeLabel->setFont(QFont("Arial", 24, QFont::Bold));
     k->sizeLabel->setFixedWidth(65);
 
     TImageButton *plus = new TImageButton(QPixmap(THEME_DIR + "icons/plus_sign_medium.png"), 40, this, true);

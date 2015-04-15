@@ -82,7 +82,9 @@ void TupExposureVerticalHeader::paintSection(QPainter * painter, const QRect & r
 
     QString text;
     text = text.setNum(logicalIndex + 1);
-    QFont font("Arial", 7, QFont::Normal, false);
+    QFont font = this->font();
+    font.setPointSize(7);
+    // QFont font("Arial", 7, QFont::Normal, false);
     QFontMetrics fm(font);
 
     int x = rect.normalized().x() + ((rect.normalized().width() - fm.width(text))/2);
@@ -292,7 +294,10 @@ QString TupExposureTable::frameName(int layerIndex, int frameIndex)
 void TupExposureTable::setFrameName(int layerIndex, int frameIndex, const QString &name)
 {
     QTableWidgetItem *frame = item(frameIndex, layerIndex);
-    frame->setFont(QFont("Arial", 7, QFont::Normal, false));
+    QFont font = this->font();
+    font.setPointSize(7);
+    frame->setFont(font);
+    // frame->setFont(QFont("Arial", 7, QFont::Normal, false));
 
     if (frame) {
         if (frame->text() != name)
@@ -406,7 +411,10 @@ void TupExposureTable::insertLayer(int index, const QString & name)
 void TupExposureTable::insertFrame(int layerIndex, int frameIndex, const QString & name, bool external)
 {
     QTableWidgetItem *frame = new QTableWidgetItem;
-    frame->setFont(QFont("Arial", 7, QFont::Normal, false));
+    QFont font = this->font();
+    font.setPointSize(7);
+    frame->setFont(font);
+    // frame->setFont(QFont("Arial", 7, QFont::Normal, false));
     frame->setSizeHint(QSize(65, 10));
     frame->setText(name);
     frame->setData(IsEmpty, Empty);

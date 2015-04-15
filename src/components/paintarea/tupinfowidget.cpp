@@ -122,7 +122,11 @@ void TupInfoWidget::setUIContext()
     mainLayout->setSpacing(5);
 
     QLabel *titleLabel = new QLabel(tr("Currency Converter"));
-    titleLabel->setFont(QFont("Arial", 12, QFont::Bold, false));
+    QFont font = this->font();
+    font.setPointSize(12);
+    font.setBold(true);
+    titleLabel->setFont(font);
+    // titleLabel->setFont(QFont("Arial", 12, QFont::Bold, false));
     titleLabel->setAlignment(Qt::AlignHCenter);
 
     QLabel *currencyLabel = new QLabel(tr("Currency"));

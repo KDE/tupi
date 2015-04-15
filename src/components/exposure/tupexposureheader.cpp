@@ -75,8 +75,10 @@ void TupExposureHeader::setSectionVisibility(int section, bool visibility)
 void TupExposureHeader::showTitleEditor(int section)
 {
     if (section >= 0) {
-        QFont font("Arial", 8, QFont::Normal, false);
+        QFont font = this->font();
+        font.setPointSize(8);
         m_editor->setFont(font);
+        // QFont font("Arial", 8, QFont::Normal, false);
 
         int x = sectionViewportPosition(section);
         m_editor->setGeometry(x, 0, sectionSize(section), height());
@@ -156,7 +158,9 @@ void TupExposureHeader::mousePressEvent(QMouseEvent * event)
     int section = logicalIndexAt(event->pos());
     int x = sectionViewportPosition(section) + 3;
 
-    QFont font("Arial", 8, QFont::Normal, false);
+    QFont font = this->font();
+    font.setPointSize(8);
+    // QFont font("Arial", 8, QFont::Normal, false);
     QFontMetrics fm(font);
     QString text = m_sections[section].title;
     int w = fm.width(text);
@@ -195,7 +199,9 @@ void TupExposureHeader::paintSection(QPainter *painter, const QRect & rect, int 
     style()->drawControl(QStyle::CE_HeaderSection, &headerOption, painter);
 
     QString text = m_sections[section].title;
-    QFont font("Arial", 8, QFont::Normal, false);
+    QFont font = this->font();
+    font.setPointSize(8);
+    // QFont font("Arial", 8, QFont::Normal, false);
     QFontMetrics fm(font);
 
     if (((section == m_currentSection) || (m_sections.size() == 1)) && m_sections[section].isVisible) { // Header selected

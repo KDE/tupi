@@ -107,7 +107,11 @@ void TupPenDialog::setButtonsPanel()
     connect(minus, SIGNAL(clicked()), this, SLOT(onePointLess()));
 
     k->sizeLabel = new QLabel(QString::number(k->currentSize));
-    k->sizeLabel->setFont(QFont("Arial", 24, QFont::Bold));
+    QFont font = this->font();
+    font.setPointSize(24);
+    font.setBold(true);
+    k->sizeLabel->setFont(font);
+    // k->sizeLabel->setFont(QFont("Arial", 24, QFont::Bold));
     k->sizeLabel->setFixedWidth(40);
 
     TImageButton *plus = new TImageButton(QPixmap(THEME_DIR + "icons/plus_sign_medium.png"), 40, this, true);

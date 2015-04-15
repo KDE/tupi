@@ -565,7 +565,10 @@ QTextEdit *TDebug::browser(QWidget *parent, int width)
     if (!debugBrowser) {
         debugBrowser = new QTextEdit(parent);
         debugBrowser->setReadOnly(true);
-        debugBrowser->setFont(QFont("Arial", 8, QFont::Normal, false));
+        QFont font;
+        font.setPointSize(8);
+        debugBrowser->setFont(font);
+        // debugBrowser->setFont(QFont("Arial", 8, QFont::Normal, false));
         debugBrowser->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
         debugBrowser->setMaximumWidth(width - 100);
         debugBrowser->setMinimumWidth(width/2);

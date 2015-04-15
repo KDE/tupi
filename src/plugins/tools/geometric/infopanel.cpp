@@ -49,7 +49,10 @@ InfoPanel::InfoPanel(InfoPanel::ToolType type, QWidget *parent) : QWidget(parent
     QTextEdit *textArea = new QTextEdit; 
 
     // SQA: Check this code with several screen resolutions. It must looks good with everyone! 
-    textArea->setFont(QFont("Arial", 8, QFont::Normal, false));
+    QFont font = this->font();
+    font.setPointSize(8);
+    textArea->setFont(font);
+    // textArea->setFont(QFont("Arial", 8, QFont::Normal, false));
 
     if (type == InfoPanel::Line) {
         textArea->append("<p><b>" + tr("Mouse Right Click or X Key") + ":</b> " +  tr("Close the line path") + "</p>");

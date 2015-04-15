@@ -477,10 +477,12 @@ void TupPaintAreaBase::drawForeground(QPainter *painter, const QRectF &rect)
 
 void TupPaintAreaBase::drawPadLock(QPainter *painter, const QRectF &rect, QString text)
 {
-    QFont kfont(QFont("Arial", 30));
-    QFontMetricsF fm(kfont);
+    QFont font;
+    font.setPointSize(30);
+    font.setBold(true);
+    QFontMetricsF fm(font);
 
-    painter->setFont(kfont);
+    painter->setFont(font);
     painter->fillRect(rect, QColor(201, 201, 201, 200));
 
     QRectF shore = fm.boundingRect(text);

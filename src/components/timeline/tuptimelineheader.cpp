@@ -94,7 +94,9 @@ void TupTimeLineHeader::paintSection(QPainter * painter, const QRect & rect, int
         painter->fillRect(rect, color);
     }
 
-    QFont font("Arial", 7, QFont::Normal, false);
+    QFont font = this->font();
+    font.setPointSize(7);
+    // QFont font("Arial", 7, QFont::Normal, false);
     QFontMetrics fm(font);
 
     int y = rect.normalized().bottomLeft().y() - (1 + (rect.normalized().height() - fm.height())/2);
@@ -172,7 +174,9 @@ void TupTimeLineHeader::setSectionTitle(int index, const QString &name)
 void TupTimeLineHeader::showTitleEditor(int index)
 {
     if (index >= 0) {
-        QFont font("Arial", 7, QFont::Normal, false);
+        QFont font = this->font();
+        font.setPointSize(7);
+        // QFont font("Arial", 7, QFont::Normal, false);
         k->editor->setFont(font);
         int x = sectionViewportPosition(index);
         k->editor->setGeometry(0, x, width(), sectionSize(index));

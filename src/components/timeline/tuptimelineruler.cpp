@@ -89,12 +89,14 @@ void TupTimeLineRuler::paintSection(QPainter *painter, const QRect & rect, int l
     painter->drawLine(x, topY, x, topY + 4);
 
     if (logicalIndex == 1 || logicalIndex % 5 == 0) {
-        QFont label("Arial", 7, QFont::Normal, false);
-        QFontMetrics fm(label);
+        QFont font = this->font();
+        font.setPointSize(7);
+        // QFont label("Arial", 7, QFont::Normal, false);
+        QFontMetrics fm(font);
 
         QString number = QString::number(logicalIndex);
 	
-        painter->setFont(label);	
+        painter->setFont(font);	
         painter->drawText((int)(rect.center().x() - (fm.width(number)/2)), 
                           (int)(rect.center().y() + (fm.height()/2)) - 2, number);
     }

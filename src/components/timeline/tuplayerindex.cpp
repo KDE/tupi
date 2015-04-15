@@ -89,14 +89,17 @@ void TupLayerIndexHeader::paintSection(QPainter * painter, const QRect & rect, i
     
     QString text = model()->headerData(logicalIndex, orientation(), Qt::DisplayRole).toString();;
     
-    //QFontMetrics fm(painter->font());
-    QFont label("Arial", 9, QFont::Bold, false); 
-    QFontMetrics fm(label);
+    // QFontMetrics fm(painter->font());
+    QFont font = this->font();
+    font.setPointSize(9);
+    font.setBold(true);
+    // QFont label("Arial", 9, QFont::Bold, false); 
+    QFontMetrics fm(font);
     
     int x = rect.x() + (sectionSize(logicalIndex) - fm.width( text ))/2;
     //int y = fm.height() + (rect.y() / 2);
     int y = 17;
-    painter->setFont(label); 
+    painter->setFont(font); 
     painter->drawText(x, y, text);
 }
 
@@ -192,7 +195,11 @@ void TupLayerIndex::insertLayer(int position, const QString &name)
 {
     if (position >= 0 && position <= rowCount()) {
         QTableWidgetItem *newLayer = new QTableWidgetItem(name);
-        newLayer->setFont(QFont("Arial", 8, QFont::Normal, false));
+
+        QFont font = this->font();
+        font.setPointSize(8);
+        newLayer->setFont(font);
+        // newLayer->setFont(QFont("Arial", 8, QFont::Normal, false));
         newLayer->setTextAlignment(Qt::AlignCenter);
         
         newLayer->setBackgroundColor(palette().background().color());

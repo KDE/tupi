@@ -113,7 +113,11 @@ void TupExposureDialog::setSheet(int sceneIndex, int layerIndex, int frameIndex)
          // List of scene buttons
          TPushButton *sceneButton = new TPushButton(this, tr("Scene") + " " + QString::number(i+1), 0, i);
          sceneButton->setFixedSize(100, 70);
-         sceneButton->setFont(QFont("Arial", 14, QFont::Bold));
+         QFont font = this->font();
+         font.setPointSize(14);
+         font.setBold(true);
+         sceneButton->setFont(font);
+         // sceneButton->setFont(QFont("Arial", 14, QFont::Bold));
          sceneButton->setCheckable(true);
          connect(sceneButton, SIGNAL(clicked(int, int)), this, SLOT(goToScene(int, int)));
          if (i == sceneIndex) {
@@ -263,7 +267,11 @@ void TupExposureDialog::createScene()
 
     TPushButton *sceneButton = new TPushButton(this, tr("Scene") + " " + QString::number(scene), 0, scene-1);
     sceneButton->setFixedSize(100, 70);
-    sceneButton->setFont(QFont("Arial", 14, QFont::Bold));
+    QFont font = this->font();
+    font.setPointSize(14);
+    font.setBold(true);
+    sceneButton->setFont(font);
+    // sceneButton->setFont(QFont("Arial", 14, QFont::Bold));
     sceneButton->setCheckable(true);
     sceneButton->setChecked(true);
     sceneButton->setDisabled(true);
