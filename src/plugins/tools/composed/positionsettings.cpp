@@ -63,14 +63,17 @@ PositionSettings::PositionSettings(QWidget *parent) : QWidget(parent), k(new Pri
     k->layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     k->layout->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 
-    setFont(QFont("Arial", 8, QFont::Normal, false));
+    QFont font = this->font();
+    font.setPointSize(8);
+    setFont(font);
+    // setFont(QFont("Arial", 8, QFont::Normal, false));
 
     QLabel *componentLabel = new QLabel(tr("Component") + ": ");
     componentLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
     QLabel *componentName = new QLabel(tr("Position"));
     componentName->setAlignment(Qt::AlignHCenter);
-    componentName->setFont(QFont("Arial", 8, QFont::Bold));
+    // componentName->setFont(QFont("Arial", 8, QFont::Bold));
 
     QHBoxLayout *labelLayout = new QHBoxLayout;
     labelLayout->setAlignment(Qt::AlignHCenter | Qt::AlignTop);

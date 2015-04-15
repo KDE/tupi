@@ -49,7 +49,10 @@ TweenManager::TweenManager(QWidget *parent) : QWidget(parent), k(new Private)
     QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     layout->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 
-    setFont(QFont("Arial", 8, QFont::Normal, false));
+    QFont font = this->font();
+    font.setPointSize(8);
+    setFont(font);
+    //setFont(QFont("Arial", 8, QFont::Normal, false));
 
     k->input = new QLineEdit;
     k->addButton = new TImageButton(QPixmap(kAppProp->themeDir() + QDir::separator() + "icons" + QDir::separator() + "plus_sign.png"), 22);

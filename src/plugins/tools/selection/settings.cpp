@@ -51,13 +51,18 @@ struct Settings::Private
 
 Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
 {
+
+    QFont font = this->font();
+    font.setPointSize(8);
+    setFont(font);
+
     QBoxLayout *mainLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
 
     k->tools = new QWidget(this);
     QBoxLayout *toolsLayout = new QBoxLayout(QBoxLayout::TopToBottom, k->tools);
 
     QLabel *flips = new QLabel(tr("Flips"));
-    flips->setFont(QFont("Arial", 8, QFont::Normal, false));
+    // flips->setFont(QFont("Arial", 8, QFont::Normal, false));
     flips->setAlignment(Qt::AlignHCenter);
     toolsLayout->addWidget(flips);
 
@@ -87,7 +92,7 @@ Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
     toolsLayout->addWidget(new TSeparator(Qt::Horizontal));
 
     QLabel *order = new QLabel(tr("Order"));
-    order->setFont(QFont("Arial", 8, QFont::Normal, false));
+    // order->setFont(QFont("Arial", 8, QFont::Normal, false));
     order->setAlignment(Qt::AlignHCenter);
     toolsLayout->addWidget(order);
 
@@ -124,7 +129,7 @@ Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
     // Group/Ungroup actions
 
     QLabel *groupLayer = new QLabel(tr("Group"));
-    groupLayer->setFont(QFont("Arial", 8, QFont::Normal, false));
+    // groupLayer->setFont(QFont("Arial", 8, QFont::Normal, false));
     groupLayer->setAlignment(Qt::AlignHCenter);
     toolsLayout->addWidget(groupLayer);
 
@@ -151,7 +156,7 @@ Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
     toolsLayout->addWidget(new TSeparator(Qt::Horizontal));
 
     QLabel *position = new QLabel(tr("Position"));
-    position->setFont(QFont("Arial", 8, QFont::Normal, false));
+    // position->setFont(QFont("Arial", 8, QFont::Normal, false));
     position->setAlignment(Qt::AlignHCenter);
     toolsLayout->addWidget(position);
 
@@ -178,7 +183,7 @@ Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
     QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom);
     k->tips = new QPushButton(tr("Show Tips"));
     k->tips->setToolTip(tr("A little help for the Selection tool")); 
-    k->tips->setFont(QFont("Arial", 8, QFont::Normal, false));
+    // k->tips->setFont(QFont("Arial", 8, QFont::Normal, false));
     layout->addWidget(k->tips);
     connect(k->tips, SIGNAL(clicked()), this, SLOT(openTipPanel())); 
 
@@ -191,7 +196,7 @@ Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
     QTextEdit *textArea = new QTextEdit; 
 
     // SQA: Check this code with several screen resolutions. It must looks good with everyone! 
-    textArea->setFont(QFont("Arial", 8, QFont::Normal, false));
+    // textArea->setFont(QFont("Arial", 8, QFont::Normal, false));
     textArea->setHtml("<p><b>" + tr("Double Click on any node or Shortcut Alt + R") + ":</b> " + tr("Rotation mode") + "</p>"); 
     textArea->append("<p><b>" + tr("Arrows") + ":</b> " +  tr("Movement on selection") + "</p>");
     textArea->append("<p><b>" + tr("Shift + Arrows") + ":</b> " +  tr("Slow movement on selection") + "</p>");

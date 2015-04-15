@@ -237,7 +237,7 @@ void Tweener::setupActions()
 {
     TAction *action = new TAction(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "coloring_tween.png"),
                                       tr("Coloring Tween"), this);
-    action->setCursor(QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "tweener.png"));
+    action->setCursor(QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "tweener.png", 0, 0));
     action->setShortcut(QKeySequence(tr("Shift+C")));
 
     k->actions.insert(tr("Coloring Tween"), action);

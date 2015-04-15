@@ -254,7 +254,7 @@ void Tweener::setupActions()
 {
     TAction *translater = new TAction(QPixmap(kAppProp->themeDir() + "icons" + QDir::separator() + "shear_tween.png"), 
                                       tr("Shear Tween"), this);
-    translater->setCursor(QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "tweener.png"));
+    translater->setCursor(QCursor(kAppProp->themeDir() + "cursors" + QDir::separator() + "tweener.png", 0, 0));
     translater->setShortcut(QKeySequence(tr("Shift+H")));
 
     k->actions.insert(tr("Shear Tween"), translater);

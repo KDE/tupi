@@ -45,12 +45,16 @@ struct Configurator::Private
 
 Configurator::Configurator(QWidget *parent) : QFrame(parent), k(new Private)
 {
+    QFont font = this->font();
+    font.setPointSize(8);
+    setFont(font);
+
     QBoxLayout *layout = new QBoxLayout(QBoxLayout::TopToBottom, this);
     layout->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
 
     QLabel *title = new QLabel(tr("Papagayo LipSync Files"));
     title->setAlignment(Qt::AlignHCenter);
-    title->setFont(QFont("Arial", 8, QFont::Bold));
+    // title->setFont(QFont("Arial", 8, QFont::Bold));
 
     layout->addWidget(title);
 

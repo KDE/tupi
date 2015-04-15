@@ -81,7 +81,6 @@ Configurator::Configurator(QWidget *parent) : QFrame(parent), k(new Private)
     title->setAlignment(Qt::AlignHCenter);
     QFont font = this->font();
     font.setPointSize(8);
-    font.setBold(true);
     title->setFont(font);
     //title->setFont(QFont("Arial", 8, QFont::Bold));
 
