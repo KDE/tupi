@@ -216,6 +216,8 @@ void TupExportModule::setCurrentFormat(int currentFormat, const QString &value)
         // filename = getenv("HOME");
         filename = QDir::homePath();
 
+        tError() << "TupExportModule::setCurrentFormat() - filename: " << filename;
+
         if (m_currentFormat == TupExportInterface::JPEG || m_currentFormat == TupExportInterface::SVG) {
             if (bgTransparency->isEnabled())
                 bgTransparency->setEnabled(false);

@@ -176,6 +176,8 @@ void TupExportWizard::next()
         emit saveVideoToServer();
 
     if (tag.compare("SCENE") == 0)  {
+        tError() << "TupExportWizard::next() - k->format: " << k->format;
+
         k->nextButton->setText(tr("Export")); 
         k->backButton->setEnabled(true);
 
@@ -183,6 +185,7 @@ void TupExportWizard::next()
             emit setAnimatedImageFileName();
             k->history->setCurrentIndex(k->history->currentIndex()+3);
         } else if (k->format.compare(".jpeg") == 0 || k->format.compare(".png") == 0 || k->format.compare(".svg") == 0) { // Images Array
+                   tError() << "TupExportWizard::next() - Calling signal setImagesArrayFileName()";
                    emit setImagesArrayFileName();
                    k->history->setCurrentIndex(k->history->currentIndex()+2);
         } else {
