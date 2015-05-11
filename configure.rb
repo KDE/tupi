@@ -81,9 +81,9 @@ _EOH_
 
     if conf.hasArgument?("with-qtdir")
        qtdir = conf.argumentValue("with-qtdir")
-       conf.verifyQtVersion("5.2.0", debug, qtdir)
+       conf.verifyQtVersion("5.4.0", debug, qtdir)
     else
-       conf.verifyQtVersion("5.2.0", debug, "")
+       conf.verifyQtVersion("5.4.0", debug, "")
     end
 
     if conf.hasArgument?("with-libav")
