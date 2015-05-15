@@ -106,10 +106,10 @@ TupNewProject::TupNewProject(QWidget *parent) : TabDialog(parent), k(new Private
     k->presets->addItem(tr("Free format"));
     k->presets->addItem(tr("520x380 - 24"));
     k->presets->addItem(tr("640x480 - 24"));
-    k->presets->addItem(tr("480p (PAL DV/DVD) - 25"));
-    k->presets->addItem(tr("576p (PAL DV/DVD) - 25"));
-    k->presets->addItem(tr("720p (HD) - 25"));
-    k->presets->addItem(tr("1280p (Full HD) - 25"));
+    k->presets->addItem(tr("480 (PAL DV/DVD) - 25"));
+    k->presets->addItem(tr("576 (PAL DV/DVD) - 25"));
+    k->presets->addItem(tr("720 (HD) - 24"));
+    k->presets->addItem(tr("1080 (Full HD) - 24"));
     connect(k->presets, SIGNAL(currentIndexChanged(int)), this, SLOT(setPresets(int)));
 
     presetsLayout->addWidget(presetsLabel);
@@ -337,46 +337,46 @@ void TupNewProject::setPresets(int index)
 
     switch(index) {
            case FREE: 
-           case FORMAT_520P:
+           case FORMAT_520:
            {
                k->size->setX(520);
                k->size->setY(380);
                k->fps->setValue(24);
            }
            break;
-           case FORMAT_640P:
+           case FORMAT_640:
            {
                k->size->setX(640);
                k->size->setY(480);
                k->fps->setValue(24);
            }
            break;
-           case FORMAT_480P:
+           case FORMAT_480:
            {
                k->size->setX(720);
                k->size->setY(480);
                k->fps->setValue(25);
            }
            break;
-           case FORMAT_576P:
+           case FORMAT_576:
            {
                k->size->setX(720);
                k->size->setY(576);
                k->fps->setValue(25);
            }
            break;
-           case FORMAT_720P:
+           case FORMAT_720:
            {
                k->size->setX(1280);
                k->size->setY(720);
-               k->fps->setValue(25);
+               k->fps->setValue(24);
            }
            break;
-           case FORMAT_1280P:
+           case FORMAT_1080:
            {
                k->size->setX(1920);
                k->size->setY(1080);
-               k->fps->setValue(25);
+               k->fps->setValue(24);
            }
            break;
     }

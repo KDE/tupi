@@ -72,12 +72,12 @@ class TupNewProject : public TabDialog
     public:
 
         enum Format { FREE = 0, 
-                      FORMAT_520P,
-                      FORMAT_640P,
-                      FORMAT_480P,
-                      FORMAT_576P,
-                      FORMAT_720P,
-                      FORMAT_1280P
+                      FORMAT_520,
+                      FORMAT_640,
+                      FORMAT_480,
+                      FORMAT_576,
+                      FORMAT_720,
+                      FORMAT_1080
                     };
 
         TupNewProject(QWidget *parent = 0);
