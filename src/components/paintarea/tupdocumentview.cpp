@@ -1186,6 +1186,9 @@ void TupDocumentView::createToolBar()
 
 void TupDocumentView::closeArea()
 {
+    if (k->currentTool)
+        k->currentTool->aboutToChangeTool();
+
     if (k->configurationArea->isVisible())
         k->configurationArea->close();
 
