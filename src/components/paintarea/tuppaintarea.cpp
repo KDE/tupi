@@ -1343,14 +1343,29 @@ void TupPaintArea::keyPressEvent(QKeyEvent *event)
         #endif
     #endif
 
+    if (event->modifiers() == Qt::ControlModifier) {
+        if (event->key() == Qt::Key_2) {
+            emit newPerspective(1);
+            return;
+        }
+        if (event->key() == Qt::Key_3) {
+            emit newPerspective(2);
+            return;
+        }
+    }
+
     if (event->key() == Qt::Key_1 || event->key() == Qt::Key_Plus) {
-        emit zoomIn();
-        return;
+        if (event->modifiers() == Qt::NoModifier) {
+            emit zoomIn();
+            return;
+        }
     }
 
     if (event->key() == Qt::Key_2 || event->key() == Qt::Key_Minus) {
-        emit zoomOut();
-        return;
+        if (event->modifiers() == Qt::NoModifier) {
+            emit zoomOut();
+            return;
+        }
     }
 
     if (k->currentTool.compare(tr("PolyLine")) == 0) {

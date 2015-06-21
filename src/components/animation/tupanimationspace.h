@@ -66,6 +66,7 @@ class TUPI_EXPORT TupAnimationspace : public QMainWindow
 
     signals:
         void contextMenu(const QPoint &p);
+        void newPerspective(int index);
 
     private:
         TupCameraWidget *playerInterface;

@@ -82,7 +82,6 @@ void TupAnimationspace::mouseReleaseEvent(QMouseEvent *event)
 }
 
 void TupAnimationspace::keyPressEvent(QKeyEvent *event) {
-
     switch (event->key()) {
             case Qt::Key_Space:
                   if (event->modifiers()==Qt::ShiftModifier) {
@@ -111,6 +110,14 @@ void TupAnimationspace::keyPressEvent(QKeyEvent *event) {
             break;
             case Qt::Key_Down:
 
+            break;
+            case Qt::Key_1:
+                  if (event->modifiers() == Qt::ControlModifier)
+                      emit newPerspective(0);
+            break;
+            case Qt::Key_3:
+                  if (event->modifiers() == Qt::ControlModifier)
+                      emit newPerspective(2);
             break;
     }
 }

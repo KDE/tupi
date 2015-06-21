@@ -512,6 +512,11 @@ void TupMainWindow::changePerspective(QAction *action)
     action->setChecked(true);
 }
 
+void TupMainWindow::changePerspective(int index)
+{
+    setCurrentTab(index);
+}
+
 void TupMainWindow::setUndoRedoActions()
 {
     // Setting undo/redo actions

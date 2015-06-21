@@ -60,6 +60,9 @@ class TUPI_EXPORT TupTwitterWidget : public QWidget
         TupTwitterWidget(QWidget *parent);
         ~TupTwitterWidget();
 
+    signals:
+        void newPerspective(int index);
+
     public slots:
         void setSource(const QString &filePath);
 

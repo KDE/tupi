@@ -185,6 +185,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void closeLine();
         void projectSizeHasChanged(const QSize dimension);
         void updateFPS(int fps);
+        void newPerspective(int index);
 
     private:
         void setupDrawActions();

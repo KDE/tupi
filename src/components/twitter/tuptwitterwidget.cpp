@@ -84,11 +84,19 @@ void TupTwitterWidget::setSource(const QString &filePath)
     k->pageArea->setSource(QUrl::fromLocalFile(filePath));
 }
 
-void TupTwitterWidget::keyPressEvent(QKeyEvent * event) {
+void TupTwitterWidget::keyPressEvent(QKeyEvent *event) {
     switch (event->key()) {
             case (Qt::Key_R):
                   if (event->modifiers() == Qt::ControlModifier)
                       downLoadNews();
+            break;
+            case Qt::Key_1:
+                  if (event->modifiers() == Qt::ControlModifier)
+                      emit newPerspective(0);
+            break;
+            case Qt::Key_2:
+                  if (event->modifiers() == Qt::ControlModifier)
+                      emit newPerspective(1);
             break;
     }
 }

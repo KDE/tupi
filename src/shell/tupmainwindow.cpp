@@ -285,11 +285,10 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
         connectWidgetToLocalManager(animationTab);
         connect(animationTab, SIGNAL(modeHasChanged(TupProject::Mode)), this, SLOT(expandExposureView(TupProject::Mode))); 
         connect(animationTab, SIGNAL(expandColorPanel()), this, SLOT(expandColorView()));
-
         connect(animationTab, SIGNAL(updateColorFromFullScreen(const QColor &)), this, SLOT(updatePenColor(const QColor &)));
         connect(animationTab, SIGNAL(updatePenFromFullScreen(const QPen &)), this, SLOT(updatePenThickness(const QPen &)));
-
         connect(animationTab, SIGNAL(projectSizeHasChanged(const QSize)), this, SLOT(resizeProjectDimension(const QSize))); 
+        connect(animationTab, SIGNAL(newPerspective(int)), this, SLOT(changePerspective(int)));
 
         animationTab->setAntialiasing(true);
 
@@ -333,6 +332,7 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
         playerTab = new TupAnimationspace(cameraWidget);
         playerTab->setWindowIcon(QIcon(THEME_DIR + "icons" + QDir::separator() + "play_small.png"));
         playerTab->setWindowTitle(tr("Player"));
+        connect(playerTab, SIGNAL(newPerspective(int)), this, SLOT(changePerspective(int)));
         addWidget(playerTab);
 
         connect(animationTab, SIGNAL(updateFPS(int)), cameraWidget, SLOT(setStatusFPS(int)));
@@ -356,6 +356,7 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
             internetOn = true;
             newsTab = new TupTwitterWidget(this); 
             newsTab->setSource(twitterPath);
+            connect(newsTab, SIGNAL(newPerspective(int)), this, SLOT(changePerspective(int)));
             addWidget(newsTab);
         } else {
             #ifdef K_DEBUG

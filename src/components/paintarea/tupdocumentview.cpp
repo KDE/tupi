@@ -187,6 +187,7 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
     connect(k->paintArea, SIGNAL(updateStatusBgColor(QColor)), this, SLOT(updateStatusBgColor(QColor)));
     connect(k->paintArea, SIGNAL(zoomIn()), this, SLOT(applyZoomIn()));
     connect(k->paintArea, SIGNAL(zoomOut()), this, SLOT(applyZoomOut()));
+    connect(k->paintArea, SIGNAL(newPerspective(int)), this, SIGNAL(newPerspective(int)));
 
     Tupi::RenderType renderType = Tupi::RenderType(TCONFIG->value("RenderType").toInt()); 
 
@@ -451,7 +452,6 @@ void TupDocumentView::createLateralToolBar()
     k->toolbar = new QToolBar(tr("Draw tools"), this);
     k->toolbar->setIconSize(QSize(16, 16));
     addToolBar(Qt::LeftToolBarArea, k->toolbar);
-
     connect(k->toolbar, SIGNAL(actionTriggered(QAction *)), this, SLOT(selectToolFromMenu(QAction *)));
 
     // Brushes menu
@@ -467,6 +467,7 @@ void TupDocumentView::createLateralToolBar()
     // Misc Tools menu
     k->miscMenu = new QMenu(tr("Misc Tools"), k->toolbar);
     k->miscMenu->setIcon(QPixmap(THEME_DIR + "icons" + QDir::separator() + "export_frame.png"));
+    // connect(k->miscMenu, SIGNAL(triggered(QAction *)), this, SLOT(selectToolFromMenu(QAction*)));
 }
 
 void TupDocumentView::loadPlugins()
@@ -906,6 +907,9 @@ void TupDocumentView::selectTool()
             if (toolName.compare(k->currentTool->name()) == 0)
                 return;
 
+            if (k->currentTool->name().compare(tr("Papagayo Lip-sync")) == 0)
+                disconnect(k->currentTool, SIGNAL(importLipSync()), this, SLOT(importPapagayoLipSync()));
+
             k->currentTool->saveConfig();
             QWidget *toolConfigurator = k->currentTool->configurator();
             if (toolConfigurator)
@@ -974,6 +978,11 @@ void TupDocumentView::selectTool()
                      k->status->enableFullScreenFeature(false);
                      minWidth = 220;
                      connect(k->currentTool, SIGNAL(importLipSync()), this, SLOT(importPapagayoLipSync()));
+
+                     k->miscMenu->setDefaultAction(action);
+                     k->miscMenu->setActiveAction(action);
+                     if (!action->icon().isNull())
+                         k->miscMenu->menuAction()->setIcon(action->icon());
                      break;
                 default:
                      break;
