@@ -223,12 +223,17 @@ void TupExposureTable::requestFrameSelection(int currentSelectedRow, int current
     if (!k->removingLayer) { 
         if (k->removingFrame) {
             k->removingFrame = false;
-
+            
             if ((previousColumn != currentColumn) || (columnCount() == 1))
                  k->header->updateSelection(currentColumn);
 
-            if (previousRow != currentSelectedRow) 
-                emit frameSelected(currentLayer(), currentRow());
+            if (currentSelectedRow >= framesTotalAtCurrentLayer()) {
+                selectionModel()->clearSelection();
+                selectFrame(currentLayer(), framesTotalAtCurrentLayer() - 1);
+            } else {
+                if (previousRow != currentSelectedRow) 
+                    emit frameSelected(currentLayer(), currentRow());
+            }
 
             return;
         } else {

@@ -137,7 +137,7 @@ void TupTimeLine::closeAllScenes()
 
 void TupTimeLine::sceneResponse(TupSceneResponse *response)
 {
-    Q_UNUSED(response);
+    // Q_UNUSED(response);
 
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
@@ -193,7 +193,7 @@ void TupTimeLine::sceneResponse(TupSceneResponse *response)
 
 void TupTimeLine::layerResponse(TupLayerResponse *response)
 {
-    Q_UNUSED(response);
+    // Q_UNUSED(response);
 
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
@@ -249,7 +249,7 @@ void TupTimeLine::layerResponse(TupLayerResponse *response)
 
 void TupTimeLine::frameResponse(TupFrameResponse *response)
 {
-    Q_UNUSED(response);
+    // Q_UNUSED(response);
 
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
@@ -305,7 +305,7 @@ void TupTimeLine::frameResponse(TupFrameResponse *response)
 
 void TupTimeLine::libraryResponse(TupLibraryResponse *response)
 {
-    Q_UNUSED(response);
+    // Q_UNUSED(response);
 
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32

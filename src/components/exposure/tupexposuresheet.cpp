@@ -313,7 +313,6 @@ void TupExposureSheet::applyAction(int action)
                  if (target == lastFrame) {
                      TupProjectRequest request = TupRequestBuilder::createFrameRequest(scene, layer, target, TupProjectRequest::Remove);
                      emit requestTriggered(&request);
-
                      if (target > 0)
                          selectFrame(layer, target-1);
                      else 
@@ -492,7 +491,8 @@ void TupExposureSheet::selectFrame(int indexLayer, int indexFrame)
 {
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
-            qDebug() << "[TupExposureSheet::selectFrame()]";
+            qDebug() << "[TupExposureSheet::selectFrame()] - Layer: " << indexLayer;
+            qDebug() << "[TupExposureSheet::selectFrame()] - Frame: " << indexFrame;
         #else
             T_FUNCINFO;
         #endif
