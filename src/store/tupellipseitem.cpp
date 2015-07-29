@@ -97,7 +97,7 @@ bool TupEllipseItem::contains(const QPointF & point) const
     
     QPolygonF pol = shape().toFillPolygon ();
     foreach (QPointF point, pol) {
-             if (rectS.contains( point))
+             if (rectS.contains(point))
                  return true;
     }
     QPolygonF::iterator it1 = pol.begin() ;

@@ -178,7 +178,7 @@ bool TupItemFactory::startTag(const QString& qname, const QXmlAttributes& atts)
                    k->objects.push(item);
                } else {
                    if (!k->item)
-                       k->item = createItem( qname );
+                       k->item = createItem(qname);
 
                    k->objects.push(k->item);
                }

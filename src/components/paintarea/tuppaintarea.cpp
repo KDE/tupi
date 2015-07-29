@@ -151,9 +151,22 @@ void TupPaintArea::mousePressEvent(QMouseEvent *event)
     if (!k->canvasEnabled)
         return;
 
-    if (graphicsScene()->currentFrame()->isLocked()) {
+    TupFrame *frame = graphicsScene()->currentFrame();
+    if (frame) {
+        if (frame->isLocked()) {
+            #ifdef K_DEBUG
+                QString msg = "TupPaintArea::mousePressEvent() - Frame is locked!";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tFatal() << msg;
+                #endif
+            #endif
+            return;
+        }
+    } else {
         #ifdef K_DEBUG
-            QString msg = "TupPaintArea::mousePressEvent() - Frame is locked!";
+            QString msg = "TupPaintArea::mousePressEvent() - Frame is NULL!";
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
             #else
@@ -988,8 +1001,6 @@ void TupPaintArea::pasteItems()
     if (!k->menuOn)
         k->position = viewPosition();
     
-    // QPointF point = k->position - k->oldPosition;
-
     foreach (QString xml, k->copiesXml) {
              TupLibraryObject::Type type = TupLibraryObject::Item;
              int total = currentScene->currentFrame()->graphicItemsCount();
@@ -997,21 +1008,22 @@ void TupPaintArea::pasteItems()
              if (xml.startsWith("<svg")) {
                  type = TupLibraryObject::Svg;
                  total = currentScene->currentFrame()->svgItemsCount();
-             }
+             } 
 
-             /*
-             if (xml.startsWith("<ellipse")) {
-                 tFatal() << "TupPaintArea::pasteItems() - Tracing ellipse!"; 
-             } else {
-                 tFatal() << "TupPaintArea::pasteItems() - NO ellipse detected!: " << xml;
-             }
-             */
+             int init = xml.indexOf("pos=") + 6;
+             int end = xml.indexOf(")", init);
+             int n = end - init;
+             QString string = xml.mid(init, n);  
+             QStringList list = string.split(",");
+             int x = list.at(0).toFloat();
+             int y = list.at(1).toFloat();
+             QPoint point = QPoint(x, y);
 
              TupProjectRequest event = TupRequestBuilder::createItemRequest(currentScene->currentSceneIndex(),
-                                      currentScene->currentLayerIndex(),
-                                      currentScene->currentFrameIndex(),
-                                      total, QPoint(), k->spaceMode, type,   
-                                      TupProjectRequest::Add, xml);
+                                       currentScene->currentLayerIndex(),
+                                       currentScene->currentFrameIndex(),
+                                       total, point, k->spaceMode, type,   
+                                       TupProjectRequest::Add, xml);
              emit requestTriggered(&event);
 
              /* SQA: Pay attention to the point variable - Copy/Paste issue 

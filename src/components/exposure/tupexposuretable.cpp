@@ -229,6 +229,7 @@ void TupExposureTable::requestFrameSelection(int currentSelectedRow, int current
 
             if (currentSelectedRow >= framesTotalAtCurrentLayer()) {
                 selectionModel()->clearSelection();
+                // TODO: Check why cell selection is awkward
                 selectFrame(currentLayer(), framesTotalAtCurrentLayer() - 1);
             } else {
                 if (previousRow != currentSelectedRow) 

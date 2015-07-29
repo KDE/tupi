@@ -76,6 +76,8 @@ struct TupFrame::Private
 
 TupFrame::TupFrame() : k(new Private)
 {
+    k->isLocked = false;
+    k->isVisible = true;
 }
 
 TupFrame::TupFrame(TupLayer *parent) : QObject(parent), k(new Private)

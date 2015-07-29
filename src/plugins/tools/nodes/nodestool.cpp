@@ -368,6 +368,7 @@ QWidget *NodesTool::configurator()
 
 void NodesTool::aboutToChangeScene(TupGraphicsScene *scene)
 {
+    Q_UNUSED(scene);
     // init(scene);
 }
 
