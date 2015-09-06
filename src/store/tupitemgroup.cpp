@@ -66,13 +66,11 @@ QVariant TupItemGroup::itemChange(GraphicsItemChange change, const QVariant &val
 void TupItemGroup::recoverChilds()
 {
     foreach (QGraphicsItem *item, k->childs) {
-        if (TupItemGroup *child = qgraphicsitem_cast<TupItemGroup *>(item)) {
-            child->recoverChilds();
-        }
+             if (TupItemGroup *child = qgraphicsitem_cast<TupItemGroup *>(item))
+                 child->recoverChilds();
         
-        if (item->parentItem() != this) {
-            item->setParentItem(this);
-        }
+             if (item->parentItem() != this)
+                 item->setParentItem(this);
     }
 }
 

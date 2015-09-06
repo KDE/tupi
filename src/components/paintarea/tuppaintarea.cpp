@@ -286,10 +286,12 @@ void TupPaintArea::mousePressEvent(QMouseEvent *event)
                 pasteMenu->setEnabled(false);    
             }
 
+            /* SQA: This menu is a pending feature to *consider*
             if (QMenu *toolMenu = graphicsScene()->currentTool()->menu()) {
                 menu->addSeparator();
                 menu->addMenu(toolMenu);
             }
+            */
 
             k->position = viewPosition();
             k->menuOn = true;
@@ -1183,7 +1185,7 @@ void TupPaintArea::addSelectedItemsToLibrary()
     TupLibraryDialog dialog;
     foreach (QGraphicsItem *item, selected)
              dialog.addItem(item);
-	
+
     if (dialog.exec() != QDialog::Accepted)
         return;
 

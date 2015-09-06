@@ -40,7 +40,7 @@ struct TupGraphicLibraryItem::Private
 {
     QString symbolName;
     QString svgContent;
-    QList<QGraphicsItem *> items;
+    // QList<QGraphicsItem *> items;
     TupLibraryObject::Type itemType;
 };
 
@@ -56,7 +56,7 @@ TupGraphicLibraryItem::TupGraphicLibraryItem(TupLibraryObject *object) : TupProx
 
 TupGraphicLibraryItem::~TupGraphicLibraryItem()
 {
-    qDeleteAll(k->items);
+    // qDeleteAll(k->items);
     delete k;
 }
 

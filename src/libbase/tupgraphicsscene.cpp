@@ -223,7 +223,7 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
              QString currentFrame = "";
 
              if (mainFrame) {
-                 currentFrame = mainFrame->frameName();
+                 // currentFrame = mainFrame->frameName();
 
                  if (layer) {
                      if (layer->isVisible()) {
@@ -237,14 +237,15 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                                  if (limit < 0) 
                                      limit = 0;
 
-                                 QString frameBehind = ""; 
+                                 // QString frameBehind = ""; 
                                  for (int frameIndex = photogram-1; frameIndex >= limit; frameIndex--) {
                                       TupFrame *frame = layer->frame(frameIndex);
-                                      QString previousFrame = frame->frameName();
-                                      if (frame && previousFrame.compare(currentFrame) != 0 && frameBehind.compare(previousFrame) != 0)
+                                      // QString previousFrame = frame->frameName();
+                                      // if (frame && previousFrame.compare(currentFrame) != 0 && frameBehind.compare(previousFrame) != 0)
+                                      if (frame)
                                           addFrame(frame, opacity, Previous);
 
-                                      frameBehind = previousFrame;
+                                      // frameBehind = previousFrame;
                                       opacity -= opacityFactor;
                                  }
                              }
@@ -263,14 +264,15 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                                  if (limit >= layer->frames().count()) 
                                      limit = layer->frames().count() - 1;
 
-                                 QString frameLater = "";
+                                 // QString frameLater = "";
                                  for (int frameIndex = photogram+1; frameIndex <= limit; frameIndex++) {
                                       TupFrame * frame = layer->frame(frameIndex);
-                                      QString nextFrame = frame->frameName();
-                                      if (frame && nextFrame.compare(currentFrame) != 0 && frameLater.compare(nextFrame) != 0)
+                                      // QString nextFrame = frame->frameName();
+                                      // if (frame && nextFrame.compare(currentFrame) != 0 && frameLater.compare(nextFrame) != 0)
+                                      if (frame)
                                           addFrame(frame, opacity, Next);
                       
-                                      frameLater = nextFrame;
+                                      // frameLater = nextFrame;
                                       opacity -= opacityFactor;
                                  }
                              }
@@ -439,9 +441,17 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
     if (item) {
         k->onionSkin.opacityMap.insert(item, opacity);
 
-        // SQA: Check if this instruction is actually required
-        // if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item))
-        //     group->recoverChilds();
+        if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item)) {
+            /*
+            tError() << "TupGraphicsScene::addGraphicObject() - Tracing group item...";
+            QDomDocument dom;
+            dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
+            tError() << "";
+            tError() << dom.toString();
+            */
+
+            group->recoverChilds();
+        }
 
         item->setSelected(false);
         item->setOpacity(opacity);
@@ -476,6 +486,7 @@ void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
             if (frame) {
                 svgItem->setOpacity(opacity);
 
+                // SQA: Experimental code related to interactive features
                 if (svgItem->symbolName().compare("dollar.svg")==0)
                     connect(svgItem, SIGNAL(enabledChanged()), this, SIGNAL(showInfoWidget()));
 
