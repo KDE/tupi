@@ -52,7 +52,7 @@ struct TupItemFactory::Private
 {
     QGraphicsItem *item;
     QGradient *gradient;
-    QString loading; //brush or pen
+    QString loading; // brush or pen
 
     QStack<TupItemGroup *> groups;
     QStack<QGraphicsItem *> objects;
@@ -100,7 +100,7 @@ QGraphicsItem* TupItemFactory::createItem(const QString &root)
                item = new TupLineItem;
     } else if (root == "group") {
                item = new TupItemGroup;
-    } else if(root == "symbol") {
+    } else if (root == "symbol") {
                item = new TupGraphicLibraryItem;
                k->type = TupItemFactory::Library;
     }
@@ -213,9 +213,7 @@ bool TupItemFactory::startTag(const QString& qname, const QXmlAttributes& atts)
         
                k->addToGroup = true;
     } else if (qname == "symbol") {
-               // tError() << "TupItemFactory::startTag() - Tracing...";
                if (k->addToGroup) {
-                   // tError() << "TupItemFactory::startTag() - Tracing Flag 1";
                    TupGraphicLibraryItem *item = qgraphicsitem_cast<TupGraphicLibraryItem *>(createItem(qname));
                    QString id = atts.value("id");
                    item->setSymbolName(id);
@@ -224,7 +222,6 @@ bool TupItemFactory::startTag(const QString& qname, const QXmlAttributes& atts)
 
                    k->objects.push(item);
                } else {
-                   // tError() << "TupItemFactory::startTag() - Tracing Flag 2 -> qname: " << qname;
                    if (!k->item)
                        k->item = createItem(qname);
 

@@ -47,13 +47,11 @@ TupLibrary::~TupLibrary()
 void TupLibrary::fromXml(const QString &xml)
 {
     QDomDocument document;
-    
-    if (! document.setContent(xml))
+    if (!document.setContent(xml))
         return;
     
     QDomElement root = document.documentElement();
     QDomNode n = root.firstChild();
-    
     while (!n.isNull()) {
            QDomElement e = n.toElement();
         
@@ -64,7 +62,6 @@ void TupLibrary::fromXml(const QString &xml)
                        QTextStream ts(&doc);
                        ts << n;
                    }
-
                    TupLibraryFolder::fromXml(doc);
                }
 
@@ -90,6 +87,5 @@ QDomElement TupLibrary::toXml(QDomDocument &doc) const
 {
     QDomElement root = doc.createElement("library");
     root.appendChild(TupLibraryFolder::toXml(doc));
-    
     return root;
 }

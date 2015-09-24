@@ -179,7 +179,6 @@ void TupPaintArea::mousePressEvent(QMouseEvent *event)
     if (k->currentTool.compare(tr("Nodes Selection")) == 0) {
         // If a node is the target... abort!
         if (event->buttons() == Qt::RightButton) {
-            // if (qgraphicsitem_cast<TControlNode *>(scene()->itemAt(mapToScene(event->pos()))))
             if (qgraphicsitem_cast<TControlNode *>(scene()->itemAt(mapToScene(event->pos()), QTransform())))
                 return;
         }
@@ -190,7 +189,6 @@ void TupPaintArea::mousePressEvent(QMouseEvent *event)
             emit closePolyLine();
             return;
         }
-
         if (k->currentTool.compare(tr("Line")) == 0) {
             emit closeLine();
             return;
@@ -200,73 +198,72 @@ void TupPaintArea::mousePressEvent(QMouseEvent *event)
     if (k->currentTool.compare(tr("Object Selection")) == 0) {
         if (event->buttons() == Qt::RightButton) {
             // If a node is the target... abort!
-            // if (qgraphicsitem_cast<Node *>(scene()->itemAt(mapToScene(event->pos()))))
             if (qgraphicsitem_cast<Node *>(scene()->itemAt(mapToScene(event->pos()), QTransform())))
                 return;
 
-            // if (QGraphicsItem *item = scene()->itemAt(mapToScene(event->pos()))) {
             if (QGraphicsItem *item = scene()->itemAt(mapToScene(event->pos()), QTransform())) {
-                if (item->opacity() == 1) {
+                if (item->opacity() == 1) // If target is part of the current frame
                     item->setFlag(QGraphicsItem::ItemIsSelectable, true);
-                    // item->setSelected(true);
-                } else {
-                    return;
-                }
+                else 
+                    return; // If target is NOT part of the current frame
             }
 
             QMenu *menu = new QMenu(tr("Drawing area"));
             menu->addAction(kApp->findGlobalAction("undo"));
             menu->addAction(kApp->findGlobalAction("redo"));
-            menu->addSeparator();
 
-            QAction *cut = menu->addAction(tr("Cut"), this, SLOT(cutItems()), QKeySequence(tr("Ctrl+X")));
-            QAction *copy = menu->addAction(tr("Copy"), this, SLOT(copyItems()), QKeySequence(tr("Ctrl+C")));
-            QAction *paste = menu->addAction(tr("Paste"), this, SLOT(pasteItems()), QKeySequence(tr("Ctrl+V")));
+            bool activeSelection = !scene()->selectedItems().isEmpty();
 
-            QMenu *pasteMenu = new QMenu(tr("Paste in..."));
-            QAction *pasteFive = pasteMenu->addAction(tr("next 5 frames"), this, SLOT(pasteNextFive()));
-            QAction *pasteTen = pasteMenu->addAction(tr("next 10 frames"), this, SLOT(pasteNextTen()));
-            QAction *pasteTwenty = pasteMenu->addAction(tr("next 20 frames"), this, SLOT(pasteNextTwenty()));
-            QAction *pasteFifty = pasteMenu->addAction(tr("next 50 frames"), this, SLOT(pasteNextFifty()));
-            QAction *pasteHundred = pasteMenu->addAction(tr("next 100 frames"), this, SLOT(pasteNextHundred()));
+            if (activeSelection) {
+                menu->addSeparator();
+                menu->addAction(tr("Cut"), this, SLOT(cutItems()), QKeySequence(tr("Ctrl+X")));
+                menu->addAction(tr("Copy"), this, SLOT(copyItems()), QKeySequence(tr("Ctrl+C")));
+            }
 
-            pasteMenu->addAction(pasteFive);
-            pasteMenu->addAction(pasteTen);
-            pasteMenu->addAction(pasteTwenty);
-            pasteMenu->addAction(pasteFifty);
-            pasteMenu->addAction(pasteHundred);
+            if (!k->copiesXml.isEmpty()) {
+                if (!activeSelection)
+                    menu->addSeparator();
+                menu->addAction(tr("Paste"), this, SLOT(pasteItems()), QKeySequence(tr("Ctrl+V")));
 
-            menu->addMenu(pasteMenu);
+                QMenu *pasteMenu = new QMenu(tr("Paste in..."));
+                QAction *pasteFive = pasteMenu->addAction(tr("next 5 frames"), this, SLOT(pasteNextFive()));
+                QAction *pasteTen = pasteMenu->addAction(tr("next 10 frames"), this, SLOT(pasteNextTen()));
+                QAction *pasteTwenty = pasteMenu->addAction(tr("next 20 frames"), this, SLOT(pasteNextTwenty()));
+                QAction *pasteFifty = pasteMenu->addAction(tr("next 50 frames"), this, SLOT(pasteNextFifty()));
+                QAction *pasteHundred = pasteMenu->addAction(tr("next 100 frames"), this, SLOT(pasteNextHundred()));
 
-            QAction *del = menu->addAction(tr("Delete"), this, SLOT(deleteItems()), QKeySequence(Qt::Key_Delete));
+                pasteMenu->addAction(pasteFive);
+                pasteMenu->addAction(pasteTen);
+                pasteMenu->addAction(pasteTwenty);
+                pasteMenu->addAction(pasteFifty);
+                pasteMenu->addAction(pasteHundred);
 
-            menu->addSeparator();
-            QMenu *order = new QMenu(tr("Send"));
+                menu->addMenu(pasteMenu);
+            }
 
-            connect(order, SIGNAL(triggered(QAction*)), this, SLOT(requestItemMovement(QAction*)));
-            order->addAction(tr("To back"))->setData(TupFrame::MoveBack);
-            order->addAction(tr("To front"))->setData(TupFrame::MoveToFront);
-            order->addAction(tr("One level to back"))->setData(TupFrame::MoveOneLevelBack);
-            order->addAction(tr("One level to front"))->setData(TupFrame::MoveOneLevelToFront);
+            if (activeSelection) {
+                menu->addAction(tr("Delete"), this, SLOT(deleteItems()), QKeySequence(Qt::Key_Delete));
+                menu->addSeparator();
+                QMenu *order = new QMenu(tr("Send"));
 
-            menu->addMenu(order);
-            menu->addSeparator();
+                connect(order, SIGNAL(triggered(QAction*)), this, SLOT(requestItemMovement(QAction*)));
+                order->addAction(tr("To back"))->setData(TupFrame::MoveBack);
+                order->addAction(tr("To front"))->setData(TupFrame::MoveToFront);
+                order->addAction(tr("One level to back"))->setData(TupFrame::MoveOneLevelBack);
+                order->addAction(tr("One level to front"))->setData(TupFrame::MoveOneLevelToFront);
 
-            // Code commented temporary while SQA is done
-            QAction *addItem = menu->addAction(tr("Add to library..."), this, SLOT(addSelectedItemsToLibrary()));
-            menu->addSeparator();
+                menu->addMenu(order);
+                menu->addSeparator();
 
-            if (scene()->selectedItems().isEmpty()) {
-                del->setEnabled(false);
-                cut->setEnabled(false);
-                copy->setEnabled(false);
-                addItem->setEnabled(false);
-            } else {
+                // Code commented temporary while SQA is done
+                QAction *addItem = menu->addAction(tr("Add to library..."), this, SLOT(addSelectedItemsToLibrary()));
+                menu->addSeparator();
+
                 QList<QGraphicsItem *> selected = scene()->selectedItems();
                 foreach (QGraphicsItem *item, selected) {
                          QDomDocument dom;
                          dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
-		         QDomElement root = dom.documentElement();
+                         QDomElement root = dom.documentElement();
 
                          if (root.tagName() == "symbol") {
                              QString key = root.attribute("id").toUpper();
@@ -279,11 +276,6 @@ void TupPaintArea::mousePressEvent(QMouseEvent *event)
                                     break;
                          }
                 }
-            }
-
-            if (k->copiesXml.isEmpty()) {
-                paste->setEnabled(false);
-                pasteMenu->setEnabled(false);    
             }
 
             /* SQA: This menu is a pending feature to *consider*
@@ -1183,8 +1175,14 @@ void TupPaintArea::addSelectedItemsToLibrary()
     }
 
     TupLibraryDialog dialog;
-    foreach (QGraphicsItem *item, selected)
+    foreach (QGraphicsItem *item, selected) {
+             /*
+             if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item)) {
+                 tError() << "TupPaintArea::addSelectedItemsToLibrary() - Tracing a group!";
+             }
+             */
              dialog.addItem(item);
+    }
 
     if (dialog.exec() != QDialog::Accepted)
         return;

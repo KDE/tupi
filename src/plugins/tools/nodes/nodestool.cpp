@@ -34,6 +34,7 @@
  ***************************************************************************/
 
 #include "nodestool.h"
+#include "tosd.h"
 
 struct NodesTool::Private
 {
@@ -117,6 +118,11 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
     if (scene->selectedItems().count() > 0) {
         QList<QGraphicsItem *> currentSelection = scene->selectedItems();
         QGraphicsItem *item = currentSelection.at(0);
+
+        if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item)) {
+            TOsd::self()->display(tr("Warning"), tr("Split the group first to edit its nodes!"), TOsd::Warning);
+            return;
+        }
 
         if (k->activeSelection) { 
             int index1 = scene->currentFrame()->indexOf(k->nodeGroup->parentItem());

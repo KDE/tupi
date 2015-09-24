@@ -62,6 +62,7 @@
 #include "tcontrolnode.h"
 #include "tupproject.h"
 #include "tosd.h"
+#include "tupitemgroup.h"
 
 #include <QGraphicsScene>
 #include <QMouseEvent>

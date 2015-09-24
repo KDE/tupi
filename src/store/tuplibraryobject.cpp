@@ -36,6 +36,7 @@
 #include "tuplibraryobject.h"
 #include "tupitemfactory.h"
 #include "tuppixmapitem.h"
+// #include "tupitemgroup.h"
 // #include "taudioplayer.h"
 
 struct TupLibraryObject::Private
@@ -59,7 +60,7 @@ TupLibraryObject::~TupLibraryObject()
 }
 
 /**
- * Items, pics, text, and so...
+ * Items, pics, text, etc...
  * @param data 
  */
 void TupLibraryObject::setData(const QVariant &data)
@@ -118,8 +119,7 @@ QString TupLibraryObject::extension() const
 void TupLibraryObject::fromXml(const QString &xml)
 {
     QDomDocument document;
-    
-    if (! document.setContent(xml)) {
+    if (!document.setContent(xml)) {
         #ifdef K_DEBUG
             QString msg = "TupLibraryObject::fromXml() - Fatal Error: Invalid XML structure!";
             #ifdef Q_OS_WIN32
@@ -128,12 +128,10 @@ void TupLibraryObject::fromXml(const QString &xml)
                 tError() << msg;
             #endif
         #endif
-
         return;
     }
     
     QDomElement objectTag = document.documentElement();
-
     if (objectTag.tagName() == "object") {
         setSymbolName(objectTag.attribute("id"));
         if (k->symbolName.isEmpty()) {
@@ -145,7 +143,6 @@ void TupLibraryObject::fromXml(const QString &xml)
                     tError() << msg;
                 #endif
             #endif
-
             return;
         }
        

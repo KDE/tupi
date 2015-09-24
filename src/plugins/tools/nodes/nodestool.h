@@ -55,6 +55,7 @@
 #include "tuprequestbuilder.h"
 #include "tupproxyitem.h"
 #include "tuplibraryobject.h"
+#include "tupitemgroup.h"
 
 #include <QObject>
 #include <QSpinBox>

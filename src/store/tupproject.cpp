@@ -652,9 +652,16 @@ bool TupProject::insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString
 
         if (frame) {
             TupLibraryObject *object = k->library->getObject(name);
-
             if (object) {
                 switch (object->type()) {
+                        case TupLibraryObject::Item:
+                        {
+                             TupGraphicLibraryItem *libraryItem = new TupGraphicLibraryItem(object);
+                             int zLevel = frame->getTopZLevel();
+                             libraryItem->setZValue(zLevel);
+                             frame->addItem(name, libraryItem);
+                        }
+                        break;
                         case TupLibraryObject::Image:
                         {
                              TupGraphicLibraryItem *libraryItem = new TupGraphicLibraryItem(object);
@@ -665,17 +672,6 @@ bool TupProject::insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString
                                  libraryItem->moveBy((k->dimension.width() - imageW)/2, (k->dimension.height() - imageH)/2);
                              else
                                  libraryItem->moveBy(0, 0);
-
-                             int zLevel = frame->getTopZLevel();
-                             libraryItem->setZValue(zLevel);
-                             frame->addItem(name, libraryItem);
-                        }
-                        break;
-                        case TupLibraryObject::Text:
-                        {
-                             // SQA: Just out of curiosity, check if this case really happens!
-                             // tFatal() << "TupProject::insertSymbolIntoFrame() - Just tracing text!";
-                             TupGraphicLibraryItem *libraryItem = new TupGraphicLibraryItem(object);
 
                              int zLevel = frame->getTopZLevel();
                              libraryItem->setZValue(zLevel);
@@ -710,9 +706,12 @@ bool TupProject::insertSymbolIntoFrame(TupProject::Mode spaceMode, const QString
                              frame->addSvgItem(name, svgItem);
                         }
                         break;
-                        case TupLibraryObject::Item:
+                        case TupLibraryObject::Text:
                         {
+                             // SQA: Just out of curiosity, check if this case really happens!
+                             // tFatal() << "TupProject::insertSymbolIntoFrame() - Just tracing text!";
                              TupGraphicLibraryItem *libraryItem = new TupGraphicLibraryItem(object);
+
                              int zLevel = frame->getTopZLevel();
                              libraryItem->setZValue(zLevel);
                              frame->addItem(name, libraryItem);

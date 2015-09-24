@@ -335,7 +335,6 @@ QDomElement TupFrame::toXml(QDomDocument &doc) const
     doc.appendChild(root);
 
     for (int i=0; i < k->graphics.size(); i++) {
-         // tError() << "TupFrame::toXml() - Saving object -> " << i;
          TupGraphicObject *object = k->graphics.at(i);
          root.appendChild(object->toXml(doc));
     }
@@ -350,8 +349,15 @@ QDomElement TupFrame::toXml(QDomDocument &doc) const
 
 void TupFrame::addItem(const QString &id, QGraphicsItem *item)
 {
-    // tError() << "TupFrame::addItem() - object id: " << id; 
-    // tError() << "TupFrame::addItem() - Adding item with zValue: " << k->zLevelIndex;
+    if (TupGraphicLibraryItem *graphic = qgraphicsitem_cast<TupGraphicLibraryItem *>(item)) {
+        QGraphicsItem *libraryItem = graphic->item();
+        if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(libraryItem)) {
+            QDomDocument dom;
+            dom.appendChild(dynamic_cast<TupAbstractSerializable *>(group)->toXml(dom));
+            TupItemFactory itemFactory;
+            item = itemFactory.create(dom.toString());
+        }
+    }
 
     item->setZValue(k->zLevelIndex);
     k->zLevelIndex++;
@@ -361,8 +367,6 @@ void TupFrame::addItem(const QString &id, QGraphicsItem *item)
 
     k->graphics.append(object);
     k->objectIndexes.append(id);
-
-    // tError() << "TupFrame::addItem() - k->graphics.size() : " << k->graphics.size();
 }
 
 void TupFrame::removeImageItemFromFrame(const QString &id)
@@ -430,8 +434,6 @@ void TupFrame::updateSvgIdFromFrame(const QString &oldId, const QString &newId)
 
 void TupFrame::insertItem(int position, QGraphicsItem *item)
 {
-    // tError() << "TupFrame::insertItem() - position: " << position;
-
     TupGraphicObject *object = new TupGraphicObject(item, this);
 
     k->graphics.insert(position, object);
@@ -464,37 +466,18 @@ int TupFrame::createItemGroup(int position, QList<int> group)
     TupItemGroup *itemGroup = new TupItemGroup;
 
     foreach (int index, group) {
-             // tError() << "TupFrame::createItemGroup() - index: " << index;
              QGraphicsItem *item = this->item(index);
              itemGroup->addToGroup(item);
     }
 
     int size = group.size()-1;
-    for (int i=size;i>=0;i--) {
-         // tError() << "TupFrame::createItemGroup() - Removing item from position: " << group.at(i);
+    for (int i=size;i>=0;i--)
          removeGraphicAt(group.at(i));
-    }
-
-    /*
-    tError() << "***";
-    tError() << "TupFrame::createItemGroup() - k->objectIndexes.size(): " << k->objectIndexes.size();
-    tError() << "TupFrame::createItemGroup() - k->grahpics.size(): " << k->graphics.size();
-    tError() << "TupFrame::createItemGroup() - zlevel: " << k->zLevelIndex;
-    */
 
     QGraphicsItem *block = qgraphicsitem_cast<QGraphicsItem *>(itemGroup);
     block->setZValue(zBase);
 
     insertItem(position, block);
-
-    /*
-    for (int i=0; i < k->objectIndexes.size(); ++i)
-         tError() << "TupFrame::createItemGroup() - object at position " << i << " -> " <<  k->objectIndexes.at(i);
-    tError() << "***";
-    tError() << "TupFrame::createItemGroup() - k->objectIndexes.size(): " << k->objectIndexes.size();
-    tError() << "TupFrame::createItemGroup() - k->grahpics.size(): " << k->graphics.size();
-    tError() << "TupFrame::createItemGroup() - zlevel: " << k->zLevelIndex;
-    */
 
     return position;
 }
@@ -1081,11 +1064,8 @@ bool TupFrame::removeSvgAt(int position)
 
 QGraphicsItem *TupFrame::createItem(QPointF coords, const QString &xml, bool loaded)
 {
-    // tError() << "TupFrame::createItem() - Adding new item...";
-
     TupItemFactory itemFactory;
     itemFactory.setLibrary(project()->library());
-
     QGraphicsItem *graphicItem = itemFactory.create(xml);
 
     if (graphicItem) {

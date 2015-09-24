@@ -102,8 +102,8 @@ QDomElement TupGraphicObject::toXml(QDomDocument &doc) const
 {
     QDomElement object = doc.createElement("object");
 
-    if (TupAbstractSerializable *is = dynamic_cast<TupAbstractSerializable *>(k->item))
-        object.appendChild(is->toXml(doc));
+    if (TupAbstractSerializable *serialData = dynamic_cast<TupAbstractSerializable *>(k->item))
+        object.appendChild(serialData->toXml(doc));
 
     if (k->tween)
         object.appendChild(k->tween->toXml(doc));

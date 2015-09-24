@@ -35,6 +35,7 @@
 
 #include "tupgraphiclibraryitem.h"
 #include "tupserializer.h"
+#include "tupitemgroup.h"
 
 struct TupGraphicLibraryItem::Private
 {

@@ -449,13 +449,11 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
             tError() << "";
             tError() << dom.toString();
             */
-
             group->recoverChilds();
-        }
+        } 
 
         item->setSelected(false);
         item->setOpacity(opacity);
-
         addItem(item);
     }
 }

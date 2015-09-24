@@ -34,6 +34,7 @@
  ***************************************************************************/
 
 #include "tupitempreview.h"
+// #include <QGraphicsItemGroup>
 
 struct TupItemPreview::Private
 {
@@ -108,9 +109,9 @@ void TupItemPreview::paintEvent(QPaintEvent *)
 
         // If preview is for a "path" object
         if (QGraphicsPathItem *path = qgraphicsitem_cast<QGraphicsPathItem *>(k->proxy->item())) {
+        // if (QGraphicsItemGroup *path = qgraphicsitem_cast<QGraphicsItemGroup *>(k->proxy->item())) {
             int pathWidth = path->path().boundingRect().width();
             int pathHeight = path->path().boundingRect().height();
-
             // If object is bigger than canvas, resize
             if (pathWidth > rect().width() || pathHeight > rect().height()) {
                 float distance = 0;

@@ -70,18 +70,6 @@ TupLibraryObject *TupLibraryFolder::createSymbol(TupLibraryObject::Type type, co
         #endif
     #endif
 
-    if (data.isEmpty()) {
-        #ifdef K_DEBUG
-            QString msg = "TupLibraryFolder::createSymbol() - [ Fatal Error ] - Data is empty!";
-            #ifdef Q_OS_WIN32
-                qDebug() << msg;
-            #else
-                tError() << msg;
-            #endif
-        #endif
-        return 0;
-    }
-
     if (data.isNull()) {
         #ifdef K_DEBUG
             QString msg = "TupLibraryFolder::createSymbol() - [ Fatal Error ] - Data is null!";
@@ -92,6 +80,18 @@ TupLibraryObject *TupLibraryFolder::createSymbol(TupLibraryObject::Type type, co
             #endif
         #endif
 
+        return 0;
+    }
+
+    if (data.isEmpty()) {
+        #ifdef K_DEBUG
+            QString msg = "TupLibraryFolder::createSymbol() - [ Fatal Error ] - Data is empty!";
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
+        #endif
         return 0;
     }
 
