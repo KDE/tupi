@@ -39,6 +39,7 @@
 #include "tglobal.h"
 
 #include <QGraphicsItem>
+#include <QGraphicsItemGroup>
 #include <QPainter>
 
 /**

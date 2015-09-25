@@ -87,8 +87,14 @@ QRectF TupProxyItem::boundingRect() const
 
 void TupProxyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    if (k->realItem)
-        k->realItem->paint(painter, option, widget);
+    if (k->realItem) {
+        if (QGraphicsItemGroup *group = qgraphicsitem_cast<QGraphicsItemGroup *>(k->realItem)) {
+            foreach (QGraphicsItem *child, group->childItems())
+                     child->paint(painter, option, widget);
+        } else {
+            k->realItem->paint(painter, option, widget);
+        }
+    }
 }
 
 QPainterPath TupProxyItem::shape() const

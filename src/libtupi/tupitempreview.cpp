@@ -34,7 +34,7 @@
  ***************************************************************************/
 
 #include "tupitempreview.h"
-// #include <QGraphicsItemGroup>
+#include <QGraphicsItemGroup>
 
 struct TupItemPreview::Private
 {
@@ -97,36 +97,52 @@ void TupItemPreview::paintEvent(QPaintEvent *)
 
         opt.exposedRect = QRectF(QPointF(0,0), k->proxy->boundingRect().size());
         opt.levelOfDetail = 1;
+        opt.palette = palette();
         
         QTransform matrix = k->proxy->sceneTransform();
-        
-        opt.palette = palette();
         painter.setTransform(matrix);
 
         QRectF rectangle(QPointF(0,0), size()); 
         painter.setPen(QPen(Qt::gray, 0.5, Qt::SolidLine));
         painter.drawRect(rectangle);
 
-        // If preview is for a "path" object
+        int itemWidth = 0;
+        int itemHeight = 0;
+        bool isNative = false;
+        int newPosX = 0;
+        int newPosY = 0;
+
         if (QGraphicsPathItem *path = qgraphicsitem_cast<QGraphicsPathItem *>(k->proxy->item())) {
-        // if (QGraphicsItemGroup *path = qgraphicsitem_cast<QGraphicsItemGroup *>(k->proxy->item())) {
-            int pathWidth = path->path().boundingRect().width();
-            int pathHeight = path->path().boundingRect().height();
+            isNative = true;
+            itemWidth = path->path().boundingRect().width();
+            itemHeight = path->path().boundingRect().height();
+            newPosX = -path->path().boundingRect().topLeft().x();
+            newPosY = -path->path().boundingRect().topLeft().y();
+        } else if (QGraphicsItemGroup *group = qgraphicsitem_cast<QGraphicsItemGroup *>(k->proxy->item())) {
+                   isNative = true;
+                   itemWidth = group->boundingRect().width();
+                   itemHeight = group->boundingRect().height();
+                   newPosX = -group->boundingRect().topLeft().x();
+                   newPosY = -group->boundingRect().topLeft().y();
+        }
+
+        // If preview is for a native object (path or group)
+        if (isNative) {
             // If object is bigger than canvas, resize
-            if (pathWidth > rect().width() || pathHeight > rect().height()) {
+            if (itemWidth > rect().width() || itemHeight > rect().height()) {
                 float distance = 0;
                 float base = 0;
                 int newPosX = 0;
                 int newPosY = 0;
 
                 float limit = (float) rect().width() / (float) rect().height();
-                float proportion = pathWidth / pathHeight;
+                float proportion = itemWidth / itemHeight;
 
                 if (proportion <= limit) {
-                    distance = pathHeight;
+                    distance = itemHeight;
                     base = rect().height() - 10;
                 } else {
-                    distance = pathWidth;
+                    distance = itemWidth;
                     base = rect().width();
                 }
 
@@ -138,16 +154,14 @@ void TupItemPreview::paintEvent(QPaintEvent *)
 
                 painter.scale(factor, factor);
 
-                newPosX = (widthRealLength - pathWidth)/2;  
-                newPosY = (heightRealLength - pathHeight)/2;
+                newPosX = (widthRealLength - itemWidth)/2;  
+                newPosY = (heightRealLength - itemHeight)/2;
                 painter.translate(newPosX, newPosY);
 
-                newPosX = -path->path().boundingRect().topLeft().x();
-                newPosY = -path->path().boundingRect().topLeft().y(); 
                 painter.translate(newPosX, newPosY);
             } else { // if object is smaller than canvas, just show it
-                painter.translate((rect().width() - pathWidth)/2, (rect().height() - pathHeight)/2);
-                painter.translate(-path->path().boundingRect().topLeft().x(), -path->path().boundingRect().topLeft().y());
+                painter.translate((rect().width() - itemWidth)/2, (rect().height() - itemHeight)/2);
+                painter.translate(newPosX, newPosY);
             }
         } else { 
                 // if preview is for images or svg objects 
