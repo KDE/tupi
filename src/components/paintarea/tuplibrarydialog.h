@@ -40,6 +40,8 @@
 #include "tupitempreview.h"
 #include "tformfactory.h"
 #include "tapplicationproperties.h"
+#include "tuplibrary.h"
+#include "tosd.h"
 
 #include <QDialog>
 #include <QVBoxLayout>
@@ -59,7 +61,7 @@ class TUPI_EXPORT TupLibraryDialog : public QDialog
     Q_OBJECT
 
     public:
-        TupLibraryDialog();
+        TupLibraryDialog(TupLibrary *library);
         ~TupLibraryDialog();
 
         void addItem(QGraphicsItem *item);

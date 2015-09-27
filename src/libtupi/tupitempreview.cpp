@@ -91,10 +91,8 @@ void TupItemPreview::paintEvent(QPaintEvent *)
     if (k->proxy) {
         QStyleOptionGraphicsItem opt;
         opt.state = QStyle::State_None;
-        
         if (k->proxy->isEnabled())
             opt.state |= QStyle::State_Enabled;
-
         opt.exposedRect = QRectF(QPointF(0,0), k->proxy->boundingRect().size());
         opt.levelOfDetail = 1;
         opt.palette = palette();
@@ -132,9 +130,6 @@ void TupItemPreview::paintEvent(QPaintEvent *)
             if (itemWidth > rect().width() || itemHeight > rect().height()) {
                 float distance = 0;
                 float base = 0;
-                int newPosX = 0;
-                int newPosY = 0;
-
                 float limit = (float) rect().width() / (float) rect().height();
                 float proportion = itemWidth / itemHeight;
 
@@ -154,9 +149,9 @@ void TupItemPreview::paintEvent(QPaintEvent *)
 
                 painter.scale(factor, factor);
 
-                newPosX = (widthRealLength - itemWidth)/2;  
-                newPosY = (heightRealLength - itemHeight)/2;
-                painter.translate(newPosX, newPosY);
+                int posX = (widthRealLength - itemWidth)/2;  
+                int posY = (heightRealLength - itemHeight)/2;
+                painter.translate(posX, posY);
 
                 painter.translate(newPosX, newPosY);
             } else { // if object is smaller than canvas, just show it

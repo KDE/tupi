@@ -1174,15 +1174,9 @@ void TupPaintArea::addSelectedItemsToLibrary()
         return;
     }
 
-    TupLibraryDialog dialog;
-    foreach (QGraphicsItem *item, selected) {
-             /*
-             if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item)) {
-                 tError() << "TupPaintArea::addSelectedItemsToLibrary() - Tracing a group!";
-             }
-             */
+    TupLibraryDialog dialog(k->project->library());
+    foreach (QGraphicsItem *item, selected)
              dialog.addItem(item);
-    }
 
     if (dialog.exec() != QDialog::Accepted)
         return;

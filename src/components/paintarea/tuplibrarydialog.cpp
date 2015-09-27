@@ -40,10 +40,12 @@ struct TupLibraryDialog::Private
     QToolBox *toolBox;
     QMap<QGraphicsItem *, QLineEdit *> symbolNames;
     QMap<int, QLineEdit *> tabs;
+    TupLibrary *library;
 };
 
-TupLibraryDialog::TupLibraryDialog() : QDialog(), k(new Private)
+TupLibraryDialog::TupLibraryDialog(TupLibrary *library) : QDialog(), k(new Private)
 {
+    k->library = library;
     setWindowTitle(tr("Library Object"));
     setWindowIcon(QIcon(QPixmap(THEME_DIR + "icons/polyline.png")));
 
@@ -93,10 +95,22 @@ QString TupLibraryDialog::symbolName(QGraphicsItem *item) const
 
 void TupLibraryDialog::checkNames()
 {
+    QList<QString> objects;
     for (int i = 0; i < k->toolBox->count(); i++) {
-         if (k->tabs[i]->text().isEmpty()) {
-             k->toolBox->setCurrentIndex (i);
+         QString name = k->tabs[i]->text();
+         if (name.isEmpty()) {
+             k->toolBox->setCurrentIndex(i);
              k->tabs[i]->setFocus();
+             TOsd::self()->display(tr("Error"), tr("Library object's name is missing!"), TOsd::Error);
+             return;
+         } else {
+             objects << name + ".obj";
+         }
+    }
+
+    for (int i=0; i<objects.size(); i++) {
+         if (k->library->exists(objects.at(i))) {
+             TOsd::self()->display(tr("Error"), tr("Object's name already exists. Pick a new one!"), TOsd::Error);
              return;
          }
     }
