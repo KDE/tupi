@@ -111,6 +111,8 @@ class TUPI_PLUGIN SelectionTool : public TupToolPlugin
         bool selectionIsActive();
         void reset(TupGraphicsScene *scene);
         void updateItemPosition();
+        TupFrame* currentFrame();
+        TupFrame* frameAt(int sceneIndex, int layerIndex, int frameIndex);
 
         struct Private;
         Private *const k;

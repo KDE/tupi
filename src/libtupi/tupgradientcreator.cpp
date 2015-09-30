@@ -109,6 +109,8 @@ TupGradientCreator::~TupGradientCreator()
 
 void TupGradientCreator::setCurrentColor(const QColor &color)
 {
+    Q_UNUSED(color);
+
     // SQA: This code has been disabled temporarily 
     /*
     k->selector->setCurrentColor(color);

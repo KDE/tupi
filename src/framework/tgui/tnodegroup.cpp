@@ -86,7 +86,8 @@ TNodeGroup::~TNodeGroup()
 
 void TNodeGroup::clear()
 {
-    // qDeleteAll(k->nodes);
+    if (k->nodes.isEmpty())
+        return;
 
     foreach (TControlNode *node, k->nodes) {
              if (node)

@@ -136,7 +136,7 @@ class TUPI_EXPORT TupItemResponse : public TupFrameResponse
         void setItemIndex(int index);
         TupLibraryObject::Type itemType() const;
         void setItemType(TupLibraryObject::Type type);
-        QPointF position();
+        QPointF position() const;
         void setPosX(double coord);
         void setPosY(double coord);
         TupProject::Mode spaceMode();

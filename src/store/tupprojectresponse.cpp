@@ -314,7 +314,7 @@ void TupItemResponse::setItemType(TupLibraryObject::Type type)
     m_itemType = type;
 }
 
-QPointF TupItemResponse::position()
+QPointF TupItemResponse::position() const
 {
     return QPointF(m_x, m_y);
 }
