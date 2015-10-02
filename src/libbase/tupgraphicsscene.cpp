@@ -46,7 +46,8 @@
 #include "tupframe.h"
 #include "tupitemtweener.h"
 #include "tupgraphiclibraryitem.h"
-#include "tupsvgitem.h"
+// #include "tupsvgitem.h"
+#include "tuppixmapitem.h"
 #include "tuppathitem.h"
 #include "tuplineitem.h"
 #include "tuprectitem.h"
@@ -441,19 +442,16 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
     if (item) {
         k->onionSkin.opacityMap.insert(item, opacity);
 
-        if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item)) {
-            /*
-            tError() << "TupGraphicsScene::addGraphicObject() - Tracing group item...";
-            QDomDocument dom;
-            dom.appendChild(dynamic_cast<TupAbstractSerializable *>(item)->toXml(dom));
-            tError() << "";
-            tError() << dom.toString();
-            */
+        if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item))
             group->recoverChilds();
-        } 
 
         item->setSelected(false);
         item->setOpacity(opacity);
+        if (k->tool) {
+            if (k->tool->toolType() == TupToolInterface::Selection)
+                item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+        }
+
         addItem(item);
     }
 }
@@ -471,22 +469,22 @@ void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
     */
 
     if (svgItem) {
-
         k->onionSkin.opacityMap.insert(svgItem, opacity);
         svgItem->setSelected(false);
 
         TupLayer *layer = k->scene->layer(k->framePosition.layer);
-
         if (layer) {
-
             TupFrame *frame = layer->frame(k->framePosition.frame);
-
             if (frame) {
                 svgItem->setOpacity(opacity);
-
                 // SQA: Experimental code related to interactive features
                 if (svgItem->symbolName().compare("dollar.svg")==0)
                     connect(svgItem, SIGNAL(enabledChanged()), this, SIGNAL(showInfoWidget()));
+
+                if (k->tool) {
+                    if (k->tool->toolType() == TupToolInterface::Selection)
+                        svgItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+                } 
 
                 addItem(svgItem);
             } else {
@@ -509,7 +507,6 @@ void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
                     #endif
                 #endif
         }
-
     } else {
         #ifdef K_DEBUG
             QString msg = "TupGraphicsScene::addSvgObject() - Error: No SVG item!";
@@ -1164,32 +1161,10 @@ void TupGraphicsScene::setTool(TupToolPlugin *tool)
         drawSceneBackground(k->framePosition.frame);
     }
 
-    /* SQA: Code under revision (related to Line Guides) 
-    if (k->tool) {
-        if (k->tool->toolType() == TupToolPlugin::Selection) {
-            foreach (TupLineGuide *line, k->lines) {
-                     line->setFlag(QGraphicsItem::ItemIsMovable, false);
-                     line->setEnabledSyncCursor(true);
-            }
-        }
-        k->tool->aboutToChangeTool();
-    }
-
-    k->tool = tool;
-
-    if (tool->toolType() == TupToolPlugin::Selection) {
-        foreach (TupLineGuide *line, k->lines) {
-                 line->setFlag(QGraphicsItem::ItemIsMovable, true);
-                 line->setEnabledSyncCursor(false);
-        }
-    }
-    */
-
     if (k->tool)
         k->tool->aboutToChangeTool();
 
     k->tool = tool;
-
     k->tool->init(this);
 }
 
@@ -1232,7 +1207,6 @@ void TupGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 return;
 
             if (k->tool->toolType() == TupToolPlugin::Tweener && event->isAccepted()) {
-                // tFatal() << "TupGraphicsScene::mousePressEvent() - Tracing!";
                 if (k->tool->currentEditMode() == TupToolPlugin::Properties)
                     return;
             } 
@@ -1240,8 +1214,6 @@ void TupGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             // If there's no frame... the tool is disabled 
 
             if (currentFrame()) {
-                //if (event->buttons() == Qt::LeftButton && !currentFrame()->isLocked()) {
-                //tFatal() << "TupGraphicsScene::mousePressEvent() - FLAG: " << currentFrame()->isLocked();
                 if (event->buttons() == Qt::LeftButton) {
                     k->tool->begin();
                     k->isDrawing = true;
@@ -1304,9 +1276,8 @@ void TupGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     */
 
     // SQA: Temporal solution for cases when there's no current frame defined
-    if (!currentFrame()) {
+    if (!currentFrame())
         return;
-    }
 
     QGraphicsScene::mouseReleaseEvent(event);
     mouseReleased(event);
@@ -1325,9 +1296,8 @@ void TupGraphicsScene::mouseReleased(QGraphicsSceneMouseEvent *event)
     */
 
     if (k->tool->toolType() == TupToolInterface::Brush) {
-        if (event->button() == Qt::RightButton) {
+        if (event->button() == Qt::RightButton) 
             return;
-        }
     }
 
     if (currentFrame()) {
@@ -1447,7 +1417,7 @@ void TupGraphicsScene::dropEvent(QGraphicsSceneDragDropEvent * event)
     Q_UNUSED(event);
 
     if (k->tool) {
-        if (k->tool->toolType() == TupToolPlugin::Selection) {
+        if (k->tool->toolType() == TupToolPlugin::ObjectsTool) {
             k->lines.last()->setEnabledSyncCursor(false);
             k->lines.last()->setFlag(QGraphicsItem::ItemIsMovable, true);
         }
@@ -1540,14 +1510,14 @@ void TupGraphicsScene::aboutToMousePress()
     QHash<QGraphicsItem *, double>::iterator it = k->onionSkin.opacityMap.begin();
 
     while (it != k->onionSkin.opacityMap.end()) {
-            if (it.value() != 1.0) {
-                it.key()->setAcceptedMouseButtons(Qt::NoButton);
-                it.key()->setFlag(QGraphicsItem::ItemIsSelectable, false);
-            } else {
-                it.key()->setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton | Qt::MidButton | Qt::XButton1
+           if (it.value() != 1.0) {
+               it.key()->setAcceptedMouseButtons(Qt::NoButton);
+               it.key()->setFlag(QGraphicsItem::ItemIsSelectable, false);
+           } else {
+               it.key()->setAcceptedMouseButtons(Qt::LeftButton | Qt::RightButton | Qt::MidButton | Qt::XButton1
                                                   | Qt::XButton2);
-            }
-            ++it;
+           }
+           ++it;
     }
 }
 

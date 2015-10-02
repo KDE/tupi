@@ -489,7 +489,6 @@ QList<QGraphicsItem *> TupFrame::splitItemsGroup(int position)
 
     if (object) {
         if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(item(position))) {
-            tError() << "TupFrame::splitItemsGroup() - Removing item at position -> " << position;
             removeGraphicAt(position);
             items = group->childs();
             foreach (QGraphicsItem *child, group->childs()) {
@@ -1216,7 +1215,6 @@ TupSvgItem *TupFrame::svg(int position) const
 
 QGraphicsItem *TupFrame::item(int position) const
 {
-    tError() << "TupFrame::item() - position: " << position;
     if ((position < 0) || (position >= k->graphics.count())) {
         #ifdef K_DEBUG
             QString msg = "TupFrame::item() -  Fatal Error: index out of bound [ " + QString::number(position) + " ] / Total items: " + QString::number(k->graphics.count());
