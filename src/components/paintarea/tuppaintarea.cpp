@@ -201,12 +201,14 @@ void TupPaintArea::mousePressEvent(QMouseEvent *event)
             if (qgraphicsitem_cast<Node *>(scene()->itemAt(mapToScene(event->pos()), QTransform())))
                 return;
 
+            /* SQA: This code seems to be useless
             if (QGraphicsItem *item = scene()->itemAt(mapToScene(event->pos()), QTransform())) {
                 if (item->opacity() == 1) // If target is part of the current frame
                     item->setFlag(QGraphicsItem::ItemIsSelectable, true);
                 else 
                     return; // If target is NOT part of the current frame
             }
+            */
 
             QMenu *menu = new QMenu(tr("Drawing area"));
             menu->addAction(kApp->findGlobalAction("undo"));

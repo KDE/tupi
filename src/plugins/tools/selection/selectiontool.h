@@ -100,7 +100,6 @@ class TUPI_PLUGIN SelectionTool : public TupToolPlugin
 
     private slots:
         void syncNodes();
-        void updateItems(TupGraphicsScene *scene);
         void applyFlip(Settings::Flip flip);
         void applyOrderAction(Settings::Order order);
         void applyGroupAction(Settings::Group action);

@@ -283,78 +283,9 @@ void SelectionTool::release(const TupInputDeviceInformation *input, TupBrushMana
                      if (svg) {
                          type = TupLibraryObject::Svg;
                          position = currentFrame()->indexOf(svg);
-                         /*
-                         if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                             position = scene->currentFrame()->indexOf(svg);
-                         } else {
-                             TupBackground *bg = k->scene->scene()->background();
-                             if (bg) {
-                                 if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                                     position = bg->staticFrame()->indexOf(svg);
-                                 } else if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                                     position = bg->dynamicFrame()->indexOf(svg);
-                                 } else {
-                                     #ifdef K_DEBUG
-                                         QString msg = "SelectionTool::release() - Fatal Error: Invalid spaceContext!";
-                                         #ifdef Q_OS_WIN32
-                                             qDebug() << msg;
-                                         #else
-                                             tError() << msg;
-                                         #endif
-                                     #endif
-                                     return;
-                                 }
-                             } else {
-                                 #ifdef K_DEBUG
-                                     QString msg = "SelectionTool::release() - Fatal Error: Scene background object is NULL!";
-                                     #ifdef Q_OS_WIN32
-                                         qDebug() << msg;
-                                     #else
-                                         tError() << msg;
-                                     #endif
-                                 #endif
-                                 return;
-                             }
-                         }
-                         */
                      } else {
                          type = TupLibraryObject::Item;
                          position = currentFrame()->indexOf(node->parentItem());
-
-                         /*
-                         if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                             position = scene->currentFrame()->indexOf(node->parentItem());
-                         } else {
-                             TupBackground *bg = scene->scene()->background();
-                             if (bg) {
-                                 if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                                     position = bg->staticFrame()->indexOf(node->parentItem());
-                                 } else if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                                            position = bg->dynamicFrame()->indexOf(node->parentItem());
-                                 } else {
-                                     #ifdef K_DEBUG
-                                         QString msg = "SelectionTool::release() - Fatal Error: Invalid spaceContext!";
-                                         #ifdef Q_OS_WIN32
-                                             qDebug() << msg;
-                                         #else
-                                             tError() << msg;
-                                         #endif
-                                     #endif
-                                     return;
-                                 }
-                             } else {
-                                 #ifdef K_DEBUG
-                                     QString msg = "SelectionTool::release() - Fatal Error: Scene background object is NULL!";
-                                     #ifdef Q_OS_WIN32
-                                         qDebug() << msg;
-                                     #else
-                                         tError() << msg;
-                                     #endif
-                                 #endif
-                                 return;
-                             }
-                         }
-                         */
                      }
 
                      // * SQA: What is the goal of this piece of code? It must be recovered because it is required by net architecture!
@@ -508,6 +439,7 @@ void SelectionTool::aboutToChangeScene(TupGraphicsScene *scene)
 
 void SelectionTool::aboutToChangeTool()
 {
+    /*
     #ifdef K_DEBUG
         #ifdef Q_OS_WIN32
             qDebug() << "[SelectionTool::aboutToChangeTool()]";
@@ -515,18 +447,6 @@ void SelectionTool::aboutToChangeTool()
             T_FUNCINFOX("tools");
         #endif
     #endif
-
-    // qDeleteAll(k->nodeManagers);
-    /*
-    k->nodeManagers.clear();
-
-    foreach (QGraphicsView *view, k->scene->views()) {
-             view->setDragMode (QGraphicsView::NoDrag);
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      item->setFlag(QGraphicsItem::ItemIsSelectable, false);
-                      item->setFlag(QGraphicsItem::ItemIsMovable, false);
-             }
-    }
     */
 }
 
@@ -541,152 +461,12 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
     #endif
 
     QGraphicsItem *item = 0;
-    // TupScene *scene = 0;
-    // TupLayer *layer = 0;
     TupFrame *frame = frameAt(event->sceneIndex(), event->layerIndex(), event->frameIndex());
     if (event->itemType() == TupLibraryObject::Svg && frame->svgItemsCount()>0) {
         item = frame->svg(event->itemIndex());
     } else if (frame->graphicItemsCount()>0) {
                item = frame->item(event->itemIndex());
     }
-
-    /*
-    TupProject *project = k->scene->scene()->project();
-    
-    if (project) {
-        TupScene *scene = project->scene(event->sceneIndex());
-        if (scene) {
-            if (project->spaceContext() == TupProject::FRAMES_EDITION) {
-                TupLayer *layer = scene->layer(event->layerIndex());
-
-                if (layer) {
-                    frame = layer->frame(event->frameIndex());
-                    if (frame) {
-                        if (event->itemType() == TupLibraryObject::Svg && frame->svgItemsCount()>0) {
-                            item = frame->svg(event->itemIndex());
-                        } else if (frame->graphicItemsCount()>0) {
-                                   item = frame->item(event->itemIndex());
-                        }
-                    } else {
-                        #ifdef K_DEBUG
-                            QString msg = "SelectionTool::itemResponse() - Fatal Error: frame is NULL";
-                            #ifdef Q_OS_WIN32
-                                qDebug() << msg;
-                            #else
-                                tError() << msg;
-                            #endif
-                        #endif
-                        return;
-                    }
-                } else {
-                    #ifdef K_DEBUG
-                        QString msg = "SelectionTool::itemResponse() - Fatal Error: layer is NULL";
-                        #ifdef Q_OS_WIN32
-                            qDebug() << msg;
-                        #else
-                            tError() << msg;
-                        #endif
-                    #endif
-                    return;
-                }
-            } else if (project->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                       TupBackground *bg = scene->background();
-                       if (bg) {
-                           frame = bg->staticFrame();
-                           if (frame) {
-                               if (event->itemType() == TupLibraryObject::Svg && frame->svgItemsCount()>0) {
-                                   item = frame->svg(event->itemIndex());
-                               } else if (frame->graphicItemsCount()>0) {
-                                          item = frame->item(event->itemIndex());
-                               }
-                           } else {
-                               #ifdef K_DEBUG
-                                   QString msg = "SelectionTool::itemResponse() - Fatal Error: Static bg frame is NULL";
-                                   #ifdef Q_OS_WIN32
-                                       qDebug() << msg;
-                                   #else
-                                       tError() << msg;
-                                   #endif
-                               #endif
-                               return;
-                           }
-                       } else {
-                           #ifdef K_DEBUG
-                               QString msg = "SelectionTool::itemResponse() - Fatal Error: Scene background is NULL";
-                               #ifdef Q_OS_WIN32
-                                   qDebug() << msg;
-                               #else
-                                   tError() << msg;
-                               #endif
-                           #endif
-                           return;
-                       }
-            } else if (project->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                       TupBackground *bg = scene->background();
-                       if (bg) {
-                           frame = bg->dynamicFrame();
-                           if (frame) {
-                               if (event->itemType() == TupLibraryObject::Svg && frame->svgItemsCount()>0) {
-                                   item = frame->svg(event->itemIndex());
-                               } else if (frame->graphicItemsCount()>0) {
-                                          item = frame->item(event->itemIndex());
-                               }
-                           } else {
-                               #ifdef K_DEBUG
-                                   QString msg = "SelectionTool::itemResponse() - Fatal Error: Dynamic bg frame is NULL";
-                                   #ifdef Q_OS_WIN32
-                                       qDebug() << msg;
-                                   #else
-                                       tError() << msg;
-                                   #endif
-                               #endif
-                               return;
-                           }
-                       } else {
-                           #ifdef K_DEBUG
-                               QString msg = "SelectionTool::itemResponse() - Fatal Error: Scene background is NULL";
-                               #ifdef Q_OS_WIN32
-                                   qDebug() << msg;
-                               #else
-                                   tError() << msg;
-                               #endif
-                           #endif
-                           return;
-                       }
-            } else {
-                #ifdef K_DEBUG
-                    QString msg = "SelectionTool::itemResponse() - Fatal Error: Invalid spaceContext!";
-                    #ifdef Q_OS_WIN32
-                        qDebug() << msg;
-                    #else
-                        tError() << msg;
-                    #endif
-                #endif
-                return;
-            }
-        } else {
-            #ifdef K_DEBUG
-                QString msg = "SelectionTool::itemResponse() - Fatal Error: Current scene is NULL!";
-                #ifdef Q_OS_WIN32
-                    qDebug() << msg;
-                #else
-                    tError() << msg;
-                #endif
-            #endif
-            return;
-        }
-    } else {
-        #ifdef K_DEBUG
-            QString msg = "SelectionTool::itemResponse() - Project does not exist";
-            #ifdef Q_OS_WIN32
-                qDebug() << msg;
-            #else
-                tError() << msg;
-            #endif
-        #endif
-        return;
-    }
-    */
 
     updateItemPosition();
 
@@ -732,7 +512,6 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
             break;
             case TupProjectRequest::Ungroup:
             {
-                 tError() << "SelectionTool::itemResponse() - FLAG X";
                  foreach (QGraphicsItem *graphic, k->scene->selectedItems())
                           graphic->setSelected(false);
 
@@ -744,7 +523,6 @@ void SelectionTool::itemResponse(const TupItemResponse *event)
                  QList<int> positions = TupSvg2Qt::parseIntList(++itr);
                  qSort(positions.begin(), positions.end());
                  int total = positions.size();
-                 tError() << "SelectionTool::itemResponse() - positions size: " << total;
                  for (int i=0; i<total; i++) {
                       QGraphicsItem *graphic = frame->item(positions.at(i));     
                       if (graphic) {
@@ -777,10 +555,8 @@ void SelectionTool::syncNodes()
     foreach (NodeManager* node, k->nodeManagers) {
              if (node) {
                  node->show();
-                 if (node->parentItem()) {
-                     // node->parentItem()->setSelected(true);
+                 if (node->parentItem())
                      node->syncNodesFromParent();
-                 }
              }
     }
 }
@@ -868,55 +644,6 @@ void SelectionTool::keyReleaseEvent(QKeyEvent *event)
 bool SelectionTool::selectionIsActive()
 {
     return k->selectionFlag;
-
-    /*
-    if (k->scene) {
-        if (!k->selectionFlag)
-            return;
-    } else {
-        return;
-    }
-    */
-}
-
-// SQA: Check if reset() and updateItems can be defined as the same method 
-void SelectionTool::updateItems(TupGraphicsScene *scene)
-{
-    foreach (QGraphicsView *view, scene->views()) {
-             view->setDragMode(QGraphicsView::RubberBandDrag);
-             foreach (QGraphicsItem *item, scene->items()) {
-                      if (!qgraphicsitem_cast<Node *>(item)) {
-                          if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                              if (item->zValue() >= 20000) {
-                                  item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
-                              } else {
-                                  item->setFlag(QGraphicsItem::ItemIsSelectable, false);
-                                  item->setFlag(QGraphicsItem::ItemIsMovable, false);
-                              }
-                          } else {
-                              if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                                  item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
-                              } else if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                                         if (item->zValue() >= 10000) {
-                                             item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
-                                         } else {
-                                             item->setFlag(QGraphicsItem::ItemIsSelectable, false);
-                                             item->setFlag(QGraphicsItem::ItemIsMovable, false);
-                                         }
-                              } else {
-                                  #ifdef K_DEBUG
-                                      QString msg = "SelectionTool::updateItems() - Fatal Error: Invalid spaceContext!";
-                                      #ifdef Q_OS_WIN32
-                                          qDebug() << msg;
-                                      #else
-                                          tError() << msg;
-                                      #endif
-                                  #endif
-                              }
-                          }
-                      }
-             }
-    }
 }
 
 void SelectionTool::applyFlip(Settings::Flip flip)
@@ -952,57 +679,19 @@ void SelectionTool::applyFlip(Settings::Flip flip)
                           TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(node->parentItem());
                           int position = -1;
                           TupLibraryObject::Type type = TupLibraryObject::Item;
-                          if (svg)
+                          if (svg) {
                               type = TupLibraryObject::Svg;
-
-                          if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                              if (svg) 
-                                  position = k->scene->currentFrame()->indexOf(svg);
-                              else 
-                                  position = k->scene->currentFrame()->indexOf(node->parentItem());
+                              position = currentFrame()->indexOf(svg);
                           } else {
-                              TupBackground *bg = k->scene->scene()->background();
-                              if (bg) {
-                                  if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                                      if (svg)
-                                          position = bg->staticFrame()->indexOf(svg);
-                                      else
-                                          position = bg->staticFrame()->indexOf(node->parentItem());
-                                  } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                                             if (svg)
-                                                 position = bg->dynamicFrame()->indexOf(svg);
-                                             else
-                                                 position = bg->dynamicFrame()->indexOf(node->parentItem());
-                                  } else {
-                                      #ifdef K_DEBUG
-                                          QString msg = "SelectionTool::applyFlip() - Fatal Error: invalid spaceContext!";
-                                          #ifdef Q_OS_WIN32
-                                              qDebug() << msg;
-                                          #else
-                                              tError() << msg;
-                                          #endif
-                                      #endif
-                                      return;
-                                  }
-                              } else {
-                                  #ifdef K_DEBUG
-                                      QString msg = "SelectionTool::applyFlip() - Fatal Error: Scene background object is NULL!";
-                                      #ifdef Q_OS_WIN32
-                                          qDebug() << msg;
-                                      #else
-                                          tError() << msg;
-                                      #endif
-                                  #endif
-                                  return;
-                              }
+                              position = currentFrame()->indexOf(node->parentItem());
                           }
 
                           TupProjectRequest event = TupRequestBuilder::createItemRequest(
-                                                   k->scene->currentSceneIndex(),
-                                                   k->scene->currentLayerIndex(),
-                                                   k->scene->currentFrameIndex(), position, QPointF(), 
-                                                   k->scene->spaceContext(), type,
-                                                   TupProjectRequest::Transform, doc.toString());
+                                                    k->scene->currentSceneIndex(),
+                                                    k->scene->currentLayerIndex(),
+                                                    k->scene->currentFrameIndex(), position, QPointF(), 
+                                                    k->scene->spaceContext(), type,
+                                                    TupProjectRequest::Transform, doc.toString());
                           emit requested(&event);
                       }
              }
@@ -1017,49 +706,11 @@ void SelectionTool::applyOrderAction(Settings::Order action)
              TupSvgItem *svg = qgraphicsitem_cast<TupSvgItem *>(item);
              int position = -1;
              TupLibraryObject::Type type = TupLibraryObject::Item;
-             if (svg)
+             if (svg) {
                  type = TupLibraryObject::Svg;
-
-             if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                 if (svg)
-                     position = k->scene->currentFrame()->indexOf(svg);
-                 else
-                     position = k->scene->currentFrame()->indexOf(item);
+                 position = currentFrame()->indexOf(svg);
              } else {
-                 TupBackground *bg = k->scene->scene()->background();
-                 if (bg) {
-                     if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                         if (svg)
-                             position = bg->staticFrame()->indexOf(svg);
-                         else
-                             position = bg->staticFrame()->indexOf(item);
-                     } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                                if (svg)
-                                    position = bg->dynamicFrame()->indexOf(svg);
-                                else
-                                    position = bg->dynamicFrame()->indexOf(item);
-                     } else {
-                         #ifdef K_DEBUG
-                             QString msg = "SelectionTool::applyOrderAction() - Fatal Error: invalid spaceContext!";
-                             #ifdef Q_OS_WIN32
-                                 qDebug() << msg;
-                             #else
-                                 tError() << msg;
-                             #endif
-                         #endif
-                         return;
-                     }
-                 } else {
-                     #ifdef K_DEBUG
-                         QString msg = "SelectionTool::applyOrderAction() - Fatal Error: Scene background object is NULL!";
-                         #ifdef Q_OS_WIN32
-                             qDebug() << msg;
-                         #else
-                             tError() << msg;
-                         #endif
-                     #endif
-                     return;
-                 }
+                 position = currentFrame()->indexOf(item);
              }
 
              TupProjectRequest event = TupRequestBuilder::createItemRequest(k->scene->currentSceneIndex(),
@@ -1088,40 +739,7 @@ void SelectionTool::applyGroupAction(Settings::Group action)
             int position = -1; 
 
             foreach (QGraphicsItem *item, k->selectedObjects) {
-                     int index = -1;
-                     if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                         index = k->scene->currentFrame()->indexOf(item);
-                     } else {
-                         TupBackground *bg = k->scene->scene()->background();
-                         if (bg) {
-                             if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                                 index = bg->staticFrame()->indexOf(item);
-                             } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                                        index = bg->dynamicFrame()->indexOf(item);
-                             } else {
-                                 #ifdef K_DEBUG
-                                     QString msg = "SelectionTool::applyGroupAction() - Fatal Error: invalid spaceContext!";
-                                     #ifdef Q_OS_WIN32
-                                         qDebug() << msg;
-                                     #else
-                                         tError() << msg;
-                                     #endif
-                                 #endif
-                                 return;
-                             }
-                         } else {
-                             #ifdef K_DEBUG
-                                 QString msg = "SelectionTool::applyGroupAction() - Fatal Error: Scene background object is NULL!";
-                                 #ifdef Q_OS_WIN32
-                                     qDebug() << msg;
-                                 #else
-                                     tError() << msg;
-                                 #endif
-                             #endif
-                             return;
-                         }
-                     }
-
+                     int index = currentFrame()->indexOf(item);
                      if (index > -1) {
                          if (i == 1) {
                              position = index;
@@ -1168,39 +786,7 @@ void SelectionTool::applyGroupAction(Settings::Group action)
                             item->setSelected(false);
                             if (qgraphicsitem_cast<TupItemGroup *> (item)) {
                                 noAction = false;
-                                int itemIndex = -1;
-                                if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                                    itemIndex = k->scene->currentFrame()->indexOf(item);
-                                } else {
-                                    TupBackground *bg = k->scene->scene()->background();
-                                    if (bg) {
-                                        if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                                            itemIndex = bg->staticFrame()->indexOf(item);
-                                        } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                                                   itemIndex = bg->dynamicFrame()->indexOf(item);
-                                        } else {
-                                            #ifdef K_DEBUG
-                                                QString msg = "SelectionTool::applyGroupAction() - Fatal Error: invalid spaceContext!";
-                                                #ifdef Q_OS_WIN32
-                                                    qDebug() << msg;
-                                                #else
-                                                    tError() << msg;
-                                                #endif
-                                            #endif
-                                            return;
-                                        }
-                                    } else {
-                                        #ifdef K_DEBUG
-                                            QString msg = "SelectionTool::applyGroupAction() - Fatal Error: Scene background object is NULL!";
-                                            #ifdef Q_OS_WIN32
-                                                qDebug() << msg;
-                                            #else
-                                                tError() << msg;
-                                            #endif
-                                        #endif
-                                        return;
-                                    }
-                                }
+                                int itemIndex = currentFrame()->indexOf(item);
 
                                 TupProjectRequest event = TupRequestBuilder::createItemRequest(
                                                           k->scene->currentSceneIndex(),
@@ -1291,13 +877,13 @@ void SelectionTool::updateItemPosition()
                 QPen pen(QColor(255, 0, 0), 0.5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
                 k->center->setPen(pen);
                 k->center->setBrush(QColor(255, 0, 0));
-                k->center->setZValue(k->nodeZValue + 1);
+                k->center->setZValue(k->nodeZValue);
                 k->scene->includeObject(k->center);
 
                 k->target1->setPen(pen); 
-                k->target1->setZValue(1000);
+                k->target1->setZValue(k->nodeZValue);
                 k->target2->setPen(pen);
-                k->target2->setZValue(1000);
+                k->target2->setZValue(k->nodeZValue);
 
                 k->scene->includeObject(k->target1);
                 k->scene->includeObject(k->target2);
