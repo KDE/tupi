@@ -192,13 +192,11 @@ bool TupLibraryFolder::removeObject(const QString &id, bool absolute)
     foreach (QString oid, k->objects.keys()) {
              if (oid.compare(id) == 0) {
                  QString path = k->objects[id]->dataPath();
-
                  if (absolute) {
                      QFileInfo finfo(path);
                      if (finfo.isFile())
                          QFile::remove(path);
                  }
-
                  return k->objects.remove(id);
              }
     }
@@ -229,13 +227,25 @@ bool TupLibraryFolder::removeFolder(const QString &id)
         foreach (QString oid, objects.keys()) {
                  if (folder->removeObject(oid, true)) {
                      TupLibraryObject::Type extension = static_cast<TupLibraryObject::Type>(objects[oid]->type());
-                     if (!k->project->removeSymbolFromFrame(oid, extension))
-                         return false;
+                     if (extension != TupLibraryObject::Item) {
+                         if (!k->project->removeSymbolFromFrame(oid, extension))
+                             return false;
+                     }
                  }
         }
-    
-        return k->folders.remove(id);
+
+        bool result = k->folders.remove(id); 
+        return result;
     }
+
+    #ifdef K_DEBUG
+        QString msg = "TupLibraryFolder::removeFolder() - [ Fatal Error ] - Folder wasn't found -> " + id;
+        #ifdef Q_OS_WIN32
+            qDebug() << msg;
+        #else
+            tError() << msg;
+        #endif
+    #endif
 
     return false;
 }
@@ -311,7 +321,7 @@ TupLibraryObject *TupLibraryFolder::getObject(const QString &id) const
              if (oid.compare(id) == 0) 
                  return k->objects[oid];
     }
-    
+
     foreach (TupLibraryFolder *folder, k->folders) {
              TupLibraryObject *object = folder->getObject(id);
              if (object)
@@ -333,7 +343,7 @@ TupLibraryObject *TupLibraryFolder::getObject(const QString &id) const
 TupLibraryFolder *TupLibraryFolder::getFolder(const QString &id) const
 {
     foreach (TupLibraryFolder *folder, k->folders) {
-             if (folder->id().compare(id) == 0) 
+             if (folder->id().compare(id) == 0)
                  return folder;
     }
 

@@ -1043,9 +1043,9 @@ bool TupFrame::removeSvgAt(int position)
         #ifdef K_DEBUG
             QString msg = "TupFrame::removeSvgAt() - SVG object has been removed (" + QString::number(position) + ")";
             #ifdef Q_OS_WIN32
-                qDebug() << msg;
+                qWarning() << msg;
             #else
-                tError() << msg;
+                tWarning() << msg;
             #endif
         #endif
 

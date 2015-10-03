@@ -822,7 +822,7 @@ bool TupProject::removeSymbolFromFrame(const QString &name, TupLibraryObject::Ty
          }
     }
 
-    k->library->removeObject(name, true);
+    // k->library->removeObject(name, true);
 
     return true;
 }

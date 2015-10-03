@@ -436,8 +436,8 @@ void TupLibraryWidget::removeCurrentItem()
         TCONFIG->sync();
     }
 
+    QString objectKey = k->libraryTree->currentItem()->text(1);
     QString extension = k->libraryTree->currentItem()->text(2);
-    QString objectKey = "";
     TupLibraryObject::Type type = TupLibraryObject::Folder;
 
     // If it's NOT a directory
@@ -1445,37 +1445,11 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
                          tFatal() << msg;
                      #endif
                  #endif
-
-                 /*
-                 QString id = response->arg().toString();
-
-                 QTreeWidgetItemIterator it(k->libraryTree);
-                 while ((*it)) {
-                        // If target is not a folder 
-                        if ((*it)->text(2).length() > 0) {
-                            if (id == (*it)->text(3)) {
-                                delete (*it);
-                                break;
-                            } 
-                        } else {
-                            // If target is a folder
-                            if (id == (*it)->text(1)) {
-                                delete (*it);
-                                k->library->removeFolder(id);
-                                break;
-                            } 
-                        }
-                        ++it;
-                 }
-
-                 previewItem(k->libraryTree->currentItem());
-                 */
               }
             break;
             case TupProjectRequest::Remove:
               {
                  QString id = response->arg().toString();
-
                  QTreeWidgetItemIterator it(k->libraryTree);
                  while ((*it)) {
                         // If target is NOT a folder
@@ -1488,7 +1462,6 @@ void TupLibraryWidget::libraryResponse(TupLibraryResponse *response)
                             // If target is a folder
                             if (id == (*it)->text(1)) {
                                 delete (*it);
-                                k->library->removeFolder(id);
                                 break;
                             }
                         }
