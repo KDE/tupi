@@ -46,8 +46,6 @@
 #include "tupframe.h"
 #include "tupitemtweener.h"
 #include "tupgraphiclibraryitem.h"
-// #include "tupsvgitem.h"
-#include "tuppixmapitem.h"
 #include "tuppathitem.h"
 #include "tuplineitem.h"
 #include "tuprectitem.h"

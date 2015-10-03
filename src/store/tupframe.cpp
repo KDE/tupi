@@ -351,11 +351,14 @@ void TupFrame::addItem(const QString &id, QGraphicsItem *item)
 {
     if (TupGraphicLibraryItem *graphic = qgraphicsitem_cast<TupGraphicLibraryItem *>(item)) {
         QGraphicsItem *libraryItem = graphic->item();
+        QDomDocument dom;
+        TupItemFactory itemFactory;
         if (TupItemGroup *group = qgraphicsitem_cast<TupItemGroup *>(libraryItem)) {
-            QDomDocument dom;
             dom.appendChild(dynamic_cast<TupAbstractSerializable *>(group)->toXml(dom));
-            TupItemFactory itemFactory;
             item = itemFactory.create(dom.toString());
+        } else if (graphic->itemType() == TupLibraryObject::Item) {
+                   dom.appendChild(dynamic_cast<TupAbstractSerializable *>(libraryItem)->toXml(dom));
+                   item = itemFactory.create(dom.toString());
         }
     }
 

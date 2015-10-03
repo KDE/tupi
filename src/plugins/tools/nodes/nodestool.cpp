@@ -34,7 +34,6 @@
  ***************************************************************************/
 
 #include "nodestool.h"
-#include "tosd.h"
 
 struct NodesTool::Private
 {
@@ -59,69 +58,37 @@ NodesTool::~NodesTool()
 void NodesTool::init(TupGraphicsScene *scene)
 {
     k->activeSelection = false;
-
     k->scene = scene;
     if (k->scene->selectedItems().count() > 0)
         k->scene->clearSelection();
-
-    k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000); 
-
-    // if (k->activeSelection)
-    //     k->nodeGroup->clear();
-
-    reset(scene);
+    k->baseZValue = 20000 + (k->scene->scene()->layersTotal() * 10000); 
+    reset(k->scene);
 }
 
 void NodesTool::reset(TupGraphicsScene *scene)
 {
-    /*
     int zBottomLimit = (scene->currentLayerIndex() + 2)*10000;
     int zTopLimit = zBottomLimit + 10000;
 
-    foreach (QGraphicsView *view, scene->views()) {
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      if (!qgraphicsitem_cast<TControlNode *>(item)) {
-                          if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                              int zValue = item->zValue();
-                              if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0)) {
-                                  item->setFlags(QGraphicsItem::ItemIsSelectable);
-                              } else {
-                                  item->setFlag(QGraphicsItem::ItemIsSelectable, false);
-                              }
-                          } else {
-                              item->setFlags(QGraphicsItem::ItemIsSelectable);
-                          }
-                      }
-             }
-    }
-    */
-
-    int zBottomLimit = (scene->currentLayerIndex() + 2)*10000;
-    int zTopLimit = zBottomLimit + 10000;
-
-    // foreach (QGraphicsView *view, scene->views()) {
-             foreach (QGraphicsItem *item, scene->items()) {
-                      int zValue = item->zValue();
-                      qreal opacity = item->opacity();
-                      // if (!qgraphicsitem_cast<Node *>(item)) {
-                          if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                              if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0) && (opacity == 1)) {
-                                  item->setFlags(QGraphicsItem::ItemIsSelectable);
-                              } else {
-                                  item->setFlag(QGraphicsItem::ItemIsSelectable, false);
-                              }
-                          } else {
-                              if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                                  item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
-                              } else if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                                         if (zValue >= 10000) {
-                                             item->setFlags(QGraphicsItem::ItemIsSelectable);
-                                         } else {
-                                             item->setFlag(QGraphicsItem::ItemIsSelectable, false);
-                                         }
-                              } else {
-                                  #ifdef K_DEBUG
-                                      QString msg = "NodesTool::reset() - Fatal Error: Invalid spaceContext!";
+    foreach (QGraphicsItem *item, scene->items()) {
+             int zValue = item->zValue();
+             qreal opacity = item->opacity();
+             if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
+                 if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0) && (opacity == 1)) 
+                      item->setFlags(QGraphicsItem::ItemIsSelectable);
+                 else
+                      item->setFlag(QGraphicsItem::ItemIsSelectable, false);
+             } else {
+                 if (scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
+                     item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
+                 } else if (scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
+                            if (zValue >= 10000) 
+                                item->setFlags(QGraphicsItem::ItemIsSelectable);
+                            else 
+                                item->setFlag(QGraphicsItem::ItemIsSelectable, false);
+                 } else {
+                     #ifdef K_DEBUG
+                         QString msg = "NodesTool::reset() - Fatal Error: Invalid spaceContext!";
                                       #ifdef Q_OS_WIN32
                                           qDebug() << msg;
                                       #else
@@ -129,11 +96,9 @@ void NodesTool::reset(TupGraphicsScene *scene)
                                       #endif
                                   #endif
                                   return;
-                              }
-                          }
-                      // }
+                 }
              }
-    // }
+    }
 }
 
 QStringList NodesTool::keys() const
@@ -160,34 +125,26 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
     Q_UNUSED(brushManager);
 
     if (scene->selectedItems().count() > 0) {
-        tError() << "FLAG 0";
         QList<QGraphicsItem *> currentSelection = scene->selectedItems();
         QGraphicsItem *item = currentSelection.at(0);
+
+        if (qgraphicsitem_cast<TupSvgItem *>(item)) {
+            TOsd::self()->display(tr("Error"), tr("SVG objects cannot be edited!"), TOsd::Error);
+            return;
+        }
+
+        if (TupGraphicLibraryItem *libraryItem = qgraphicsitem_cast<TupGraphicLibraryItem *>(item)) {
+            if (libraryItem->itemType() == TupLibraryObject::Image) {
+                TOsd::self()->display(tr("Error"), tr("Images have no nodes!"), TOsd::Error);
+                return;
+            }
+        }
 
         if (qgraphicsitem_cast<TupItemGroup *>(item)) {
             if (k->activeSelection) 
                 k->nodeGroup->clear();
             QPointF coord = input->pos();
-            // TupFrame *frame = currentFrame(); 
             int itemIndex = currentFrame()->indexOf(item);
-
-            /*
-            if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                itemIndex = scene->currentFrame()->indexOf(item);
-            } else {
-                TupScene *tupScene = scene->scene();
-                TupBackground *bg = tupScene->background();
-                if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                    TupFrame *frame = bg->staticFrame();
-                    itemIndex = frame->indexOf(item);
-                } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                           TupFrame *frame = bg->dynamicFrame();
-                           itemIndex = frame->indexOf(item);
-                }
-            }
-            */
-
-            tError() << "Item Index: " << itemIndex;
 
             if (itemIndex >= 0) {
                 TupProjectRequest event = TupRequestBuilder::createItemRequest(
@@ -203,23 +160,14 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
         }
 
         if (k->activeSelection) { 
-            tError() << "FLAG 1";
             TupFrame *frame = currentFrame();
-            // int index1 = scene->currentFrame()->indexOf(k->nodeGroup->parentItem());
-            // int index2 = scene->currentFrame()->indexOf(item);
             int index1 = frame->indexOf(k->nodeGroup->parentItem());
             int index2 = frame->indexOf(item);
-            if (index1 == index2 || index2 < 0) {
-                tError() << "FLAG 1A";
+            if (index1 == index2 || index2 < 0)
                 return;
-            } else {
-                tError() << "FLAG 2A";
+            else 
                 k->nodeGroup->clear();
-            }
         }
-
-
-        tError() << "FLAG 2"; 
 
         k->nodeGroup = new TNodeGroup(item, scene, TNodeGroup::LineSelection, k->baseZValue);
         k->nodeGroup->show();
@@ -250,17 +198,13 @@ void NodesTool::release(const TupInputDeviceInformation *input, TupBrushManager 
             }
             k->nodeGroup->clearChangesNodes();
         }
-        tError() << "FLAG 3";
     } else {
-        tError() << "FLAG 4";
         if (k->activeSelection) {
             k->nodeGroup->clear();
             k->nodeGroup = 0;
             k->activeSelection = false;
         }
     } 
-
-    tError() << "FLAG 5";
 }
 
 TupFrame* NodesTool::currentFrame()
@@ -292,9 +236,6 @@ void NodesTool::itemResponse(const TupItemResponse *response)
     #endif
 
     QGraphicsItem *item = 0;
-    // TupScene *scene = 0;
-    // TupLayer *layer = 0;
-    // TupFrame *frame = 0;
 
     if (response->action() != TupProjectRequest::Remove) {
         TupFrame *frame = currentFrame();
@@ -306,116 +247,6 @@ void NodesTool::itemResponse(const TupItemResponse *response)
         }
     }
 
-    /*
-    if (response->action() != TupProjectRequest::Remove) {
-        TupScene *scene = k->scene->scene();
-        if (scene) {
-            if (k->scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                TupLayer *layer = scene->layer(response->layerIndex());
-                if (layer) {
-                    TupFrame *frame = layer->frame(response->frameIndex());
-                    if (frame) {
-                        if (response->action() == TupProjectRequest::Ungroup) {
-                            QPointF point = response->position();
-                            item = k->scene->itemAt(point, QTransform()); 
-                        } else {
-                            item = frame->item(response->itemIndex());
-                        }
-                    } else {
-                        #ifdef K_DEBUG
-                            QString msg = "NodesTool::itemResponse() - Fatal Error: Frame variable is NULL!";
-                            #ifdef Q_OS_WIN32
-                                qDebug() << msg;
-                            #else
-                                tError() << msg;
-                            #endif
-                        #endif
-                    }
-                } else {
-                    #ifdef K_DEBUG
-                        QString msg = "NodesTool::itemResponse() - Fatal Error: Layer variable is NULL!";
-                        #ifdef Q_OS_WIN32
-                            qDebug() << msg;
-                        #else
-                            tError() << msg;
-                        #endif
-                    #endif
-                }
-            } else {
-                TupBackground *bg = scene->background();
-                if (bg) {
-                    if (k->scene->spaceContext() == TupProject::STATIC_BACKGROUND_EDITION) {
-                        TupFrame *frame = bg->staticFrame();
-                        if (frame) {
-                            if (response->action() == TupProjectRequest::Ungroup) {
-                                QPointF point = response->position();
-                                item = k->scene->itemAt(point, QTransform());
-                            } else {
-                                item = frame->item(response->itemIndex());
-                            }
-                        } else {
-                            #ifdef K_DEBUG
-                                QString msg = "NodesTool::itemResponse() - Fatal Error: Static frame variable is NULL!";
-                                #ifdef Q_OS_WIN32
-                                    qDebug() << msg;
-                                #else
-                                    tError() << msg;
-                                #endif
-                            #endif
-                        }
-                    } else if (k->scene->spaceContext() == TupProject::DYNAMIC_BACKGROUND_EDITION) { 
-                               TupFrame *frame = bg->dynamicFrame();
-                               if (frame) {
-                                   if (response->action() == TupProjectRequest::Ungroup) {
-                                       QPointF point = response->position();
-                                       item = k->scene->itemAt(point, QTransform());
-                                   } else {
-                                       item = frame->item(response->itemIndex());
-                                   }
-                               } else {
-                                   #ifdef K_DEBUG
-                                       QString msg = "NodesTool::itemResponse() - Fatal Error: Dynamic frame variable is NULL!";
-                                       #ifdef Q_OS_WIN32
-                                           qDebug() << msg;
-                                       #else
-                                           tError() << msg;
-                                       #endif
-                                   #endif
-                               }
-                    } else {
-                        #ifdef K_DEBUG
-                            QString msg = "NodesTool::itemResponse() - Fatal Error: Invalid spaceContext!";
-                            #ifdef Q_OS_WIN32
-                                qDebug() << msg;
-                            #else
-                                tError() << msg;
-                            #endif
-                        #endif
-                    }
-                } else {
-                    #ifdef K_DEBUG
-                        QString msg = "NodesTool::itemResponse() - Fatal Error: Scene background is NULL!";
-                        #ifdef Q_OS_WIN32
-                            qDebug() << msg;
-                        #else
-                            tError() << msg;
-                        #endif
-                    #endif
-                }
-            }
-        } else {
-            #ifdef K_DEBUG
-                QString msg = "NodesTool::itemResponse() - Fatal Error: Scene variable is NULL";
-                #ifdef Q_OS_WIN32
-                    qDebug() << msg;
-                #else
-                    tError() << msg;
-                #endif
-            #endif
-        }
-    }
-   */
-    
     switch (response->action()) {
             case TupProjectRequest::Convert:
             {
@@ -461,10 +292,8 @@ void NodesTool::itemResponse(const TupItemResponse *response)
             break;
             case TupProjectRequest::Ungroup:
             {
-                 // init(k->scene);
                  reset(k->scene);
                  if (item) {
-                     tError() << "NodesTool::itemResponse() - Creating nodes for current selection!";
                      k->nodeGroup = new TNodeGroup(item, k->scene, TNodeGroup::LineSelection, k->baseZValue);
                      k->nodeGroup->show();
                      k->activeSelection = true;
@@ -536,24 +365,10 @@ QWidget *NodesTool::configurator()
 void NodesTool::aboutToChangeScene(TupGraphicsScene *scene)
 {
     Q_UNUSED(scene);
-    // init(scene);
 }
 
 void NodesTool::aboutToChangeTool()
 {
-    /*
-    if (k->activeSelection) {
-        if (k->nodeGroup)
-            k->nodeGroup->clear();
-    }
-
-    foreach (QGraphicsView *view, k->scene->views()) {
-             foreach (QGraphicsItem *item, view->scene()->items()) {
-                      item->setFlag(QGraphicsItem::ItemIsSelectable, false);
-                      item->setFlag(QGraphicsItem::ItemIsMovable, false);
-             }
-    }
-    */
 }
 
 void NodesTool::saveConfig()
