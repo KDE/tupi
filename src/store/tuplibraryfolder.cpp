@@ -408,12 +408,23 @@ bool TupLibraryFolder::renameObject(const QString &folder, const QString &oldId,
 
 bool TupLibraryFolder::renameFolder(const QString &oldId, const QString &newId)
 {
+    tError() << "TupLibraryFolder::renameFolder() - Renaming folder from " << oldId << " to " << newId;
+    
     TupLibraryFolder *folder = getFolder(oldId);
 
     if (folder) {
         k->folders[oldId]->setId(newId);
         return true;
     } 
+
+    #ifdef K_DEBUG
+        QString msg = "TupLibraryFolder::renameFolder() - [ Fatal Error ] - Folder not found -> " + oldId;
+        #ifdef Q_OS_WIN32
+            qDebug() << msg;
+        #else
+            tError() << msg;
+        #endif
+    #endif
 
     return false;
 }

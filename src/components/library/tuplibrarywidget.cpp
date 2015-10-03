@@ -664,6 +664,7 @@ void TupLibraryWidget::exportObject(QTreeWidgetItem *item)
 
 void TupLibraryWidget::renameObject(QTreeWidgetItem *item)
 {
+    tError() << "TupLibraryWidget::renameObject() - Renaming object!";
     if (item) {
         k->renaming = true;
         k->oldId = item->text(1);
@@ -1591,9 +1592,9 @@ void TupLibraryWidget::refreshItem(QTreeWidgetItem *item)
             if (!k->library->folderExists(tag)) {
                 // rename directory here!
                 if (k->library->folderExists(k->oldId)) {
-                    k->library->renameFolder(k->oldId, tag);
-                    item->setText(1, tag);
-                    k->library->renameFolder(k->oldId, tag);
+                    bool renamed = k->library->renameFolder(k->oldId, tag);
+                    if (renamed)
+                        item->setText(1, tag);
                 }
             } 
         } else {
