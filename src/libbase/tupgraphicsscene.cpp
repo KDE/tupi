@@ -446,8 +446,10 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
         item->setSelected(false);
         item->setOpacity(opacity);
         if (k->tool) {
-            if (k->tool->toolType() == TupToolInterface::Selection)
-                item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+            if (k->tool->toolType() == TupToolInterface::Selection) {
+                if (opacity == 1)
+                    item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+            }
         }
 
         addItem(item);
@@ -476,13 +478,15 @@ void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
             if (frame) {
                 svgItem->setOpacity(opacity);
                 // SQA: Experimental code related to interactive features
-                if (svgItem->symbolName().compare("dollar.svg")==0)
-                    connect(svgItem, SIGNAL(enabledChanged()), this, SIGNAL(showInfoWidget()));
+                // if (svgItem->symbolName().compare("dollar.svg")==0)
+                //     connect(svgItem, SIGNAL(enabledChanged()), this, SIGNAL(showInfoWidget()));
 
                 if (k->tool) {
-                    if (k->tool->toolType() == TupToolInterface::Selection)
-                        svgItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
-                } 
+                    if (k->tool->toolType() == TupToolInterface::Selection) {
+                        if (opacity == 1)
+                            svgItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+                    } 
+                }
 
                 addItem(svgItem);
             } else {

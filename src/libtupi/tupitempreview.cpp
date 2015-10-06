@@ -151,9 +151,9 @@ void TupItemPreview::paintEvent(QPaintEvent *)
 
                 int posX = (widthRealLength - itemWidth)/2;  
                 int posY = (heightRealLength - itemHeight)/2;
-                painter.translate(posX, posY);
+                painter.translate(posX + newPosX, posY + newPosY);
 
-                painter.translate(newPosX, newPosY);
+                // painter.translate(newPosX, newPosY);
             } else { // if object is smaller than canvas, just show it
                 painter.translate((rect().width() - itemWidth)/2, (rect().height() - itemHeight)/2);
                 painter.translate(newPosX, newPosY);
