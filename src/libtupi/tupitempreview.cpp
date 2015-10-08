@@ -120,6 +120,8 @@ void TupItemPreview::paintEvent(QPaintEvent *)
                    isNative = true;
                    itemWidth = group->boundingRect().width();
                    itemHeight = group->boundingRect().height();
+                   // SQA: These coords don't work if the group has been edited
+                   // A new algorithm must be developed here
                    newPosX = -group->boundingRect().topLeft().x();
                    newPosY = -group->boundingRect().topLeft().y();
         }

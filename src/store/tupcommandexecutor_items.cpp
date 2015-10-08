@@ -560,14 +560,12 @@ bool TupCommandExecutor::ungroupItems(TupItemResponse *response)
     int layerPosition = response->layerIndex();
     int framePosition = response->frameIndex();
     int position = response->itemIndex();
-    tError() << "TupCommandExecutor::ungroupItems() - item index: " << position; 
     TupProject::Mode mode = response->spaceMode();
     
     TupScene *scene = m_project->scene(scenePosition);
     
     if (scene) {
         if (mode == TupProject::FRAMES_EDITION) {
-            tError() << "TupCommandExecutor::ungroupItems() - TupProject::FRAMES_EDITION";
             TupLayer *layer = scene->layer(layerPosition);
             if (layer) {
                 TupFrame *frame = layer->frame(framePosition);
@@ -604,10 +602,8 @@ bool TupCommandExecutor::ungroupItems(TupItemResponse *response)
             if (bg) {
                 TupFrame *frame = 0;
                 if (mode == TupProject::STATIC_BACKGROUND_EDITION) {
-                    tError() << "TupCommandExecutor::ungroupItems() - TupProject::STATIC_BACKGROUND_EDITION";
                     frame = bg->staticFrame();
                 } else if (mode == TupProject::DYNAMIC_BACKGROUND_EDITION) {
-                           tError() << "TupCommandExecutor::ungroupItems() - TupProject::DYNAMIC_BACKGROUND_EDITION";
                            frame = bg->dynamicFrame();
                 } else {
                     #ifdef K_DEBUG
@@ -623,9 +619,7 @@ bool TupCommandExecutor::ungroupItems(TupItemResponse *response)
 
                 if (frame) {
                     QString strItems = "";
-                    tError() << "TupCommandExecutor::ungroupItems() - FLAG 1";
                     QList<QGraphicsItem *> items = frame->splitItemsGroup(position);
-                    tError() << "TupCommandExecutor::ungroupItems() - FLAG 2";
                     foreach (QGraphicsItem *item, items) {
                              if (frame->indexOf(item) != -1) {
                                  if (strItems.isEmpty())
@@ -644,7 +638,6 @@ bool TupCommandExecutor::ungroupItems(TupItemResponse *response)
                              }
                     }
                     strItems+= ")";
-                    tError() << "TupCommandExecutor::ungroupItems() - items: " << strItems;
                     response->setArg(strItems);
                     emit responsed(response);
                     return true;
