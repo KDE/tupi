@@ -46,6 +46,7 @@ struct TupLayer::Private
     int framesCount;
     bool isLocked;
     int index;
+    double opacity;
 };
 
 TupLayer::TupLayer(TupScene *parent, int index) : QObject(parent), k(new Private)
@@ -55,6 +56,7 @@ TupLayer::TupLayer(TupScene *parent, int index) : QObject(parent), k(new Private
     k->name = tr("Layer");
     k->framesCount = 0;
     k->isLocked = false;
+    k->opacity = 1.0;
 }
 
 TupLayer::~TupLayer()
@@ -86,6 +88,11 @@ void TupLayer::setLayerName(const QString &name)
     k->name = name;
 }
 
+QString TupLayer::layerName() const
+{
+    return k->name;
+}
+
 void TupLayer::setLocked(bool isLocked)
 {
     k->isLocked = isLocked;
@@ -99,17 +106,21 @@ bool TupLayer::isLocked() const
 void TupLayer::setVisible(bool isVisible)
 {
     k->isVisible = isVisible;
-    // emit visibilityChanged(isVisible);
-}
-
-QString TupLayer::layerName() const
-{
-    return k->name;
 }
 
 bool TupLayer::isVisible() const
 {
     return k->isVisible;
+}
+
+void TupLayer::setOpacity(double opacity)
+{
+    k->opacity = opacity; 
+}
+
+double TupLayer::opacity()
+{
+    return k->opacity;
 }
 
 TupFrame *TupLayer::createFrame(QString name, int position, bool loaded)

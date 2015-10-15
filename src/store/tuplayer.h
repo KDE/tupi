@@ -62,71 +62,30 @@ class TUPI_EXPORT TupLayer : public QObject, public TupAbstractSerializable
     Q_OBJECT
 
     public:
-        /**
-         * Default Constructor
-         */
         TupLayer(TupScene *parent, int index = 0);
-        
-        /**
-         * Destructor
-         */
         ~TupLayer();
         
-        /**
-         * Retorna los frames del layer
-         */
         Frames frames();
-        
-        /**
-         * Pone la lista de frames, esta funcion reemplaza los frames anteriores
-         */
         void setFrames(const Frames &frames);
-
-        /**
-         * Actualiza el frame ubicado en la posicion index 
-         */
         void setFrame(int index, TupFrame *frame);
         
-        /**
-         * Pone el nombre del layer
-         */
         void setLayerName(const QString &name);
-        
-        /**
-         * Bloquea el layer
-         */
-        void setLocked(bool isLocked);
-        
-        /**
-         * Pone la visibilidad del layer
-         */
-        void setVisible(bool isVisible);
-        
-        /**
-         * Retorna el nombre del layer
-         */
         QString layerName() const;
         
-        /**
-         * Returna verdadero cuando el layer esta bloqueado
-        */
+        void setLocked(bool isLocked);
         bool isLocked() const;
-        
-        /**
-         * Retorna verdadero si el layer es visible
-         */
+
+        void setVisible(bool isVisible);
         bool isVisible() const;
+
+        void setOpacity(double opacity);
+        double opacity();
         
         TupFrame *createFrame(QString name, int position, bool loaded = false);
-
         bool removeFrame(int position);
-
         bool resetFrame(int position);
-        
         bool moveFrame(int from, int to);
-
         bool exchangeFrame(int from, int to);
-        
         bool expandFrame(int position, int size);
         
         TupFrame *frame(int position) const;

@@ -88,6 +88,9 @@ struct TupGraphicsScene::Private
     QList<TupLineGuide *> lines;
     TupProject::Mode spaceContext;   
     TupLibrary *library;
+    int layerOnProcess;
+    int frameOnProcess;
+    double layerOnProcessOpacity;
 };
 
 TupGraphicsScene::TupGraphicsScene() : QGraphicsScene(), k(new Private)
@@ -215,6 +218,8 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
 
     for (int i=0; i < k->scene->layersTotal(); i++) {
          TupLayer *layer = k->scene->layer(i);
+         k->layerOnProcess = i;
+         k->layerOnProcessOpacity = layer->opacity();
 
          if (layer->framesTotal() > 0 && photogram < layer->framesTotal()) {
              TupFrame *mainFrame = layer->frame(photogram);
@@ -222,8 +227,6 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
              QString currentFrame = "";
 
              if (mainFrame) {
-                 // currentFrame = mainFrame->frameName();
-
                  if (layer) {
                      if (layer->isVisible()) {
                          // Painting previews frames
@@ -236,21 +239,19 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                                  if (limit < 0) 
                                      limit = 0;
 
-                                 // QString frameBehind = ""; 
                                  for (int frameIndex = photogram-1; frameIndex >= limit; frameIndex--) {
+                                      k->frameOnProcess = frameIndex;
                                       TupFrame *frame = layer->frame(frameIndex);
-                                      // QString previousFrame = frame->frameName();
-                                      // if (frame && previousFrame.compare(currentFrame) != 0 && frameBehind.compare(previousFrame) != 0)
                                       if (frame)
                                           addFrame(frame, opacity, Previous);
 
-                                      // frameBehind = previousFrame;
                                       opacity -= opacityFactor;
                                  }
                              }
                          }
 
                          // Painting current frame
+                         k->frameOnProcess = photogram;
                          addFrame(mainFrame);
 
                          // Painting next frames
@@ -263,15 +264,12 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
                                  if (limit >= layer->frames().count()) 
                                      limit = layer->frames().count() - 1;
 
-                                 // QString frameLater = "";
                                  for (int frameIndex = photogram+1; frameIndex <= limit; frameIndex++) {
+                                      k->frameOnProcess = frameIndex;
                                       TupFrame * frame = layer->frame(frameIndex);
-                                      // QString nextFrame = frame->frameName();
-                                      // if (frame && nextFrame.compare(currentFrame) != 0 && frameLater.compare(nextFrame) != 0)
                                       if (frame)
                                           addFrame(frame, opacity, Next);
                       
-                                      // frameLater = nextFrame;
                                       opacity -= opacityFactor;
                                  }
                              }
@@ -444,10 +442,11 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
             group->recoverChilds();
 
         item->setSelected(false);
-        item->setOpacity(opacity);
+        item->setOpacity(opacity * k->layerOnProcessOpacity);
+
         if (k->tool) {
             if (k->tool->toolType() == TupToolInterface::Selection) {
-                if (opacity == 1)
+                if (k->layerOnProcess == k->framePosition.layer && k->frameOnProcess == k->framePosition.frame)
                     item->setFlag(QGraphicsItem::ItemIsSelectable, true);
             }
         }
@@ -476,14 +475,15 @@ void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
         if (layer) {
             TupFrame *frame = layer->frame(k->framePosition.frame);
             if (frame) {
-                svgItem->setOpacity(opacity);
+                svgItem->setOpacity(opacity * k->layerOnProcessOpacity);
+
                 // SQA: Experimental code related to interactive features
                 // if (svgItem->symbolName().compare("dollar.svg")==0)
                 //     connect(svgItem, SIGNAL(enabledChanged()), this, SIGNAL(showInfoWidget()));
 
                 if (k->tool) {
                     if (k->tool->toolType() == TupToolInterface::Selection) {
-                        if (opacity == 1)
+                        if (k->layerOnProcess == k->framePosition.layer && k->frameOnProcess == k->framePosition.frame)
                             svgItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
                     } 
                 }
@@ -1544,6 +1544,7 @@ void TupGraphicsScene::includeObject(QGraphicsItem *object, bool isPolyLine) // 
                 if (isPolyLine) // SQA: Polyline hack
                     zLevel--;
                 if (object) {
+                    object->setOpacity(layer->opacity());
                     object->setZValue(zLevel);
                     addItem(object);
                 } else {

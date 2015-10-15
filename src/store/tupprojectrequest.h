@@ -138,7 +138,8 @@ class TUPI_EXPORT TupProjectRequest
             // layer
             AddLipSync = 24,
             UpdateLipSync = 25,
-            RemoveLipSync = 26
+            RemoveLipSync = 26,
+            UpdateOpacity = 27
         };
         
         enum Part

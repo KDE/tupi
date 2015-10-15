@@ -47,6 +47,7 @@
 #include <QWheelEvent>
 #include <QTabBar>
 #include <QVBoxLayout>
+#include <QDoubleSpinBox>
 
 /**
  * @author Gustav Gonzalez 
@@ -67,12 +68,14 @@ class T_GUI_EXPORT TupSceneTabWidget : public QFrame
         void setCurrentIndex(int index);
         int currentIndex();
         int count();
+        void setLayerOpacity(int sceneIndex, float opacity);
 
     public slots:
         void removeAllTabs();
 
     signals:
         void currentChanged(int index);
+        void updateLayerOpacity(double opacity);
 
     private:
         struct Private;

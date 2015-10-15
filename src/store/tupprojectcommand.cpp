@@ -428,7 +428,7 @@ void TupProjectCommand::frameCommand()
 void TupProjectCommand::layerCommand()
 {
     TupLayerResponse *response = static_cast<TupLayerResponse *>(k->response);
-    
+
     switch (response->action()) {
             case TupProjectRequest::Add:
             {

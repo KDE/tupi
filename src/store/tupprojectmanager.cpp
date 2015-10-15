@@ -342,7 +342,7 @@ void TupProjectManager::handleProjectRequest(const TupProjectRequest *request)
     if (k->handler) {
         k->handler->handleProjectRequest(request);
     } else {
-	    #ifdef K_DEBUG
+	#ifdef K_DEBUG
             QString msg = "TupProjectManager::handleProjectRequest() - Error: No handler available";
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
@@ -367,7 +367,6 @@ void TupProjectManager::handleLocalRequest(const TupProjectRequest *request)
 
     if (parser.parse(request->xml())) {
         if (TupFrameResponse *response = static_cast<TupFrameResponse *>(parser.response())) {
-
             k->sceneIndex = response->sceneIndex();
             k->layerIndex = response->layerIndex();
             k->frameIndex = response->frameIndex();
@@ -388,10 +387,27 @@ void TupProjectManager::handleLocalRequest(const TupProjectRequest *request)
                 }
             } else if (response->action() == TupProjectRequest::Paste) {
                        response->setArg(k->copyFrame);
-
                        TupProjectRequest request = TupRequestBuilder::fromResponse(response);
                        handleProjectRequest(&request);
                        return;
+            } else if (response->action() == TupProjectRequest::UpdateOpacity) {
+                       double opacity = response->arg().toReal();
+                       TupScene *scene = k->project->scene(k->sceneIndex);
+                       if (scene) {
+                           TupLayer *layer = scene->layer(k->layerIndex);
+                           if (layer) {
+                               layer->setOpacity(opacity);
+                           } else {
+                               #ifdef K_DEBUG
+                                   QString msg = "TupProjectManager::handleLocalRequest() - Fatal Error: Layer pointer is NULL [index = " +  QString::number(k->layerIndex) + "]";
+                                   #ifdef Q_OS_WIN32
+                                       qDebug() << msg;
+                                   #else
+                                       tError() << msg;
+                                   #endif
+                               #endif
+                           }
+                       }
             }
         }
 

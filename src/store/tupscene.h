@@ -77,46 +77,20 @@ class TUPI_EXPORT TupScene : public QObject, public TupAbstractSerializable
     Q_OBJECT
 
     public:
-        /**
-          * Default Constructor
-          */
         TupScene(TupProject *parent, const QSize dimension, const QColor bgColor);
-
-        /**
-          * Destructor
-          */
         ~TupScene();
 
-        /**
-          * Sets scene name
-          */
         void setSceneName(const QString &name);
-
-        /**
-          * Sets background color 
-          */
-        void setBgColor(const QColor bgColor);
-
-        /**
-          * Locks the scene
-          */
-        void setLocked(bool isLocked);
-
-        /**
-          * Returns scene name
-          */
         QString sceneName() const;
 
-        /**
-          * Returns true if scene is locked
-          */
+        void setBgColor(const QColor bgColor);
+
+        void setLocked(bool isLocked);
         bool isLocked() const;
+
         void setVisible(bool isVisible);
         bool isVisible() const;
 
-        /**
-          * Returns layers list
-          */
         Layers layers() const;
         int layersTotal() const;
         SoundLayers soundLayers() const;
@@ -126,21 +100,12 @@ class TUPI_EXPORT TupScene : public QObject, public TupAbstractSerializable
 
         void setLayers(const Layers &);
 
-        /**
-          * Removes the layer at index
-          */
         bool removeLayer(int index);
 
-        /**
-          * Adds a layer, if addToEnd is true, the layer will be set at the end, otherwise next to the current layer
-          */
         TupLayer *createLayer(QString name, int position, bool loaded = false);
 
         TupSoundLayer *createSoundLayer(int position, bool loaded = false);
 
-        /**
-          * Moves the layer to the index
-          */
         bool moveLayer(int from, int to);
 
         int objectIndex() const;

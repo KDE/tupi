@@ -325,4 +325,3 @@ bool TupCommandExecutor::removeLipSync(TupLayerResponse *response)
 
     return false;
 }
-

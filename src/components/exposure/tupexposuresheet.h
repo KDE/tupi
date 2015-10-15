@@ -81,9 +81,10 @@ class TUPI_EXPORT TupExposureSheet : public TupModuleWidgetBase
         struct Private;
         Private * const k;
         void createMenu();
-        void emitRequestExpandCurrentFrame(int n);
+        void requestExpandCurrentFrame(int n);
         void insertFrames(int n);
         void copyTimeLine(int times);
+        void updateLayerOpacity(int sceneIndex, int layerIndex);
 
     protected:
         virtual void sceneResponse(TupSceneResponse *event);
@@ -101,9 +102,10 @@ class TUPI_EXPORT TupExposureSheet : public TupModuleWidgetBase
         void changeVisibilityLayer(int, bool);
 
     private slots: 
-        void emitRequestChangeScene(int index);
-        void emitRequestCopyCurrentFrame();
-        void emitRequestPasteInCurrentFrame();
+        void requestChangeScene(int index);
+        void requestCopyCurrentFrame();
+        void requestPasteInCurrentFrame();
+        void requestUpdateLayerOpacity(double opacity);
 
         void insertFramesFromMenu(QAction *action);
         void copyTimeLineFromMenu(QAction *action);

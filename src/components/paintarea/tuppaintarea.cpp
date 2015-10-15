@@ -398,13 +398,6 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
                     return;
                 }
             break;
-            /*
-            case TupProjectRequest::AddLipSync:
-                {
-                    return;
-                }
-            break;
-            */
             case TupProjectRequest::Remove:
                 {
                     TupScene *scene = k->project->scene(k->currentSceneIndex);
@@ -423,9 +416,6 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
                         }
                     } else {
                         if (scene->layersTotal() == 1) {
-                            // QList<int> indexes = scene->layerIndexes();
-                            // guiScene->setCurrentFrame(indexes.at(0), frameIndex);
-
                             guiScene->setCurrentFrame(0, frameIndex);
                             if (k->spaceMode == TupProject::FRAMES_EDITION) {
                                 guiScene->drawCurrentPhotogram();
@@ -439,6 +429,15 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
                     viewport()->update();
                 }
             break;
+            case TupProjectRequest::UpdateOpacity:
+                {
+                    // if (k->spaceMode == TupProject::FRAMES_EDITION) {
+                        guiScene->drawCurrentPhotogram();
+                        viewport()->update(scene()->sceneRect().toRect());
+                    // }
+                }
+            break;
+
             case TupProjectRequest::TupProjectRequest::View:
                 {
                     guiScene->setLayerVisible(event->layerIndex(), event->arg().toBool());
