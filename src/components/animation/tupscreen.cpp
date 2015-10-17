@@ -473,7 +473,6 @@ void TupScreen::render()
     emit isRendering(0);
 
     TupScene *scene = k->project->scene(k->currentSceneIndex);
-
     if (!scene) {
         #ifdef K_DEBUG
             QString msg = "TupScreen::render() - [ Fatal Error ] - Scene is NULL! -> index: " + QString::number(k->currentSceneIndex);

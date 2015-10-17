@@ -72,9 +72,10 @@ void NodesTool::reset(TupGraphicsScene *scene)
 
     foreach (QGraphicsItem *item, scene->items()) {
              int zValue = item->zValue();
-             qreal opacity = item->opacity();
+             // qreal opacity = item->opacity();
              if (scene->spaceContext() == TupProject::FRAMES_EDITION) {
-                 if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0) && (opacity == 1)) 
+                 // if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0) && (opacity == 1)) 
+                 if ((zValue >= zBottomLimit) && (zValue < zTopLimit) && (item->toolTip().length()==0))
                       item->setFlags(QGraphicsItem::ItemIsSelectable);
                  else
                       item->setFlag(QGraphicsItem::ItemIsSelectable, false);
