@@ -156,8 +156,6 @@ void TupExposureHeader::setLastFrame(int section, int num)
 void TupExposureHeader::mousePressEvent(QMouseEvent *event)
 {
     int section = logicalIndexAt(event->pos());
-    tError() << "TupExposureHeader::mousePressEvent() - section: " << section;
-
     if (section > -1 && section < count()) {
         int x = sectionViewportPosition(section) + 3;
         QFont font = this->font();
