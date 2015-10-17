@@ -1507,6 +1507,8 @@ TupBrushManager *TupGraphicsScene::brushManager() const
     return k->brushManager;
 }
 
+// SQA: Check if this method is actually used, including variable "opacityMap"
+
 void TupGraphicsScene::aboutToMousePress()
 {
     QHash<QGraphicsItem *, double>::iterator it = k->onionSkin.opacityMap.begin();

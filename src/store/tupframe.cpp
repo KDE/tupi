@@ -470,6 +470,7 @@ int TupFrame::createItemGroup(int position, QList<int> group)
 
     foreach (int index, group) {
              QGraphicsItem *item = this->item(index);
+             item->setOpacity(1.0);
              itemGroup->addToGroup(item);
     }
 
