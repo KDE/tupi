@@ -153,27 +153,38 @@ void TupExposureHeader::setLastFrame(int section, int num)
     m_sections[section].lastFrame = num;
 }
 
-void TupExposureHeader::mousePressEvent(QMouseEvent * event)
+void TupExposureHeader::mousePressEvent(QMouseEvent *event)
 {
     int section = logicalIndexAt(event->pos());
-    int x = sectionViewportPosition(section) + 3;
+    tError() << "TupExposureHeader::mousePressEvent() - section: " << section;
 
-    QFont font = this->font();
-    font.setPointSize(8);
-    // QFont font("Arial", 8, QFont::Normal, false);
-    QFontMetrics fm(font);
-    QString text = m_sections[section].title;
-    int w = fm.width(text);
-    int limit = sectionSize(section)/2 - w/2;
+    if (section > -1 && section < count()) {
+        int x = sectionViewportPosition(section) + 3;
+        QFont font = this->font();
+        font.setPointSize(8);
+        QFontMetrics fm(font);
+        QString text = m_sections[section].title;
+        int w = fm.width(text);
+        int limit = sectionSize(section)/2 - w/2;
 
-    QRect rect(x + limit - 12, 3, 12, height()-3);
-    if (rect.contains(event->pos())) {
-        notifyVisibilityChange(section);
+        QRect rect(x + limit - 12, 3, 12, height()-3);
+        if (rect.contains(event->pos())) {
+            notifyVisibilityChange(section);
+        } else {
+            if (m_currentSection != section)
+                emit selectionChanged(section);
+
+            QHeaderView::mousePressEvent(event);
+        }
     } else {
-        if (m_currentSection != section)
-            emit selectionChanged(section);
-
-        QHeaderView::mousePressEvent(event);
+        #ifdef K_DEBUG
+            QString msg = "TupExposureHeader::mousePressEvent() - Fatal Error: Section index is invalid -> " + QString::number(section);
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tFatal() << msg;
+            #endif
+        #endif
     }
 }
 
