@@ -616,11 +616,7 @@ void TupCanvas::createScene()
     emit requestTriggered(&request);
 
     request = TupRequestBuilder::createSceneRequest(sceneIndex, TupProjectRequest::Select);
-    // emit requestTriggered(&request);
     emit localRequestTriggered(&request);
-
-    // request = TupRequestBuilder::createFrameRequest(sceneIndex, 0, 0, TupProjectRequest::Select, "1");
-    // emit requestTriggered(&request);
 }
 
 void TupCanvas::createLayer(int sceneIndex, int layerIndex)

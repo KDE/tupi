@@ -125,20 +125,31 @@ TupExposureTable* TupSceneTabWidget::getCurrentTable()
 
 TupExposureTable* TupSceneTabWidget::getTable(int index)
 {
-    TupExposureTable *table = k->tables.at(index);
+    if (isTableIndexValid(index)) {
+        TupExposureTable *table = k->tables.at(index);
 
-    if (table) {
-        return table;
-    } else {
-        #ifdef K_DEBUG
-            QString msg = "TupSceneTabWidget::getTable() - [ Fatal Error ] - Invalid table index: " + QString::number(index);
-            #ifdef Q_OS_WIN32
-                qDebug() << msg;
-            #else
-                tError() << msg;
+        if (table) {
+            return table;
+        } else {
+            #ifdef K_DEBUG
+                QString msg = "TupSceneTabWidget::getTable() - [ Fatal Error ] - Table pointer is NULL!";
+                #ifdef Q_OS_WIN32
+                    qDebug() << msg;
+                #else
+                    tError() << msg;
+                #endif
             #endif
-        #endif
+        }
     }
+
+    #ifdef K_DEBUG
+        QString msg = "TupSceneTabWidget::getTable() - [ Fatal Error ] - Invalid table index: " + QString::number(index);
+        #ifdef Q_OS_WIN32
+            qDebug() << msg;
+        #else
+            tError() << msg;
+        #endif
+    #endif
 
     return 0;
 }
@@ -152,6 +163,13 @@ int TupSceneTabWidget::currentIndex()
 {
     int index = k->tabber->currentIndex();
     return index;
+}
+
+bool TupSceneTabWidget::isTableIndexValid(int index)
+{
+    if (index > -1 && index < k->tables.count())
+        return true;
+    return false;
 }
 
 int TupSceneTabWidget::count()

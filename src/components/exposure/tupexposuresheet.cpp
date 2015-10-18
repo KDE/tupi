@@ -383,7 +383,7 @@ void TupExposureSheet::setScene(int index)
         #endif
     #endif
 
-    if (k->scenesContainer->count() >= index) {
+    if (k->scenesContainer->isTableIndexValid(index)) {
         k->scenesContainer->blockSignals(true);
         k->scenesContainer->setCurrentIndex(index);		
         k->currentTable = k->scenesContainer->getTable(index);
@@ -541,11 +541,9 @@ void TupExposureSheet::closeAllScenes()
     #endif
 
     k->scenesContainer->blockSignals(true);
-
-    delete k->currentTable;
-    k->scenesContainer->removeAllTabs();
+    // delete k->currentTable;
     k->currentTable = 0;
-
+    k->scenesContainer->removeAllTabs();
     k->scenesContainer->blockSignals(false);
 }
 

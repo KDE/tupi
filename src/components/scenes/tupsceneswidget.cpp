@@ -135,9 +135,10 @@ void TupScenesWidget::selectScene(int index)
         #endif
     #endif
 
-    TupProjectRequest event = TupRequestBuilder::createSceneRequest(index, TupProjectRequest::Select);
-    // emit requestTriggered(&event);
-    emit localRequestTriggered(&event);
+    if (k->scenesTable->scenesCount() > 1) {
+        TupProjectRequest event = TupRequestBuilder::createSceneRequest(index, TupProjectRequest::Select);
+        emit localRequestTriggered(&event);
+    }
 }
 
 void TupScenesWidget::emitRequestInsertScene()
@@ -169,7 +170,6 @@ void TupScenesWidget::emitRequestInsertScene()
     emit requestTriggered(&event);
 
     event = TupRequestBuilder::createSceneRequest(index, TupProjectRequest::Select);
-    // emit requestTriggered(&event);
     emit localRequestTriggered(&event);
 }
 
@@ -198,7 +198,6 @@ void TupScenesWidget::emitRequestRemoveScene()
 
         if (index >= 0) {
             event = TupRequestBuilder::createSceneRequest(index, TupProjectRequest::Select);
-            // emit requestTriggered(&event);
             emit localRequestTriggered(&event);
         }
     }

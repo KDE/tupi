@@ -120,10 +120,12 @@ bool TupCommandExecutor::removeScene(TupSceneResponse *response)
         
         if (m_project->removeScene(position)) {
 
+            /*
             if (position+1 < scenesTotal) {
                 for (int i = position + 1; i < scenesTotal; i++)
                      m_project->moveScene(i, i-1);
             }
+            */
 
             emit responsed(response);
 

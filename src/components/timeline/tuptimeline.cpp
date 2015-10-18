@@ -131,8 +131,10 @@ void TupTimeLine::removeScene(int sceneIndex)
 
 void TupTimeLine::closeAllScenes()
 {
+    k->container->blockSignals(true);
     while (k->container->currentWidget())
            delete k->container->currentWidget();
+    k->container->blockSignals(false);
 }
 
 void TupTimeLine::sceneResponse(TupSceneResponse *response)

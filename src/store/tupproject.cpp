@@ -247,10 +247,8 @@ TupScene *TupProject::createScene(QString name, int position, bool loaded)
         return 0;
 
     TupScene *scene = new TupScene(this, k->dimension, k->bgColor);
-
     k->scenes.insert(position, scene);
     k->sceneCounter++;
-
     scene->setSceneName(name);
     
     if (loaded)
@@ -275,37 +273,36 @@ bool TupProject::removeScene(int position)
     #endif        
     
     TupScene *toRemove = scene(position);
-
     if (toRemove) {
-
         QString path = dataDir() + QDir::separator() + "scene" + QString::number(position) + ".tps";
 
-        if (!QFile::remove(path)) {        
-            #ifdef K_DEBUG
-                QString msg = "TupProject::removeScene() - Error removing file " + path;
-                #ifdef Q_OS_WIN32
-                    qDebug() << msg;
-                #else
-                    tError() << msg;
+        if (QFile::exists(path)) {
+            if (!QFile::remove(path)) {        
+                #ifdef K_DEBUG
+                    QString msg = "TupProject::removeScene() - Error removing file " + path;
+                    #ifdef Q_OS_WIN32
+                        qDebug() << msg;
+                    #else
+                        tError() << msg;
+                    #endif
                 #endif
-            #endif
             
-            return false;
-        } else {
-            int total = k->sceneCounter - 1;
-            if (position < total) {
-                for (int i=position + 1; i<=total; i++) {
-                     QString oldName = dataDir() + QDir::separator() + "scene" + QString::number(i) + ".tps";  
-                     QString newName = dataDir() + QDir::separator() + "scene" + QString::number(i-1) + ".tps";
-                     QFile::rename(oldName, newName); 
-                }
+                return false;
+            }
+        }
+
+        int total = k->sceneCounter - 1;
+        if (position < total) {
+            for (int i=position + 1; i<=total; i++) {
+                 QString oldName = dataDir() + QDir::separator() + "scene" + QString::number(i) + ".tps";  
+                 QString newName = dataDir() + QDir::separator() + "scene" + QString::number(i-1) + ".tps";
+                 QFile::rename(oldName, newName); 
             }
         }
 
         k->scenes.removeAt(position);
-        delete toRemove;
-        toRemove = 0;
-
+        // delete toRemove;
+        // toRemove = 0;
         k->sceneCounter--;
 
         return true;
@@ -327,6 +324,10 @@ bool TupProject::moveScene(int position, int newPosition)
         #endif
         return false;
     }
+
+    tError() << "TupProject::moveScene() - position: " << position;
+    tError() << "TupProject::moveScene() - newPosition: " << newPosition;
+    tError() << "TupProject::moveScene() - scenes count: " << k->scenes.count();
 
     TupScene *scene = k->scenes.takeAt(position);
     k->scenes.insert(newPosition, scene);
