@@ -85,6 +85,7 @@ class TUPI_EXPORT TupExposureSheet : public TupModuleWidgetBase
         void insertFrames(int n);
         void copyTimeLine(int times);
         void updateLayerOpacity(int sceneIndex, int layerIndex);
+        double getLayerOpacity(int sceneIndex, int layerIndex);
 
     protected:
         virtual void sceneResponse(TupSceneResponse *event);

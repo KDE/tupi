@@ -208,6 +208,7 @@ void TupExposureSheet::addScene(int index, const QString &name)
     connect(scene, SIGNAL(layerMoved(int, int)), this, SLOT(moveLayer(int, int)));
     connect(scene, SIGNAL(layerVisibilityChanged(int, bool)), this, SLOT(changeVisibilityLayer(int, bool)));
 
+    // double opacity = getLayerOpacity(index, 0);
     k->scenesContainer->addScene(index, name, scene);
 }
 
@@ -227,7 +228,6 @@ void TupExposureSheet::applyAction(int action)
     #endif
 
     k->currentTable = k->scenesContainer->getCurrentTable();
-
     if (k->currentTable == 0) {
         #ifdef K_DEBUG
             QString msg = "TupExposureSheet::applyAction: No layer view!!";
@@ -241,7 +241,6 @@ void TupExposureSheet::applyAction(int action)
     }
 
     switch (action) {
-
             case TupProjectActionBar::InsertLayer:
                {
                  int layer = k->currentTable->columnCount();
@@ -387,6 +386,7 @@ void TupExposureSheet::setScene(int index)
         k->scenesContainer->blockSignals(true);
         k->scenesContainer->setCurrentIndex(index);		
         k->currentTable = k->scenesContainer->getTable(index);
+        updateLayerOpacity(index, 0);
         k->scenesContainer->blockSignals(false);
     } else {
         #ifdef K_DEBUG
@@ -1062,15 +1062,21 @@ void TupExposureSheet::requestUpdateLayerOpacity(double opacity)
 
 void TupExposureSheet::updateLayerOpacity(int sceneIndex, int layerIndex)
 {
+    double opacity = getLayerOpacity(sceneIndex, layerIndex);
+    k->scenesContainer->setLayerOpacity(sceneIndex, opacity);
+}
+
+double TupExposureSheet::getLayerOpacity(int sceneIndex, int layerIndex)
+{
+    double opacity = 1.0;
     TupScene *scene = k->project->scene(sceneIndex);
     if (scene) {
         TupLayer *layer = scene->layer(layerIndex);
         if (layer) {
-            double opacity = layer->opacity();
-            k->scenesContainer->setLayerOpacity(sceneIndex, opacity);
+            opacity = layer->opacity();
         } else {
             #ifdef K_DEBUG
-                QString msg = "TupExposureSheet::updateLayerOpacity() - Fatal Error: No layer at index -> " + QString::number(layerIndex);
+                QString msg = "TupExposureSheet::getLayerOpacity() - Fatal Error: No layer at index -> " + QString::number(layerIndex);
                 #ifdef Q_OS_WIN32
                     qDebug() << msg;
                 #else
@@ -1080,7 +1086,7 @@ void TupExposureSheet::updateLayerOpacity(int sceneIndex, int layerIndex)
         }
     } else {
         #ifdef K_DEBUG
-            QString msg = "TupExposureSheet::updateLayerOpacity() - Fatal Error: No scene at index -> " + QString::number(sceneIndex);
+            QString msg = "TupExposureSheet::getLayerOpacity() - Fatal Error: No scene at index -> " + QString::number(sceneIndex);
             #ifdef Q_OS_WIN32
                 qDebug() << msg;
             #else
@@ -1088,4 +1094,7 @@ void TupExposureSheet::updateLayerOpacity(int sceneIndex, int layerIndex)
             #endif
         #endif
     }
+
+    return opacity;
 }
+

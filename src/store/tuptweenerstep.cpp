@@ -218,9 +218,7 @@ void TupTweenerStep::fromXml(const QString& xml)
     
     if (doc.setContent(xml)) {
         QDomElement root = doc.documentElement();
-        
         QDomNode node = root.firstChild();
-        
         k->index = root.attribute("value").toInt();
         
         while (!node.isNull()) {

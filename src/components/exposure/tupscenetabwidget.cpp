@@ -82,17 +82,17 @@ void TupSceneTabWidget::addScene(int index, const QString &name, TupExposureTabl
     header->setToolTip(tr("Current Layer Opacity"));
     header->setPixmap(pix);
 
-    QDoubleSpinBox *opacity = new QDoubleSpinBox(this);
-    opacity->setRange(0.1, 1.0);
-    opacity->setSingleStep(0.1);
-    opacity->setValue(1.0);
-    opacity->setToolTip(tr("Current Layer Opacity"));
-    connect(opacity, SIGNAL(valueChanged(double)), this, SIGNAL(updateLayerOpacity(double)));
+    QDoubleSpinBox *opacitySpinBox = new QDoubleSpinBox(this);
+    opacitySpinBox->setRange(0.1, 1.0);
+    opacitySpinBox->setSingleStep(0.1);
+    opacitySpinBox->setValue(1.0);
+    opacitySpinBox->setToolTip(tr("Current Layer Opacity"));
+    connect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SIGNAL(updateLayerOpacity(double)));
 
-    k->opacityControl << opacity;
+    k->opacityControl << opacitySpinBox;
 
     opacityLayout->addWidget(header);
-    opacityLayout->addWidget(opacity);
+    opacityLayout->addWidget(opacitySpinBox);
 
     layout->addLayout(opacityLayout);
     layout->addWidget(table);
@@ -177,7 +177,7 @@ int TupSceneTabWidget::count()
     return k->tables.count();
 }
 
-void TupSceneTabWidget::setLayerOpacity(int sceneIndex, float opacity)
+void TupSceneTabWidget::setLayerOpacity(int sceneIndex, double opacity)
 {
     k->opacityControl.at(sceneIndex)->setValue(opacity);
 }

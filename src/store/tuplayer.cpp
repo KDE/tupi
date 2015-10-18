@@ -292,43 +292,35 @@ TupFrame *TupLayer::frame(int position) const
 void TupLayer::fromXml(const QString &xml)
 {
     QDomDocument document;
-
-    if (! document.setContent(xml))
+    if (!document.setContent(xml))
         return;
 
     QDomElement root = document.documentElement();
-
     setLayerName(root.attribute("name", layerName()));
-
+    setOpacity(root.attribute("opacity", "1.0").toDouble());
     QDomNode n = root.firstChild();
 
     while (!n.isNull()) {
            QDomElement e = n.toElement();
-
            if (!e.isNull()) {
                if (e.tagName() == "frame") {
                    TupFrame *frame = createFrame(e.attribute("name"), k->frames.count(), true);
-
                    if (frame) {
                        QString newDoc;
-
                        {
                          QTextStream ts(&newDoc);
                          ts << n;
                        }
-
                        frame->fromXml(newDoc);
                    }
                } else if (e.tagName() == "lipsync") {
                           TupLipSync *lipsync = createLipSync(e.attribute("name"), e.attribute("soundFile"), e.attribute("initFrame").toInt()); 
                           if (lipsync) {
                               QString newDoc;
-
                               {
                                 QTextStream ts(&newDoc);
                                 ts << n;
                               }
-
                               lipsync->fromXml(newDoc);
                           }
                }
@@ -341,6 +333,7 @@ QDomElement TupLayer::toXml(QDomDocument &doc) const
 {
     QDomElement root = doc.createElement("layer");
     root.setAttribute("name", k->name);
+    root.setAttribute("opacity", QString::number(k->opacity));
     doc.appendChild(root);
 
     int framesTotal = k->frames.size();

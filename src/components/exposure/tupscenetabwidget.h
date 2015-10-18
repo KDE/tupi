@@ -69,7 +69,7 @@ class T_GUI_EXPORT TupSceneTabWidget : public QFrame
         int currentIndex();
         bool isTableIndexValid(int index);
         int count();
-        void setLayerOpacity(int sceneIndex, float opacity);
+        void setLayerOpacity(int sceneIndex, double opacity);
 
     public slots:
         void removeAllTabs();
