@@ -49,7 +49,7 @@ struct Configurator::Private
 
     TupItemTweener *currentTween;
 
-    int framesTotal;
+    int framesCount;
     int currentFrame;
 
     TupToolPlugin::Mode mode;
@@ -58,7 +58,7 @@ struct Configurator::Private
 
 Configurator::Configurator(QWidget *parent) : QFrame(parent), k(new Private)
 {
-    k->framesTotal = 1;
+    k->framesCount = 1;
     k->currentFrame = 0;
 
     k->mode = TupToolPlugin::View;
@@ -171,11 +171,11 @@ void Configurator::activeButtonsPanel(bool enable)
         k->controlPanel->hide();
 }
 
-void Configurator::initStartCombo(int framesTotal, int currentFrame)
+void Configurator::initStartCombo(int framesCount, int currentFrame)
 {
-    k->framesTotal = framesTotal;
+    k->framesCount = framesCount;
     k->currentFrame = currentFrame;
-    k->settingsPanel->initStartCombo(framesTotal, currentFrame);
+    k->settingsPanel->initStartCombo(framesCount, currentFrame);
 }
 
 void Configurator::setStartFrame(int currentIndex)
@@ -216,7 +216,7 @@ void Configurator::addTween(const QString &name)
     k->mode = TupToolPlugin::Add;
     k->state = Configurator::Properties;
 
-    k->settingsPanel->setParameters(name, k->framesTotal, k->currentFrame);
+    k->settingsPanel->setParameters(name, k->framesCount, k->currentFrame);
     activePropertiesPanel(true);
 
     emit setMode(k->mode);

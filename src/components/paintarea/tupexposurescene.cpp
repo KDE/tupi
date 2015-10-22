@@ -57,17 +57,17 @@ TupExposureScene::TupExposureScene(const QString &title, TupScene *scene, int cu
     k->currentFrame = currentFrame;
 
     k->sceneLayout = new QVBoxLayout;
-    k->layerCounter = scene->layersTotal();
-    k->frameCounter = k->scene->framesTotal();
+    k->layerCounter = scene->layersCount();
+    k->frameCounter = k->scene->framesCount();
 
-    for (int j=0; j< scene->layersTotal(); j++) {
+    for (int j=0; j< scene->layersCount(); j++) {
          if (j < 4) { // SQA: Temporary condition
              QGroupBox *layerGroup = new QGroupBox(tr("Layer") + " " + QString::number(j+1));
              QHBoxLayout *layerLayout = new QHBoxLayout;
              layerLayout->setSpacing(10);
              TupLayer *layer = scene->layer(j);
 
-             for (int t=0; t < layer->framesTotal(); t++) {
+             for (int t=0; t < layer->framesCount(); t++) {
                   if (t < 9) { // SQA: Temporary condition
                       TPushButton *frameButton = new TPushButton(this, tr("Frame") + " " + QString::number(t+1), t, j);
                       frameButton->setFixedSize(100, 70);
@@ -116,7 +116,7 @@ void TupExposureScene::addNewLayer()
     layerLayout->setSpacing(10);
 
     int oneRow = k->frameCounter;
-    // k->scene->framesTotal();
+    // k->scene->framesCount();
     for(int i=0; i<oneRow; i++) {
         // TPushButton *frameButton = new TPushButton(this, tr("Frame") + " " + QString::number(i + 1), i, k->layerCounter - 1);
         TPushButton *frameButton = new TPushButton(this, tr("Frame") + " " + QString::number(i + 1), i, k->currentLayer);
@@ -191,7 +191,7 @@ void TupExposureScene::goToFrame(int frame, int layer)
 {
     // tError() << "TupExposureScene::goToFrame(int, int) - frame: " << frame << " - layer: " << layer;
 
-    // int oneRow = k->scene->framesTotal();
+    // int oneRow = k->scene->framesCount();
     int index = frame + k->frameCounter*layer;
 
     // tError() << "TupExposureScene::goToFrame(int, int) - index: " << index;
@@ -222,13 +222,13 @@ int TupExposureScene::currentLayer()
     return k->currentLayer;
 }
 
-int TupExposureScene::framesTotal()
+int TupExposureScene::framesCount()
 {
-    return k->scene->framesTotal();
+    return k->scene->framesCount();
 }
 
-int TupExposureScene::layersTotal()
+int TupExposureScene::layersCount()
 {
-    // return k->scene->layersTotal();
+    // return k->scene->layersCount();
     return k->layerCounter;
 }

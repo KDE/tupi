@@ -830,14 +830,14 @@ bool TupProject::removeSymbolFromFrame(const QString &name, TupLibraryObject::Ty
 
 bool TupProject::updateSymbolId(TupLibraryObject::Type type, const QString &oldId, const QString &newId)
 {
-    int scenesTotal = k->scenes.size();
-    for (int i = 0; i < scenesTotal; i++) {
+    int scenesCount = k->scenes.size();
+    for (int i = 0; i < scenesCount; i++) {
          TupScene *scene = k->scenes.at(i);
-         int layersTotal = scene->layers().size();
-         for (int j = 0; j < layersTotal; j++) {
+         int layersCount = scene->layers().size();
+         for (int j = 0; j < layersCount; j++) {
               TupLayer *layer = scene->layers().at(j);
-              int framesTotal = layer->frames().size();  
-              for (int t = 0; t < framesTotal; t++) {
+              int framesCount = layer->frames().size();  
+              for (int t = 0; t < framesCount; t++) {
                    TupFrame *frame = layer->frames().at(t); 
                    if (type != TupLibraryObject::Svg)
                        frame->updateIdFromFrame(oldId, newId);
@@ -871,14 +871,14 @@ bool TupProject::updateSymbolId(TupLibraryObject::Type type, const QString &oldI
 
 void TupProject::reloadLibraryItem(TupLibraryObject::Type type, const QString &id, TupLibraryObject *object)
 {
-    int scenesTotal = k->scenes.size();
-    for (int i = 0; i < scenesTotal; i++) {
+    int scenesCount = k->scenes.size();
+    for (int i = 0; i < scenesCount; i++) {
          TupScene *scene = k->scenes.at(i);
-         int layersTotal = scene->layers().size();
-         for (int j = 0; j < layersTotal; j++) {
+         int layersCount = scene->layers().size();
+         for (int j = 0; j < layersCount; j++) {
               TupLayer *layer = scene->layers().at(j);
-              int framesTotal = layer->frames().size();
-              for (int t = 0; t < framesTotal; t++) {
+              int framesCount = layer->frames().size();
+              for (int t = 0; t < framesCount; t++) {
                    TupFrame *frame = layer->frames().at(t);
                    if (type == TupLibraryObject::Svg)
                        frame->reloadSVGItem(id, object);
@@ -985,7 +985,7 @@ bool TupProject::deleteDataDir()
     return false;
 }
 
-int TupProject::scenesTotal() const
+int TupProject::scenesCount() const
 {
     return k->scenes.count();
 }

@@ -111,20 +111,20 @@ void TupPaintArea::setCurrentScene(int index)
         #endif
     #endif
 
-    if (k->project->scenesTotal() > 0) {
+    if (k->project->scenesCount() > 0) {
         TupScene *scene = k->project->scene(index);
         if (scene) {
             k->currentSceneIndex = index;
             graphicsScene()->setCurrentScene(scene);
         } else {
-            if (k->project->scenesTotal() == 1) {
+            if (k->project->scenesCount() == 1) {
                 setDragMode(QGraphicsView::NoDrag);
                 k->currentSceneIndex = 0;
                 graphicsScene()->setCurrentScene(0);
             } else {
                 #ifdef K_DEBUG
                     QString msg1 = "TupPaintArea::setCurrentScene() - [ Fatal Error ] -  No scenes available. Invalid index -> " + QString::number(index);
-                    QString msg2 = "TupPaintArea::setCurrentScene() - Scenes total -> " + QString::number(k->project->scenesTotal()); 
+                    QString msg2 = "TupPaintArea::setCurrentScene() - Scenes total -> " + QString::number(k->project->scenesCount()); 
                     #ifdef Q_OS_WIN32
                         qDebug() << msg1;
                         qDebug() << msg2;
@@ -402,7 +402,7 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
                 {
                     TupScene *scene = k->project->scene(k->currentSceneIndex);
 
-                    if (scene->layersTotal() > 1) {
+                    if (scene->layersCount() > 1) {
                         if (event->layerIndex() != 0)
                             guiScene->setCurrentFrame(event->layerIndex() - 1, frameIndex);
                         else
@@ -415,7 +415,7 @@ void TupPaintArea::layerResponse(TupLayerResponse *event)
                             guiScene->drawSceneBackground(frameIndex);
                         }
                     } else {
-                        if (scene->layersTotal() == 1) {
+                        if (scene->layersCount() == 1) {
                             guiScene->setCurrentFrame(0, frameIndex);
                             if (k->spaceMode == TupProject::FRAMES_EDITION) {
                                 guiScene->drawCurrentPhotogram();
@@ -499,7 +499,7 @@ void TupPaintArea::sceneResponse(TupSceneResponse *event)
             case TupProjectRequest::Select:
                 {
                     if (event->sceneIndex() >= 0) {
-                        if (k->project->scenesTotal() == 1)
+                        if (k->project->scenesCount() == 1)
                             setCurrentScene(0);
                         else
                             setCurrentScene(event->sceneIndex());
@@ -509,7 +509,7 @@ void TupPaintArea::sceneResponse(TupSceneResponse *event)
             case TupProjectRequest::Remove:
                 {
                     /*
-                    if (k->project->scenesTotal() > 0)
+                    if (k->project->scenesCount() > 0)
                         setCurrentScene(k->currentSceneIndex);
                     */
                 }
@@ -1061,13 +1061,13 @@ void TupPaintArea::multipasteObject(int pasteTotal)
 
              TupScene *scene = k->project->scene(currentScene->currentSceneIndex());
              if (scene) {
-                 int framesTotal = scene->framesTotal();
+                 int framesCount = scene->framesCount();
                  int currentFrame = currentScene->currentFrameIndex();
                  int newFrameIndex = currentFrame + pasteTotal;
-                 int distance = framesTotal - (newFrameIndex + 1);
+                 int distance = framesCount - (newFrameIndex + 1);
                  
                  if (distance < 0) {
-                     for (int i=framesTotal; i<=newFrameIndex; i++) {
+                     for (int i=framesCount; i<=newFrameIndex; i++) {
                           TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->currentSceneIndex,
                                                                                             currentScene->currentLayerIndex(),
                                                                                             i,
@@ -1434,10 +1434,10 @@ void TupPaintArea::goOneFrameBack()
 void TupPaintArea::goOneFrameForward()
 {
     TupGraphicsScene *scene = graphicsScene();
-    int framesTotal = scene->framesTotal();
+    int framesCount = scene->framesCount();
     int frameIndex = scene->currentFrameIndex() + 1;
 
-    if (frameIndex == framesTotal) {
+    if (frameIndex == framesCount) {
         TupProjectRequest request = TupRequestBuilder::createFrameRequest(scene->currentSceneIndex(),
                                                      scene->currentLayerIndex(),
                                                      frameIndex,

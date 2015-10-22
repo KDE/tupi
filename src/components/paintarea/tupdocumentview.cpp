@@ -1366,7 +1366,7 @@ int TupDocumentView::currentFramesTotal()
    if (scene) {
        TupLayer *layer = scene->layer(layerIndex);
        if (layer)
-           return layer->framesTotal();
+           return layer->framesCount();
     }
 
     return -1;
@@ -1941,13 +1941,13 @@ void TupDocumentView::importPapagayoLipSync()
                         // Adding frames if they are required
                         TupScene *scene = k->project->scene(sceneIndex);
                         if (scene) {
-                            int sceneFrames = scene->framesTotal();
-                            int lipSyncFrames = currentIndex + parser->framesTotal();
+                            int sceneFrames = scene->framesCount();
+                            int lipSyncFrames = currentIndex + parser->framesCount();
 
                             if (lipSyncFrames > sceneFrames) {
-                                int layersTotal = scene->layersTotal();
+                                int layersCount = scene->layersCount();
                                 for (int i = sceneFrames; i < lipSyncFrames; i++) {
-                                     for (int j = 0; j < layersTotal; j++) {
+                                     for (int j = 0; j < layersCount; j++) {
                                           request = TupRequestBuilder::createFrameRequest(sceneIndex, j, i, TupProjectRequest::Add, tr("Frame %1").arg(i + 1));
                                           emit requestTriggered(&request);
                                      }

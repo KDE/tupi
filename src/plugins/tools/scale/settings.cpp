@@ -270,9 +270,9 @@ void Settings::activeInnerForm(bool enable)
 
 // Adding new Tween
 
-void Settings::setParameters(const QString &name, int framesTotal, int initFrame)
+void Settings::setParameters(const QString &name, int framesCount, int initFrame)
 {
-    Q_UNUSED(framesTotal);
+    Q_UNUSED(framesCount);
 
     k->mode = TupToolPlugin::Add;
     k->input->setText(name);
@@ -311,17 +311,17 @@ void Settings::setParameters(TupItemTweener *currentTween)
     k->reverseLoopBox->setChecked(currentTween->tweenScaleReverseLoop());
 }
 
-void Settings::initStartCombo(int framesTotal, int currentIndex)
+void Settings::initStartCombo(int framesCount, int currentIndex)
 {
     k->comboInit->clear();
     k->comboEnd->clear();
 
     k->comboInit->setMinimum(1);
-    k->comboInit->setMaximum(framesTotal);
+    k->comboInit->setMaximum(framesCount);
     k->comboInit->setValue(currentIndex + 1);
 
     k->comboEnd->setMinimum(1);
-    k->comboEnd->setValue(framesTotal);
+    k->comboEnd->setValue(framesCount);
 }
 
 void Settings::setStartFrame(int currentIndex)

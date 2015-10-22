@@ -126,7 +126,7 @@ void Tweener::init(TupGraphicsScene *scene)
 
     k->scene = scene;
     k->objects.clear();
-    k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000);
+    k->baseZValue = 20000 + (scene->scene()->layersCount() * 10000);
 
     k->isPathInScene = false;
     k->pathOffset = QPointF(0, 0); 
@@ -144,7 +144,7 @@ void Tweener::init(TupGraphicsScene *scene)
         setCurrentTween(tweenList.at(0));
     }
 
-    int total = framesTotal();
+    int total = framesCount();
     k->configurator->initStartCombo(total, k->scene->currentFrameIndex());
 }
 
@@ -645,14 +645,14 @@ void Tweener::applyTween()
             k->objects = newList;
     }
 
-    int framesNumber = framesTotal();
+    int framesNumber = framesCount();
     int total = k->initFrame + k->configurator->totalSteps() - 1;
     TupProjectRequest request;
 
     if (total > framesNumber) {
-        int layersTotal = k->scene->scene()->layersTotal();
+        int layersCount = k->scene->scene()->layersCount();
         for (int i = framesNumber; i <= total; i++) {
-             for (int j = 0; j < layersTotal; j++) {
+             for (int j = 0; j < layersCount; j++) {
                   request = TupRequestBuilder::createFrameRequest(k->initScene, j, i, TupProjectRequest::Add,
                                                                   tr("Frame %1").arg(i + 1));
                   emit requested(&request);
@@ -719,13 +719,13 @@ void Tweener::updateScene(TupGraphicsScene *scene)
             }
         } 
 
-        int framesNumber = framesTotal();
+        int framesNumber = framesCount();
 
         if (k->configurator->startComboSize() < framesNumber)
             k->configurator->initStartCombo(framesNumber, k->initFrame);
 
     } else if (k->mode == TupToolPlugin::Add) {
-               int total = framesTotal();
+               int total = framesCount();
                if (k->configurator->startComboSize() < total) {
                    k->configurator->initStartCombo(total, k->initFrame);
                } else {
@@ -839,12 +839,12 @@ void Tweener::setEditEnv()
     setTweenPath();
 }
 
-int Tweener::framesTotal()
+int Tweener::framesCount()
 {
     int total = 1;
     TupLayer *layer = k->scene->scene()->layer(k->scene->currentLayerIndex());
     if (layer)
-        total = layer->framesTotal();
+        total = layer->framesCount();
 
     return total;
 }

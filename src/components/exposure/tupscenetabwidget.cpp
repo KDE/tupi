@@ -181,3 +181,21 @@ void TupSceneTabWidget::setLayerOpacity(int sceneIndex, double opacity)
 {
     k->opacityControl.at(sceneIndex)->setValue(opacity);
 }
+
+void TupSceneTabWidget::setLayerVisibility(int sceneIndex, int layerIndex, bool visibility)
+{
+    if (isTableIndexValid(sceneIndex)) {
+        TupExposureTable *table = k->tables.at(sceneIndex);
+        table->setLayerVisibility(layerIndex, visibility);
+    } else {
+        #ifdef K_DEBUG
+            QString msg = "TupSceneTabWidget::setLayerVisibility() - [ Fatal Error ] - Invalid table index: " + QString::number(sceneIndex);
+            #ifdef Q_OS_WIN32
+                qDebug() << msg;
+            #else
+                tError() << msg;
+            #endif
+        #endif
+    }
+}
+

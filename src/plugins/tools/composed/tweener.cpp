@@ -105,7 +105,7 @@ void Tweener::init(TupGraphicsScene *scene)
     k->pathAdded = false;
     delete k->group;
     k->group = 0;
-    k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000);
+    k->baseZValue = 20000 + (scene->scene()->layersCount() * 10000);
 
     k->scene = scene;
     k->objects.clear();
@@ -125,7 +125,7 @@ void Tweener::init(TupGraphicsScene *scene)
         setCurrentTween(tweenList.at(0));
     }
 
-    int total = framesTotal();
+    int total = framesCount();
     k->configurator->initStartCombo(total, k->scene->currentFrameIndex());
 }
 
@@ -523,7 +523,7 @@ void Tweener::applyTween()
                  emit requested(&request);
         }
 
-        int framesNumber = framesTotal();
+        int framesNumber = framesCount();
         int total = k->startPoint + k->configurator->totalSteps() - 1;
 
         if (total > framesNumber) {
@@ -610,7 +610,7 @@ void Tweener::applyTween()
 
                  int total = k->startPoint + k->configurator->totalSteps();
 
-                 int framesNumber = framesTotal();
+                 int framesNumber = framesCount();
 
                  if (framesNumber < total) {
                      for (int i = framesNumber; i < total; i++) {
@@ -674,7 +674,7 @@ void Tweener::updateScene(TupGraphicsScene *scene)
            }
        } 
 
-       int framesNumber = framesTotal();
+       int framesNumber = framesCount();
 
        if (k->configurator->startComboSize() < framesNumber)
            k->configurator->initStartCombo(framesNumber, k->startPoint);
@@ -683,7 +683,7 @@ void Tweener::updateScene(TupGraphicsScene *scene)
 
                // tFatal() << "Tweener::updateScene() - Mode: TweenerPanel::Add";
 
-               int total = framesTotal();
+               int total = framesCount();
 
                if (k->configurator->startComboSize() < total) {
                    k->configurator->initStartCombo(total, k->startPoint);
@@ -835,12 +835,12 @@ void Tweener::setEditEnv()
     }
 }
 
-int Tweener::framesTotal()
+int Tweener::framesCount()
 {
     int total = 1;
     TupLayer *layer = k->scene->scene()->layer(k->scene->currentLayerIndex());
     if (layer)
-        total = layer->framesTotal();
+        total = layer->framesCount();
 
     return total;
 }

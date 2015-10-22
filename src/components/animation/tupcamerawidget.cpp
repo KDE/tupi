@@ -258,7 +258,7 @@ bool TupCameraWidget::handleProjectResponse(TupProjectResponse *response)
                  if (index < 0)
                      break;
 
-                 if (index == k->project->scenesTotal())
+                 if (index == k->project->scenesCount())
                      index--;
 
                  k->status->setScenes(k->project);
@@ -324,7 +324,7 @@ void TupCameraWidget::updateFramesTotal(int sceneIndex)
 {
     TupScene *scene = k->project->scene(sceneIndex);
     if (scene) {
-        int total = scene->framesTotal();
+        int total = scene->framesCount();
         k->status->setFramesTotal(QString::number(total)); 
         k->progressBar->setRange(0, total);
     }

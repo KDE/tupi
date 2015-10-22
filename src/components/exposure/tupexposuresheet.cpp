@@ -208,7 +208,6 @@ void TupExposureSheet::addScene(int index, const QString &name)
     connect(scene, SIGNAL(layerMoved(int, int)), this, SLOT(moveLayer(int, int)));
     connect(scene, SIGNAL(layerVisibilityChanged(int, bool)), this, SLOT(changeVisibilityLayer(int, bool)));
 
-    // double opacity = getLayerOpacity(index, 0);
     k->scenesContainer->addScene(index, name, scene);
 }
 
@@ -270,7 +269,7 @@ void TupExposureSheet::applyAction(int action)
                {
                  int usedFrames = k->currentTable->usedFrames(k->currentTable->currentColumn());
                  if (k->currentTable->currentRow() >= usedFrames) {
-                     for (int layer=0; layer < k->currentTable->layersTotal(); layer++) { 
+                     for (int layer=0; layer < k->currentTable->layersCount(); layer++) { 
                           if (usedFrames >= k->currentTable->usedFrames(layer)) {
                               int finish = k->currentTable->currentFrame() + 1;
                               for (int frame = usedFrames; frame <= finish; frame++)
@@ -288,7 +287,7 @@ void TupExposureSheet::applyAction(int action)
                  k->localRequest = true;
                  int scene = k->scenesContainer->currentIndex();
                  int layer = k->currentTable->currentLayer();
-                 int lastFrame = k->currentTable->framesTotalAtCurrentLayer() - 1;
+                 int lastFrame = k->currentTable->framesCountAtCurrentLayer() - 1;
                  int target = k->currentTable->currentFrame();
 
                  if (k->currentTable->currentRow() > lastFrame)
@@ -298,7 +297,7 @@ void TupExposureSheet::applyAction(int action)
                  if (k->currentTable->frameIsLocked(layer, target))
                      k->actionBar->emitActionSelected(TupProjectActionBar::LockFrame);
 
-                 if (k->currentTable->framesTotalAtCurrentLayer() == 1) {
+                 if (k->currentTable->framesCountAtCurrentLayer() == 1) {
                      TupProjectRequest request = TupRequestBuilder::createFrameRequest(scene, layer, target, TupProjectRequest::Reset);
                      emit requestTriggered(&request);
                      k->fromMenu = false; 
@@ -349,7 +348,7 @@ void TupExposureSheet::applyAction(int action)
 
             case TupProjectActionBar::MoveFrameForward:
                {
-                 if (k->currentTable->currentFrame()+1 == k->currentTable->framesTotalAtCurrentLayer())
+                 if (k->currentTable->currentFrame()+1 == k->currentTable->framesCountAtCurrentLayer())
                      insertFrames(1);
 
                  TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->scenesContainer->currentIndex(), 
@@ -386,7 +385,6 @@ void TupExposureSheet::setScene(int index)
         k->scenesContainer->blockSignals(true);
         k->scenesContainer->setCurrentIndex(index);		
         k->currentTable = k->scenesContainer->getTable(index);
-        updateLayerOpacity(index, 0);
         k->scenesContainer->blockSignals(false);
     } else {
         #ifdef K_DEBUG
@@ -541,7 +539,6 @@ void TupExposureSheet::closeAllScenes()
     #endif
 
     k->scenesContainer->blockSignals(true);
-    // delete k->currentTable;
     k->currentTable = 0;
     k->scenesContainer->removeAllTabs();
     k->scenesContainer->blockSignals(false);
@@ -712,7 +709,7 @@ void TupExposureSheet::frameResponse(TupFrameResponse *e)
                          table->removeFrame(e->layerIndex(), e->frameIndex(), k->fromMenu);
                      } else {
                          int layer = k->currentTable->currentLayer();
-                         int lastFrame = k->currentTable->framesTotalAtCurrentLayer() - 1;
+                         int lastFrame = k->currentTable->framesCountAtCurrentLayer() - 1;
                          int target = e->frameIndex();
 
                          if (target == lastFrame) {
@@ -880,25 +877,25 @@ void TupExposureSheet::insertFrames(int n)
     int scene = k->scenesContainer->currentIndex();
     int layer = k->currentTable->currentLayer();
     int target = k->currentTable->currentFrame() + 1;
-    int lastFrame = k->currentTable->framesTotalAtCurrentLayer() - 1;
+    int lastFrame = k->currentTable->framesCountAtCurrentLayer() - 1;
 
     if (target > lastFrame) {
         for (int i=0; i<n; i++)
-             insertFrame(layer, k->currentTable->framesTotalAtCurrentLayer());
+             insertFrame(layer, k->currentTable->framesCountAtCurrentLayer());
 
         selectFrame(layer, k->currentTable->currentFrame());
     } else {
         int frame = k->currentTable->currentFrame() + 1; 
 
         for (int i=0; i<n; i++)
-             insertFrame(layer, k->currentTable->framesTotalAtCurrentLayer());
+             insertFrame(layer, k->currentTable->framesCountAtCurrentLayer());
 
         for (int index=lastFrame; index >= target; index--) {
              TupProjectRequest event = TupRequestBuilder::createFrameRequest(scene, layer, index, TupProjectRequest::Exchange, index + n);
              emit requestTriggered(&event);
         }
 
-        lastFrame = k->currentTable->framesTotalAtCurrentLayer() - 1;
+        lastFrame = k->currentTable->framesCountAtCurrentLayer() - 1;
         for (int index=target; index <= lastFrame; index++) {
              target++;
              TupProjectRequest event = TupRequestBuilder::createFrameRequest(scene, layer, index, TupProjectRequest::Rename, tr("Frame %1").arg(target));
@@ -942,12 +939,12 @@ void TupExposureSheet::lockFrame()
 
 void TupExposureSheet::updateFramesState()
 {
-    for (int i=0; i < k->project->scenesTotal(); i++) {
+    for (int i=0; i < k->project->scenesCount(); i++) {
          TupScene *scene = k->project->scene(i);
          TupExposureTable *tab = k->scenesContainer->getTable(i);
-         for (int j=0; j < scene->layersTotal(); j++) {
+         for (int j=0; j < scene->layersCount(); j++) {
               TupLayer *layer = scene->layer(j);
-              for (int k=0; k < layer->framesTotal(); k++) {
+              for (int k=0; k < layer->framesCount(); k++) {
                    TupFrame *frame = layer->frame(k);
                    if (frame->isEmpty())
                        tab->updateFrameState(j, k, TupExposureTable::Empty);
@@ -963,10 +960,10 @@ void TupExposureSheet::copyTimeLine(int times)
     int currentScene = k->scenesContainer->currentIndex();
     int currentLayer = k->currentTable->currentLayer();
     int currentFrame = k->currentTable->currentFrame();
-    int framesTotal = k->currentTable->usedFrames(k->currentTable->currentLayer());
+    int framesCount = k->currentTable->usedFrames(k->currentTable->currentLayer());
 
     for (int i=0; i < times; i++) {
-         for (int j=0; j < framesTotal; j++) {
+         for (int j=0; j < framesCount; j++) {
               TupProjectRequest request = TupRequestBuilder::createFrameRequest(currentScene,
                                                                                 currentLayer,
                                                                                 j,
@@ -1098,3 +1095,18 @@ double TupExposureSheet::getLayerOpacity(int sceneIndex, int layerIndex)
     return opacity;
 }
 
+void TupExposureSheet::initLayerVisibility()
+{
+    int scenes = k->project->scenesCount(); 
+    for (int sceneIndex=0; sceneIndex < scenes; sceneIndex++) {
+         TupScene *scene = k->project->scene(sceneIndex);
+         if (scene) {
+             int layers = scene->layersCount();
+             for (int layerIndex=0; layerIndex < layers; layerIndex++) {
+                  TupLayer *layer = scene->layer(layerIndex);
+                  TupProjectRequest request = TupRequestBuilder::createLayerRequest(sceneIndex, layerIndex, TupProjectRequest::View, layer->isVisible());
+                  emit localRequestTriggered(&request);
+             }
+         }
+    }
+}

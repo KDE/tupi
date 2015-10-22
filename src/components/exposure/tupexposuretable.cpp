@@ -227,10 +227,10 @@ void TupExposureTable::requestFrameSelection(int currentSelectedRow, int current
             if ((previousColumn != currentColumn) || (columnCount() == 1))
                  k->header->updateSelection(currentColumn);
 
-            if (currentSelectedRow >= framesTotalAtCurrentLayer()) {
+            if (currentSelectedRow >= framesCountAtCurrentLayer()) {
                 selectionModel()->clearSelection();
                 // TODO: Check why cell selection is awkward
-                selectFrame(currentLayer(), framesTotalAtCurrentLayer() - 1);
+                selectFrame(currentLayer(), framesCountAtCurrentLayer() - 1);
             } else {
                 if (previousRow != currentSelectedRow) 
                     emit frameSelected(currentLayer(), currentRow());
@@ -598,17 +598,17 @@ void TupExposureTable::commitData(QWidget *editor)
         emit frameRenamed(currentLayer(), currentFrame(), lineEdit->text());
 }
 
-int TupExposureTable::layersTotal()
+int TupExposureTable::layersCount()
 {
     return k->header->sectionsTotal();
 }
 
-int TupExposureTable::framesTotal()
+int TupExposureTable::framesCount()
 {
     return k->header->lastFrame(0);
 }
 
-int TupExposureTable::framesTotalAtCurrentLayer()
+int TupExposureTable::framesCountAtCurrentLayer()
 {
     return k->header->lastFrame(currentLayer());
 }
@@ -634,9 +634,9 @@ void TupExposureTable::keyPressEvent(QKeyEvent *event)
     }
 
     if (event->key() == Qt::Key_Down) {
-        int framesTotal = k->header->lastFrame(currentLayer());
+        int framesCount = k->header->lastFrame(currentLayer());
         int next = currentRow()+1;
-        if (next >= framesTotal)
+        if (next >= framesCount)
             markUsedFrames(next, currentColumn());
         else
             setCurrentCell(next, currentColumn());

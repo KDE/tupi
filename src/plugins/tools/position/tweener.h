@@ -87,7 +87,7 @@ class TUPI_PLUGIN Tweener : public TupToolPlugin
         virtual TupToolPlugin::EditMode currentEditMode();
 
     private:
-        int framesTotal();
+        int framesCount();
         void setupActions();
         QString pathToCoords();
         void clearSelection();

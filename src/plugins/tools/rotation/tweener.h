@@ -88,7 +88,7 @@ class TUPI_PLUGIN Tweener : public TupToolPlugin
 
     private:
         void setupActions();
-        int framesTotal();
+        int framesCount();
         void clearSelection();
         void disableSelection();
         void addTarget();

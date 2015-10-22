@@ -39,7 +39,7 @@ struct TupCameraStatus::Private
 {
     QSpinBox *fps;
     QComboBox *scenes;
-    QLabel *framesTotal;
+    QLabel *framesCount;
     QCheckBox *loopBox;
     bool loop;
 };
@@ -83,11 +83,11 @@ TupCameraStatus::TupCameraStatus(TupCameraWidget *camera, bool isNetworked, QWid
     QLabel *label = new QLabel("<B>" + tr("Frames total") + ":</B> ");
     label->setFont(font);
 
-    k->framesTotal = new QLabel;
-    k->framesTotal->setFont(font);
+    k->framesCount = new QLabel;
+    k->framesCount->setFont(font);
 
     sceneInfoLayout->addWidget(label, 1);
-    sceneInfoLayout->addWidget(k->framesTotal, 1);
+    sceneInfoLayout->addWidget(k->framesCount, 1);
 
     sceneInfoLayout->addSpacing(20);
 
@@ -182,8 +182,8 @@ void TupCameraStatus::setScenes(TupProject *project)
     if (k->scenes->count())
         k->scenes->clear(); 
 
-    int scenesTotal = project->scenes().size();
-    for (int i = 0; i < scenesTotal; i++) {
+    int scenesCount = project->scenes().size();
+    for (int i = 0; i < scenesCount; i++) {
          TupScene *scene = project->scenes().at(i);
          if (scene)
              k->scenes->addItem(scene->sceneName());
@@ -193,7 +193,7 @@ void TupCameraStatus::setScenes(TupProject *project)
 
 void TupCameraStatus::setFramesTotal(const QString &frames)
 {
-    k->framesTotal->setText(frames);
+    k->framesCount->setText(frames);
 }
 
 bool TupCameraStatus::isLooping()

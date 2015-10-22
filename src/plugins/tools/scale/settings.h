@@ -63,7 +63,7 @@ class TUPI_PLUGIN Settings : public QWidget
         Settings(QWidget *parent = 0);
         ~Settings();
 
-        void setParameters(const QString &name, int framesTotal, int startFrame);
+        void setParameters(const QString &name, int framesCount, int startFrame);
         void setParameters(TupItemTweener *currentTween);
         void initStartCombo(int totalFrames, int currentIndex);
         void setStartFrame(int currentIndex);

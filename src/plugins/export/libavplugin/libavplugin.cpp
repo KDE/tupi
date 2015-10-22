@@ -119,7 +119,7 @@ bool LibavPlugin::exportToFormat(const QColor color, const QString &filePath, co
 {
     qreal duration = 0;
     foreach (TupScene *scene, scenes)
-             duration += (qreal) scene->framesTotal() / (qreal) fps;
+             duration += (qreal) scene->framesCount() / (qreal) fps;
 
     TLibavMovieGenerator *generator = 0;
     TMovieGeneratorInterface::Format format = videoFormat(fmt);

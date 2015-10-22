@@ -121,7 +121,7 @@ class TUPI_EXPORT TupGraphicsScene : public QGraphicsScene
         void setOnionFactor(double opacity);
         double opacity();
 
-        int framesTotal();
+        int framesCount();
 
         void setLibrary(TupLibrary *library);
 

@@ -339,14 +339,14 @@ void TupStoryBoardDialog::thumbnailGenerator()
     QIcon icon = QIcon(pixmap); 
     addScene(tr("Cover"), icon);
 
-    int framesTotal = k->scene->framesTotal();
+    int framesCount = k->scene->framesCount();
     if (k->storyboard->size() == 0)
-        k->storyboard->init(0, framesTotal);
+        k->storyboard->init(0, framesCount);
 
     k->path = QDir::tempPath() + QDir::separator() + TAlgorithm::randomString(8) + QDir::separator();
     QDir().mkpath(k->path);
 
-    for (int i=0; i < framesTotal; i++) {
+    for (int i=0; i < framesCount; i++) {
          QString fileName = k->path + "scene" + QString::number(i);
          bool isOk = k->imagePlugin->exportFrame(i, k->bgColor, fileName, k->scene, k->size, k->library);
          fileName += ".png";

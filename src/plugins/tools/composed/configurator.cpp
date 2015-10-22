@@ -50,7 +50,7 @@ struct Configurator::Private
 
     TupItemTweener *currentTween;
 
-    int framesTotal;
+    int framesCount;
     int currentFrame;
 
     TweenerPanel::Mode mode;
@@ -59,7 +59,7 @@ struct Configurator::Private
 
 Configurator::Configurator(QWidget *parent) : QFrame(parent), k(new Private)
 {
-    k->framesTotal = 1;
+    k->framesCount = 1;
     k->currentFrame = 0;
 
     k->mode = TweenerPanel::View;
@@ -180,11 +180,11 @@ void Configurator::loadTweenList(QList<QString> tweenList)
         activeButtonsPanel(true);
 }
 
-void Configurator::initStartCombo(int framesTotal, int currentFrame)
+void Configurator::initStartCombo(int framesCount, int currentFrame)
 {
-    k->framesTotal = framesTotal;
+    k->framesCount = framesCount;
     k->currentFrame = currentFrame;
-    k->tweenList->initStartCombo(framesTotal, currentFrame);
+    k->tweenList->initStartCombo(framesCount, currentFrame);
 }
 
 void Configurator::setStartFrame(int currentIndex)
@@ -225,10 +225,10 @@ void Configurator::addTween(const QString &name)
     k->mode = TweenerPanel::Add;
     k->state = Configurator::TweenSettings;
 
-    // tFatal() << "Configurator::addTween() - framesTotal: " << k->framesTotal;
+    // tFatal() << "Configurator::addTween() - framesCount: " << k->framesCount;
     // tFatal() << "Configurator::addTween() - currentFrame: " << k->currentFrame;
 
-    k->tweenList->setParameters(name, k->framesTotal, k->currentFrame);
+    k->tweenList->setParameters(name, k->framesCount, k->currentFrame);
     activeTweenerPanel(true);
 
     emit setMode(k->mode);

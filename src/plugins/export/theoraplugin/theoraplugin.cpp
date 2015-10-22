@@ -70,8 +70,8 @@ bool TheoraPlugin::exportToFormat(const QColor color, const QString &filePath, c
     int frames = 0;
     qreal duration = 0;
     foreach (TupScene *scene, scenes) {
-             duration += (qreal) scene->framesTotal() / (qreal) fps;
-             frames += scene->framesTotal();
+             duration += (qreal) scene->framesCount() / (qreal) fps;
+             frames += scene->framesCount();
     }
 
     TheoraMovieGenerator *generator = 0;

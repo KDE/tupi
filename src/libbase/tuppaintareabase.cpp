@@ -393,8 +393,8 @@ void TupPaintAreaBase::drawForeground(QPainter *painter, const QRectF &rect)
     if (!currentScene) {
         drawPadLock(painter, rect, tr("No Scene!"));
     } else {
-        if (currentScene->layersTotal() > 0) {
-            if (currentScene->framesTotal() > 0) {
+        if (currentScene->layersCount() > 0) {
+            if (currentScene->framesCount() > 0) {
                 if (TupFrame *frame = k->scene->currentFrame()) {
                     if (frame) {
                         if (frame->isLocked()) {

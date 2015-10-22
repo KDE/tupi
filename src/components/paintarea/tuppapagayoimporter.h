@@ -54,7 +54,7 @@ class TUPI_EXPORT TupPapagayoImporter : public QObject
         void setSoundFile(const QString &soundFile);
         bool fileIsValid();
         QString file2Text() const;
-        int framesTotal();
+        int framesCount();
         int fps();
 
     private:

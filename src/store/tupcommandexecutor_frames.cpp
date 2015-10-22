@@ -333,7 +333,7 @@ bool TupCommandExecutor::selectFrame(TupFrameResponse *response)
     TupLayer *layer = scene->layer(layerPos);
     
     if (layer) {
-        if (position < layer->framesTotal()) {
+        if (position < layer->framesCount()) {
             TupFrame *frame = layer->frame(position);
             if (! frame) 
                 return false;

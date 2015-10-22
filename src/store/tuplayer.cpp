@@ -177,7 +177,6 @@ bool TupLayer::removeFrame(int position)
     if (toRemove) {
         k->frames.removeAt(position);
         toRemove->setRepeat(toRemove->repeat()-1);
-
         k->framesCount--;
 
         return true;
@@ -298,6 +297,8 @@ void TupLayer::fromXml(const QString &xml)
     QDomElement root = document.documentElement();
     setLayerName(root.attribute("name", layerName()));
     setOpacity(root.attribute("opacity", "1.0").toDouble());
+    setVisible(root.attribute("visible", "1").toInt());
+    tError() << "TupLayer::fromXml() -> is visible? " << k->isVisible;
     QDomNode n = root.firstChild();
 
     while (!n.isNull()) {
@@ -334,10 +335,11 @@ QDomElement TupLayer::toXml(QDomDocument &doc) const
     QDomElement root = doc.createElement("layer");
     root.setAttribute("name", k->name);
     root.setAttribute("opacity", QString::number(k->opacity));
-    doc.appendChild(root);
+    root.setAttribute("visible", QString::number(k->isVisible)); 
 
-    int framesTotal = k->frames.size();
-    for (int i = 0; i < framesTotal; i++) {
+    doc.appendChild(root);
+    int framesCount  = k->frames.size();
+    for (int i = 0; i < framesCount; i++) {
          TupFrame *frame = k->frames.at(i);
          root.appendChild(frame->toXml(doc));
     }
@@ -381,7 +383,7 @@ int TupLayer::objectIndex() const
     return scene()->visualIndexOf(const_cast<TupLayer *>(this));
 }
 
-int TupLayer::framesTotal() const
+int TupLayer::framesCount() const
 {
     return k->framesCount;
 }

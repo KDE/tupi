@@ -430,7 +430,7 @@ struct TupLipSync::Private
     QString extension;
     int fps;
     int initFrame;
-    int framesTotal;
+    int framesCount;
     QList<TupVoice *> voices;
 };
 
@@ -499,14 +499,14 @@ void TupLipSync::setInitFrame(int frame)
     k->initFrame = frame;
 }
 
-int TupLipSync::framesTotal()
+int TupLipSync::framesCount()
 {
-    return k->framesTotal;
+    return k->framesCount;
 }
 
-void TupLipSync::setFramesTotal(int framesTotal)
+void TupLipSync::setFramesCount(int framesCount)
 {
-    k->framesTotal = framesTotal;
+    k->framesCount = framesCount;
 }
 
 void TupLipSync::addVoice(TupVoice *voice)
@@ -540,7 +540,7 @@ void TupLipSync::fromXml(const QString &xml)
     k->name = root.attribute("name");
     k->soundFile = root.attribute("soundFile");
     k->initFrame = root.attribute("initFrame").toInt();
-    k->framesTotal = root.attribute("framesTotal").toInt();
+    k->framesCount = root.attribute("framesTotal").toInt();
     k->extension = root.attribute("extension");
     k->fps = root.attribute("fps").toInt();
 
@@ -577,7 +577,7 @@ QDomElement TupLipSync::toXml(QDomDocument &doc) const
     root.setAttribute("name", k->name);
     root.setAttribute("soundFile", k->soundFile);
     root.setAttribute("initFrame", k->initFrame);
-    root.setAttribute("framesTotal", k->framesTotal);
+    root.setAttribute("framesTotal", k->framesCount);
     root.setAttribute("extension", k->extension);
     root.setAttribute("fps", k->fps);
 

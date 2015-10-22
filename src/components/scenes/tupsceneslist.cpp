@@ -39,12 +39,12 @@
 
 struct TupScenesList::Private
 {
-   int scenesTotal;
+   int scenesCount;
 };
 
 TupScenesList::TupScenesList(QWidget *parent) : TreeListWidget(parent), k(new Private)
 {
-    k->scenesTotal = 0;
+    k->scenesCount = 0;
     setHeaderLabels(QStringList() << "");
     // header()->setResizeMode(QHeaderView::ResizeToContents);
     header()->setSectionResizeMode(QHeaderView::ResizeToContents);
@@ -61,7 +61,7 @@ TupScenesList::~TupScenesList()
 
 void TupScenesList::insertScene(int index, const QString &name)
 {
-    k->scenesTotal++;
+    k->scenesCount++;
     QTreeWidgetItem *newScene = new QTreeWidgetItem(this);
     newScene->setText(0, name);
     newScene->setFlags(newScene->flags() | Qt::ItemIsEditable);
@@ -77,7 +77,7 @@ int TupScenesList::removeCurrentScene()
 
     if (currentItem()) {
         delete currentItem();
-        k->scenesTotal--;
+        k->scenesCount--;
         return index;
     }
 
@@ -86,7 +86,7 @@ int TupScenesList::removeCurrentScene()
 
 void TupScenesList::removeScene(int index)
 {
-    k->scenesTotal--;
+    k->scenesCount--;
     delete topLevelItem(index);
 }
 
@@ -148,7 +148,7 @@ QString TupScenesList::nameCurrentScene()
 
 int TupScenesList::scenesCount()
 {
-    return k->scenesTotal;
+    return k->scenesCount;
 }
 
 void TupScenesList::mouseDoubleClickEvent(QMouseEvent *event)
@@ -187,7 +187,7 @@ void TupScenesList::resetUI()
 
     blockSignals(true);
     clearSelection();
-    k->scenesTotal = 0;
+    k->scenesCount = 0;
     clear();
     blockSignals(false);
 }

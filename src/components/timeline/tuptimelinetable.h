@@ -98,7 +98,7 @@ class TUPI_EXPORT TupTimeLineTable : public QTableWidget
         int lastFrameByLayer(int layerPos);
         void updateLayerHeader(int layerIndex);
         int currentLayer();
-        int layersTotal();
+        int layersCount();
 
         // Frames
         void insertFrame(int layerPos, const QString &name);

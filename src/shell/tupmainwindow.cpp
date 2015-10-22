@@ -120,8 +120,6 @@ TupMainWindow::TupMainWindow(int parameters) : TabbedMainWindow(), m_projectMana
     // Calling out the events/actions manager
     m_actionManager = new TActionManager(this);
 
-    // setupActions();
-
     // Setting up all the GUI...
     createGUI(); // This method is called from the tupmainwindow_gui class
     setupMenu();
@@ -129,7 +127,6 @@ TupMainWindow::TupMainWindow(int parameters) : TabbedMainWindow(), m_projectMana
 
     // Check if user wants to see a Tupi tip for every time he launches the program
     TCONFIG->beginGroup("TipOfDay");
-    //bool showTips = qvariant_cast<bool>(TCONFIG->value("ShowOnStart", true));
     bool showTips = TCONFIG->value("ShowOnStart", true).toBool();
 
     // If option is enabled, then, show a little dialog with a nice tip
@@ -391,6 +388,8 @@ void TupMainWindow::setWorkSpace(const QStringList &users)
             TOsd::self()->display(tr("Information"), tr("Project <b>%1</b> opened!").arg(m_projectManager->project()->projectName()));
 
         m_exposureSheet->setScene(0);
+        m_exposureSheet->updateLayerOpacity(0, 0);
+        m_exposureSheet->initLayerVisibility();
     }
 
     connect(this, SIGNAL(tabHasChanged(int)), this, SLOT(updateTabContext(int)));

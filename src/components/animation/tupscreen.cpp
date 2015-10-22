@@ -155,7 +155,7 @@ void TupScreen::initPhotogramsArray()
 
     k->renderControl.clear();
     k->animationList.clear();
-    for (int i=0; i < k->project->scenesTotal(); i++) {
+    for (int i=0; i < k->project->scenesCount(); i++) {
          k->renderControl.insert(i, false);
          QList<QImage> photograms;
          k->animationList.insert(i, photograms);
@@ -424,7 +424,7 @@ void TupScreen::sceneResponse(TupSceneResponse *event)
                  k->renderControl.removeAt(index);
                  k->animationList.removeAt(index);
 
-                 if (index == k->project->scenesTotal())
+                 if (index == k->project->scenesCount())
                      index--;
 
                  updateSceneIndex(index);
@@ -627,7 +627,7 @@ TupScene *TupScreen::currentScene() const
     if (k->currentSceneIndex > -1) {
         return k->project->scene(k->currentSceneIndex);
     } else {
-        if (k->project->scenesTotal() == 1) {
+        if (k->project->scenesCount() == 1) {
             k->currentSceneIndex = 0;
             return k->project->scene(0);
         } 

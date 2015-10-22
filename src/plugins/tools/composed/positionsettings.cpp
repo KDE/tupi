@@ -145,7 +145,7 @@ PositionSettings::~PositionSettings()
 
 // Adding new Tween
 
-void PositionSettings::setParameters(int framesTotal, int initFrame)
+void PositionSettings::setParameters(int framesCount, int initFrame)
 {
     k->mode = TweenerPanel::Add;
 
@@ -156,7 +156,7 @@ void PositionSettings::setParameters(int framesTotal, int initFrame)
     k->closeButton->setIcon(QPixmap(kAppProp->themeDir() + "/"  + "icons/close.png"));
     k->closeButton->setToolTip(tr("Cancel Tween"));
 
-    initStartCombo(framesTotal, initFrame);
+    initStartCombo(framesCount, initFrame);
 }
 
 // Editing new Tween
@@ -173,10 +173,10 @@ void PositionSettings::setParameters(TupItemTweener *currentTween)
     k->totalLabel->setText(tr("Frames Total") + ": " + QString::number(k->stepViewer->totalSteps()));
 }
 
-void PositionSettings::initStartCombo(int framesTotal, int currentIndex)
+void PositionSettings::initStartCombo(int framesCount, int currentIndex)
 {
     k->comboInit->clear();
-    for (int i=1; i<=framesTotal; i++)
+    for (int i=1; i<=framesCount; i++)
          k->comboInit->addItem(QString::number(i));
 
     k->comboInit->setCurrentIndex(currentIndex);

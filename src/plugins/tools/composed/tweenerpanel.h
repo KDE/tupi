@@ -77,12 +77,12 @@ class TUPI_PLUGIN TweenerPanel : public QWidget
         TweenerPanel(QWidget *parent = 0);
         ~TweenerPanel();
 
-        void setParameters(const QString &name, int framesTotal, int startFrame);
+        void setParameters(const QString &name, int framesCount, int startFrame);
         void setParameters(TupItemTweener *currentTween);
         void activateMode(TweenerPanel::EditMode mode);
         void notifySelection(bool flag);
         void updateSteps(const QGraphicsPathItem *path, QPointF offset);
-        void initStartCombo(int framesTotal, int currentFrame);
+        void initStartCombo(int framesCount, int currentFrame);
         int startComboSize();
         QString tweenToXml(int currentFrame, QPointF point);
         int totalSteps();

@@ -100,7 +100,7 @@ void Tweener::init(TupGraphicsScene *scene)
         setCurrentTween(tweenList.at(0));
     }
 
-    int total = framesTotal();
+    int total = framesCount();
     k->configurator->initStartCombo(total, k->initFrame);
 }
 
@@ -243,12 +243,12 @@ void Tweener::updateScene(TupGraphicsScene *scene)
     k->mode = k->configurator->mode();
 
     if (k->mode == TupToolPlugin::Edit) {
-        int framesNumber = framesTotal();
+        int framesNumber = framesCount();
 
         if (k->configurator->startComboSize() < framesNumber)
             k->configurator->initStartCombo(framesNumber, k->initFrame);
     } else if (k->mode == TupToolPlugin::Add) {
-               int total = framesTotal();
+               int total = framesCount();
 
                if (k->editMode == TupToolPlugin::Properties) {
                    if (total > k->configurator->startComboSize()) {
@@ -284,12 +284,12 @@ void Tweener::setCurrentTween(const QString &name)
         k->configurator->setCurrentTween(k->currentTween);
 }
 
-int Tweener::framesTotal()
+int Tweener::framesCount()
 {
     int total = 1;
     TupLayer *layer = k->scene->scene()->layer(k->scene->currentLayerIndex());
     if (layer)
-        total = layer->framesTotal();
+        total = layer->framesCount();
 
     return total;
 }
@@ -472,13 +472,13 @@ void Tweener::applyTween()
     }
 
     int total = k->initFrame + k->configurator->totalSteps();
-    int framesNumber = framesTotal();
-    int layersTotal = k->scene->scene()->layersTotal();
+    int framesNumber = framesCount();
+    int layersCount = k->scene->scene()->layersCount();
     TupProjectRequest request;
 
     if (total >= framesNumber) {
         for (int i = framesNumber; i < total; i++) {
-             for (int j = 0; j < layersTotal; j++) {
+             for (int j = 0; j < layersCount; j++) {
                   request = TupRequestBuilder::createFrameRequest(k->initScene, j, i,
                                                                   TupProjectRequest::Add, tr("Frame %1").arg(i + 1));
                   emit requested(&request);

@@ -74,8 +74,10 @@ class TUPI_EXPORT TupExposureSheet : public TupModuleWidgetBase
     public:
         TupExposureSheet(QWidget *parent = 0, TupProject *project = 0);
         ~TupExposureSheet();
-        // void updateFramesState(TupProject *project);
         void updateFramesState();
+        void updateLayerOpacity(int sceneIndex, int layerIndex);
+        double getLayerOpacity(int sceneIndex, int layerIndex);
+        void initLayerVisibility();
 
     private:
         struct Private;
@@ -84,8 +86,6 @@ class TUPI_EXPORT TupExposureSheet : public TupModuleWidgetBase
         void requestExpandCurrentFrame(int n);
         void insertFrames(int n);
         void copyTimeLine(int times);
-        void updateLayerOpacity(int sceneIndex, int layerIndex);
-        double getLayerOpacity(int sceneIndex, int layerIndex);
 
     protected:
         virtual void sceneResponse(TupSceneResponse *event);

@@ -109,7 +109,7 @@ void TupExposureDialog::setSheet(int sceneIndex, int layerIndex, int frameIndex)
 
     k->sceneColumn = new QVBoxLayout;
 
-    for (int i=0; i < k->project->scenesTotal(); i++) {
+    for (int i=0; i < k->project->scenesCount(); i++) {
          // List of scene buttons
          TPushButton *sceneButton = new TPushButton(this, tr("Scene") + " " + QString::number(i+1), 0, i);
          sceneButton->setFixedSize(100, 70);
@@ -183,8 +183,8 @@ void TupExposureDialog::goToScene(int column, int sceneIndex)
 
     TupExposureScene *oldScene = k->sceneGroupList.at(k->currentScene);
     oldScene->hide();
-    int oldFramesTotal = oldScene->framesTotal(); 
-    int oldLayersTotal = oldScene->layersTotal();
+    int oldFramesTotal = oldScene->framesCount(); 
+    int oldLayersTotal = oldScene->layersCount();
 
     for(int i=0; i<k->sceneList.size(); i++) {
         if (i == sceneIndex) {
@@ -199,8 +199,8 @@ void TupExposureDialog::goToScene(int column, int sceneIndex)
 
     TupExposureScene *sceneTable = k->sceneGroupList.at(sceneIndex);
     sceneTable->show();
-    int newFramesTotal = sceneTable->framesTotal();
-    int newLayersTotal = sceneTable->layersTotal(); 
+    int newFramesTotal = sceneTable->framesCount();
+    int newLayersTotal = sceneTable->layersCount(); 
 
     emit goToScene(k->currentScene);
     emit goToFrame(sceneTable->currentFrame(), sceneTable->currentLayer(), k->currentScene);
@@ -249,7 +249,7 @@ void TupExposureDialog::closeDialog()
 
 void TupExposureDialog::createScene()
 {
-    int scene = k->project->scenesTotal();
+    int scene = k->project->scenesCount();
 
     if (scene > 5) // Temporary condition
         return;
@@ -304,13 +304,13 @@ void TupExposureDialog::createLayer()
 {
     TupExposureScene *sceneTable = k->sceneGroupList.at(k->currentScene);
 
-    int layersTotal = sceneTable->layersTotal();
-    if (layersTotal > 2) // Temporary condition
+    int layersCount = sceneTable->layersCount();
+    if (layersCount > 2) // Temporary condition
         return;
 
     sceneTable->addNewLayer();
 
-    emit callNewLayer(k->currentScene, layersTotal);
+    emit callNewLayer(k->currentScene, layersCount);
 
     QDesktopWidget desktop;
     move((int) (desktop.screenGeometry().width() - width())/2,
@@ -322,10 +322,10 @@ void TupExposureDialog::createFrame()
     TupExposureScene *sceneTable = k->sceneGroupList.at(k->currentScene);
     sceneTable->addNewFrame();
 
-    int layersTotal = sceneTable->layersTotal();
-    int framesTotal = sceneTable->framesTotal();
+    int layersCount = sceneTable->layersCount();
+    int framesCount = sceneTable->framesCount();
     // emit callNewFrame(k->currentScene, k->currentLayer, 0);
-    emit callNewFrame(k->currentScene, k->currentLayer, layersTotal, framesTotal);
+    emit callNewFrame(k->currentScene, k->currentLayer, layersCount, framesCount);
 
     QDesktopWidget desktop;
     move((int) (desktop.screenGeometry().width() - (width() + 50))/2,

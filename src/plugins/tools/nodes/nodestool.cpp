@@ -61,7 +61,7 @@ void NodesTool::init(TupGraphicsScene *scene)
     k->scene = scene;
     if (k->scene->selectedItems().count() > 0)
         k->scene->clearSelection();
-    k->baseZValue = 20000 + (k->scene->scene()->layersTotal() * 10000); 
+    k->baseZValue = 20000 + (k->scene->scene()->layersCount() * 10000); 
     reset(k->scene);
 }
 

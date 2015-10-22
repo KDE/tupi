@@ -55,8 +55,8 @@ class TupExposureScene : public QGroupBox
 
         int currentFrame();
         int currentLayer();
-        int framesTotal(); 
-        int layersTotal();
+        int framesCount(); 
+        int layersCount();
 
     signals:
         void updateUI(int frame, int layer);

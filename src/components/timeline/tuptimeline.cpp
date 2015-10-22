@@ -216,7 +216,7 @@ void TupTimeLine::layerResponse(TupLayerResponse *response)
                 case TupProjectRequest::Remove:
                 {
                      framesTable->removeLayer(response->layerIndex());
-                     if (framesTable->layersTotal() == 0) {
+                     if (framesTable->layersCount() == 0) {
                          TupProjectRequest request = TupRequestBuilder::createLayerRequest(0, 0, TupProjectRequest::Add, tr("Layer %1").arg(1));
                          emit requestTriggered(&request);
 
@@ -550,7 +550,7 @@ bool TupTimeLine::requestLayerAction(int action, int layerPos, int scenePos, con
     switch (action) {
             case TupProjectActionBar::InsertLayer:
             {
-                 int layerIndex = framesTable(scenePos)->layersTotal();
+                 int layerIndex = framesTable(scenePos)->layersCount();
                  request = TupRequestBuilder::createLayerRequest(scenePos, layerIndex, TupProjectRequest::Add, tr("Layer %1").arg(layerIndex + 1));
                  emit requestTriggered(&request);
 
@@ -671,11 +671,11 @@ void TupTimeLine::selectFrame(int indexLayer, int indexFrame)
         int lastFrame = framesTable(scenePos)->lastFrameByLayer(indexLayer);
 
         if (indexFrame > lastFrame) {
-            int totalFrames = scene->framesTotal();
+            int totalFrames = scene->framesCount();
 
             if (indexFrame > (totalFrames-1)) {
-                int layersTotal = scene->layersTotal();
-                for (int layer=0; layer < layersTotal; layer++) {
+                int layersCount = scene->layersCount();
+                for (int layer=0; layer < layersCount; layer++) {
                      int currentLimit = framesTable(scenePos)->lastFrameByLayer(layer); 
                      for (int frame = currentLimit + 1; frame <= indexFrame; frame++) {
                           TupProjectRequest request = TupRequestBuilder::createFrameRequest(scenePos, layer, frame,

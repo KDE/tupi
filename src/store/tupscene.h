@@ -92,7 +92,7 @@ class TUPI_EXPORT TupScene : public QObject, public TupAbstractSerializable
         bool isVisible() const;
 
         Layers layers() const;
-        int layersTotal() const;
+        int layersCount() const;
         SoundLayers soundLayers() const;
 
         TupLayer *layer(int position) const;
@@ -134,7 +134,7 @@ class TUPI_EXPORT TupScene : public QObject, public TupAbstractSerializable
         QList<TupGraphicObject *> tweeningGraphicObjects() const;
         QList<TupSvgItem *> tweeningSvgObjects() const;
 
-        int framesTotal();
+        int framesCount();
 
         TupBackground *background();
 

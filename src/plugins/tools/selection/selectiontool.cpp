@@ -94,7 +94,7 @@ void SelectionTool::init(TupGraphicsScene *scene)
 
     k->scene = scene;
     k->scene->clearSelection();
-    k->nodeZValue = 20000 + (scene->scene()->layersTotal() * 10000);
+    k->nodeZValue = 20000 + (scene->scene()->layersCount() * 10000);
     k->targetIsIncluded = false;
 
     reset(scene);

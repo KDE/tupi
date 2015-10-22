@@ -56,7 +56,7 @@ struct Settings::Private
 
     QString name;
     int initFrame;
-    int framesTotal;
+    int framesCount;
 };
 
 Settings::Settings(QWidget *parent) : QWidget(parent), k(new Private)
@@ -185,7 +185,7 @@ void Settings::openLipSyncProperties(TupLipSync *lipsync)
 {
     k->name = lipsync->name();
     k->initFrame = lipsync->initFrame();
-    k->framesTotal = lipsync->framesTotal();
+    k->framesCount = lipsync->framesCount();
 
     k->lipSyncName->setText(k->name);
     k->fpsLabel->setText(tr("Lip-Sync FPS") + ": " + QString::number(lipsync->fps()));
@@ -193,9 +193,9 @@ void Settings::openLipSyncProperties(TupLipSync *lipsync)
     k->comboInit->setEnabled(true);
     k->comboInit->setValue(k->initFrame + 1);
 
-    int endIndex = k->initFrame + k->framesTotal;
+    int endIndex = k->initFrame + k->framesCount;
     k->endingLabel->setText(tr("Ending at frame") + ": " + QString::number(endIndex));
-    k->totalLabel->setText(tr("Frames Total") + ": " + QString::number(k->framesTotal));
+    k->totalLabel->setText(tr("Frames Total") + ": " + QString::number(k->framesCount));
 
     disconnect(k->mouthsList, SIGNAL(currentRowChanged(int)), this, SLOT(setCurrentMouth(int)));
     k->mouthsList->clear();
@@ -243,6 +243,6 @@ void Settings::updateInitFrame(int index)
 
 void Settings::updateInterfaceRecords()
 {
-    int endIndex = k->initFrame + k->framesTotal;
+    int endIndex = k->initFrame + k->framesCount;
     k->endingLabel->setText(tr("Ending at frame") + ": " + QString::number(endIndex));
 }

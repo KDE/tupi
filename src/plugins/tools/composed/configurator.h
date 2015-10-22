@@ -64,7 +64,7 @@ class TUPI_PLUGIN Configurator : public QFrame
 
         void loadTweenList(QList<QString> tweenList);
 
-        void initStartCombo(int framesTotal, int currentFrame);
+        void initStartCombo(int framesCount, int currentFrame);
         void setStartFrame(int currentIndex);
 
         void updateSteps(const QGraphicsPathItem *path, QPointF offset);

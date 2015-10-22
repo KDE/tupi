@@ -106,7 +106,7 @@ class TUPI_EXPORT TupLayer : public QObject, public TupAbstractSerializable
         
         int objectIndex() const;
 
-        int framesTotal() const;
+        int framesCount() const;
 
     public:
         virtual void fromXml(const QString &xml);

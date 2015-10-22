@@ -132,7 +132,7 @@ class TUPI_EXPORT TupCanvas : public QFrame
         void updateExposureDialogState();
         void createScene();
         void createLayer(int sceneIndex, int layerIndex);
-        void createFrame(int sceneIndex, int layerIndex, int layersTotal, int frameIndex);
+        void createFrame(int sceneIndex, int layerIndex, int layersCount, int frameIndex);
 
    signals:
         void requestTriggered(const TupProjectRequest *event);

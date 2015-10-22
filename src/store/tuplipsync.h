@@ -156,8 +156,8 @@ class TUPI_EXPORT TupLipSync : public QObject, public TupAbstractSerializable
         void setFPS(int fps);
         int initFrame();
 	void setInitFrame(int frame);
-        int framesTotal();
-        void setFramesTotal(int framesTotal);
+        int framesCount();
+        void setFramesCount(int framesCount);
         void addVoice(TupVoice *voice);
         TupVoice *voiceAt(int index);
         QList<TupVoice *> voices();

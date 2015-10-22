@@ -262,13 +262,13 @@ void TweenerPanel::activeTweenComponent(int index, bool enable)
 
 // Adding new Tween
 
-void TweenerPanel::setParameters(const QString &name, int framesTotal, int startFrame)
+void TweenerPanel::setParameters(const QString &name, int framesCount, int startFrame)
 {
     // k->tweenerTable->resetTable();
 
     k->currentTweenIndex = -1;
 
-    k->positionPanel->setParameters(framesTotal, startFrame);
+    k->positionPanel->setParameters(framesCount, startFrame);
 
     k->mode = TweenerPanel::Add;
     k->input->setText(name);
@@ -399,9 +399,9 @@ void TweenerPanel::updateSteps(const QGraphicsPathItem *path, QPointF offset)
     k->positionPanel->updateSteps(path, offset);
 }
 
-void TweenerPanel::initStartCombo(int framesTotal, int currentFrame)
+void TweenerPanel::initStartCombo(int framesCount, int currentFrame)
 {
-    k->positionPanel->initStartCombo(framesTotal, currentFrame);
+    k->positionPanel->initStartCombo(framesCount, currentFrame);
 }
 
 int TweenerPanel::startComboSize()

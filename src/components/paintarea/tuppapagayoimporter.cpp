@@ -38,7 +38,7 @@
 struct TupPapagayoImporter::Private
 {
     bool isValid;
-    int framesTotal;
+    int framesCount;
     int fps;
     TupLipSync *lipsync;
 };
@@ -46,7 +46,7 @@ struct TupPapagayoImporter::Private
 TupPapagayoImporter::TupPapagayoImporter(const QString &file, const QSize &projectSize, 
                                          const QSize &mouthSize, const QString &extension, int initFrame) : QObject(), k(new Private)
 {
-    k->framesTotal = 0;
+    k->framesCount = 0;
     k->isValid = true;
     QFile input(file);
 
@@ -154,8 +154,8 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file, const QSize &proje
                       word->addPhoneme(phoneme);
 
                       if (w == numWords - 1) {
-                          if (lastFrame > k->framesTotal)
-                              k->framesTotal = lastFrame;
+                          if (lastFrame > k->framesCount)
+                              k->framesCount = lastFrame;
                       }
                       phrase->addWord(word);
                  } // for w
@@ -163,8 +163,8 @@ TupPapagayoImporter::TupPapagayoImporter(const QString &file, const QSize &proje
             }
             k->lipsync->addVoice(voice);
         }
-        k->framesTotal++;
-        k->lipsync->setFramesTotal(k->framesTotal);
+        k->framesCount++;
+        k->lipsync->setFramesCount(k->framesCount);
     } else {
         k->isValid = false;
         #ifdef K_DEBUG
@@ -209,9 +209,9 @@ QString TupPapagayoImporter::file2Text() const
     return xml;
 }
 
-int TupPapagayoImporter::framesTotal()
+int TupPapagayoImporter::framesCount()
 {
-    return k->framesTotal;
+    return k->framesCount;
 }
 
 int TupPapagayoImporter::fps()

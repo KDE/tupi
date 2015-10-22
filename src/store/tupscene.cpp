@@ -115,7 +115,7 @@ Layers TupScene::layers() const
     return k->layers;
 }
 
-int TupScene::layersTotal() const
+int TupScene::layersCount() const
 {
     return k->layerCount;
 }
@@ -135,8 +135,6 @@ void TupScene::setLayers(const Layers &layers)
 
 TupLayer *TupScene::createLayer(QString name, int position, bool loaded)
 {
-    // Q_CHECK_PTR(k->layers);
-
     if (position < 0 || position > k->layers.count()) {        
         #ifdef K_DEBUG
             QString msg = "TupScene::createLayer() - Invalid index -> " + QString::number(position);
@@ -151,7 +149,6 @@ TupLayer *TupScene::createLayer(QString name, int position, bool loaded)
     }
 
     k->layerCount++;
-
     TupLayer *layer = new TupLayer(this, k->layerCount);
     layer->setLayerName(name);
     k->layers.insert(position, layer);
@@ -294,17 +291,14 @@ void TupScene::fromXml(const QString &xml)
                          QTextStream ts(&newDoc);
                          ts << n;
                        }
-
                        layer->fromXml(newDoc);
                    }
                } else if (e.tagName() == "background") {
-
                           QString newDoc;
                           {
                             QTextStream ts(&newDoc);
                             ts << n;
                           }
-
                           k->background->fromXml(newDoc); 
 
                } else if (e.tagName() == "soundlayer") {
@@ -317,7 +311,6 @@ void TupScene::fromXml(const QString &xml)
                                  QTextStream ts(&newDoc);
                                  ts << n;
                                }
-
                               layer->fromXml(newDoc);
                           }
                } else if (e.tagName() == "storyboard") {
@@ -618,12 +611,11 @@ int TupScene::getTotalTweens()
     return total;
 }
 
-int TupScene::framesTotal()
+int TupScene::framesCount()
 {
     int total = 0;
-
     foreach (TupLayer *layer, k->layers) {
-             int frames = layer->framesTotal();
+             int frames = layer->framesCount();
              if (frames > total)
                  total = frames;
     }

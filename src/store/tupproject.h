@@ -139,7 +139,7 @@ class TUPI_EXPORT TupProject : public QObject, public TupAbstractSerializable
 
         void setOpen(bool open);
         bool isOpen();
-        int scenesTotal() const;
+        int scenesCount() const;
 
         void updateSpaceContext(TupProject::Mode mode);
         TupProject::Mode spaceContext();

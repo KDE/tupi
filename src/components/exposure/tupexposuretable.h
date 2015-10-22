@@ -103,9 +103,9 @@ class TUPI_EXPORT TupExposureTable : public QTableWidget
 
         bool frameIsLocked(int layerIndex, int frameIndex);
         void selectFrame(int layerIndex, int frameIndex);
-        int layersTotal();
-        int framesTotal();
-        int framesTotalAtCurrentLayer();
+        int layersCount();
+        int framesCount();
+        int framesCountAtCurrentLayer();
 
         void setMenu(QMenu *menu);
         void notifyCellClicked(int frame, int layer);

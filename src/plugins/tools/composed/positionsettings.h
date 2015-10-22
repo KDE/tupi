@@ -67,7 +67,7 @@ class TUPI_PLUGIN PositionSettings : public QWidget
         PositionSettings(QWidget *parent = 0);
         ~PositionSettings();
 
-        void setParameters(int framesTotal, int initFrame);
+        void setParameters(int framesCount, int initFrame);
         void setParameters(TupItemTweener *currentTween);
         void initStartCombo(int totalFrames, int currentIndex);
         void setStartFrame(int currentIndex);

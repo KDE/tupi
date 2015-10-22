@@ -329,7 +329,7 @@ int TupTimeLineTable::currentLayer()
     return currentRow();
 }
 
-int TupTimeLineTable::layersTotal()
+int TupTimeLineTable::layersCount()
 {
     return rowCount();
 }

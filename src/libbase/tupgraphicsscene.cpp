@@ -182,7 +182,7 @@ void TupGraphicsScene::drawCurrentPhotogram()
     */
 
     TupLayer *layer = k->scene->layer(k->framePosition.layer);
-    int frames = layer->framesTotal();
+    int frames = layer->framesCount();
 
     if (k->framePosition.frame >= frames)
         k->framePosition.frame = frames - 1;
@@ -216,12 +216,12 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
 
     // Drawing frames from every layer
 
-    for (int i=0; i < k->scene->layersTotal(); i++) {
+    for (int i=0; i < k->scene->layersCount(); i++) {
          TupLayer *layer = k->scene->layer(i);
          k->layerOnProcess = i;
          k->layerOnProcessOpacity = layer->opacity();
 
-         if (layer->framesTotal() > 0 && photogram < layer->framesTotal()) {
+         if (layer->framesCount() > 0 && photogram < layer->framesCount()) {
              TupFrame *mainFrame = layer->frame(photogram);
 
              QString currentFrame = "";
@@ -256,7 +256,7 @@ void TupGraphicsScene::drawPhotogram(int photogram, bool drawContext)
 
                          // Painting next frames
                          if (drawContext) {
-                             if (k->onionSkin.next > 0 && layer->framesTotal() > photogram + 1) {
+                             if (k->onionSkin.next > 0 && layer->framesCount() > photogram + 1) {
                                  double opacity = k->opacity;
                                  double opacityFactor = opacity / (double)qMin(layer->frames().count(), k->onionSkin.next);
 
@@ -889,7 +889,7 @@ void TupGraphicsScene::addLipSyncObjects(TupLayer *layer, int photogram, int zLe
              TupLipSync *lipSync = mouths.at(i);
              int initFrame = lipSync->initFrame();
 
-             if ((photogram >= initFrame) && (photogram <= initFrame + lipSync->framesTotal())) {
+             if ((photogram >= initFrame) && (photogram <= initFrame + lipSync->framesCount())) {
                  QString name = lipSync->name();
                  TupLibraryFolder *folder = k->library->getFolder(name);
                  if (folder) {
@@ -1046,8 +1046,8 @@ TupFrame *TupGraphicsScene::currentFrame()
     */
 
     if (k->scene) {
-        if (k->scene->layersTotal() > 0) {
-            if (k->framePosition.layer < k->scene->layersTotal()) {
+        if (k->scene->layersCount() > 0) {
+            if (k->framePosition.layer < k->scene->layersCount()) {
                 TupLayer *layer = k->scene->layer(k->framePosition.layer);
                 Q_CHECK_PTR(layer);
                 if (layer) {
@@ -1064,7 +1064,7 @@ TupFrame *TupGraphicsScene::currentFrame()
                     #endif
                 }
             } else {
-                TupLayer *layer = k->scene->layer(k->scene->layersTotal() - 1);
+                TupLayer *layer = k->scene->layer(k->scene->layersCount() - 1);
                 if (layer) {
                     if (!layer->frames().isEmpty())
                         return layer->frame(k->framePosition.frame);
@@ -1611,11 +1611,11 @@ double TupGraphicsScene::opacity()
     return k->opacity;
 }
 
-int TupGraphicsScene::framesTotal() 
+int TupGraphicsScene::framesCount() 
 {
     TupLayer *layer = k->scene->layer(k->framePosition.layer);
     if (layer)
-        return layer->framesTotal();
+        return layer->framesCount();
     else
         return -1;
 }

@@ -85,7 +85,7 @@ void PapagayoTool::init(TupGraphicsScene *scene)
 {
     k->scene = scene;
     k->mode = TupToolPlugin::View;
-    k->baseZValue = 20000 + (scene->scene()->layersTotal() * 10000);
+    k->baseZValue = 20000 + (scene->scene()->layersCount() * 10000);
 
     k->initScene = k->scene->currentSceneIndex();
 
@@ -317,7 +317,7 @@ void PapagayoTool::frameResponse(const TupFrameResponse *event)
     if (event->action() == TupProjectRequest::Select) {
         if (k->mode == TupToolPlugin::Edit) {
             int frameIndex = event->frameIndex();
-            int lastFrame = k->currentLipSync->initFrame() + k->currentLipSync->framesTotal() - 1;
+            int lastFrame = k->currentLipSync->initFrame() + k->currentLipSync->framesCount() - 1;
             if (frameIndex >= k->currentLipSync->initFrame() && frameIndex <= lastFrame)
                 setTargetEnvironment();
         }
@@ -338,12 +338,12 @@ void PapagayoTool::updateInitFrame(int index)
     TupScene *scene = k->scene->scene();
     scene->updateLipSync(k->currentLipSync);
 
-    int sceneFrames = scene->framesTotal();
-    int lipSyncFrames = index + k->currentLipSync->framesTotal();
+    int sceneFrames = scene->framesCount();
+    int lipSyncFrames = index + k->currentLipSync->framesCount();
     if (lipSyncFrames > sceneFrames) {
-        int layersTotal = scene->layersTotal();
+        int layersCount = scene->layersCount();
         for (int i = sceneFrames; i < lipSyncFrames; i++) {
-             for (int j = 0; j < layersTotal; j++) {
+             for (int j = 0; j < layersCount; j++) {
                   TupProjectRequest request = TupRequestBuilder::createFrameRequest(k->initScene, j, i, TupProjectRequest::Add, tr("Frame %1").arg(i + 1));
                   emit requested(&request);
              }

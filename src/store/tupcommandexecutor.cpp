@@ -107,28 +107,18 @@ bool TupCommandExecutor::removeScene(TupSceneResponse *response)
     #endif	
 
     int position = response->sceneIndex();
-    int scenesTotal = m_project->scenesTotal();
+    // int scenesCount = m_project->scenesCount();
 
     TupScene *toRemove = m_project->scene(position);
 
     if (toRemove) {
         QDomDocument document;
         document.appendChild(toRemove->toXml(document));
-        
         response->setState(document.toString());
         response->setArg(toRemove->sceneName());
         
         if (m_project->removeScene(position)) {
-
-            /*
-            if (position+1 < scenesTotal) {
-                for (int i = position + 1; i < scenesTotal; i++)
-                     m_project->moveScene(i, i-1);
-            }
-            */
-
             emit responsed(response);
-
             return true;
         } 
     } else {

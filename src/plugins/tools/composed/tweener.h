@@ -85,7 +85,7 @@ class TUPI_PLUGIN Tweener : public TupToolPlugin
         virtual void frameResponse(const TupFrameResponse *event);
 
     private:
-        int framesTotal();
+        int framesCount();
         void setupActions();
         int maxZValue();
         void clearSelection();

@@ -70,7 +70,7 @@ class TUPI_EXPORT TupExposureDialog : public QDialog
         void goToScene(int scene);
         void callNewScene();
         void callNewLayer(int sceneIndex, int layerIndex);
-        void callNewFrame(int sceneIndex, int layerIndex, int layersTotal, int frameIndex);
+        void callNewFrame(int sceneIndex, int layerIndex, int layersCount, int frameIndex);
         void windowHasBeenClosed();
 
     private slots:
