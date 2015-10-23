@@ -140,6 +140,11 @@ void TupFrame::setFrameName(const QString &name)
     k->name = name;
 }
 
+QString TupFrame::frameName() const
+{
+    return k->name;
+}
+
 void TupFrame::setDynamicDirection(const QString &direction)
 {
     k->direction = direction;
@@ -165,9 +170,9 @@ void TupFrame::setLocked(bool isLocked)
     k->isLocked = isLocked;
 }
 
-QString TupFrame::frameName() const
+TupFrame::FrameType TupFrame::type()
 {
-    return k->name;
+   return k->type;
 }
 
 bool TupFrame::isLocked() const

@@ -137,8 +137,8 @@ class TUPI_EXPORT TupGraphicsScene : public QGraphicsScene
 
     private:
         void addFrame(TupFrame *frame, double opacity = 1.0, Context mode = Current);
-        void addGraphicObject(TupGraphicObject *object, double opacity = 1.0);
-        void addSvgObject(TupSvgItem *svgItem, double opacity = 1.0);
+        void addGraphicObject(TupGraphicObject *object, TupFrame::FrameType frameType, double opacity = 1.0);
+        void addSvgObject(TupSvgItem *svgItem, TupFrame::FrameType frameType, double opacity = 1.0);
         void addTweeningObjects(int photogram);
         void addSvgTweeningObjects(int photogram);
         void addLipSyncObjects(TupLayer *layer, int photogram, int zLevel);

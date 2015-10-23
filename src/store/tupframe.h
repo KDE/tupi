@@ -75,6 +75,7 @@ class TUPI_EXPORT TupFrame : public QObject, public TupAbstractSerializable
        ~TupFrame();
        
        void setFrameName(const QString &name);
+       QString frameName() const;
 
        void setDynamicDirection(const QString &direction);
        void setDynamicShift(const QString &shift);
@@ -82,13 +83,12 @@ class TUPI_EXPORT TupFrame : public QObject, public TupAbstractSerializable
        int dynamicShift() const;
 
        void setLocked(bool isLocked);
-       
-       QString frameName() const;
-       
        bool isLocked() const;
        
        void setVisible(bool isVisible);
        bool isVisible() const;
+
+       TupFrame::FrameType type();
        
        void addItem(const QString &id, QGraphicsItem *item);
        void removeImageItemFromFrame(const QString &id);

@@ -328,7 +328,7 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
             if (!bg->dynamicBgIsEmpty()) {
                 TupFrame *frame = bg->dynamicFrame();
                 if (frame)
-                    addFrame(frame, 1.0);
+                    addFrame(frame);
             } else {
                 #ifdef K_DEBUG
                     QString msg = "TupGraphicsScene::drawSceneBackground() - Dynamic background frame is empty";
@@ -346,6 +346,7 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
 
                        QPixmap pixmap = bg->dynamicView(photogram);
                        QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
+                       item->setZValue(0);
                        addItem(item);
                    } else {
                        #ifdef K_DEBUG
@@ -373,7 +374,7 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
             if (!bg->staticBgIsEmpty()) {
                 TupFrame *frame = bg->staticFrame();
                 if (frame)
-                    addFrame(frame, 1.0);
+                    addFrame(frame);
             } else {
                 #ifdef K_DEBUG
                     QString msg = "TupGraphicsScene::drawSceneBackground() - Static background frame is empty";
@@ -400,29 +401,31 @@ void TupGraphicsScene::addFrame(TupFrame *frame, double opacity, Context mode)
     #endif
     */
 
+    TupFrame::FrameType frameType = frame->type();
+
     for (int i=0; i < frame->graphicItemsCount(); ++i) {
          TupGraphicObject *object = frame->graphic(i);
          if (mode != TupGraphicsScene::Current) {
              if (!object->hasTween())
-                 addGraphicObject(object, opacity);
+                 addGraphicObject(object, frameType, opacity);
          } else {
-             addGraphicObject(object, opacity);
+             addGraphicObject(object, frameType,  opacity);
          }
     }
 
     for (int i = 0; i < frame->svgItemsCount(); i++) {
          TupSvgItem *object = frame->svg(i);
          if (!object->hasTween()) {
-             addSvgObject(object, opacity);
+             addSvgObject(object, frameType, opacity);
          } else {
              TupItemTweener *tween = object->tween();
              if (k->framePosition.frame == tween->initFrame())
-                 addSvgObject(object, opacity);
+                 addSvgObject(object, frameType, opacity);
          }
     }
 }
 
-void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity)
+void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, TupFrame::FrameType frameType, double opacity)
 {
     /*
     #ifdef K_DEBUG
@@ -442,12 +445,20 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
             group->recoverChilds();
 
         item->setSelected(false);
-        item->setOpacity(opacity * k->layerOnProcessOpacity);
+        if (frameType == TupFrame::Regular)
+            item->setOpacity(opacity * k->layerOnProcessOpacity);
+        else
+            item->setOpacity(opacity);
 
         if (k->tool) {
             if (k->tool->toolType() == TupToolInterface::Selection) {
-                if (k->layerOnProcess == k->framePosition.layer && k->frameOnProcess == k->framePosition.frame)
-                    item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+                if (frameType == TupFrame::Regular) {
+                    if (k->layerOnProcess == k->framePosition.layer && k->frameOnProcess == k->framePosition.frame)
+                        item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+                } else {
+                    if (k->spaceContext != TupProject::FRAMES_EDITION)
+                        item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+                }
             }
         }
 
@@ -455,7 +466,7 @@ void TupGraphicsScene::addGraphicObject(TupGraphicObject *object, double opacity
     }
 }
 
-void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
+void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, TupFrame::FrameType frameType, double opacity)
 {
     /*
     #ifdef K_DEBUG
@@ -475,7 +486,10 @@ void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
         if (layer) {
             TupFrame *frame = layer->frame(k->framePosition.frame);
             if (frame) {
-                svgItem->setOpacity(opacity * k->layerOnProcessOpacity);
+                if (frameType == TupFrame::Regular)
+                    svgItem->setOpacity(opacity * k->layerOnProcessOpacity);
+                else
+                    svgItem->setOpacity(opacity);
 
                 // SQA: Experimental code related to interactive features
                 // if (svgItem->symbolName().compare("dollar.svg")==0)
@@ -483,9 +497,14 @@ void TupGraphicsScene::addSvgObject(TupSvgItem *svgItem, double opacity)
 
                 if (k->tool) {
                     if (k->tool->toolType() == TupToolInterface::Selection) {
-                        if (k->layerOnProcess == k->framePosition.layer && k->frameOnProcess == k->framePosition.frame)
-                            svgItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
-                    } 
+                        if (frameType == TupFrame::Regular) {
+                            if (k->layerOnProcess == k->framePosition.layer && k->frameOnProcess == k->framePosition.frame)
+                                svgItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+                        } else {
+                            if (k->spaceContext != TupProject::FRAMES_EDITION)
+                                svgItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+                        }
+                    }
                 }
 
                 addItem(svgItem);
@@ -581,7 +600,7 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
 
                          if (stepItem->has(TupTweenerStep::Scale)) {
                              QPointF point = tween->transformOriginPoint();
-                             tError() << "TupGraphicsScene::addTweeningObjects() - Origin point: " << point.x() << ", " << point.y();
+                             // tError() << "TupGraphicsScene::addTweeningObjects() - Origin point: " << point.x() << ", " << point.y();
                              object->item()->setTransformOriginPoint(point);
                              // object->item()->setScale(1.0);
 
@@ -659,7 +678,7 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
                                     // tFatal() << "TupGraphicsScene::addTweeningObjects() - Applying rotation - Angle: " << angle;
                                 }
 
-                                addGraphicObject(object);
+                                addGraphicObject(object, TupFrame::Regular);
 
                             } else {
                                 if (stepItem->has(TupTweenerStep::Position)) {
@@ -741,7 +760,7 @@ void TupGraphicsScene::addTweeningObjects(int photogram)
                                     }
                                 }
 
-                                addGraphicObject(object);
+                                addGraphicObject(object, TupFrame::Regular);
 
                                 if (stepItem->has(TupTweenerStep::Opacity))
                                     object->item()->setOpacity(stepItem->opacity());
@@ -862,7 +881,7 @@ void TupGraphicsScene::addSvgTweeningObjects(int photogram)
                                 object->setTransform(transform);
                             }
 
-                            addSvgObject(object);
+                            addSvgObject(object, TupFrame::Regular);
 
                             if (stepItem->has(TupTweenerStep::Opacity))
                                 object->setOpacity(stepItem->opacity());
