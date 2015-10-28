@@ -328,7 +328,7 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
             if (!bg->dynamicBgIsEmpty()) {
                 TupFrame *frame = bg->dynamicFrame();
                 if (frame)
-                    addFrame(frame);
+                    addFrame(frame, frame->opacity());
             } else {
                 #ifdef K_DEBUG
                     QString msg = "TupGraphicsScene::drawSceneBackground() - Dynamic background frame is empty";
@@ -347,6 +347,9 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
                        QPixmap pixmap = bg->dynamicView(photogram);
                        QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
                        item->setZValue(0);
+                       TupFrame *frame = bg->dynamicFrame();
+                       if (frame)
+                           item->setOpacity(frame->opacity());
                        addItem(item);
                    } else {
                        #ifdef K_DEBUG
@@ -362,19 +365,33 @@ void TupGraphicsScene::drawSceneBackground(int photogram)
 
         if (k->spaceContext == TupProject::STATIC_BACKGROUND_EDITION || k->spaceContext == TupProject::FRAMES_EDITION) {
             if (k->spaceContext == TupProject::STATIC_BACKGROUND_EDITION) {
-                if (bg->rasterRenderIsPending())
-                    bg->renderDynamicView();
+                if (!bg->dynamicBgIsEmpty()) {
+                    if (bg->rasterRenderIsPending())
+                        bg->renderDynamicView();
 
-                QPixmap pixmap = bg->dynamicView(0);
-                QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
-                item->setZValue(0);
-                addItem(item);
+                    QPixmap pixmap = bg->dynamicView(0);
+                    QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
+                    item->setZValue(0);
+                    TupFrame *frame = bg->dynamicFrame();
+                    if (frame)
+                        item->setOpacity(frame->opacity());
+                    addItem(item);
+                } else {
+                    #ifdef K_DEBUG
+                        QString msg = "TupGraphicsScene::drawSceneBackground() - Dynamic background frame is empty";
+                        #ifdef Q_OS_WIN32
+                            qWarning() << msg;
+                        #else
+                            tWarning() << msg;
+                        #endif
+                    #endif
+                }
             }
 
             if (!bg->staticBgIsEmpty()) {
                 TupFrame *frame = bg->staticFrame();
                 if (frame)
-                    addFrame(frame);
+                    addFrame(frame, frame->opacity());
             } else {
                 #ifdef K_DEBUG
                     QString msg = "TupGraphicsScene::drawSceneBackground() - Static background frame is empty";

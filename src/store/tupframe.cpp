@@ -71,7 +71,7 @@ struct TupFrame::Private
     QList<QString> svgIndexes;
     int repeat;
     int zLevelIndex;
-    // int layerIndex;
+    double opacity;
 };
 
 TupFrame::TupFrame() : k(new Private)
@@ -102,6 +102,7 @@ TupFrame::TupFrame(TupBackground *bg, const QString &label) : QObject(bg), k(new
     k->isLocked = false;
     k->isVisible = true;
     k->repeat = 1;
+    k->opacity = 1.0;
 
     k->direction = "-1";
     k->shift = "0";
@@ -170,14 +171,14 @@ void TupFrame::setLocked(bool isLocked)
     k->isLocked = isLocked;
 }
 
-TupFrame::FrameType TupFrame::type()
-{
-   return k->type;
-}
-
 bool TupFrame::isLocked() const
 {
     return k->isLocked;
+}
+
+TupFrame::FrameType TupFrame::type()
+{
+   return k->type;
 }
 
 void TupFrame::setVisible(bool isVisible)
@@ -188,6 +189,16 @@ void TupFrame::setVisible(bool isVisible)
 bool TupFrame::isVisible() const
 {
     return k->isVisible;
+}
+
+void TupFrame::setOpacity(double opacity)
+{
+    k->opacity = opacity;
+}
+
+double TupFrame::opacity() 
+{
+    return k->opacity;
 }
 
 void TupFrame::fromXml(const QString &xml)
@@ -201,7 +212,6 @@ void TupFrame::fromXml(const QString &xml)
     #endif
 
     QDomDocument document;
-    
     if (! document.setContent(xml)) {    
         #ifdef K_DEBUG
             QString msg = "TupFrame::fromXml() - File corrupted!";
@@ -225,7 +235,11 @@ void TupFrame::fromXml(const QString &xml)
     if (k->type == DynamicBg) {
         setDynamicDirection(root.attribute("direction", "0"));
         setDynamicShift(root.attribute("shift", "0"));
+        setOpacity(root.attribute("opacity", "1.0").toDouble());
     }
+
+    if (k->type == StaticBg)
+        setOpacity(root.attribute("opacity", "1.0").toDouble());
 
     QDomNode n = root.firstChild();
 
@@ -233,12 +247,10 @@ void TupFrame::fromXml(const QString &xml)
            QDomElement e = n.toElement();
 
            if (!e.isNull()) {
-
                if (e.tagName() == "object") {
                    QDomNode n2 = e.firstChild();
 
                    TupGraphicObject *last = 0; // This variable contains the object in case of tweening 
-
                    while (!n2.isNull()) {
                           QDomElement e2 = n2.toElement();
 
@@ -279,7 +291,6 @@ void TupFrame::fromXml(const QString &xml)
                    }
                } else if (e.tagName() == "svg") {
                           QString symbol = e.attribute("id");
-
                           if (symbol.length() > 0) {
                               TupLibraryObject *object = project()->library()->getObject(symbol);
 
@@ -335,7 +346,11 @@ QDomElement TupFrame::toXml(QDomDocument &doc) const
     if (k->type == DynamicBg) {
         root.setAttribute("direction", k->direction);
         root.setAttribute("shift", k->shift);
+        root.setAttribute("opacity", QString::number(k->opacity));
     }
+
+    if (k->type == StaticBg)
+        root.setAttribute("opacity", QString::number(k->opacity));
 
     doc.appendChild(root);
 

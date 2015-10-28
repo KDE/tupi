@@ -52,7 +52,7 @@ class TUPI_EXPORT TupBackground : public QObject, public TupAbstractSerializable
     Q_OBJECT
 
     public:
-        enum Direction { Left2Right = 0, Right2Left = 1, Top2Bottom, Bottom2Top };
+        enum Direction { Right = 0, Left = 1, Top, Bottom };
         TupBackground(TupScene *parent, const QSize dimension, const QColor bgColor);
         ~TupBackground();
 
@@ -70,6 +70,10 @@ class TUPI_EXPORT TupBackground : public QObject, public TupAbstractSerializable
         bool dynamicBgIsEmpty();
         bool staticBgIsEmpty();
         bool rasterRenderIsPending();
+        void setDynamicOpacity(double opacity); 
+        double dynamicOpacity();
+        void setStaticOpacity(double opacity);
+        double staticOpacity();
 
         virtual void fromXml(const QString &xml);
         virtual QDomElement toXml(QDomDocument &doc) const;

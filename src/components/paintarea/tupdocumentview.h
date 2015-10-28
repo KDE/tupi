@@ -155,6 +155,8 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void selectToolFromMenu(QAction *action);
         void callAutoSave();
         void sendStoryboard(TupStoryboard *storyboard, int sceneIndex);
+        void updateStaticOpacity(double opacity);
+        void updateDynamicOpacity(double opacity);
 
     public slots:
         void undo();
@@ -193,6 +195,7 @@ class TUPI_EXPORT TupDocumentView : public QMainWindow
         void createMenu();
         void createLateralToolBar();
         void updateRotationAngleFromRulers(int angle);
+        double backgroundOpacity(TupFrame::FrameType type);
         struct Private;
         Private *const k;
 

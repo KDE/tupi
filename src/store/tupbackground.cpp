@@ -64,7 +64,6 @@ void TupBackground::setBgColor(const QColor color)
 void TupBackground::fromXml(const QString &xml)
 {
     QDomDocument document;
-
     if (! document.setContent(xml))
         return;
 
@@ -76,10 +75,8 @@ void TupBackground::fromXml(const QString &xml)
 
            if (e.tagName() == "frame") {
                QString type = e.attribute("name", "none");
-
                if (type == "landscape_static") {
                    staticBg = new TupFrame(this, "landscape_static");
-                   // staticBg->setFrameName("landscape_static");
 
                    if (staticBg) {
                        QString newDoc;
@@ -93,8 +90,6 @@ void TupBackground::fromXml(const QString &xml)
                    }
                } else if (type == "landscape_dynamic") {
                           dynamicBg = new TupFrame(this, "landscape_dynamic");
-                          // dynamicBg->setFrameName("landscape_dynamic");
-                          // dynamicBg->setDynamicFlag(true);
 
                           if (dynamicBg) {
                               QString newDoc;
@@ -125,16 +120,6 @@ void TupBackground::fromXml(const QString &xml)
     }
 }
 
-bool TupBackground::dynamicBgIsEmpty()
-{
-    return dynamicBg->isEmpty(); 
-}
-
-bool TupBackground::staticBgIsEmpty()
-{
-    return staticBg->isEmpty();
-}
-
 QDomElement TupBackground::toXml(QDomDocument &doc) const
 {
     QDomElement root = doc.createElement("background");
@@ -146,6 +131,16 @@ QDomElement TupBackground::toXml(QDomDocument &doc) const
     return root;
 }
 
+bool TupBackground::dynamicBgIsEmpty()
+{
+    return dynamicBg->isEmpty();
+}
+
+bool TupBackground::staticBgIsEmpty()
+{
+    return staticBg->isEmpty();
+}
+
 TupFrame *TupBackground::staticFrame()
 {
     return staticBg;
@@ -154,6 +149,26 @@ TupFrame *TupBackground::staticFrame()
 TupFrame* TupBackground::dynamicFrame()
 {
     return dynamicBg;
+}
+
+void TupBackground::setDynamicOpacity(double opacity)
+{
+    dynamicBg->setOpacity(opacity);
+}
+
+double TupBackground::dynamicOpacity()
+{
+    return dynamicBg->opacity();
+}
+
+void TupBackground::setStaticOpacity(double opacity)
+{
+    staticBg->setOpacity(opacity);
+}
+
+double TupBackground::staticOpacity()
+{
+    return staticBg->opacity();
 }
 
 void TupBackground::renderDynamicView()
@@ -195,22 +210,9 @@ QPixmap TupBackground::dynamicView(int frameIndex)
 
     TupBackground::Direction direction = dynamicBg->dynamicDirection();
     switch (direction) {
-            case TupBackground::Left2Right:
+            case TupBackground::Right:
             {
                 int delta = dimension.width() / shift;
-
-                if (delta > frameIndex) {
-                    posX = frameIndex*shift;
-                } else {
-                    int mod = fmod(frameIndex, delta);
-                    posX = mod * shift;
-                }
-            }
-            break;
-            case TupBackground::Right2Left:
-            {
-                int delta = dimension.width() / shift;
-
                 if (delta > frameIndex) {
                     posX = dimension.width() - frameIndex*shift;
                 } else {
@@ -219,10 +221,20 @@ QPixmap TupBackground::dynamicView(int frameIndex)
                 }
             }
             break;
-            case TupBackground::Top2Bottom:
+            case TupBackground::Left:
+            {
+                int delta = dimension.width() / shift;
+                if (delta > frameIndex) {
+                    posX = frameIndex*shift;
+                } else {
+                    int mod = fmod(frameIndex, delta);
+                    posX = mod * shift;
+                }
+            }
+            break;
+            case TupBackground::Top:
             {
                 int delta = dimension.height() / shift;
-
                 if (delta > frameIndex) {
                     posY = frameIndex*shift;
                 } else {
@@ -231,10 +243,9 @@ QPixmap TupBackground::dynamicView(int frameIndex)
                 }
             }
             break;
-            case TupBackground::Bottom2Top:
+            case TupBackground::Bottom:
             {
                 int delta = dimension.height() / shift;
-
                 if (delta > frameIndex) {
                     posY = dimension.height() - frameIndex*shift;
                 } else {

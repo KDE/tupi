@@ -88,6 +88,9 @@ class TUPI_EXPORT TupFrame : public QObject, public TupAbstractSerializable
        void setVisible(bool isVisible);
        bool isVisible() const;
 
+       void setOpacity(double opacity);
+       double opacity(); 
+
        TupFrame::FrameType type();
        
        void addItem(const QString &id, QGraphicsItem *item);

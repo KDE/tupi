@@ -178,14 +178,14 @@ TupLibraryWidget::TupLibraryWidget(QWidget *parent) : TupModuleWidgetBase(parent
 
     TImageButton *addFolderGC = new TImageButton(QPixmap(THEME_DIR + "icons/create_folder.png"), 22, buttons);
     connect(addFolderGC, SIGNAL(clicked()), this, SLOT(addFolder()));
-    addFolderGC->setToolTip(tr("Adds a folder to the object's list"));
+    addFolderGC->setToolTip(tr("Create new folder"));
     buttonLayout->addWidget(addFolderGC);
     // SQA: Temporary code
     // addFolderGC->setEnabled(false);
 
     TImageButton *gctoDrawingArea = new TImageButton(QPixmap(THEME_DIR + "icons/library_to_ws.png"), 22, buttons);
     connect(gctoDrawingArea, SIGNAL(clicked()), this, SLOT(insertObjectInWorkspace()));
-    gctoDrawingArea->setToolTip(tr("Inserts the selected object into the drawing area"));
+    gctoDrawingArea->setToolTip(tr("Insert library item into frame"));
     buttonLayout->addWidget(gctoDrawingArea);
 
     buttons->setLayout(buttonLayout);

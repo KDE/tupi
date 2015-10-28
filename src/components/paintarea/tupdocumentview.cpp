@@ -75,7 +75,6 @@ struct TupDocumentView::Private
     QMenu *shapesMenu;
     QMenu *motionMenu;
     QMenu *miscMenu;
-
     QMenu *filterMenu;
     QMenu *toolsMenu;
     QMenu *editMenu;
@@ -84,7 +83,8 @@ struct TupDocumentView::Private
 
     QToolBar *barGrid;
     QToolBar *toolbar;
-    QToolBar *propertiesBar;
+    QToolBar *dynamicPropertiesBar;
+    QToolBar *staticPropertiesBar;
 
     QDoubleSpinBox *onionFactorSpin;
     QSpinBox *prevOnionSkinSpin;
@@ -214,12 +214,9 @@ TupDocumentView::TupDocumentView(TupProject *project, QWidget *parent, bool isNe
     }
     
     connect(k->paintArea, SIGNAL(cursorPosition(const QPointF &)), this, SLOT(showPos(const QPointF &)));
-
     connect(k->paintArea, SIGNAL(cursorPosition(const QPointF &)), k->verticalRuler, SLOT(movePointers(const QPointF&)));
     connect(k->paintArea, SIGNAL(cursorPosition(const QPointF &)), k->horizontalRuler, SLOT(movePointers(const QPointF&)));
-
     connect(k->paintArea, SIGNAL(changedZero(const QPointF&)), this, SLOT(changeRulerOrigin(const QPointF&)));
-
     connect(k->paintArea, SIGNAL(requestTriggered(const TupProjectRequest *)), this, SIGNAL(requestTriggered(const TupProjectRequest *)));
     connect(k->paintArea, SIGNAL(localRequestTriggered(const TupProjectRequest *)), this, SIGNAL(localRequestTriggered(const TupProjectRequest *)));
 
@@ -1030,7 +1027,6 @@ void TupDocumentView::selectToolFromMenu(QAction *action)
     #endif
 
     QMenu *menu = qobject_cast<QMenu *>(action->parent());
-
     if (menu) {
         TAction *tool = qobject_cast<TAction *>(menu->activeAction());
 
@@ -1090,12 +1086,32 @@ void TupDocumentView::applyFilter()
     }
 }
 
+double TupDocumentView::backgroundOpacity(TupFrame::FrameType type)
+{
+    double opacity = 1.0;
+    int sceneIndex = k->paintArea->currentSceneIndex();
+    TupScene *scene = k->project->scene(sceneIndex);
+    if (scene) {
+        TupBackground *bg = scene->background();
+        if (bg) {
+            if (type == TupFrame::StaticBg) {
+                opacity = bg->staticOpacity();
+            } else if (type == TupFrame::DynamicBg) {
+                       opacity = bg->dynamicOpacity();
+            }
+        }
+    }
+
+   return opacity;
+}
+
 void TupDocumentView::createToolBar()
 {
     k->barGrid = new QToolBar(tr("Paint area actions"), this);
     k->barGrid->setIconSize(QSize(16, 16));
 
-    k->propertiesBar = new QToolBar(tr("Dynamic Background Properties"), this);
+    k->staticPropertiesBar = new QToolBar(tr("Static Background Properties"), this);
+    k->dynamicPropertiesBar = new QToolBar(tr("Dynamic Background Properties"), this);
 
     addToolBar(k->barGrid);
 
@@ -1142,7 +1158,6 @@ void TupDocumentView::createToolBar()
         k->nextOnionSkinSpin->setValue(1);
 
     k->barGrid->addWidget(k->nextOnionSkinSpin);
-
     k->barGrid->addAction(k->actionManager->find("onionfactor"));
 
     k->onionFactorSpin = new QDoubleSpinBox(this);
@@ -1156,38 +1171,101 @@ void TupDocumentView::createToolBar()
 
     addToolBarBreak();
 
-    QLabel *dirLabel = new QLabel(tr("Direction") + ": ");
+    QWidget *empty0 = new QWidget();
+    empty0->setFixedWidth(5);
+    QWidget *empty1 = new QWidget();
+    empty1->setFixedWidth(5);
+
+    QLabel *staticOpacityLabel = new QLabel();
+    QPixmap staticPix(THEME_DIR + "icons/bg_opacity.png");
+    staticOpacityLabel->setToolTip(tr("Static BG Opacity"));
+    staticOpacityLabel->setPixmap(staticPix);
+
+    QDoubleSpinBox *staticOpacityBox = new QDoubleSpinBox(this);
+    staticOpacityBox->setRange(0.1, 1.0);
+    staticOpacityBox->setSingleStep(0.1);
+    staticOpacityBox->setValue(backgroundOpacity(TupFrame::StaticBg));
+    staticOpacityBox->setToolTip(tr("Static BG Opacity"));
+    connect(staticOpacityBox, SIGNAL(valueChanged(double)), this, SLOT(updateStaticOpacity(double)));
+
+    k->staticPropertiesBar->addWidget(empty0);
+    k->staticPropertiesBar->addWidget(staticOpacityLabel);
+    k->staticPropertiesBar->addWidget(empty1);
+    k->staticPropertiesBar->addWidget(staticOpacityBox);
+
+    k->staticPropertiesBar->setVisible(false);
+
+    QLabel *dirLabel = new QLabel();
+    QPixmap dirPix(THEME_DIR + "icons/mov_orientation.png");
+    dirLabel->setToolTip(tr("Movement Orientation"));
+    dirLabel->setPixmap(dirPix);
 
     k->dirCombo = new QComboBox;
-    k->dirCombo->addItem(tr("Left to Right"));
-    k->dirCombo->addItem(tr("Right to Left"));
-    k->dirCombo->addItem(tr("Top to Bottom"));
-    k->dirCombo->addItem(tr("Bottom to Top"));
+    k->dirCombo->setToolTip(tr("Movement Orientation"));
+    k->dirCombo->addItem(QIcon(THEME_DIR + "icons/mov_right.png"), "   " + tr("Right"));
+    k->dirCombo->addItem(QIcon(THEME_DIR + "icons/mov_left.png"), "   " + tr("Left"));
+    k->dirCombo->addItem(QIcon(THEME_DIR + "icons/mov_up.png"), "   " + tr("Up"));
+    k->dirCombo->addItem(QIcon(THEME_DIR + "icons/mov_down.png"), "   " + tr("Down"));
     connect(k->dirCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setBackgroundDirection(int)));
 
-    QLabel *shiftLabel = new QLabel(tr("Shift Length") + ": ");
+    QWidget *empty2 = new QWidget();
+    empty2->setFixedWidth(5);
+    QWidget *empty3 = new QWidget();
+    empty3->setFixedWidth(5);
+    QWidget *empty4 = new QWidget();
+    empty4->setFixedWidth(5);
+    QWidget *empty5 = new QWidget();
+    empty5->setFixedWidth(5);
+    QWidget *empty6 = new QWidget();
+    empty6->setFixedWidth(5);
+    QWidget *empty7 = new QWidget();
+    empty7->setFixedWidth(5);
+    QWidget *empty8 = new QWidget();
+    empty8->setFixedWidth(5);
+
+    QLabel *shiftLabel = new QLabel();
+    QPixmap shiftPix(THEME_DIR + "icons/shift_length.png");
+    shiftLabel->setToolTip(tr("Shift Length"));
+    shiftLabel->setPixmap(shiftPix);
 
     k->shiftSpin = new QSpinBox(this);
     k->shiftSpin->setSingleStep(1);
     k->shiftSpin->setRange(1, 1000);
+    k->shiftSpin->setToolTip(tr("Shift Length"));
     connect(k->shiftSpin, SIGNAL(valueChanged(int)), this, SLOT(updateBackgroundShiftProperty(int)));
 
-    QWidget *empty1 = new QWidget();
-    empty1->setFixedWidth(5);
-    QWidget *empty2 = new QWidget();
-    empty2->setFixedWidth(5);
+    QLabel *dynamicOpacityLabel = new QLabel();
+    QPixmap dynamicPix(THEME_DIR + "icons/bg_opacity.png");
+    dynamicOpacityLabel->setToolTip(tr("Dynamic BG Opacity"));
+    dynamicOpacityLabel->setPixmap(dynamicPix);
 
-    k->propertiesBar->addWidget(dirLabel);
-    k->propertiesBar->addWidget(k->dirCombo);
-    k->propertiesBar->addWidget(empty1);
-    k->propertiesBar->addSeparator();
-    k->propertiesBar->addWidget(empty2);
-    k->propertiesBar->addWidget(shiftLabel);
-    k->propertiesBar->addWidget(k->shiftSpin);
+    QDoubleSpinBox *dynamicOpacityBox = new QDoubleSpinBox(this);
+    dynamicOpacityBox->setRange(0.1, 1.0);
+    dynamicOpacityBox->setSingleStep(0.1);
+    dynamicOpacityBox->setValue(backgroundOpacity(TupFrame::DynamicBg));
+    dynamicOpacityBox->setToolTip(tr("Dynamic BG Opacity"));
+    connect(dynamicOpacityBox, SIGNAL(valueChanged(double)), this, SLOT(updateDynamicOpacity(double)));
 
-    k->propertiesBar->setVisible(false);
+    k->dynamicPropertiesBar->addWidget(dirLabel);
+    k->dynamicPropertiesBar->addWidget(empty2);
+    k->dynamicPropertiesBar->addWidget(k->dirCombo);
+    k->dynamicPropertiesBar->addWidget(empty3);
+    k->dynamicPropertiesBar->addSeparator();
+    k->dynamicPropertiesBar->addWidget(empty4);
+    k->dynamicPropertiesBar->addWidget(shiftLabel);
+    k->dynamicPropertiesBar->addWidget(empty5);
+    k->dynamicPropertiesBar->addWidget(k->shiftSpin);
+    k->dynamicPropertiesBar->addWidget(empty6);
+    k->dynamicPropertiesBar->addSeparator();
+    k->dynamicPropertiesBar->addWidget(empty7);
+    k->dynamicPropertiesBar->addWidget(dynamicOpacityLabel);
+    k->dynamicPropertiesBar->addWidget(empty8);
+    k->dynamicPropertiesBar->addWidget(dynamicOpacityBox);
 
-    addToolBar(k->propertiesBar);
+    k->dynamicPropertiesBar->setVisible(false);
+
+    addToolBar(k->staticPropertiesBar);
+    addToolBar(k->dynamicPropertiesBar);
 }
 
 void TupDocumentView::closeArea()
@@ -1245,7 +1323,6 @@ void TupDocumentView::changeRulerOrigin(const QPointF &zero)
 QSize TupDocumentView::sizeHint() const
 {
     QSize size(parentWidget()->size());
-
     return size.expandedTo(QApplication::globalStrut());
 }
 
@@ -1262,7 +1339,6 @@ TupBrushManager *TupDocumentView::brushManager() const
 TupPaintAreaCommand *TupDocumentView::createCommand(const TupPaintAreaEvent *event)
 {
     TupPaintAreaCommand *command = new TupPaintAreaCommand(k->paintArea, event);
-
     return command;
 }
 
@@ -1296,14 +1372,14 @@ void TupDocumentView::saveTimer()
 void TupDocumentView::setSpaceContext()
 {
     TupProject::Mode mode = TupProject::Mode(k->spaceMode->currentIndex());
-
     if (mode == TupProject::FRAMES_EDITION) {
         if (k->dynamicFlag) {
             k->dynamicFlag = false;
             renderDynamicBackground();
         }
         k->project->updateSpaceContext(TupProject::FRAMES_EDITION);
-        k->propertiesBar->setVisible(false);
+        k->staticPropertiesBar->setVisible(false);
+        k->dynamicPropertiesBar->setVisible(false);
         k->motionMenu->setEnabled(true);
     } else if (mode == TupProject::STATIC_BACKGROUND_EDITION) {
                if (k->dynamicFlag) {
@@ -1311,7 +1387,8 @@ void TupDocumentView::setSpaceContext()
                    renderDynamicBackground();
                }
                k->project->updateSpaceContext(TupProject::STATIC_BACKGROUND_EDITION);
-               k->propertiesBar->setVisible(false);
+               k->staticPropertiesBar->setVisible(true);
+               k->dynamicPropertiesBar->setVisible(false);
                k->motionMenu->setEnabled(false);
     } else if (mode == TupProject::DYNAMIC_BACKGROUND_EDITION) {
                k->dynamicFlag = true;
@@ -1328,7 +1405,8 @@ void TupDocumentView::setSpaceContext()
                        k->shiftSpin->setValue(shift);
                    }
                }
-               k->propertiesBar->setVisible(true);
+               k->staticPropertiesBar->setVisible(false);
+               k->dynamicPropertiesBar->setVisible(true);
                k->motionMenu->setEnabled(false);
     }
 
@@ -1625,29 +1703,58 @@ void TupDocumentView::updateUsersOnLine(const QString &login, int state)
         k->fullScreen->updateOnLineUsers(k->onLineUsers);
 }
 
+// SQA: This method must support multi-user notifications (pending)
+void TupDocumentView::updateStaticOpacity(double opacity)
+{
+    tError() << "TupDocumentView::updateStaticOpacity() - Flag 0";
+    int sceneIndex = k->paintArea->currentSceneIndex();
+    TupScene *scene = k->project->scene(sceneIndex);
+    if (scene) {
+        TupBackground *bg = scene->background();
+        if (bg) {
+            bg->setStaticOpacity(opacity);
+            TupProject::Mode mode = TupProject::Mode(k->spaceMode->currentIndex());
+            if (mode == TupProject::FRAMES_EDITION || mode == TupProject::STATIC_BACKGROUND_EDITION)
+                k->paintArea->updatePaintArea();
+        }
+    }
+}
+
+// SQA: This method must support multi-user notifications (pending)
+void TupDocumentView::updateDynamicOpacity(double opacity)
+{
+   int sceneIndex = k->paintArea->currentSceneIndex();
+   TupScene *scene = k->project->scene(sceneIndex);
+   if (scene) {
+       TupBackground *bg = scene->background();
+       if (bg) {
+           bg->setDynamicOpacity(opacity);
+           k->paintArea->updatePaintArea();
+       }
+   }
+}
+
+// SQA: This method must support multi-user notifications (pending)
 void TupDocumentView::setBackgroundDirection(int direction)
 {
    int sceneIndex = k->paintArea->currentSceneIndex();
    TupScene *scene = k->project->scene(sceneIndex);
    if (scene) {
        TupBackground *bg = scene->background();
-       if (bg) {
+       if (bg)
            bg->setDyanmicDirection(direction);
-           // emit projectHasChanged();
-       }
    }
 }
 
+// SQA: This method must support multi-user notifications (pending)
 void TupDocumentView::updateBackgroundShiftProperty(int shift)
 {
    int sceneIndex = k->paintArea->currentSceneIndex();
    TupScene *scene = k->project->scene(sceneIndex);
    if (scene) {
        TupBackground *bg = scene->background();
-       if (bg) {
+       if (bg)
            bg->setDyanmicShift(shift);
-           // emit projectHasChanged();
-       }
    }
 }
 
@@ -1658,9 +1765,8 @@ void TupDocumentView::renderDynamicBackground()
 
    if (scene) {
        TupBackground *bg = scene->background();
-       if (bg) {
+       if (bg)
            bg->renderDynamicView();
-       }
    }
 }
 
