@@ -1132,6 +1132,11 @@ void TupDocumentView::createToolBar()
     k->barGrid->addAction(k->actionManager->find("cut"));
     k->barGrid->addAction(k->actionManager->find("delete"));
 
+    k->barGrid->addSeparator();
+    QWidget *emptyA = new QWidget();
+    emptyA->setFixedWidth(5);
+    k->barGrid->addWidget(emptyA);
+
     TCONFIG->beginGroup("OnionParameters");
     int preview = TCONFIG->value("PreviousFrames", -1).toInt();
     int next = TCONFIG->value("NextFrames", -1).toInt();
